@@ -241,12 +241,12 @@ if type "procs" > /dev/null 2>&1; then
   alias pswatch='(){procs -W $1}'
 fi
 # findをfdに上書き
-if type "fd" > /dev/null 2>&1; then
-  alias find='fd'
-  alias pcd='cd $(fd -t d | peco)'
-else
-  alias pcd='cd $(find . -maxdepth 1 -type d | peco)'
-fi
+#if type "fd" > /dev/null 2>&1; then
+#  alias find='fd'
+#  alias pcd='cd $(fd -t d | peco)'
+#else
+#  alias pcd='cd $(find . -maxdepth 1 -type d | peco)'
+#fi
 
 # rg関連(grep代替)
 alias lsusb="system_profiler SPUSBDataType"

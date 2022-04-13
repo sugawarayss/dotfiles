@@ -60,9 +60,16 @@ if [ -d "${JENV_ROOT}" ]; then
   eval "$(jenv init -)"
 fi
 
-# flatter
-export FLATTER_PATH=$HOME/flutter/bin
-export PATH="$PATH:$FLATTER_PATH"
+# flutter
+# gitからインストールした場合
+#export FLUTTER_PATH=$HOME/flutter/bin
+#export PATH="$PATH:$FLUTTER_PATH"
+
+# fvmでインストールする場合
+export PATH="$PATH:$HOME/.pub-cache/bin"
+
+# fvmでインストールしたflutterをglobalで使うためにPATHを通す
+export PATH="$PATH:$HOME/fvm/default/bin"
 
 ## react-native用環境変数
 export ANDROID_HOME=$HOME/Library/Android/sdk
