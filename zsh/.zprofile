@@ -41,9 +41,6 @@ eval "$(rbenv init -)"
 # [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# adb command
-# export PATH=$PATH:/Users/inap/Library/Android/sdk/platform-tools
-
 # golang(goenv)
 # export GOENV_ROOT="$HOME/.anyenv/envs/goenv"
 # export PATH="$GOENV_ROOT/bin:$PATH"
@@ -71,15 +68,15 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 # fvmでインストールしたflutterをglobalで使うためにPATHを通す
 export PATH="$PATH:$HOME/fvm/default/bin"
 
-## react-native用環境変数
+## android sdk
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-## jdk
-#export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-#export JAVA_HOME=`/usr/libexec/java_home -v 15`
-
 ## Neovim用環境変数
 # path
 export XDG_CONFIG_HOME=~/.config
+
+# Rust
+export PATH=$HOME/.cargo/bin:$PATH
+
