@@ -229,6 +229,7 @@ if type "exa" > /dev/null 2>&1; then
   alias exa="exa --git"
   alias la="exa -lahUmB"
   alias ll="exa -lhUmB"
+  alias lla="exa -lahUmB"
   alias lt="exa -T"
 else
   alias ls="ls -Gh"
