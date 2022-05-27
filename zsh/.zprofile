@@ -1,3 +1,6 @@
+export LANG=ja_JP.UTF-8
+export KCODE=u           # KCODEにUTF-8を設定
+
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/bin"
 # manコマンドでbatを使って色付けページャーにする
@@ -16,7 +19,7 @@ eval "$(anyenv init -)"
 eval "$(pyenv init -)"
 
 # Poetryのパスを通す
-export PATH="$PATH:$HOME/.poetry/bin"
+export PATH="$HOME/.poetry/bin:$PATH"
 
 # Pipenvのvenvをプロジェクトディレクトリ内に作る
 export PIPENV_VENV_IN_PROJECT=1
@@ -34,12 +37,8 @@ eval "$(rbenv init -)"
 # export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 #nodenv
-# export PATH=$HOME/anyenv/envs/nodenv
+# export PATH=$HOME/.anyenv/envs/nodenv
 
-# Nvm(node)
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # golang(goenv)
 # export GOENV_ROOT="$HOME/.anyenv/envs/goenv"
@@ -67,8 +66,9 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 
 # fvmでインストールしたflutterをglobalで使うためにPATHを通す
 export PATH="$PATH:$HOME/fvm/default/bin"
+export FLUTTER_GIT_URL="https://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:x-oauth-basic@github.com/flutter/flutter.git"
 
-## android sdk
+## abdroid sdk
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
@@ -80,3 +80,9 @@ export XDG_CONFIG_HOME=~/.config
 # Rust
 export PATH=$HOME/.cargo/bin:$PATH
 
+# Amplify CLI binary installer
+export PATH="$HOME/.amplify/bin:$PATH"
+
+# typescript
+export PATH="$HOME/PROJECTS/sugawarayss/ts_playground/node_modules/.bin:$PATH"
+typeset -U path cdpath fpath manpath # パスの重複登録を避けるexport PATH=$PATH:/Users/sugawarayasushi/PROJECTS/sugawarayss/ts_playground/node_modules/.bin

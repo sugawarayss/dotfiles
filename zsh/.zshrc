@@ -2,20 +2,7 @@
 # require  #
 ############
 # install homebrew
-# `brew install zsh-syntax-highlighting`
-# `brew install zsh-completions`
-# `brew install zsh-autosuggestions`
-# `brew install peco`
-# `brew install hub`
-# `brew install gh`
-# `brew install ghq`
-# `brew install exa`
-# `brew install bat`
-# `brew install fd`
-# `brew install sd`
-# `brew install procs`
-# `brew install ripgrep`
-# brew install colordiff
+# brew bundle --file '~/PROJECTS/sugawarayss/dotfiles/homebrew/Brewfile'
 # go get github.com/mattn/qq/...
 
 # 1. generate github access token
@@ -39,9 +26,7 @@
 # 環境変数 #
 ############
 # see $HOME/.zprofile
-typeset -U path cdpath fpath manpath # パスの重複登録を避ける
-export LANG=ja_JP.UTF-8
-export KCODE=u           # KCODEにUTF-8を設定
+
 ## 色を使用出来るようにする
 autoload -Uz colors ; colors
 ## 補完機能を有効にする
@@ -89,14 +74,7 @@ zstyle ':vcs_info:*' stagedstr "+"
 zstyle ':vcs_info:*' unstagedstr "*"
 zstyle ':vcs_info:*' formats '(%b%c%u)'
 zstyle ':vcs_info:*' actionformats '(%b(%a)%c%u)'
-# プロンプト表示直前にvcs_info呼び出し
-#precmd () {
-#    psvar=()
-#    LANG=en_US.UTF-8 vcs_info
-#    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-#}
 
-# コマンド実行結果後に改行を入れて見やすくする
 add_newline() {
     if [[ -z $PS1_NEWLINE_LOGIN ]]; then
         PS1_NEWLINE_LOGIN=true
@@ -104,15 +82,18 @@ add_newline() {
         printf '\n'
     fi
 }
+# プロンプト表示直前にvcs_info呼び出し
+# コマンド実行結果後に改行を入れて見やすくする
 precmd() {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+#    [[ -n "$(gcloud-current)" ]] && psvar[2]="$(gcloud-current)"
     add_newline
 }
 
 #add-zsh-hook precmd _update_vcs_info_msg
-PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}localhost%f:%1(v|%F{red}%1v%f|) $ "
+PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f:%1(v|%F{red}%1v%f|) $ "
 RPROMPT='[%F{green}%d%f]'
 
 ###############
@@ -214,6 +195,43 @@ function download-s3(){
 }
 
 ###############
+# gcloud関連  #
+###############
+function gcloud-activate() {
+  name="$1"
+  project="$2"
+  echo "gcloud config configurations activate \"${name}\""
+  gcloud config configurations activate "${name}"
+}
+function gx-complete() {
+  _values $(gcloud config configurations list | awk '{print $1}')
+}
+
+# gcloudでactiveなprojectをpecoで選択して切り替える関数
+function gx() {
+  name="$1"
+  if [ -z "$name" ]; then
+    line=$(gcloud config configurations list | peco --prompt "SELECT PROJECT>")
+    name=$(echo "${line}" | awk '{print $1}')
+  else
+    line=$(gcloud config configurations list | grep "$name")
+  fi
+  project=$(echo "${line}" | awk '{print $4}')
+  gcloud-activate "${name}" "${project}"
+}
+compdef gx-complete gx
+
+# gcloud設定名からプロジェクト名を取得する
+function gcloud-alias() {
+    gcloud config configurations list | grep "^$1" | head -1 | awk '{print $4}'
+}
+
+# 現在の設定を取得する
+function gcloud-current() {
+    cat $HOME/.config/gcloud/active_config
+}
+
+###############
 # Aliasの設定 #
 ###############
 # core
@@ -242,12 +260,12 @@ if type "procs" > /dev/null 2>&1; then
   alias pswatch='(){procs -W $1}'
 fi
 # findをfdに上書き
-#if type "fd" > /dev/null 2>&1; then
-#  alias find='fd'
-#  alias pcd='cd $(fd -t d | peco)'
-#else
-#  alias pcd='cd $(find . -maxdepth 1 -type d | peco)'
-#fi
+if type "fd" > /dev/null 2>&1; then
+ alias find='fd'
+ alias pcd='cd $(fd -t d | peco)'
+else
+ alias pcd='cd $(find . -maxdepth 1 -type d | peco)'
+fi
 
 # rg関連(grep代替)
 alias lsusb="system_profiler SPUSBDataType"
@@ -284,6 +302,9 @@ alias tailcwlog='tail-cloudwatch-log'
 alias scan='scan-dynamodb-table'
 alias lss3='file-list-s3'
 alias dls3="download-s3"
+
+# gcloud系のalias
+alias gcswpj="gx"
 
 # adb系のalias
 alias -g dv='$(adb devices | tail -n +2 | peco --prompt "SELECT SIRIAL NO>" | head -n 1 | sd "\s+\w+$" "")'
@@ -334,11 +355,6 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 
 # cursor
 ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
-
-export PATH="$HOME/.poetry/bin:$PATH"
-
-# Added by Amplify CLI binary installer
-export PATH="$HOME/.amplify/bin:$PATH"
 
 source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
