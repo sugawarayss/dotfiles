@@ -59,6 +59,8 @@ setopt hist_no_store
 setopt EXTENDED_HISTORY
 # 全履歴を一覧表示する
 function history-all { history -E 1 }
+# vimモードで起動
+set -o vi
 
 ##########
 # PROMPT #
@@ -88,13 +90,28 @@ precmd() {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+# アクティブなGCPプロジェクトを表示
 #    [[ -n "$(gcloud-current)" ]] && psvar[2]="$(gcloud-current)"
     add_newline
 }
 
-#add-zsh-hook precmd _update_vcs_info_msg
-PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f:%1(v|%F{red}%1v%f|) $ "
+# 右側にはカレントディレクトリのパスを表示
 RPROMPT='[%F{green}%d%f]'
+
+# vimモードの現在モードをプロンプトに表示
+function zle-line-init zle-keymap-select {
+  case $KEYMAP in
+    vicmd)
+    PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{cyan}NORMAL%f] : %1(v|%F{red}%1v%f|) $ "
+    ;;
+    main|viins)
+    PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{magenta}INSERT%f] : %1(v|%F{red}%1v%f|) $ "
+    ;;
+  esac
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 ###############
 # cdrコマンド #
@@ -109,6 +126,7 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
     zstyle ':chpwd:*' recent-dirs-max 1000
     zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/chpwd-recent-dirs"
 fi
+
 ################
 # pecoコマンド #
 ################
@@ -140,14 +158,6 @@ function peco-cdr() {
 # cdr with peco はCtrl+Eに割り当てる
 zle -N peco-cdr
 bindkey '^E' peco-cdr
-
-# nvim with peco
-function peco-nvim {
-  local file="$( fd . -d 1 -t f | sed -e 's;\./;;' | peco )"
-    if [ ! -z "$file" ] ; then
-        nvim "$file"
-    fi
-}
 
 ###############
 # AWS CLI関連 #
@@ -234,69 +244,85 @@ function gcloud-current() {
 ###############
 # Aliasの設定 #
 ###############
-# core
-# catをbatに上書き
+# vimでneovimを起動
+alias vim="nvim"
+
+# brew実行時のみ、pyenvがPATHに含まれないようにする。（configファイルが複数あると怒られることを回避）
+alias brew="PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
+
+# catをbatで上書き
 if type "bat" > /dev/null 2>&1; then
   alias oldcat="/bin/cat"
   alias cat="bat"
   alias catl='(){bat $1 -l $(bat -L | peco | cut -d ":" -f 1)}'
 fi
-# lsをexaに上書き
+
+# lsをexaで上書き
 if type "exa" > /dev/null 2>&1; then
+  alias oldls="/bin/ls"
   alias ls='exa --git'
   alias exa="exa --git"
-  alias la="exa -lahUmB"
   alias ll="exa -lhUmB"
   alias lla="exa -lahUmB"
   alias lt="exa -T"
 else
   alias ls="ls -Gh"
-  alias la="ls -laGh"
   alias ll="ls -lGh"
+  alias lla="ls -laGh"
 fi
-# psをprocsに上書き
+
+# psをprocsで上書き
 if type "procs" > /dev/null 2>&1; then
+  alias oldps="/bin/ps"
   alias ps="procs"
   alias pswatch='(){procs -W $1}'
 fi
-# findをfdに上書き
+
+# findをfdで上書き
 if type "fd" > /dev/null 2>&1; then
- alias find='fd'
- alias pcd='cd $(fd -t d | peco)'
+  alias oldfind="/usr/bin/find"
+  alias find='fd'
+  alias pcd='cd $(fd -t d | peco)'
 else
- alias pcd='cd $(find . -maxdepth 1 -type d | peco)'
+  alias pcd='cd $(find . -maxdepth 1 -type d | peco)'
 fi
 
-# rg関連(grep代替)
+# sedをsdで上書き
+if type "sd" > /dev/null 2>&1; then
+  alias oldsed="/usr/bin/sed"
+  alias sed="sd"
+fi
+
+# grepをrgで上書き
+if type "rg" > /dev/null 2>&1; then
+  alias oldgrep="/usr/bin/grep"
+  alias grep="rg"
+fi
+
+# diffをcolordiffで上書き
+if type "colordiff" > /dev/null 2>&1; then
+  alias olddiff="/usr/bin/diff"
+  alias diff='colordiff'
+fi
+
+# USBデバイスをlsするalias
 alias lsusb="system_profiler SPUSBDataType"
-alias pip="$HOME/.anyenv/envs/pyenv/shims/pip"
-# brew実行時のみ、pyenvがPATHに含まれないようにする。（configファイルが複数あると怒られることを回避）
-# colordiff関連
-if [[ -x `which colordiff` ]]; then
-    alias diff='colordiff'
-else
-    alias diff='diff'
-fi
-
-alias brew="PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
-alias lsvim="peco-nvim"
-alias vim="nvim"
-
-# qq系
-alias qq="/Users/sugawarayasushi/go/bin/qq"
 
 # docker系のalias
 # pecoを使って調べたdockerコンテナに入る
 alias de='docker exec -it $(docker ps | peco | cut -d " " -f 1) /bin/bash'
 
-# Github系のalias
+# Git/Github系のalias
 # ブランチを簡単切り替え。 使用: git checkout lb
 alias -g lb='$(git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sd "^\*| " "")'
+# ローカルにあるgitリポジトリを選択してpathに移動
 alias repo='cd $(ghq list -p | peco)'
+# 選択したリモートリポジトリをGithubで開く
 alias remote='$(hub browse $(ghq list | peco))'
 
 # AWS CLI系のalias
 alias profiles='aws configure list-profiles'
+# aws cliでprofileを楽に指定する
 alias -g lp='$(aws configure list-profiles | peco --prompt "AWS PROFILE>")'
 alias tailcwlog='tail-cloudwatch-log'
 alias scan='scan-dynamodb-table'
