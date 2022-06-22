@@ -1,7 +1,7 @@
 #!/bin/zsh
 if [ -e "$HOME/.zshrc" ]; then
     echo "zshrc already exists"
-    cp ./zsh/.zshrc $HOME/.zshrc
+    cp -i ./zsh/.zshrc $HOME/.zshrc
 else
     echo "zshrc does not exist"
     echo "Copying zshrc to $HOME"
@@ -10,7 +10,7 @@ fi
 
 if [ -e $HOME/.zprofile ]; then
     echo "zprofile already exists"
-    cp ./zsh/.zprofile $HOME/.zprofile
+    cp -i ./zsh/.zprofile $HOME/.zprofile
 else
     echo "zprofile does not exist"
     echo "Copying zprofile to $HOME"
@@ -33,7 +33,7 @@ fi
 if type "brew" > /dev/null 2>&1; then
     echo "brew already exists"
     cd ./homebrew
-    brew bundle
+    brew bundle --file ./Brewfile
 else
     echo "brew does not exist"
     echo "Installing brew"
@@ -41,5 +41,5 @@ else
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
     source "$HOME/.zprofile"
     cd ./homebrew
-    brew bundle
+    brew bundle --file ./Brewfile
 fi
