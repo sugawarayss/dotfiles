@@ -41,13 +41,12 @@ eval "$(rbenv init -)"
 
 
 # golang(goenv)
-# export GOENV_ROOT="$HOME/.anyenv/envs/goenv"
-# export PATH="$GOENV_ROOT/bin:$PATH"
-# export GOENV_DISABLE_GOPATH=1
+#export GOPATH=$HOME/go
+export GOENV_ROOT="$HOME/.anyenv/envs/goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
 eval "$(goenv init -)"
-# export GOPATH=$HOME/go
-# export PATH="$GOROOT/bin:$PATH"
-# export PATH="$GOPATH/bin:$PATH"
+export PATH="$GOROOT:$PATH"
+#export PATH="$GOPATH:$PATH"
 
 # jenv
 export JENV_ROOT="$HOME/.anyenv/envs/jenv"
