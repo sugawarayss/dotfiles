@@ -142,7 +142,7 @@ bindkey '^R' peco-select-history
 # search a destination from cdr list
 function peco-get-destination-from-cdr() {
   cdr -l | \
-  sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
+  oldsed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
   peco --query "$LBUFFER"
 }
 
@@ -162,6 +162,33 @@ bindkey '^E' peco-cdr
 ###############
 # AWS CLI関連 #
 ###############
+function ssh2ec2() {
+  local profile=$(aws configure list-profiles | peco --prompt="SELECT profile > " --query "$LBUFFER")
+  if [[ ${profile} =~ liftspot ]]; then
+    if [[ ${profile} =~ stg ]]; then
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "stg")
+    else
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "prd")
+    fi
+  else
+    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | peco --prompt="SELECT file of ${profile} > ")
+  fi
+  # local jq_option="\".Reservations[].Instances[] | [[.Tags[] | select(.Key == \"Name\").Value][0], \"ssh ec2-user@\" + .NetworkInterfaces[].Association.PublicIp + \" -i ${pemfile}\"] | @tsv' | column -t -s \"\`printf '\t'\`\""
+  local host_ip="$(aws ec2 describe-instances --profile ${profile}\
+  | jq -r '.Reservations[].Instances[] | [[.Tags[] | select(.Key == "Name").Value][0], .NetworkInterfaces[].Association.PublicIp] | @tsv'\
+  | column -t -s "`printf '\t'`"\
+  | peco --prompt="SELECT host > "\
+  | grep -o -e '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" # GNU grepの場合は grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'とすること
+  if [ -n "$host_ip" ]; then
+    echo $BUFFER
+    BUFFER="ssh ec2-user@${host_ip} -i ${pemfile}"
+    zle redisplay
+  fi
+}
+zle -N ssh2ec2
+# Ctrl + Lに割り当てる
+bindkey '^L' ssh2ec2
+
 function tail-cloudwatch-log() {
   # aws logs tail ${logGroupName} [--filter {filter_strings}] [--since {10m | 1h}]
   local profile="$(aws configure list-profiles | peco)"
