@@ -77,42 +77,45 @@ zstyle ':vcs_info:*' unstagedstr "*"
 zstyle ':vcs_info:*' formats '(%b%c%u)'
 zstyle ':vcs_info:*' actionformats '(%b(%a)%c%u)'
 
-add_newline() {
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+  ##### Warp起動時にはSKIPしたい処理 - ここから
+  add_newline() {
     if [[ -z $PS1_NEWLINE_LOGIN ]]; then
-        PS1_NEWLINE_LOGIN=true
+      PS1_NEWLINE_LOGIN=true
     else
-        printf '\n'
+      printf '\n'
     fi
-}
-# プロンプト表示直前にvcs_info呼び出し
-# コマンド実行結果後に改行を入れて見やすくする
-precmd() {
+  }
+  # プロンプト表示直前にvcs_info呼び出し
+  # コマンド実行結果後に改行を入れて見やすくする
+  precmd() {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-# アクティブなGCPプロジェクトを表示
-#    [[ -n "$(gcloud-current)" ]] && psvar[2]="$(gcloud-current)"
-    add_newline
-}
+    # アクティブなGCPプロジェクトを表示
+    #    [[ -n "$(gcloud-current)" ]] && psvar[2]="$(gcloud-current)"
+        add_newline
+  }
 
-# 右側にはカレントディレクトリのパスを表示
-RPROMPT='[%F{green}%d%f]'
+  # 右側にはカレントディレクトリのパスを表示
+  RPROMPT='[%F{green}%d%f]'
 
-# vimモードの現在モードをプロンプトに表示
-function zle-line-init zle-keymap-select {
-  case $KEYMAP in
-    vicmd)
-    PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{cyan}NORMAL%f] : %1(v|%F{red}%1v%f|) $ "
-    ;;
-    main|viins)
-    PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{magenta}INSERT%f] : %1(v|%F{red}%1v%f|) $ "
-    ;;
-  esac
-  zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-
+  # vimモードの現在モードをプロンプトに表示
+  function zle-line-init zle-keymap-select {
+    case $KEYMAP in
+      vicmd)
+        PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{cyan}NORMAL%f] : %1(v|%F{red}%1v%f|) $ "
+        ;;
+      main|viins)
+        PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{magenta}INSERT%f] : %1(v|%F{red}%1v%f|) $ "
+        ;;
+    esac
+    zle reset-prompt
+  }
+  zle -N zle-line-init
+  zle -N zle-keymap-select
+  ##### Warp起動時にはSKIPしたい処理 - ここまで
+fi
 ###############
 # cdrコマンド #
 ###############
@@ -275,7 +278,7 @@ function gcloud-current() {
 alias vim="nvim"
 
 # brew実行時のみ、pyenvがPATHに含まれないようにする。（configファイルが複数あると怒られることを回避）
-alias brew="PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
+alias brew="PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
 
 # catをbatで上書き
 if type "bat" > /dev/null 2>&1; then
@@ -288,12 +291,13 @@ fi
 if type "exa" > /dev/null 2>&1; then
   alias oldls="/bin/ls"
   alias ls='exa --git'
-  alias exa="exa --git"
+  alias la='exa -lahUmB'
   alias ll="exa -lhUmB"
   alias lla="exa -lahUmB"
   alias lt="exa -T"
 else
   alias ls="ls -Gh"
+  alias la="ls -aGh"
   alias ll="ls -lGh"
   alias lla="ls -laGh"
 fi
