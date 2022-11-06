@@ -1,7 +1,10 @@
 name: zsh ドットファイルをリポジトリにdump
 command: cp -f ~/.zshrc {{path}}.zshrc && cp -f ~/.zprofile {{path}}.zprofile
+tags:
+  - zsh
+  - dump
 arguments:
   - name: path
-    default_value: $(ghq list -p | grep Dot)/dotfiles/
+    default_value: $(ghq list -p | grep dotfiles)/zsh/
     descroption: path to repositry
 

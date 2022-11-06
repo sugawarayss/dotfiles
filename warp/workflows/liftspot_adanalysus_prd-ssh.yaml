@@ -1,0 +1,6 @@
+name: 【PRD】AdAnalysis にssh
+command: ssh ec2-user@$(aws ec2 describe-instances --profile liftspot-prd --filters Name=tag-value,Values="LiftSPOT_adanalysis" |jq -r '.Reservations[].Instances[].PublicIpAddress') -i ~/.ssh/keys/liftspotadanalysis_prd.pem
+tags:
+  - liftspot
+  - adanalysis
+  - prod
