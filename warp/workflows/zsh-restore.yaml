@@ -1,0 +1,7 @@
+name: zsh ドットファイルをリポジトリのもので上書き
+command: cp -f {{path}}.zshrc ~/.zshrc && cp -f {{path}}.zprofile ~/.zprofile
+arguments:
+  - name: path
+    default_value: $(ghq list -p | grep Dot)/dotfiles/
+    descroption: path to repositry
+
