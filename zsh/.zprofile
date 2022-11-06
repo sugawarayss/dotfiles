@@ -8,6 +8,8 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # Apple Silicon用とIntel用homebrewにパスを通す
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
+# homebrewでインストールしたpostgresは5433ポートに変更
+export PGPORT=5433
 # anyenv
 export PATH="$HOME/.anyenv/bin:$PATH"
 eval "$(anyenv init -)"
