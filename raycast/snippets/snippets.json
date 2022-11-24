@@ -1,0 +1,187 @@
+[
+    {
+        "name": "Master Password",
+        "text": "zR5ldY3Zy7pH",
+        "keyword": "master:"
+    },
+    {
+        "name": "Slack - Subscribe Github Repo",
+        "text": "/github subscribe  releases reviews issues pulls comments branches commits:*",
+        "keyword": "subscribe:"
+    },
+    {
+        "name": "Slack - Unsubscribe Github Repo",
+        "text": "/github unsubscribe ",
+        "keyword": "unsubscribe:"
+    },
+    {
+        "name": "Slack - Remind",
+        "text": "/remind me to {cursor} on {date +1d \"yyyy-MM-dd\"} at {time}",
+        "keyword": "remind:"
+    },
+    {
+        "name": "Date - Today (yyyy-MM-dd)",
+        "text": "{date \"yyyy-MM-dd\"}",
+        "keyword": "today:"
+    },
+    {
+        "name": "Date - Now (yyyy/MM/dd HH:mm:ss)",
+        "text": "{date \"yyyy/MM/dd HH:mm:ss\"}",
+        "keyword": "now:"
+    },
+    {
+        "name": "Date - 本日日付",
+        "text": "{date \"yyyy年MM月dd日\"}",
+        "keyword": "jptoday:"
+    },
+    {
+        "name": "Date - Time (HH:mm:ss)",
+        "text": "{date \"HH:mm:ss\"}",
+        "keyword": "time:"
+    },
+    {
+        "name": "Terminal - Copy to Clipboard",
+        "text": "| pbcopy",
+        "keyword": "copy:"
+    },
+    {
+        "name": "MacOS - Change Screenshot Filename Postfix to Number",
+        "text": "defaults write com.apple.screencapture include-date -bool false",
+        "keyword": ""
+    },
+    {
+        "name": "MacOS - Change Screenshot Filename Postfix to Date",
+        "text": "defaults delete com.apple.screencapture include-date",
+        "keyword": ""
+    },
+    {
+        "name": "MacOS - Change Screenshot Filename Prefix to 'screenshot'",
+        "text": "defaults write com.apple.screencapture name screenshot",
+        "keyword": ""
+    },
+    {
+        "name": "MacOS - Add ssh-key (inap)",
+        "text": "ssh-add -K ~/.ssh/sugawarayss-GitHub",
+        "keyword": ""
+    },
+    {
+        "name": "MacOS - Add ssh-key (mac mini)",
+        "text": "ssh-add -K ~/.ssh/waku1123-GitHub",
+        "keyword": ""
+    },
+    {
+        "name": "Warp - workflows",
+        "text": "workflows:",
+        "keyword": "wf:"
+    },
+    {
+        "name": "Warp - history",
+        "text": "history: ",
+        "keyword": "his:"
+    },
+    {
+        "name": "Golang - Build for Windows",
+        "text": "GOOS=windows GOARCH=amd64 go build -o ./build/windows-amd64/{hoge}.exe ./{hoge}.go",
+        "keyword": ""
+    },
+    {
+        "name": "Golang - Build for MacOS",
+        "text": "GOOS=darwin GOARCH=amd64 go build -o ./darwin-amd64/{hoge} {hoge}.go",
+        "keyword": ""
+    },
+    {
+        "name": "Golang - Build for Linux",
+        "text": "GOOS=linux GOARCH=amd64 go build -o l./build/inux-amd64/{hoge} ./{hoge}.go",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Delete venv",
+        "text": "pipenv --rm",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Display venv",
+        "text": "pipenv --venv",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - lock & sync",
+        "text": "pipenv update",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Install Packages from Pipfile.lock",
+        "text": "pipenv sync <--dev>",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Install Packages from Pipfile",
+        "text": "pipenv install <--dev>",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Install Packages form requirement.txt",
+        "text": "pipenv install -r requirements.txt",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Remove Packages, not in Pipfile.lock",
+        "text": "pipenv clean",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Into venv",
+        "text": "pipenv shell",
+        "keyword": ""
+    },
+    {
+        "name": "Pipenv - Security Check",
+        "text": "pipenv check",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Create Project",
+        "text": "poetry new {cursor}",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Start Manage Exist Project",
+        "text": "poetry init",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Set Up venv",
+        "text": "poetry install <--no-dev>",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Add Package",
+        "text": "poetry add {cursor}<package-name>",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Remove Package",
+        "text": "poetry remove {cursor}<package-name>",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Update Package",
+        "text": "poetry update {cursor}<package-name>",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Run Script File",
+        "text": "poetry run python {cursor}<python-file>",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Config virtualenvs.in-project",
+        "text": "poetry config virtualenvs.in-project true",
+        "keyword": ""
+    },
+    {
+        "name": "Poetry - Update Poetry Self",
+        "text": "poetry self update",
+        "keyword": ""
+    }
+]
