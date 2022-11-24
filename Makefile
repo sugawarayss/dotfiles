@@ -1,6 +1,7 @@
 .PHONY: zsh vim homebrew git warp all
 # GLOBALS
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+SHELL=/bin/zsh
 ZSHRC=.zshrc
 ZPROFILE=.zprofile
 COMMIT_TEMPLATE=.commit_templatebbb
@@ -24,8 +25,7 @@ zsh:
 	$(call file-exist, $(HOME)/${ZPROFILE})
 	@cp -i ${PROJECT_DIR}/zsh/${ZPROFILE} $(HOME)/${ZPROFILE}
 
-	source $(HOME)/${ZSHRC}
-	source $(HOME)/${ZPROFILE}
+	@echo "you should run \`source $(HOME)/${ZSHRC} && source $(HOME)/${ZPROFILE}\`"
 
 git:
 	$(call file-exist, $(HOME)/${COMMIT_TEMPLATE})
