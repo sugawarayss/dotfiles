@@ -6,5 +6,4 @@ tags:
 arguments:
   - name: path
     default_value: $(ghq list -p | grep dotfiles)
-    descroption: path to repositry
-
+    description: path to repositry
