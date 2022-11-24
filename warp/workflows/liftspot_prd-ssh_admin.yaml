@@ -1,5 +1,5 @@
 name: 【PRD】LiftSPOT CMS にssh
-command: ssh ec2-user@$(aws ec2 describe-instances --profile liftspot-prd --filters Name=tag-value,Values="LiftSPOT2" |jq -r '.Reservations[].Instances[].PublicIpAddress') -i ~/.ssh/keys/liftspotadmin_prd.pem
+command: ssh ec2-user@$(aws ec2 describe-instances --profile liftspot-prd --filters Name=tag-value,Values="LiftSPOT" |jq -r '.Reservations[].Instances[].PublicIpAddress') -i ~/.ssh/keys/liftspotadmin_prd.pem
 tags:
   - liftspot
   - cms
