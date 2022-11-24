@@ -6,5 +6,4 @@ tags:
 arguments:
   - name: path
     default_value: $(ghq list -p | grep dotfiles)/homebrew/
-    descroption: file path of my Brewfile
-
+    description: file path of my Brewfile
