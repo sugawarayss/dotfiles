@@ -1,5 +1,5 @@
 let g:rehash256 = 1
-set ttimeoutlen=10
+set ttimeoutlen=10               " キー入力完了を待つ時間(ミリ秒)
 " フォントの設定
 set guifont=Ricty\ Diminished:h20
 
@@ -8,11 +8,12 @@ set guifont=Ricty\ Diminished:h20
 """"""""""""""""""""
 set autochdir                    " 開いているファイルのあるディレクトリをカレントにする
 set noundofile                   " undoファイルを自動作成しない
-scriptencoding utf-8
-set encoding=utf-8
+scriptencoding utf-8             " vim scriptでマルチバイト文字を使う場合
+set encoding=utf-8               " ファイルを開く時のデフォルト文字コード
 set fenc=utf-8                   " 文字コードをUTF-8に設定
 set nobackup                     " バックアップファイルを作らない
 set noswapfile                   " スワップファイルを作らない
+set nowritebackup                " 上書き保存時にバックアップをつくることを無効化
 set autoread                     " 編集中のファイルが変更されたら自動で読み直す
 set hidden                       " バッファが編集中でもその他のファイルを開けるようにする
 " ステータス行に情報表示
@@ -39,11 +40,11 @@ endif
 " VISUAL SETTINGS
 """"""""""""""""""""
 set termguicolors                " ターミナルでもカラーテーマを使う
-colorscheme monokai_pro          " カラーテーマをmonokai_proに変更https://github.com/phanviet/vim-monokai-pro
+colorscheme codedark             " カラーテーマをvscodedarkに変更https://github.com/tomasiser/vim-code-dark.git
+"colorscheme monokai_pro          " カラーテーマをmonokai_proに変更https://github.com/phanviet/vim-monokai-pro
 set winblend=30                  " 現在のウィンドウの透明度を指定0〜100
 set pumblend=10                  " ポップアップメニューを半透明にする0〜100
-set background=dark
-syntax on
+"set background=dark              " 暗い背景色に合う色を使用する
 set t_Co=256                     " 256色対応する
 set number                       " 行番号を表示
 " ウインドウのタイトルバーにファイルのパス情報等を表示する
@@ -52,17 +53,16 @@ set list                         " 不可視文字の可視化
 set ruler                        " カーソル位置が右下に表示される
 set showmode                     " 現在のモードを表示する
 set showcmd                      " コマンドを画面の最下部に表示する
-set cursorline                   " 現在の行を強調表示
 set smartindent                  " インデントはスマートインデント
 set visualbell                   " ビープ音を可視化
-set showmatch                    " 括弧入力時に対応する括弧を表示
 set laststatus=2                 " ステータスラインを常に表示する
 set wildmenu                     " コマンドラインの補完
-syntax enable                    " シンタックスハイライトの有効化
+syntax on                        " シンタックスハイライトの有効化
+"syntax enable                    " シンタックスハイライトの有効化
 set wrap                         " 長いテキストの折り返し
 set textwidth=0                  " 自動的に改行が入るのを無効化
-set colorcolumn=80               " その代わり80文字目にラインを入れる
-set cursorline                   " その代わり80文字目にラインを入れる
+set colorcolumn=100              " 100文字目にラインを入れる
+set cursorline                   " カーソル行にラインを入れる
 set foldmethod=indent            " 折りたたみ
 set foldlevel=100                " ファイルを開く時に折りたたみをしない
 
@@ -119,11 +119,6 @@ else
     set clipboard& clipboard+=unnamed
 endif
 
-" Swapファイル, Backupファイルを全て無効化する
-set nowritebackup
-set nobackup
-set noswapfile
-
 " 全角スペースの表示
 function! ZenkakuSpace()
     highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
@@ -140,19 +135,14 @@ endif
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""
-" TAB SETTINGS
-""""""""""""""""""""
-set expandtab                    " Tab文字を半角スペースにする
-set autoindent                   " 改行時にインデントを引き継いで改行する
-set shiftwidth=4                 " インデントにつかわれる空白の数
-
-""""""""""""""""""""
 " SEARCH SETTINGS
 """"""""""""""""""""
 set ignorecase                   " 大文字小文字を区別しない
 set smartcase                    " 検索文字に大文字がある場合は大文字小文字を区別する
 set incsearch                    " インクリメンタルサーチ
 set hlsearch                     " 検索マッチテキストをハイライト
+" Escの2回押しで検索ハイライト消去
+nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 
 " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
@@ -170,23 +160,11 @@ nnoremap g# g#zz
 nnoremap <Tab> %
 vnoremap <Tab> %
 
-
 " insertモードから抜けるキーバインド
-inoremap <silent> jj <ESC>
-inoremap <silent> <C-j> j
-inoremap <silent> kk <ESC>
-inoremap <silent> <C-k> k
+inoremap <silent> jj <ESC> " jj
+inoremap <silent> kk <ESC> " kk
 
 filetype indent on
-" 画面上でタブ文字の幅
-set tabstop=4
-" 自動インデントされる幅
-set shiftwidth=4
-" タブ入力を空白文字に置き換える
-set expandtab
-
-" Escの2回押しで検索ハイライト消去
-nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 
 " dein------------------------------------------------------------
 " Required:
