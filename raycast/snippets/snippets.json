@@ -5,6 +5,11 @@
         "keyword": "master:"
     },
     {
+        "name": "history-peco",
+        "text": "history -n -r 1 | peco",
+        "keyword": "h:"
+    },
+    {
         "name": "Slack - Subscribe Github Repo",
         "text": "/github subscribe  releases reviews issues pulls comments branches commits:*",
         "keyword": "subscribe:"
