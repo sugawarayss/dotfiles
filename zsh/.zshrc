@@ -119,8 +119,8 @@ fi
 ###############
 # cdrコマンド #
 ###############
-autoload -Uz add-zsh-hock
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hock
+autoload -Uz add-zsh-hook
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]]; then
     autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
     add-zsh-hook chpwd chpwd_recent_dirs
@@ -237,6 +237,10 @@ function download-s3(){
 ###############
 # gcloud関連  #
 ###############
+# プラグイン
+source '$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+
 function gcloud-activate() {
   name="$1"
   project="$2"
@@ -295,6 +299,7 @@ if type "exa" > /dev/null 2>&1; then
   alias ll="exa -lhUmB"
   alias lla="exa -lahUmB"
   alias lt="exa -T"
+  alias ld="exa -lDhUmB"
 else
   alias ls="ls -Gh"
   alias la="ls -aGh"
@@ -378,8 +383,8 @@ fi
 ###########################
 # zsh-syntax-highlighting #
 ###########################
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# 6type syntac highlight
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# 6type syntax highlight
 #    main     : 基本ハイライト。デフォルトではこれのみ有効
 #    brackets : 括弧
 #    pattern  : ユーザ定義
@@ -412,7 +417,3 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 
 # cursor
 ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
-
-source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-
