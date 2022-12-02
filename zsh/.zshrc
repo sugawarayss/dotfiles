@@ -163,119 +163,6 @@ zle -N peco-cdr
 bindkey '^E' peco-cdr
 
 ###############
-# AWS CLI関連 #
-###############
-function ssh2ec2() {
-  local profile=$(aws configure list-profiles | peco --prompt="SELECT profile > " --query "$LBUFFER")
-  if [[ ${profile} =~ liftspot ]]; then
-    if [[ ${profile} =~ stg ]]; then
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "stg")
-    else
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "prd")
-    fi
-  else
-    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | peco --prompt="SELECT file of ${profile} > ")
-  fi
-  # local jq_option="\".Reservations[].Instances[] | [[.Tags[] | select(.Key == \"Name\").Value][0], \"ssh ec2-user@\" + .NetworkInterfaces[].Association.PublicIp + \" -i ${pemfile}\"] | @tsv' | column -t -s \"\`printf '\t'\`\""
-  local host_ip="$(aws ec2 describe-instances --profile ${profile}\
-  | jq -r '.Reservations[].Instances[] | [[.Tags[] | select(.Key == "Name").Value][0], .NetworkInterfaces[].Association.PublicIp] | @tsv'\
-  | column -t -s "`printf '\t'`"\
-  | peco --prompt="SELECT host > "\
-  | grep -o -e '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" # GNU grepの場合は grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'とすること
-  if [ -n "$host_ip" ]; then
-    echo $BUFFER
-    BUFFER="ssh ec2-user@${host_ip} -i ${pemfile}"
-    zle redisplay
-  fi
-}
-zle -N ssh2ec2
-# Ctrl + Lに割り当てる
-bindkey '^L' ssh2ec2
-
-function tail-cloudwatch-log() {
-  # aws logs tail ${logGroupName} [--filter {filter_strings}] [--since {10m | 1h}]
-  local profile="$(aws configure list-profiles | peco)"
-  local logGroup=$(aws logs describe-log-groups --profile ${profile} | jq ".logGroups[].logGroupName" | peco | sd "\"" "")
-    if [ $# = 0 ]; then
-      print -z "aws logs tail ${logGroup}"
-    else
-      print -z "aws logs tail ${logGroup} $@"
-    fi
-}
-
-# 指定DynamoDBテーブルをscanする
-function scan-dynamodb-table() {
-  local profile="$(aws configure list-profiles | peco)"
-  local table="$(aws dynamodb list-tables --profile ${profile} | jq ".TableNames[]" | sd "\"" "" | peco)"
-  print -z "aws dynamodb scan --table-name $table --profile $profile"
-}
-
-# 指定バケットをls -lRするやつ
-function file-list-s3(){
-  # aws s3 ls s3://\${bucket}[/prefix/] --profile \${profile} --recursive
-  local profile="$(aws configure list-profiles | peco)"
-  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | peco)"
-  if [ $# = 0 ]; then
-    print -z "aws s3 ls s3://$bucket --profile $profile --recursive"
-  else
-    print -z "aws s3 ls s3://$bucket/$@ --profile $profile --recursive"
-  fi
-}
-
-# 指定のファイルをローカルにDLするやつ
-function download-s3(){
-  local profile="$(aws configure list-profiles | peco)"
-  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | peco)"
-  local file="$(aws s3 ls s3://$bucket --profile $profile --recursive | sd " +" " " | cut -d " " -f 4 | peco)"
-  if [ $# = 0 ]; then
-    print -z "aws s3 cp s3://$bucket/$file ./"
-  else
-    print -z "aws s3 cp s3://$bucket/$file $@"
-  fi
-}
-
-###############
-# gcloud関連  #
-###############
-# プラグイン
-source '$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-
-function gcloud-activate() {
-  name="$1"
-  project="$2"
-  echo "gcloud config configurations activate \"${name}\""
-  gcloud config configurations activate "${name}"
-}
-function gx-complete() {
-  _values $(gcloud config configurations list | awk '{print $1}')
-}
-
-# gcloudでactiveなprojectをpecoで選択して切り替える関数
-function gx() {
-  name="$1"
-  if [ -z "$name" ]; then
-    line=$(gcloud config configurations list | peco --prompt "SELECT PROJECT>")
-    name=$(echo "${line}" | awk '{print $1}')
-  else
-    line=$(gcloud config configurations list | grep "$name")
-  fi
-  project=$(echo "${line}" | awk '{print $4}')
-  gcloud-activate "${name}" "${project}"
-}
-compdef gx-complete gx
-
-# gcloud設定名からプロジェクト名を取得する
-function gcloud-alias() {
-    gcloud config configurations list | grep "^$1" | head -1 | awk '{print $4}'
-}
-
-# 現在の設定を取得する
-function gcloud-current() {
-    cat $HOME/.config/gcloud/active_config
-}
-
-###############
 # Aliasの設定 #
 ###############
 # vimでneovimを起動
@@ -417,3 +304,116 @@ ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
 
 # cursor
 ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
+
+###############
+# gcloud関連  #
+###############
+# プラグイン
+source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+
+function gcloud-activate() {
+  name="$1"
+  project="$2"
+  echo "gcloud config configurations activate \"${name}\""
+  gcloud config configurations activate "${name}"
+}
+function gx-complete() {
+  _values $(gcloud config configurations list | awk '{print $1}')
+}
+
+# gcloudでactiveなprojectをpecoで選択して切り替える関数
+function gx() {
+  name="$1"
+  if [ -z "$name" ]; then
+    line=$(gcloud config configurations list | peco --prompt "SELECT PROJECT>")
+    name=$(echo "${line}" | awk '{print $1}')
+  else
+    line=$(gcloud config configurations list | grep "$name")
+  fi
+  project=$(echo "${line}" | awk '{print $4}')
+  gcloud-activate "${name}" "${project}"
+}
+compdef gx-complete gx
+
+# gcloud設定名からプロジェクト名を取得する
+function gcloud-alias() {
+    gcloud config configurations list | grep "^$1" | head -1 | awk '{print $4}'
+}
+
+# 現在の設定を取得する
+function gcloud-current() {
+    cat $HOME/.config/gcloud/active_config
+}
+
+###############
+# AWS CLI関連 #
+###############
+function ssh2ec2() {
+  local profile=$(aws configure list-profiles | peco --prompt="SELECT profile > " --query "$LBUFFER")
+  if [[ ${profile} =~ liftspot ]]; then
+    if [[ ${profile} =~ stg ]]; then
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "stg")
+    else
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "prd")
+    fi
+  else
+    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | peco --prompt="SELECT file of ${profile} > ")
+  fi
+  # local jq_option="\".Reservations[].Instances[] | [[.Tags[] | select(.Key == \"Name\").Value][0], \"ssh ec2-user@\" + .NetworkInterfaces[].Association.PublicIp + \" -i ${pemfile}\"] | @tsv' | column -t -s \"\`printf '\t'\`\""
+  local host_ip="$(aws ec2 describe-instances --profile ${profile}\
+  | jq -r '.Reservations[].Instances[] | [[.Tags[] | select(.Key == "Name").Value][0], .NetworkInterfaces[].Association.PublicIp] | @tsv'\
+  | column -t -s "`printf '\t'`"\
+  | peco --prompt="SELECT host > "\
+  | grep -o -e '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" # GNU grepの場合は grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'とすること
+  if [ -n "$host_ip" ]; then
+    echo $BUFFER
+    BUFFER="ssh ec2-user@${host_ip} -i ${pemfile}"
+    zle redisplay
+  fi
+}
+zle -N ssh2ec2
+# Ctrl + Lに割り当てる
+bindkey '^L' ssh2ec2
+
+function tail-cloudwatch-log() {
+  # aws logs tail ${logGroupName} [--filter {filter_strings}] [--since {10m | 1h}]
+  local profile="$(aws configure list-profiles | peco)"
+  local logGroup=$(aws logs describe-log-groups --profile ${profile} | jq ".logGroups[].logGroupName" | peco | sd "\"" "")
+    if [ $# = 0 ]; then
+      print -z "aws logs tail ${logGroup}"
+    else
+      print -z "aws logs tail ${logGroup} $@"
+    fi
+}
+
+# 指定DynamoDBテーブルをscanする
+function scan-dynamodb-table() {
+  local profile="$(aws configure list-profiles | peco)"
+  local table="$(aws dynamodb list-tables --profile ${profile} | jq ".TableNames[]" | sd "\"" "" | peco)"
+  print -z "aws dynamodb scan --table-name $table --profile $profile"
+}
+
+# 指定バケットをls -lRするやつ
+function file-list-s3(){
+  # aws s3 ls s3://\${bucket}[/prefix/] --profile \${profile} --recursive
+  local profile="$(aws configure list-profiles | peco)"
+  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | peco)"
+  if [ $# = 0 ]; then
+    print -z "aws s3 ls s3://$bucket --profile $profile --recursive"
+  else
+    print -z "aws s3 ls s3://$bucket/$@ --profile $profile --recursive"
+  fi
+}
+
+# 指定のファイルをローカルにDLするやつ
+function download-s3(){
+  local profile="$(aws configure list-profiles | peco)"
+  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | peco)"
+  local file="$(aws s3 ls s3://$bucket --profile $profile --recursive | sd " +" " " | cut -d " " -f 4 | peco)"
+  if [ $# = 0 ]; then
+    print -z "aws s3 cp s3://$bucket/$file ./"
+  else
+    print -z "aws s3 cp s3://$bucket/$file $@"
+  fi
+}
