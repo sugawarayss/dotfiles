@@ -2,9 +2,9 @@
 # GLOBALS
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
-ZSHRC=.zshrc
+ZSHRC=.zshrco
 ZPROFILE=.zprofile
-COMMIT_TEMPLATE=.commit_templatebbb
+COMMIT_TEMPLATE=.commit_template
 NVIM_DIR=.config/nvim
 WARP_DIR=.warp
 WARP_KEYBIND=keybindings.yaml
