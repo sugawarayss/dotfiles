@@ -1,7 +1,7 @@
 let g:rehash256 = 1
 set ttimeoutlen=10               " キー入力完了を待つ時間(ミリ秒)
 " フォントの設定
-set guifont=Ricty\ Diminished:h20
+"set guifont=Hack\ Nerd\ Font:h20
 
 """"""""""""""""""""
 " GENERAL SETTINGS

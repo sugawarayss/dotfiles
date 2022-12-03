@@ -28,33 +28,21 @@ hook_add = '''
 # y      : ファイルパスをコピーする
 # z      : ファイル名に合わせてウィンドウ幅を広げる
 # !      : 隠しファイルを表示/非表示する
+
 [[plugins]]
+# NerdFontを使用するためのプラグイン
 repo = 'lambdalisue/nerdfont.vim'
 
 [[plugins]]
+# ファイルアイコンを表示するためのプラグイン
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-
-[[plugins]]
-# skkeletonの依存(denoを利用できるようにするプラグイン)
-repo = 'vim-denops/denops.vim'
-
-[[plugins]]
-# 日本語入力プラグイン
-repo = 'vim-skk/skkeleton'
+hook_add = '''
+    let g:fern#renderer = 'nerdfont'
+'''
 
 [[plugins]]
 # Fernのファイルツリーにgitの差分が表示できるプラグイン
 repo = 'lambdalisue/fern-git-status.vim'
-
-[[plugins]]
-# ファイルツリーにアイコンを表示するためのフォントプラグイン
-repo = 'lambdalisue/nerdfont.vim'
-
-[[plugins]]
-repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-hook_add = '''
-    let g:fern#renderer = 'hack-nerd-font'
-'''
 
 [[plugins]]
 # ファイルツリーのアイコンに色をつけるプラグイン
@@ -67,6 +55,14 @@ hook_add = '''
       autocmd FileType nerdtree,startify call glyph_palette#apply()
     augroup END
 '''
+
+[[plugins]]
+# skkeletonの依存(denoを利用できるようにするプラグイン)
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+# 日本語入力プラグイン
+repo = 'vim-skk/skkeleton'
 
 [[plugins]]
 # ファイル更新時にタイムスタンプをセットする
