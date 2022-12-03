@@ -417,3 +417,6 @@ function download-s3(){
     print -z "aws s3 cp s3://$bucket/$file $@"
   fi
 }
+
+# asdf用にパスを通す
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
