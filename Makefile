@@ -19,43 +19,48 @@ define dir-exist
 endef
 
 zsh:
+	@echo "zshrc deploy --- start"
 	$(call file-exist, $(HOME)/${ZSHRC})
 	@cp -i ${PROJECT_DIR}/zsh/${ZSHRC} $(HOME)/${ZSHRC}
+	@echo "zshrc deploy --- finished"
 
+	@echo "zprofile deploy --- start"
 	$(call file-exist, $(HOME)/${ZPROFILE})
 	@cp -i ${PROJECT_DIR}/zsh/${ZPROFILE} $(HOME)/${ZPROFILE}
+	@echo "zprofile deploy --- finished"
 
 	@echo "you should run \`source $(HOME)/${ZSHRC} && source $(HOME)/${ZPROFILE}\`"
 
 git:
+	@echo "git commit_template deploy --- start"
 	$(call file-exist, $(HOME)/${COMMIT_TEMPLATE})
 	@cp -i ${PROJECT_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${COMMIT_TEMPLATE}
 	git config --global commit.template $(HOME)/${COMMIT_TEMPLATE}
+	@echo "git commit_template deploy --- finished"
 
 
 vim:
+	@echo "nvim settings deploy --- start"
 	$(call dir-exist $(HOME)/${NVIM_DIR})
 	cp -r ${PROJECT_DIR}/nvim $(HOME)/.config/
+	@echo "nvim settings deploy --- finished"
 
 # TODO: if使わない
 homebrew:
-	if type "brew" > /dev/null 2>&1; then\
-		echo "brew already exists"\
-		brew bundle --file ./homebrew/Brewfile\
-	else\
-		echo "brew does not exist"\
-		echo "Installing brew"\
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\
-		echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"\
-		source "$HOME/.zprofile"\
-		brew bundle --file ./homebrew/Brewfile\
-	fi
+	@echo "brew bundle --- start"
+	brew bundle --file ${PROJECT_DIR}/homebrew/Brewfile
+	@echo "brew bundle --- finished"
 
 warp:
+	@echo "warp keybind deploy --- start"
 	$(call file-exist $(HOME)/${WARP_DIR}/${WARP_KEYBIND})
 	cp -i ${PROJECT_DIR}/warp/${WARP_KEYBIND} $(HOME)/.warp/
+	@echo "warp keybind deploy --- finished"
+
+	@echo "warp workflows deploy --- start"
 	$(call dir-exist $(HOME)/${WARP_DIR})
 	cp -r ${PROJECT_DIR}/warp/workflows $(HOME)/.warp/
+	@echo "warp workflows deploy --- finished"
 
 all: homebrew zsh git vim
 	echo finished
