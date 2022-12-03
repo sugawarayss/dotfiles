@@ -13,7 +13,6 @@ set encoding=utf-8               " ファイルを開く時のデフォルト文
 set fenc=utf-8                   " 文字コードをUTF-8に設定
 set nobackup                     " バックアップファイルを作らない
 set noswapfile                   " スワップファイルを作らない
-set nowritebackup                " 上書き保存時にバックアップをつくることを無効化
 set autoread                     " 編集中のファイルが変更されたら自動で読み直す
 set hidden                       " バッファが編集中でもその他のファイルを開けるようにする
 " ステータス行に情報表示
@@ -53,8 +52,10 @@ set list                         " 不可視文字の可視化
 set ruler                        " カーソル位置が右下に表示される
 set showmode                     " 現在のモードを表示する
 set showcmd                      " コマンドを画面の最下部に表示する
+set cursorline                   " 現在の行を強調表示
 set smartindent                  " インデントはスマートインデント
 set visualbell                   " ビープ音を可視化
+set showmatch                    " 括弧入力時に対応する括弧を表示
 set laststatus=2                 " ステータスラインを常に表示する
 set wildmenu                     " コマンドラインの補完
 syntax on                        " シンタックスハイライトの有効化
@@ -111,6 +112,11 @@ inoremap <C-f> <C-g>U<Right>
 " Ctrl+f Ctrl+fで一番外へ移動
 inoremap <C-f><C-f> <C-g>U<ESC><S-a>
 
+" buffer listを移動するためのキーバインド
+nnoremap <silent> [b :bprevious<CR>  " 前のbufferを表示
+nnoremap <silent> ]b :bnext<CR>      " 次のbufferを表示
+nnoremap <silent> [B :bfirst<CR>     " 最初のbufferを表示
+nnoremap <silent> ]B :blast<CR>      " 最後のbufferを表示
 " クリップボードをデフォルトのレジスタとして指定。後にYankRingを使うので
 " 'unnamedplus'が存在しているかどうかで設定を分ける必要がある
 if has('unnamedplus')
@@ -118,6 +124,11 @@ if has('unnamedplus')
 else
     set clipboard& clipboard+=unnamed
 endif
+
+" Swapファイル, Backupファイルを全て無効化する
+set nowritebackup
+set nobackup
+set noswapfile
 
 " 全角スペースの表示
 function! ZenkakuSpace()
@@ -135,14 +146,19 @@ endif
 """"""""""""""""""""""""""""""
 
 """"""""""""""""""""
+" TAB SETTINGS
+""""""""""""""""""""
+set expandtab                    " Tab文字を半角スペースにする
+set autoindent                   " 改行時にインデントを引き継いで改行する
+set shiftwidth=4                 " インデントにつかわれる空白の数
+
+""""""""""""""""""""
 " SEARCH SETTINGS
 """"""""""""""""""""
 set ignorecase                   " 大文字小文字を区別しない
 set smartcase                    " 検索文字に大文字がある場合は大文字小文字を区別する
 set incsearch                    " インクリメンタルサーチ
 set hlsearch                     " 検索マッチテキストをハイライト
-" Escの2回押しで検索ハイライト消去
-nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 
 " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
@@ -156,15 +172,29 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
+"""""""""""""""
+" KEY BIND
+"""""""""""""""
 " TABにて対応ペアにジャンプ
 nnoremap <Tab> %
 vnoremap <Tab> %
 
+
 " insertモードから抜けるキーバインド
-inoremap <silent> jj <ESC> " jj
-inoremap <silent> kk <ESC> " kk
+inoremap <silent> jj <ESC>
+inoremap <silent> <C-j> j
 
 filetype indent on
+
+" Escの2回押しで検索ハイライト消去
+nmap <ESC><ESC> ;nohlsearch<CR><ESC>
+
+" TerminalのINSERT モードからの離脱をesc キーにマッピング
+tnoremap <Esc> <C-\><C-n>
+" TerminalをVSCodeのように現在のウィンドウの下に開く
+command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
+" 常にインサートモードでTerminalを開く
+autocmd TermOpen * startinsert
 
 " dein------------------------------------------------------------
 " Required:
@@ -201,3 +231,8 @@ filetype plugin indent on
 if dein#check_install()
   call dein#install()
 endif
+
+" skkeleton(日本語入力)の設定
+call skkeleton#config({ 'globalJisyo': '~/.skk/SKK-JISYO.L' })
+imap <C-j> <Plug>(skkeleton-enable)
+cmap <C-j> <Plug>(skkeleton-enable)

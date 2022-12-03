@@ -28,6 +28,19 @@ hook_add = '''
 # y      : ファイルパスをコピーする
 # z      : ファイル名に合わせてウィンドウ幅を広げる
 # !      : 隠しファイルを表示/非表示する
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+
+[[plugins]]
+# skkeletonの依存(denoを利用できるようにするプラグイン)
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+# 日本語入力プラグイン
+repo = 'vim-skk/skkeleton'
 
 [[plugins]]
 # Fernのファイルツリーにgitの差分が表示できるプラグイン
@@ -39,15 +52,15 @@ repo = 'lambdalisue/nerdfont.vim'
 
 [[plugins]]
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-# install https://github.com/yumitsu/font-menlo-extra/blob/master/Menlo-Regular-Normal.ttf
 hook_add = '''
-    let g:fern#renderer = 'nerdfont'
+    let g:fern#renderer = 'hack-nerd-font'
 '''
 
 [[plugins]]
 # ファイルツリーのアイコンに色をつけるプラグイン
 repo = 'lambdalisue/glyph-palette.vim'
 hook_add = '''
+    " アイコンに色をつける
     augroup my-glyph-palette
       autocmd! *
       autocmd FileType fern call glyph_palette#apply()
