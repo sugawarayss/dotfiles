@@ -4,10 +4,10 @@ PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
 ZSHRC=.zshrc
 ZPROFILE=.zprofile
-CONFIG_DIR=.config/
+CONFIG_DIR=.config
 COMMIT_TEMPLATE=.commit_template
 IGNORE_FILE=ignore
-NVIM_DIR=${CONFIG_DIR}nvim
+NVIM_DIR=${CONFIG_DIR}/nvim
 WARP_DIR=.warp
 WARP_KEYBIND=keybindings.yaml
 
@@ -35,13 +35,13 @@ zsh:
 
 git:
 	@echo "git global ignore deploy --- start"
-	cp -f ${PROJECT_DIR}/git/${IGNORE_FILE} $(HOME)/${CONFIG_DIR}${IGNORE_FILE}
+	cp -f ${PROJECT_DIR}/git/${IGNORE_FILE} $(HOME)/${CONFIG_DIR}/git/${IGNORE_FILE}
 	@echo "git global ignore deploy --- finished"
 
 	@echo "git commit_template deploy --- start"
 	$(call file-exist, $(HOME)/${COMMIT_TEMPLATE})
-	cp -f ${PROJECT_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${CONFIG_DIR}${COMMIT_TEMPLATE}
-	git config --global commit.template $(HOME)/${CONFIG_DIR}${COMMIT_TEMPLATE}
+	cp -f ${PROJECT_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
+	git config --global commit.template $(HOME)/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
 	@echo "git commit_template deploy --- finished"
 
 
