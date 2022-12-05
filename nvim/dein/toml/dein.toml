@@ -96,17 +96,7 @@ repo = 'kyazdani42/nvim-web-devicons'
 repo = 'leoco/autodate.vim'
 
 [[plugins]]
-# ステータスバーにgit branch名を表示するプラグイン
-repo = 'vim-airline/vim-airline'
-
-[[plugins]]
-# ステータスバー用のテーマプラグイン
-repo = 'vim-airline/vim-airline-themes'
-hook_add = '''
-    
-'''
-[[plugins]]
-# 自作snippetを作成する
+# neosnippet用デフォルトスニペット定義ファイル
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
@@ -120,6 +110,9 @@ repo = 'prabirshrestha/vim-lsp'
 [[plugins]]
 # vimのステータスバーを色付けして表示する
 repo = 'itchyny/lightline.vim'
+hook_add = '''
+    let g:lightline = { 'colorscheme': 'wombat' }
+'''
 
 [[plugins]]
 # coc-vimと連携して関数や変数へジャンプできるプラグイン
@@ -142,8 +135,19 @@ repo = 'fatih/vim-go'
 repo = 'lambdalisue/gina.vim'
 
 [[plugins]]
+# Vim上でgithubを操作できるプラグイン(ghコマンドでログインしている必要あり)
+repo = 'denops-gh.vim'
+
+[[plugins]]
+# 多言語用プラグインパック(syntax highlighing)
+repo = 'sheerun/vim-polyglot'
+# 不具合がある言語を発見した場合、以下で無効化することができる
+# hook_add = 'let g:polyglot_disabled = ['markdown']'
+
+# ↑polyglotと競合しているので、コメントアウト。不具合ある場合に切り替え
+#[[plugins]]
 # Syntax highlightできるプラグイン
-repo = 'nvim-treesitter/nvim-treesitter'
+#repo = 'nvim-treesitter/nvim-treesitter'
 
 [[plugins]]
 # テキストを囲う操作を行えるようにするプラグイン
