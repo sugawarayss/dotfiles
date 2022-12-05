@@ -45,7 +45,8 @@ source ~/.zprofile && source ~/.zshrc
 ```
 
 ### Update commit template of Git
-target: `$HOME/.commit_template`
+target: `$HOME/.config/git/.commit_template`
+        `$HOME/.config/git/ignore`
 ```bash
 make git
 ```
