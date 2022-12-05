@@ -1,5 +1,7 @@
 name: NeoVim設定ファイルをリポジトリにdump
 command: cp -r {{from_path}} {{to_path}}
+tags:
+  - vim
 arguments:
   - name: from_path
     default_value: $HOME/.config/nvim
