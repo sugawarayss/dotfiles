@@ -1,24 +1,26 @@
 let g:rehash256 = 1
-set ttimeoutlen=10               " キー入力完了を待つ時間(ミリ秒)
-" フォントの設定
-"set guifont=Hack\ Nerd\ Font:h20
+set ttimeoutlen=10
+" フォントはhomebrewで入れた
+" hack-nerd-fontを指定(Fernでファイルアイコンを表示するため)
+set guifont=Hack\ Nerd\ Font:h20
 
 """"""""""""""""""""
 " GENERAL SETTINGS
 """"""""""""""""""""
-set autochdir                    " 開いているファイルのあるディレクトリをカレントにする
+"set autochdir                    " 開いているファイルのあるディレクトリをカレントにする
 set noundofile                   " undoファイルを自動作成しない
-scriptencoding utf-8             " vim scriptでマルチバイト文字を使う場合
-set encoding=utf-8               " ファイルを開く時のデフォルト文字コード
+scriptencoding utf-8             " vimスクリプト内で使用する日本語エンコーディング文字コード
+set encoding=utf-8               " nvimの文字コードをUTF-8に設定
 set fenc=utf-8                   " 文字コードをUTF-8に設定
 set nobackup                     " バックアップファイルを作らない
 set noswapfile                   " スワップファイルを作らない
+set nowritebackup                " 上書き保存前の一時ファイルを作成しない
 set autoread                     " 編集中のファイルが変更されたら自動で読み直す
 set hidden                       " バッファが編集中でもその他のファイルを開けるようにする
 " ステータス行に情報表示
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 " バッファで開いているファイルのディレクトリでエクスクローラを開始する
-set browsedir=buffer
+" set browsedir=buffer
 " ESCでコマンドモード時にIMEを自動OFF
 if has('multi_byte_ime') || has('xim') || has('gui_macvim')
   " Insert mode: lmap off, IME ON
@@ -39,15 +41,15 @@ endif
 " VISUAL SETTINGS
 """"""""""""""""""""
 set termguicolors                " ターミナルでもカラーテーマを使う
-colorscheme codedark             " カラーテーマをvscodedarkに変更https://github.com/tomasiser/vim-code-dark.git
-"colorscheme monokai_pro          " カラーテーマをmonokai_proに変更https://github.com/phanviet/vim-monokai-pro
+colorscheme codedark             " カラーテーマをmonokai_proに変更https://github.com/phanviet/vim-monokai-pro
 set winblend=30                  " 現在のウィンドウの透明度を指定0〜100
 set pumblend=10                  " ポップアップメニューを半透明にする0〜100
-"set background=dark              " 暗い背景色に合う色を使用する
+set background=dark              " 暗い背景色を指定
+syntax on                        " シンタックスハイライトの有効化(デフォルトの色設定で変更)
+syntax enable                    " シンタックスハイライトの有効化(現在の色設定を変更しない)
 set t_Co=256                     " 256色対応する
 set number                       " 行番号を表示
-" ウインドウのタイトルバーにファイルのパス情報等を表示する
-set title
+set title                        " ウィンドウのタイトルバーにファイルのパス情報等を表示する
 set list                         " 不可視文字の可視化
 set ruler                        " カーソル位置が右下に表示される
 set showmode                     " 現在のモードを表示する
@@ -58,12 +60,10 @@ set visualbell                   " ビープ音を可視化
 set showmatch                    " 括弧入力時に対応する括弧を表示
 set laststatus=2                 " ステータスラインを常に表示する
 set wildmenu                     " コマンドラインの補完
-syntax on                        " シンタックスハイライトの有効化
-"syntax enable                    " シンタックスハイライトの有効化
 set wrap                         " 長いテキストの折り返し
 set textwidth=0                  " 自動的に改行が入るのを無効化
-set colorcolumn=100              " 100文字目にラインを入れる
-set cursorline                   " カーソル行にラインを入れる
+set colorcolumn=80               " その代わり80文字目にラインを入れる
+set cursorline                   " カーソルが居る行にラインを入れる
 set foldmethod=indent            " 折りたたみ
 set foldlevel=100                " ファイルを開く時に折りたたみをしない
 
@@ -72,7 +72,7 @@ set foldlevel=100                " ファイルを開く時に折りたたみを
 """"""""""""""""""""
 set backspace=2   " バックスペースでインデント、行末、挿入開始点を超えて消去可能にする
 set infercase                    " 補完時に大文字小文字を区別しない
-set virtualedit=all              " カーソルを文字が存在しない部分でも動けるようにする
+"set virtualedit=all              " カーソルを文字が存在しない部分でも動けるようにする
 set hidden                       " バッファを閉じる代わりに隠す（Undo履歴を残すため）
 set switchbuf=useopen            " 新しく開く代わりにすでに開いてあるバッファを開く
 set showmatch                    " 対応する括弧などをハイライト表示する
@@ -85,7 +85,7 @@ set expandtab                    " <Tab>押下時に<Tab>ではなく、ホワ�
 set tabstop=4                    " <Tab>が対応する空白の数
 au BufNewFile,BufRead *.yml set tabstop=2
 set shiftround                   " '<'や'>'でインデントする際に'shiftwidth'の倍数に丸める
-set nf=                          " インクリメント、デクリメントを10進数にする
+set nrformats=                          " デフォルトでは8進数として処理されるのでインクリメント<C-a>、デクリメント<C-x>を10進数にする
 set matchpairs& matchpairs+=<:>  " 対応括弧に'<'と'>'のペアを追加
 set backspace=indent,eol,start   " バックスペースでなんでも消せるようにする
 set list
@@ -124,11 +124,6 @@ if has('unnamedplus')
 else
     set clipboard& clipboard+=unnamed
 endif
-
-" Swapファイル, Backupファイルを全て無効化する
-set nowritebackup
-set nobackup
-set noswapfile
 
 " 全角スペースの表示
 function! ZenkakuSpace()
@@ -175,6 +170,10 @@ nnoremap g# g#zz
 """""""""""""""
 " KEY BIND
 """""""""""""""
+" Ctrl+lで次のタブへ移動
+nmap <C-l> :tabnext<CR>
+" Ctrl+Shift+lで前のタブへ移動
+nmap <C-S-l> :tabprevious<CR>
 " TABにて対応ペアにジャンプ
 nnoremap <Tab> %
 vnoremap <Tab> %
@@ -216,9 +215,6 @@ if dein#load_state($HOME . '/.cache/dein')
   " Required:
   call dein#add($HOME . '/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  " You can specify revision/branch/tag.
-  " call dein#add('Shougo/deol.nvim', { 'rev': 'a1b5108fd' })
-
   " Required:
   call dein#end()
   call dein#save_state()
@@ -231,8 +227,3 @@ filetype plugin indent on
 if dein#check_install()
   call dein#install()
 endif
-
-" skkeleton(日本語入力)の設定
-call skkeleton#config({ 'globalJisyo': '~/.skk/SKK-JISYO.L' })
-imap <C-j> <Plug>(skkeleton-enable)
-cmap <C-j> <Plug>(skkeleton-enable)

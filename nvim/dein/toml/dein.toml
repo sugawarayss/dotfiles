@@ -30,14 +30,32 @@ hook_add = '''
 # !      : 隠しファイルを表示/非表示する
 
 [[plugins]]
-# NerdFontを使用するためのプラグイン
+# ファイルツリーにアイコンを表示するためのフォントプラグイン
 repo = 'lambdalisue/nerdfont.vim'
 
 [[plugins]]
-# ファイルアイコンを表示するためのプラグイン
+# ファイルツリーにアイコンを表示するためのプラグイン
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+# dein.vimにプラグインが認識された時に、rendererを設定する
 hook_add = '''
     let g:fern#renderer = 'nerdfont'
+'''
+
+[[plugins]]
+# skkeletonの依存(denoを利用できるようにするプラグイン)
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+# 日本語入力プラグイン
+repo = 'vim-skk/skkeleton'
+# Ctrl+jにアサイン
+hook_add = '''
+    imap <C-j> <Plug>(skkeleton-enable)
+    cmap <C-j> <Plug>(skkeleton-enable)
+'''
+# 辞書ファイルを指定
+hook_post_source= '''
+    call skkeleton#config({ 'globalJisyo': '~/.skk/SKK-JISYO.L' })
 '''
 
 [[plugins]]
@@ -55,14 +73,6 @@ hook_add = '''
       autocmd FileType nerdtree,startify call glyph_palette#apply()
     augroup END
 '''
-
-[[plugins]]
-# skkeletonの依存(denoを利用できるようにするプラグイン)
-repo = 'vim-denops/denops.vim'
-
-[[plugins]]
-# 日本語入力プラグイン
-repo = 'vim-skk/skkeleton'
 
 [[plugins]]
 # ファイル更新時にタイムスタンプをセットする
@@ -126,3 +136,7 @@ hook_add =  '''
     nmap <silent> [coc]d <Plug>(coc-definition)
     nmap <silent> [coc]rf <Plug>(coc-references)
 '''
+
+[[plugins]]
+# インデントを可視化するプラグイン
+repo = 'Yggdroot/indentLine'
