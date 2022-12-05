@@ -75,9 +75,36 @@ hook_add = '''
 '''
 
 [[plugins]]
+# telescopeプラグインが依存しているプラグイン
+repo = 'nvim-lua/plenary.nvim'
+
+[[plugins]]
+# 曖昧検索できるプラグイン
+repo = 'nvim-telescope/telescope.nvim'
+hook_add = '''
+    " Ctrl+p で曖昧ファイル名検索
+    nnoremap <C-p> <cmd>Telescope find_files hidden=true theme=get_dropdown<cr>
+    " Ctrl+g で曖昧ファイル内文字検索
+    nnoremap <C-g> <cmd>Telescope live_grep theme=get_dropdown<cr>
+'''
+[[plugins]]
+# 曖昧検索結果表示にアイコンを表示できるプラグイン
+repo = 'kyazdani42/nvim-web-devicons'
+
+[[plugins]]
 # ファイル更新時にタイムスタンプをセットする
 repo = 'leoco/autodate.vim'
 
+[[plugins]]
+# ステータスバーにgit branch名を表示するプラグイン
+repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+# ステータスバー用のテーマプラグイン
+repo = 'vim-airline/vim-airline-themes'
+hook_add = '''
+    
+'''
 [[plugins]]
 # 自作snippetを作成する
 repo = 'Shougo/neosnippet-snippets'
