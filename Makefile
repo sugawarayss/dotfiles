@@ -2,10 +2,12 @@
 # GLOBALS
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
-ZSHRC=.zshrco
+ZSHRC=.zshrc
 ZPROFILE=.zprofile
+CONFIG_DIR=.config/
 COMMIT_TEMPLATE=.commit_template
-NVIM_DIR=.config/nvim
+IGNORE_FILE=ignore
+NVIM_DIR=${CONFIG_DIR}nvim
 WARP_DIR=.warp
 WARP_KEYBIND=keybindings.yaml
 
@@ -21,21 +23,25 @@ endef
 zsh:
 	@echo "zshrc deploy --- start"
 	$(call file-exist, $(HOME)/${ZSHRC})
-	@cp -i ${PROJECT_DIR}/zsh/${ZSHRC} $(HOME)/${ZSHRC}
+	cp -f ${PROJECT_DIR}/zsh/${ZSHRC} $(HOME)/${ZSHRC}
 	@echo "zshrc deploy --- finished"
 
 	@echo "zprofile deploy --- start"
 	$(call file-exist, $(HOME)/${ZPROFILE})
-	@cp -i ${PROJECT_DIR}/zsh/${ZPROFILE} $(HOME)/${ZPROFILE}
+	cp -f ${PROJECT_DIR}/zsh/${ZPROFILE} $(HOME)/${ZPROFILE}
 	@echo "zprofile deploy --- finished"
 
 	@echo "you should run \`source $(HOME)/${ZSHRC} && source $(HOME)/${ZPROFILE}\`"
 
 git:
+	@echo "git global ignore deploy --- start"
+	cp -f ${PROJECT_DIR}/git/${IGNORE_FILE} $(HOME)/${CONFIG_DIR}${IGNORE_FILE}
+	@echo "git global ignore deploy --- finished"
+
 	@echo "git commit_template deploy --- start"
 	$(call file-exist, $(HOME)/${COMMIT_TEMPLATE})
-	@cp -i ${PROJECT_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${COMMIT_TEMPLATE}
-	git config --global commit.template $(HOME)/${COMMIT_TEMPLATE}
+	cp -f ${PROJECT_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${CONFIG_DIR}${COMMIT_TEMPLATE}
+	git config --global commit.template $(HOME)/${CONFIG_DIR}${COMMIT_TEMPLATE}
 	@echo "git commit_template deploy --- finished"
 
 
