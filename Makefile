@@ -51,11 +51,15 @@ vim:
 	cp -r ${PROJECT_DIR}/nvim $(HOME)/.config/
 	@echo "nvim settings deploy --- finished"
 
-# TODO: if使わない
 homebrew:
 	@echo "brew bundle --- start"
 	brew bundle --file ${PROJECT_DIR}/homebrew/Brewfile
 	@echo "brew bundle --- finished"
+
+starship:
+	@echo "starship --- start"
+	cp -f ${PROJECT_DIR}/starship/starship.toml $(HOME)/${CONFIG_DIR}/starship.toml
+	@echo "starship --- finished"
 
 warp:
 	@echo "warp keybind deploy --- start"
