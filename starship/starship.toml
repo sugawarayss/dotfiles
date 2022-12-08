@@ -1,0 +1,87 @@
+# 空行追加
+add_newline = true
+
+# タイムアウト時間
+scan_timeout = 10
+
+# 左プロンプト
+format = """
+$username$hostname$localip\
+$singularity$kubernetes$docker_context\
+$git_branch$git_commit$git_state$git_status\
+$package
+$python$ruby$nodejs$deno$dart$rust$golang\
+$kotlin$java$dotnet$c$php$perl$swift$julia$haskell\
+$erlang$elixir$scala$rlang\
+$lua$ocaml$nim$elm$crystal\
+$aws$gcloud$azure\
+$cmd_duration\
+$line_break\
+$jobs\
+$container\
+$character"""
+
+# 右プロンプト
+right_format = '\[[$directory](bold green)\]'
+
+[character]
+# コマンド成功時
+success_symbol = "[▶](bold green)"
+# コマンド失敗時
+error_symbol = "[▶](bold red)"
+
+[directory]
+truncation_length = 100
+truncate_to_repo = false
+truncation_symbol = "…/"
+
+[aws]
+# AWSの表示は無効化
+format = '[ $symbol($profile )(\($region\) )]($style)'
+symbol = ''
+style = "bold blue"
+disabled = true
+
+[aws.region_aliases]
+ap-northease-1 = "jp"
+
+[gcloud]
+# GCPの表示は無効化
+disabled = true
+
+[custom.arch]
+command = "uname -m"
+when = """ test $(uname -m) = "x86_64" """
+style = "bold yellow"
+format = "[$output]($style)"
+
+[docker_context]
+format = " [$symbol $context](blue bold)"
+symbol = "🐳 "
+
+[git_state]
+cherry_pick = "🍒"
+
+[git_status]
+# Gitのステータス表示アイコン
+conflicted = "💥"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+untracked = "🌚"
+stashed = "📦"
+modified = "📝"
+staged = "🔦"
+renamed = "🏷"
+deleted = "🗑"
+
+[git_branch]
+# Gitブランチの表示アイコン
+symbol = " "
+
+[username]
+style_user = "white bold"
+style_root = "black bold"
+format = "[$user🌱]($style) "
+disabled = false
+show_always = true
