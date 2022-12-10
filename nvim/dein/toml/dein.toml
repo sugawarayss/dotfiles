@@ -152,6 +152,11 @@ repo = 'sheerun/vim-polyglot'
 [[plugins]]
 # テキストを囲う操作を行えるようにするプラグイン
 repo = 'machakann/vim-sandwich'
+# How To Use
+# saiw( : foo → (foo)
+# sd    : (foo) → foo
+# sr    : (foo) → "foo"
+
 
 [[plugins]]
 # VScodeの機能を使用できるようにするプラグイン
@@ -167,6 +172,9 @@ hook_add =  '''
     nmap <silent> [coc]d <Plug>(coc-definition)
     nmap <silent> [coc]rf <Plug>(coc-references)
 '''
+# :CocInstall coc-docker
+# :CocInstall coc-diagnostic
+# :CocInstall coc-pyright
 
 [[plugins]]
 # インデントを可視化するプラグイン
