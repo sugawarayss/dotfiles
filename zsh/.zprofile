@@ -22,43 +22,45 @@ export PGPORT=5433
 ##############
 # anyenv関連 #
 ##############
-ANYENVPATH="$HOME/.anyenv"
-RBENV_ROOT="${ANYENVPATH}/envs/rbenv"
-PYENV_ROOT="${ANYENVPATH}/envs/pyenv"
-NODENV_ROOT="${ANYENVPATH}/envs/nodenv"
-GOENV_ROOT="${ANYENVPATH}/envs/goenv"
-JENV_ROOT="${ANYENVPATH}/envs/jenv"
+if type anyenv > /dev/null; then
+  ANYENVPATH="$HOME/.anyenv"
+  RBENV_ROOT="${ANYENVPATH}/envs/rbenv"
+  PYENV_ROOT="${ANYENVPATH}/envs/pyenv"
+  NODENV_ROOT="${ANYENVPATH}/envs/nodenv"
+  GOENV_ROOT="${ANYENVPATH}/envs/goenv"
+  JENV_ROOT="${ANYENVPATH}/envs/jenv"
 
-if [ -d "${ANYENVPATH}/bin" ]; then
-  export PATH="$PATH:${ANYENVPATH}/bin"
-  eval "$(anyenv init -)"
-fi
+  if [ -d "${ANYENVPATH}/bin" ]; then
+    export PATH="$PATH:${ANYENVPATH}/bin"
+    eval "$(anyenv init -)"
+  fi
 
-if [ -d "${RBENV_ROOT}/bin" ]; then
-  export PATH="$PATH:${RBENV_ROOT}/bin"
-  eval "$(rbenv init -)"
-fi
+  if [ -d "${RBENV_ROOT}/bin" ]; then
+    export PATH="$PATH:${RBENV_ROOT}/bin"
+    eval "$(rbenv init -)"
+  fi
 
-if [ -d "${PYENV_ROOT}/bin" ]; then
-  export PATH="$PATH:${PYENV_ROOT}/bin"
-  eval "$(pyenv init -)"
-  # pyenv-virtualenvの設定
-  #eval "(pyenv virtualenv-init -)" > /dev/null
-fi
+  if [ -d "${PYENV_ROOT}/bin" ]; then
+    export PATH="$PATH:${PYENV_ROOT}/bin"
+    eval "$(pyenv init -)"
+    # pyenv-virtualenvの設定
+    #eval "(pyenv virtualenv-init -)" > /dev/null
+  fi
 
-if [ -d "${NODENV_ROOT}/bin" ]; then
-  export PATH="$PATH:${NODENV_ROOT}/bin"
-  eval "$(nodenv init -)"
-fi
+  if [ -d "${NODENV_ROOT}/bin" ]; then
+    export PATH="$PATH:${NODENV_ROOT}/bin"
+    eval "$(nodenv init -)"
+  fi
 
-if [ -d "${GOENV_ROOT}/bin" ]; then
-  export PATH="$PATH:${GOENV_ROOT}/bin"
-  eval "$(goenv init -)"
-fi
+  if [ -d "${GOENV_ROOT}/bin" ]; then
+    export PATH="$PATH:${GOENV_ROOT}/bin"
+    eval "$(goenv init -)"
+  fi
 
-if [ -d "${JENV_ROOT}/bin" ]; then
-  export PATH="$J{ENV_ROOT}/bin:$PATH"
-  eval "$(jenv init -)"
+  if [ -d "${JENV_ROOT}/bin" ]; then
+    export PATH="$J{ENV_ROOT}/bin:$PATH"
+    eval "$(jenv init -)"
+  fi
 fi
 
 ########
@@ -74,6 +76,8 @@ export PATH="$HOME/.poetry/bin:$PATH"
 ##########
 # pipenv #
 ##########
+#PIPENV_PYTHONを指定
+export PIPENV_PYTHON="$HOME/.asdf/shims/python"
 # プロジェクト内に仮想環境を作成する
 export PIPENV_VENV_IN_PROJECT=1
 
