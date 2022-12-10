@@ -174,6 +174,9 @@ alias vim="nvim"
 # brew実行時のみ、pyenvがPATHに含まれないようにする。（configファイルが複数あると怒られることを回避）
 alias brew="PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
 
+# homebrewで入れたctagsを使うためのalias
+alias ctags="$(brew --prefix)/bin/ctags"
+
 # catをbatで上書き
 if type "bat" > /dev/null 2>&1; then
   alias oldcat="/bin/cat"
