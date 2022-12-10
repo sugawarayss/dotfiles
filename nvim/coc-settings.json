@@ -1,0 +1,27 @@
+{
+    "suggest.noselect": true,
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "languageserver": {
+        "dockerfile": {
+            "command": "docker-langserver",
+            "filetypes": ["dockerfile"],
+            "args": ["--stdio"]
+        }
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+        "python": ["black", "isort"]
+    },
+    "diagnostic-languageserver.formatters": {
+        "black": {
+            "command": "black",
+            "args": ["--length", "100"]
+        },
+        "isort": {
+            "command": "isort",
+            "args": ["--multi-line=3", "--trailing-comma", "--force-grid-wrap=0", "--use-parentheses", "--line-width=100"]
+        }
+    },
+    "python.formatting.blackArgs": ["--length 100"],
+    "python.sortImports.path": "isort",
+    "python.sortImports.args": ["--multi-line=3", "--trailing-comma", "--force-grid-wrap=0", "--use-parentheses", "--line-width=100"]
+}
