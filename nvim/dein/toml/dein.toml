@@ -46,6 +46,11 @@ hook_add = '''
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
+# markdownプレビューするためのプラグイン(deno)
+repo = 'kat0h/bufpreview.vim'
+build = 'deno task prepare'
+
+[[plugins]]
 # 日本語入力プラグイン
 repo = 'vim-skk/skkeleton'
 # Ctrl+jにアサイン
