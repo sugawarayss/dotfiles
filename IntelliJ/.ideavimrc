@@ -1,0 +1,91 @@
+" IntelliJ - IdeaVimプラグイン用の設定
+" $HOME/.ideavimrcに配置するとIntelliJ起動時にloadされる
+
+" vimrcと共通のkeymap等は切り出すことが可能
+"source .vimrc.keymap
+
+" ノーマルモードではIMEをオフ(効いてない可能性)
+set keep-english-in-normal
+
+""""""""""""""""""""""""""""""""""
+" 一般設定                       "
+""""""""""""""""""""""""""""""""""
+vnoremap ,a :action GottoAction<CR>
+" 全ての場所から曖昧検索
+nnoremap ,e :action SearchEverywhere<CR>
+" ファイルの構造をポップアップ画面で表示する
+nnoremap ,s :action FileStructurePopup<CR>
+" パス限定曖昧検索ポップアップを表示する
+nnoremap ,g :action FindInPath<CR>
+" 最近開いたファイル一覧ポップアップを表示する
+nnoremap ,r :action RecentFiles<CR>
+" 呼び出し階層一覧viewを表示
+nnoremap ,c :action CallHierarchy<CR>
+" ブックマーク一覧を表示
+nnoremap ,b :action ShowBookmarks<CR>
+
+""""""""""""""""""""""""""""""""""
+" コードジャンプ系のコマンド定義 "
+""""""""""""""""""""""""""""""""""
+" 定義へのジャンプ
+nnoremap gd :action GotoDeclaration<CR>
+" スーパーメソッドへジャンプ
+nnoremap gs :action GotoSuperMethod<CR>
+" 実装箇所へジャンプ
+nnoremap gi :action GotoImplementation<CR>
+" 曖昧ファイル検索
+nnoremap gf :action GotoFile<CR>
+" 直近の変更箇所へジャンプ
+nnoremap gb :action JumpToLastChange<CR>
+" 呼び出し箇所一覧をあいまい検索
+nnoremap gu :action ShowUsages<CR>
+" 呼び出し箇所を検索
+nnoremap gU :action FindUsages<CR>
+" テスト実装箇所へジャンプ
+nnoremap gt :action GotoTest<CR>
+" 戻る
+nnoremap gh :action Back<CR>
+" 進む
+nnoremap gl :action Forward<CR>
+
+""""""""""""""""""""""""""""""""""
+" エディター (コード編集)        "
+""""""""""""""""""""""""""""""""""
+" カーソルのある単語を一斉に編集
+nnoremap r :action RenameElement<CR>
+" コードの整形を実行(ノーマルモード)
+nnoremap == :action ReformatCode<CR>
+" コードの整形を実行(ビジュアルモード)
+vnoremap == :action ReformatCode<CR>
+
+" 選択した単語で編集(ビジュアルモード)
+"vnoremap p :action EditorSelectWord<CR>
+"vnoremap n :action EditorUnSelectWord<CR>
+
+""""""""""""""""""""""""""""""""""
+" IntelliJ コマンドを実行        "
+""""""""""""""""""""""""""""""""""
+" カーソル行でブックマークをトグル
+nnoremap B :action ToggleBookmark<CR>
+" 実行の構成を選んで実行
+nnoremap RC :action ChooseRunConfiguration<CR>
+" ステップオーバー
+nnoremap + :action StepOver<CR>
+" ステップイン
+nnoremap - :action StepInto<CR>
+" ステップアウト
+nnoremap * :action StepOut<CR>
+" 再開
+nnoremap _ :action Resume<CR>
+
+""""""""""""""""""""""""""""""""""
+" Window(View)操作               "
+""""""""""""""""""""""""""""""""""
+" アクティブなViewを閉じる
+nnoremap s; :action CloseActiveTab<CR>
+" フォーカスを持つエディタタブを水平分割する
+nnoremap sh; :split<CR>
+" フォーカスを持つエディタタブを垂直分割
+nnoremap sv; :vsplit<CR>
+" フォーカスを持つエディタタブを他のタブ分割グループに移動
+nnoremap so :action MoveEditorToOppositeTabGroup<CR>
