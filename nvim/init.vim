@@ -195,7 +195,34 @@ command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
 " 常にインサートモードでTerminalを開く
 autocmd TermOpen * startinsert
 
-" dein------------------------------------------------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""
+" 定義ジャンプをするためのtagsファイル自動生成 "
+""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pid = getpid()
+let g:tag_file_path = "/tmp/" . g:pid . "_tags"
+function! _CtagsUpdate()
+  exe '!ctags -R -f '.g:tag_file_path.' `pwd` &'
+  exe 'set tags='.g:tag_file_path
+endfunction
+command! CtagsUpdate call _CtagsUpdate()
+
+function! _CtagsRemove()
+  exe '!rm '.g:tag_file_path
+endfunction
+command! CtagsRemove call _CtagsRemove()
+
+let current_path = expand("%:p")
+let match_idx = match(current_path, "/PROJECTS")
+if match_idx != -1
+  autocmd VimEnter * silent! :CtagsUpdate
+  autocmd BufWrite * silent! :CtagsUpdate
+  autocmd VimLeave * silent! :CtagsRemove
+endif
+
+"""""""""""""""""""""""""
+" Dein (プラグイン管理) "
+"""""""""""""""""""""""""
 " Required:
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
