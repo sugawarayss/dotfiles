@@ -1,0 +1,60 @@
+# main view の左端にコミットIDを表示する
+set main-view = id date author:email-user commit-title:graph=yes,refs=yes
+
+# blame view の行数表示をON, intervalを1 にする
+set blame-view = date: default author:email-user id:yes,color line-number:yes,interval=1 text
+
+# Pager系の行数表示をON, intervalを1 にする(default: line-number:no,interval=5)
+set pager-view = line-number:yes,interval=1 text
+set stage-view = line-number:yes,interval=1 text
+set log-view = line-number:yes,interval=1 text
+set blob-view = line-number:yes,interval=1 text
+set diff-view = line-number:yes,interval=1 text:yes,commit-title-overflow=no
+
+# 検索時に大文字小文字を無視する(default: false)
+set ignore-case = true
+
+# カラー設定
+# diff-view で境界が見やすくなるように変更
+color diff-header black magenta
+color diff-chunk  black   white
+
+###########################
+# 各種 Git コマンド割当て #
+###########################
+# F でfetch(default: :toggle file-name / :toggle commit-title-refs)
+bind generic F  ?git fetch %(remote)
+bind main    F  ?git fetch %(remote)
+
+# Alt-f で :toggle file-name / :toggle commit-title-refs
+bind generic <Esc>f :toggle file-name
+bind main    <Esc>f :toggle commit-title-refs
+
+# U で pull
+bind generic U      ?git pull %(remote)
+
+# P で remote に push
+bind generic P      ?git push -u %(remote) %(repo:head)
+
+##############
+# GitHub連携 #
+##############
+# ; で GitHub の該当コミットを開く ※要 hub インストール
+bind main    ;      @hub browse -- commit/%(commit)
+bind blame   ;      @hub browse -- commit/%(commit)
+bind diff    ;      @hub browse -- commit/%(commit)
+
+# ; で GitHub の該当ページを開く
+bind tree    ;      @hub browse -- blob/%(branch)/%(file)
+bind blob    ;      @hub browse -- blob/%(branch)/%(file)
+bind grep    ;      @hub browse -- blob/%(branch)/%(file)
+
+# Alt-; で GitHub の指定ブランチの該当ページを開く
+bind tree    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
+bind blob    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
+bind grep    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
+
+# w で GitHub の該当ブランチの Pull Request 作成ページを開く ※要 hub インストール
+bind main    w      @hub browse -- compare/%(branch)?expand=1
+bind diff    w      @hub browse -- compare/%(branch)?expand=1
+bind refs    w      @hub browse -- compare/%(branch)?expand=1
