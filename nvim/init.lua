@@ -1,0 +1,11 @@
+require("plugins.setup")
+require("base")
+require("keymaps")
+require("options")
+
+require("plugins.vscode_dark")
+require("plugins.fern")
+require("plugins.fern-renderer")
+require("plugins.telescope")
+require("plugins.coc")
+require("plugins.todo-comments")
