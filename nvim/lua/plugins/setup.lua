@@ -60,7 +60,13 @@ return packer.startup(function(use)
     use {"folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim"  }
 
     -- インデントを可視化するプラグイン
-    use "Yggdroot/indentLine"
+    use "lukas-reineke/indent-blankline.nvim"
+
+    -- 括弧を自動で閉じるプラグイン
+    use "windwp/nvim-autopairs"
+
+    -- コードとテストコードのファイルを行き来できるプラグイン
+    use "rgroli/other.nvim"
 
     -- 囲う系の操作を便利にするプラグイン
     use "tpope/vim-surround"
