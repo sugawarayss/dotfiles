@@ -35,7 +35,7 @@ return packer.startup(function(use)
     use "wbthomason/packer.nvim"
 
     -- vscode color scheme
-    use "tomasiser/vim-code-dark"
+    use ({ 'projekt0n/github-nvim-theme' })
 
     -- filer plugin
     use "lambdalisue/fern.vim"
@@ -84,6 +84,9 @@ return packer.startup(function(use)
     use {"neoclide/coc.nvim", branch = 'release'}
 
     use "rktjmp/lush.nvim"
+
+    -- inlineにgitblame等を表示するプラグイン
+    use {'lewis6991/gitsigns.nvim', tag = 'release'}
 
     if PACKER_BOOTSTRAP then
         require("packer").sync()
