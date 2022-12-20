@@ -46,6 +46,9 @@ return packer.startup(function(use)
     -- display git status in filer
     use "lambdalisue/fern-git-status.vim"
 
+    -- Terminal Plugin
+    use "kassio/neoterm"
+
     -- use deno
     use "vim-denops/denops.vim"
 
@@ -70,6 +73,9 @@ return packer.startup(function(use)
 
     -- 囲う系の操作を便利にするプラグイン
     use "tpope/vim-surround"
+
+    -- markdownをプレビューできるプラグイン
+    use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]()  end}
 
     -- syntax highlight
     use "nvim-treesitter/nvim-treesitter"
