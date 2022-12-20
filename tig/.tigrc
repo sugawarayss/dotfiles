@@ -2,7 +2,7 @@
 set main-view = id date author:email-user commit-title:graph=yes,refs=yes
 
 # blame view の行数表示をON, intervalを1 にする
-set blame-view = date: default author:email-user id:yes,color line-number:yes,interval=1 text
+set blame-view = date:default author:email-user id:yes,color line-number:yes,interval=1 text
 
 # Pager系の行数表示をON, intervalを1 にする(default: line-number:no,interval=5)
 set pager-view = line-number:yes,interval=1 text
