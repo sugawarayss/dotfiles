@@ -9,9 +9,11 @@ this repository is my
 
 - GIT commit template file 
 
-  template file of git commit message.
+  - template file of git commit message.
+  - global ignore file
 
-  deploy to `$HOME/.commit_template`
+  deploy to `$HOME/.config/git/.commit_template`
+  deploy to `$HOME/.config/git/ignore`
 
 - NEOVIM setting files 
 
@@ -32,7 +34,19 @@ this repository is my
   Raycast is launcher app for MacOS
   this repository include user snippets definitions
 
-- INTELLIJ
+- IntelliJ IDEA
+
+- tig
+
+  - .tigrc : tig setting file
+  
+      deploy to `$HOME/.tigrc`
+
+- starship
+
+  - starship.toml : starship setting file
+
+    deploy to `$HOME/.config/starship.toml`
 
   file
 ## setup
