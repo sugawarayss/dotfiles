@@ -89,6 +89,8 @@ return packer.startup(function(use)
 
     -- ステータスバーに色付けして表示するプラグイン
     use "itchyny/lightline.vim"
+    -- ステータスバーにgitbranchを表示するプラグイン
+    use "itchyny/vim-gitbranch"
 
     -- coc-vimと連携して関数や変数へジャンプできるプラグイン
     use "liuchengxu/vista.vim"
