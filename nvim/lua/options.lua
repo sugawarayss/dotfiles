@@ -38,7 +38,7 @@ local options = {
     background = "dark",
     scrolloff = 8,
     sidescrolloff = 8,
-    guifont = "monospace:h17",
+    guifont = "Hack Nerd Font:h20",
     splitbelow = false, -- オンのとき、ウィンドウを横分割すると新しいウィンドウはカレントウィンドウの下に開かれる
     splitright = false, -- オンのとき、ウィンドウを縦分割すると新しいウィンドウはカレントウィンドウの右に開かれる
 }
