@@ -1,9 +1,4 @@
 vim.cmd([[
-augroup fern-settings
-  autocmd!
-  autocmd FileType fern call s:fern_settings()
-augroup END
-
 function! s:fern_settings() abort
   nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
   nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
