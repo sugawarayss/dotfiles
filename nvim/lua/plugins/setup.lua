@@ -45,6 +45,8 @@ return packer.startup(function(use)
     use "lambdalisue/fern-renderer-nerdfont.vim"
     -- display git status in filer
     use "lambdalisue/fern-git-status.vim"
+    -- Fern上でファイルのプレビューを表示するプラグイン
+    use "yuki-yano/fern-preview.vim"
 
     -- Terminal Plugin
     use "kassio/neoterm"
