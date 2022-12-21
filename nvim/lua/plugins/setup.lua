@@ -70,6 +70,8 @@ return packer.startup(function(use)
     -- 括弧を自動で閉じるプラグイン
     use "windwp/nvim-autopairs"
 
+    use "andymass/vim-matchup"
+
     -- コードとテストコードのファイルを行き来できるプラグイン
     use "rgroli/other.nvim"
 
