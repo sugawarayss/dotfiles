@@ -58,7 +58,7 @@ keymap("i", "jk", "<ESC>", opts)
 
 -- 検索結果を画面中央に持ってくる
 keymap("n", "n", "nzz", opts)
-keymap("n", "N", "Nzz",  opts)
+keymap("n", "N", "Nzz", opts)
 keymap("n", "*", "*zz", opts)
 keymap("n", "#", "#zz", opts)
 keymap("n", "g*", "g*zz", opts)

@@ -4,7 +4,18 @@ local opts = {silent = true, noremap = true, expr = true, replace_keycodes = fal
 vim.g.coc_node_path = os.getenv("HOME") .. "/.asdf/shims/node"
 --vim.g.coc_enable_locationlist = 1
 vim.g.coc_global_extensions = {
-    "coc-docker", "coc-diagnostic", "coc-pyright", "coc-json", "coc-syntax"
+    "coc-docker",        -- https://www.npmjs.com/package/coc-docker
+    "coc-diagnostic",    -- https://www.npmjs.com/package/coc-diagnostic
+    "coc-pyright",       -- https://www.npmjs.com/package/coc-pyright
+    "coc-python",        -- https://www.npmjs.com/package/coc-python
+    "coc-go",            -- https://www.npmjs.com/package/coc-go
+    "coc-rust-analyzer", -- https://www.npmjs.com/package/coc-rust-analyzer
+    "coc-lua",           -- https://www.npmjs.com/package/coc-lua
+    "coc-json",          -- https://www.npmjs.com/package/coc-json
+    "coc-toml",          -- https://www.npmjs.com/package/coc-toml
+    "coc-yaml",          -- https://www.npmjs.com/package/coc-yaml
+    "coc-syntax",        -- https://www.npmjs.com/package/coc-syntax
+    "coc-spell-checker", -- https://www.npmjs.com/package/coc-spell-checker
 }
 
 -- Autocomplete
