@@ -34,8 +34,8 @@ return packer.startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
-    -- vscode color scheme
-    use ({ 'projekt0n/github-nvim-theme' })
+    -- color scheme "material"
+    use "marko-cerovac/material.nvim"
 
     -- filer plugin
     use "lambdalisue/fern.vim"
@@ -48,9 +48,11 @@ return packer.startup(function(use)
     -- Fern上でファイルのプレビューを表示するプラグイン
     use "yuki-yano/fern-preview.vim"
 
-    -- Terminal Plugin
-    use "kassio/neoterm"
+    -- floating terminal
+    use "voldikss/vim-floaterm"
 
+    -- display vim command line to floating window
+    use {"VonHeikemen/fine-cmdline.nvim", requires = "MunifTanjim/nui.nvim"}
     -- use deno
     use "vim-denops/denops.vim"
 
@@ -104,7 +106,7 @@ return packer.startup(function(use)
     use "rktjmp/lush.nvim"
 
     -- inlineにgitblame等を表示するプラグイン
-    use {'lewis6991/gitsigns.nvim', tag = 'release'}
+    use "lewis6991/gitsigns.nvim"
 
     if PACKER_BOOTSTRAP then
         require("packer").sync()
