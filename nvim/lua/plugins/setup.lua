@@ -60,6 +60,9 @@ return packer.startup(function(use)
     use "nvim-lua/plenary.nvim"
     -- Fuzzy Finder
     use "nvim-telescope/telescope.nvim"
+    -- telescope extention coc.nvim
+    use "fannheyward/telescope-coc.nvim"
+
     -- 曖昧検索結果にアイコンを表示できるプラグイン
     use "kyazdani42/nvim-web-devicons"
 
