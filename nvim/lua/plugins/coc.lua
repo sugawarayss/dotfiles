@@ -5,7 +5,24 @@ local opts2 = {noremap = true, expr = true, replace_keycodes = false}
 vim.g.coc_node_path = os.getenv("HOME") .. "/.asdf/shims/node"
 --vim.g.coc_enable_locationlist = 1
 vim.g.coc_global_extensions = {
-    "coc-docker", "coc-diagnostic", "coc-json", "coc-syntax", "coc-rust-analyzer", "coc-markdownlint"
+    "coc-spell-checker",
+    "coc-highlight",
+    "coc-floaterm",
+    "coc-lists",
+    "coc-docker",
+    "coc-diagnostic",
+    "coc-git",
+    "coc-xml",
+    "coc-yaml",
+    "coc-toml",
+    "coc-json",
+    "coc-syntax",
+    "coc-pyright",
+    "coc-go",
+    "coc-rust-analyzer",
+    "coc-deno",
+    "coc-markdown-preview-enhanced",
+    "coc-markdownlint",
 }
 
 -- Autocomplete
