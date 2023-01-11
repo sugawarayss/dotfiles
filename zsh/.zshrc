@@ -1,4 +1,3 @@
-############
 # require  #
 ############
 # install homebrew
@@ -153,18 +152,26 @@ function peco-get-destination-from-cdr() {
 }
 
 function peco-cdr() {
-  local destination="$(peco-get-destination-from-cdr)"
-  if [ -n "$destination" ]; then
-    BUFFER="cd $destination"
-    zle accept-line
+  if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    local destination="$(peco-get-destination-from-cdr)"
+    if [ -n "$destination" ]; then
+      BUFFER="cd $destination"
+      zle accept-line
+    else
+      zle reset-prompt
+    fi
   else
-    zle reset-prompt
+    cdr -l | awk '{print $2}' | peco | cd
   fi
 }
 # cdr with peco はCtrl+Eに割り当てる
 zle -N peco-cdr
 bindkey '^E' peco-cdr
 
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+  alias phis='peco-select-history'
+  alias pcdr='peco-cdr'
+fi
 ###############
 # Aliasの設定 #
 ###############
@@ -187,12 +194,12 @@ fi
 # lsをexaで上書き
 if type "exa" > /dev/null 2>&1; then
   alias oldls="/bin/ls"
-  alias ls='exa --git'
-  alias la='exa -lahUmB'
-  alias ll="exa -lhUmB"
-  alias lla="exa -lahUmB"
-  alias lt="exa -T"
-  alias ld="exa -lDhUmB"
+  alias ls='exa -@ --git'
+  alias la='exa --long --all --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first'
+  alias ll='exa --long --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first'
+  alias lla="exa --long --all --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first"
+  alias lt="exa -T --icons"
+  alias ld="exa --long --only-dirs --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first"
 else
   alias ls="ls -Gh"
   alias la="ls -aGh"
