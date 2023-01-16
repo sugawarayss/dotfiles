@@ -64,58 +64,54 @@ set -o vi
 ##########
 # PROMPT #
 ##########
-if type starship > /dev/null 2>&1; then
-  # Starshipがインストールされている場合はPROMPTのセットアップはしない
-else
-  if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    # vcs_infoロード
-    autoload -Uz vcs_info
-    # PROMPT変数内で変数参照する
-    setopt prompt_subst
-    # vcsの表示
-    zstyle ':vcs_info:*' enable git svn hg bzr
-    zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' stagedstr "+"
-    zstyle ':vcs_info:*' unstagedstr "*"
-    zstyle ':vcs_info:*' formats '(%b%c%u)'
-    zstyle ':vcs_info:*' actionformats '(%b(%a)%c%u)'
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+  # vcs_infoロード
+  autoload -Uz vcs_info
+  # PROMPT変数内で変数参照する
+  setopt prompt_subst
+  # vcsの表示
+  zstyle ':vcs_info:*' enable git svn hg bzr
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' stagedstr "+"
+  zstyle ':vcs_info:*' unstagedstr "*"
+  zstyle ':vcs_info:*' formats '(%b%c%u)'
+  zstyle ':vcs_info:*' actionformats '(%b(%a)%c%u)'
 
-    add_newline() {
-      if [[ -z $PS1_NEWLINE_LOGIN ]]; then
-        PS1_NEWLINE_LOGIN=true
-      else
-        printf '\n'
-      fi
-    }
-    # プロンプト表示直前にvcs_info呼び出し
-    # コマンド実行結果後に改行を入れて見やすくする
-    precmd() {
-      psvar=()
-      LANG=en_US.UTF-8 vcs_info
-      [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-      # アクティブなGCPプロジェクトを表示
-      #    [[ -n "$(gcloud-current)" ]] && psvar[2]="$(gcloud-current)"
-          add_newline
-    }
+  add_newline() {
+    if [[ -z $PS1_NEWLINE_LOGIN ]]; then
+      PS1_NEWLINE_LOGIN=true
+    else
+      printf '\n'
+    fi
+  }
+  # プロンプト表示直前にvcs_info呼び出し
+  # コマンド実行結果後に改行を入れて見やすくする
+  precmd() {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    # アクティブなGCPプロジェクトを表示
+    #    [[ -n "$(gcloud-current)" ]] && psvar[2]="$(gcloud-current)"
+        add_newline
+  }
 
-    # 右側にはカレントディレクトリのパスを表示
-    RPROMPT='[%F{green}%d%f]'
+  # 右側にはカレントディレクトリのパスを表示
+  RPROMPT='[%F{green}%d%f]'
 
-    # vimモードの現在モードをプロンプトに表示
-    function zle-line-init zle-keymap-select {
-      case $KEYMAP in
-        vicmd)
-          PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{cyan}NORMAL%f] : %1(v|%F{red}%1v%f|) $ "
-          ;;
-        main|viins)
-          PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{magenta}INSERT%f] : %1(v|%F{red}%1v%f|) $ "
-          ;;
-      esac
-      zle reset-prompt
-    }
-    zle -N zle-line-init
-    zle -N zle-keymap-select
-  fi
+  # vimモードの現在モードをプロンプトに表示
+  function zle-line-init zle-keymap-select {
+    case $KEYMAP in
+      vicmd)
+        PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{cyan}NORMAL%f] : %1(v|%F{red}%1v%f|) $ "
+        ;;
+      main|viins)
+        PROMPT="%{${fg[green]}%}%n%{${reset_color}%}@%F{blue}%m%f [%F{magenta}INSERT%f] : %1(v|%F{red}%1v%f|) $ "
+        ;;
+    esac
+    zle reset-prompt
+  }
+  zle -N zle-line-init
+  zle -N zle-keymap-select
 fi
 
 ###############
@@ -136,7 +132,7 @@ fi
 # pecoコマンド #
 ################
 function peco-select-history() {
-  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+  BUFFER=$(\history -n -r 1 | gum filter --value="$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
@@ -148,7 +144,7 @@ bindkey '^R' peco-select-history
 function peco-get-destination-from-cdr() {
   cdr -l | \
   oldsed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  peco --query "$LBUFFER"
+  gum filter --value="$LBUFFER"
 }
 
 function peco-cdr() {
@@ -161,7 +157,7 @@ function peco-cdr() {
       zle reset-prompt
     fi
   else
-    cdr -l | awk '{print $2}' | peco | cd
+    cdr -l | awk '{print $2}' | gum filter | cd
   fi
 }
 # cdr with peco はCtrl+Eに割り当てる
@@ -183,12 +179,13 @@ alias brew="PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/b
 
 # homebrewで入れたctagsを使うためのalias
 alias ctags="$(brew --prefix)/bin/ctags"
+# brew listから選択してuninstall
 
 # catをbatで上書き
 if type "bat" > /dev/null 2>&1; then
   alias oldcat="/bin/cat"
   alias cat="bat"
-  alias catl='(){bat $1 -l $(bat -L | peco | cut -d ":" -f 1)}'
+  alias catl='(){bat $1 -l $(bat -L | gum filter | cut -d ":" -f 1)}'
 fi
 
 # lsをexaで上書き
@@ -218,9 +215,9 @@ fi
 if type "fd" > /dev/null 2>&1; then
   alias oldfind="/usr/bin/find"
   alias find='fd'
-  alias pcd='cd $(fd -t d | peco)'
+  alias pcd='cd $(fd -t d | gum filter --prompt="cd to ... >")'
 else
-  alias pcd='cd $(find . -maxdepth 1 -type d | peco)'
+  alias pcd='cd $(find . --maxdepth 1 --type d | gum filter --prompt="cd to...>")'
 fi
 
 # sedをsdで上書き
@@ -246,20 +243,18 @@ alias lsusb="system_profiler SPUSBDataType"
 
 # docker系のalias
 # pecoを使って調べたdockerコンテナに入る
-alias de='docker exec -it $(docker ps | peco | cut -d " " -f 1) /bin/bash'
+alias de='docker exec -it $(docker ps | gum filter --prompt="SELECT CONTAINER YOU WANT INTO >" | cut -d " " -f 1) /bin/bash'
 
 # Git/Github系のalias
-# ブランチを簡単切り替え。 使用: git checkout lb
-alias -g lb='$(git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sd "^\*| " "")'
 # ローカルにあるgitリポジトリを選択してpathに移動
-alias repo='cd $(ghq list -p | peco)'
+alias repo='cd $(ghq list -p | gum filter --prompt="SELECT REPOSITORY >")'
 # 選択したリモートリポジトリをGithubで開く
-alias remote='$(hub browse $(ghq list | peco))'
+alias remote='$(hub browse $(ghq list | gum filter --prompt="SELECT REPOSITORY >"))'
 
 # AWS CLI系のalias
 alias profiles='aws configure list-profiles'
 # aws cliでprofileを楽に指定する
-alias -g lp='$(aws configure list-profiles | peco --prompt "AWS PROFILE>")'
+alias -g lp='$(aws configure list-profiles | gum filter --prompt="AWS PROFILE >")'
 alias tailcwlog='tail-cloudwatch-log'
 alias scan='scan-dynamodb-table'
 alias lss3='file-list-s3'
@@ -269,7 +264,7 @@ alias dls3="download-s3"
 alias gcswpj="gx"
 
 # adb系のalias
-alias -g dv='$(adb devices | tail -n +2 | peco --prompt "SELECT SIRIAL NO>" | head -n 1 | sd "\s+\w+$" "")'
+alias -g dv='$(adb devices | tail -n +2 | gum filter --prompt="SELECT SIRIAL NO >" | head -n 1 | sd "\s+\w+$" "")'
 
 ###########################
 # zsh-completions         #
@@ -335,11 +330,11 @@ function gx-complete() {
   _values $(gcloud config configurations list | awk '{print $1}')
 }
 
-# gcloudでactiveなprojectをpecoで選択して切り替える関数
+# gcloudでactiveなprojectをgum filterで選択して切り替える関数
 function gx() {
   name="$1"
   if [ -z "$name" ]; then
-    line=$(gcloud config configurations list | peco --prompt "SELECT PROJECT>")
+    line=$(gcloud config configurations list | gum filter --prompt="SELECT GCP PROJECT >")
     name=$(echo "${line}" | awk '{print $1}')
   else
     line=$(gcloud config configurations list | grep "$name")
@@ -363,21 +358,21 @@ function gcloud-current() {
 # AWS CLI関連 #
 ###############
 function ssh2ec2() {
-  local profile=$(aws configure list-profiles | peco --prompt="SELECT profile > " --query "$LBUFFER")
+  local profile=$(aws configure list-profiles | gum filter --prompt="SELECT profile > " --query "$LBUFFER")
   if [[ ${profile} =~ liftspot ]]; then
     if [[ ${profile} =~ stg ]]; then
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "stg")
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | gum filter --prompt="SELECT file of ${profile} > " --query "stg")
     else
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "prd")
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | gum filter --prompt="SELECT file of ${profile} > " --query "prd")
     fi
   else
-    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | peco --prompt="SELECT file of ${profile} > ")
+    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | gum filter --prompt="SELECT file of ${profile} > ")
   fi
   # local jq_option="\".Reservations[].Instances[] | [[.Tags[] | select(.Key == \"Name\").Value][0], \"ssh ec2-user@\" + .NetworkInterfaces[].Association.PublicIp + \" -i ${pemfile}\"] | @tsv' | column -t -s \"\`printf '\t'\`\""
   local host_ip="$(aws ec2 describe-instances --profile ${profile}\
   | jq -r '.Reservations[].Instances[] | [[.Tags[] | select(.Key == "Name").Value][0], .NetworkInterfaces[].Association.PublicIp] | @tsv'\
   | column -t -s "`printf '\t'`"\
-  | peco --prompt="SELECT host > "\
+  | gum filter --prompt="SELECT host > "\
   | grep -o -e '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" # GNU grepの場合は grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'とすること
   if [ -n "$host_ip" ]; then
     echo $BUFFER
@@ -391,8 +386,8 @@ bindkey '^L' ssh2ec2
 
 function tail-cloudwatch-log() {
   # aws logs tail ${logGroupName} [--filter {filter_strings}] [--since {10m | 1h}]
-  local profile="$(aws configure list-profiles | peco)"
-  local logGroup=$(aws logs describe-log-groups --profile ${profile} | jq ".logGroups[].logGroupName" | peco | sd "\"" "")
+  local profile='$(aws configure list-profiles | gum filter --prompt="SELECT profile >")'
+  local logGroup=$(aws logs describe-log-groups --profile ${profile} | jq ".logGroups[].logGroupName" | gum filter | sd "\"" "")
     if [ $# = 0 ]; then
       print -z "aws logs tail ${logGroup}"
     else
@@ -402,16 +397,16 @@ function tail-cloudwatch-log() {
 
 # 指定DynamoDBテーブルをscanする
 function scan-dynamodb-table() {
-  local profile="$(aws configure list-profiles | peco)"
-  local table="$(aws dynamodb list-tables --profile ${profile} | jq ".TableNames[]" | sd "\"" "" | peco)"
+  local profile="$(aws configure list-profiles | gum filter)"
+  local table='$(aws dynamodb list-tables --profile ${profile} | jq ".TableNames[]" | sd "\"" "" | gum filter --prompt="SCAN TABLE >")'
   print -z "aws dynamodb scan --table-name $table --profile $profile"
 }
 
 # 指定バケットをls -lRするやつ
 function file-list-s3(){
   # aws s3 ls s3://\${bucket}[/prefix/] --profile \${profile} --recursive
-  local profile="$(aws configure list-profiles | peco)"
-  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | peco)"
+  local profile="$(aws configure list-profiles | gum filter)"
+  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | gum filter)"
   if [ $# = 0 ]; then
     print -z "aws s3 ls s3://$bucket --profile $profile --recursive"
   else
@@ -421,9 +416,9 @@ function file-list-s3(){
 
 # 指定のファイルをローカルにDLするやつ
 function download-s3(){
-  local profile="$(aws configure list-profiles | peco)"
-  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | peco)"
-  local file="$(aws s3 ls s3://$bucket --profile $profile --recursive | sd " +" " " | cut -d " " -f 4 | peco)"
+  local profile="$(aws configure list-profiles | gum filter)"
+  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | gum filter)"
+  local file="$(aws s3 ls s3://$bucket --profile $profile --recursive | sd " +" " " | cut -d " " -f 4 | gum filter)"
   if [ $# = 0 ]; then
     print -z "aws s3 cp s3://$bucket/$file ./"
   else
@@ -433,4 +428,5 @@ function download-s3(){
 
 # asdf用にパスを通す
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+# starshipを起動
 eval "$(starship init zsh)"
