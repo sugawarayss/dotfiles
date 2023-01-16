@@ -58,7 +58,7 @@ homebrew:
 
 starship:
 	@echo "starship --- start"
-	cp -f ${PROJECT_DIR}/starship/starship.toml $(HOME)/${CONFIG_DIR}/starship.toml
+	cp -f ${PROJECT_DIR}/starship/starship* $(HOME)/${CONFIG_DIR}/starship*
 	@echo "starship --- finished"
 
 warp:

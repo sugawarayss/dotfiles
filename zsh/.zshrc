@@ -64,7 +64,7 @@ set -o vi
 ##########
 # PROMPT #
 ##########
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+if [[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ $TERM_PROGRAM != "iTerm.app" ]]; then
   # vcs_infoロード
   autoload -Uz vcs_info
   # PROMPT変数内で変数参照する

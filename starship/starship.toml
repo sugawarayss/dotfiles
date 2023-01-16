@@ -7,13 +7,12 @@ scan_timeout = 10
 # 左プロンプト
 format = """
 [┌───────────────────>](bold green) $time $cmd_duration
-[│](bold green)$username$hostname$localip$singularity$kubernetes$docker_context$package
-[│](bold green)$jobs$container$directory
+[│](bold green)$username$hostname$localip$singularity$kubernetes$docker_context$package$jobs$container
 [│](bold green)$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
 
 # 右プロンプト
-#right_format = '\[[$directory](bold green)\]'
+right_format = '\[[$directory](bold green)\]'
 
 [character]
 # コマンド成功時
@@ -89,7 +88,7 @@ symbol = " "
 format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [username]
-style_user = "white bold"
+style_user = "#ffffff bold"
 style_root = "black bold"
 format = "[$user🌱]($style)"
 disabled = false
