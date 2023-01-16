@@ -1,39 +1,44 @@
 # 空行追加
 add_newline = true
 
-# タイムアウト時間
+# タイムアウト時間(millisec)
 scan_timeout = 10
 
 # 左プロンプト
 format = """
-$username$hostname$localip\
-$singularity$kubernetes$docker_context\
-$git_branch$git_commit$git_state$git_status\
-$package
-$python$ruby$nodejs$deno$dart$rust$golang\
-$kotlin$java$dotnet$c$php$perl$swift$julia$haskell\
-$erlang$elixir$scala$rlang\
-$lua$ocaml$nim$elm$crystal\
-$aws$gcloud$azure\
-$cmd_duration\
-$line_break\
-$jobs\
-$container\
-$character"""
+[┌───────────────────>](bold green) $time $cmd_duration
+[│](bold green)$username$hostname$localip$singularity$kubernetes$docker_context$package
+[│](bold green)$jobs$container$directory
+[│](bold green)$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
+[└─](bold green)$character"""
 
 # 右プロンプト
-right_format = '\[[$directory](bold green)\]'
+#right_format = '\[[$directory](bold green)\]'
 
 [character]
 # コマンド成功時
-success_symbol = "[▶](bold green)"
+success_symbol = "[>](bold green)"
 # コマンド失敗時
-error_symbol = "[▶](bold red)"
+error_symbol = "[>](bold red)"
+# vimノーマルモード時
+vimcmd_symbol = "[<](bold green)"
 
 [directory]
+format = '[$path]($style)[$read_only]($read_only_style)'
+style = 'bold cyan'
 truncation_length = 100
 truncate_to_repo = false
 truncation_symbol = "…/"
+
+[time]
+disabled = false
+format = '[$time](bold blue)'
+time_format = '%Y-%m-%d %T'
+
+[localip]
+ssh_only = false
+format = '@[$localipv4](bold red)'
+disabled = false
 
 [aws]
 # AWSの表示は無効化
@@ -43,7 +48,7 @@ style = "bold blue"
 disabled = true
 
 [aws.region_aliases]
-ap-northease-1 = "jp"
+ap-northeast-1 = "jp"
 
 [gcloud]
 # GCPの表示は無効化
@@ -58,6 +63,9 @@ format = "[$output]($style)"
 [docker_context]
 format = " [$symbol $context](blue bold)"
 symbol = "🐳 "
+
+[python]
+python_binary = ['./.venv/bin/python', 'python', 'python3', 'python2']
 
 [git_state]
 cherry_pick = "🍒"
@@ -78,10 +86,11 @@ deleted = "🗑"
 [git_branch]
 # Gitブランチの表示アイコン
 symbol = " "
+format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [username]
 style_user = "white bold"
 style_root = "black bold"
-format = "[$user🌱]($style) "
+format = "[$user🌱]($style)"
 disabled = false
 show_always = true
