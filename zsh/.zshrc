@@ -64,7 +64,7 @@ set -o vi
 ##########
 # PROMPT #
 ##########
-if [[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ $TERM_PROGRAM != "iTerm.app" ]]; then
+if [[ $TERM_PROGRAM != "tmux" ]] && [[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ $TERM_PROGRAM != "iTerm.app" ]] && [[ $TERM_PROGRAM != "Jetbrains.intellij" ]] && [[ $TERM_PROGRAM != "Jetbrains.Fleet" ]] && [[ $TERM_PROGRAM != "vscode" ]]; then
   # vcs_infoロード
   autoload -Uz vcs_info
   # PROMPT変数内で変数参照する
@@ -358,21 +358,21 @@ function gcloud-current() {
 # AWS CLI関連 #
 ###############
 function ssh2ec2() {
-  local profile=$(aws configure list-profiles | gum filter --prompt="SELECT profile > " --query "$LBUFFER")
+  local profile=$(aws configure list-profiles | peco --prompt="SELECT profile > " --query "$LBUFFER")
   if [[ ${profile} =~ liftspot ]]; then
     if [[ ${profile} =~ stg ]]; then
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | gum filter --prompt="SELECT file of ${profile} > " --query "stg")
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "stg")
     else
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | gum filter --prompt="SELECT file of ${profile} > " --query "prd")
+      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "prd")
     fi
   else
-    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | gum filter --prompt="SELECT file of ${profile} > ")
+    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | peco --prompt="SELECT file of ${profile} > ")
   fi
   # local jq_option="\".Reservations[].Instances[] | [[.Tags[] | select(.Key == \"Name\").Value][0], \"ssh ec2-user@\" + .NetworkInterfaces[].Association.PublicIp + \" -i ${pemfile}\"] | @tsv' | column -t -s \"\`printf '\t'\`\""
   local host_ip="$(aws ec2 describe-instances --profile ${profile}\
   | jq -r '.Reservations[].Instances[] | [[.Tags[] | select(.Key == "Name").Value][0], .NetworkInterfaces[].Association.PublicIp] | @tsv'\
   | column -t -s "`printf '\t'`"\
-  | gum filter --prompt="SELECT host > "\
+  | peco --prompt="SELECT host > "\
   | grep -o -e '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" # GNU grepの場合は grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'とすること
   if [ -n "$host_ip" ]; then
     echo $BUFFER
