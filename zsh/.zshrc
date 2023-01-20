@@ -64,7 +64,9 @@ set -o vi
 ##########
 # PROMPT #
 ##########
-if [[ $TERM_PROGRAM != "tmux" ]] && [[ $TERM_PROGRAM != "WarpTerminal" ]] && [[ $TERM_PROGRAM != "iTerm.app" ]] && [[ $TERM_PROGRAM != "Jetbrains.intellij" ]] && [[ $TERM_PROGRAM != "Jetbrains.Fleet" ]] && [[ $TERM_PROGRAM != "vscode" ]]; then
+if type starship > /dev/null 2>&1; then
+  # starshipがinstall済ならPROMPTのセットアップはしない
+else
   # vcs_infoロード
   autoload -Uz vcs_info
   # PROMPT変数内で変数参照する
