@@ -1,4 +1,4 @@
-.PHONY: zsh vim homebrew git warp all
+.PHONY: zsh vim brew_restore brew_dump git warp all
 # GLOBALS
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
@@ -20,57 +20,72 @@ define dir-exist
 	@test $1 || echo $1 does not exist
 endef
 
+tig:
+	@echo "tigrc --- start"
+	ln -s ${PROJECT_DIR}/HOME/.tigrc ~/.tigrc
+	@echo "tigrc --- end"
+	ls -l ~/.tigrc
+
 zsh:
 	@echo "zshrc deploy --- start"
 	$(call file-exist, $(HOME)/${ZSHRC})
-	cp -f ${PROJECT_DIR}/zsh/${ZSHRC} $(HOME)/${ZSHRC}
+	ln -s ${PROJECT_DIR}/HOME/${ZSHRC} $(HOME)/${ZSHRC}
+	ls -l $(HOME)/${ZSHRC}
 	@echo "zshrc deploy --- finished"
 
 	@echo "zprofile deploy --- start"
 	$(call file-exist, $(HOME)/${ZPROFILE})
-	cp -f ${PROJECT_DIR}/zsh/${ZPROFILE} $(HOME)/${ZPROFILE}
+	ln -s ${PROJECT_DIR}/HOME/${ZPROFILE} $(HOME)/${ZPROFILE}
 	@echo "zprofile deploy --- finished"
-
+	ls -l $(HOME)/${ZPROFILE}
 	@echo "you should run \`source $(HOME)/${ZSHRC} && source $(HOME)/${ZPROFILE}\`"
 
 git:
 	@echo "git global ignore deploy --- start"
-	cp -f ${PROJECT_DIR}/git/${IGNORE_FILE} $(HOME)/${CONFIG_DIR}/git/${IGNORE_FILE}
+	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/git/${IGNORE_FILE} $(HOME)/${CONFIG_DIR}/git/${IGNORE_FILE}
+	ls -l ~/${CONFIG_DIR}/git/${IGNORE_FILE}
 	@echo "git global ignore deploy --- finished"
 
 	@echo "git commit_template deploy --- start"
 	$(call file-exist, $(HOME)/${COMMIT_TEMPLATE})
-	cp -f ${PROJECT_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
+	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
 	git config --global commit.template $(HOME)/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
+	ls -l ~/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
 	@echo "git commit_template deploy --- finished"
 
 
 vim:
 	@echo "nvim settings deploy --- start"
 	$(call dir-exist $(HOME)/${NVIM_DIR})
-	cp -r ${PROJECT_DIR}/nvim $(HOME)/.config/
+	ln -s ${PROJECT_DIR}/nvim $(HOME)/${CONFIG_DIR}/nvim
 	@echo "nvim settings deploy --- finished"
 
-homebrew:
+brew_restore:
 	@echo "brew bundle --- start"
 	brew bundle --file ${PROJECT_DIR}/homebrew/Brewfile
 	@echo "brew bundle --- finished"
 
+brew_dump:
+	@echo "brew bundle dump --- start"
+	brew bundle dump --force --file ${PROJECT_DIR}/homebrew/Brewfile
+	@echo "brew bundle dump --- end"
+
 starship:
 	@echo "starship --- start"
-	cp -f ${PROJECT_DIR}/starship/starship* $(HOME)/${CONFIG_DIR}/starship*
+	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/starship.toml $(HOME)/${CONFIG_DIR}/starship.toml
+	ls -l ~/${CONFIG_DIR}/starship.toml
 	@echo "starship --- finished"
 
 warp:
 	@echo "warp keybind deploy --- start"
 	$(call file-exist $(HOME)/${WARP_DIR}/${WARP_KEYBIND})
-	cp -i ${PROJECT_DIR}/warp/${WARP_KEYBIND} $(HOME)/.warp/
+	ln -s ${PROJECT_DIR}/warp/${WARP_KEYBIND} $(HOME)/.warp/${WARP_KEYBIND}
 	@echo "warp keybind deploy --- finished"
 
 	@echo "warp workflows deploy --- start"
 	$(call dir-exist $(HOME)/${WARP_DIR})
-	cp -r ${PROJECT_DIR}/warp/workflows $(HOME)/.warp/
+	ln -s ${PROJECT_DIR}/warp/workflows $(HOME)/.warp/workflows
 	@echo "warp workflows deploy --- finished"
 
-all: homebrew zsh git vim
+all: brew_restore zsh git vim
 	echo finished
