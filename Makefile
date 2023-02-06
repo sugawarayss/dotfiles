@@ -1,4 +1,4 @@
-.PHONY: zsh vim brew_restore brew_dump git warp all
+.PHONY: zsh vim brew_restore brew_dump git warp tig tmux ideavim all
 # GLOBALS
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
@@ -23,18 +23,28 @@ endef
 tig:
 	@echo "tigrc --- start"
 	ln -s ${PROJECT_DIR}/HOME/.tigrc ~/.tigrc
-	@echo "tigrc --- end"
-	ls -l ~/.tigrc
+	@echo "tigrc --- finished"
+	ls -l $(HOME)/.tigrc
+
+tmux:
+	@echo "tmux deploy --- start"
+	ln -s ${PROJECT_DIR}/HOME/.tmux.conf $(HOME)/.tmux.conf
+	@echo "tmux deploy --- finished"
+	ls -l $(HOME)/.tmux.conf
+
+ideavim:
+	@echo "ideavim deplot --- start"
+	ln -s ${PROJECT_DIR}/HOME/.ideavimrc $(HOME)/.ideavimrc
+	@echo "ideavim deplot --- finished"
+	ls -l $(HOME)/.ideavimrc
 
 zsh:
 	@echo "zshrc deploy --- start"
-	$(call file-exist, $(HOME)/${ZSHRC})
 	ln -s ${PROJECT_DIR}/HOME/${ZSHRC} $(HOME)/${ZSHRC}
 	ls -l $(HOME)/${ZSHRC}
 	@echo "zshrc deploy --- finished"
 
 	@echo "zprofile deploy --- start"
-	$(call file-exist, $(HOME)/${ZPROFILE})
 	ln -s ${PROJECT_DIR}/HOME/${ZPROFILE} $(HOME)/${ZPROFILE}
 	@echo "zprofile deploy --- finished"
 	ls -l $(HOME)/${ZPROFILE}
@@ -53,11 +63,10 @@ git:
 	ls -l ~/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
 	@echo "git commit_template deploy --- finished"
 
-
 vim:
 	@echo "nvim settings deploy --- start"
 	$(call dir-exist $(HOME)/${NVIM_DIR})
-	ln -s ${PROJECT_DIR}/nvim $(HOME)/${CONFIG_DIR}/nvim
+	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/nvim $(HOME)/${CONFIG_DIR}/nvim
 	@echo "nvim settings deploy --- finished"
 
 brew_restore:
@@ -78,14 +87,8 @@ starship:
 
 warp:
 	@echo "warp keybind deploy --- start"
-	$(call file-exist $(HOME)/${WARP_DIR}/${WARP_KEYBIND})
-	ln -s ${PROJECT_DIR}/warp/${WARP_KEYBIND} $(HOME)/.warp/${WARP_KEYBIND}
+	ln -s ${PROJECT_DIR}/HOME/.warp $(HOME)/.warp
 	@echo "warp keybind deploy --- finished"
 
-	@echo "warp workflows deploy --- start"
-	$(call dir-exist $(HOME)/${WARP_DIR})
-	ln -s ${PROJECT_DIR}/warp/workflows $(HOME)/.warp/workflows
-	@echo "warp workflows deploy --- finished"
-
-all: brew_restore zsh git vim
+all: brew_restore zsh git vim starship tig tmux ideavim warp
 	echo finished
