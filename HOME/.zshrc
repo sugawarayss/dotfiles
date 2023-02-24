@@ -432,3 +432,8 @@ function download-s3(){
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 # starshipを起動
 eval "$(starship init zsh)"
+# pipenv補完設定
+if type pipenv &>/dev/null; then
+  eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
+fi
+
