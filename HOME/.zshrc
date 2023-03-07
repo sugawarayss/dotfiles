@@ -249,9 +249,9 @@ alias de='docker exec -it $(docker ps | gum filter --prompt="SELECT CONTAINER YO
 
 # Git/Github系のalias
 # ローカルにあるgitリポジトリを選択してpathに移動
-alias repo='cd $(ghq list -p | gum filter --prompt="SELECT REPOSITORY >")'
+alias repo='cd $(ghq list -p | gum filter --no-fuzzy --prompt="SELECT REPOSITORY >")'
 # 選択したリモートリポジトリをGithubで開く
-alias remote='$(hub browse $(ghq list | gum filter --prompt="SELECT REPOSITORY >"))'
+alias remote='$(hub browse $(ghq list | gum filter --no-fuzzy --value=$(basename $(pwd)) --prompt="SELECT REPOSITORY >"))'
 
 # AWS CLI系のalias
 alias profiles='aws configure list-profiles'
