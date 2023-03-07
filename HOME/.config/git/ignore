@@ -8,3 +8,5 @@ node_modules/
 *$py.class
 .mypy_cache/
 __pycache__/
+hoge.py
+recreate_container.sh
