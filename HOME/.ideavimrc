@@ -6,6 +6,8 @@
 
 " ノーマルモードではIMEをオフ(効いてない可能性)
 set keep-english-in-normal
+" クリップボードを有効化
+set clipboard=unnamedplus
 
 """"""""""""""""""""""""""""""""""
 " 一般設定                       "
