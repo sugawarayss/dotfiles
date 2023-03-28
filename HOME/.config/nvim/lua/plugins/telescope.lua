@@ -2,6 +2,15 @@ local u = require("utils")
 local opt = { silent = true }
 -- Telescope
 require("telescope").setup({
+  defaults = {
+    sorting_strategy = "ascending", --検索結果を上から下に並べる
+    winblend = 5, --ウィンドウを若干半透明にする
+    file_ignore_patterns = { --検索結果に含めないファイルを指定
+      "^.git/",
+      "^node_modules/",
+      "^__pycache__/",
+    },
+  },
   extentions = {
     coc = {
       theme = "ivy",
@@ -10,6 +19,8 @@ require("telescope").setup({
   },
 })
 require("telescope").load_extension("coc")
+
+vim.g["fern#default_hidden"] = true --隠しファイルは表示する
 
 -- Ctrl+p で曖昧ファイル検索
 u.keymap("n", "<C-p>", ":Telescope find_files hidden=true theme=get_dropdown<CR>", opt)
