@@ -19,22 +19,11 @@
       },
       "pyright": {
         "enable": true,
-        "organizeimports": {
-          "provider": "isort"
-        }
       },
-      "python": {
-        "linting": {
-          "enabled": true,
-          "pylintEnabled": true
-        },
-        "formatting": {
-          "blackArgs": ["--length", "150"],
-        },
-        "sortImports": {
-          "args": ["--multi-line=3", "--trailing-comma", "--force-grid-wrap=0", "--use-parentheses", "--line-width=150"]
-        }
-      },
+      "python.venvPath": "./venv/",
+      "python.linting.enabled": true,
+      "python.formatting.blackArgs": ["--length", "150"],
+      "python.sortImports.args": ["--multi-line=3", "--trailing-comma", "--force-grid-wrap=0", "--use-parentheses", "--line-width=150"],
       "kotlin": {
         "command": "~/lsp/kotlin/server/bin/kotlin-language-server",
         "filetypes": ["kotlin"]
@@ -53,8 +42,4 @@
             "args": ["--multi-line=3", "--trailing-comma", "--force-grid-wrap=0", "--use-parentheses", "--line-width=100"]
         }
     },
-    "python.linting.enabled": true,
-    "python.formatting.blackArgs": ["--length 150"],
-    "python.sortImports.path": "isort",
-    "python.sortImports.args": ["--multi-line=3", "--trailing-comma", "--force-grid-wrap=0", "--use-parentheses", "--line-width=150"]
 }
