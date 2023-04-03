@@ -51,6 +51,8 @@ return packer.startup(function(use)
     -- floating terminal
     use "voldikss/vim-floaterm"
 
+    use "romgrk/barbar.nvim"
+
     -- display vim command line to floating window
     use {"VonHeikemen/fine-cmdline.nvim", requires = "MunifTanjim/nui.nvim"}
     -- use deno
@@ -81,7 +83,7 @@ return packer.startup(function(use)
     use "rgroli/other.nvim"
 
     -- 囲う系の操作を便利にするプラグイン
-    use "tpope/vim-surround"
+    use "kylechui/nvim-surround"
 
     -- markdownをプレビューできるプラグイン
     use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]()  end}
@@ -96,8 +98,12 @@ return packer.startup(function(use)
     --     sd    : (foo) → foo
     --     sr    : (foo) → "foo"
 
+    -- Neovim上で直接Gitに関する操作を行うプラグイン
+    use "dinhhuy258/git.nvim"
+
     -- ステータスバーに色付けして表示するプラグイン
-    use "itchyny/lightline.vim"
+    use "nvim-lualine/lualine.nvim"
+
     -- ステータスバーにgitbranchを表示するプラグイン
     use "itchyny/vim-gitbranch"
 
