@@ -1,4 +1,4 @@
-.PHONY: zsh vim brew_restore brew_dump git warp tig tmux ideavim all
+.PHONY: zsh vim brew_restore brew_dump git warp tig tmux ideavim helix all
 # GLOBALS
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
@@ -89,6 +89,11 @@ warp:
 	@echo "warp keybind deploy --- start"
 	ln -s ${PROJECT_DIR}/HOME/.warp $(HOME)/.warp
 	@echo "warp keybind deploy --- finished"
+
+helix:
+	@echo "helix configurations deploy --- start"
+	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/helix $(HOME)/${CONFIG_DIR}/helix
+	@echo "helix configurations deploy --- finished"
 
 all: brew_restore zsh git vim starship tig tmux ideavim warp
 	echo finished
