@@ -31,38 +31,48 @@ end
 
 vim.opt.guifont = { "Hack Nerd Font", "h20"}
 return packer.startup(function(use)
-    -- Packer can manage itself
+    -- Packer (プラグイン管理) →自分自身も管理する
     use "wbthomason/packer.nvim"
 
-    -- color scheme "material"
+    -- カラーテーマ
     use "marko-cerovac/material.nvim"
 
-    -- filer plugin
+    -- focusがないペインを暗く表示する
+    use "sunjon/shade.nvim"
+
+    -- ファイラープラグイン
     use "lambdalisue/fern.vim"
-    -- use Nerd Font
+
+    -- フォント
     use "lambdalisue/nerdfont.vim"
-    -- display icons in filer
+
+    -- ファイラーでNerdFontを使用できるようにする
     use "lambdalisue/fern-renderer-nerdfont.vim"
-    -- display git status in filer
+
+    -- ファイラーにgitステータスを表示する
     use "lambdalisue/fern-git-status.vim"
-    -- Fern上でファイルのプレビューを表示するプラグイン
+
+    -- ファイラーでファイルのプレビューを表示する
     use "yuki-yano/fern-preview.vim"
 
-    -- floating terminal
+    -- ターミナルをpopupウィンドウで表示できるようにする
     use "voldikss/vim-floaterm"
 
     use "romgrk/barbar.nvim"
 
-    -- display vim command line to floating window
+    -- Vim コマンドラインを ウィンドウ右下に表示する
     use {"VonHeikemen/fine-cmdline.nvim", requires = "MunifTanjim/nui.nvim"}
-    -- use deno
+
+    -- denoを利用可能にする
     use "vim-denops/denops.vim"
 
-    -- dependency of telescope plugin
+    -- telescopeの依存プラグイン
     use "nvim-lua/plenary.nvim"
-    -- Fuzzy Finder
+
+    -- 曖昧検索できるようにする
     use "nvim-telescope/telescope.nvim"
-    -- telescope extention coc.nvim
+
+    -- telescopeからcocを扱えるようにする
     use "fannheyward/telescope-coc.nvim"
 
     -- 曖昧検索結果にアイコンを表示できるプラグイン
@@ -88,7 +98,7 @@ return packer.startup(function(use)
     -- markdownをプレビューできるプラグイン
     use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]()  end}
 
-    -- syntax highlight
+    -- シンタックスハイライト
     use "nvim-treesitter/nvim-treesitter"
     use "nvim-treesitter/playground"
 
