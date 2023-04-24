@@ -29,18 +29,18 @@
 ## 色を使用出来るようにする
 autoload -Uz colors ; colors
 ## 補完機能を有効にする
-autoload -Uz compinit ; compinit
+autoload -Uz compinit && compinit
 ## タブ補完時に大文字小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 ## 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
 # aws cli コマンド補完
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-compinit
+#autoload bashcompinit && bashcompinit
+#autoload -Uz compinit && compinit
+# compinit
 # 補完を有効化
-complete -C '/usr/local/bin/aws_completer' aws
+#complete -C '/usr/local/bin/aws_completer' aws
 
 ##################
 # ヒストリの設定 #
@@ -217,9 +217,9 @@ fi
 if type "fd" > /dev/null 2>&1; then
   alias oldfind="/usr/bin/find"
   alias find='fd'
-  alias pcd='cd $(fd -t d | gum filter --prompt="cd to ... >")'
+  alias pcd='cd $(fd -t d | gum choose --header="Change Directory To...")'
 else
-  alias pcd='cd $(find . --maxdepth 1 --type d | gum filter --prompt="cd to...>")'
+  alias pcd='cd $(find . --maxdepth 1 --type d | gum choose --header="Change Directory To...")'
 fi
 
 # sedをsdで上書き
@@ -245,7 +245,7 @@ alias lsusb="system_profiler SPUSBDataType"
 
 # docker系のalias
 # pecoを使って調べたdockerコンテナに入る
-alias de='docker exec -it $(docker ps | gum filter --prompt="SELECT CONTAINER YOU WANT INTO >" | cut -d " " -f 1) /bin/bash'
+alias de='docker exec -it $(docker ps | gum choose --header="Choose Container" | cut -d " " -f 1) /bin/bash'
 
 # Git/Github系のalias
 # ローカルにあるgitリポジトリを選択してpathに移動
@@ -256,7 +256,7 @@ alias remote='$(hub browse $(ghq list | gum filter --no-fuzzy --value=$(basename
 # AWS CLI系のalias
 alias profiles='aws configure list-profiles'
 # aws cliでprofileを楽に指定する
-alias -g lp='$(aws configure list-profiles | gum filter --prompt="AWS PROFILE >")'
+alias -g lp='$(aws configure list-profiles | gum choose --header="AWS Profile...")'
 alias tailcwlog='tail-cloudwatch-log'
 alias scan='scan-dynamodb-table'
 alias lss3='file-list-s3'
@@ -267,6 +267,9 @@ alias gcswpj="gx"
 
 # adb系のalias
 alias -g dv='$(adb devices | tail -n +2 | gum filter --prompt="SELECT SIRIAL NO >" | head -n 1 | sd "\s+\w+$" "")'
+
+# kiconia works - kobashi project で使用するlocalstack のalias
+alias -g localstackendpoint='$(echo "--endpoint-url=http://s3.localhost.localstack.cloud:4566")'
 
 ###########################
 # zsh-completions         #
