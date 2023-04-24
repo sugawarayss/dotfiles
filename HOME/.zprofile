@@ -133,3 +133,5 @@ export PATH="$HOME/PROJECTS/sugawarayss/ts_playground/node_modules/.bin:$PATH"
 
 typeset -U path cdpath fpath manpath # パスの重複登録を避ける
 
+# helix用のlang-serverPATHを追加
+export PATH=$PATH:`npm prefix --location=global`/bin
