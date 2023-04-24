@@ -7,8 +7,8 @@ scan_timeout = 10
 # 左プロンプト
 format = """
 [┌───────────────────>](bold green) $time $cmd_duration
-[│](bold green)$username$hostname$localip$singularity$kubernetes$docker_context$package
-[│](bold green)$jobs$container$directory
+[│](bold green)$username$hostname$localip$singularity$kubernetes$package
+[│](bold green)$jobs$container$directory $docker_context $kubernetes
 [│](bold green)$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
 
@@ -61,7 +61,7 @@ style = "bold yellow"
 format = "[$output]($style)"
 
 [docker_context]
-format = " [$symbol $context](blue bold)"
+format = " [$symbol$context](blue bold)"
 symbol = "🐳 "
 
 [python]
@@ -73,7 +73,7 @@ cherry_pick = "🍒"
 [git_status]
 # Gitのステータス表示アイコン
 conflicted = "💥"
-ahead = "🏎💨"
+ahead = "🏎"
 behind = "😰"
 diverged = "😵"
 untracked = "🌚"
