@@ -12,7 +12,7 @@ require("fine-cmdline").setup({
     },
     relative = "cursor",
     border = {
-      style = "double",
+      style = "rounded",
       text = {
         top = "Vim Cmmand Line",
         top_align = "left",

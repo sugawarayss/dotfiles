@@ -12,13 +12,14 @@ require("telescope").setup({
     },
   },
   extentions = {
-    coc = {
-      theme = "ivy",
-      prefer_locations = ture,
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+
+      }
     }
   },
 })
-require("telescope").load_extension("coc")
+require("telescope").load_extension("ui-select")
 
 vim.g["fern#default_hidden"] = true --隠しファイルは表示する
 
@@ -28,9 +29,3 @@ u.keymap("n", "<C-p>", ":Telescope find_files hidden=true theme=get_dropdown<CR>
 u.keymap("n", "<C-g>", ":Telescope live_grep theme=get_dropdown<CR>", opt)
 -- Ctrl+b でプロジェクト内のTODOを検索
 u.keymap("n", "<C-b>", ":TodoTelescope theme=get_dropdown<CR>", opt)
-
--- Coc系のコマンド
-u.keymap("n", ";d", ":Telescope coc definitions<CR>", opt)
-u.keymap("n", ";y", ":Telescope coc type_definitions<CR>", opt)
-u.keymap("n", ";i", ":Telescope coc implementations<CR>", opt)
-u.keymap("n", ";r", ":Telescope coc references<CR>", opt)
