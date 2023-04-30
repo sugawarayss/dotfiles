@@ -174,13 +174,16 @@ fi
 # Aliasの設定 #
 ###############
 # vimでneovimを起動
-alias vim="nvim"
+if type "nvim" > /dev/null 2>&1; then
+  alias vim="nvim"
+fi
 
 # brew実行時のみ、pyenvがPATHに含まれないようにする。（configファイルが複数あると怒られることを回避）
 alias brew="PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
+BREWPREFIX=$(brew --prefix)
 
 # homebrewで入れたctagsを使うためのalias
-alias ctags="$(brew --prefix)/bin/ctags"
+alias ctags="${BREWPREFIX}/bin/ctags"
 # brew listから選択してuninstall
 
 # catをbatで上書き
@@ -244,23 +247,33 @@ fi
 alias lsusb="system_profiler SPUSBDataType"
 
 # docker系のalias
-# pecoを使って調べたdockerコンテナに入る
-alias de='docker exec -it $(docker ps | gum choose --header="Choose Container" | cut -d " " -f 1) /bin/bash'
+if type "docker" > /dev/null 2>&1; then
+  # gum chooseを使って調べたdockerコンテナに入る
+  alias de='docker exec -it $(docker ps | gum choose --header="Choose Container" | cut -d " " -f 1) /bin/bash'
+
+  # 選択したコンテナを削除する
+  alias drm='docker rm $(docker ps | gum choose --header="Choose Delete Container" | cut -d " " -f 1)'
+  # 選択したdocker imageを削除する
+  alias drmi='docker rm $(docker images -a | gum choose --header="Choose Delete Image" | cut -d " " -f 8)'
+  # 選択したdocker volumeを削除する
+  alias dvrm='docker volume rm $(docker volume ls | gum choose --header="Choose Delete Volume" | cut -d " " -f 6)'
+fi
 
 # Git/Github系のalias
-# ローカルにあるgitリポジトリを選択してpathに移動
-alias repo='cd $(ghq list -p | gum filter --no-fuzzy --prompt="SELECT REPOSITORY >")'
-# 選択したリモートリポジトリをGithubで開く
-alias remote='$(hub browse $(ghq list | gum filter --no-fuzzy --value=$(basename $(pwd)) --prompt="SELECT REPOSITORY >"))'
+if type "ghq" > /dev/null 2>&1; then
+  # ローカルにあるgitリポジトリを選択してpathに移動
+  alias repo='cd $(ghq list -p | gum filter --no-fuzzy --prompt="SELECT REPOSITORY >")'
+fi
+
+if type "hub" > /dev/null 2>&1; then
+  # 選択したリモートリポジトリをGithubで開く
+  alias remote='$(hub browse $(ghq list | gum filter --no-fuzzy --value=$(basename $(pwd)) --prompt="SELECT REPOSITORY >"))'
+fi
 
 # AWS CLI系のalias
 alias profiles='aws configure list-profiles'
 # aws cliでprofileを楽に指定する
 alias -g lp='$(aws configure list-profiles | gum choose --header="AWS Profile...")'
-alias tailcwlog='tail-cloudwatch-log'
-alias scan='scan-dynamodb-table'
-alias lss3='file-list-s3'
-alias dls3="download-s3"
 
 # gcloud系のalias
 alias gcswpj="gx"
@@ -271,59 +284,62 @@ alias -g dv='$(adb devices | tail -n +2 | gum filter --prompt="SELECT SIRIAL NO 
 # kiconia works - kobashi project で使用するlocalstack のalias
 alias -g localstackendpoint='$(echo "--endpoint-url=http://s3.localhost.localstack.cloud:4566")'
 
-###########################
-# zsh-completions         #
-# zsh-autosuggestions     #
-###########################
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    autoload -Uz compinit && compinit
+if type brew > /dev/null 2>&1; then
+  ###########################
+  # zsh-completions         #
+  # zsh-autosuggestions     #
+  ###########################
+  FPATH=${BREWPREFIX}/share/zsh-completions:$FPATH
+  source ${BREWPREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  autoload -Uz compinit && compinit
+
+  ###########################
+  # zsh-syntax-highlighting #
+  ###########################
+  source ${BREWPREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # 6type syntax highlight
+  #    main     : 基本ハイライト。デフォルトではこれのみ有効
+  #    brackets : 括弧
+  #    pattern  : ユーザ定義
+  #    cursor   : カーソル
+  #    root     : rootユーザの場合にコマンドライン全体に適用
+  #    line     : コマンドライン全体に適用
+  ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor)
+
+  # main config
+  # Declare the variable
+  typeset -A ZSH_HIGHLIGHT_STYLES
+  # エイリアスコマンドのハイライト
+  ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
+  # 存在するパスのハイライト
+  ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+  # グロブ
+  ZSH_HIGHLIGHT_STYLES[globbing]='none'
+
+  # brackets
+  # マッチしない括弧
+  ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
+  # 括弧の階層
+  ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
+  ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
+  ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
+  ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
+  ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan,bold'
+  # カーソルがある場所の括弧にマッチする括弧
+  ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
+
+  # cursor
+  ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 fi
-###########################
-# zsh-syntax-highlighting #
-###########################
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# 6type syntax highlight
-#    main     : 基本ハイライト。デフォルトではこれのみ有効
-#    brackets : 括弧
-#    pattern  : ユーザ定義
-#    cursor   : カーソル
-#    root     : rootユーザの場合にコマンドライン全体に適用
-#    line     : コマンドライン全体に適用
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor)
-
-# main config
-# Declare the variable
-typeset -A ZSH_HIGHLIGHT_STYLES
-# エイリアスコマンドのハイライト
-ZSH_HIGHLIGHT_STYLES[alias]='fg=magenta,bold'
-# 存在するパスのハイライト
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
-# グロブ
-ZSH_HIGHLIGHT_STYLES[globbing]='none'
-
-# brackets
-# マッチしない括弧
-ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
-# 括弧の階層
-ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan,bold'
-# カーソルがある場所の括弧にマッチする括弧
-ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
-
-# cursor
-ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 
 ###############
 # gcloud関連  #
 ###############
 # プラグイン
-source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+if type gcloud > /dev/null 2>&1; then
+  source ${BREWPREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+  source ${BREWPREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+fi
 
 function gcloud-activate() {
   name="$1"
@@ -362,51 +378,6 @@ function gcloud-current() {
 ###############
 # AWS CLI関連 #
 ###############
-function ssh2ec2() {
-  local profile=$(aws configure list-profiles | peco --prompt="SELECT profile > " --query "$LBUFFER")
-  if [[ ${profile} =~ liftspot ]]; then
-    if [[ ${profile} =~ stg ]]; then
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "stg")
-    else
-      local pemfile=$(find  pem ~/.ssh | grep liftspot | peco --prompt="SELECT file of ${profile} > " --query "prd")
-    fi
-  else
-    local  pemfile=$(find  pem ~/.ssh | grep -v liftspot | peco --prompt="SELECT file of ${profile} > ")
-  fi
-  # local jq_option="\".Reservations[].Instances[] | [[.Tags[] | select(.Key == \"Name\").Value][0], \"ssh ec2-user@\" + .NetworkInterfaces[].Association.PublicIp + \" -i ${pemfile}\"] | @tsv' | column -t -s \"\`printf '\t'\`\""
-  local host_ip="$(aws ec2 describe-instances --profile ${profile}\
-  | jq -r '.Reservations[].Instances[] | [[.Tags[] | select(.Key == "Name").Value][0], .NetworkInterfaces[].Association.PublicIp] | @tsv'\
-  | column -t -s "`printf '\t'`"\
-  | peco --prompt="SELECT host > "\
-  | grep -o -e '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" # GNU grepの場合は grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'とすること
-  if [ -n "$host_ip" ]; then
-    echo $BUFFER
-    BUFFER="ssh ec2-user@${host_ip} -i ${pemfile}"
-    zle redisplay
-  fi
-}
-zle -N ssh2ec2
-# Ctrl + Lに割り当てる
-bindkey '^L' ssh2ec2
-
-function tail-cloudwatch-log() {
-  # aws logs tail ${logGroupName} [--filter {filter_strings}] [--since {10m | 1h}]
-  local profile='$(aws configure list-profiles | gum filter --prompt="SELECT profile >")'
-  local logGroup=$(aws logs describe-log-groups --profile ${profile} | jq ".logGroups[].logGroupName" | gum filter | sd "\"" "")
-    if [ $# = 0 ]; then
-      print -z "aws logs tail ${logGroup}"
-    else
-      print -z "aws logs tail ${logGroup} $@"
-    fi
-}
-
-# 指定DynamoDBテーブルをscanする
-function scan-dynamodb-table() {
-  local profile="$(aws configure list-profiles | gum filter)"
-  local table='$(aws dynamodb list-tables --profile ${profile} | jq ".TableNames[]" | sd "\"" "" | gum filter --prompt="SCAN TABLE >")'
-  print -z "aws dynamodb scan --table-name $table --profile $profile"
-}
-
 # 指定バケットをls -lRするやつ
 function file-list-s3(){
   # aws s3 ls s3://\${bucket}[/prefix/] --profile \${profile} --recursive
@@ -436,7 +407,7 @@ function download-s3(){
 # starshipを起動
 eval "$(starship init zsh)"
 # pipenv補完設定
-if type pipenv &>/dev/null; then
+if type pipenv > /dev/null 2>&1; then
   eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
 fi
 
