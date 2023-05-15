@@ -4,7 +4,7 @@ local opt = { silent = true }
 require("telescope").setup({
   defaults = {
     sorting_strategy = "ascending", --検索結果を上から下に並べる
-    winblend = 5, --ウィンドウを若干半透明にする
+    winblend = 20, --ウィンドウを若干半透明にする
     file_ignore_patterns = { --検索結果に含めないファイルを指定
       "^.git/",
       "^node_modules/",
@@ -24,8 +24,8 @@ require("telescope").load_extension("ui-select")
 vim.g["fern#default_hidden"] = true --隠しファイルは表示する
 
 -- Ctrl+p で曖昧ファイル検索
-u.keymap("n", "<C-p>", ":Telescope find_files hidden=true theme=get_dropdown<CR>", opt)
+u.keymap("n", "<C-p>", ":Telescope find_files hidden=true<CR>", opt)
 -- Ctrl+g で曖昧ファイル内文字列検索
-u.keymap("n", "<C-g>", ":Telescope live_grep theme=get_dropdown<CR>", opt)
+u.keymap("n", "<C-g>", ":Telescope live_grep<CR>", opt)
 -- Ctrl+b でプロジェクト内のTODOを検索
-u.keymap("n", "<C-b>", ":TodoTelescope theme=get_dropdown<CR>", opt)
+u.keymap("n", "<C-b>", ":TodoTelescope<CR>", opt)
