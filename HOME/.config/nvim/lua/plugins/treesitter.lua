@@ -6,7 +6,10 @@ require("nvim-treesitter.configs").setup {
     },
     indent = {
       enable = true, --言語に応じた自動インデント
-      disable = { "html" }, --htmlだけ自動インデントしない
+      --disable = { "html" }, --htmlだけ自動インデントしない
+    },
+    autotag = {
+      enable = true,
     },
     matchup = {
         enable= true,
