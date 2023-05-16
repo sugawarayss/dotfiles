@@ -3,6 +3,7 @@
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
 ZSHRC=.zshrc
+ZSHD=.zsh.d
 ZPROFILE=.zprofile
 CONFIG_DIR=.config
 COMMIT_TEMPLATE=.commit_template
@@ -40,8 +41,9 @@ ideavim:
 
 zsh:
 	@echo "zshrc deploy --- start"
+	ln -s ${PROJECT_DIR}/HOME/${ZSHD} ${HOME}/${ZSHD}
 	ln -s ${PROJECT_DIR}/HOME/${ZSHRC} $(HOME)/${ZSHRC}
-	ls -l $(HOME)/${ZSHRC}
+	ls -l $(HOME)/${ZSHRC} && ls -lR ${HOME}/${ZSHD}
 	@echo "zshrc deploy --- finished"
 
 	@echo "zprofile deploy --- start"
