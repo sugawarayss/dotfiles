@@ -61,9 +61,12 @@ git:
 	@echo "git commit_template deploy --- start"
 	$(call file-exist, $(HOME)/${COMMIT_TEMPLATE})
 	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/git/${COMMIT_TEMPLATE} $(HOME)/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
-	git config --global commit.template $(HOME)/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
 	ls -l ~/${CONFIG_DIR}/git/${COMMIT_TEMPLATE}
 	@echo "git commit_template deploy --- finished"
+
+	@echo "git global config deploy --- start"
+	ln -s ${PROJECT_DIR}/HOME/.gitconfig ${HOME}/.gitconfig
+	@echo "git global config deploy --- finished"
 
 vim:
 	@echo "nvim settings deploy --- start"
