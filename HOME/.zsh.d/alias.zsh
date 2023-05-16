@@ -1,3 +1,6 @@
+#########
+# Alias #
+#########
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   alias phis='peco-select-history'
   alias pcdr='peco-cdr'

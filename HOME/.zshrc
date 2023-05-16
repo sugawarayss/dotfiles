@@ -1,9 +1,5 @@
 # require  #
 ############
-# install homebrew
-# brew bundle --file '~/PROJECTS/sugawarayss/dotfiles/homebrew/Brewfile'
-# go get github.com/mattn/qq/...
-
 # 1. generate github access token
 #    (https://github.com/settings/tokens)
 #    # attach repo permission
@@ -11,15 +7,6 @@
 #   `hub browse`
 #      > github.com username: {YOUR_ACCOUNT_NAME}
 #      > github.com password for {YOUR_ACCOUNT_NAME} (never stored): {YOUR_ACCOUNT_ACCESS_TOKEN}
-# 3. setup ghq
-#   `git config --global ghq.root {YOUR_LOCAL_REPOSITRY_ROOT}`
-#   `ghq root`
-#      > {full path of your}
-# 4.(if you want change root)
-#    edit .gitconfig
-#    `vi ~/.gitconfig`
-#      > [ghq]
-#      >   root = {YOUR_REPO_ROOT}
 
 ############
 # 環境変数 #
@@ -29,18 +16,10 @@
 ## 色を使用出来るようにする
 autoload -Uz colors ; colors
 ## 補完機能を有効にする
-autoload -Uz compinit && compinit
 ## タブ補完時に大文字小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 ## 日本語ファイル名を表示可能にする
 setopt print_eight_bit
-
-# aws cli コマンド補完
-#autoload bashcompinit && bashcompinit
-#autoload -Uz compinit && compinit
-# compinit
-# 補完を有効化
-#complete -C '/usr/local/bin/aws_completer' aws
 
 ##################
 # ヒストリの設定 #
@@ -56,8 +35,6 @@ setopt hist_ignore_all_dups
 setopt hist_no_store
 # 開始と終了を記録
 setopt EXTENDED_HISTORY
-# 全履歴を一覧表示する
-function history-all { history -E 1 }
 # vimモードで起動
 set -o vi
 
@@ -65,7 +42,8 @@ set -o vi
 # PROMPT #
 ##########
 if type starship > /dev/null 2>&1; then
-  # starshipがinstall済ならPROMPTのセットアップはしない
+  # starshipを起動
+  eval "$(starship init zsh)"
 else
   # vcs_infoロード
   autoload -Uz vcs_info
@@ -166,21 +144,17 @@ function peco-cdr() {
 zle -N peco-cdr
 bindkey '^E' peco-cdr
 
-###############
-# Aliasの設定 #
-###############
-
 BREWPREFIX=$(brew --prefix)
 
 # 分割した設定ファイルをsourceする
 ZSHHOME="${HOME}/.zsh.d"
 if [ -d $ZSHHOME -a -r $ZSHHOME -a -x $ZSHHOME ]; then
-  # Source the .profile.zsh file first
+  # .profile.zsh を先にロード
     profile_zsh="$ZSHHOME/profile.zsh"
     if [ -f "$profile_zsh" -o -h "$profile_zsh" ] && [ -r "$profile_zsh" ]; then
       . "$profile_zsh"
     fi
-  # Source other *.zsh files
+  # 他の *.zsh をロード
   for i in $ZSHHOME/*; do
     if [ "$i" != "$profile_zsh" ]; then
       [[ ${i##*/} = *.zsh ]] && [ \( -f $i -o -h $i \) -a -r $i ] && . $i
@@ -235,83 +209,3 @@ if type brew > /dev/null 2>&1; then
   # cursor
   ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 fi
-
-###############
-# gcloud関連  #
-###############
-# プラグイン
-if type gcloud > /dev/null 2>&1; then
-  source ${BREWPREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-  source ${BREWPREFIX}/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-fi
-
-function gcloud-activate() {
-  name="$1"
-  project="$2"
-  echo "gcloud config configurations activate \"${name}\""
-  gcloud config configurations activate "${name}"
-}
-function gx-complete() {
-  _values $(gcloud config configurations list | awk '{print $1}')
-}
-
-# gcloudでactiveなprojectをgum filterで選択して切り替える関数
-function gx() {
-  name="$1"
-  if [ -z "$name" ]; then
-    line=$(gcloud config configurations list | gum filter --prompt="SELECT GCP PROJECT >")
-    name=$(echo "${line}" | awk '{print $1}')
-  else
-    line=$(gcloud config configurations list | grep "$name")
-  fi
-  project=$(echo "${line}" | awk '{print $4}')
-  gcloud-activate "${name}" "${project}"
-}
-compdef gx-complete gx
-
-# gcloud設定名からプロジェクト名を取得する
-function gcloud-alias() {
-    gcloud config configurations list | grep "^$1" | head -1 | awk '{print $4}'
-}
-
-# 現在の設定を取得する
-function gcloud-current() {
-    cat $HOME/.config/gcloud/active_config
-}
-
-###############
-# AWS CLI関連 #
-###############
-# 指定バケットをls -lRするやつ
-function file-list-s3(){
-  # aws s3 ls s3://\${bucket}[/prefix/] --profile \${profile} --recursive
-  local profile="$(aws configure list-profiles | gum filter)"
-  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | gum filter)"
-  if [ $# = 0 ]; then
-    print -z "aws s3 ls s3://$bucket --profile $profile --recursive"
-  else
-    print -z "aws s3 ls s3://$bucket/$@ --profile $profile --recursive"
-  fi
-}
-
-# 指定のファイルをローカルにDLするやつ
-function download-s3(){
-  local profile="$(aws configure list-profiles | gum filter)"
-  local bucket="$(aws s3 ls --profile ${profile} | cut -d " " -f 3 | gum filter)"
-  local file="$(aws s3 ls s3://$bucket --profile $profile --recursive | sd " +" " " | cut -d " " -f 4 | gum filter)"
-  if [ $# = 0 ]; then
-    print -z "aws s3 cp s3://$bucket/$file ./"
-  else
-    print -z "aws s3 cp s3://$bucket/$file $@"
-  fi
-}
-
-# asdf用にパスを通す
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-# starshipを起動
-eval "$(starship init zsh)"
-# pipenv補完設定
-if type pipenv > /dev/null 2>&1; then
-  eval "$(_PIPENV_COMPLETE=zsh_source pipenv)"
-fi
-
