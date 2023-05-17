@@ -18,36 +18,25 @@ vim.g.maplocalleader = " "
 --   command_mode = 'c',
 
 -- Normal --
--- Better window navigation
+-- ウィンドウを水平分割(上下)
+keymap("n", "ss", ":split<Return><C-w>w", opts)
+-- ウィンドウを垂直分割(左右)
+keymap("n", "sv", ":vsplit<Return><C-w>w", opts)
+
+-- ウィンドウ移動(左下上右)
 keymap("n", "sh", "<C-w>h", opts)
 keymap("n", "sj", "<C-w>j", opts)
 keymap("n", "sk", "<C-w>k", opts)
 keymap("n", "sl", "<C-w>l", opts)
 
--- New tab
-keymap("n", "te", ":tabedit", opts)
 -- 新しいタブを一番右に作る
 keymap("n", "gn", ":tabnew<Return>", opts)
--- move tab
+-- タブ移動(左右)
 keymap("n", "gh", "gT", opts)
 keymap("n", "gl", "gt", opts)
 
--- Split window
-keymap("n", "ss", ":split<Return><C-w>w", opts)
-keymap("n", "sv", ":vsplit<Return><C-w>w", opts)
-
--- Delete a word backwards
-keymap("n", "dw", 'vb"_d', opts)
-
--- 行の端に行く
-keymap("n", "<Space>h", "^", opts)
-keymap("n", "<Space>l", "$", opts)
-
 -- 行末までのヤンクにする
 keymap("n", "Y", "y$", opts)
-
--- <Space>q で強制終了
-keymap("n", "<Space>q", ":<C-u>q!<Return>", opts)
 
 -- ESC*2 でハイライトやめる
 keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)

@@ -29,3 +29,5 @@ u.keymap("n", "<C-p>", ":Telescope find_files hidden=true<CR>", opt)
 u.keymap("n", "<C-g>", ":Telescope live_grep<CR>", opt)
 -- Ctrl+b でプロジェクト内のTODOを検索
 u.keymap("n", "<C-b>", ":TodoTelescope<CR>", opt)
+-- gr で カーソル下変数参照一覧を検索
+u.keymap("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>")
