@@ -68,7 +68,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
 -- エラーアイコンの変更
-local signs = { Error = "🐞", Warn = "🚧", Hint = "♻️", Info = "ℹ️" }
+local signs = { Error = "🐞", Warn = "⚠️", Hint = "♻️", Info = "ℹ️" }
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
