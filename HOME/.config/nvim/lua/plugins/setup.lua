@@ -112,7 +112,7 @@ return packer.startup(function(use)
     --use {"neoclide/coc.nvim", branch = 'release'}
     use "rktjmp/lush.nvim"
     -- inlineにgitblame等を表示するプラグイン
-    use "lewis6991/gitsigns.nvim"
+    use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
