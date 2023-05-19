@@ -13,14 +13,19 @@ require("telescope").setup({
   },
   extentions = {
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown {
-
-      }
-    }
+      require("telescope.themes").get_dropdown {}
+    },
+    ["docker"] = {
+      theme = "ivy",
+      binary = "docker",
+      log_level = vim.log.levels.INFO,
+      init_term = "split new",
+    },
   },
 })
 require("telescope").load_extension("ui-select")
---require("telescope").load_extension("noice")
+require("telescope").load_extension("noice")
+require("telescope").load_extension("docker")
 
 vim.g["fern#default_hidden"] = true --隠しファイルは表示する
 
@@ -32,3 +37,9 @@ u.keymap("n", "<C-g>", ":Telescope live_grep<CR>", opt)
 u.keymap("n", "<C-b>", ":TodoTelescope<CR>", opt)
 -- gr で カーソル下変数参照一覧を検索
 u.keymap("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", opt)
+
+-- docker
+u.keymap("n", "<C-d>c", ":Telescope docker containers<CR>")
+u.keymap("n", "<C-d>i", ":Telescope docker images<CR>")
+u.keymap("n", "<C-d>p", ":Telescope docker compose<CR>")
+u.keymap("n", "<C-d>l", ":Telescope docker files<CR>")

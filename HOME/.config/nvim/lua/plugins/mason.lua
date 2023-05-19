@@ -1,11 +1,10 @@
 my_on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap=true, silent=false }
-  -- ファイル全体をフォーマットする
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gf', 'function() vim.lsp.buf.format {async=true} end', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gf', '<cmd>lua vim.lsp.buf.format {async=true}<CR>', opts)
   -- 'K' でカーソル下の変数情報を表示
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  -- 'gr' でカーソル下の変数を参照している箇所の一覧表示 → telescopeに移動
+  -- 'gr' でカーソル下の変数を参照している箇所の一覧表示
   --vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   -- 定義へジャンプ
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -23,7 +22,6 @@ my_on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'go', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   -- 次のエラーへジャンプ
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gj', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  -- 前のエラーへジャンプ
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gk', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 
   -- Reference highlight(カーソル下の変数をコード内でハイライトする)
