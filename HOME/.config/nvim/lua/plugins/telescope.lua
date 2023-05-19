@@ -20,6 +20,7 @@ require("telescope").setup({
   },
 })
 require("telescope").load_extension("ui-select")
+--require("telescope").load_extension("noice")
 
 vim.g["fern#default_hidden"] = true --隠しファイルは表示する
 

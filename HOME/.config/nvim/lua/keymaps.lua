@@ -72,4 +72,4 @@ keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
 --    command! -nargs=* T split | wincmd j | resize 30 | terminal <args>
 --]])
 --vim.cmd([[autocmd Termopen * startinsert]])
-keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+--keymap("t", "<Esc>", "<C-\\><C-n>", opts)
