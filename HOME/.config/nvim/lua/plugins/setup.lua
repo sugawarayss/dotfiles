@@ -83,6 +83,8 @@ return packer.startup(function(use)
   use {"lpoto/telescope-docker.nvim"}
   -- 曖昧検索結果にアイコンを表示できるプラグイン
   use "kyazdani42/nvim-web-devicons"
+  -- 一括コメントアウト
+  use "tpope/vim-commentary"
   -- TODOコメントをハイライトするプラグイン
   use {"folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim"}
   -- インデントを可視化するプラグイン
