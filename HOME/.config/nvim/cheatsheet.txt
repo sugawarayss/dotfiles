@@ -25,8 +25,35 @@
 次のエラー箇所へジャンプ | gj
 前のエラー箇所へジャンプ | gk
 
+## git
+git blameを表示 | <Leader>gb
+git blameを非表示 | q
+選択したblameのcommit内容を表示 | <Leader>go
+カーソル行をgithubで表示 | <Leader>go
+現在のブランチのpull requestを表示 | <Leader>gp
+現在のブランチでpull requestを作成 | <Leader>gn
+diffを表示 | <Leader>gd
+diffを閉じる | <Leader>gD
+選択してコミットまでrevertする | <Leader>gr
+現在のファイルをrevertする | <Leader>gR
+
 ## Docker
 コンテナ一覧 | <C-d>c
 イメージ一覧 | <C-d>i
 compose一覧 | <C-d>p
 ファイル一覧 | <C-d>l
+
+## Nvim-Surround
+空白あり/空白なし | あり: ( , なし: )
+alias | w: word, s: sentence
+カーソル位置の単語を<記号>で囲む | ysiw<記号> : you surround inner word
+カーソル位置の単語を囲む記号ごと<記号2>で囲む | ysa<記号1><記号2> : you surround arround word
+カーソル位置から行末まで<記号>で囲む | ys$<記号>
+カーソル位置の単語を囲む<記号>を除去 | ds<記号> : delete surround 
+カーソル位置の単語を囲む<古>を<新>で置換 | cs<古><新> : change surround
+カーソル位置の単語を囲むタグを除去 | dst : delete sussound tag
+visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号>
+
+## Noice
+直前のエラーを表示 | <Leader>nl
+エラーリストをtelescopeで表示 | <Leader>nh
