@@ -8,7 +8,4 @@ node_modules/
 *$py.class
 .mypy_cache/
 __pycache__/
-.pytest_cache/
-hoge.py
-recreate_container.sh
-sample_csv/
+.coverage
