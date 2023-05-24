@@ -4,6 +4,9 @@
 " vimrcと共通のkeymap等は切り出すことが可能
 "source .vimrc.keymap
 
+"see actions list of ideavim
+"https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+
 " ノーマルモードではIMEをオフ(効いてない可能性)
 set keep-english-in-normal
 " クリップボードを有効化
@@ -23,8 +26,6 @@ nnoremap ,g :action FindInPath<CR>
 nnoremap ,r :action RecentFiles<CR>
 " 呼び出し階層一覧viewを表示
 nnoremap ,c :action CallHierarchy<CR>
-" ブックマーク一覧を表示
-nnoremap ,b :action ShowBookmarks<CR>
 
 """"""""""""""""""""""""""""""""""
 " コードジャンプ系のコマンド定義 "
@@ -35,39 +36,45 @@ nnoremap gd :action GotoDeclaration<CR>
 nnoremap gs :action GotoSuperMethod<CR>
 " 実装箇所へジャンプ
 nnoremap gi :action GotoImplementation<CR>
+" 曖昧ファイル検索
+nnoremap gf :action GotoFile<CR>
 " 直近の変更箇所へジャンプ
 nnoremap gb :action JumpToLastChange<CR>
 " 呼び出し箇所一覧をあいまい検索
-nnoremap gu :action ShowUsages<CR>
+nnoremap gr :action ShowUsages<CR>
 " 呼び出し箇所を検索
-nnoremap gr :action FindUsages<CR>
+nnoremap gR :action FindUsages<CR>
 " テスト実装箇所へジャンプ
 nnoremap gt :action GotoTest<CR>
-" 戻る
-nnoremap <C-o> :action Back<CR>
-" 進む
-nnoremap <C-i> :action Forward<CR>
 
 """"""""""""""""""""""""""""""""""
 " エディター (コード編集)        "
 """"""""""""""""""""""""""""""""""
 " カーソルのある単語を一斉に編集
-nnoremap r :action RenameElement<CR>
-
-""""""""""""""""""""""""""""""""""
-" IntelliJ コマンドを実行        "
-""""""""""""""""""""""""""""""""""
+nnoremap gn :action RenameElement<CR>
+" ブックマークリストを表示
+nnoremap Bb :action ShowBookmarks<CR>
 " カーソル行でブックマークをトグル
 nnoremap B :action ToggleBookmark<CR>
+" 次のブックマークへジャンプ
+nnoremap Bj :action GotoNextBookmark<CR>
+" 前のブックマークへジャンプ
+nnoremap Bk :action GotoPreviousBookmark<CR>
+
+""""""""""""""""""""""""""""""""""
+" 実行                           "
+""""""""""""""""""""""""""""""""""
+" 実行の構成を選んで実行
+nnoremap RC :action ChooseRunConfiguration<CR>
 
 """"""""""""""""""""""""""""""""""
 " Window(View)操作               "
 """"""""""""""""""""""""""""""""""
 " アクティブなViewを閉じる
-nnoremap <C-c>; :action CloseActiveTab<CR>
-" エディタタブを水平分割(上下)
-nnoremap <C-s>; :split<CR>
-" エディタタブを垂直分割(左右)
-nnoremap <C-v>; :vsplit<CR>
+nnoremap s; :action CloseActiveTab<CR>
+" フォーカスを持つエディタタブを水平分割する
+nnoremap sh; :split<CR>
+" フォーカスを持つエディタタブを垂直分割
+nnoremap sv; :vsplit<CR>
 " フォーカスを持つエディタタブを他のタブ分割グループに移動
-nnoremap <C-m> :action MoveEditorToOppositeTabGroup<CR>
+noremap so :action MoveEditorToOppositeTabGroup<CR>
