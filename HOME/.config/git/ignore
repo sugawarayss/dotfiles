@@ -9,3 +9,6 @@ node_modules/
 .mypy_cache/
 __pycache__/
 .coverage
+hoge.py
+recreate_container.sh
+sample_csv/
