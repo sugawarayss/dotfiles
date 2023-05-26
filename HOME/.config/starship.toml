@@ -23,8 +23,12 @@ error_symbol = "[>](bold red)"
 # vimノーマルモード時
 vimcmd_symbol = "[<](bold green)"
 
+[cmd_duration]
+format = "took 󱫡 [$duration]($style) "
+style = "bold yellow"
+
 [directory]
-format = '[$path]($style)[$read_only]($read_only_style)'
+format = ' [$path]($style)[$read_only]($read_only_style)'
 style = 'bold cyan'
 truncation_length = 100
 truncate_to_repo = false
@@ -32,18 +36,18 @@ truncation_symbol = "…/"
 
 [time]
 disabled = false
-format = '[$time](bold blue)'
+format = '󱑆 [$time](bold blue)'
 time_format = '%Y-%m-%d %T'
 
 [localip]
 ssh_only = false
-format = '@[$localipv4](bold red) '
+format = '@[$localipv4](bold yellow) '
 disabled = false
 
 [aws]
 # AWSの表示は無効化
 format = '[ $symbol($profile )(\($region\) )]($style)'
-symbol = ''
+symbol = '󰸏'
 style = "bold blue"
 disabled = true
 
@@ -51,6 +55,7 @@ disabled = true
 ap-northeast-1 = "jp"
 
 [gcloud]
+symbol = "󱇶 "
 # GCPの表示は無効化
 disabled = true
 
@@ -62,31 +67,53 @@ format = "[$output]($style)"
 
 [docker_context]
 format = " [$symbol$context](blue bold)"
-symbol = "🐳 "
+symbol = "󰡨 "
 
 [python]
+symbol = "󰌠 "
+style = "bold blue"
 python_binary = ['./.venv/bin/python', 'python', 'python3', 'python2']
 
+[nodejs]
+symbol = " "
+
+[golang]
+symbol = " "
+
 [git_state]
-cherry_pick = "🍒"
+cherry_pick = " "
+
+[java]
+symbol = "󰬷 "
+
+[ruby]
+symbol = " "
+style = "bold red"
+
+[rust]
+symbol = "󱘗 "
+
+[package]
+symbol = " "
+format = "via $symbol [$version]($style)"
 
 [git_status]
 # Gitのステータス表示アイコン
-conflicted = "💥"
-ahead = "🏎"
-behind = "😰"
-diverged = "😵"
-untracked = "🌚"
-stashed = "📦"
-modified = "📝"
-staged = "🔦"
-renamed = "🏷"
-deleted = "🗑"
+conflicted = "󰈸 "
+ahead = "󰑮 "
+behind = "󰱬 "
+diverged = "󰃻 "
+untracked = " "
+stashed = " "
+modified = "󱇧 "
+staged = " "
+renamed = " "
+deleted = " "
 
 [git_branch]
 # Gitブランチの表示アイコン
 symbol = " "
-format = '[$symbol$branch(:$remote_branch)]($style) '
+format = '$symbol[$branch(:$remote_branch)]($style) '
 
 [username]
 style_user = "#ffffff bold"
