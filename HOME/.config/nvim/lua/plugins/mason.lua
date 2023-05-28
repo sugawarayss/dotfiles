@@ -55,13 +55,14 @@ require('mason-lspconfig').setup_handlers({ function(server)
         analysis = {
           extraPaths = {"."}
         },
-        linter = "black",
-        command = "black",
-        args = { "--line-length", 150 },
       },
     }
   end
   require('lspconfig')[server].setup(opt)
+  require('mason-null-ls').setup({
+    ansure_installed = nil,
+    automatic_setup = true,
+  })
 end })
 -- LSP handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(

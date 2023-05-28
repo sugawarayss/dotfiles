@@ -62,11 +62,14 @@ return packer.startup(function(use)
   }
   use "j-hui/fidget.nvim"
   use "ray-x/lsp_signature.nvim"
+  -- Language Server管理
   use {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
   }
+  -- MasonでLinter / formatterを使用する
+  use {"jay-babu/mason-null-ls.nvim", requires="jose-elias-alvarez/null-ls.nvim"}
   -- ターミナルをpopupウィンドウで表示できるようにする
   use "voldikss/vim-floaterm"
   -- Vim コマンドラインを ウィンドウ右下に表示する
