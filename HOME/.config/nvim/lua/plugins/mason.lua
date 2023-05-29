@@ -39,6 +39,34 @@ augroup END
 end
 
 require('mason').setup()
+require('mason-lspconfig').setup({
+  -- LSP install
+  ensure_installed = {
+    -- python
+    "pyright",
+    -- rust
+    "rust_analyzer",
+    -- typescript
+    "tsserver",
+    -- lua
+    "lua_ls",
+    -- deno
+    "denols",
+    -- php
+    "intelephense",
+    -- kotlin
+    "kotlin_language_server",
+    -- dockerfile
+    "dockerls",
+    -- yaml
+    "yamlls",
+    -- json
+    "jsonls",
+    -- toml
+    "taplo",
+  },
+  automatic_installation = true,
+})
 require('mason-lspconfig').setup_handlers({ function(server)
   local opt = {
     -- Function executed when the LSP server startup
