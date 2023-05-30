@@ -126,6 +126,8 @@ return packer.startup(function(use)
   use "rktjmp/lush.nvim"
   -- inlineにgitblame等を表示するプラグイン
   use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}
+  -- csvを色付け
+  use "Decodetalkers/csv-tools.lua"
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end
