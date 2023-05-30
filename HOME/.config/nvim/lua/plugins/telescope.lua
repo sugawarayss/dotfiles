@@ -21,11 +21,17 @@ require("telescope").setup({
       log_level = vim.log.levels.INFO,
       init_term = "split new",
     },
+    ["aerial"] = {
+      ["_"] = false,
+      json = true,
+      yaml = true,
+    },
   },
 })
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("noice")
 require("telescope").load_extension("docker")
+require("telescope").load_extension("aerial")
 
 vim.g["fern#default_hidden"] = true --隠しファイルは表示する
 
@@ -43,3 +49,4 @@ u.keymap("n", "<C-d>c", ":Telescope docker containers<CR>")
 u.keymap("n", "<C-d>i", ":Telescope docker images<CR>")
 u.keymap("n", "<C-d>p", ":Telescope docker compose<CR>")
 u.keymap("n", "<C-d>l", ":Telescope docker files<CR>")
+u.keymap("n", "<C-s>t", ":Telescope aerial<CR>")

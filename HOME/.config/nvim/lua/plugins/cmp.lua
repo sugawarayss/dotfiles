@@ -1,7 +1,16 @@
 local cmp = require("cmp")
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local lspkind = require('lspkind')
+
 cmp.setup({
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      maxwidth = 50,
+      ellipsis_char = '...',
+    })
+  },
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)

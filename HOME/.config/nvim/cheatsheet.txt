@@ -16,16 +16,18 @@
 戻る | <C-o>
 変数情報を表示 | <S-k>
 定義へジャンプ | gd
+参照リストを表示(Telescope) | gr
 型定義へジャンプ | gt
 宣言へジャンプ | gD
 実装へジャンプ | gi
 エラー内容を表示 | go
 エラー対処候補を表示 | ga
 リネーム | gn
+コードフォーマット実行 | gf
 次のエラー箇所へジャンプ | gj
 前のエラー箇所へジャンプ | gk
 
-## git
+## Git
 git blameを表示 | <Leader>gb
 git blameを非表示 | q
 選択したblameのcommit内容を表示 | <Leader>go
@@ -38,10 +40,10 @@ diffを閉じる | <Leader>gD
 現在のファイルをrevertする | <Leader>gR
 
 ## Docker
-コンテナ一覧 | <C-d>c
-イメージ一覧 | <C-d>i
-compose一覧 | <C-d>p
-ファイル一覧 | <C-d>l
+コンテナ一覧(Telescope) | <C-d>c
+イメージ一覧(Telescope) | <C-d>i
+compose一覧(Telescope) | <C-d>p
+ファイル一覧(Telescope) | <C-d>l
 
 ## Nvim-Surround
 空白あり/空白なし | あり: ( , なし: )
@@ -57,3 +59,9 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 ## Noice
 直前のエラーを表示 | <Leader>nl
 エラーリストをtelescopeで表示 | <Leader>nh
+
+## Telescope
+ファイル名検索 | <C-p>
+ファイル内検索 | <C-g>
+プロジェクト内TODO検索 | <C-b>
+
