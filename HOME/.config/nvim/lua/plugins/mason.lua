@@ -25,17 +25,21 @@ my_on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gk', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
 
   -- Reference highlight(カーソル下の変数をコード内でハイライトする)
-  vim.cmd [[
-set updatetime=500
-highlight LspReferenceText  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
-highlight LspReferenceRead  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
-highlight LspReferenceWrite cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
-augroup lsp_document_highlight
-  autocmd!
-  autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
-augroup END
-]]
+  if client.server_capabilities.documentHighlightProvider then
+    vim.cmd [[
+      set updatetime=500
+      highlight LspReferenceText  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
+      highlight LspReferenceRead  cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
+      highlight LspReferenceWrite cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
+      augroup lsp_document_highlight
+        autocmd!
+        autocmd CursorHold,CursorHoldI * lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved,CursorMovedI * lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
+  else
+    print("this language server is not support documentHighlightProvider")
+  end
 end
 
 require('mason').setup()
@@ -97,7 +101,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
 -- エラーアイコンの変更
-local signs = { Error = "🐞", Warn = "⚠️", Hint = "♻️", Info = "ℹ️" }
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
