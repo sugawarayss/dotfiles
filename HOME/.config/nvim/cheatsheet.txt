@@ -45,8 +45,13 @@ diffを閉じる | <Leader>gD
 compose一覧(Telescope) | <C-d>p
 ファイル一覧(Telescope) | <C-d>l
 
+## vim-sandwich
+括弧で囲う | sa{motion/textobject}{addition} → 'saiw('
+括弧を除去 | sd{deletion} → 'sd(' 
+括弧を置換 | sr{deletion}{addition} → 'sr("'
+
 ## Nvim-Surround
-空白あり/空白なし | あり: ( , なし: )
+空白あり/空白なし | あり: "(" / なし: ")"
 alias | w: word, s: sentence
 カーソル位置の単語を<記号>で囲む | ysiw<記号> : you surround inner word
 カーソル位置の単語を囲む記号ごと<記号2>で囲む | ysa<記号1><記号2> : you surround arround word
@@ -59,6 +64,11 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 ## Noice
 直前のエラーを表示 | <Leader>nl
 エラーリストをtelescopeで表示 | <Leader>nh
+
+## アウトライン
+アウトラインペイン表示をトグル | <leader>a
+前のアウトラインにジャンプ | <Leader>k
+次のアウトラインにジャンプ | <leader>j
 
 ## Telescope
 ファイル名検索 | <C-p>
