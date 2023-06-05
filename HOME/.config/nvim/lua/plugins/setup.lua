@@ -95,6 +95,7 @@ return packer.startup(function(use)
   use "lukas-reineke/indent-blankline.nvim"
   -- 括弧を自動で閉じるプラグイン
   use "windwp/nvim-autopairs"
+  -- 対応するキーワードや記号にジャンプできる
   use "andymass/vim-matchup"
   -- コードとテストコードのファイルを行き来できるプラグイン
   use "rgroli/other.nvim"
@@ -121,8 +122,6 @@ return packer.startup(function(use)
   use "nvim-lualine/lualine.nvim"
   -- ステータスバーにgitbranchを表示するプラグイン
   use "itchyny/vim-gitbranch"
-  -- coc-vimと連携して関数や変数へジャンプできるプラグイン
-  --use {"neoclide/coc.nvim", branch = 'release'}
   use "rktjmp/lush.nvim"
   -- inlineにgitblame等を表示するプラグイン
   use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim"}
