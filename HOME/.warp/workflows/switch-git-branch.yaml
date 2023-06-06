@@ -1,4 +1,0 @@
-name: gitブランチの切り替え
-command: git checkout $(git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sd "^\*| " "")
-tags:
-  - git
