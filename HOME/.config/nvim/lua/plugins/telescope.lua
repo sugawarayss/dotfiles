@@ -11,6 +11,14 @@ require("telescope").setup({
       "^__pycache__/",
     },
   },
+  pickers = {
+    find_files = {
+      theme="dropdown",
+    },
+    live_grep = {
+      theme="dropdown"
+    },
+  },
   extentions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {}
@@ -40,13 +48,14 @@ u.keymap("n", "<C-p>", ":Telescope find_files hidden=true<CR>", opt)
 -- Ctrl+g で曖昧ファイル内文字列検索
 u.keymap("n", "<C-g>", ":Telescope live_grep<CR>", opt)
 -- Ctrl+b でプロジェクト内のTODOを検索
-u.keymap("n", "<C-b>", ":TodoTelescope<CR>", opt)
+u.keymap("n", "<C-b>", ":TodoTelescope theme=dropdown<CR>", opt)
 -- gr で カーソル下変数参照一覧を検索
 u.keymap("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", opt)
 
 -- docker
-u.keymap("n", "<C-d>c", ":Telescope docker containers<CR>")
-u.keymap("n", "<C-d>i", ":Telescope docker images<CR>")
-u.keymap("n", "<C-d>p", ":Telescope docker compose<CR>")
-u.keymap("n", "<C-d>l", ":Telescope docker files<CR>")
-u.keymap("n", "<C-s>t", ":Telescope aerial<CR>")
+u.keymap("n", "<C-d>c", ":Telescope docker containers theme=ivy<CR>")
+u.keymap("n", "<C-d>i", ":Telescope docker images theme=ivy<CR>")
+u.keymap("n", "<C-d>p", ":Telescope docker compose theme=ivy<CR>")
+u.keymap("n", "<C-d>l", ":Telescope docker files theme=ivy<CR>")
+-- アウトライン
+u.keymap("n", "<C-s>t", ":Telescope aerial theme=dropdown<CR>")
