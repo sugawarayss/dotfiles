@@ -7,13 +7,13 @@ scan_timeout = 10
 # 左プロンプト
 format = """
 [┌───────────────────>](bold green) $time $cmd_duration
-[│](bold green)$username$hostname$localip$singularity$kubernetes$package
+[│](bold green)$username @ $hostname$localip$singularity$kubernetes$package
 [│](bold green)$jobs$container$directory $docker_context $kubernetes
 [│](bold green)$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
 
 # 右プロンプト
-#right_format = '\[[$directory](bold green)\]'
+right_format = '\[[$directory](bold green)\]'
 
 [character]
 # コマンド成功時
@@ -41,7 +41,7 @@ time_format = '%Y-%m-%d %T'
 
 [localip]
 ssh_only = false
-format = '@ [$localipv4](bold yellow) '
+format = '[$localipv4](bold yellow) '
 disabled = false
 
 [aws]
@@ -118,6 +118,6 @@ style = "purple"
 [username]
 style_user = "#ffffff bold"
 style_root = "black bold"
-format = "[$user]($style) "
+format = "[$user]($style)"
 disabled = false
 show_always = true
