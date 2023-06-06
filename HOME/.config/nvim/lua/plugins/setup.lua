@@ -78,6 +78,8 @@ return packer.startup(function(use)
   use {"folke/noice.nvim", requires = {"MunifTanjim/nui.nvim", "rcarriga/nvim-notify"}}
   -- denoを利用可能にする
   use "vim-denops/denops.vim"
+  -- 翻訳プラグイン
+  use "voldikss/vim-translator"
   -- 曖昧検索できるようにする
   use {"nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim"}
   use "nvim-telescope/telescope-ui-select.nvim"
