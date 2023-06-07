@@ -13,7 +13,7 @@ format = """
 [└─](bold green)$character"""
 
 # 右プロンプト
-right_format = '\[[$directory](bold green)\]'
+# right_format = '\[[$directory](bold green)\]'
 
 [character]
 # コマンド成功時
