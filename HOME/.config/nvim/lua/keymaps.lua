@@ -1,11 +1,12 @@
+local u = require("utils")
 local opts = { noremap = true, silent = true }
 local term_opts = { silent = true }
 
 --local keymap = vim.keymap
-local keymap = vim.api.nvim_set_keymap
+-- local keymap = vim.api.nvim_set_keymap
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+u.keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -19,53 +20,53 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- ウィンドウを水平分割(上下)
-keymap("n", "ss", ":split<Return><C-w>w", opts)
+u.keymap("n", "ss", ":split<Return><C-w>w", opts)
 -- ウィンドウを垂直分割(左右)
-keymap("n", "sv", ":vsplit<Return><C-w>w", opts)
+u.keymap("n", "sv", ":vsplit<Return><C-w>w", opts)
 
 -- ウィンドウ移動(左下上右)
-keymap("n", "sh", "<C-w>h", opts)
-keymap("n", "sj", "<C-w>j", opts)
-keymap("n", "sk", "<C-w>k", opts)
-keymap("n", "sl", "<C-w>l", opts)
+u.keymap("n", "sh", "<C-w>h", opts)
+u.keymap("n", "sj", "<C-w>j", opts)
+u.keymap("n", "sk", "<C-w>k", opts)
+u.keymap("n", "sl", "<C-w>l", opts)
 
 -- 新しいタブを一番右に作る
-keymap("n", "gn", ":tabnew<Return>", opts)
+u.keymap("n", "gn", ":tabnew<Return>", opts)
 -- タブ移動(左右)
-keymap("n", "gh", "gT", opts)
-keymap("n", "gl", "gt", opts)
+u.keymap("n", "gh", "gT", opts)
+u.keymap("n", "gl", "gt", opts)
 
 -- 行末までのヤンクにする
-keymap("n", "Y", "y$", opts)
+u.keymap("n", "Y", "y$", opts)
 
 -- ESC*2 でハイライトやめる
-keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
+u.keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
 
 -- Insert --
 -- Press jj fast to exit insert mode
-keymap("i", "jj", "<ESC>", opts)
+u.keymap("i", "jj", "<ESC>", opts)
 
 -- 検索結果を画面中央に持ってくる
-keymap("n", "n", "nzz", opts)
-keymap("n", "N", "Nzz", opts)
-keymap("n", "*", "*zz", opts)
-keymap("n", "#", "#zz", opts)
-keymap("n", "g*", "g*zz", opts)
-keymap("n", "g#", "g#zz", opts)
+u.keymap("n", "n", "nzz", opts)
+u.keymap("n", "N", "Nzz", opts)
+u.keymap("n", "*", "*zz", opts)
+u.keymap("n", "#", "#zz", opts)
+u.keymap("n", "g*", "g*zz", opts)
+u.keymap("n", "g#", "g#zz", opts)
 
 -- Visual --
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+u.keymap("v", "<", "<gv", opts)
+u.keymap("v", ">", ">gv", opts)
 
 -- ビジュアルモード時vで行末まで選択
-keymap("v", "v", "$h", opts)
+u.keymap("v", "v", "$h", opts)
 
 -- インサートモードのままカーソル移動
 -- Ctrl+fで一つ右へ移動
-keymap("i", "<C-f>", "<C-g>U<Right>", opts)
+u.keymap("i", "<C-f>", "<C-g>U<Right>", opts)
 -- Ctrl+f Ctrl+fで一番外へ移動
-keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
+u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
 
 -- :Tでターミナル
 --vim.cmd([[

@@ -1,7 +1,9 @@
--- Normalモード時に":"でcommand lineをfloating windowで表示
-vim.api.nvim_set_keymap("n", ":", "<cmd>FineCmdline<CR>", {noremap = true, silent = true})
+local fine_cmdline_ok, fine_cmdline = pcall(require, "fine-cmdline")
+if not fine_cmdline_ok then
+  return
+end
 
-require("fine-cmdline").setup({
+fine_cmdline.setup({
   popup = {
     enter = true,
     focusable = true,
@@ -30,3 +32,8 @@ require("fine-cmdline").setup({
     },
   }
 })
+
+local u = require("utils")
+-- Normalモード時に":"でcommand lineをfloating windowで表示
+u.keymap("n", ":", "<cmd>FineCmdline<CR>")
+
