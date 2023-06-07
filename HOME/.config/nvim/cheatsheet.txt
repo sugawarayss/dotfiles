@@ -38,12 +38,17 @@ diffを表示 | <Leader>gd
 diffを閉じる | <Leader>gD
 選択してコミットまでrevertする | <Leader>gr
 現在のファイルをrevertする | <Leader>gR
+ブランチ一覧からチェックアウト(Telescope) | <Leader>b
 
 ## Docker
 コンテナ一覧(Telescope) | <C-d>c
 イメージ一覧(Telescope) | <C-d>i
 compose一覧(Telescope) | <C-d>p
 ファイル一覧(Telescope) | <C-d>l
+
+## TODO
+次のTODOへジャンプ | ;t
+前のTODOへジャンプ | :t
 
 ## vim-sandwich
 括弧で囲う | sa{motion/textobject}{addition} → 'saiw('

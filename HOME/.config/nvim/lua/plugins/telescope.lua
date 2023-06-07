@@ -48,9 +48,11 @@ u.keymap("n", "<C-p>", ":Telescope find_files hidden=true<CR>", opt)
 -- Ctrl+g で曖昧ファイル内文字列検索
 u.keymap("n", "<C-g>", ":Telescope live_grep<CR>", opt)
 -- Ctrl+b でプロジェクト内のTODOを検索
-u.keymap("n", "<C-b>", ":TodoTelescope theme=dropdown<CR>", opt)
+u.keymap("n", "<C-b>", ":TodoTelescope theme=cursor<CR>", opt)
 -- gr で カーソル下変数参照一覧を検索
-u.keymap("n", "gr", "<cmd>lua require'telescope.builtin'.lsp_references()<CR>", opt)
+u.keymap("n", "gr", ":Telescope lsp_references<CR>", opt)
+-- Git ブランチ一覧からチェックアウト
+u.keymap("n", "<leader>b", ":Telescope git_branches<CR>", opt)
 
 -- docker
 u.keymap("n", "<C-d>c", ":Telescope docker containers theme=ivy<CR>")
