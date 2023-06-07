@@ -12,6 +12,11 @@
 パスをコピー | y
 隠しファイルを表示 | !
 
+## ターミナル
+float windowで表示 | <C-t><C-t>
+垂直分割で表示 | <C-t><C-v>
+lazygitを表示 | <Leader>g
+
 ## LSP
 戻る | <C-o>
 変数情報を表示 | <S-k>

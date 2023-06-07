@@ -77,7 +77,7 @@ return packer.startup(function(use)
   -- MasonでLinter / formatterを使用する
   use { "jay-babu/mason-null-ls.nvim", requires = "jose-elias-alvarez/null-ls.nvim" }
   -- ターミナルをpopupウィンドウで表示できるようにする
-  use "voldikss/vim-floaterm"
+  use { "akinsho/toggleterm.nvim", tag = '*'}
   -- Vim コマンドラインを ウィンドウ右下に表示する
   --use {"VonHeikemen/fine-cmdline.nvim", requires = "MunifTanjim/nui.nvim"}
   use { "folke/noice.nvim", requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } }
