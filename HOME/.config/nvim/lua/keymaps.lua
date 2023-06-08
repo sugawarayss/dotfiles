@@ -68,9 +68,6 @@ u.keymap("i", "<C-f>", "<C-g>U<Right>", opts)
 -- Ctrl+f Ctrl+fで一番外へ移動
 u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
 
--- :Tでターミナル
---vim.cmd([[
---    command! -nargs=* T split | wincmd j | resize 30 | terminal <args>
---]])
---vim.cmd([[autocmd Termopen * startinsert]])
---keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+-- 複数行のコードを選択して上下に移動できるようにする
+u.keymap("v","<S-J>" ,":move '>+1<CR>gv-gv", opts)
+u.keymap("v","<S-K>" ,":move '<-2<CR>gv-gv", opts)
