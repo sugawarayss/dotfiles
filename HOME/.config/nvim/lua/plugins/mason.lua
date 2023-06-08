@@ -44,6 +44,7 @@ end
 
 require('mason').setup()
 require('mason-lspconfig').setup({
+  automatic_installation = true,
   -- LSP install
   ensure_installed = {
     -- python
@@ -69,7 +70,6 @@ require('mason-lspconfig').setup({
     -- toml
     "taplo",
   },
-  automatic_installation = true,
 })
 require('mason-lspconfig').setup_handlers({ function(server)
   local opt = {
@@ -92,8 +92,16 @@ require('mason-lspconfig').setup_handlers({ function(server)
   end
   require('lspconfig')[server].setup(opt)
   require('mason-null-ls').setup({
-    ansure_installed = nil,
     automatic_setup = true,
+    automatic_installation = true,
+    ensure_installed = {
+      "prittierd",
+      "stylua",
+      "rustfmt",
+      "black",
+      "isort",
+      "mypy",
+    },
   })
 end })
 -- LSP handlers
