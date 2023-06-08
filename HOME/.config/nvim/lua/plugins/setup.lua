@@ -96,6 +96,8 @@ return packer.startup(function(use)
   use { "lpoto/telescope-docker.nvim" }
   -- 曖昧検索結果にアイコンを表示できるプラグイン
   use "kyazdani42/nvim-web-devicons"
+  -- Bookmark機能
+  use { "tom-anders/telescope-vim-bookmarks.nvim", requires = "MattesGroeger/vim-bookmarks"}
   -- 一括コメントアウト
   use "tpope/vim-commentary"
   -- TODOコメントをハイライトするプラグイン

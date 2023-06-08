@@ -43,6 +43,7 @@ require("telescope").load_extension("ui-select")
 require("telescope").load_extension("noice")
 require("telescope").load_extension("docker")
 require("telescope").load_extension("aerial")
+require("telescope").load_extension("vim_bookmarks")
 
 vim.g["fern#default_hidden"] = true --隠しファイルは表示する
 
@@ -55,12 +56,15 @@ u.keymap("n", "<C-b>", ":TodoTelescope theme=cursor<CR>", opt)
 -- gr で カーソル下変数参照一覧を検索
 u.keymap("n", "gr", ":Telescope lsp_references<CR>", opt)
 -- Git ブランチ一覧からチェックアウト
-u.keymap("n", "<leader>b", ":Telescope git_branches<CR>", opt)
+u.keymap("n", "<S-g>b", ":Telescope git_branches<CR>", opt)
 
 -- docker
 u.keymap("n", "<C-d>c", ":Telescope docker containers theme=ivy<CR>")
 u.keymap("n", "<C-d>i", ":Telescope docker images theme=ivy<CR>")
 u.keymap("n", "<C-d>p", ":Telescope docker compose theme=ivy<CR>")
 u.keymap("n", "<C-d>l", ":Telescope docker files theme=ivy<CR>")
+
+-- ブックマーク一覧
+u.keymap("n", "<C-v>bm", ":Telescope vim_bookmarks all<CR>")
 -- アウトライン
 u.keymap("n", "<C-s>t", ":Telescope aerial theme=dropdown<CR>")

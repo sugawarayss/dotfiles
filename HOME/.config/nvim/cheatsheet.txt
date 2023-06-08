@@ -43,7 +43,7 @@ diffを表示 | <Leader>gd
 diffを閉じる | <Leader>gD
 選択してコミットまでrevertする | <Leader>gr
 現在のファイルをrevertする | <Leader>gR
-ブランチ一覧からチェックアウト(Telescope) | <Leader>b
+ブランチ一覧からチェックアウト(Telescope) | <S-g>b : 'G'it 'b'ranch
 
 ## Docker
 コンテナ一覧(Telescope) | <C-d>c
@@ -85,6 +85,10 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 ファイル名検索 | <C-p>
 ファイル内検索 | <C-g>
 プロジェクト内TODO検索 | <C-b>
+
+## Bookmark
+ブックマークをトグル | mm
+ブックマーク一覧 | <S-g>b
 
 ## Translate
 日本語に翻訳 | <C-t>j
