@@ -16,7 +16,10 @@ require("telescope").setup({
       theme="dropdown",
     },
     live_grep = {
-      theme="dropdown"
+      theme="dropdown",
+    },
+    colorscheme = {
+      enable_preview = true,
     },
   },
   extentions = {

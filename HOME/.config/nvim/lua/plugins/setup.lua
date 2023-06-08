@@ -39,7 +39,6 @@ return packer.startup(function(use)
   -- Packer (プラグイン管理) →自分自身も管理する
   use "wbthomason/packer.nvim"
   -- カラーテーマ
-  --use "marko-cerovac/material.nvim"
   use "EdenEast/nightfox.nvim"
   -- focusがないペインを暗く表示する
   use "sunjon/shade.nvim"
