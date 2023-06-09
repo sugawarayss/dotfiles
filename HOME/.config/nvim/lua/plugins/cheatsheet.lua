@@ -1,4 +1,9 @@
-require("cheatsheet").setup({
+local cheatsheet_ok, cheatsheet = pcall(require, "cheatsheet")
+if not cheatsheet_ok then
+  return
+end
+
+cheatsheet.setup({
   bundled_cheatsheets = {
     disabled = {"nerd-fonts", "unicode", "markdown"},
   },

@@ -149,7 +149,7 @@ local buttons = {
     { type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center"}},
     { type = "padding", val = 1},
     dashboard.button( "e", "  > New file" , ":ene <BAR> startinsert <CR>"),
-    dashboard.button( "f", "󰱼 > Find file", ":Telescope find_files<CR>"),
+    dashboard.button( "f", "󰱼  > Find file", ":Telescope find_files<CR>"),
     dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
     dashboard.button( "s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
     dashboard.button( "u", "󰚥  > Update Plugins", ":PackerUpdate<CR>"),

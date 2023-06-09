@@ -4,7 +4,12 @@ local opt = { silent = true }
 require("telescope").setup({
   defaults = {
     sorting_strategy = "ascending", --検索結果を上から下に並べる
-    winblend = 20, --ウィンドウを若干半透明にする
+    layout_config = {
+      vertical = { height = 0.5, width=0.9 },
+      horizontal = { height = 0.5, width = 0.9 },
+      center = { height = 0.5, width = 0.9 },
+    },
+    winblend = 20, --ウィンドウを若干半透明にする   
     file_ignore_patterns = { --検索結果に含めないファイルを指定
       "^.git/",
       "^node_modules/",
@@ -13,10 +18,10 @@ require("telescope").setup({
   },
   pickers = {
     find_files = {
-      theme="dropdown",
+      -- theme="dropdown",
     },
     live_grep = {
-      theme="dropdown",
+      -- theme="dropdown",
     },
     colorscheme = {
       enable_preview = true,
@@ -52,7 +57,7 @@ u.keymap("n", "<C-p>", ":Telescope find_files hidden=true<CR>", opt)
 -- Ctrl+g で曖昧ファイル内文字列検索
 u.keymap("n", "<C-g>", ":Telescope live_grep<CR>", opt)
 -- Ctrl+b でプロジェクト内のTODOを検索
-u.keymap("n", "<C-b>", ":TodoTelescope theme=cursor<CR>", opt)
+u.keymap("n", "<C-b>", ":TodoTelescope<CR>", opt)
 -- gr で カーソル下変数参照一覧を検索
 u.keymap("n", "gr", ":Telescope lsp_references<CR>", opt)
 -- Git ブランチ一覧からチェックアウト
