@@ -5,7 +5,7 @@ end
 
 cheatsheet.setup({
   bundled_cheatsheets = {
-    disabled = {"nerd-fonts", "unicode", "markdown"},
+    disabled = {"default", "unicode", "regex","markdown"},
   },
   bundled_plugin_cheatsheets = {
     disabled = {"auto-session", "octo.nvim"}

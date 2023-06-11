@@ -6,7 +6,7 @@ end
 if nightfox then
   nightfox.setup({
     options = {
-      transparent = true,
+      transparent = false,
     }
   })
   vim.cmd("colorscheme carbonfox")

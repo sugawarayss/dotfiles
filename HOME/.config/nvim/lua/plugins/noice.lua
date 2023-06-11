@@ -1,6 +1,11 @@
+local noice_ok, noice = pcall(require, "noice")
+if not noice_ok then
+  return
+end
+
 vim.opt.cmdheight = 0
 
-require('noice').setup {
+noice.setup {
     cmdline = {
         format = {
             cmdline = { pattern = '^:', icon = ' ', lang = 'vim' },
