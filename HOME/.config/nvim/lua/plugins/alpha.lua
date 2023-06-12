@@ -110,7 +110,6 @@ local tool_2006_2019 = {
 [[           _s8gMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMgMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMl` ]],
 }
 local tool_2019 = {
-[[                                                                                                                                                                                                  ]],
 [[                              .,~_"/???????????????????????????????<"         .,,.^!;`,,                  ,,`_!"`:,.                ."                                                            ]],
 [[                            !1?r;;;;;;;;;;;;;;;;;;;;;;;;;___rx______'       "x!~'..!  ,;1+~            '=/;, .=`.'_+l"              /=                                                            ]],
 [[                          !2/~.                             =w            "}=`    .!     :ry_        'Y|~     =.    '+s"            w=                                                            ]],
@@ -123,9 +122,9 @@ local tool_2019 = {
 [[                                                            =,      _!-  .!V:     .!      "J;`      `;c"      =.     -er`  -"~      .=                               "2!'                         ]],
 [[                                                            =,        ,'"'_~!!:   .!    "T=`          `rT"    =.   :+r_~'"'~.       .=                           :_"c>,                           ]],
 [[                                                            =,            `'"<>/_!+T!~r!:.              `:!r_!J+!;>*?"-`            .?>>/>>>/>>>>//>>>>>><<<?????T!~`                             ]],
-[[                                                                                                                                                                                                  ]],
 }
 vim.cmd[[
+hi StartLogo0 ctermfg=255 guifg=#FFFFFF
 hi StartLogo1 ctermfg=18 guifg=#14067E
 hi StartLogo2 ctermfg=18 guifg=#15127B
 hi StartLogo3 ctermfg=18 guifg=#171F78
@@ -144,7 +143,6 @@ hi StartLogo15 ctermfg=35 guifg=#26B352
 hi StartLogo16 ctermfg=35 guifg=#27C04F
 hi StartLogo17 ctermfg=41 guifg=#28CC4C
 hi StartLogo18 ctermfg=41 guifg=#29D343
-hi StartLogo99 ctermfg=255 guifg=#FFFFFF
 hi StartLogoPop1 ctermfg=214 guifg=#EC9F05
 hi StartLogoPop2 ctermfg=208 guifg=#F08C04
 hi StartLogoPop3 ctermfg=208 guifg=#F37E03
@@ -192,21 +190,40 @@ end
 local function lineToStartWhite(lines)
   local out = {}
   for i, line in ipairs(lines) do
-    table.insert(out, { hi = "StartLogo"..99, line = line})
+    table.insert(out, { hi = "StartLogo"..0, line = line})
   end
   return out
 end
---local cool = lineToStartPopGradient(coolLines)
---local robust = lineToStartShiftGradient(robustLines)
---local efficient = lineToStartGradient(efficientLines)
 
---local headers = {cool, robust, efficient}
+local function lineToStartPop(lines)
+  local out = {}
+  local hi = "StartLogoPop" .. 1
+  for i, line in ipairs(lines) do
+    if i > 2 and i <= 4 then
+      hi = "StartLogoPop" .. 2
+    elseif i > 4 and i <= 6 then
+      hi = "StartLogoPop" .. 3
+    elseif i > 6 and i <= 8 then
+      hi = "StartLogoPop" .. 4
+    elseif i > 8 and i <= 10 then
+      hi = "StartLogoPop" .. 5
+    elseif i > 10 then
+      hi = "StartLogoPop" .. 6
+    end
+    table.insert(out, {hi = hi, line = line})
+  end
+  return out
+end
+local cool = lineToStartPopGradient(coolLines)
+local robust = lineToStartShiftGradient(robustLines)
+local efficient = lineToStartGradient(efficientLines)
+
 
 
 local logo_2001 = lineToStartWhite(tool_2001_2006)
 local logo_2006 = lineToStartWhite(tool_2006_2019)
-local logo_2019 = lineToStartWhite(tool_2019)
-local headers = {logo_2001, logo_2006, logo_2019}
+local logo_2019 = lineToStartPop(tool_2019)
+local headers = {logo_2001, logo_2006, logo_2019, cool, robust, efficient}
 
 local function header_chars()
   math.randomseed(os.time())
