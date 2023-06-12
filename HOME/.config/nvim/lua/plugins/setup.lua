@@ -58,6 +58,8 @@ return packer.startup(function(use)
   use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
   -- バッファ領域にコマンドの出力結果を表示する
   use "tyru/capture.vim"
+  -- Insert Mode時に絶対行表示にする
+  use "myusuf3/numbers.vim"
   -- LSP サーバ管理
   use {
     "hrsh7th/cmp-buffer",
@@ -114,6 +116,8 @@ return packer.startup(function(use)
   use "rgroli/other.nvim"
   -- 囲う系の操作を便利にするプラグイン
   use "kylechui/nvim-surround"
+  -- インクリメント(C-A) / デクリメント(C-X) を賢く
+  use { "monaqa/dial.nvim", requires = "nvim-lua/plenary.nvim" }
   -- コードアウトラインを表示する
   use "stevearc/aerial.nvim"
   -- markdownをプレビューできるプラグイン

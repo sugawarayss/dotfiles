@@ -33,6 +33,7 @@ require("plugins.indent")
 
 require("plugins.nvim-surround")
 require("plugins.nvim-autopairs")
+require("plugins.dial")
 require("plugins.aerial")
 require("plugins.csvtools")
 require("plugins.colorizer")
