@@ -39,7 +39,7 @@ return packer.startup(function(use)
   -- Packer (プラグイン管理) →自分自身も管理する
   use "wbthomason/packer.nvim"
   -- カラーテーマ
-  use "EdenEast/nightfox.nvim"
+  use "folke/tokyonight.nvim"
   -- Dashbordカスタマイズとセッション
   use {"goolord/alpha-nvim", requires = "nvim-tree/nvim-web-devicons"}
   -- focusがないペインを暗く表示する

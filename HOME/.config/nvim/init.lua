@@ -3,7 +3,7 @@ require("base")
 require("keymaps")
 require("options")
 
-require("plugins.nightfox")
+require("plugins.colortheme")
 
 require("plugins.fern")
 require("plugins.fern-renderer")
