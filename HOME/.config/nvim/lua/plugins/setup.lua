@@ -38,28 +38,15 @@ packer.init {
 return packer.startup(function(use)
   -- Packer (プラグイン管理) →自分自身も管理する
   use "wbthomason/packer.nvim"
-  -- カラーテーマ
-  use "folke/tokyonight.nvim"
-  -- Dashbordカスタマイズとセッション
-  use {"goolord/alpha-nvim", requires = "nvim-tree/nvim-web-devicons"}
-  -- focusがないペインを暗く表示する
-  use "sunjon/shade.nvim"
-  -- ファイラープラグイン
-  use "lambdalisue/fern.vim"
-  -- フォント
-  use "lambdalisue/nerdfont.vim"
-  -- ファイラーでNerdFontを使用できるようにする
-  use "lambdalisue/fern-renderer-nerdfont.vim"
-  -- ファイラーにgitステータスを表示する
-  use "lambdalisue/fern-git-status.vim"
-  -- ファイラーでファイルのプレビューを表示する
-  use "yuki-yano/fern-preview.vim"
-  -- タブごとに表示するバッファを切り替える
-  use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
-  -- バッファ領域にコマンドの出力結果を表示する
-  use "tyru/capture.vim"
-  -- Insert Mode時に絶対行表示にする
-  use "myusuf3/numbers.vim"
+  --------------
+  -- BackEnd
+  ---------------
+  -- シンタックスハイライト
+  use "nvim-treesitter/nvim-treesitter"
+  -- treesitterによる解析内容を直接閲覧できるプラグイン
+  use "nvim-treesitter/playground"
+  -- 入力時、シグネチャの情報を表示
+  use "ray-x/lsp_signature.nvim"
   -- LSP サーバ管理
   use {
     "hrsh7th/cmp-buffer",
@@ -69,8 +56,6 @@ return packer.startup(function(use)
     "hrsh7th/nvim-cmp",
     "onsails/lspkind.nvim"
   }
-  use "j-hui/fidget.nvim"
-  use "ray-x/lsp_signature.nvim"
   -- Language Server管理
   use {
     "williamboman/mason.nvim",
@@ -79,17 +64,14 @@ return packer.startup(function(use)
   }
   -- MasonでLinter / formatterを使用する
   use { "jay-babu/mason-null-ls.nvim", requires = "jose-elias-alvarez/null-ls.nvim" }
-  -- ターミナルをpopupウィンドウで表示できるようにする
-  use { "akinsho/toggleterm.nvim", tag = '*'}
-  -- Vim コマンドラインを ウィンドウ右下に表示する
-  --use {"VonHeikemen/fine-cmdline.nvim", requires = "MunifTanjim/nui.nvim"}
-  use { "folke/noice.nvim", requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } }
   -- denoを利用可能にする
   use "vim-denops/denops.vim"
-  -- 翻訳プラグイン
-  use "voldikss/vim-translator"
   -- IME
   use { "vim-skk/skkeleton", requires = { "vim-denops/denops.vim", "Shougo/ddc.vim" } }
+
+  --------------
+  -- Fuzzy Finder
+  ---------------
   -- 曖昧検索できるようにする
   use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
   use "nvim-telescope/telescope-ui-select.nvim"
@@ -102,12 +84,67 @@ return packer.startup(function(use)
   use "kyazdani42/nvim-web-devicons"
   -- Bookmark機能
   use { "tom-anders/telescope-vim-bookmarks.nvim", requires = "MattesGroeger/vim-bookmarks"}
-  -- 一括コメントアウト
-  use "tpope/vim-commentary"
-  -- TODOコメントをハイライトするプラグイン
-  use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" }
+
+  --------------
+  -- UI
+  ---------------
+  -- カラーテーマ
+  use "folke/tokyonight.nvim"
+  -- Dashbordカスタマイズとセッション
+  use {"goolord/alpha-nvim", requires = "nvim-tree/nvim-web-devicons"}
+  -- focusがないペインを暗く表示する
+  use "sunjon/shade.nvim"
+  -- Insert Mode時に絶対行表示にする
+  use "myusuf3/numbers.vim"
+  -- ターミナルをpopupウィンドウで表示できるようにする
+  use { "akinsho/toggleterm.nvim", tag = '*'}
+  -- CmdLineや通知をpopupで表示
+  use { "folke/noice.nvim", requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } }
   -- インデントを可視化するプラグイン
   use "lukas-reineke/indent-blankline.nvim"
+  -- バッファ領域にコマンドの出力結果を表示する
+  use "tyru/capture.vim"
+  -- Language Serverの進捗を右下に表示する
+  use "j-hui/fidget.nvim"
+  -- コードアウトラインを表示する
+  use "stevearc/aerial.nvim"
+  -- inlineにgitblame等を表示するプラグイン
+  use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
+  -- ステータスバーに色付けして表示するプラグイン
+  use {"nvim-lualine/lualine.nvim", require = {"nvim-tree/nvim-web-devicons", opt = true}}
+  -- タブごとに表示するバッファを切り替える
+  use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
+  -- ステータスバーにgitbranchを表示するプラグイン
+  use "itchyny/vim-gitbranch"
+  -- カラーコードを色付け
+  use "norcalli/nvim-colorizer.lua"
+  -- csvを色付け
+  use "Decodetalkers/csv-tools.lua"
+  -- TODOコメントをハイライトするプラグイン
+  use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" }
+  -- スクロールバーを表示
+  use {"petertriho/nvim-scrollbar", requires = "kevinhwang91/nvim-hlslens"}
+  --------------
+  -- ファイラー
+  ---------------
+  -- ファイラープラグイン
+  use "lambdalisue/fern.vim"
+  -- フォント
+  use "lambdalisue/nerdfont.vim"
+  -- ファイラーでNerdFontを使用できるようにする
+  use "lambdalisue/fern-renderer-nerdfont.vim"
+  -- ファイラーにgitステータスを表示する
+  use "lambdalisue/fern-git-status.vim"
+  -- ファイラーでファイルのプレビューを表示する
+  use "yuki-yano/fern-preview.vim"
+
+  --------------
+  -- Edit
+  ---------------
+  -- 一括コメントアウト
+  use "tpope/vim-commentary"
+  -- 翻訳プラグイン
+  use "voldikss/vim-translator"
   -- 括弧を自動で閉じるプラグイン
   use "windwp/nvim-autopairs"
   -- 対応するキーワードや記号にジャンプできる
@@ -118,16 +155,11 @@ return packer.startup(function(use)
   use "kylechui/nvim-surround"
   -- インクリメント(C-A) / デクリメント(C-X) を賢く
   use { "monaqa/dial.nvim", requires = "nvim-lua/plenary.nvim" }
-  -- コードアウトラインを表示する
-  use "stevearc/aerial.nvim"
   -- markdownをプレビューできるプラグイン
   use {
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end
   }
-  -- シンタックスハイライト
-  use "nvim-treesitter/nvim-treesitter"
-  use "nvim-treesitter/playground"
   --  テキストを囲う操作を行えるようにするプラグイン
   use "machakann/vim-sandwich"
   --     saiw( : foo   → (foo)
@@ -135,16 +167,10 @@ return packer.startup(function(use)
   --     sr    : (foo) → "foo"
   -- Neovim上で直接Gitに関する操作を行うプラグイン
   use "dinhhuy258/git.nvim"
-  -- ステータスバーに色付けして表示するプラグイン
-  use "nvim-lualine/lualine.nvim"
-  -- ステータスバーにgitbranchを表示するプラグイン
-  use "itchyny/vim-gitbranch"
-  -- inlineにgitblame等を表示するプラグイン
-  use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
-  -- カラーコードを色付け
-  use "norcalli/nvim-colorizer.lua"
-  -- csvを色付け
-  use "Decodetalkers/csv-tools.lua"
+  --------------
+  -- Utilities
+  ---------------
+
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end

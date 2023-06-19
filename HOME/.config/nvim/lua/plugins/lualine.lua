@@ -2,8 +2,8 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = "tokyonight",
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    --component_separators = { left = '', right = ''},
+    --section_separators = { left = '', right = ''},
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -24,8 +24,10 @@ require('lualine').setup {
       {'filename', path = 4},
     },
     lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {},
-    lualine_z = {'location', 'progress'}
+    lualine_y = {'location', 'progress'},
+    lualine_z = {
+      {'datetime', style = "%Y/%m/%d %H:%M:%S"}
+    }
   },
   inactive_sections = {
     lualine_a = {
@@ -42,18 +44,7 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {
-    lualine_a = {
-      {'buffers',use_mode_colors = true},
-    },
-    lualine_b = {},
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = {'searchcount'},
-    lualine_z = {
-      {'datetime', style="%Y/%m/%d %H:%M:%S"},
-    }
-  },
+  tabline = {},
   winbar = {},
   inactive_winbar = {},
   extensions = {'fern', 'aerial', 'toggleterm'}
