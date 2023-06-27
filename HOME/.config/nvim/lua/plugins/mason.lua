@@ -1,6 +1,6 @@
 my_on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  local opts = { noremap=true, silent=false }
+  local opts = { noremap = true, silent = false }
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gf', '<cmd>lua vim.lsp.buf.format {async=true}<CR>', opts)
   -- 'K' でカーソル下の変数情報を表示
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -76,7 +76,7 @@ require('mason-lspconfig').setup_handlers({ function(server)
     -- Function executed when the LSP server startup
     on_attach = my_on_attach,
     capabilities = require('cmp_nvim_lsp').default_capabilities(
-          vim.lsp.protocol.make_client_capabilities()
+      vim.lsp.protocol.make_client_capabilities()
     ),
   }
   if server == "pyright" then
@@ -85,7 +85,7 @@ require('mason-lspconfig').setup_handlers({ function(server)
         venvPath = ".",
         pythonPath = "./.venv/bin/python",
         analysis = {
-          extraPaths = {"."}
+          extraPaths = { "." }
         },
       },
     }
@@ -106,7 +106,7 @@ require('mason-lspconfig').setup_handlers({ function(server)
 end })
 -- LSP handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+  vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
 -- エラーアイコンの変更
 local signs = { Error = "", Warn = "", Hint = "", Info = "" }

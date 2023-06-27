@@ -83,7 +83,7 @@ return packer.startup(function(use)
   -- 曖昧検索結果にアイコンを表示できるプラグイン
   use "kyazdani42/nvim-web-devicons"
   -- Bookmark機能
-  use { "tom-anders/telescope-vim-bookmarks.nvim", requires = "MattesGroeger/vim-bookmarks"}
+  use { "tom-anders/telescope-vim-bookmarks.nvim", requires = "MattesGroeger/vim-bookmarks" }
 
   --------------
   -- UI
@@ -91,13 +91,13 @@ return packer.startup(function(use)
   -- カラーテーマ
   use "folke/tokyonight.nvim"
   -- Dashbordカスタマイズとセッション
-  use {"goolord/alpha-nvim", requires = "nvim-tree/nvim-web-devicons"}
+  use { "goolord/alpha-nvim", requires = "nvim-tree/nvim-web-devicons" }
   -- focusがないペインを暗く表示する
   use "sunjon/shade.nvim"
   -- Insert Mode時に絶対行表示にする
   use "myusuf3/numbers.vim"
   -- ターミナルをpopupウィンドウで表示できるようにする
-  use { "akinsho/toggleterm.nvim", tag = '*'}
+  use { "akinsho/toggleterm.nvim", tag = '*' }
   -- CmdLineや通知をpopupで表示
   use { "folke/noice.nvim", requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } }
   -- インデントを可視化するプラグイン
@@ -111,7 +111,7 @@ return packer.startup(function(use)
   -- inlineにgitblame等を表示するプラグイン
   use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
   -- ステータスバーに色付けして表示するプラグイン
-  use {"nvim-lualine/lualine.nvim", require = {"nvim-tree/nvim-web-devicons", opt = true}}
+  use { "nvim-lualine/lualine.nvim", require = { "nvim-tree/nvim-web-devicons", opt = true } }
   -- タブごとに表示するバッファを切り替える
   use { 'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons' }
   -- ステータスバーにgitbranchを表示するプラグイン
@@ -123,7 +123,7 @@ return packer.startup(function(use)
   -- TODOコメントをハイライトするプラグイン
   use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" }
   -- スクロールバーを表示
-  use {"petertriho/nvim-scrollbar", requires = "kevinhwang91/nvim-hlslens"}
+  use { "petertriho/nvim-scrollbar", requires = "kevinhwang91/nvim-hlslens" }
   --------------
   -- ファイラー
   ---------------
@@ -167,9 +167,6 @@ return packer.startup(function(use)
   --     sr    : (foo) → "foo"
   -- Neovim上で直接Gitに関する操作を行うプラグイン
   use "dinhhuy258/git.nvim"
-  --------------
-  -- Utilities
-  ---------------
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()

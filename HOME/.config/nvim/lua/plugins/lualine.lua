@@ -18,15 +18,15 @@ require('lualine').setup {
     }
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
     lualine_c = {
-      {'filename', path = 4},
+      { 'filename', path = 4 },
     },
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'location', 'progress'},
+    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'location', 'progress' },
     lualine_z = {
-      {'datetime', style = "%Y/%m/%d %H:%M:%S"}
+      { 'datetime', style = "%Y/%m/%d %H:%M:%S" }
     }
   },
   inactive_sections = {
@@ -40,12 +40,12 @@ require('lualine').setup {
     },
     lualine_c = {
     },
-    lualine_x = {'location'},
+    lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {}
   },
   tabline = {},
   winbar = {},
   inactive_winbar = {},
-  extensions = {'fern', 'aerial', 'toggleterm'}
+  extensions = { 'fern', 'aerial', 'toggleterm' }
 }

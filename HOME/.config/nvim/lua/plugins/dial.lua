@@ -8,14 +8,14 @@
 local config = require("dial.config")
 local augend = require("dial.augend")
 
-config.augends:register_group{
+config.augends:register_group {
   default = {
-    augend.integer.alias.decimal,          -- 自然数
-    augend.integer.alias.decimal_int,      -- 負の数も含んだ数値
-    augend.integer.alias.hex,              -- 16進数
-    augend.integer.alias.octal,            -- 8進数
-    augend.integer.alias.binary,           -- 2進数
-    augend.constant.alias.bool,            -- true/false
+    augend.integer.alias.decimal,     -- 自然数
+    augend.integer.alias.decimal_int, -- 負の数も含んだ数値
+    augend.integer.alias.hex,         -- 16進数
+    augend.integer.alias.octal,       -- 8進数
+    augend.integer.alias.binary,      -- 2進数
+    augend.constant.alias.bool,       -- true/false
     augend.date.alias["%Y/%m/%d"],
     augend.date.alias["%Y-%m-%d"],
     augend.date.alias["%H:%M:%S"],

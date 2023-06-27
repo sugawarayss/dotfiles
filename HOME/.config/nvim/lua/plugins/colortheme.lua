@@ -3,8 +3,7 @@ if not tokyonight_ok then
   return
 end
 tokyonight.setup({
-  style = "night",
-},
-vim.cmd[[colorscheme tokyonight]]
+    style = "night",
+  },
+  vim.cmd [[colorscheme tokyonight]]
 )
-

@@ -69,5 +69,5 @@ u.keymap("i", "<C-f>", "<C-g>U<Right>", opts)
 u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
 
 -- 複数行のコードを選択して上下に移動できるようにする
-u.keymap("v","<S-J>" ,":move '>+1<CR>gv-gv", opts)
-u.keymap("v","<S-K>" ,":move '<-2<CR>gv-gv", opts)
+u.keymap("v", "<S-J>", ":move '>+1<CR>gv-gv", opts)
+u.keymap("v", "<S-K>", ":move '<-2<CR>gv-gv", opts)
