@@ -4,6 +4,9 @@ require("keymaps")
 require("options")
 
 require("plugins.colortheme")
+require("plugins.hlslens")
+require("plugins.indent")
+require("plugins.scrollbar")
 
 require("plugins.fern")
 require("plugins.fern-renderer")
@@ -29,10 +32,6 @@ require("plugins.cmp")
 require("plugins.todo-comments")
 require("plugins.git")
 require("plugins.gitsigns")
-
-require("plugins.indent")
-require("plugins.scrollbar")
-require("plugins.hlslens")
 
 require("plugins.nvim-surround")
 require("plugins.nvim-autopairs")
