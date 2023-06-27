@@ -12,18 +12,18 @@
 パスをコピー | y
 隠しファイルを表示 | !
 
-## バッファ操作
+## バッファ操作(buffer)
 左のバッファにフォーカス | <S-h>
 右のバッファにフォーカス | <S-l>
-バッファ一覧(Telescope) | <C-S-b>
-選択したバッファをclose(Telescope) | (選択状態で) <C-d>
+バッファ一覧(Telescope) | <F10>
+選択したバッファをclose(Telescope) | (insert mode) <C-c>
 バッファを左に移動 | <Leader>h
 バッファを右に移動 | <Leader>l
 左側のバッファを全て閉じる | <C-S-h>
 右側のバッファを全て閉じる | <C-S-l>
 
 
-## ターミナル
+## ターミナル(terminal)
 float windowで表示 | <C-t><C-t>
 垂直分割で表示 | <C-t><C-v>
 lazygitを表示 | <Leader>g
@@ -86,7 +86,11 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 直前のエラーを表示 | <Leader>nl
 エラーリストをtelescopeで表示 | <Leader>nh
 
-## アウトライン
+## インクリメント(increment)
+インクリメント(increment) | <C-a>
+デクリメント(decrement) | <C-x>
+
+## アウトライン(outline)
 現在のファイルのアウトラインを選択(Telescope) | <C-s>t
 アウトラインペイン表示をトグル | <leader>a
 前のアウトラインにジャンプ | <Leader>k
@@ -96,14 +100,18 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 ファイル名検索 | <C-p>
 ファイル内検索 | <C-g>
 プロジェクト内TODO検索 | <C-b>
+プレビューを上にスクロール | <C-u>
+プレビューを下にスクロール | <C-d>
+keymap一覧 | <C-k><C-m>
 
-## Bookmark
+
+## ブックマーク(Bookmark)
 ブックマークをトグル | mm
-ブックマーク一覧 | <S-g>b
+ブックマーク一覧 | <C-<F10>>
 
-## Translate
+## 翻訳(translate)
 日本語に翻訳 | <C-t>j
 英語に翻訳 | <C-t>e
 
-## 日本語入力
+## 日本語入力(ime)
 インラインIMEをトグル | <C-j>
