@@ -4,8 +4,8 @@
 " vimrcと共通のkeymap等は切り出すことが可能
 "source .vimrc.keymap
 
-"see actions list of ideavim
-"https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+"see following actions list of ideavim
+" `:actionlist [keymap]`
 
 " ノーマルモードではIMEをオフ(効いてない可能性)
 set keep-english-in-normal
@@ -26,6 +26,10 @@ nnoremap ,g :action FindInPath<CR>
 nnoremap ,r :action RecentFiles<CR>
 " 呼び出し階層一覧viewを表示
 nnoremap ,c :action CallHierarchy<CR>
+" 水平分割
+nnoremap <C-s> :action MoveTabDown<CR>
+" 垂直分割
+nnoremap <C-v> :action MoveTabRight<CR>
 
 """"""""""""""""""""""""""""""""""
 " コードジャンプ系のコマンド定義 "
@@ -50,16 +54,14 @@ nnoremap gt :action GotoTest<CR>
 """"""""""""""""""""""""""""""""""
 " エディター (コード編集)        "
 """"""""""""""""""""""""""""""""""
-" カーソルのある単語を一斉に編集
-nnoremap gn :action RenameElement<CR>
 " ブックマークリストを表示
-nnoremap Bb :action ShowBookmarks<CR>
+nnoremap <F10> :action ShowBookmarks<CR>
 " カーソル行でブックマークをトグル
-nnoremap B :action ToggleBookmark<CR>
-" 次のブックマークへジャンプ
-nnoremap Bj :action GotoNextBookmark<CR>
-" 前のブックマークへジャンプ
-nnoremap Bk :action GotoPreviousBookmark<CR>
+nnoremap mm :action ToggleBookmark<CR>
+" 次の分割グループへ移動
+nnoremap <S-l> :action NextSplitter<CR>
+" 前の分割グループへ移動
+nnoremap <S-h> :action PrevSplitter<CR>
 
 """"""""""""""""""""""""""""""""""
 " 実行                           "
