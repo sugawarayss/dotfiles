@@ -49,14 +49,20 @@ require('mason-lspconfig').setup({
   ensure_installed = {
     -- python
     "pyright",
+    -- sphinx
+    "esbonio",
     -- rust
     "rust_analyzer",
+    -- go
+    "gopls",
     -- typescript
     "tsserver",
     -- lua
     "lua_ls",
     -- deno
     "denols",
+    -- eslint
+    "eslint",
     -- php
     "intelephense",
     -- kotlin
@@ -71,6 +77,7 @@ require('mason-lspconfig').setup({
     "taplo",
   },
 })
+local nvim_lsp = require('lspconfig')
 require('mason-lspconfig').setup_handlers({ function(server)
   local opt = {
     -- Function executed when the LSP server startup
@@ -79,6 +86,9 @@ require('mason-lspconfig').setup_handlers({ function(server)
       vim.lsp.protocol.make_client_capabilities()
     ),
   }
+  local node_root_dir = nvim_lsp.util.root_pattern("package.json")
+  local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
+
   if server == "pyright" then
     opt.settings = {
       python = {
@@ -90,17 +100,57 @@ require('mason-lspconfig').setup_handlers({ function(server)
       },
     }
   end
-  require('lspconfig')[server].setup(opt)
+
+  if server == "tsserver" then
+    if not is_node_repo then
+      return
+    end
+    opt.root_dir = node_root_dir
+  elseif server == "eslint" then
+    if not is_node_repo then
+      return
+    end
+    opt.root_dir = node_root_dir
+  elseif server == "denols" then
+    if is_node_repo then
+      return
+    end
+    opt.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
+    opt.init_options = {
+      lint = true,
+      unstable = true,
+      suggest = {
+        imports = {
+          hosts = {
+            ["https://deno.land"] = true,
+            ["https://cdn.nest.land"] = true,
+            ["https://crux.land"] = true
+          }
+        }
+      }
+    }
+  end
+
+  nvim_lsp[server].setup(opt)
   require('mason-null-ls').setup({
     automatic_setup = true,
     automatic_installation = true,
     ensure_installed = {
-      "prittierd",
+      -- JS/TS
+      "prittiered",
+      "eslint_d",
+      -- lua
       "stylua",
+      -- Rust
       "rustfmt",
+      -- python
       "black",
       "isort",
+      "flake8",
       "mypy",
+      -- Go
+      "goimports",
+      "staticcheck",
     },
   })
 end })
