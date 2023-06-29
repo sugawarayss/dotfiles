@@ -135,3 +135,9 @@ typeset -U path cdpath fpath manpath # パスの重複登録を避ける
 
 # helix用のlang-serverPATHを追加
 export PATH=$PATH:`npm prefix --location=global`/bin
+
+
+##############
+# psql       #
+##############
+export PATH="/opt/homebrew/Cellar/libpq/15.3_1/bin:$PATH"
