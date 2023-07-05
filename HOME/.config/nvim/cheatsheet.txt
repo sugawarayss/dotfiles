@@ -47,6 +47,18 @@ lazygitを表示 | <Leader>g
 次のエラー箇所へジャンプ | gj
 前のエラー箇所へジャンプ | gk
 
+## Debugger
+UIを起動 | <Leader>d
+BreakPointをトグル | <Leader>b
+条件付きBreakPointをセット | <Leader>B
+ログ出力付きBreakPointをセット | <Leader>lp
+対話インタプリタを起動 | <Leader>dr
+直前の実行を再実行 | <Leader>dl
+コンティニュー | <F8>
+ステップオーバー | <F9>
+ステップイン | <F10>
+ステップアウト | <F7>
+
 ## Git
 git blameを表示 | <Leader>gb
 git blameを非表示 | q
