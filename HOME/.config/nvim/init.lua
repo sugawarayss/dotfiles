@@ -34,6 +34,7 @@ require("plugins.cmp")
 require("plugins.todo-comments")
 require("plugins.git")
 require("plugins.gitsigns")
+require("plugins.dap")
 
 require("plugins.nvim-surround")
 require("plugins.nvim-autopairs")

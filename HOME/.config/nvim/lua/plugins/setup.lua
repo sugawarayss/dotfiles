@@ -70,6 +70,13 @@ return packer.startup(function(use)
   use { "vim-skk/skkeleton", requires = { "vim-denops/denops.vim", "Shougo/ddc.vim" } }
 
   --------------
+  -- Debugger
+  --------------
+  use "mfussenegger/nvim-dap"
+  use "rcarriga/nvim-dap-ui"
+  use "https://github.com/mfussenegger/nvim-dap-python"
+
+  --------------
   -- Fuzzy Finder
   ---------------
   -- 曖昧検索できるようにする

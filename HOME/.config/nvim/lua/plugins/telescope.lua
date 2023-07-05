@@ -80,9 +80,9 @@ require("telescope").setup({
   -- vim コマンド履歴一覧
   u.keymap("n", "<C-h>", "<cmd>Telescope command_history<CR>"),
   -- バッファー一覧
-  u.keymap("n", "<F10>", "<cmd>Telescope buffers show_all_buffers=true<CR>"),
+  u.keymap("n", "<F5>", "<cmd>Telescope buffers show_all_buffers=true<CR>"),
   -- ブックマーク一覧
-  u.keymap("n", "<F34>", "<cmd>Telescope vim_bookmarks all<CR>"),
+  u.keymap("n", "<F29>", "<cmd>Telescope vim_bookmarks all<CR>"),
   -- アウトライン
   u.keymap("n", "<C-s>t", "<cmd>Telescope aerial theme=dropdown<CR>"),
   -- keymap一覧

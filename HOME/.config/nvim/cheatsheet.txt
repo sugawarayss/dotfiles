@@ -15,7 +15,7 @@
 ## バッファ操作(buffer)
 左のバッファにフォーカス | <S-h>
 右のバッファにフォーカス | <S-l>
-バッファ一覧(Telescope) | <F10>
+バッファ一覧(Telescope) | <F5>
 選択したバッファをclose(Telescope) | (insert mode) <C-c>
 バッファを左に移動 | <Leader>h
 バッファを右に移動 | <Leader>l
@@ -111,7 +111,7 @@ keymap一覧 | <C-k><C-m>
 
 ## ブックマーク(Bookmark)
 ブックマークをトグル | mm
-ブックマーク一覧 | <C-<F10>>
+ブックマーク一覧 | <C-<F5>>
 
 ## 翻訳(translate)
 日本語に翻訳 | <C-t>j
