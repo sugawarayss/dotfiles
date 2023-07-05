@@ -148,9 +148,12 @@ require("mason-lspconfig").setup_handlers({
         "isort",
         "flake8",
         "mypy",
+        "debugpy",
         -- Go
         "goimports",
         "staticcheck",
+        -- json
+        "jq",
       },
     })
   end,
