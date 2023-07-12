@@ -12,3 +12,4 @@ __pycache__/
 hoge.py
 recreate_container.sh
 sample_csv/
+.envrc
