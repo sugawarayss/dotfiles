@@ -6,14 +6,13 @@ require("options")
 require("plugins.colortheme")
 require("plugins.hlslens")
 require("plugins.indent")
+require("plugins.lualine")
+require("plugins.bufferline")
 require("plugins.scrollbar")
 
 require("plugins.fern")
 require("plugins.fern-renderer")
 require("plugins.fern-preview")
-
-require("plugins.lualine")
-require("plugins.bufferline")
 
 require("plugins.telescope")
 require("plugins.treesitter")
