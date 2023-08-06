@@ -5,7 +5,7 @@ end
 
 vim.opt.cmdheight = 0
 
-noice.setup {
+noice.setup ({
   cmdline = {
     format = {
       cmdline = { pattern = '^:', icon = ' ', lang = 'vim' },
@@ -60,7 +60,7 @@ noice.setup {
       },
     },
   },
-}
+})
 
 vim.keymap.set("n", "<leader>nl", function() require("noice").cmd("last") end)
 vim.keymap.set("n", "<leader>nh", "<cmd>Noice telescope<CR>")
