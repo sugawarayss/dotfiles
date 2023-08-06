@@ -59,9 +59,16 @@ source = { git = "https://github.com/tree-sitter/tree-sitter-rust", rev = "0431a
 
 [[language]]
 name = "python"
-roots = ["pyproject.toml"]
+scope = "source.python"
+"injection-regex" = "python"
+file-types = ["py","pyi","py3","pyw","ptl",".pythonstartup",".pythonrc","SConstruct"]
+shebangs = ["python"]
+roots = ["setup.py","setup.cfg","pyproject.toml"]
+comment-token = "#"
 language-server = { command = "pyright-langserver", args = ["--stdio"] }
-config = {}
+formatter = { command = "black", args = ["--line-length 150"]}
+indent = { tab-width = 4, unit = "    "}
+config = { venvPath = ".", pythonPath = "./.venv/bin/python"}
 
 [[grammar]]
 name = "python"
