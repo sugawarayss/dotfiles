@@ -89,7 +89,7 @@ compose一覧(Telescope) | <C-d>p
 
 ## Nvim-Surround
 空白あり/空白なし | あり: "(" / なし: ")"
-alias | w: word, s: sentence
+alias | x: >, b: ), c: }, v: ], q: 'or"
 カーソル位置の単語を<記号>で囲む | ysiw<記号> : you surround inner word
 カーソル位置の単語を囲む記号ごと<記号2>で囲む | ysa<記号1><記号2> : you surround arround word
 カーソル位置から行末まで<記号>で囲む | ys$<記号>
