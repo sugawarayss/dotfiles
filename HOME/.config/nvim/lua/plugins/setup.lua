@@ -63,7 +63,7 @@ return packer.startup(function(use)
     "neovim/nvim-lspconfig",
   }
   -- MasonでLinter / formatterを使用する
-  use { "jay-babu/mason-null-ls.nvim", requires = "jose-elias-alvarez/null-ls.nvim" }
+  --use { "jay-babu/mason-null-ls.nvim", requires = "jose-elias-alvarez/null-ls.nvim" }
   -- denoを利用可能にする
   use "vim-denops/denops.vim"
   -- IME
@@ -161,7 +161,7 @@ return packer.startup(function(use)
   use "andymass/vim-matchup"
   -- コードとテストコードのファイルを行き来できるプラグイン
   use "rgroli/other.nvim"
-  -- 囲う系の操作を便利にするプラグイン
+  --  テキストを囲う操作を行えるようにするプラグイン
   use "kylechui/nvim-surround"
   -- インクリメント(C-A) / デクリメント(C-X) を賢く
   use { "monaqa/dial.nvim", requires = "nvim-lua/plenary.nvim" }
@@ -170,11 +170,6 @@ return packer.startup(function(use)
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end
   }
-  --  テキストを囲う操作を行えるようにするプラグイン
-  use "machakann/vim-sandwich"
-  --     saiw( : foo   → (foo)
-  --     sd    : (foo) → foo
-  --     sr    : (foo) → "foo"
   -- Neovim上で直接Gitに関する操作を行うプラグイン
   use "dinhhuy258/git.nvim"
   -- keybind completion
