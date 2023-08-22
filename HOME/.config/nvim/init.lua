@@ -28,7 +28,7 @@ require("plugins.cheatsheet")
 require("plugins.toggleterm")
 
 require("plugins.mason")
-require("plugins.null-ls")
+-- require("plugins.null-ls")
 require("plugins.cmp")
 require("plugins.todo-comments")
 require("plugins.git")

@@ -132,30 +132,6 @@ require("mason-lspconfig").setup_handlers({
     end
 
     nvim_lsp[server].setup(opt)
-    require("mason-null-ls").setup({
-      automatic_setup = true,
-      automatic_installation = true,
-      ensure_installed = {
-        -- JS/TS
-        "prittiered",
-        "eslint_d",
-        -- lua
-        "stylua",
-        -- Rust
-        "rustfmt",
-        -- python
-        "black",
-        "isort",
-        "flake8",
-        "mypy",
-        "debugpy",
-        -- Go
-        "goimports",
-        "staticcheck",
-        -- json
-        "jq",
-      },
-    })
   end,
 })
 -- LSP handlers
