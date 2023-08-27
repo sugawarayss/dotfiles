@@ -157,9 +157,12 @@ return packer.startup(function(use)
   -- 一括コメントアウト
   use "tpope/vim-commentary"
   use "luukvbaal/statuscol.nvim"
-  -- 日本語をローマ字で/で検索できる
+  -- 日本語をローマ字で検索できる
   use { "lambdalisue/kensaku.vim", requires = { "vim-denops/denops.vim" } }
+  -- 日本語をローマ字で検索できるKensakuコマンドを使えるようにする
   use { "lambdalisue/kensaku-command.vim", requires = { "lambdalisue/kensaku.vim" } }
+  -- /コマンドでローマ字で日本語を検索できるようにする
+  use { "lambdalisue/kensaku-search.vim", requires = { "lambdalisue/kensaku.vim" } }
   -- w/bモーションでの移動をスマートにする
   use "kana/vim-smartword"
   -- 少ないキー数で様々な場所に遷移できるモーションを提供
