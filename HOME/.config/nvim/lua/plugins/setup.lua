@@ -96,7 +96,7 @@ return packer.startup(function(use)
   -- UI
   ---------------
   -- カラーテーマ
-  use "folke/tokyonight.nvim"
+  -- use "folke/tokyonight.nvim"
   use { "catppuccin/nvim", as = "catppuccin" }
   -- Dashbordカスタマイズとセッション
   use { "goolord/alpha-nvim", requires = "nvim-tree/nvim-web-devicons" }

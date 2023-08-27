@@ -1,13 +1,11 @@
-local tokyonight_ok, tokyonight = pcall(require, "tokyonight")
-if not tokyonight_ok then
-  return
-end
-tokyonight.setup({
-    style = "night",
-  }
-)
-
-
+-- local tokyonight_ok, tokyonight = pcall(require, "tokyonight")
+-- if not tokyonight_ok then
+--   return
+-- end
+-- tokyonight.setup({
+--     style = "night",
+--   }
+-- )
 
 local catppuccin_ok, catppuccin = pcall(require, "catppuccin")
 if not catppuccin_ok then
