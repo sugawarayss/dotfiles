@@ -13,19 +13,27 @@
 隠しファイルを表示 | !
 
 ## バッファ操作(buffer)
-左のバッファにフォーカス | <S-h>
-右のバッファにフォーカス | <S-l>
-バッファ一覧(Telescope) | <F5>
-選択したバッファをclose(Telescope) | (insert mode) <C-c>
-バッファを左に移動 | <Leader>h
-バッファを右に移動 | <Leader>l
-左側のバッファを全て閉じる | <C-S-h>
-右側のバッファを全て閉じる | <C-S-l>
+左のbufferにfocus | sh
+右のbufferにfocus | sl
+上のbufferにfocus | sk
+下のbufferにfocus  | sj
+buffer一覧(Telescope) | <F5>
+選択したbufferをclose(Telescope) | (insert mode) <C-c>
+bufferを左に移動 | <Leader>h
+bufferを右に移動 | <Leader>l
+左側のbufferを全て閉じる | <C-S-h>
+右側のbufferを全て閉じる | <C-S-l>
 全て折り畳み | zM
 全て展開 | zR
 折り畳み | zm
 展開 | zr
 折り畳み箇所のプレビュー表示 | zn
+
+## 分割(split)
+垂直分割 | ss
+水平分割 | sv
+window の resize mode | <C-E>
+size調整 | h, j, k, l
 
 ## ターミナル(terminal)
 float windowで表示 | <C-t><C-t>
@@ -49,8 +57,8 @@ lazygitを表示 | <Leader>g
 
 ## Debugger
 UIを起動 | <Leader>d
-BreakPointをトグル | <Leader>b
-条件付きBreakPointをセット | <Leader>B
+BreakPointをトグル | <M-b><M-b>
+条件付きBreakPointをセット | <M-S-b><M-S-b>
 ログ出力付きBreakPointをセット | <Leader>lp
 対話インタプリタを起動 | <Leader>dr
 直前の実行を再実行 | <Leader>dl
@@ -73,10 +81,10 @@ diffを閉じる | <Leader>gD
 ブランチ一覧からチェックアウト(Telescope) | <S-g>b : 'G'it 'b'ranch
 
 ## Docker
-コンテナ一覧(Telescope) | <C-d>c
-イメージ一覧(Telescope) | <C-d>i
-compose一覧(Telescope) | <C-d>p
-ファイル一覧(Telescope) | <C-d>l
+コンテナ一覧(Telescope) | <M-d><M-c>
+イメージ一覧(Telescope) | <M-d><M-i>
+compose一覧(Telescope) | <M-d><M-p>
+ファイル一覧(Telescope) | <M-d><M-l>
 
 ## TODO
 次のTODOへジャンプ | ;t
@@ -89,7 +97,7 @@ compose一覧(Telescope) | <C-d>p
 
 ## Nvim-Surround
 空白あり/空白なし | あり: "(" / なし: ")"
-alias | x: >, b: ), c: }, v: ], q: 'or"
+alias | w: word, s: sentence
 カーソル位置の単語を<記号>で囲む | ysiw<記号> : you surround inner word
 カーソル位置の単語を囲む記号ごと<記号2>で囲む | ysa<記号1><記号2> : you surround arround word
 カーソル位置から行末まで<記号>で囲む | ys$<記号>
@@ -118,12 +126,12 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 プロジェクト内TODO検索 | <C-b>
 プレビューを上にスクロール | <C-u>
 プレビューを下にスクロール | <C-d>
-keymap一覧 | <C-k><C-m>
+keymap一覧 | <M-k><M-m>
 
 
 ## ブックマーク(Bookmark)
 ブックマークをトグル | mm
-ブックマーク一覧 | <C-<F5>>
+ブックマーク一覧 | <M-b>
 
 ## 翻訳(translate)
 日本語に翻訳 | <C-t>j

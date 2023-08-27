@@ -9,13 +9,11 @@ local sources = {
     extra_args = { "--line-length=150" }
   }),
   null_ls.builtins.formatting.isort.with({
-    extra_args = {
-      "--multi-line=3",
-      "--trailing-cmma",
-      "--force-grid-wrap=0",
-      "--use-parentheses",
-      "--line-width=150",
-    }
+    "--multi-line=3",
+    "--trailing-cmma",
+    "--force-grid-wrap=0",
+    "--use-parentheses",
+    "--line-width=150",
   }),
   null_ls.builtins.diagnostics.flake8.with({
     diagnostics_format = '[flake8] #{m}\n(#{c})',
@@ -26,8 +24,6 @@ local sources = {
   }),
   -- Lua
   null_ls.builtins.formatting.stylua,
-  -- Rust
-  null_ls.builtins.formatting.rustfmt,
   -- Golang
   null_ls.builtins.formatting.gofumpt,
   null_ls.builtins.formatting.goimports,

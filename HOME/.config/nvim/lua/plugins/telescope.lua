@@ -70,21 +70,21 @@ require("telescope").setup({
   -- Git ブランチ一覧からチェックアウト
   u.keymap("n", "<S-g>b", "<cmd>Telescope git_branches<CR>", opt),
   -- docker container一覧
-  u.keymap("n", "<C-d>c", "<cmd>Telescope docker containers theme=ivy<CR>"),
+  u.keymap("n", "<M-d><M-c>", "<cmd>Telescope docker containers theme=ivy<CR>"),
   -- docker image一覧
-  u.keymap("n", "<C-d>i", "<cmd>Telescope docker images theme=ivy<CR>"),
+  u.keymap("n", "<M-d><M-i>", "<cmd>Telescope docker images theme=ivy<CR>"),
   -- docker compose一覧
-  u.keymap("n", "<C-d>p", "<cmd>Telescope docker compose theme=ivy<CR>"),
+  u.keymap("n", "<M-d><M-p>", "<cmd>Telescope docker compose theme=ivy<CR>"),
   -- docker files一覧
-  u.keymap("n", "<C-d>l", "<cmd>Telescope docker files theme=ivy<CR>"),
+  u.keymap("n", "<M-d><M-l>", "<cmd>Telescope docker files theme=ivy<CR>"),
   -- vim コマンド履歴一覧
-  u.keymap("n", "<C-h>", "<cmd>Telescope command_history<CR>"),
+  u.keymap("n", "<M-h>", "<cmd>Telescope command_history<CR>"),
   -- バッファー一覧
   u.keymap("n", "<F5>", "<cmd>Telescope buffers show_all_buffers=true<CR>"),
   -- ブックマーク一覧
-  u.keymap("n", "<F29>", "<cmd>Telescope vim_bookmarks all<CR>"),
+  u.keymap("n", "<M-b><M-m>", "<cmd>Telescope vim_bookmarks all<CR>"),
   -- アウトライン
-  u.keymap("n", "<C-s>t", "<cmd>Telescope aerial theme=dropdown<CR>"),
+  u.keymap("n", "<M-o><M-l>", "<cmd>Telescope aerial theme=dropdown<CR>"),
   -- keymap一覧
-  u.keymap("n", "<C-k><C-m>", "<cmd>Telescope keymaps<CR>")
+  u.keymap("n", "<M-k><M-m>", "<cmd>Telescope keymaps<CR>")
 )

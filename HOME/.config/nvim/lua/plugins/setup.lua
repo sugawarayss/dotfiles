@@ -63,7 +63,7 @@ return packer.startup(function(use)
     "neovim/nvim-lspconfig",
   }
   -- MasonでLinter / formatterを使用する
-  --use { "jay-babu/mason-null-ls.nvim", requires = "jose-elias-alvarez/null-ls.nvim" }
+  use { "jay-babu/mason-null-ls.nvim", requires = "jose-elias-alvarez/null-ls.nvim" }
   -- denoを利用可能にする
   use "vim-denops/denops.vim"
   -- IME
@@ -97,6 +97,7 @@ return packer.startup(function(use)
   ---------------
   -- カラーテーマ
   use "folke/tokyonight.nvim"
+  use { "catppuccin/nvim", as = "catppuccin" }
   -- Dashbordカスタマイズとセッション
   use { "goolord/alpha-nvim", requires = "nvim-tree/nvim-web-devicons" }
   -- focusがないペインを暗く表示する
@@ -131,6 +132,11 @@ return packer.startup(function(use)
   use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" }
   -- スクロールバーを表示
   use { "petertriho/nvim-scrollbar", requires = "kevinhwang91/nvim-hlslens" }
+  -- ウィンドウサイズを調整できる
+  use { "simeji/winresizer" }
+  -- csv 操作を便利に
+  use { "mechatroner/rainbow_csv" }
+
   --------------
   -- ファイラー
   ---------------
@@ -151,6 +157,13 @@ return packer.startup(function(use)
   -- 一括コメントアウト
   use "tpope/vim-commentary"
   use "luukvbaal/statuscol.nvim"
+  -- 日本語をローマ字で/で検索できる
+  use { "lambdalisue/kensaku.vim", requires = { "vim-denops/denops.vim" } }
+  use { "lambdalisue/kensaku-command.vim", requires = { "lambdalisue/kensaku.vim" } }
+  -- w/bモーションでの移動をスマートにする
+  use "kana/vim-smartword"
+  -- 少ないキー数で様々な場所に遷移できるモーションを提供
+  use {"phaazon/hop.nvim", branch = 'v2'}
   -- 折りたたみ
   use { "kevinhwang91/nvim-ufo", requires = { "kevinhwang91/promise-async" } }
   -- 翻訳プラグイン
@@ -161,7 +174,7 @@ return packer.startup(function(use)
   use "andymass/vim-matchup"
   -- コードとテストコードのファイルを行き来できるプラグイン
   use "rgroli/other.nvim"
-  --  テキストを囲う操作を行えるようにするプラグイン
+  -- 囲う系の操作を便利にするプラグイン
   use "kylechui/nvim-surround"
   -- インクリメント(C-A) / デクリメント(C-X) を賢く
   use { "monaqa/dial.nvim", requires = "nvim-lua/plenary.nvim" }
@@ -172,9 +185,14 @@ return packer.startup(function(use)
   }
   -- Neovim上で直接Gitに関する操作を行うプラグイン
   use "dinhhuy258/git.nvim"
-  -- keybind completion
+  -- keybindのヒントをpopupで表示する
   use "folke/which-key.nvim"
+
+  --------------
+  -- 起動時に自動でプラグインを更新
+  ---------------
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end
+  --
 end)

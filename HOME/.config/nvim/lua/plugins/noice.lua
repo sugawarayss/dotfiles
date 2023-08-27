@@ -5,6 +5,10 @@ end
 
 vim.opt.cmdheight = 0
 
+require("notify").setup({
+  background_colour = "#000000",
+})
+
 noice.setup ({
   cmdline = {
     format = {
@@ -28,7 +32,20 @@ noice.setup ({
     lsp_doc_border = false,
   },
   views = {
+    notify = {
+      win_options = {
+        winblend = 0,
+      }
+    },
+    cmdline = {
+      win_options = {
+        winblend = 0,
+      }
+    },
     cmdline_popup = {
+      win_options = {
+        winblend = 0,
+      },
       position = {
         row = "30",
         col = "50%",
@@ -53,6 +70,7 @@ noice.setup ({
         padding = { 0, 1 },
       },
       win_options = {
+        winblend = 0,
         winhighlight = {
           Normal = "Normal",
           FloatBorder = "DiagnosticInfo",
