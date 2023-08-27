@@ -8,7 +8,7 @@ bufferline.setup({
     styles = { "italic", "bold" },
     custom = {
       all = {
-        fill = { bg = "#000000" },
+        fill = { bg = mocha.surface1 },
       },
       mocha = {
         background = { fg = mocha.text },

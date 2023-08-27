@@ -2,19 +2,18 @@ local scrollbar_ok, scrollbar = pcall(require, "scrollbar")
 if not scrollbar_ok then
   return
 end
-
-local colors = require("tokyonight.colors").setup()
+local mocha = require("catppuccin.palettes").get_palette "mocha"
 scrollbar.setup({
   handle = {
-    color = colors.bg_highlight,
+    color = mocha.surface2,
   },
   marks = {
-    Search = { color = colors.orange },
-    Error = { color = colors.error },
-    Warn = { color = colors.warning },
-    Info = { color = colors.info },
-    Hint = { color = colors.hint },
-    Misc = { color = colors.purple },
+    Search = { color = mocha.rosewater},
+    Error = { color = mocha.red },
+    Warn = { color = mocha.yellow },
+    Info = { color = mocha.green },
+    Hint = { color = mocha.sapphire },
+    Misc = { color = mocha.lavender},
   },
   handlers = {
     search = true
