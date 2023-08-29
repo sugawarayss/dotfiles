@@ -23,6 +23,7 @@ require("telescope").setup({
           ['<C-c>'] = require('telescope.actions').delete_buffer,
           ['<C-u>'] = function(...) return require("telescope.actions").preview_scrolling_up(...) end,
           ['<C-d>'] = function(...) return require("telescope.actions").preview_scrolling_down(...) end,
+          ["<C-s>"] = require('telescope.actions').select_horizontal,
         }
       }
     },
