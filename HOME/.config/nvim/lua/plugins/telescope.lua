@@ -3,7 +3,8 @@ local opt = { silent = true }
 -- Telescope
 local actions = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
-require("telescope").setup({
+require("telescope").setup(
+  {
     defaults = {
       vimgrep_arguments = {
         "rg",
@@ -20,7 +21,7 @@ require("telescope").setup({
       layout_config = {
         width = 0.9,
         height = 0.5,
-        vertical = { prompt_position = "top", preview_cutoff = 150, preview_width = 0.3 },
+        vertical = { prompt_position= "top", preview_cutoff = 150, preview_width = 0.3 },
         horizontal = { prompt_position = "top", preview_cutoff = 150, preview_width = 0.3 },
       },
       winblend = 30,         --ウィンドウを若干半透明にする
@@ -82,6 +83,10 @@ require("telescope").setup({
   require("telescope").load_extension("docker"),
   require("telescope").load_extension("aerial"),
   require("telescope").load_extension("vim_bookmarks"),
+  vim.api.nvim_set_hl(0, "FloatBorder", {bg="#313244"}),
+  vim.api.nvim_set_hl(0, "NormalFloat", {bg="#313244"}),
+  vim.api.nvim_set_hl(0, "TelescopeNormal", {bg="#313244", fg="#94E2D5"}),
+  vim.api.nvim_set_hl(0, "TelescopeBorder", {bg="#313244", fg="#94E2D5"}),
   -- 曖昧ファイル名検索
   u.keymap("n", "<C-p>", "<cmd>Telescope find_files hidden=true<CR>", opt),
   -- 曖昧ファイル内文字列検索
