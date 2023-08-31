@@ -3,10 +3,11 @@ if not noice_ok then
   return
 end
 
-vim.opt.cmdheight = 0
+local palettes_ok, palettes = pcall(require, "cattppuccin.palettes")
 
+vim.opt.cmdheight = 0
 require("notify").setup({
-  background_colour = "#000000",
+  background_colour = palettes_ok and palettes.crust or "#000000",
 })
 
 noice.setup ({
@@ -79,6 +80,21 @@ noice.setup ({
     },
   },
 })
+
+-- Cmdlineの色設定
+local noice_cmd_types = {
+  CmdLine = "#94E2F5",
+  Input = "#CDD6F4",
+  Lua = "#CBA6F7",
+  Filter = "#F9E2AF",
+  Rename = "#89B4FA",
+  Search = "#F9E2AF",
+  Substitute = "#FAB387",
+  Help = "#A6E3A1",
+}
+for type, color in pairs(noice_cmd_types) do
+  vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg="#313244", fg=color})
+end
 
 vim.keymap.set("n", "<leader>nl", function() require("noice").cmd("last") end)
 vim.keymap.set("n", "<leader>nh", "<cmd>Noice telescope<CR>")
