@@ -190,7 +190,9 @@ return packer.startup(function(use)
   use "dinhhuy258/git.nvim"
   -- keybindのヒントをpopupで表示する
   use "folke/which-key.nvim"
-
+  -- Github copilot
+  use "github/copilot.vim"
+    
   --------------
   -- 起動時に自動でプラグインを更新
   ---------------
