@@ -31,7 +31,6 @@ require("plugins.mason")
 require("plugins.null-ls")
 require("plugins.cmp")
 require("plugins.todo-comments")
-require("plugins.git")
 require("plugins.gitsigns")
 require("plugins.dap")
 

@@ -186,13 +186,11 @@ return packer.startup(function(use)
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end
   }
-  -- Neovim上で直接Gitに関する操作を行うプラグイン
-  use "dinhhuy258/git.nvim"
   -- keybindのヒントをpopupで表示する
   use "folke/which-key.nvim"
   -- Github copilot
   use "github/copilot.vim"
-    
+
   --------------
   -- 起動時に自動でプラグインを更新
   ---------------
