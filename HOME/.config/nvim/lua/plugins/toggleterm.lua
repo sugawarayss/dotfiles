@@ -1,5 +1,11 @@
+local toggleterm_ok, toggleterm = pcall(require, "toggleterm")
+if not toggleterm_ok then
+  return
+end
+
+
 local u = require("utils")
-require("toggleterm").setup(
+toggleterm.setup(
   {
     size = function(term)
       if term.direction == "horizontal" then

@@ -1,7 +1,7 @@
--- local dial_ok, dial_augend = pcall(require, "dial.augend")
--- if not dial_ok then
---   return
--- end
+local dial_ok, _ = pcall(require, "dial")
+if not dial_ok then
+  return
+end
 
 -- more confiture, see this
 -- https://github.com/monaqa/dial.nvim

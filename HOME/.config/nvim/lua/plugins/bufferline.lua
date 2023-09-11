@@ -1,6 +1,10 @@
+local bufferline_ok, bufferline = pcall(require, "bufferline")
+if not bufferline_ok then
+  return
+end
+
 vim.cmd.highlight("TabLineSel guibg=#ddc7a1")
 
-local bufferline = require("bufferline")
 local mocha = require("catppuccin.palettes").get_palette "mocha"
 
 bufferline.setup({

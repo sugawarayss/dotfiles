@@ -1,4 +1,9 @@
-require("todo-comments").setup {
+local todo_comments_ok, todo_comments = pcall(require, "todo-comments")
+if not todo_comments_ok then
+  return
+end
+
+todo_comments.setup {
   signs = true,      -- show icons in the signs column
   sign_priority = 8, -- sign priority
   -- keywords recognized as todo comments
@@ -64,9 +69,9 @@ require("todo-comments").setup {
 }
 
 vim.keymap.set("n", ";t", function()
-  require("todo-comments").jump_next()
+  todo_comments.jump_next()
 end, { desc = "Next todo comment" })
 
 vim.keymap.set("n", ":t", function()
-  require("todo-comments").jump_prev()
+  todo_comments.jump_prev()
 end, { desc = "Previous todo comment" })

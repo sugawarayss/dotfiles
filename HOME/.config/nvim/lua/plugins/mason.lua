@@ -1,3 +1,14 @@
+local mason_ok, mason = pcall(require, "mason")
+if not mason_ok then
+  return
+end
+
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not mason_lspconfig_ok then
+  return
+end
+
+
 local my_on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap = true, silent = false }
@@ -43,8 +54,8 @@ local my_on_attach = function(client, bufnr)
   end
 end
 
-require("mason").setup()
-require("mason-lspconfig").setup({
+mason.setup()
+mason_lspconfig.setup({
   automatic_installation = true,
   -- LSP install
   ensure_installed = {
@@ -79,7 +90,7 @@ require("mason-lspconfig").setup({
   },
 })
 local nvim_lsp = require("lspconfig")
-require("mason-lspconfig").setup_handlers({
+mason_lspconfig.setup_handlers({
   function(server)
     local opt = {
       -- Function executed when the LSP server startup

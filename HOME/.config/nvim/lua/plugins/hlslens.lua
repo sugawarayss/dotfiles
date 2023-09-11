@@ -1,4 +1,9 @@
-require("hlslens").setup({
+local hlslens_ok, hlslens = pcall(require, "hlslens")
+if not hlslens_ok then
+  return
+end
+
+hlslens.setup({
 --require("scrollbar.handlers.search").setup({})
   override_lens = function(render, posList, nearest, idx, relIdx)
     local sfw = vim.v.searchforward == 1

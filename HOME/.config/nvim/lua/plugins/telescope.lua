@@ -1,9 +1,15 @@
+local telescope_ok, telescope = pcall(require, "telescope")
+if not telescope_ok then
+  return
+end
+
+
 local u = require("utils")
 local opt = { silent = true }
 -- Telescope
 local actions = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
-require("telescope").setup(
+telescope.setup(
   {
     defaults = {
       vimgrep_arguments = {
@@ -78,11 +84,11 @@ require("telescope").setup(
       },
     },
   },
-  require("telescope").load_extension("ui-select"),
-  require("telescope").load_extension("noice"),
-  require("telescope").load_extension("docker"),
-  require("telescope").load_extension("aerial"),
-  require("telescope").load_extension("vim_bookmarks"),
+  telescope.load_extension("ui-select"),
+  telescope.load_extension("noice"),
+  telescope.load_extension("docker"),
+  telescope.load_extension("aerial"),
+  telescope.load_extension("vim_bookmarks"),
   vim.api.nvim_set_hl(0, "FloatBorder", {bg="#313244"}),
   vim.api.nvim_set_hl(0, "NormalFloat", {bg="#313244"}),
   vim.api.nvim_set_hl(0, "TelescopeNormal", {bg="#313244", fg="#94E2D5"}),

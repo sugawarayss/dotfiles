@@ -1,4 +1,9 @@
-require('nvim-autopairs').setup({
+local autopairs_ok, autopairs = pcall(require, "nvim-autopairs")
+if not autopairs_ok then
+  return
+end
+
+autopairs.setup({
   -- Default Config
   disable_filetype = {"TelescopePrompt", "spectre_panel"},
   disable_in_macro = true,
