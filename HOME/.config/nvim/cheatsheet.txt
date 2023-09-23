@@ -12,6 +12,14 @@
 パスをコピー | y
 隠しファイルを表示 | !
 
+## Mason
+install package | i
+uninstall package | X
+update package | u
+update all package | U
+cancel installation | <C-c>
+help | g?
+
 ## バッファ操作(buffer)
 左のbufferにfocus | sh
 右のbufferにfocus | sl
