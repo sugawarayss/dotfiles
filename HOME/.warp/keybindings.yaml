@@ -1,4 +1,5 @@
 ---
-"input:toggle_workflows": ctrl-alt-w
 "input:open_completion_suggestions": ctrl-space
 "editor_view:insert_autosuggestion": tab
+"input:toggle_workflows": ctrl-alt-w
+"workspace:show_settings_account_page": none
