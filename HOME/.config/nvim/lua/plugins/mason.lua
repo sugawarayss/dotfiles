@@ -54,7 +54,14 @@ local my_on_attach = function(client, bufnr)
   end
 end
 
-mason.setup()
+mason.setup({
+  ui = {
+    border = "double",
+  },
+  hover = {
+    border = "double",
+  },
+})
 mason_lspconfig.setup({
   automatic_installation = true,
   -- LSP install
@@ -170,6 +177,7 @@ mason_lspconfig.setup_handlers({
 -- LSP handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
   vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
 -- エラーアイコンの変更
 local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 
