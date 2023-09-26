@@ -171,6 +171,8 @@ return packer.startup(function(use)
   use { "kevinhwang91/nvim-ufo", requires = { "kevinhwang91/promise-async" } }
   -- 翻訳プラグイン
   use "voldikss/vim-translator"
+  -- 翻訳プラグイン
+  use "potamides/pantran.nvim"
   -- 括弧を自動で閉じるプラグイン
   use "windwp/nvim-autopairs"
   -- 対応するキーワードや記号にジャンプできる
