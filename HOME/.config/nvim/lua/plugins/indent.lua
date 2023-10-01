@@ -7,7 +7,23 @@ vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 vim.opt.listchars:append "eol:↴"
 
-indent_blankline.setup {
-  show_end_of_line = true,
-  space_char_blankline = "",
+local indent_block_highlight = {
+  "CursorColumn",
+  "Whitespace",
 }
+
+indent_blankline.setup({
+  indent = {
+    smart_indent_cap = false,
+  },
+  whitespace = {
+    highlight = indent_block_highlight,
+    remove_blankline_trail = false,
+  },
+  scope = {
+    enabled = true,
+    show_end = false,
+    inject_languages = false,
+    highlight = { "Function", "Label" },
+  },
+})
