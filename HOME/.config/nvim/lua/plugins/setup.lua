@@ -81,12 +81,17 @@ return packer.startup(function(use)
   ---------------
   -- 曖昧検索できるようにする
   use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
-  use "nvim-telescope/telescope-ui-select.nvim"
+  use { "nvim-telescope/telescope-ui-select.nvim", requires = "nvim-telescope/telescope.nvim" }
   -- telescopeでチートシートを表示できる
-  use { "sudormrfbin/cheatsheet.nvim", requires = { { "nvim-telescope/telescope.nvim" }, { "nvim-lua/popup.nvim" },
-    { "nvim-lua/plenary.nvim" }, } }
+  use { "sudormrfbin/cheatsheet.nvim",
+    requires = {
+      { "nvim-telescope/telescope.nvim" },
+      { "nvim-lua/popup.nvim" },
+      { "nvim-lua/plenary.nvim" },
+    }
+  }
   -- telescopeでdockerを操作する
-  use { "lpoto/telescope-docker.nvim" }
+  use { "lpoto/telescope-docker.nvim", requires = "nvim-telescope/telescope.nvim" }
   -- 曖昧検索結果にアイコンを表示できるプラグイン
   use "kyazdani42/nvim-web-devicons"
   -- Bookmark機能
@@ -113,7 +118,7 @@ return packer.startup(function(use)
   -- バッファ領域にコマンドの出力結果を表示する
   use "tyru/capture.vim"
   -- Language Serverの進捗を右下に表示する
-  use "j-hui/fidget.nvim"
+  use { "j-hui/fidget.nvim", tag="legacy" }
   -- コードアウトラインを表示する
   use "stevearc/aerial.nvim"
   -- inlineにgitblame等を表示するプラグイン
@@ -140,16 +145,17 @@ return packer.startup(function(use)
   --------------
   -- ファイラー
   ---------------
-  -- ファイラープラグイン
-  use "lambdalisue/fern.vim"
-  -- フォント
-  use "lambdalisue/nerdfont.vim"
-  -- ファイラーでNerdFontを使用できるようにする
-  use "lambdalisue/fern-renderer-nerdfont.vim"
-  -- ファイラーにgitステータスを表示する
-  use "lambdalisue/fern-git-status.vim"
-  -- ファイラーでファイルのプレビューを表示する
-  use "yuki-yano/fern-preview.vim"
+  use { "nvim-tree/nvim-tree.lua", requires = "kyazdani42/nvim-web-devicons" }
+  -- -- ファイラープラグイン
+  -- use "lambdalisue/fern.vim"
+  -- -- フォント
+  -- use "lambdalisue/nerdfont.vim"
+  -- -- ファイラーでNerdFontを使用できるようにする
+  -- use "lambdalisue/fern-renderer-nerdfont.vim"
+  -- -- ファイラーにgitステータスを表示する
+  -- use "lambdalisue/fern-git-status.vim"
+  -- -- ファイラーでファイルのプレビューを表示する
+  -- use "yuki-yano/fern-preview.vim"
 
   --------------
   -- Edit

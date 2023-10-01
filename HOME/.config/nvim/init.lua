@@ -10,9 +10,10 @@ require("plugins.lualine")
 require("plugins.bufferline")
 require("plugins.scrollbar")
 
-require("plugins.fern")
-require("plugins.fern-renderer")
-require("plugins.fern-preview")
+require("plugins.nvim-tree")
+-- require("plugins.fern")
+-- require("plugins.fern-renderer")
+-- require("plugins.fern-preview")
 
 require("plugins.telescope")
 require("plugins.treesitter")
