@@ -23,7 +23,6 @@ indent_blankline.setup({
   scope = {
     enabled = true,
     show_end = false,
-    inject_languages = false,
     highlight = { "Function", "Label" },
   },
 })
