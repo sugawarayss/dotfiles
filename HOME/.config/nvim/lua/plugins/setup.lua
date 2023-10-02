@@ -68,7 +68,7 @@ return packer.startup(function(use)
   use "vim-denops/denops.vim"
   -- IME
   use { "vim-skk/skkeleton", requires = { "vim-denops/denops.vim", "Shougo/ddc.vim" } }
-
+  use { "delphinus/skkeleton_indicator.nvim" }
   --------------
   -- Debugger
   --------------
