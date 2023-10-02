@@ -67,11 +67,9 @@ ufo.setup(
   }
 )
 -- すべて展開
-vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zr", require("ufo").openAllFolds)
 -- すべて折りたたむ
-vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+vim.keymap.set("n", "zm", require("ufo").closeAllFolds)
 
-vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
-vim.keymap.set("n", "zm", require("ufo").closeFoldsWith)
-
+-- カーソルがある折畳み箇所のプレビューを表示
 vim.keymap.set("n", "zn", require("ufo").peekFoldedLinesUnderCursor)
