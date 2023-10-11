@@ -1,25 +1,5 @@
 <TaskOptions>
   <TaskOptions>
-    <option name="arguments" value="$FilePath$ --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=150" />
-    <option name="checkSyntaxErrors" value="true" />
-    <option name="description" />
-    <option name="exitCodeBehavior" value="ERROR" />
-    <option name="fileExtension" value="py" />
-    <option name="immediateSync" value="false" />
-    <option name="name" value="isort" />
-    <option name="output" value="" />
-    <option name="outputFilters">
-      <array />
-    </option>
-    <option name="outputFromStdout" value="false" />
-    <option name="program" value="$PyInterpreterDirectory$/isort" />
-    <option name="runOnExternalChanges" value="false" />
-    <option name="scopeName" value="Open Files" />
-    <option name="trackOnlyRoot" value="false" />
-    <option name="workingDir" value="" />
-    <envs />
-  </TaskOptions>
-  <TaskOptions>
     <option name="arguments" value="$FilePath$ --line-length 150" />
     <option name="checkSyntaxErrors" value="true" />
     <option name="description" />
@@ -33,6 +13,26 @@
     </option>
     <option name="outputFromStdout" value="false" />
     <option name="program" value="$PyInterpreterDirectory$/black" />
+    <option name="runOnExternalChanges" value="false" />
+    <option name="scopeName" value="Current File" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="$FilePath$ --line-length 150 --ignore ANN101,D100,D102,D104,D105,D106,D107,D205,D212,D400,D415,FA,TRY --fix" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="py" />
+    <option name="immediateSync" value="false" />
+    <option name="name" value="ruff" />
+    <option name="output" value="" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="$PyInterpreterDirectory$/ruff" />
     <option name="runOnExternalChanges" value="false" />
     <option name="scopeName" value="Current File" />
     <option name="trackOnlyRoot" value="false" />
