@@ -13,11 +13,12 @@ copy file path | y
 display hidden file | !
 
 ## Nvim-tree
-append file | a
-copy file | c
-paste file | p
-delete file | d
-trash file | D
+append file/dir | a
+copy file/dir | c
+paste file/dir | p
+cut file/dir | x
+delete file/dir | d
+trash file/dir | D
 rename file | r
 copy file name | y
 copy relative path | Y
