@@ -29,11 +29,19 @@ local sources = {
     diagnostics_format = '[ruff] #{m}\n(#{c})',
     extra_args = {
       "--line-length=150",
-      "--ignore=AN101", -- Missing docstring in public class
-      "--ignore=D100", -- Missing docstring in public module
-      "--ignore=D205", -- 1 blank line required between summary line and description
-      "--ignore=D212", -- Multi-line docstring summary should start at the first line
-      "--ignore=D415", -- First line should end with a period
+      "--ignore=ANN101",  -- Missing-type-function-argument
+      "--ignore=D100",    -- Missing docstring in public module
+      "--ignore=D102",    -- Missing docstring in public method
+      "--ignore=D104",    -- Missing docstring in public package
+      "--ignore=D105",    -- Missing docstring in magic method
+      "--ignore=D106",    -- Missing docstring in public nested class
+      "--ignore=D107",    -- Missing docstring in __init__
+      "--ignore=D205",    -- 1 blank line required between summary line and description
+      "--ignore=D212",    -- Multi-line docstring summary should start at the first line
+      "--ignore=D400",    -- First line should end with a period
+      "--ignore=D415",    -- First line should end with a period, question mark, or exclamation point
+      "--ignore=FA",      -- flake8-future-annotations
+      "--ignore=TRY",     -- tryceratops
     },
   }),
   -- Lua
