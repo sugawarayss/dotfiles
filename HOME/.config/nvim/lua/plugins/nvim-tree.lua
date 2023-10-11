@@ -49,6 +49,9 @@ nvim_tree.setup({
     highlight_modified = "icon",
     indent_markers = { enable = true },
     icons = {
+      web_devicons = {
+        folder = { enable = true, color = true },
+      },
       show = {
         git = true,
       },
@@ -77,6 +80,13 @@ nvim_tree.setup({
     --     height = 70,
     --   },
     -- }
+  },
+  actions = {
+    file_popup = {
+      open_win_config = {
+        border = "single",
+      },
+    },
   },
 },
 vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { desc = "nvim-tree: toggle" })
