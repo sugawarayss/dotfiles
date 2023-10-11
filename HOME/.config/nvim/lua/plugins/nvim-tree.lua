@@ -66,8 +66,10 @@ nvim_tree.setup({
     },
   },
   view = {
+    -- windowで表示
     number = true,
     width = 50,
+    -- floating windowで表示
     -- float = {
     --   enable = true,
     --   open_win_config = {
