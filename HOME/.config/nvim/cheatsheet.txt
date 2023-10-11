@@ -1,16 +1,31 @@
 ## Fern
-上の階層へ移動 | <C-h>
-下の階層へ移動 | <CR>
-新規ファイル | N
-新規ディレクトリ | K
-ファイル削除 | D
-ファイル移動 | m
-ファイル名変更 | R
-ファイルコピー | C
-貼り付け | P
-切り取り | M
-パスをコピー | y
-隠しファイルを表示 | !
+move parent directory | <C-h>
+move child directory | <CR>
+create new file | N
+create new directory | K
+delete file | D
+move file | m
+rename file | R
+copy file | C
+paste file | P
+cut file | M
+copy file path | y
+display hidden file | !
+
+## Nvim-tree
+append file | a
+copy file | c
+paste file | p
+delete file | d
+trash file | D
+rename file | r
+copy file name | y
+copy relative path | Y
+toggle display preview | <Tab>
+toggle bookmark | m
+move cursor to parent directory | P
+toggle filter hidden file | U
+help | g?
 
 ## Mason
 install package | i
@@ -21,87 +36,88 @@ cancel installation | <C-c>
 help | g?
 
 ## バッファ操作(buffer)
-左のbufferにfocus | sh
-右のbufferにfocus | sl
-上のbufferにfocus | sk
-下のbufferにfocus  | sj
-buffer一覧(Telescope) | <F5>
-選択したbufferをclose(Telescope) | (insert mode) <C-c>
-bufferを左に移動 | <Leader>h
-bufferを右に移動 | <Leader>l
-左側のbufferを全て閉じる | <C-S-h>
-右側のbufferを全て閉じる | <C-S-l>
-全て折り畳み | zM
-全て展開 | zR
-折り畳み | zm
-展開 | zr
-折り畳み箇所のプレビュー表示 | zn
+focus left buffer | sh
+focus right buffer | sl
+focus upper buffer | sk
+focus lower buffer | sj
+buffer list(Telescope) | <F5>
+close buffer(Telescope) | (insert mode) <C-c>
+move buffer left | <Leader>h
+move buffer right | <Leader>l
+close all left buffer | <C-S-h>
+close all right buffer | <C-S-l>
+collapse code | zc
+expand code | zo
+collapse all code | zM
+expand all code | zR
+display preview of collapsed code | zn
 
 ## 分割(split)
-垂直分割 | ss
-水平分割 | sv
-window の resize mode | <C-E>
-size調整 | h, j, k, l
+split vertical | ss
+split horizontal | sv
+enable window resize mode | <C-E>
+resize | h, j, k, l
+resize apply | <CR>
 
 ## ターミナル(terminal)
-float windowで表示 | <C-t><C-t>
-垂直分割で表示 | <C-t><C-v>
-lazygitを表示 | <Leader>g
+display terminal as float window | <C-t><C-t>
+display terminal as vertical window | <C-t><C-v>
+display lazygit as float window | <Leader>g
 
 ## LSP
-戻る | <C-o>
-変数情報を表示 | <S-k>
-定義へジャンプ | gd
-参照リストを表示(Telescope) | gr
-型定義へジャンプ | gt
-宣言へジャンプ | gD
-実装へジャンプ | gi
-エラー内容を表示 | go
-エラー対処候補を表示 | ga
-リネーム | gn
-コードフォーマット実行 | gf
-次のエラー箇所へジャンプ | gj
-前のエラー箇所へジャンプ | gk
+back | <C-o>
+display variable information | <S-k>
+jump to definition | gd
+display reference list(Telescope) | gr
+jump to type definition | gt
+jump to declaration | gD
+jump to implementation | gi
+display error content | go
+display error deal | ga
+rename | gn
+run code formatting | gf
+jump to next error | gj
+jump to prev error | gk
 
 ## Debugger
-UIを起動 | <Leader>d
-BreakPointをトグル | <M-b><M-b>
-条件付きBreakPointをセット | <M-S-b><M-S-b>
-ログ出力付きBreakPointをセット | <Leader>lp
-対話インタプリタを起動 | <Leader>dr
-直前の実行を再実行 | <Leader>dl
-コンティニュー | <F8>
-ステップオーバー | <F9>
-ステップイン | <F10>
-ステップアウト | <F7>
+display dap-ui | <Leader>d
+toggle breakPoint | <M-b><M-b>
+set breakpoint with condition | <M-S-b><M-S-b>
+set breakpoint with log output | <Leader>lp
+launch REPL | <Leader>dr
+rerun latest | <Leader>dl
+continue | <F8>
+step over | <F9>
+step in | <F10>
+step out | <F7>
 
 ## Git
-git blameを表示 | <Leader>gb
-git blameを非表示 | q
-選択したblameのcommit内容を表示 | <Leader>go
-カーソル行をgithubで表示 | <Leader>go
-現在のブランチのpull requestを表示 | <Leader>gp
-現在のブランチでpull requestを作成 | <Leader>gn
-diffを表示 | <Leader>gd
-diffを閉じる | <Leader>gD
-選択してコミットまでrevertする | <Leader>gr
-現在のファイルをrevertする | <Leader>gR
-ブランチ一覧からチェックアウト(Telescope) | <S-g>b : 'G'it 'b'ranch
+display git blame | <Leader>gb
+undisplay git blame | q
+display commit content of selected blame | <Leader>go
+open cursor line code on github | <Leader>go
+display pull request as current branch | <Leader>gp
+create pull request by current branch | <Leader>gn
+display diff | <Leader>gd
+close diff | <Leader>gD
+revert to selected commit | <Leader>gr
+revert current file | <Leader>gR
+checkout branch by branch list(Telescope) | <S-g>b : 'G'it 'b'ranch
 
 ## Docker
-コンテナ一覧(Telescope) | <M-d><M-c>
-イメージ一覧(Telescope) | <M-d><M-i>
-compose一覧(Telescope) | <M-d><M-p>
-ファイル一覧(Telescope) | <M-d><M-l>
+docker container list(Telescope) | <M-d><M-c>
+docker image list(Telescope) | <M-d><M-i>
+docker compose list(Telescope) | <M-d><M-p>
+docker file list(Telescope) | <M-d><M-l>
 
 ## TODO
-次のTODOへジャンプ | ;t
-前のTODOへジャンプ | :t
+jump to next TODO | ;t
+jump to prev TODO | :t
 
 ## vim-sandwich
-括弧で囲う | sa{motion/textobject}{addition} → 'saiw('
-括弧を除去 | sd{deletion} → 'sd(' 
-括弧を置換 | sr{deletion}{addition} → 'sr("'
+surround parenthesis | sa{motion/textobject}{addition} → 'saiw('
+remove parenthesis | sd{deletion} → 'sd(' 
+replace parenthesis | sr{deletion}{addition} → 'sr("'
 
 ## Nvim-Surround
 空白あり/空白なし | あり: "(" / なし: ")"
@@ -115,8 +131,8 @@ alias | w: word, s: sentence
 visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号>
 
 ## Noice
-直前のエラーを表示 | <Leader>nl
-エラーリストをtelescopeで表示 | <Leader>nh
+display latest error | <Leader>nl
+display error list(Telescope) | <Leader>nh
 
 ## インクリメント(increment)
 インクリメント(increment) | <C-a>
@@ -125,25 +141,25 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 ## アウトライン(outline)
 現在のファイルのアウトラインを選択(Telescope) | <C-s>t
 アウトラインペイン表示をトグル | <leader>a
-前のアウトラインにジャンプ | <Leader>k
-次のアウトラインにジャンプ | <leader>j
+jump to prev outline | <Leader>k
+jump to next outline | <leader>j
 
 ## Telescope
-ファイル名検索 | <C-p>
-ファイル内検索 | <C-g>
-プロジェクト内TODO検索 | <C-b>
-プレビューを上にスクロール | <C-u>
-プレビューを下にスクロール | <C-d>
-keymap一覧 | <M-k><M-m>
+search by filename(Telescope) | <C-p>
+search by content(Telescope) | <C-g>
+search by TODO(Telescope) | <C-b>
+preview scroll upper | <C-u>
+preview scroll lower | <C-d>
+keymap list(Telescope) | <M-k><M-m>
 
 
 ## ブックマーク(Bookmark)
-ブックマークをトグル | mm
-ブックマーク一覧 | <M-b>
+toggle bookmark | mm
+display bookmark list | <M-b>
 
 ## 翻訳(translate)
-日本語に翻訳 | <C-t>j
-英語に翻訳 | <C-t>e
+translate to japanese | <C-t>j
+translate to english | <C-t>e
 
 ## 日本語入力(ime)
-インラインIMEをトグル | <C-j>
+toggle inline IME | <C-j>
