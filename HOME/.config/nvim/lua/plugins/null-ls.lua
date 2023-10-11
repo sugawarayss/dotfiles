@@ -8,10 +8,9 @@ local sources = {
   null_ls.builtins.formatting.black.with({
     extra_args = { "--line-length=150" }
   }),
-  null_ls.builtins.formatting.ruff.with({
-    "--select=ALL",
-    "--fix",
-  }),
+  -- null_ls.builtins.formatting.ruff.with({
+  --   "--line-length=150",
+  -- }),
   null_ls.builtins.formatting.isort.with({
     "--multi-line=3",
     "--trailing-cmma",
@@ -28,7 +27,14 @@ local sources = {
   }),
   null_ls.builtins.diagnostics.ruff.with({
     diagnostics_format = '[ruff] #{m}\n(#{c})',
-    extra_args = { "--line-length=150" }
+    extra_args = {
+      "--line-length=150",
+      "--ignore=AN101", -- Missing docstring in public class
+      "--ignore=D100", -- Missing docstring in public module
+      "--ignore=D205", -- 1 blank line required between summary line and description
+      "--ignore=D212", -- Multi-line docstring summary should start at the first line
+      "--ignore=D415", -- First line should end with a period
+    },
   }),
   -- Lua
   null_ls.builtins.formatting.stylua,
