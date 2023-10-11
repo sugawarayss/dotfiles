@@ -162,6 +162,7 @@ mason_lspconfig.setup_handlers({
         -- python
         "black",
         "isort",
+        "ruff",
         "flake8",
         "mypy",
         "debugpy",

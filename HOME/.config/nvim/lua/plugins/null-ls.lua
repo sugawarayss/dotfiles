@@ -8,6 +8,10 @@ local sources = {
   null_ls.builtins.formatting.black.with({
     extra_args = { "--line-length=150" }
   }),
+  null_ls.builtins.formatting.ruff.with({
+    "--select=ALL",
+    "--fix",
+  }),
   null_ls.builtins.formatting.isort.with({
     "--multi-line=3",
     "--trailing-cmma",
@@ -15,12 +19,16 @@ local sources = {
     "--use-parentheses",
     "--line-width=150",
   }),
-  null_ls.builtins.diagnostics.flake8.with({
-    diagnostics_format = '[flake8] #{m}\n(#{c})',
-    extra_args = { "--max-line-length=150" }
-  }),
+  -- null_ls.builtins.diagnostics.flake8.with({
+  --   diagnostics_format = '[flake8] #{m}\n(#{c})',
+  --   extra_args = { "--max-line-length=150" }
+  -- }),
   null_ls.builtins.diagnostics.mypy.with({
     diagnostics_format = '[mypy] #{m}\n(#{c})'
+  }),
+  null_ls.builtins.diagnostics.ruff.with({
+    diagnostics_format = '[ruff] #{m}\n(#{c})',
+    extra_args = { "--line-length=150" }
   }),
   -- Lua
   null_ls.builtins.formatting.stylua,
