@@ -36,7 +36,7 @@ update all package | U
 cancel installation | <C-c>
 help | g?
 
-## バッファ操作(buffer)
+## BufferEdit
 focus left buffer | sh
 focus right buffer | sl
 focus upper buffer | sk
@@ -53,14 +53,14 @@ collapse all code | zM
 expand all code | zR
 display preview of collapsed code | zn
 
-## 分割(split)
+## SplitWindow
 split vertical | ss
 split horizontal | sv
 enable window resize mode | <C-E>
 resize | h, j, k, l
 resize apply | <CR>
 
-## ターミナル(terminal)
+## terminal
 display terminal as float window | <C-t><C-t>
 display terminal as vertical window | <C-t><C-v>
 display lazygit as float window | <Leader>g
@@ -120,7 +120,7 @@ surround parenthesis | sa{motion/textobject}{addition} → 'saiw('
 remove parenthesis | sd{deletion} → 'sd(' 
 replace parenthesis | sr{deletion}{addition} → 'sr("'
 
-## Nvim-Surround
+## Surround
 空白あり/空白なし | あり: "(" / なし: ")"
 alias | w: word, s: sentence
 カーソル位置の単語を<記号>で囲む | ysiw<記号> : you surround inner word
@@ -135,13 +135,13 @@ visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号
 display latest error | <Leader>nl
 display error list(Telescope) | <Leader>nh
 
-## インクリメント(increment)
-インクリメント(increment) | <C-a>
-デクリメント(decrement) | <C-x>
+## Increment
+increment | <C-a>
+decrement | <C-x>
 
-## アウトライン(outline)
-現在のファイルのアウトラインを選択(Telescope) | <C-s>t
-アウトラインペイン表示をトグル | <leader>a
+## Outline
+jump selected outline (Telescope) | <C-s>t
+display outline pane | <leader>a
 jump to prev outline | <Leader>k
 jump to next outline | <leader>j
 
@@ -154,13 +154,13 @@ preview scroll lower | <C-d>
 keymap list(Telescope) | <M-k><M-m>
 
 
-## ブックマーク(Bookmark)
+## Bookmark
 toggle bookmark | mm
 display bookmark list | <M-b>
 
-## 翻訳(translate)
+## Translate
 translate to japanese | <C-t>j
 translate to english | <C-t>e
 
-## 日本語入力(ime)
+## JapaneseIME
 toggle inline IME | <C-j>

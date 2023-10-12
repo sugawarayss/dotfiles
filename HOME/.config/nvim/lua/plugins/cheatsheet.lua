@@ -5,11 +5,9 @@ end
 
 cheatsheet.setup({
   bundled_cheatsheets = {
-    disabled = { "default", "unicode", "regex", "markdown" },
+    disabled = { "default", "unicode", "regex", "netrw", "markdown" },
   },
-  bundled_plugin_cheatsheets = {
-    disabled = { "auto-session", "octo.nvim" }
-  },
+  include_only_installed_plugins = true,
   telescope_mappings = {
     ['<CR>'] = require('cheatsheet.telescope.actions').select_or_fill_commandline,
     ['<C-CR>'] = require('cheatsheet.telescope.actions').select_or_execute,
