@@ -183,5 +183,40 @@
     "name": "HTML5 Boilerplate",
     "text": "<html class=\"no-js\" lang=\"\">\n\n<head>\n  <meta charset=\"utf-8\">\n  <title></title>\n  <meta name=\"description\" content=\"\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n  <meta property=\"og:title\" content=\"\">\n  <meta property=\"og:type\" content=\"\">\n  <meta property=\"og:url\" content=\"\">\n  <meta property=\"og:image\" content=\"\">\n\n  <link rel=\"icon\" href=\"/favicon.ico\" sizes=\"any\">\n  <link rel=\"icon\" href=\"/icon.svg\" type=\"image/svg+xml\">\n  <link rel=\"apple-touch-icon\" href=\"icon.png\">\n\n  <link rel=\"stylesheet\" href=\"css/normalize.css\">  <link rel=\"stylesheet\" href=\"css/style.css\">\n\n  <link rel=\"manifest\" href=\"site.webmanifest\">\n  <meta name=\"theme-color\" content=\"#fafafa\">\n</head>\n\n<body>\n\n  <p>Hello world! This is HTML5 Boilerplate.</p>\n  <script src=\"js/vendor/modernizr-{{MODERNIZR_VERSION}}.min.js\"></script>\n  <script src=\"js/app.js\"></script>\n\n</body>\n\n</html>",
     "keyword": "!html;"
+  },
+  {
+    "name": "SSH - [STG] LiftSPOT",
+    "text": "ssh ec2-user@$(aws ec2 describe-instances --profile liftspot-stg --filters Name=tag-value,Values=\"LiftSPOT_Stg\" | jq -r '.Reservations[].Instances[].PublicIpAddress') -i ~/.ssh/keys/liftspotadmin_stg.pem",
+    "keyword": "!ssh-liftspot-stg;"
+  },
+  {
+    "name": "SSH - [PRD] LiftSPOT",
+    "text": "ssh ec2-user@$(aws ec2 describe-instances --profile liftspot-prd --filters Name=tag-value,Values=\"LiftSPOT\" | jq -r '.Reservations[].Instances[].PublicIpAddress') -i ~/.ssh/keys/liftspotadmin_prd.pem",
+    "keyword": "!ssh-liftspot-prd;"
+  },
+  {
+    "name": "SSH - [STG] AGTC",
+    "text": "ssh admin-user@agtc-stg.japanwest.cloudapp.azure.com -i ~/.ssh/keys/kv-agtcdata-agtc-westjp-001.pem",
+    "keyword": "!ssh-agtc-stg;"
+  },
+  {
+    "name": "SSH - [PRD] AGTC",
+    "text": "ssh admin-user@agtc-prd.japanwest.cloudapp.azure.com -i ~/.ssh/keys/kv-agtcdata-agtc-westjp-001.pem",
+    "keyword": "!ssh-agtc-prd;"
+  },
+  {
+    "name": "Docker - search always restart container",
+    "text": "docker inspect -f \"{{.Name}} {{.HostConfig.RestartPolicy.Name}}\" $(docker ps -aq) | grep always",
+    "keyword": "!docker-search-always-restart;"
+  },
+  {
+    "name": "Django - dumpdata",
+    "text": "manage.py dumpdata <app>.<table> -o <path>/fixture/<filename>.json",
+    "keyword": "!django-dumpdata;"
+  },
+  {
+    "name": "Localstack - S3",
+    "text": "aws --profile localstack --endpoint-url=http://localhost:4566 s3",
+    "keyword": ""
   }
 ]
