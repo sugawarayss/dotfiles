@@ -1,192 +1,187 @@
 [
-    {
-        "name": "Master Password",
-        "text": "zR5ldY3Zy7pH",
-        "keyword": "master:"
-    },
-    {
-        "name": "history-peco",
-        "text": "history -n -r 1 | peco",
-        "keyword": "h:"
-    },
-    {
-        "name": "Slack - Subscribe Github Repo",
-        "text": "/github subscribe  releases reviews issues pulls comments branches commits:*",
-        "keyword": "subscribe:"
-    },
-    {
-        "name": "Slack - Unsubscribe Github Repo",
-        "text": "/github unsubscribe ",
-        "keyword": "unsubscribe:"
-    },
-    {
-        "name": "Slack - Remind",
-        "text": "/remind me to {cursor} on {date +1d \"yyyy-MM-dd\"} at {time}",
-        "keyword": "remind:"
-    },
-    {
-        "name": "Date - Today (yyyy-MM-dd)",
-        "text": "{date \"yyyy-MM-dd\"}",
-        "keyword": "today:"
-    },
-    {
-        "name": "Date - Now (yyyy/MM/dd HH:mm:ss)",
-        "text": "{date \"yyyy/MM/dd HH:mm:ss\"}",
-        "keyword": "now:"
-    },
-    {
-        "name": "Date - 本日日付",
-        "text": "{date \"yyyy年MM月dd日\"}",
-        "keyword": "jptoday:"
-    },
-    {
-        "name": "Date - Time (HH:mm:ss)",
-        "text": "{date \"HH:mm:ss\"}",
-        "keyword": "time:"
-    },
-    {
-        "name": "Terminal - Copy to Clipboard",
-        "text": "| pbcopy",
-        "keyword": "copy:"
-    },
-    {
-        "name": "MacOS - Change Screenshot Filename Postfix to Number",
-        "text": "defaults write com.apple.screencapture include-date -bool false",
-        "keyword": ""
-    },
-    {
-        "name": "MacOS - Change Screenshot Filename Postfix to Date",
-        "text": "defaults delete com.apple.screencapture include-date",
-        "keyword": ""
-    },
-    {
-        "name": "MacOS - Change Screenshot Filename Prefix to 'screenshot'",
-        "text": "defaults write com.apple.screencapture name screenshot",
-        "keyword": ""
-    },
-    {
-        "name": "MacOS - Add ssh-key (inap)",
-        "text": "ssh-add -K ~/.ssh/sugawarayss-GitHub",
-        "keyword": ""
-    },
-    {
-        "name": "MacOS - Add ssh-key (mac mini)",
-        "text": "ssh-add -K ~/.ssh/waku1123-GitHub",
-        "keyword": ""
-    },
-    {
-        "name": "Warp - workflows",
-        "text": "workflows:",
-        "keyword": "wf:"
-    },
-    {
-        "name": "Warp - history",
-        "text": "history: ",
-        "keyword": "his:"
-    },
-    {
-        "name": "Golang - Build for Windows",
-        "text": "GOOS=windows GOARCH=amd64 go build -o ./build/windows-amd64/{hoge}.exe ./{hoge}.go",
-        "keyword": ""
-    },
-    {
-        "name": "Golang - Build for MacOS",
-        "text": "GOOS=darwin GOARCH=amd64 go build -o ./darwin-amd64/{hoge} {hoge}.go",
-        "keyword": ""
-    },
-    {
-        "name": "Golang - Build for Linux",
-        "text": "GOOS=linux GOARCH=amd64 go build -o l./build/inux-amd64/{hoge} ./{hoge}.go",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Delete venv",
-        "text": "pipenv --rm",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Display venv",
-        "text": "pipenv --venv",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - lock & sync",
-        "text": "pipenv update",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Install Packages from Pipfile.lock",
-        "text": "pipenv sync <--dev>",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Install Packages from Pipfile",
-        "text": "pipenv install <--dev>",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Install Packages form requirement.txt",
-        "text": "pipenv install -r requirements.txt",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Remove Packages, not in Pipfile.lock",
-        "text": "pipenv clean",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Into venv",
-        "text": "pipenv shell",
-        "keyword": ""
-    },
-    {
-        "name": "Pipenv - Security Check",
-        "text": "pipenv check",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Create Project",
-        "text": "poetry new {cursor}",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Start Manage Exist Project",
-        "text": "poetry init",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Set Up venv",
-        "text": "poetry install <--no-dev>",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Add Package",
-        "text": "poetry add {cursor}<package-name>",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Remove Package",
-        "text": "poetry remove {cursor}<package-name>",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Update Package",
-        "text": "poetry update {cursor}<package-name>",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Run Script File",
-        "text": "poetry run python {cursor}<python-file>",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Config virtualenvs.in-project",
-        "text": "poetry config virtualenvs.in-project true",
-        "keyword": ""
-    },
-    {
-        "name": "Poetry - Update Poetry Self",
-        "text": "poetry self update",
-        "keyword": ""
-    }
+  {
+      "name": "Master Password",
+      "text": "zR5ldY3Zy7pH",
+      "keyword": "!master;"
+  },
+  {
+      "name": "Slack - Subscribe Github Repo",
+      "text": "/github subscribe  releases reviews issues pulls comments branches commits:*",
+      "keyword": "!slack-subscribe;"
+  },
+  {
+      "name": "Slack - Unsubscribe Github Repo",
+      "text": "/github unsubscribe ",
+      "keyword": "!slack-unsubscribe;"
+  },
+  {
+      "name": "Slack - Remind",
+      "text": "/remind me to {cursor} on {date +1d \"yyyy-MM-dd\"} at {time}",
+      "keyword": "!slack-remind;"
+  },
+  {
+      "name": "Date - Today (yyyy-MM-dd)",
+      "text": "{date \"yyyy-MM-dd\"}",
+      "keyword": "!today;"
+  },
+  {
+      "name": "Date - Now (yyyy/MM/dd HH:mm:ss)",
+      "text": "{date \"yyyy/MM/dd HH:mm:ss\"}",
+      "keyword": "!now;"
+  },
+  {
+      "name": "Date - 本日日付",
+      "text": "{date \"yyyy年MM月dd日\"}",
+      "keyword": "!jptoday;"
+  },
+  {
+      "name": "Date - Time (HH:mm:ss)",
+      "text": "{date \"HH:mm:ss\"}",
+      "keyword": "!time;"
+  },
+  {
+      "name": "Copy to Clipboard",
+      "text": "| pbcopy",
+      "keyword": "!copy;"
+  },
+  {
+      "name": "MacOS - Change Screenshot Filename Postfix to Number",
+      "text": "defaults write com.apple.screencapture include-date -bool false",
+      "keyword": ""
+  },
+  {
+      "name": "MacOS - Change Screenshot Filename Postfix to Date",
+      "text": "defaults delete com.apple.screencapture include-date",
+      "keyword": ""
+  },
+  {
+      "name": "MacOS - Change Screenshot Filename Prefix to 'screenshot'",
+      "text": "defaults write com.apple.screencapture name screenshot",
+      "keyword": ""
+  },
+  {
+      "name": "MacOS - Add ssh-key (inap)",
+      "text": "ssh-add -K ~/.ssh/sugawarayss-GitHub",
+      "keyword": ""
+  },
+  {
+      "name": "MacOS - Add ssh-key (mac mini)",
+      "text": "ssh-add -K ~/.ssh/waku1123-GitHub",
+      "keyword": ""
+  },
+  {
+      "name": "Golang - Build for Windows",
+      "text": "GOOS=windows GOARCH=amd64 go build -o ./build/windows-amd64/{hoge}.exe ./{hoge}.go",
+      "keyword": "!go-build-windows;"
+  },
+  {
+      "name": "Golang - Build for MacOS",
+      "text": "GOOS=darwin GOARCH=amd64 go build -o ./darwin-amd64/{hoge} {hoge}.go",
+      "keyword": "!go-build-macos;"
+  },
+  {
+      "name": "Golang - Build for Linux",
+      "text": "GOOS=linux GOARCH=amd64 go build -o l./build/inux-amd64/{hoge} ./{hoge}.go",
+      "keyword": "!go-build-linux;"
+  },
+  {
+      "name": "Pipenv - Install Packages form requirement.txt",
+      "text": "pipenv install -r requirements.txt",
+      "keyword": "!pipenv-intall;"
+  },
+  {
+      "name": "Poetry - Add Package",
+      "text": "poetry add {cursor}",
+      "keyword": "!poetry-add;"
+  },
+  {
+      "name": "Poetry - Remove Package",
+      "text": "poetry remove {cursor} ",
+      "keyword": "!poetry-remove;"
+  },
+  {
+      "name": "Poetry - Config virtualenvs.in-project",
+      "text": "poetry config virtualenvs.in-project true",
+      "keyword": "!poetry-config;"
+  },
+  {
+    "name": "pyproject.toml - black",
+    "text": "[tool.black]\nline-length = 150",
+    "keyword": "!pyproject-black;"
+  },
+  {
+    "name": "pyproject.toml - lint",
+    "text": "[tool.rye.scripts]\nlint = { chain = [\"lint:black\", \"lint:ruff\"] }\n\"lint:black\" = \"black ./src/\"  \n\"lint:ruff\" = \"ruff ./src/{cursor} \"",
+    "keyword": "!pyproject-lint;"
+  },
+  {
+    "name": "pyproject.toml - test",
+    "text": "[tool.rye.scripts]\ntest = { cmd = \"pytest -v -s --cov\" }",
+    "keyword": "!pyproject-test;"
+  },
+  {
+    "name": "pyproject.toml - ruff",
+    "text": "[tool.ruff]\nselect = [\"ALL\"]\nignore = [\n  \"ANN101\",  # missing-type-function-argument\n  \"D100\",  # missing docstring in public module\n  \"D102\",  # missing docstring in public method\n  \"D104\",  # missing docstring in public package\n  \"D105\",  # missing docstring in magic method\n  \"D106\",  # missing docstring in public nested class\n  \"D107\",  # missing docstring in __init__\n  \"D203\",  # 1 blank line required before class docstring\n  \"D205\",  # 1 blank line required between summary line and description\n  \"D212\",  # Multi-line docstring summary should start at the first line\n  \"D400\",  # First line should end with a period\n  \"D415\",  # First line should end with a period, question mark, or exclamation point\n  \"BLE\",  # flake8-blind-except\n  \"FA\",  # flake8-future-annotation\n  \"TRY\",  # tryceratops\n  \"TD\",  # flake8-todo\n  \"FIX\",  # flake8-fixme\n]\nline-length = 150",
+    "keyword": "!pyproject-ruff;"
+  },
+  {
+    "name": "Github - Table",
+    "text": "| Title1 | Title2 |\n| ------- | ------- |\n| Content1 | Content2 |\n  ",
+    "keyword": "!gh-table;"
+  },
+  {
+    "name": "Github - Detail",
+    "text": "<details>\n<summary>Title</summary>\n\n</details>",
+    "keyword": "!gh-detail;"
+  },
+  {
+    "name": "Github - Warning",
+    "text": "> **Warning**\n> ",
+    "keyword": "!gh-warning;"
+  },
+  {
+    "name": "Github - Note",
+    "text": "> **Note**\n> ",
+    "keyword": "!gh-note;"
+  },
+  {
+    "name": "Neovim - Startuptime with Log",
+    "text": "nvim --startuptime ~/nvim.log +q",
+    "keyword": "!nvim-startuptime;"
+  },
+  {
+    "name": "echo $PATH",
+    "text": "echo $PATH | tr ':' '\n'",
+    "keyword": "!echo-path;"
+  },
+  {
+    "name": "Homebrew - Uninstall",
+    "text": "brew list | gum choose --no-limit | xargs brew uninstall",
+    "keyword": "!brew-uninstall;"
+  },
+  {
+    "name": "Pipenv - Install Packages form requirement.txt",
+    "text": "pipenv install -r requirements.txt",
+    "keyword": "!pipenv-intall;"
+  },
+  {
+    "name": "Terminal - Copy to Clipboard",
+    "text": "| pbcopy",
+    "keyword": "!copy;"
+  },
+  {
+    "name": "Service - control",
+    "text": "sudo systemctl {cursor} {name}",
+    "keyword": "!systemctl;"
+  },
+  {
+    "name": "Service - log",
+    "text": "sudo journalctl -u <name>",
+    "keyword": "!journalctl;"
+  },
+  {
+    "name": "HTML5 Boilerplate",
+    "text": "<html class=\"no-js\" lang=\"\">\n\n<head>\n  <meta charset=\"utf-8\">\n  <title></title>\n  <meta name=\"description\" content=\"\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n  <meta property=\"og:title\" content=\"\">\n  <meta property=\"og:type\" content=\"\">\n  <meta property=\"og:url\" content=\"\">\n  <meta property=\"og:image\" content=\"\">\n\n  <link rel=\"icon\" href=\"/favicon.ico\" sizes=\"any\">\n  <link rel=\"icon\" href=\"/icon.svg\" type=\"image/svg+xml\">\n  <link rel=\"apple-touch-icon\" href=\"icon.png\">\n\n  <link rel=\"stylesheet\" href=\"css/normalize.css\">  <link rel=\"stylesheet\" href=\"css/style.css\">\n\n  <link rel=\"manifest\" href=\"site.webmanifest\">\n  <meta name=\"theme-color\" content=\"#fafafa\">\n</head>\n\n<body>\n\n  <p>Hello world! This is HTML5 Boilerplate.</p>\n  <script src=\"js/vendor/modernizr-{{MODERNIZR_VERSION}}.min.js\"></script>\n  <script src=\"js/app.js\"></script>\n\n</body>\n\n</html>",
+    "keyword": "!html;"
+  }
 ]
