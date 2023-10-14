@@ -30,7 +30,7 @@ end
 
 return {
     "kyazdani42/nvim-tree.lua",
-    requires = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
         { "<C-n>", ":NvimTreeToggle<CR>", mode = "n" },
     },
