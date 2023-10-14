@@ -1,6 +1,8 @@
-local is_installed = vim.fn.exists('g:loaded_' .. 'kensaku_search') > 0
-if is_installed then
-  vim.keymap.set("c", "<CR>", "<Plug>(kensaku-search-replace)<CR>", { remap=false })
-end
-
-
+return {
+  -- 日本語をローマ字で検索できる
+  { "lambdalisue/kensaku.vim", dependencies = { "vim-denops/denops.vim" }, },
+  -- 日本語をローマ字で検索できるKensakuコマンドを使えるようにする
+  { "lambdalisue/kensaku-command.vim", dependencies = { "lambdalisue/kensaku.vim" }, },
+  -- /コマンドでローマ字で日本語を検索できるようにする
+  { "lambdalisue/kensaku-search.vim", dependencies = { "lambdalisue/kensaku.vim" }, },
+}

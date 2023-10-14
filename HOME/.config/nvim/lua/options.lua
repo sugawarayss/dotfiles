@@ -1,3 +1,4 @@
+-- FIXME:
 local options = {
   encoding = "utf-8",                          -- 文字コードの指定
   fileencoding = "utf-8",                      -- ファイル文字コードの指定

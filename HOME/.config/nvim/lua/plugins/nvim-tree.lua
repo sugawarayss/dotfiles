@@ -1,15 +1,5 @@
-local nvim_tree_ok, nvim_tree = pcall(require, "nvim-tree")
-if not nvim_tree_ok then
-  return
-end
-
--- Disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
-
 
 local function my_on_attach(bufnr)
   local api = require("nvim-tree.api")
@@ -37,57 +27,65 @@ local function my_on_attach(bufnr)
   vim.keymap.set("n", "<C-s>", api.node.open.horizontal, opt("open split"))
   vim.keymap.set("n", "<C-p>", api.node.open.preview, opt("open preview"))
 end
-nvim_tree.setup({
-  on_attach = my_on_attach,
-  filters = {
-    git_ignored = true,
-    exclude = { ".git", "node_modules", ".cache", ".venv" },
-  },
-  renderer = {
-    highlight_git = true,
-    highlight_opened_files = "all",
-    highlight_modified = "icon",
-    indent_markers = { enable = true },
-    icons = {
-      web_devicons = {
-        folder = { enable = true, color = true },
-      },
-      show = {
-        git = true,
-      },
-      glyphs = {
-        git = {
-          unstaged = "✗",
-          staged = "✓",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "★",
-          deleted = "",
-          ignored = "◌",
+
+return {
+    "kyazdani42/nvim-tree.lua",
+    requires = { "kyazdani42/nvim-web-devicons" },
+    keys = {
+        { "<C-n>", ":NvimTreeToggle<CR>", mode = "n" },
+    },
+    config = function()
+      require("nvim-tree").setup({
+        on_attach = my_on_attach,
+        filters = {
+          git_ignored = true,
+          exclude = { ".git", "node_modules", ".cache", ".venv" },
         },
-      },
-    },
-  },
-  view = {
-    -- windowで表示
-    number = true,
-    width = 50,
-    -- floating windowで表示
-    -- float = {
-    --   enable = true,
-    --   open_win_config = {
-    --     width = 50,
-    --     height = 70,
-    --   },
-    -- }
-  },
-  actions = {
-    file_popup = {
-      open_win_config = {
-        border = "single",
-      },
-    },
-  },
-},
-vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { desc = "nvim-tree: toggle" })
-)
+        renderer = {
+          highlight_git = true,
+          highlight_opened_files = "all",
+          highlight_modified = "icon",
+          indent_markers = { enable = true },
+          icons = {
+            web_devicons = {
+              folder = { enable = true, color = true },
+            },
+            show = {
+              git = true,
+            },
+            glyphs = {
+              git = {
+                unstaged = "✗",
+                staged = "✓",
+                unmerged = "",
+                renamed = "➜",
+                untracked = "★",
+                deleted = "",
+                ignored = "◌",
+              },
+            },
+          },
+        },
+        view = {
+          -- windowで表示
+          number = true,
+          width = 50,
+          -- floating windowで表示
+          -- float = {
+          --   enable = true,
+          --   open_win_config = {
+          --     width = 50,
+          --     height = 70,
+          --   },
+          -- }
+        },
+        actions = {
+          file_popup = {
+            open_win_config = {
+              border = "single",
+            },
+          },
+        },
+      })
+    end
+}

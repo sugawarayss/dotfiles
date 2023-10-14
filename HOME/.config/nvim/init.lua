@@ -1,49 +1,22 @@
-require("plugins.setup")
 require("base")
 require("keymaps")
 require("options")
 
-require("plugins.colortheme")
-require("plugins.hlslens")
-require("plugins.indent")
-require("plugins.lualine")
-require("plugins.bufferline")
-require("plugins.scrollbar")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-require("plugins.nvim-tree")
--- require("plugins.fern")
--- require("plugins.fern-renderer")
--- require("plugins.fern-preview")
+-- nvim-treeのため、netrwを読み込まないようにする
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
-require("plugins.telescope")
-require("plugins.treesitter")
-require("plugins.statuscol")
-require("plugins.ufo")
-
-require("plugins.noice")
-require("plugins.fidget")
-
-require("plugins.cheatsheet")
-
-
-require("plugins.toggleterm")
-
-require("plugins.mason")
-require("plugins.null-ls")
-require("plugins.cmp")
-require("plugins.todo-comments")
-require("plugins.gitsigns")
-require("plugins.dap")
-
-require("plugins.nvim-surround")
-require("plugins.nvim-autopairs")
-require("plugins.hop")
-require("plugins.dial")
-require("plugins.aerial")
-require("plugins.kensaku")
-require("plugins.csvtools")
-require("plugins.colorizer")
-require("plugins.translate")
-require("plugins.skkeleton")
-require("plugins.alpha")
-require("plugins.which-key")
+require("lazy").setup("plugins")
