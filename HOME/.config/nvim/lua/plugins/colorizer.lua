@@ -1,8 +1,9 @@
-local colorizer_ok, colorizer = pcall(require, "colorizer")
-if not colorizer_ok then
-  return
-end
-
-require("colorizer").setup({
-  "*", -- Highligt all files
-})
+-- カラーコードを色付け
+return {
+  "norcalli/nvim-colorizer.lua",
+  config = function()
+    require("colorizer").setup({
+      "*", -- Highligt all files
+    })
+  end
+}

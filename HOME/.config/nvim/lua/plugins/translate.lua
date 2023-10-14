@@ -1,31 +1,40 @@
-vim.g.translator_target_lang = "ja"
-vim.g.translator_default_engines = { 'google' }
-vim.g.translator_history_enable = true
-
-vim.keymap.set("n", "<C-t>j", "<cmd>Translate<CR>")
-vim.keymap.set("n", "<C-t>e", "<cmd>Translate --target_lang=en<CR>")
-
-
-local pantran_ok, pantran = pcall(require, "pantran")
-if not pantran_ok then
-  return
-end
-
-pantran.setup({
-  default_engine = "google",
-  controls = {
-    mappings = {
-      edit = {
-        n = {
-          ["j"] = "gj",
-          ["k"] = "gk"
-        },
-        i = {
-          ["<C-y>"] = false,
-        }
-      },
-      select = {},
+-- 翻訳プラグイン
+return {
+  {
+    "voldikss/vim-translator",
+    keys = {
+      { "<C-t>j", "<cmd>Translate<CR>", mode = "n" },
+      { "<C-t>e", "<cmd>Translate --target_lang=en<CR>", mode = "n"},
     },
+    config = function()
+      vim.g.translator_target_lang = "ja"
+      vim.g.translator_default_engines = { 'google' }
+      vim.g.translator_history_enable = true
+    end
   },
-})
-vim.keymap.set("n", "<leader>tr", "<cmd>Pantran<CR>")
+  {
+    "potamides/pantran.nvim",
+    keys = {
+      { "<leader>tr", "<cmd>Pantran<CR>", mode = "n" },
+    },
+    config = function()
+      require("pantran").setup({
+        default_engine = "google",
+        controls = {
+          mappings = {
+            edit = {
+              n = {
+                ["j"] = "gj",
+                ["k"] = "gk"
+              },
+              i = {
+                ["<C-y>"] = false,
+              }
+            },
+            select = {},
+          },
+        },
+      })
+    end
+  }
+}

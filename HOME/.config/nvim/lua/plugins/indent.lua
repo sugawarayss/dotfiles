@@ -1,28 +1,23 @@
-local indent_blankline_ok, indent_blankline = pcall(require, "ibl")
-if not indent_blankline_ok then
-  return
-end
-
-vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
-vim.opt.listchars:append "eol:↴"
-
-local indent_block_highlight = {
-  "CursorColumn",
-  "Whitespace",
+-- インデントを可視化するプラグイン
+return {
+  "lukas-reineke/indent-blankline.nvim",
+  config = function()
+    vim.opt.list = true
+    vim.opt.listchars:append "space:⋅"
+    vim.opt.listchars:append "eol:↴"
+    require("ibl").setup({
+      indent = {
+        smart_indent_cap = false,
+      },
+      whitespace = {
+        highlight = indent_block_highlight,
+        remove_blankline_trail = false,
+      },
+      scope = {
+        enabled = true,
+        show_end = false,
+        highlight = { "Function", "Label" },
+      },
+    })
+  end
 }
-
-indent_blankline.setup({
-  indent = {
-    smart_indent_cap = false,
-  },
-  whitespace = {
-    highlight = indent_block_highlight,
-    remove_blankline_trail = false,
-  },
-  scope = {
-    enabled = true,
-    show_end = false,
-    highlight = { "Function", "Label" },
-  },
-})

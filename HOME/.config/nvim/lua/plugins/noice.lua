@@ -1,86 +1,3 @@
-local noice_ok, noice = pcall(require, "noice")
-if not noice_ok then
-  return
-end
-
-local palettes_ok, palettes = pcall(require, "cattppuccin.palettes")
-
-vim.opt.cmdheight = 0
-require("notify").setup({
-  background_colour = palettes_ok and palettes.crust or "#000000",
-})
-
-noice.setup ({
-  cmdline = {
-    format = {
-      cmdline = { pattern = '^:', icon = ' ', lang = 'vim' },
-      search_down = { kind = 'search', pattern = '^/', icon = ' ', lang = 'regex' },
-      search_up = { kind = 'search', pattern = '^%?', icon = ' ', lang = 'regex' },
-    },
-  },
-  lsp = {
-    override = {
-      ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-      ['vim.lsp.util.stylize_markdown'] = true,
-      ['cmp.entry.get_documentation'] = true,
-    },
-  },
-  presets = {
-    bottom_search = false,
-    command_palette = false,
-    long_message_to_split = false,
-    inc_rename = false,
-    lsp_doc_border = false,
-  },
-  views = {
-    notify = {
-      win_options = {
-        winblend = 0,
-      }
-    },
-    cmdline = {
-      win_options = {
-        winblend = 0,
-      }
-    },
-    cmdline_popup = {
-      win_options = {
-        winblend = 0,
-      },
-      position = {
-        row = "30",
-        col = "50%",
-      },
-      size = {
-        width = "100",
-        height = "auto",
-      },
-    },
-    popupmenu = {
-      relative = "editor",
-      position = {
-        row = "33",
-        col = "50%",
-      },
-      size = {
-        width = "100",
-        height = "10",
-      },
-      border = {
-        style = "rounded",
-        padding = { 0, 1 },
-      },
-      win_options = {
-        winblend = 0,
-        winhighlight = {
-          Normal = "Normal",
-          FloatBorder = "DiagnosticInfo",
-        },
-      },
-    },
-  },
-})
-
 -- Cmdlineの色設定
 local noice_cmd_types = {
   CmdLine = "#94E2F5",
@@ -92,9 +9,98 @@ local noice_cmd_types = {
   Substitute = "#FAB387",
   Help = "#A6E3A1",
 }
-for type, color in pairs(noice_cmd_types) do
-  vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg="#313244", fg=color})
-end
 
-vim.keymap.set("n", "<leader>nl", function() require("noice").cmd("last") end)
-vim.keymap.set("n", "<leader>nh", "<cmd>Noice telescope<CR>")
+-- CmdLineや通知をpopupで表示
+return {
+  "folke/noice.nvim",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
+    { "catppuccin/nvim", name = "catppuccin" }
+  },
+  keys = {
+    { "<leader>nl", function() require("noice").cmd("last") end, mode = "n" },
+    { "<leader>nh", "<cmd>Noice telescope<CR>", mode = "n" },
+  },
+  config = function()
+    vim.opt.cmdheight = 0
+    require("notify").setup({
+      background_colour = palettes_ok and palettes.crust or "#000000",
+    })
+
+    require("noice").setup({
+      cmdline = {
+        format = {
+          cmdline = { pattern = '^:', icon = ' ', lang = 'vim' },
+          search_down = { kind = 'search', pattern = '^/', icon = ' ', lang = 'regex' },
+          search_up = { kind = 'search', pattern = '^%?', icon = ' ', lang = 'regex' },
+        },
+      },
+      lsp = {
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+      },
+      presets = {
+        bottom_search = false,
+        command_palette = false,
+        long_message_to_split = false,
+        inc_rename = false,
+        lsp_doc_border = false,
+      },
+      views = {
+        notify = {
+          win_options = {
+            winblend = 0,
+          }
+        },
+        cmdline = {
+          win_options = {
+            winblend = 0,
+          }
+        },
+        cmdline_popup = {
+          win_options = {
+            winblend = 0,
+          },
+          position = {
+            row = "30",
+            col = "50%",
+          },
+          size = {
+            width = "100",
+            height = "auto",
+          },
+        },
+        popupmenu = {
+          relative = "editor",
+          position = {
+            row = "33",
+            col = "50%",
+          },
+          size = {
+            width = "100", height = "10",
+          },
+          border = {
+            style = "rounded",
+            padding = { 0, 1 },
+          },
+          win_options = {
+            winblend = 0,
+            winhighlight = {
+              Normal = "Normal",
+              FloatBorder = "DiagnosticInfo",
+            },
+          },
+        },
+      },
+    })
+
+
+    for type, color in pairs(noice_cmd_types) do
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg="#313244", fg=color})
+    end
+  end
+}
