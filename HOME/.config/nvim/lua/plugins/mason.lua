@@ -43,10 +43,6 @@ local my_on_attach = function(client, bufnr)
   end
 end
 
--- LSP handlers
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
 -- エラーアイコンの変更
 local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 
@@ -77,6 +73,11 @@ return {
       { "hrsh7th/cmp-nvim-lsp" },
     },
     config = function()
+      -- LSP handlers
+      vim.lsp.handlers["textDocument/publishDiagnostics"] =
+        vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
+
       local mason_lspconfig = require("mason-lspconfig")
       mason_lspconfig.setup({
         automatic_installation = true,
@@ -179,7 +180,6 @@ return {
               "black",
               "isort",
               "ruff",
-              "flake8",
               "mypy",
               "debugpy",
               -- Go
