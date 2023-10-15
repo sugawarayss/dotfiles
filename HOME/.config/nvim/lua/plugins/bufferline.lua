@@ -81,13 +81,14 @@ return {
           -- end
           return true
         end,
-        -- offsets = {
-        --   {
-        --      filetype = "NvimTree",
-        --      text = "File Explorer",
-        --      text_align = "left" | "center" | "right"
-        --   }
-        -- },
+        offsets = {
+          {
+             filetype = "NvimTree",
+             text = "Nvim-Tree",
+             text_align = "left",
+             separator = true,
+          },
+        },
         color_icons = true,
         get_element_icon = function(element)
           local icon, hl = require("nvim-web-devicons").get_icon_by_filetype(element.filetype, { default = false })
