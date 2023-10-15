@@ -38,14 +38,23 @@ return {
       require("nvim-tree").setup({
         on_attach = my_on_attach,
         filters = {
-          git_ignored = true,
-          exclude = { ".git", "node_modules", ".cache", ".venv" },
+          git_ignored = false,
+          dotfiles = false,
+          custom = {".DS_Store",},
         },
         renderer = {
           highlight_git = true,
           highlight_opened_files = "all",
           highlight_modified = "icon",
           indent_markers = { enable = true },
+          special_files = {
+            "Cargo.toml",
+            "Makefile",
+            "README.md",
+            "readme.md",
+            "pyproject.toml",
+            "Pipfile",
+          },
           icons = {
             web_devicons = {
               folder = { enable = true, color = true },
