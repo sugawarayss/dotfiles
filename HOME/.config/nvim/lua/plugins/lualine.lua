@@ -1,8 +1,9 @@
 -- ステータスバーに色付けして表示するプラグイン
 return {
   "nvim-lualine/lualine.nvim",
+  version = "*",
   dependencies = {
-    { "nvim-tree/nvim-web-devicons", opt = true },
+    { "nvim-tree/nvim-web-devicons" },
   },
   config = function()
     require("lualine").setup({
