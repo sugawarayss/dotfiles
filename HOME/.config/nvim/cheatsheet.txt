@@ -1,31 +1,29 @@
-## Fern
-move parent directory | <C-h>
-move child directory | <CR>
-create new file | N
-create new directory | K
-delete file | D
-move file | m
-rename file | R
-copy file | C
-paste file | P
-cut file | M
-copy file path | y
-display hidden file | !
-
 ## Nvim-tree
+move Parent Directory | -
+display file/dir Info | <C-k>
+Expand All | E
+Collapse ALL | W
 append file/dir | a
 copy file/dir | c
+copy file/dir name | y
+copy Relative Path | Y
+copy Absolute Path | gy
+enable Filter | f
+clear Filter | F
 paste file/dir | p
 cut file/dir | x
 delete file/dir | d
 trash file/dir | D
-rename file | r
-copy file name | y
-copy relative path | Y
-toggle display preview | <Tab>
-toggle bookmark | m
-move cursor to parent directory | P
-toggle filter hidden file | U
+rename File | r
+copy File Name | y
+copy Relative Path | Y
+toggle Preview | <Tab>
+toggle Bookmark | m
+move Bookmark | bmv
+move Cursor to Parent Directory | P
+toggle Dotfiles | H
+toggle Display Git Ignore | I
+toggle Filter Hidden File | U
 help | g?
 
 ## Mason
