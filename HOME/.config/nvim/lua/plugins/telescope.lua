@@ -5,7 +5,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "lpoto/telescope-docker.nvim",
-      "tom-anders/telescope-vim-bookmarks.nvim",
+      { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = {"MattesGroeger/vim-bookmarks"}},
       "stevearc/aerial.nvim",
     },
     lazy = false,
