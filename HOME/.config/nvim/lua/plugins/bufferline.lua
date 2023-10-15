@@ -9,8 +9,8 @@ return {
     {"H", "<Cmd>BufferLineCyclePrev<CR>", mode = "n", { noremap = true, silent = true }},
     {"<Leader>h", "<Cmd>BufferLineMovePrev<CR>", mode = "n", { noremap = true, silent = true }},
     {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>", mode = "n", { noremap = true, silent = true }},
-    {"<C-S-h>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }},
-    {"<C-S-l>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }},
+    {"<C-H>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }},
+    {"<C-L>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }},
   },
   config = function()
     local mocha = require("catppuccin.palettes").get_palette "mocha"
