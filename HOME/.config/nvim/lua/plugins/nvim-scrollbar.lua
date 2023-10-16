@@ -1,6 +1,8 @@
 return {
   {
     "petertriho/nvim-scrollbar",
+    lazy = true,
+    event = { "BufReadPre" },
     dependencies = "kevinhwang91/nvim-hlslens",
     config = function()
       local mocha = require("catppuccin.palettes").get_palette "mocha"
@@ -24,6 +26,8 @@ return {
   },
   {
     "kevinhwang91/nvim-hlslens",
+    lazy = true,
+    event = { "BufReadPre" },
     config = function()
       require("hlslens").setup({
         override_lens = function(render, posList, nearest, idx, relIdx)
