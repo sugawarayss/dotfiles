@@ -1,6 +1,7 @@
 local opt = { silent = true }
 return {
     "nvim-telescope/telescope.nvim",
+    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
@@ -8,7 +9,6 @@ return {
       { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = {"MattesGroeger/vim-bookmarks"}},
       "stevearc/aerial.nvim",
     },
-    lazy = false,
     keys = {
       {"<C-p>", "<cmd>Telescope find_files hidden=true<CR>", mode = "n", opt},
       {"<C-g>", "<cmd>Telescope live_grep hidden=true<CR>", mode = "n", opt},
