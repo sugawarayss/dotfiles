@@ -13,19 +13,21 @@ local noice_cmd_types = {
 -- CmdLineや通知をpopupで表示
 return {
   "folke/noice.nvim",
+  lazy = true,
+  event = { "VimEnter" },
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
-    { "catppuccin/nvim", name = "catppuccin" }
   },
   keys = {
     { "<leader>nl", function() require("noice").cmd("last") end, mode = "n" },
     { "<leader>nh", "<cmd>Noice telescope<CR>", mode = "n" },
   },
   config = function()
+    local mocha = require("catppuccin.palettes").get_palette "mocha"
     vim.opt.cmdheight = 0
     require("notify").setup({
-      background_colour = palettes_ok and palettes.crust or "#000000",
+      background_colour = mocha.crust or "#1E1E2D",
     })
 
     require("noice").setup({
@@ -48,7 +50,7 @@ return {
         command_palette = false,
         long_message_to_split = false,
         inc_rename = false,
-        lsp_doc_border = false,
+        lsp_doc_border = true,
       },
       views = {
         notify = {
