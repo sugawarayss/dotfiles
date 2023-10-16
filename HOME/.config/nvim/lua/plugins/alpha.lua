@@ -253,6 +253,7 @@ end
 
 return {
   "goolord/alpha-nvim",
+  event = "VimEnter",
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
     local theme = require("alpha.themes.theta")
