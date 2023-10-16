@@ -1,8 +1,12 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  event = "VeryLazy",
   build = ":TSUpdate" ,
-  lazy = false,
   priority = 1001,
+  dependencies = {
+    -- 対応するキーワードや記号にジャンプできる
+    { "andymass/vim-matchup" },
+  },
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = {
