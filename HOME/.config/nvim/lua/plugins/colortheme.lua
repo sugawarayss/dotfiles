@@ -1,8 +1,8 @@
 -- カラーテーマ
 return {
   "catppuccin/nvim",
-  name = "catppuccin",
   lazy = false,
+  name = "catppuccin",
   priority = 1000,
   config = function()
     require("catppuccin").setup({
@@ -14,9 +14,10 @@ return {
       transparent_background = true,
       show_end_of_buffer = false,
       dim_inactive = {
-        enabled = false,
+        -- focusを失ったウィンドウの背景色を暗くする
+        enabled = true,
         shade = "dark",
-        percentage = 0.1,
+        percentage = 1.0,
       },
       styles = {
         comments = {}
@@ -24,7 +25,6 @@ return {
       integrations = {
         aerial = true,
         alpha = true,
-        fern = true,
         fidget = true,
         indent_blankline = {
           enabled = true,
@@ -59,10 +59,10 @@ return {
             information = { "underline" },
           },
           inlay_hints = {
-            background = true,
+            background = false,
           },
         },
-        notify = true,
+        -- notify = true,
         sandwich = true,
         which_key = true
       }
