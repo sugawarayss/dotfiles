@@ -1,6 +1,8 @@
 -- inlineにgitblame等を表示するプラグイン
 return {
   "lewis6991/gitsigns.nvim",
+  lazy = true,
+  event = { "BufReadPre" },
   dependencies = "nvim-lua/plenary.nvim",
   config = function()
     require("gitsigns").setup({
