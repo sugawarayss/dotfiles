@@ -4,7 +4,7 @@ return {
   -- 遅延読み込みする
   lazy = true,
   -- バッファがウィンドウに表示された時にロードする
-  event = { "BufWinEnter" },
+  event = { "BufReadPre" },
   config = function()
     require("colorizer").setup({
       "*", -- Highligt all files
