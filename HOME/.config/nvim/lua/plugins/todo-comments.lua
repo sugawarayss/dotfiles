@@ -1,10 +1,11 @@
 return {
   "folke/todo-comments.nvim",
+  lazy = true,
+  event = "VeryLazy",
   dependencies = "nvim-lua/plenary.nvim",
-  lazy = false,
   keys = {
-    { ";t", function() todo_comments.jump_next() end, mode = "n", desc = "Next todo comment" },
-    { ":t", function() todo_comments.jump_prev() end, mode = "n", desc = "Previous todo comment"},
+    { ";t", function() require("todo-comments").jump_next() end, mode = "n", desc = "Next todo comment" },
+    { ":t", function() require("todo-comments").jump_prev() end, mode = "n", desc = "Previous todo comment"},
   },
   config = function()
     require("todo-comments").setup({
