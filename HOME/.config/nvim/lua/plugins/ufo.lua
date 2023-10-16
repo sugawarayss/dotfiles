@@ -36,6 +36,9 @@ end
 return {
   "kevinhwang91/nvim-ufo",
   dependencies = { "kevinhwang91/promise-async" },
+  -- 遅延読み込みする
+  lazy = true,
+  -- 指定キーが押された時にロードする
   keys = {
     { "zr", function() require('ufo').openAllFolds() end, mode = "n" },
     { "zm", function() require('ufo').closeAllFolds() end, mode = "n" },
