@@ -54,6 +54,9 @@ end
 return {
   {
     "williamboman/mason.nvim",
+    lazy = true,
+    event = { "VimEnter" },
+    build = ":MasonUpdate",
     config = function()
       require("mason").setup({
         ui = {
@@ -67,6 +70,8 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    lazy = true,
+    event = { "VimEnter" },
     dependencies = {
       { "jay-babu/mason-null-ls.nvim", dependencies = "jose-elias-alvarez/null-ls.nvim" },
       { "neovim/nvim-lspconfig"},
