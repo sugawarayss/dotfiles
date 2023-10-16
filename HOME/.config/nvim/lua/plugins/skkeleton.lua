@@ -2,6 +2,7 @@ return {
   {
     "vim-skk/skkeleton",
     dependencies = { "vim-denops/denops.vim", "Shougo/ddc.vim", "delphinus/skkeleton_indicator.nvim" },
+    lazy = true,
     keys = {
       { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "i" },
       { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "c" },
