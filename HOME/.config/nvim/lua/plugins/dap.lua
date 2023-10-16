@@ -1,6 +1,7 @@
 -- debugger
 return {
   "rcarriga/nvim-dap-ui",
+  lazy = true,
   dependencies = {
     "mfussenegger/nvim-dap",
     "mfussenegger/nvim-dap-python",
