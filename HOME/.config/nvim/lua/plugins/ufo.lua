@@ -35,6 +35,7 @@ end
 -- 折りたたみ
 return {
   "kevinhwang91/nvim-ufo",
+  enabled = false,
   dependencies = { "kevinhwang91/promise-async" },
   -- 遅延読み込みする
   lazy = true,
