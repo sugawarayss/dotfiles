@@ -2,8 +2,11 @@
 return {
   'akinsho/bufferline.nvim',
   version = "*",
-  lazy = false,
-  dependencies = {'nvim-tree/nvim-web-devicons', {"catppuccin/nvim", name = "catppuccin"}},
+  lazy = true,
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+  },
+  event = { "VimEnter" },
   keys = {
     {"L", "<Cmd>BufferLineCycleNext<CR>", mode = "n", { noremap = true, silent = true }},
     {"H", "<Cmd>BufferLineCyclePrev<CR>", mode = "n", { noremap = true, silent = true }},
