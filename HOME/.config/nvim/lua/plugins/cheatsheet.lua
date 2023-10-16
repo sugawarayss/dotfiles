@@ -6,6 +6,9 @@ return {
     { "nvim-lua/popup.nvim" },
     { "nvim-lua/plenary.nvim" },
   },
+  -- 遅延読み込みする
+  lazy = true,
+  -- キーが押された時にロードする
   keys = {
     {"<C-c><C-s>", "<cmd>Cheatsheet<CR>", mode = "n"}
   },
