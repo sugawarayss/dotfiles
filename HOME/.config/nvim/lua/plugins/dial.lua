@@ -2,11 +2,12 @@
 return {
   "monaqa/dial.nvim",
   dependencies = "nvim-lua/plenary.nvim",
-  lazy = false,
-  --keys = {
-  --  { "<C-a>",  function() require("dial.map").inc_normal() end, mode = "n" },
-  --  { "<C-x>",  function() require("dial.map").dec_normal() end, mode = "n" },
-  --},
+  keys = {
+    { "<C-a>",  "<Plug>(dial-increment)", "n" },
+    { "<C-x>",  "<Plug>(dial-decrement)", "n" },
+    { "<C-a>",  "<Plug>(dial-increment)", "v" },
+    { "<C-x>",  "<Plug>(dial-decrement)", "v" },
+  },
   config = function()
     local config = require("dial.config")
     local augend = require("dial.augend")
@@ -19,6 +20,10 @@ return {
         augend.integer.alias.octal,       -- 8進数
         augend.integer.alias.binary,      -- 2進数
         augend.constant.alias.bool,       -- true/false
+        augend.constant.new{
+          elements = {"True", "False"},
+          preserve_case = true,
+        }, -- True/False
         augend.date.alias["%Y/%m/%d"],
         augend.date.alias["%Y-%m-%d"],
         augend.date.alias["%H:%M:%S"],
