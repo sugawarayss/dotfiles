@@ -76,7 +76,50 @@ local tool_2019 = {
  [[                                             .'           !??77=7!              ?77"77!!`          .7<<<<<<<<<?7777777777!`                       ]],
 }
 
+local tool_army_icon = {
+  [[                                                                                                    ]],
+  [[                                                *%#(                                                ]],
+  [[                                             ,%#######(                                             ]],
+  [[                                          .#####*  .#####*                                          ]],
+  [[                                        #####/        ,#####,                                       ]],
+  [[                                     /####(              *####%.                                    ]],
+  [[                                  *#####.                   /####(                                  ]],
+  [[                ,/*///////////*/######************************(#####(**////////////*                ]],
+  [[                /###################################################################                ]],
+  [[                /###.     (####/                                    .#####.     %###                ]],
+  [[                /###,  /####(                                          *%####.  %###                ]],
+  [[                /###(%####.                                               /####(####                ]],
+  [[                /#####%,                                                     (######                ]],
+  [[               #####/                                                          .#####,              ]],
+  [[            (#######,                                                           %#######.           ]],
+  [[         /#####./###,                                                           %### /####(         ]],
+  [[      ,#####,   /###,                                                           %###    (####/      ]],
+  [[   .%####*      /###,                                                           %###      .#####*   ]],
+  [[ /####(         /###,                                                           %###         ,%#### ]],
+  [[  /###/         /###,                                                           %###         .%###  ]],
+  [[   /###(        /###,                                                           %###        .####   ]],
+  [[    ,####       /###,                                                           %###       *###(    ]],
+  [[     .%###      /###.                                                           %###      /###/     ]],
+  [[       ###%.    /###.                                                           %###     ((##*      ]],
+  [[        %###.   /###.                                                           %###    ####.       ]],
+  [[         ####,  /###,                                                           %###   ####.        ]],
+  [[          (###* /###,                                                           %### .%##%          ]],
+  [[           /###//###,                                                           %###,####           ]],
+  [[            *#######,                                                           %#######            ]],
+  [[             ,######,                                                           %######             ]],
+  [[              .#####.                                                           %####/              ]],
+  [[                ###%,                                                           %##%,               ]],
+  [[                                                                                                    ]],
+}
+
 vim.cmd [[
+hi IconArmy ctermfg=214 guifg=#E61032
+hi StartLogo1 ctermfg=214 guifg=#CCD1D1
+hi StartLogo2 ctermfg=214 guifg=#B2BABB
+hi StartLogo3 ctermfg=214 guifg=#99A3A4
+hi StartLogo4 ctermfg=214 guifg=#7F8C8D
+hi StartLogo5 ctermfg=214 guifg=#65777B
+hi StartLogo6 ctermfg=214 guifg=#4D5658
 hi StartLogoPop1 ctermfg=214 guifg=#EC9F05
 hi StartLogoPop2 ctermfg=208 guifg=#F08C04
 hi StartLogoPop3 ctermfg=208 guifg=#F37E03
@@ -89,6 +132,34 @@ local function lineToStartWhite(lines)
   local out = {}
   for _, line in ipairs(lines) do
     table.insert(out, { hi = "StartLogo" .. 0, line = line })
+  end
+  return out
+end
+
+local function lineToStartArmy(lines)
+  local out = {}
+  for _, line in ipairs(lines) do
+    table.insert(out, { hi = "IconArmy", line = line })
+  end
+  return out
+end
+
+local function lineToStartSilver(lines)
+  local out = {}
+  local hi = "StartLogo" .. 1
+  for i, line in ipairs(lines) do
+    if i > 2 and i <= 4 then
+      hi = "StartLogo" .. 2
+    elseif i > 4 and i <= 6 then
+      hi = "StartLogo" .. 3
+    elseif i > 6 and i <= 8 then
+      hi = "StartLogo" .. 4
+    elseif i > 8 and i <= 10 then
+      hi = "StartLogo" .. 5
+    elseif i > 10 then
+      hi = "StartLogo" .. 6
+    end
+    table.insert(out, { hi = hi, line = line })
   end
   return out
 end
@@ -113,11 +184,12 @@ local function lineToStartPop(lines)
   return out
 end
 
-local logo_1992 = lineToStartWhite(tool_1992_2001)
+local logo_1992 = lineToStartSilver(tool_1992_2001)
 local logo_2001 = lineToStartWhite(tool_2001_2006)
 local logo_2006 = lineToStartWhite(tool_2006_2019)
 local logo_2019 = lineToStartPop(tool_2019)
-local headers = { logo_1992, logo_2001, logo_2006, logo_2019 }
+local logo_army = lineToStartArmy(tool_army_icon)
+local headers = { logo_1992, logo_2001, logo_2006, logo_2019, logo_army }
 
 local function header_chars()
   math.randomseed(os.time())
