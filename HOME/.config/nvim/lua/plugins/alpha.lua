@@ -1,64 +1,24 @@
-local coolLines   = {
-  [[    ███╗   ███╗ █████╗ ██╗  ██╗███████╗   ]],
-  [[    ████╗ ████║██╔══██╗██║ ██╔╝██╔════╝   ]],
-  [[    ██╔████╔██║███████║█████╔╝ █████╗     ]],
-  [[    ██║╚██╔╝██║██╔══██║██╔═██╗ ██╔══╝     ]],
-  [[    ██║ ╚═╝ ██║██║  ██║██║  ██╗███████╗   ]],
-  [[    ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ]],
-  [[      ██████╗ ██████╗  ██████╗ ██╗        ]],
-  [[     ██╔════╝██╔═══██╗██╔═══██╗██║        ]],
-  [[     ██║     ██║   ██║██║   ██║██║        ]],
-  [[     ██║     ██║   ██║██║   ██║██║        ]],
-  [[     ╚██████╗╚██████╔╝╚██████╔╝███████╗   ]],
-  [[      ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝   ]],
-  [[███████╗████████╗██╗   ██╗███████╗███████╗]],
-  [[██╔════╝╚══██╔══╝██║   ██║██╔════╝██╔════╝]],
-  [[███████╗   ██║   ██║   ██║█████╗  █████╗  ]],
-  [[╚════██║   ██║   ██║   ██║██╔══╝  ██╔══╝  ]],
-  [[███████║   ██║   ╚██████╔╝██║     ██║     ]],
-  [[╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝     ]],
-}
-local robustLines = {
-  [[        ██████╗ ██╗   ██╗██╗██╗     ██████╗         ]],
-  [[        ██╔══██╗██║   ██║██║██║     ██╔══██╗        ]],
-  [[        ██████╔╝██║   ██║██║██║     ██║  ██║        ]],
-  [[        ██╔══██╗██║   ██║██║██║     ██║  ██║        ]],
-  [[        ██████╔╝╚██████╔╝██║███████╗██████╔╝        ]],
-  [[        ╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═════╝         ]],
-  [[ ██████╗  ██████╗ ██████╗ ██╗   ██╗███████╗████████╗]],
-  [[ ██╔══██╗██╔═══██╗██╔══██╗██║   ██║██╔════╝╚══██╔══╝]],
-  [[ ██████╔╝██║   ██║██████╔╝██║   ██║███████╗   ██║   ]],
-  [[ ██╔══██╗██║   ██║██╔══██╗██║   ██║╚════██║   ██║   ]],
-  [[ ██║  ██║╚██████╔╝██████╔╝╚██████╔╝███████║   ██║   ]],
-  [[ ╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝   ]],
-  [[     ███████╗████████╗██╗   ██╗███████╗███████╗     ]],
-  [[     ██╔════╝╚══██╔══╝██║   ██║██╔════╝██╔════╝     ]],
-  [[     ███████╗   ██║   ██║   ██║█████╗  █████╗       ]],
-  [[     ╚════██║   ██║   ██║   ██║██╔══╝  ██╔══╝       ]],
-  [[     ███████║   ██║   ╚██████╔╝██║     ██║          ]],
-  [[     ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝          ]],
-}
-
-
-local efficientLines = {
-  [[             ██████╗██████╗  █████╗ ███████╗████████╗            ]],
-  [[            ██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝            ]],
-  [[            ██║     ██████╔╝███████║█████╗     ██║               ]],
-  [[            ██║     ██╔══██╗██╔══██║██╔══╝     ██║               ]],
-  [[            ╚██████╗██║  ██║██║  ██║██║        ██║               ]],
-  [[             ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝               ]],
-  [[███████╗███████╗███████╗██╗ ██████╗██╗███████╗███╗   ██╗████████╗]],
-  [[██╔════╝██╔════╝██╔════╝██║██╔════╝██║██╔════╝████╗  ██║╚══██╔══╝]],
-  [[█████╗  █████╗  █████╗  ██║██║     ██║█████╗  ██╔██╗ ██║   ██║   ]],
-  [[██╔══╝  ██╔══╝  ██╔══╝  ██║██║     ██║██╔══╝  ██║╚██╗██║   ██║   ]],
-  [[███████╗██║     ██║     ██║╚██████╗██║███████╗██║ ╚████║   ██║   ]],
-  [[╚══════╝╚═╝     ╚═╝     ╚═╝ ╚═════╝╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ]],
-  [[  ███████╗██╗   ██╗███████╗████████╗███████╗███╗   ███╗███████╗  ]],
-  [[  ██╔════╝╚██╗ ██╔╝██╔════╝╚══██╔══╝██╔════╝████╗ ████║██╔════╝  ]],
-  [[  ███████╗ ╚████╔╝ ███████╗   ██║   █████╗  ██╔████╔██║███████╗  ]],
-  [[  ╚════██║  ╚██╔╝  ╚════██║   ██║   ██╔══╝  ██║╚██╔╝██║╚════██║  ]],
-  [[  ███████║   ██║   ███████║   ██║   ███████╗██║ ╚═╝ ██║███████║  ]],
-  [[  ╚══════╝   ╚═╝   ╚══════╝   ╚═╝   ╚══════╝╚═╝     ╚═╝╚══════╝  ]],
+local tool_1992_2001 = {
+  [[ IBYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYBI ]],
+  [[ Iz                                                                                                                      zI ]],
+  [[ Iz                                                                                                                      zI ]],
+  [[ Iz    ..........................      ..............-               ................       ..............               zI ]],
+  [[ Iz   (WNM#HH#HHHHH##H#H#HH##MMMR_ .-jHM###########HHMNmJ.       .(gMMMHH####H#H###MMNa..  .W##H#H#H#MMM#:               zI ]],
+  [[ Iz   (H#HHHHHMHHHHHMMHHH#H#HH#MD-(HMMM#HHHHMMMMHHHH#HHH#MH+   .jHM#HHH#H#MMMMM#MHMHHH#MN&..W#MHHHHHHHH##;               zI ]],
+  [[ Iz   (WMMMMMMMHH#HHMMHH#MMMMMMMSdMMHHHMHHM9=!~_?TMMHHHHHH#N{ .dMMM#M##MMY?~  _?MMHHHHHH#N{.TMM#HHHHHHH##!               zI ]],
+  [[ Iz          (XHHHHHHMH#M>      .dMHHHMH##N:      dMHHHHHHHN} .dHM#HMHHMN_      dMHHHHHH#N{  (d#HHHHHHH##!               zI ]],
+  [[ Iz           d##HH#H#H#M:      .dM#HHMHH#N:      dMHHHHHH#N}  d##HHHHH#N:      dMHHH#HH#N{  -XMHHHHHHH##:               zI ]],
+  [[ Iz           X#H#M#HMH#M>       d#HHHHHH#N:      d#HHHHHH#N} .dHHH#HH##N:      dMHHHHHH#N{  -dMMH#HHHH##!               zI ]],
+  [[ Iz           X#HHHHHMH#M>       dHHHHMHH#N:      d#HH#HHH#N} .dH##HMHH#N!      dMHHHHHH#N{  -d#HHHHHHH##:               zI ]],
+  [[ Iz           X##MMHHHHHM>      .dHHHHMMHMN:      dMHMH#HH#N} .dHH#HH#HMN!      dMHMMHMHNN{  .dMHHMMMHMM#;   (((((J.     zI ]],
+  [[ Iz           XHH#MHMH#HMe,      d#HHHHHHHN>     .dMHMM#HH#N} .dH#MHHMHMN+     .dM#MMH#H#N{  (dM#HHHHHH#N&..(W##MMMl     zI ]],
+  [[ Iz           X##HHHMHHM#Mb      ZM#MHHHHMMNmg++gMMMMMHHHMM#>  ?M#MMMMHHMNmagjgM##H#M#M#M@:  (dM#HHHHHH#H#MMMHMHHHMl     zI ]],
+  [[ Iz           XM#H#####MHMD       ?TMMH#MHMH#H#HHHHHHMMHM#Y!    _TMMMHHMHH#HH#M#MMMMNHMB3    -d###MM######MH###M#NMl     zI ]],
+  [[ Iz           XM#H#####MHMD          ?7TMMMMMMMMMMMMMBY7~          _?TTMMMMMMMMMMMHY=!        ?<<<<<<<<<<<<<<<<<<?<      zI ]],
+  [[ Iz                                                                                                                      zI ]],
+  [[ Iz                                                                                                                      zI ]],
+  [[ Ib                                                                                                                      dI ]],
+  [[ IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXkBI ]],
 }
 
 local tool_2001_2006 = {
@@ -83,61 +43,40 @@ local tool_2001_2006 = {
   [[     "p88888888#++++++++=ooU88888888bo>++++++++++++++++++To2O88888888%o=++++++++++++++++++++888888888 ]],
   [[      .````````.           .````````.                       .````````.                      ````````` ]],
 }
+
 local tool_2006_2019 = {
-  [[           ;uRMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMgg%J'           ]],
-  [[         `ABBBBBBBBBBR=`                                                                                                                         "kQBBBBBBBBBBBL          ]],
-  [[         %BBBBBBBBBBB'                                                                                                                             %BBBBBBBBBBBB^         ]],
-  [[         BBBBBBBBBBBB                                                                                                                              %BBBBBBBBBBBB2         ]],
-  [[         BBBBBBBBBBBB                                                                                                                              %BBBBBBBBBBBB4         ]],
-  [[        IBBBBBBBBBBBB5'                                                                                                                            %BBBBBBBBBBBB4         ]],
-  [[ `i55w8QBBBBBBBBBBBBBBQRkww2~      :<x2Z55555555ZZZZZZZZZZZZZZZZ5555555555SjL=              rLCZZ5555555ZZZZZZZZZZZZZZZZZ555555555Z2J?,            %BBBBBBBBBBBB4         ]],
-  [[ .;!!!rIgBBBBBBBBBBBBQe1+!!!`    "GBBBBBBBBBB8(r!!!!!!!!!!!!!!!!=/dBBBBBBBBBBBBt.        .IBBBBBBBBBBBE/+!!!!!!!!!!!!!!!+rygBBBBBBBBBBBk_          %BBBBBBBBBBBB4         ]],
-  [[        ~BBBBBBBBBBBB"          !BBBBBBBBBBBM-                     8BBBBBBBBBBBB%       .OBBBBBBBBBBBT                     !RBBBBBBBBBBBB^         %BBBBBBBBBBBB4         ]],
-  [[         BBBBBBBBBBBB           BBBBBBBBBBBBg                      ABBBBBBBBBBBBW!      /MBBBBBBBBBBB-                      OBBBBBBBBBBBBQ         %BBBBBBBBBBBB4         ]],
-  [[         BBBBBBBBBBBB           BBBBBBBBBBBBW                      ABBBBBBBBBBBBM/      TNBBBBBBBBBBB-                      OBBBBBBBBBBBBB         %BBBBBBBBBBBB4         ]],
-  [[         BBBBBBBBBBBB           BBBBBBBBBBBB&                      ABBBBBBBBBBBBM/      TQBBBBBBBBBBB-                      OBBBBBBBBBBBBB         %BBBBBBBBBBBB4         ]],
-  [[         BBBBBBBBBBBB           BBBBBBBBBBBBR                      ABBBBBBBBBBBBM/      TQBBBBBBBBBBB-                      OBBBBBBBBBBBBB         %BBBBBBBBBBBB4         ]],
-  [[         BBBBBBBBBBBB           BBBBBBBBBBBBR                      ABBBBBBBBBBBBM/      TQBBBBBBBBBBB-                      OBBBBBBBBBBBBB         %BBBBBBBBBBBB4         ]],
-  [[         BBBBBBBBBBBB           BBBBBBBBBBBBR                      ABBBBBBBBBBBBM/      TQBBBBBBBBBBB-                      OBBBBBBBBBBBBB         %BBBBBBBBBBBB4         ]],
-  [[         BBBBBBBBBBBB           BBBBBBBBBBBBR                      ABBBBBBBBBBBBg|      cNBBBBBBBBBBB-                      OBBBBBBBBBBBBB         %BBBBBBBBBBBB4         ]],
-  [[         UBBBBBBBBBBB:          VBBBBBBBBBBBW                      %BBBBBBBBBBBB8'      ,RBBBBBBBBBBB!                     ~8BBBBBBBBBBBBl         %BBBBBBBBBBBBb         ]],
-  [[         .2BBBBBBBBBBRr'         }BBBBBBBBBBBb!.                 "CBBBBBBBBBBBBN"        !QBBBBBBBBBBQ*_                 '=OBBBBBBBBBBBBf       .!UQBBBBBBBBBBBBBy!       ]],
-  [[           _s8gMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMgMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMl` ]],
+  [[           ............................................................................................................         ]],
+  [[        .MMMMMMMMB"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""WMMMMMMMMN&       ]],
+  [[        MMMMMMMMM                                                                                             ,MMMMMMMMMb       ]],
+  [[        MMMMMMMMM                                                                                             ,MMMMMMMMM#       ]],
+  [[       .MMMMMMMMM,                                                                                            ,MMMMMMMMM#       ]],
+  [[  ....JMMMMMMMMMMMg...,     ................................          ................................        ,MMMMMMMMM#       ]],
+  [[  ???"MMMMMMMMMMM"???`   .MMMMMMMM#"?????????????TMMMMMMMMMN,      .MMMMMMMMM"7????????????7WMMMMMMMMMe       ,MMMMMMMMM#       ]],
+  [[       MMMMMMMMM:       .MMMMMMMMM                .MMMMMMMMMN.    .MMMMMMMMM%                MMMMMMMMMM]      ,MMMMMMMMM#       ]],
+  [[       MMMMMMMMM_       gMMMMMMMMN                .MMMMMMMMMM)    ,MMMMMMMMM[                dMMMMMMMMMF      ,MMMMMMMMM#       ]],
+  [[       MMMMMMMMM_       gMMMMMMMMN                .MMMMMMMMMM)    ,MMMMMMMMM[                dMMMMMMMMMF      ,MMMMMMMMM#       ]],
+  [[       MMMMMMMMM_       gMMMMMMMMN                .MMMMMMMMMM)    ,MMMMMMMMM[                dMMMMMMMMMF      ,MMMMMMMMM#       ]],
+  [[       MMMMMMMMM_       gMMMMMMMMN                .MMMMMMMMMM)    ,MMMMMMMMM[                dMMMMMMMMMF      ,MMMMMMMMM#       ]],
+  [[       MMMMMMMMM_       gMMMMMMMMN                .MMMMMMMMMM)    ,MMMMMMMMM[                dMMMMMMMMMF      ,MMMMMMMMM#       ]],
+  [[       HMMMMMMMM,       (MMMMMMMMN.               .MMMMMMMMMM`    .MMMMMMMMM]                dMMMMMMMMMF      .MMMMMMMMMN       ]],
+  [[        TMMMMMMMMg.......dMMMMMMMMNa.............JMMMMMMMMMMa.......MMMMMMMMMN..............MMMMMMMMMMN......&MMMMMMMMMMMNJ.... ]],
+  [[          """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""` ]],
 }
-local tool_2019      = {
-  [[                              .,~_"/???????????????????????????????<"         .,,.^!;`,,                  ,,`_!"`:,.                ."                                                            ]],
-  [[                            !1?r;;;;;;;;;;;;;;;;;;;;;;;;;___rx______'       "x!~'..!  ,;1+~            '=/;, .=`.'_+l"              /=                                                            ]],
-  [[                          !2/~.                             =w            "}=`    .!     :ry_        'Y|~     =.    '+s"            w=                                                            ]],
-  [[                         =I_.                               =>;          1x;      .!      ."F=      =}".      =.      "j1          ;J=                                                            ]],
-  [[                        !y!                                 =,L.        rC".      .!        +e!    !4r        =.      `+er        .*.=                                                            ]],
-  [[ ~______________________?u;_________________________________*!!(________PC!_______;=        =iJ'  `T*=        /;_______+3P________f!;*__________________________________________________________~ ]],
-  [[ !""""""""""""""""""""""""""""""""""""""""""""""""""""""""""+!""!"""^^^^!!"^^^^^^^""        fJ<'  '?Jf        !!!!!!!!!+r/!!!!!!!=!!!!"!!!!"!"""""""""!!!!!!!!!!!!!!+!!+ti!!!!!!!!""""""""""""""! ]],
-  [[                                                            =,  `":     !>>.      .!        Pl;    ~IP        =.       |(<     :!~  .=                                 _o^                        ]],
-  [[                                                            =,   .;"`   .!e_      .!       "4"`    `"4!       =.      _e/'    -;.   .=                                ~5+.                        ]],
-  [[                                                            =,      _!-  .!V:     .!      "J;`      `;c"      =.     -er`  -"~      .=                               "2!'                         ]],
-  [[                                                            =,        ,'"'_~!!:   .!    "T=`          `rT"    =.   :+r_~'"'~.       .=                           :_"c>,                           ]],
-  [[                                                            =,            `'"<>/_!+T!~r!:.              `:!r_!J+!;>*?"-`            .?>>/>>>/>>>>//>>>>>><<<?????T!~`                             ]],
+
+local tool_2019 = {
+ [[                        ...........................         ....                ....              .}                                              ]],
+ [[                    .d9=<???????????????????<2!!!!!     .J=! .! ?Ta,        .-Y^`.] ?7n,          .}                                              ]],
+ [[                   .d=                       .N        .d=    ,~    ?m.     J5`   .r    ?N,        d}                                             ]],
+ [[                  .H{                        .Z;      .#>     ,~     ?N.   d$`    .r     (M,      .0}                                             ]],
+ [[ .................(K..........................lj......dh-......~     (d]  .#>     .r......XN......2({............................................ ]],
+ [[ 7????????????????????<??<<<<<<<<<<<<<<<<????<2?1/????1u/?????<~     (K\  ,Xr     .r?????<QZ????<2?1<???????????????<<<<<<<<<<d2<<??????????????? ]],
+ [[                                             .)  ?+   .dL     ,~     d3`   zN.    .r     .@>   .=  ,}                        .#!                  ]],
+ [[                                             .)    7.. _d&    ,~    (5`     ?b.   .r    .@>  .7    ,}                       .#>                   ]],
+ [[                                             .)      (=(.?S,  ,~  .Y!        (4.. .r  .J3(.?^      ,}                   ...V=`                    ]],
+ [[                                             .'           !??77=7!              ?77"77!!`          .7<<<<<<<<<?7777777777!`                       ]],
 }
+
 vim.cmd [[
-hi StartLogo0 ctermfg=255 guifg=#FFFFFF
-hi StartLogo1 ctermfg=18 guifg=#14067E
-hi StartLogo2 ctermfg=18 guifg=#15127B
-hi StartLogo3 ctermfg=18 guifg=#171F78
-hi StartLogo4 ctermfg=18 guifg=#182B75
-hi StartLogo5 ctermfg=23 guifg=#193872
-hi StartLogo6 ctermfg=23 guifg=#1A446E
-hi StartLogo7 ctermfg=23 guifg=#1C506B
-hi StartLogo8 ctermfg=23 guifg=#1D5D68
-hi StartLogo9 ctermfg=23 guifg=#1E6965
-hi StartLogo10 ctermfg=29 guifg=#1F7562
-hi StartLogo11 ctermfg=29 guifg=#21825F
-hi StartLogo12 ctermfg=29 guifg=#228E5C
-hi StartLogo13 ctermfg=35 guifg=#239B59
-hi StartLogo14 ctermfg=35 guifg=#24A755
-hi StartLogo15 ctermfg=35 guifg=#26B352
-hi StartLogo16 ctermfg=35 guifg=#27C04F
-hi StartLogo17 ctermfg=41 guifg=#28CC4C
-hi StartLogo18 ctermfg=41 guifg=#29D343
 hi StartLogoPop1 ctermfg=214 guifg=#EC9F05
 hi StartLogoPop2 ctermfg=208 guifg=#F08C04
 hi StartLogoPop3 ctermfg=208 guifg=#F37E03
@@ -145,42 +84,6 @@ hi StartLogoPop4 ctermfg=202 guifg=#F77002
 hi StartLogoPop5 ctermfg=202 guifg=#FB5D01
 hi StartLogoPop6 ctermfg=202 guifg=#FF4E00
 ]]
-
-local function lineToStartGradient(lines)
-  local out = {}
-  for i, line in ipairs(lines) do
-    table.insert(out, { hi = "StartLogo" .. i, line = line })
-  end
-  return out
-end
-
-local function lineToStartPopGradient(lines)
-  local out = {}
-  for i, line in ipairs(lines) do
-    local hi = "StartLogo" .. i
-    if i <= 6 then
-      hi = "StartLogo" .. i + 6
-    elseif i > 6 and i <= 12 then
-      hi = "StartLogoPop" .. i - 6
-    end
-    table.insert(out, { hi = hi, line = line })
-  end
-  return out
-end
-
-local function lineToStartShiftGradient(lines)
-  local out = {}
-  for i, line in ipairs(lines) do
-    local n = i
-    if i > 6 and i <= 12 then
-      n = i + 6
-    elseif i > 12 then
-      n = i - 6
-    end
-    table.insert(out, { hi = "StartLogo" .. n, line = line })
-  end
-  return out
-end
 
 local function lineToStartWhite(lines)
   local out = {}
@@ -209,16 +112,12 @@ local function lineToStartPop(lines)
   end
   return out
 end
-local cool = lineToStartPopGradient(coolLines)
-local robust = lineToStartShiftGradient(robustLines)
-local efficient = lineToStartGradient(efficientLines)
 
-
-
+local logo_1992 = lineToStartWhite(tool_1992_2001)
 local logo_2001 = lineToStartWhite(tool_2001_2006)
 local logo_2006 = lineToStartWhite(tool_2006_2019)
 local logo_2019 = lineToStartPop(tool_2019)
-local headers = { logo_2001, logo_2006, logo_2019, cool, robust, efficient }
+local headers = { logo_1992, logo_2001, logo_2006, logo_2019 }
 
 local function header_chars()
   math.randomseed(os.time())
