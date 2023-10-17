@@ -157,8 +157,21 @@ toggle bookmark | mm
 display bookmark list | <M-b>
 
 ## Translate
-translate to japanese | <C-t>j
-translate to english | <C-t>e
+translate cursor word to japanese | <C-t>j
+translate cursor word to english | <C-t>e
+
+## Pantran(Translate)
+display float window translate | <Leader>tr
+show mappings in floating window | <C-_>
+replase close translation | <C-r>
+replace close input | <M-r>
+append close translation | <C-a>
+append close input | <M-a>
+select engine | <C-e>
+select source | <C-s>
+select target | <C-t>
+switch languages | <M-s>
+translate | <M-t>
 
 ## JapaneseIME
 toggle inline IME | <C-j>
