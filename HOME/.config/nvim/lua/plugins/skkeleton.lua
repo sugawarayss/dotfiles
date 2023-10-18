@@ -4,8 +4,8 @@ return {
     dependencies = { "vim-denops/denops.vim", "Shougo/ddc.vim", "delphinus/skkeleton_indicator.nvim" },
     lazy = true,
     keys = {
-      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "i" },
-      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "c" },
+      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "i", desc = "Toggle IME" },
+      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "c", desc = "Toggle IME" },
     },
     config = function()
       local dictionaries = {}

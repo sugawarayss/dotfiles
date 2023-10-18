@@ -8,12 +8,12 @@ return {
   },
   event = { "VimEnter" },
   keys = {
-    {"L", "<Cmd>BufferLineCycleNext<CR>", mode = "n", { noremap = true, silent = true }},
-    {"H", "<Cmd>BufferLineCyclePrev<CR>", mode = "n", { noremap = true, silent = true }},
-    {"<Leader>h", "<Cmd>BufferLineMovePrev<CR>", mode = "n", { noremap = true, silent = true }},
-    {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>", mode = "n", { noremap = true, silent = true }},
-    {"<C-H>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }},
-    {"<C-L>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }},
+    {"L", "<Cmd>BufferLineCycleNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "Switch Current Window to Next BufferLine"},
+    {"H", "<Cmd>BufferLineCyclePrev<CR>", mode = "n", { noremap = true, silent = true }, desc = "Switch Current Window to Prev BufferLine" },
+    {"<Leader>h", "<Cmd>BufferLineMovePrev<CR>", mode = "n", { noremap = true, silent = true }, desc = "Move BufferLine to Prev"},
+    {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "Move BufferLine to Next"},
+    {"<C-H>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }, desc = "Close Left BufferLines"},
+    {"<C-L>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }, desc = "Close Right BufferLines"},
   },
   config = function()
     local mocha = require("catppuccin.palettes").get_palette "mocha"

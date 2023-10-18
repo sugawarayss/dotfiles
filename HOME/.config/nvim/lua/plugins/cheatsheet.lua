@@ -10,7 +10,7 @@ return {
   lazy = true,
   -- キーが押された時にロードする
   keys = {
-    {"<C-c><C-s>", "<cmd>Cheatsheet<CR>", mode = "n"}
+    {"<C-c><C-s>", "<cmd>Cheatsheet<CR>", mode = "n", desc = "Show CheatSheet"}
   },
   config = function()
     require("cheatsheet").setup({

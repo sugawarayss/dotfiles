@@ -3,8 +3,8 @@ return {
   {
     "voldikss/vim-translator",
     keys = {
-      { "<C-t>j", "<cmd>Translate<CR>", mode = "n" },
-      { "<C-t>e", "<cmd>Translate --target_lang=en<CR>", mode = "n"},
+      { "<C-t>j", "<cmd>Translate<CR>", mode = "n", desc = "Translate word on cursor to Japanese" },
+      { "<C-t>e", "<cmd>Translate --target_lang=en<CR>", mode = "n", desc = "Translate word on cursor to English"},
     },
     config = function()
       vim.g.translator_target_lang = "ja"
@@ -15,13 +15,14 @@ return {
   {
     "potamides/pantran.nvim",
     keys = {
-      { "<leader>tr", "<cmd>Pantran<CR>", mode = "n" },
+      { "<leader>tr", "<cmd>Pantran<CR>", mode = "n", desc = "Show Tranlate Window" },
     },
     config = function()
       require("pantran").setup({
         default_engine = "google",
         controls = {
           mappings = {
+            -- TODO: Pantranのマッピングのカスタマイズ
             edit = {
               n = {
                 ["j"] = "gj",

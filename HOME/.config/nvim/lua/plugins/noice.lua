@@ -20,8 +20,8 @@ return {
     "rcarriga/nvim-notify",
   },
   keys = {
-    { "<leader>nl", function() require("noice").cmd("last") end, mode = "n" },
-    { "<leader>nh", "<cmd>Noice telescope<CR>", mode = "n" },
+    { "<leader>nl", function() require("noice").cmd("last") end, mode = "n", desc = "Show Last Notification" },
+    { "<leader>nh", "<cmd>Noice telescope<CR>", mode = "n", desc = "Show Notification History by Telescope" },
   },
   config = function()
     local mocha = require("catppuccin.palettes").get_palette "mocha"

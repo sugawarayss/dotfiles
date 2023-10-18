@@ -35,7 +35,7 @@ return {
     lazy = true,
     -- 指定キーが押された時にロードする
     keys = {
-        { "<C-n>", ":NvimTreeToggle<CR>", mode = "n" },
+        { "<C-n>", ":NvimTreeToggle<CR>", mode = "n", desc = "Toggle File Exploer" },
     },
     config = function()
       require("nvim-tree").setup({
