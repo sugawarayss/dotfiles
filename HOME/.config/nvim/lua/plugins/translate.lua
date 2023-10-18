@@ -16,10 +16,16 @@ return {
     "potamides/pantran.nvim",
     keys = {
       { "<leader>tr", "<cmd>Pantran<CR>", mode = "n", desc = "Show Tranlate Window" },
-    },
+s   },
     config = function()
       require("pantran").setup({
         default_engine = "google",
+        engines = {
+          goolge = {
+            default_source = "ja",
+            default_target = "en",
+          },
+        },
         controls = {
           mappings = {
             -- TODO: Pantranのマッピングのカスタマイズ
