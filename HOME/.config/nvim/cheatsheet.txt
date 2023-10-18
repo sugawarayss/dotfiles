@@ -151,6 +151,15 @@ preview scroll upper | <C-u>
 preview scroll lower | <C-d>
 keymap list(Telescope) | <M-k><M-m>
 
+## Hop
+hop to matched 'input pattern' | <Leader>/
+hop to vertical current line column | <Leader>v
+hop to after cursor word | <Leader>w
+hop to before cursor word | <Leader>b
+hop to after cursor char | <Leader>f
+hop to before cursor char | <Leader>F
+hop before to after cursor line | <Leader>t
+hop before to before cursor line | <Leader>T
 
 ## Bookmark
 toggle bookmark | mm
