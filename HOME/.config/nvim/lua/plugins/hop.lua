@@ -1,7 +1,9 @@
 -- 少ないキー数で様々な場所に遷移できるモーションを提供
 return {
   "phaazon/hop.nvim",
+  lazy = true,
   branch = 'v2',
+  event = { "BufReadPre" },
   keys = {
     {"<Leader>/", function() require('hop').hint_patterns() end},
     {"<Leader>v", function() require('hop').hint_vertical() end},
