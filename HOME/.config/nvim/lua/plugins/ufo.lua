@@ -3,7 +3,7 @@ local ftMap = {
   python = { "indent" },
   git = "",
 }
--- 折り畳んだ範囲の行数をvirtual textて表示
+-- 折り畳んだ範囲の行数をvirtual textで表示
 local handler = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
     local suffix = (" 󰁂 %d "):format(endLnum - lnum)
@@ -35,11 +35,11 @@ end
 -- 折りたたみ
 return {
   "kevinhwang91/nvim-ufo",
-  enabled = false,
+  enabled = true,
   dependencies = { "kevinhwang91/promise-async" },
   -- 遅延読み込みする
   lazy = true,
-  -- 指定キーが押された時にロードする
+  event = "VeryLazy",
   keys = {
     { "zr", function() require('ufo').openAllFolds() end, mode = "n" },
     { "zm", function() require('ufo').closeAllFolds() end, mode = "n" },
@@ -70,7 +70,6 @@ return {
       fold_virt_text_handler = handler,
       provider_selector = function(_, filetype, _)
         return ftMap[filetype] or { "treesitter", "indent" }
-        -- return ftMap[filetype]
       end,
     })
   end
