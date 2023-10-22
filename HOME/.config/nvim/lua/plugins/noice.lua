@@ -55,17 +55,17 @@ return {
       views = {
         notify = {
           win_options = {
-            winblend = 0,
+            winblend = 10,
           }
         },
         cmdline = {
           win_options = {
-            winblend = 0,
+            winblend = 10,
           }
         },
         cmdline_popup = {
           win_options = {
-            winblend = 0,
+            winblend = 10,
           },
           position = {
             row = "30",
