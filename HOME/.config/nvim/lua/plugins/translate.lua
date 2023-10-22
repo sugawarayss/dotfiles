@@ -16,7 +16,7 @@ return {
     "potamides/pantran.nvim",
     keys = {
       { "<leader>tr", "<cmd>Pantran<CR>", mode = "n", desc = "Show Tranlate Window" },
-s   },
+    },
     config = function()
       require("pantran").setup({
         default_engine = "google",
