@@ -40,6 +40,7 @@ return {
           enabled = true,
           enable_ui = true,
         },
+        nvimtree = true,
         treesitter = true,
         telescope = {
           enabled = true,
