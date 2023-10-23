@@ -14,9 +14,9 @@ return {
         changedelete = { hl = 'GitSignsChange', text = '󰥛', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
         untracked    = { hl = 'GitSignsAdd', text = '', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
       },
-      signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
-      numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
-      linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+      signcolumn                   = true, -- サインを行番号のある列に表示する
+      numhl                        = true, --  行番号をハイライトする
+      linehl                       = true, --  バッファ本文のハイライトを行単位で変更する
       word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
       watch_gitdir                 = {
         interval = 1000,
@@ -71,15 +71,15 @@ return {
         -- Actions
         map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
         map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-        map('n', '<leader>hS', gs.stage_buffer)
-        map('n', '<leader>hu', gs.undo_stage_hunk)
-        map('n', '<leader>hR', gs.reset_buffer)
-        map('n', '<leader>hp', gs.preview_hunk)
-        map('n', '<leader>hb', function() gs.blame_line { full = true } end)
-        map('n', '<leader>tb', gs.toggle_current_line_blame)
-        map('n', '<leader>hd', gs.diffthis)
-        map('n', '<leader>hD', function() gs.diffthis('~') end)
-        map('n', '<leader>td', gs.toggle_deleted)
+        map('n', '<leader>hS', gs.stage_buffer, { desc = "Stage All Hunks in Current Buffer"})
+        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = "Undo the Last call of stage_hunk" })
+        map('n', '<leader>hR', gs.reset_buffer, { desc = "Reset the lines of All Hunks in the Buffer"})
+        map('n', '<leader>hp', gs.preview_hunk, { desc = "Preview the Hunk at the Cursor Position in Float Window"})
+        map('n', '<leader>hb', function() gs.blame_line { full = true } end, { desc = "Float Blame Line"})
+        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = "Toggle Blame Line"})
+        map('n', '<leader>hd', gs.diffthis, { desc = "Toggle Diff" })
+        map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = "Toggle Diff with HEAD"})
+        map('n', '<leader>td', gs.toggle_deleted, { desc = "Toggle Show Deleted"})
 
         -- Text object
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
