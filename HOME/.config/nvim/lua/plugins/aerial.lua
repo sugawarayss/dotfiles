@@ -19,6 +19,10 @@ return {
         placement = "window",
       },
       atacch_mode = "window",
+      close_automatic_events = {
+        "unsupported",
+      },
+      highlight_mode = "last",
       show_guides = true,
       float = {
         border = "rounded",
