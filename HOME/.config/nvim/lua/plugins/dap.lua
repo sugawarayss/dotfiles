@@ -6,6 +6,8 @@ return {
     "mfussenegger/nvim-dap",
     "mfussenegger/nvim-dap-python",
   },
+  -- pythonファイルを開いた時にloadする
+  ft = { "python" },
   keys = {
     { "<F8>", ":DapContinue<CR>", mode = "n", desc = "Continue" },
     { "<F9>", ":DapStepOver<CR>", mode = "n", desc = "StepOver" },
