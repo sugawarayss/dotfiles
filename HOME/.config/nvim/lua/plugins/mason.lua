@@ -29,9 +29,9 @@ local my_on_attach = function(client, bufnr)
   if cap.documentHighlightProvider then
     vim.cmd("set updatetime=500")
     vim.cmd [[
-      highlight LspReferenceText cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
-      highlight LspReferenceRead cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
-      highlight LspReferenceWrite cterm=underline ctermfg=1 ctermbg=8 gui=underline guifg=#A00000 guibg=#104040
+      highlight LspReferenceText cterm=underline gui=underline guifg=#11111B guibg=#74C7EC
+      highlight LspReferenceRead cterm=underline gui=underline guifg=#11111B guibg=#74C7EC
+      highlight LspReferenceWrite cterm=underline gui=underline guifg=#11111B guibg=#74C7EC
     ]]
     vim.cmd [[
       augroup lsp_document_highlight
