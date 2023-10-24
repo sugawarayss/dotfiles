@@ -29,6 +29,7 @@ return {
       local telescope = require("telescope")
       local actions = require("telescope.actions")
       local action_layout = require("telescope.actions.layout")
+      local trouble = require("trouble.providers.telescope")
       telescope.setup({
         defaults = {
           vimgrep_arguments = {
@@ -71,7 +72,7 @@ return {
               ['<C-d>'] = function(...) return actions.preview_scrolling_down(...) end,
               ['<C-s>'] = actions.select_horizontal,
               ['<C-x>'] = false,
-              ['<C-t>'] = action_layout.toggle_preview,
+              ['<C-t>'] = trouble.open_with_trouble,
             }
           }
         },
