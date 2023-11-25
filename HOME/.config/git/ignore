@@ -24,7 +24,7 @@ __pycache__/
 .pytest_cache/
 .coverage
 
-hoge.py
+hoge.*
 recreate_container.sh
 sample_csv/
 
