@@ -80,7 +80,7 @@ return {
     config = function()
       -- LSP handlers
       vim.lsp.handlers["textDocument/publishDiagnostics"] =
-        vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+      vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
 
       local mason_lspconfig = require("mason-lspconfig")
@@ -102,8 +102,6 @@ return {
           "lua_ls",
           -- deno
           "denols",
-          -- eslint
-          "eslint",
           -- php
           "intelephense",
           -- kotlin
@@ -146,11 +144,6 @@ return {
               return
             end
             opt.root_dir = node_root_dir
-          elseif server == "eslint" then
-            if not is_node_repo then
-              return
-            end
-            opt.root_dir = node_root_dir
           elseif server == "denols" then
             if is_node_repo then
               return
@@ -177,7 +170,7 @@ return {
             automatic_installation = true,
             ensure_installed = {
               -- JS/TS
-              "prittiered",
+              "prettier",
               "eslint_d",
               -- lua
               "stylua",

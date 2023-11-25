@@ -14,6 +14,7 @@ return {
     {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "Move BufferLine to Next"},
     {"<C-H>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }, desc = "Close Left BufferLines"},
     {"<C-L>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }, desc = "Close Right BufferLines"},
+    {"<leader>c", ":bd<CR>", mode = "n", { silent = true }, desc = "Close Current Buffer"},
   },
   config = function()
     local mocha = require("catppuccin.palettes").get_palette "mocha"

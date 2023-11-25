@@ -27,9 +27,9 @@ return {
       float = {
         border = "rounded",
         relative = "win",
-        max_height = 0.4,
+        max_height = 1.0,
         height = nil,
-        min_height = 8,
+        min_height = 0.5,
         override = function(conf, source_winid)
           conf.title = "Out Line"
           conf.title_pos = "center"

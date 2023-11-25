@@ -3,6 +3,7 @@ return {
     "vim-skk/skkeleton",
     dependencies = { "vim-denops/denops.vim", "Shougo/ddc.vim", "delphinus/skkeleton_indicator.nvim" },
     lazy = true,
+    event = "VeryLazy",
     keys = {
       { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "i", desc = "Toggle IME" },
       { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "c", desc = "Toggle IME" },
@@ -27,12 +28,7 @@ return {
           })
         end,
       })
-    end
-  },
-  {
-    "delphinus/skkeleton_indicator.nvim",
-    dependencies = { "vim-skk/skkeleton" },
-    config = function()
+
       -- 英字モードのハイライトカラー定義
       vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg = "#2e3440", bg = "#a3be8c" })
       -- ひらがなモードのハイライトカラー定義
