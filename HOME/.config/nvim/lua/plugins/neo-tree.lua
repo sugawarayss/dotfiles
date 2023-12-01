@@ -4,6 +4,7 @@ return {
   lazy = true,
   keys = {
     { "<C-n>", ":Neotree toggle<CR>", mode = "n", desc = "Toggle File Exploer" },
+    { "<M-g><M-s>", ":Neotree float git_status<CR>", mode = "n", desc = "Show Git Status by Neotree"},
   },
   depencencies = {
     { "nvim-lua/plenary.nvim" },
@@ -19,10 +20,16 @@ return {
           hide_gitignored = false,
           hide_hidden = false, -- only workd on Windows
         },
+        follow_current_file = {
+          enabled = true, -- focus があるbufferに追従する
+          leave_dirs_open = true, -- ディレクトリを開いたままにする
+        },
       },
-      mappings = {
-        ["<C-s>"] = "open_split",
-        ["<C-v>"] = "open_vsplit",
+      window = {
+        mappings = {
+          ["<C-s>"] = "open_split",  -- 水平分割で開く
+          ["<C-v>"] = "open_vsplit",  -- 垂直分割で開く
+        },
       }
     })
   end,
