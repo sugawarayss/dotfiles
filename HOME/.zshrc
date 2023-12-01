@@ -109,27 +109,27 @@ if [[ -n $(echo ${^fpath}/chpwd_recent_dirs(N)) && -n $(echo ${^fpath}/cdr(N)) ]
 fi
 
 ################
-# pecoコマンド #
+# gumコマンド #
 ################
-function peco-select-history() {
+function gum-select-history() {
   BUFFER=$(\history -n -r 1 | gum filter --value="$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
-# history with pecoはCtrl+Rに割り当てる
-zle -N peco-select-history
-bindkey '^R' peco-select-history
+# history with gumはCtrl+Rに割り当てる
+zle -N gum-select-history
+bindkey '^R' gum-select-history
 
 # search a destination from cdr list
-function peco-get-destination-from-cdr() {
+function gum-get-destination-from-cdr() {
   cdr -l | \
   oldsed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
   gum filter --value="$LBUFFER"
 }
 
-function peco-cdr() {
+function gum-cdr() {
   if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    local destination="$(peco-get-destination-from-cdr)"
+    local destination="$(gum-get-destination-from-cdr)"
     if [ -n "$destination" ]; then
       BUFFER="cd $destination"
       zle accept-line
@@ -140,9 +140,9 @@ function peco-cdr() {
     cdr -l | awk '{print $2}' | gum filter | cd
   fi
 }
-# cdr with peco はCtrl+Eに割り当てる
-zle -N peco-cdr
-bindkey '^E' peco-cdr
+# cdr with gum はCtrl+Eに割り当てる
+zle -N gum-cdr
+bindkey '^E' gum-cdr
 
 BREWPREFIX=$(brew --prefix)
 
