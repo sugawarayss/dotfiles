@@ -13,8 +13,13 @@ return {
   },
   config = function ()
     require("neo-tree").setup({
-      hide_dotfiles = false,
-      hide_hidden = false,
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_hidden = false, -- only workd on Windows
+        },
+      },
       mappings = {
         ["<C-s>"] = "open_split",
         ["<C-v>"] = "open_vsplit",
