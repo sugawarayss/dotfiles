@@ -1,3 +1,28 @@
+## Neotree
+toggle node | <space>
+open | <CR>
+cancel | <ESC>
+toggle preview | P
+focus preview | l
+open split | <C-s>
+open vsplit | <C-v>
+close node | C
+close all node | z
+add file | a
+add directory | A
+delete | d
+rename | r
+copy to clipboard | y
+cut to clipboard | x
+paste from clipboard | p
+move | m
+close window | q
+refresh | R
+show help | ?
+prev source | <
+next source | >
+show file details | i
+
 ## Nvim-tree
 move Parent Directory | -
 display file/dir Info | <C-k>

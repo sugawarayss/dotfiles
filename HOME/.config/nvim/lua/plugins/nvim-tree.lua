@@ -31,6 +31,7 @@ end
 return {
     "kyazdani42/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    enabled = false,
     -- 遅延読み込みする
     lazy = true,
     -- 指定キーが押された時にロードする
