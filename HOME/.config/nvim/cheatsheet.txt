@@ -23,34 +23,6 @@ prev source | <
 next source | >
 show file details | i
 
-## Nvim-tree
-move Parent Directory | -
-display file/dir Info | <C-k>
-Expand All | E
-Collapse ALL | W
-append file/dir | a
-copy file/dir | c
-copy file/dir name | y
-copy Relative Path | Y
-copy Absolute Path | gy
-enable Filter | f
-clear Filter | F
-paste file/dir | p
-cut file/dir | x
-delete file/dir | d
-trash file/dir | D
-rename File | r
-copy File Name | y
-copy Relative Path | Y
-toggle Preview | <Tab>
-toggle Bookmark | m
-move Bookmark | bmv
-move Cursor to Parent Directory | P
-toggle Dotfiles | H
-toggle Display Git Ignore | I
-toggle Filter Hidden File | U
-help | g?
-
 ## Mason
 install package | i
 uninstall package | X
@@ -154,6 +126,20 @@ alias | w: word, s: sentence
 カーソル位置の単語を囲むタグを除去 | dst : delete sussound tag
 visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号>
 
+## Multiple cursor
+start multiple cursor | <C-n>
+next multiple cursor | <C-n>
+prev multiple cursor | <C-p>
+skip multiple cursor | <C-x>
+select all multiple cursor | <A-a>
+
+## trouble
+display troubles | <Leader>xx
+display troubles in workspace | <Leader>xw
+display troubles in document | <Leader>xd
+display troubles in quickfix | <Leader>xq
+display troublesin locallist | <Leader>xl
+
 ## Noice
 display latest error | <Leader>nl
 display error list(Telescope) | <Leader>nh
@@ -209,3 +195,4 @@ translate | <M-t>
 
 ## JapaneseIME
 toggle inline IME | <C-j>
+
