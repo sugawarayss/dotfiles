@@ -10,7 +10,7 @@ local noice_cmd_types = {
   Help = "#A6E3A1",
 }
 
--- CmdLineや通知をpopupで表示
+-- CmdLineや通知をpopupで表示するプラグイン
 return {
   "folke/noice.nvim",
   lazy = true,

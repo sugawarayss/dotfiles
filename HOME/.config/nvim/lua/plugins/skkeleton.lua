@@ -1,3 +1,4 @@
+-- 日本語IME
 return {
   {
     "vim-skk/skkeleton",

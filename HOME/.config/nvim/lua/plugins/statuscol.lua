@@ -1,3 +1,4 @@
+-- バッファ左端のエリアをカスタマイズするプラグイン
 return {
   "luukvbaal/statuscol.nvim",
   lazy = false,

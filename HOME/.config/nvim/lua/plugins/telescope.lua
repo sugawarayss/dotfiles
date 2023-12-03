@@ -1,3 +1,4 @@
+-- Fuzzy Finder プラグイン
 local opt = { silent = true }
 return {
     "nvim-telescope/telescope.nvim",

@@ -1,3 +1,4 @@
+-- 構文解析プラグイン
 return {
   "nvim-treesitter/nvim-treesitter",
   event = "VeryLazy",

@@ -1,3 +1,4 @@
+-- Neovim のスタートアップ画面をカスタマイズするプラグイン
 local tool_1992_2001 = {
   [[ IBYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYBI ]],
   [[ Iz                                                                                                                      zI ]],

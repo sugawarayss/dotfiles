@@ -1,3 +1,4 @@
+-- ターミナルをfloat windowで開くプラグイン
 return {
   "akinsho/toggleterm.nvim",
   version = '*',

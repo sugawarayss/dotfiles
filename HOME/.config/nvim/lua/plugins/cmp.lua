@@ -1,12 +1,13 @@
-
+-- 自動補完プラグイン
 return {
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-path" },
-      { "hrsh7th/vim-vsnip" },
+      { "hrsh7th/cmp-nvim-lsp" },  -- LSP補完
+      { "hrsh7th/cmp-buffer" },  -- バッファ補完
+      { "hrsh7th/cmp-path" },  -- パス補完
+      { "hrsh7th/vim-vsnip" },  -- スニペット補完
       { "onsails/lspkind.nvim" },
       { "windwp/nvim-autopairs" },
     },
@@ -63,6 +64,7 @@ return {
           ghost_text = true,
         }
       })
+      -- on Edit CommitMessage
       cmp.setup.filetype('gitcommit', {
         sources = cmp.config.sources({
           { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.

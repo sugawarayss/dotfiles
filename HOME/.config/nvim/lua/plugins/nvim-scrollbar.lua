@@ -1,3 +1,4 @@
+-- スクロールバー拡張
 return {
   {
     "petertriho/nvim-scrollbar",
@@ -24,6 +25,7 @@ return {
       })
     end
   },
+-- 検索結果をvirtual textで表示するプラグイン
   {
     "kevinhwang91/nvim-hlslens",
     lazy = true,

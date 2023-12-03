@@ -1,3 +1,4 @@
+-- TODOコメントを強調表示するプラグイン
 return {
   "folke/todo-comments.nvim",
   lazy = true,
