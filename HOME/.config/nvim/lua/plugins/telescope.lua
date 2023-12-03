@@ -13,17 +13,17 @@ return {
     keys = {
       {"<C-p>", "<cmd>Telescope find_files hidden=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by FileName"},
       {"<C-g>", "<cmd>Telescope live_grep hidden=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by LiveGrep"},
-      {"<C-t>d", "<cmd>TodoTelescope<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by ToDo Comment"},
+      {"<C-t><C-d>", "<cmd>TodoTelescope<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by ToDo Comment"},
       {"gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of References"},
-      {"<M-g>b", "<cmd>Telescope git_branches<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Git Branch"},
+      {"<M-g><M-b>", "<cmd>Telescope git_branches<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Git Branch"},
       {"<M-d><M-c>", "<cmd>Telescope docker containers theme=ivy<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Docker Containers"},
       {"<M-d><M-i>", "<cmd>Telescope docker images theme=ivy<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Docker Images"},
       {"<M-d><M-p>", "<cmd>Telescope docker compose theme=ivy<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Docker Compose"},
       {"<M-d><M-l>", "<cmd>Telescope docker files theme=ivy<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Dockerfile"},
-      {"<M-h>", "<cmd>Telescope command_history<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Command History"},
+      {"<C-c><C-h>", "<cmd>Telescope command_history<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Command History"},
       {"<F5>", "<cmd>Telescope buffers show_all_buffers=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Buffers"},
-      {"<C-b>m", "<cmd>Telescope vim_bookmarks all<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Bookmarks"},
-      {"<C-k>m", "<cmd>Telescope keymaps<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Keymaps"},
+      {"<C-b><C-m>", "<cmd>Telescope vim_bookmarks all<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Bookmarks"},
+      {"<C-k><C-m>", "<cmd>Telescope keymaps<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Keymaps"},
     },
     config = function()
       local telescope = require("telescope")
@@ -43,12 +43,10 @@ return {
           },
           initial_mode = "insert",
           sorting_strategy = "ascending", --検索結果を上から下に並べる
-          layout_strategy = "flex",
+          layout_strategy = "vertical",
           layout_config = {
             width = 0.9,
-            height = 0.5,
-            vertical = { prompt_position= "top", preview_cutoff = 150, preview_width = 0.3 },
-            horizontal = { prompt_position = "top", preview_cutoff = 150, preview_width = 0.3 },
+            height = 0.9,
           },
           winblend = 30,         --ウィンドウを若干半透明にする
           color_devicons = true,
@@ -78,10 +76,16 @@ return {
         },
         pickers = {
           find_files = {
-            -- theme="dropdown",
+            layout_strategy = "vertical",
+            layout_config = {
+              prompt_position = "bottom",
+            },
           },
           live_grep = {
-            -- theme="dropdown",
+            layout_strategy = "vertical",
+            layout_config = {
+              prompt_position = "bottom",
+            },
           },
           colorscheme = {
             enable_preview = true,
