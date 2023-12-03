@@ -88,17 +88,7 @@ step in | <F10>
 step out | <F7>
 
 ## Git
-display git blame | <Leader>gb
-undisplay git blame | q
-display commit content of selected blame | <Leader>go
-open cursor line code on github | <Leader>go
-display pull request as current branch | <Leader>gp
-create pull request by current branch | <Leader>gn
-display diff | <Leader>gd
-close diff | <Leader>gD
-revert to selected commit | <Leader>gr
-revert current file | <Leader>gR
-checkout branch by branch list(Telescope) | <S-g>b : 'G'it 'b'ranch
+branch list(Telescope) | <M-g><M-b>
 
 ## Docker
 docker container list(Telescope) | <M-d><M-c>
@@ -109,11 +99,6 @@ docker file list(Telescope) | <M-d><M-l>
 ## TODO
 jump to next TODO | ;t
 jump to prev TODO | :t
-
-## vim-sandwich
-surround parenthesis | sa{motion/textobject}{addition} → 'saiw('
-remove parenthesis | sd{deletion} → 'sd(' 
-replace parenthesis | sr{deletion}{addition} → 'sr("'
 
 ## Surround
 空白あり/空白なし | あり: "(" / なし: ")"
@@ -157,10 +142,9 @@ jump to next outline | <leader>j
 ## Telescope
 search by filename(Telescope) | <C-p>
 search by content(Telescope) | <C-g>
-search by TODO(Telescope) | <C-b>
-preview scroll upper | <C-u>
-preview scroll lower | <C-d>
-keymap list(Telescope) | <M-k><M-m>
+search by TODO(Telescope) | <C-t><C-d>
+keymap list(Telescope) | <C-k><C-m>
+seatch Comand History(Telescope) | <C-c><C-h>
 
 ## Hop
 hop to matched 'input pattern' | <Leader>/
@@ -174,7 +158,7 @@ hop before to before cursor line | <Leader>T
 
 ## Bookmark
 toggle bookmark | mm
-display bookmark list | <M-b>
+display bookmark list(Telescope) | <C-b><C-m>
 
 ## Translate
 translate cursor word to japanese | <C-t>j
