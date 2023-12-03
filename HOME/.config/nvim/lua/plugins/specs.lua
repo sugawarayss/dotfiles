@@ -5,8 +5,8 @@ return {
   event = { "BufRead" },
   keys = {
     {"<M-s><M-p>", function() require("specs").toggle() end, desc = "Toggle Cursor Effect"},
-    { "n", "n:lua require('specs').show_specs({winhl = 'Search'})<CR>", mode = "n", { noremap = true, silent = true }, desc = "Jump Cursor Next with Effect"},
-    { "N", "N:lua require('specs').show_specs({winhl = 'Search'})<CR>", mode = "n", { noremap = true, silent = true }, desc = "Jump Cursor Prev with Effect"},
+    { "n", "n:lua require('specs').show_specs()<CR>", mode = "n", { noremap = true, silent = true }, desc = "Jump Cursor Next with Effect"},
+    { "N", "N:lua require('specs').show_specs()<CR>", mode = "n", { noremap = true, silent = true }, desc = "Jump Cursor Prev with Effect"},
   },
   config = function ()
     require("specs").setup ({
@@ -17,7 +17,7 @@ return {
         inc_ms = 10,
         blend = 80,
         width = 20,
-        winhl = "PMenu",
+        winhl = "Search",
         fader = require("specs").linear_fader,
         resizer = require("specs").shrink_resizer
       },
