@@ -1,4 +1,5 @@
 ## Neotree
+show File Explorer | <C-t><C-t>
 toggle node | <space>
 open | <CR>
 cancel | <ESC>
