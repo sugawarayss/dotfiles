@@ -1,9 +1,10 @@
+-- File Explorer プラグイン
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
   lazy = true,
   keys = {
-    { "<C-n>", ":Neotree toggle<CR>", mode = "n", desc = "Toggle File Exploer" },
+    { "<C-t><C-t>", ":Neotree toggle<CR>", mode = "n", desc = "Toggle File Exploer" },
     { "<M-g><M-s>", ":Neotree float git_status<CR>", mode = "n", desc = "Show Git Status by Neotree"},
   },
   depencencies = {
