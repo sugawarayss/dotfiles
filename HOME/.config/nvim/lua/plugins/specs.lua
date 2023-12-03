@@ -4,9 +4,7 @@ return {
   lazy = true,
   event = { "BufRead" },
   keys = {
-    {"<M-s><M-p>", function() require("specs").toggle() end, desc = "Toggle Cursor Effect"},
-    { "n", "n:lua require('specs').show_specs()<CR>", mode = "n", { noremap = true, silent = true }, desc = "Jump Cursor Next with Effect"},
-    { "N", "N:lua require('specs').show_specs()<CR>", mode = "n", { noremap = true, silent = true }, desc = "Jump Cursor Prev with Effect"},
+    {"<M-s><M-p>", "n", function() require("specs").show_specs() end, desc = "Toggle Cursor Effect"},
   },
   config = function ()
     require("specs").setup ({
@@ -26,6 +24,8 @@ return {
         nofile = true,
       },
     })
+    vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', 'N', 'N:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
     require("specs").toggle()
   end
 }
