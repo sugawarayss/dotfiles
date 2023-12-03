@@ -1,3 +1,4 @@
+-- LSPを管理するプラグイン
 local my_on_attach = function(client, bufnr)
   -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap = true, silent = false }
@@ -23,24 +24,6 @@ local my_on_attach = function(client, bufnr)
   -- 次のエラーへジャンプ
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-
-  -- Reference highlight(カーソル下の変数をコード内でハイライトする)
-  local cap = client.server_capabilities
-  if cap.documentHighlightProvider then
-    vim.cmd("set updatetime=500")
-    vim.cmd [[
-      highlight LspReferenceText cterm=underline gui=underline guifg=#11111B guibg=#74C7EC
-      highlight LspReferenceRead cterm=underline gui=underline guifg=#11111B guibg=#74C7EC
-      highlight LspReferenceWrite cterm=underline gui=underline guifg=#11111B guibg=#74C7EC
-    ]]
-    vim.cmd [[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
-  end
 end
 
 -- エラーアイコンの変更
