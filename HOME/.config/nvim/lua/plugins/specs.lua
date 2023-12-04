@@ -2,28 +2,34 @@
 return {
   "edluffy/specs.nvim",
   lazy = true,
-  event = { "BufRead" },
-  keys = {
-    {"<M-s><M-p>", "n", function() require("specs").show_specs() end, desc = "Toggle Cursor Effect"},
-  },
+  event = { "CursorMoved" },
   config = function ()
     require("specs").setup ({
       show_jumps = true,
-      min_jump = 10,
+      min_jump = 5,
       popup = {
         delay_ms = 0,
         inc_ms = 10,
         blend = 80,
         width = 20,
         winhl = "Search",
+        -- Faders:
+        -- linear_fader ▁▂▂▃▃▄▄▅▅▆▆▇▇██
+        -- exp_fader ▁▁▁▁▂▂▂▃▃▃▄▄▅▆▇
+        -- pulse_fader ▁▂▃▄▅▆▇█▇▆▅▄▃▂▁
+        -- empty_fader ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
         fader = require("specs").linear_fader,
+        -- Resizers:
+        -- shrink_resizer ░░▒▒▓█████▓▒▒░░
+        -- slide_resizer ████▓▓▓▒▒▒▒░░░░
+        -- empty_resizer ███████████████
         resizer = require("specs").shrink_resizer
       },
       ignore_filetypes = {},
-      ignore_buftypes = {
-        nofile = true,
-      },
+      ignore_buftypes = { nofile = true },
     })
+    vim.api.nvim_set_keymap('n', '<M-s><M-p>', ':lua require("specs").toggle()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', 'zz', 'zz:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
     vim.api.nvim_set_keymap('n', 'N', 'N:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
     require("specs").toggle()
