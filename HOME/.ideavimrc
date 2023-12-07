@@ -12,6 +12,9 @@ set keep-english-in-normal
 " クリップボードを有効化
 set clipboard=unnamedplus
 
+" <Space> をリーダーキーにする
+let mapleader = " "
+
 """"""""""""""""""""""""""""""""""
 " 一般設定                       "
 """"""""""""""""""""""""""""""""""
@@ -55,7 +58,7 @@ nnoremap gt :action GotoTest<CR>
 " エディター (コード編集)        "
 """"""""""""""""""""""""""""""""""
 " ブックマークリストを表示
-nnoremap <F34> :action ShowBookmarks<CR>
+nnoremap <C-b><C-m> :action ShowBookmarks<CR>
 " カーソル行でブックマークをトグル
 nnoremap mm :action ToggleBookmark<CR>
 " 次の分割グループへ移動
@@ -63,20 +66,51 @@ nnoremap <S-l> :action NextSplitter<CR>
 " 前の分割グループへ移動
 nnoremap <S-h> :action PrevSplitter<CR>
 
+" /による検索はIDE側のものを使う
+nnoremap / :<C-u>action Find<CR>
+
 """"""""""""""""""""""""""""""""""
 " 実行                           "
 """"""""""""""""""""""""""""""""""
 " 実行の構成を選んで実行
-nnoremap RC :action ChooseRunConfiguration<CR>
+noremap RC :action ChooseRunConfiguration<CR>
 
 """"""""""""""""""""""""""""""""""
 " Window(View)操作               "
 """"""""""""""""""""""""""""""""""
-" アクティブなViewを閉じる
-nnoremap s; :action CloseActiveTab<CR>
 " フォーカスを持つエディタタブを水平分割する
-nnoremap sh; :split<CR>
+nnoremap <C-s> :split<CR>
 " フォーカスを持つエディタタブを垂直分割
-nnoremap sv; :vsplit<CR>
+nnoremap <C-v> :vsplit<CR>
 " フォーカスを持つエディタタブを他のタブ分割グループに移動
 noremap so :action MoveEditorToOppositeTabGroup<CR>
+
+""""""""""""""""""""""""""""""""""
+" IdeaVim Plugin
+""""""""""""""""""""""""""""""""""
+
+" easymotion plugin
+set easymotion
+" デフォルトのキーマップを無効化
+let g:EasyMotion_do_mapping = 0
+" 大文字小文字を区別しない
+let g:EasyMotion_smartcase = 1
+
+map <Leader> <Plug>(easymotion-prefix)
+" カーソル以降の単語の先頭にジャンプ
+nmap <Leader>w <Plug>(easymotion-wl)
+" カーソル以前の単語の先頭にジャンプ
+nmap <Leader>b <Plug>(easymotion-bl)
+" カーソル以降の単語の末尾にジャンプ
+nmap <Leader>e <Plug>(easymotion-el)
+" カーソル以前の単語の末尾にジャンプ
+nmap <Leader>ge <Plug>(easymotion-ge)
+" カーソル以降の行の先頭にジャンプ
+map <Leader>j <Plug>(easymotion-j)
+" カーソル以前の行の先頭にジャンプ
+map <Leader>k <Plug>(easymotion-k)
+
+" which-key plugin
+set which-key
+" disable the timeout option
+set notimeout
