@@ -147,3 +147,9 @@ export PATH="/opt/homebrew/Cellar/libpq/15.3_1/bin:$PATH"
 ################
 export EDITOR=nvim
 eval "$(direnv hook zsh)"
+
+
+#############
+# mysql cli #
+#############
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
