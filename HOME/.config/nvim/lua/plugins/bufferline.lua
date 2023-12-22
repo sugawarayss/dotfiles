@@ -6,7 +6,7 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
   },
-  event = { "VimEnter" },
+  event = { "BufReadPre" },
   keys = {
     {"L", "<Cmd>BufferLineCycleNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "Switch Current Window to Next BufferLine"},
     {"H", "<Cmd>BufferLineCyclePrev<CR>", mode = "n", { noremap = true, silent = true }, desc = "Switch Current Window to Prev BufferLine" },

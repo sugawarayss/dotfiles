@@ -2,6 +2,7 @@
 return {
   {
     "voldikss/vim-translator",
+    lazy = true,
     keys = {
       { "<C-t>j", "<cmd>Translate<CR>", mode = "n", desc = "Translate word on cursor to Japanese" },
       { "<C-t>e", "<cmd>Translate --target_lang=en<CR>", mode = "n", desc = "Translate word on cursor to English"},
@@ -14,11 +15,20 @@ return {
   },
   {
     "potamides/pantran.nvim",
+    lazy = true,
     keys = {
       { "<leader>tr", "<cmd>Pantran<CR>", mode = "n", desc = "Show Tranlate Window" },
     },
     config = function()
       require("pantran").setup({
+        ui = {
+          width_percentage = 0.8,
+          height_percentage = 0.8,
+        },
+        window = {
+          title_border = {"┤ ", " ├"},
+          window_config = {border = "rounded"},
+        },
         default_engine = "google",
         engines = {
           goolge = {

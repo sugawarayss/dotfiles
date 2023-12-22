@@ -6,7 +6,7 @@ return {
   event = { "BufReadPre" },
   keys = {
     {"<Leader>/", function() require('hop').hint_patterns() end, desc = "hop to matched 'input pattern'"},
-    {"<Leader>v", function() require('hop').hint_vertical() end, desc = "hop to vertical line column"},
+    {"<Leader>l", function() require('hop').hint_vertical() end, desc = "hop to vertical line column"},
     {"<Leader>w", function() require('hop').hint_words({ direction = function() return require('hop.hint').HintDirection.AFTER_CURSOR end, current_line_only = true}) end, desc = "hop to after cursor word"},
     {"<Leader>b", function() require('hop').hint_words({ direction = function() return require('hop.hint').HintDirection.BEFORE_CURSOR end, current_line_only = true}) end, desc = "hop to before cursor word"},
     {"f", function() require('hop').hint_char1({ direction = function() return require('hop.hint').HintDirection.AFTER_CURSOR end, current_line_only = true }) end, desc = "hop to after cursor char in line"},
