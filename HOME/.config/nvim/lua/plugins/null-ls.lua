@@ -13,20 +13,32 @@ return {
       null_ls.builtins.formatting.ruff.with({
         "--line-length=150",
         "--ignore=ANN101",  -- Missing-type-function-argument
-        "--ignore=D100",    -- Missing docstring in public module
-        "--ignore=D102",    -- Missing docstring in public method
-        "--ignore=D104",    -- Missing docstring in public package
-        "--ignore=D105",    -- Missing docstring in magic method
-        "--ignore=D106",    -- Missing docstring in public nested class
-        "--ignore=D107",    -- Missing docstring in __init__
-        "--ignore=D205",    -- 1 blank line required between summary line and description
-        "--ignore=D212",    -- Multi-line docstring summary should start at the first line
-        "--ignore=D400",    -- First line should end with a period
-        "--ignore=D415",    -- First line should end with a period, question mark, or exclamation point
+        "--ignore=D",       -- pydocstyle
         "--ignore=FA",      -- flake8-future-annotations
         "--ignore=TRY",     -- tryceratops
         "--ignore=TD",      -- flake8-todo
         "--ignore=FIX",     -- flake8-fixme
+        "--ignore=YTT",     -- flake8-2020
+        "--igonore=S",      -- flake8-bandit
+        "--ignore=BLE",     -- flake8-bind-except
+        "--ignore=FBT",     -- flake8-boolean-trap
+        "--ignore=B",       -- flake8-bugbear
+        "--ignore=COM",     -- flake8-cmmas
+        "--ignore=CPY",     -- flake8-copyright
+        "--ignore=C4",      -- flake8-comrehensions
+        "--ignore=DTZ",     -- flake8-datetimez
+        "--ignore=T10",     -- flake8-debugger
+        "--ignore=EM",      -- flake8-errmsg
+        "--ignore=EXE",     -- flake8-executable
+        "--ignore=ISC",     -- fkale8-implict-str-concat
+        "--ignore=G",       -- flake8-logging-format
+        "--ignore=T20",     -- flake8-print
+        "--ignore=TID",     -- flake8-tidy-imports
+        "--ignore=ARG",     -- flake8-unused-arguments
+        "--ignore=PTH",     -- flake8-use-pathlib
+        "--ignore=ERA",     -- eradicate
+        "--ignore=FLY",     -- flynt
+        "--ignore=E501",    -- pydocstyle (line-too-log)
         "--fix",            -- auto fix
       }),
       null_ls.builtins.diagnostics.mypy.with({
@@ -37,20 +49,32 @@ return {
         extra_args = {
           "--line-length=150",
           "--ignore=ANN101",  -- Missing-type-function-argument
-          "--ignore=D100",    -- Missing docstring in public module
-          "--ignore=D102",    -- Missing docstring in public method
-          "--ignore=D104",    -- Missing docstring in public package
-          "--ignore=D105",    -- Missing docstring in magic method
-          "--ignore=D106",    -- Missing docstring in public nested class
-          "--ignore=D107",    -- Missing docstring in __init__
-          "--ignore=D205",    -- 1 blank line required between summary line and description
-          "--ignore=D212",    -- Multi-line docstring summary should start at the first line
-          "--ignore=D400",    -- First line should end with a period
-          "--ignore=D415",    -- First line should end with a period, question mark, or exclamation point
+          "--ignore=D",       -- pydocstyle
           "--ignore=FA",      -- flake8-future-annotations
           "--ignore=TRY",     -- tryceratops
           "--ignore=TD",      -- flake8-todo
           "--ignore=FIX",     -- flake8-fixme
+          "--ignore=YTT",     -- flake8-2020
+          "--igonore=S",      -- flake8-bandit
+          "--ignore=BLE",     -- flake8-bind-except
+          "--ignore=FBT",     -- flake8-boolean-trap
+          "--ignore=B",       -- flake8-bugbear
+          "--ignore=COM",     -- flake8-cmmas
+          "--ignore=CPY",     -- flake8-copyright
+          "--ignore=C4",      -- flake8-comrehensions
+          "--ignore=DTZ",     -- flake8-datetimez
+          "--ignore=T10",     -- flake8-debugger
+          "--ignore=EM",      -- flake8-errmsg
+          "--ignore=EXE",     -- flake8-executable
+          "--ignore=ISC",     -- fkale8-implict-str-concat
+          "--ignore=G",       -- flake8-logging-format
+          "--ignore=T20",     -- flake8-print
+          "--ignore=TID",     -- flake8-tidy-imports
+          "--ignore=ARG",     -- flake8-unused-arguments
+          "--ignore=PTH",     -- flake8-use-pathlib
+          "--ignore=ERA",     -- eradicate
+          "--ignore=FLY",     -- flynt
+          "--ignore=E501",    -- pydocstyle (line-too-log)
         },
       }),
       -- Lua
