@@ -2,7 +2,7 @@
 return {
   "jose-elias-alvarez/null-ls.nvim",
   lazy = true,
-  event = "BufReadPre",
+  event = "LspAttach",
   config = function()
     local null_ls = require("null-ls")
     local sources = {
