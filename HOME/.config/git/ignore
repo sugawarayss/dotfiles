@@ -31,5 +31,8 @@ sample_csv/
 # direnv
 .envrc
 
+# pyright
+pyrightconfig.json
+
 # ruff
 .ruff_cache
