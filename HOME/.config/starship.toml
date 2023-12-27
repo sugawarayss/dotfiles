@@ -3,6 +3,7 @@ add_newline = true
 
 # タイムアウト時間(millisec)
 scan_timeout = 100
+command_timeout = 1000
 
 # 左プロンプト
 format = """
