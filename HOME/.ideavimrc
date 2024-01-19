@@ -20,7 +20,7 @@ nnoremap <Leader>rr :source $HOME/.ideavimrc<CR>
 " 一般設定                       "
 """"""""""""""""""""""""""""""""""
 " /による検索はIDE側のものを使う
-nnoremap / :<C-u>action Find<CR>
+" nnoremap / :<C-u>action Find<CR>
 " ファイルの構造をポップアップ画面で表示する
 nnoremap <Leader>fs :action FileStructurePopup<CR>
 " 最近開いたファイル一覧ポップアップを表示する
