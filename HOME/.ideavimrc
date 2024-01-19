@@ -14,13 +14,35 @@ set clipboard=unnamedplus,unnamed,ideaput " integrate with system clipboard
 let mapleader = " "
 
 " ~/.ideavimrc (設定ファイル)を再読み込み
-nnoremap <Leader>rr :source $HOME/.ideavimrc<CR>
+nnoremap <Leader>rr :source ~/.ideavimrc<CR>
 
 """"""""""""""""""""""""""""""""""
 " 一般設定                       "
 """"""""""""""""""""""""""""""""""
+" Normalモードに戻ったら必ず半角にする(IdeaVimExtension pluginのinstallが必要)
+set keep-english-in-normal
+" (効いていない)cmdlineを2行分の高さにする
+"set cmdheight=2
+" ステータス行を常に表示
+set laststatus=2
+" ウィンドウの右下にまだ実行していない入力中のコマンドを表示
+set showcmd
+" 省略せずに表示する
+set display=lastline
+" 不可視文字を表示する(spaceはIDE側で)
+set listchars=tab:▸\ ,eol:↴
 " /による検索はIDE側のものを使う
 " nnoremap / :<C-u>action Find<CR>
+"検索する時に大文字小文字を区別しない
+set ignorecase
+" 検索する時に大文字を含む場合は区別する
+set smartcase
+" インクリメンタル検索(検索ワードの最初の文字を入力した時点で検索が開始)
+set incsearch
+" 検索対象をハイライト
+set hlsearch
+" Escの2回押しでハイライト消去
+nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 " ファイルの構造をポップアップ画面で表示する
 nnoremap <Leader>fs :action FileStructurePopup<CR>
 " 最近開いたファイル一覧ポップアップを表示する
