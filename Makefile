@@ -66,7 +66,7 @@ git:
 	@echo "git commit_template deploy --- finished"
 
 	@echo "git global config deploy --- start"
-	ln -s ${PROJECT_DIR}/HOME/.gitconfig ${HOME}/.gitconfig
+	ln -s ${PROJECT_DIR}/HOME/.config/git/.gitconfig ${HOME}/.gitconfig
 	@echo "git global config deploy --- finished"
 
 vim:
