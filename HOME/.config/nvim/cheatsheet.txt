@@ -49,6 +49,11 @@ collapse all code | zM
 expand all code | zR
 display preview of collapsed code | zn
 
+## Obsidian
+search obsidian notes | <Leader>o
+create obsidian note | <Leader>on
+create today's daily note | <Leader>ot
+
 ## SplitWindow
 split vertical | ss
 split horizontal | sv
