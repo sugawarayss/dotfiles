@@ -73,7 +73,7 @@ vim:
 	$(call dir-exist $(HOME)/${NVIM_DIR})
 	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/nvim $(HOME)/${CONFIG_DIR}/nvim
 	ln -s ${PROJECT_DIR}/HOME/skkeleton/dictionary $(HOME)/.skk
-	ln -s ${PROJECT_DIR}/HOME/skkeleton/my_dictionay $(HOME)/.skkeleton
+	ln -s ${PROJECT_DIR}/HOME/skkeleton/my_dictionary $(HOME)/.skkeleton
 	@echo "nvim settings deploy --- finished"
 
 brew_restore:
