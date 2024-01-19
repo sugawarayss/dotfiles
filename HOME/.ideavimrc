@@ -14,7 +14,7 @@ set clipboard=unnamedplus,unnamed,ideaput " integrate with system clipboard
 let mapleader = " "
 
 " ~/.ideavimrc (設定ファイル)を再読み込み
-nnoremap <Leader>rr :source $HOME/.ideavimc<CR>
+nnoremap <Leader>rr :source $HOME/.ideavimrc<CR>
 
 """"""""""""""""""""""""""""""""""
 " 一般設定                       "
