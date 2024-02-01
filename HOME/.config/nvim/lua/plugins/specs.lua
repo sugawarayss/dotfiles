@@ -12,17 +12,18 @@ return {
         inc_ms = 10,
         blend = 80,
         width = 20,
-        winhl = "Search",
+        winhl = "Pmenu",
         -- Faders:
+        -- sinus_fader  ⌣/⌢\⌣/⌢\⌣/⌢\⌣/⌢
         -- linear_fader ▁▂▂▃▃▄▄▅▅▆▆▇▇██
-        -- exp_fader ▁▁▁▁▂▂▂▃▃▃▄▄▅▆▇
-        -- pulse_fader ▁▂▃▄▅▆▇█▇▆▅▄▃▂▁
-        -- empty_fader ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+        -- exp_fader    ▁▁▁▁▂▂▂▃▃▃▄▄▅▆▇
+        -- pulse_fader  ▁▂▃▄▅▆▇█▇▆▅▄▃▂▁
+        -- empty_fader  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
         fader = require("specs").linear_fader,
         -- Resizers:
         -- shrink_resizer ░░▒▒▓█████▓▒▒░░
-        -- slide_resizer ████▓▓▓▒▒▒▒░░░░
-        -- empty_resizer ███████████████
+        -- slide_resizer  ████▓▓▓▒▒▒▒░░░░
+        -- empty_resizer  ███████████████
         resizer = require("specs").shrink_resizer
       },
       ignore_filetypes = {},
