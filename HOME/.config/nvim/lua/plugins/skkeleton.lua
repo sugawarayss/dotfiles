@@ -2,9 +2,13 @@
 return {
   {
     "vim-skk/skkeleton",
-    dependencies = { "vim-denops/denops.vim", "Shougo/ddc.vim", "delphinus/skkeleton_indicator.nvim" },
+    dependencies = {
+      "vim-denops/denops.vim",
+      "Shougo/ddc.vim",
+      "delphinus/skkeleton_indicator.nvim"
+    },
     lazy = true,
-    event = "VeryLazy",
+    event = "BufReadPre",
     keys = {
       { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "i", desc = "Toggle IME" },
       { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "c", desc = "Toggle IME" },
