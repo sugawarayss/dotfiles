@@ -1,6 +1,9 @@
 # MacOS
 .DS_Store
 
+# vscode
+.vscode/
+
 # JetBrains IDE
 .idea/
 
