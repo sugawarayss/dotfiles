@@ -3,7 +3,6 @@ return {
   -- 日本語をローマ字で検索できる
   {
     "lambdalisue/kensaku.vim",
-    event = "BufReadPre",
     dependencies = {
       "vim-denops/denops.vim"
     },
@@ -11,6 +10,7 @@ return {
   -- 日本語をローマ字で検索できるKensakuコマンドを使えるようにする
   {
     "lambdalisue/kensaku-command.vim",
+    lazy=true,
     event = "BufReadPre",
     dependencies = {
       "lambdalisue/kensaku.vim"
@@ -19,9 +19,13 @@ return {
   -- /コマンドでローマ字で日本語を検索できるようにする
   {
     "lambdalisue/kensaku-search.vim",
+    lazy=true,
     event = "BufReadPre",
     dependencies = {
       "lambdalisue/kensaku.vim"
     },
+    config = {
+      vim.keymap.set('c', '<CR>', '<Plug>(kensaku-search-replace)<CR>', {noremap = true, silent = true})
+    }
   },
 }
