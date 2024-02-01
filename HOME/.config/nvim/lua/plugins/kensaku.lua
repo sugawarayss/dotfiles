@@ -24,8 +24,8 @@ return {
     dependencies = {
       "lambdalisue/kensaku.vim"
     },
-    config = {
+    config = function()
       vim.keymap.set('c', '<CR>', '<Plug>(kensaku-search-replace)<CR>', {noremap = true, silent = true})
-    }
+    end,
   },
 }
