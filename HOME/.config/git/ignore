@@ -7,6 +7,9 @@
 # JetBrains IDE
 .idea/
 
+# fleet(JetBrains editor)
+.fleet/
+
 # Python virtual environment
 .venv/
 venv/
