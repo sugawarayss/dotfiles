@@ -4,13 +4,15 @@ return {
   version = '*',
   keys = {
     {"<c-t><c-m>", ":ToggleTerm direction=float<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
+    {"<c-t><c-v>", ":ToggleTerm direction=vertical<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
+    {"<c-t><c-h>", ":ToggleTerm direction=horizontal<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
     {"<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>", mode = "t", desc = "Close Terminal"},
     {"<leader>g", "<cmd>lua _lazygit_toggle()<cr>", mode = "n", desc = "Toggle Lazygit"},
   },
   config = function()
     require("toggleterm").setup(
       {
-          size = function(term)
+        size = function(term)
           if term.direction == "horizontal" then
               return 15
           elseif term.direction == "vertical" then
@@ -18,17 +20,18 @@ return {
           else
               return 20
           end
-          end,
-          float_opts = {
-          border = "curved",
-          winblend = 20,
-          },
-          winbar = {
-          enabled = true,
-          name_formatter = function(term)
-              return term.name
-          end
-          },
+        end,
+        dicrection = "float",
+        float_opts = {
+        border = "curved",
+        winblend = 20,
+        },
+        winbar = {
+        enabled = true,
+        name_formatter = function(term)
+            return term.name
+        end
+        },
       }
     )
     local Terminal = require("toggleterm.terminal").Terminal
