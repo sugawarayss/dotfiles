@@ -42,3 +42,6 @@ pyrightconfig.json
 
 # ruff
 .ruff_cache
+
+# local ssl
+localhost*pem
