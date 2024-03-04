@@ -154,7 +154,7 @@ return {
             ensure_installed = {
               -- JS/TS
               "prettier",
-              "eslint_d",
+              --"eslint_d", --deprecated
               -- lua
               "stylua",
               -- python
@@ -167,7 +167,7 @@ return {
               "goimports",
               "staticcheck",
               -- json
-              "jq",
+              -- "jq",  --deprecated
             },
           })
         end,
