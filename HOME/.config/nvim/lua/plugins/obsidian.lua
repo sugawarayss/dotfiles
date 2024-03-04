@@ -5,9 +5,10 @@ return {
   lazy = true,
   ft = "markdown",
   keys = {
-    { "<Leader>o", "<Cmd>ObsidianQuickSwitch<CR>", mode = "n", { noremap = true, silent = true }, desc = "Search Note"},
+    { "<Leader>os", "<Cmd>ObsidianQuickSwitch<CR>", mode = "n", { noremap = true, silent = true }, desc = "Search Note"},
+    { "<Leader>ot", "<Cmd>ObsidianTags<CR>", mode = "n", { noremap = true, silent = true }, desc = "Search Tag"},
     { "<Leader>on", "<Cmd>ObsidianNew<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create New Note"},
-    { "<Leader>ot", "<Cmd>ObsidianToday<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create Today's Note"},
+    { "<Leader>od", "<Cmd>ObsidianToday<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create Today's Note"},
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -35,6 +36,12 @@ return {
     daily_notes = {
       folder = "daily",
       template = "daily.md"
+    },
+    completion = {
+      -- Set to false to disable completion
+      nvim_cmp = true,
+      -- Trigger completion at 2 characters
+      min_chars = 2,
     },
     templates = {
       subdir = "templates",
