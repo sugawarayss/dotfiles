@@ -8,12 +8,15 @@ return {
     local sources = {
       -- python
       null_ls.builtins.formatting.black.with({
+        filetypes = { "python" },
         extra_args = { "--line-length=150" }
       }),
       null_ls.builtins.formatting.isort.with({
+        filetypes = { "python" },
         extra_args = { "--settings-path", "./pyproject.toml" }
       }),
       null_ls.builtins.formatting.ruff.with({
+        filetypes = { "python" },
         extra_args = { "--config", "./pyproject.toml" }
       }),
       --null_ls.builtins.formatting.ruff.with({
@@ -51,6 +54,7 @@ return {
       --  diagnostics_format = '[mypy] #{m}\n(#{c})'
       --}),
       null_ls.builtins.diagnostics.ruff.with({
+        filetypes = { "python" },
         diagnostics_format = '[ruff] #{m}\n(#{c})',
         extra_args = { "--config", "./pyproject.toml" }
       }),
@@ -97,10 +101,11 @@ return {
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
       }),
       null_ls.builtins.diagnostics.eslint_d.with({
+        filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
         diagnostics_format = '[eslint] #{m}\n(#{c})'
       }),
       -- Json
-      null_ls.builtins.formatting.jq,
+      -- null_ls.builtins.formatting.jq,
     }
     null_ls.setup({ sources = sources })
   end
