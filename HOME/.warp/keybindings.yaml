@@ -1,5 +1,7 @@
 ---
-"input:open_completion_suggestions": ctrl-space
-"editor_view:insert_autosuggestion": tab
 "input:toggle_workflows": ctrl-alt-w
+"editor_view:insert_autosuggestion": tab
+"terminal:select_bookmark_up": "meta-["
+"input:open_completion_suggestions": ctrl-space
+"terminal:select_bookmark_down": "meta-]"
 "workspace:show_settings_account_page": none
