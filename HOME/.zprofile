@@ -97,11 +97,11 @@ fi
 #export PATH="$PATH:$FLUTTER_PATH"
 
 # fvmでインストールする場合
-export PATH="$PATH:$HOME/.pub-cache/bin"
+#export PATH="$PATH:$HOME/.pub-cache/bin"
 
 # fvmでインストールしたflutterをglobalで使うためにPATHを通す
-export PATH="$PATH:$HOME/fvm/default/bin"
-export FLUTTER_GIT_URL="https://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:x-oauth-basic@github.com/flutter/flutter.git"
+#export PATH="$PATH:$HOME/fvm/default/bin"
+#export FLUTTER_GIT_URL="https://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:x-oauth-basic@github.com/flutter/flutter.git"
 
 ###############
 # abdroid sdk #
