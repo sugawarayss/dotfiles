@@ -56,7 +56,7 @@ return {
       tabline = {},
       winbar = {},
       inactive_winbar = {},
-      extensions = { 'fern', 'aerial', 'toggleterm' }
+      extensions = { 'neo-tree', 'aerial', 'toggleterm', "mason", "lazy" }
     })
   end
 }
