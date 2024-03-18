@@ -9,7 +9,7 @@ command_timeout = 1000
 format = """
 [┌───────────────────>](bold green) $time $cmd_duration
 [│](bold green)$username$hostname$localip$singularity$container$docker_context$kubernetes$package
-[│](bold green)$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
+[│](bold green)$git_state$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
 
 # 右プロンプト
@@ -30,14 +30,15 @@ style = "bold yellow"
 [directory]
 format = '[ ](208) [$path]($style)[$read_only]($read_only_style)'
 style = 'bold cyan'
-truncation_length = 100
+truncation_length = 5
 truncate_to_repo = false
 truncation_symbol = "…/"
 
 [time]
 disabled = false
-format = '󱑆 [$time](blink blue)'
-time_format = '%Y-%m-%d %T'
+format = '󱑆 [$time](blue) '
+utc_time_offset = '9'
+time_format = '%Y-%m-%d %T %Z (%A) '
 
 [localip]
 ssh_only = false
@@ -46,7 +47,7 @@ disabled = false
 
 [aws]
 # AWSの表示は無効化
-format = '[ $symbol ($profile )(\($region\) )]($style)'
+format = '[ $symbol ($profile )(\($region\) )]($style) '
 symbol = '󰸏'
 style = "bold blue"
 disabled = true
@@ -63,15 +64,15 @@ disabled = true
 command = "uname -m"
 when = """ test $(uname -m) = "x86_64" """
 style = "bold yellow"
-format = "[$output]($style)"
+format = "[$output]($style) "
 
 [docker_context]
 symbol = "🐳 "
-format = " [$symbol $context](blue bold)"
+format = " [$symbol $context](blue bold) "
 
 [python]
 symbol = "🐍"
-format = "via $symbol [($version)]($style)"
+format = "via $symbol [($version)]($style) "
 style = "bold blue"
 python_binary = ['./.venv/bin/python', 'python', 'python3', 'python2']
 
@@ -79,22 +80,23 @@ python_binary = ['./.venv/bin/python', 'python', 'python3', 'python2']
 
 [golang]
 symbol = "🐹"
-format = "via $symbol [($version)]($style)"
+format = "via $symbol [($version)]($style) "
 
 [ruby]
-format = "via $symbol [($version)]($style)"
+symbol = "💎"
+format = "via $symbol [($version)]($style) "
 style = "bold red"
 
 [rust]
-symbol = "⚙️"
-format = "via $symbol [$version]($style)"
+symbol = ""
+format = "via $symbol [$version]($style) "
 
 [package]
 symbol = "📦"
-format = "via $symbol [$version]($style)"
+format = "via $symbol [$version]($style) "
 
 [git_state]
-cherry_pick = "🍒"
+cherry_pick = "[🍒]"
 
 [git_status]
 # Gitのステータス表示アイコン
