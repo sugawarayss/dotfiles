@@ -3,10 +3,11 @@ return {
   "stevearc/aerial.nvim",
   lazy = true,
   dependencies = "nvim-tree/nvim-web-devicons",
+  event = { "LspAttach" },
   keys = {
-      { "<Leader>aa", "<cmd>AerialToggle!<CR>", mode = "n", desc = "Toggle Show OutLine"}
+    { "<Leader>aa", "<cmd>AerialToggle!<CR>", mode = "n", desc = "Toggle Show OutLine" },
   },
-  cjonfig = function()
+  config = function()
     require("aerial").setup({
       layout = {
         max_width = { 40, 0.3 },
@@ -42,9 +43,9 @@ return {
         end,
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>ak', '<cmd>AerialPrev<CR>', { buffer = bufnr, desc = "Jump Prev OutLine" })
-        vim.keymap.set('n', '<leader>aj', '<cmd>AerialNext<CR>', { buffer = bufnr, desc = "Jump Next OutLine" })
-      end
+        vim.keymap.set("n", "<leader>ak", "<cmd>AerialPrev<CR>", { buffer = bufnr, desc = "Jump Prev OutLine" })
+        vim.keymap.set("n", "<leader>aj", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Jump Next OutLine" })
+      end,
     })
-  end
+  end,
 }
