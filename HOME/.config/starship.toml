@@ -7,7 +7,7 @@ command_timeout = 1000
 
 # 左プロンプト
 format = """
-[┌───────────────────>](bold green) $time $cmd_duration
+[┌───────────────────>](bold green) [$memory_usage]() $time $cmd_duration
 [│](bold green)$username$hostname$localip$singularity$container$docker_context$kubernetes$package
 [│](bold green)$git_state$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
@@ -34,6 +34,12 @@ truncation_length = 5
 truncate_to_repo = false
 truncation_symbol = "…/"
 
+[memory_usage]
+disabled = false
+threshold = 1
+symbol = "󰍛"
+format = '$symbol [${ram}( ${ram_pct})]($style) '
+
 [time]
 disabled = false
 format = '󱑆 [$time](blue) '
@@ -47,18 +53,24 @@ disabled = false
 
 [aws]
 # AWSの表示は無効化
-format = '[ $symbol ($profile )(\($region\) )]($style) '
-symbol = '󰸏'
-style = "bold blue"
 disabled = true
+format = '[$symbol]($style) $profile(\($region\)) '
+symbol = ''
+style = "bold 208"
 
 [aws.region_aliases]
-ap-northeast-1 = "jp"
+ap-northeast-1 = "tokyo"
+
+[azure]
+disabled = true
+format = '[$symbol]($style)$subscription '
 
 [gcloud]
-symbol = "󱇶 "
 # GCPの表示は無効化
 disabled = true
+symbol = "󱇶 "
+style = "bold green"
+format = '[$symbol]($style)$project '
 
 [custom.arch]
 command = "uname -m"
@@ -71,29 +83,35 @@ symbol = "🐳 "
 format = " [$symbol $context](blue bold) "
 
 [python]
-symbol = "🐍"
-format = "via $symbol [($version)]($style) "
-style = "bold blue"
+symbol = ""
+format = "[$symbol](12) [($version)](11) "
 python_binary = ['./.venv/bin/python', 'python', 'python3', 'python2']
 
 [nodejs]
+symbol = "󰎙"
+format = "[$symbol $version](bold green) "
 
 [golang]
 symbol = "🐹"
-format = "via $symbol [($version)]($style) "
+format = "$symbol [($version)]($style) "
 
 [ruby]
-symbol = "💎"
-format = "via $symbol [($version)]($style) "
+symbol = ""
+format = "[$symbol](9) [($version)]($style) "
 style = "bold red"
 
 [rust]
-symbol = ""
-format = "via $symbol [$version]($style) "
+symbol = ""
+format = "[$symbol](208) [$version]($style) "
+
+[php]
+symbol = "󰌟"
+style = "white"
+format = '[$symbol](5) [$version]($style) '
 
 [package]
 symbol = "📦"
-format = "via $symbol [$version]($style) "
+format = "$symbol [$version]($style) "
 
 [git_state]
 cherry_pick = "[🍒]"
