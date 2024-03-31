@@ -4,6 +4,7 @@ return {
   lazy = true,
   dependencies = {
     "mfussenegger/nvim-dap",
+    "nvim-neotest/nvim-nio",
     "mfussenegger/nvim-dap-python",
   },
   -- pythonファイルを開いた時にloadする
@@ -46,6 +47,16 @@ return {
           position = "bottom",
         }
       }
+    })
+    require('dap-python').setup('./.venv/bin/python')
+    table.insert(require('dap').configurations.python, {
+      type = 'python',
+      request = 'launch',
+      name = "Launch file",
+      program = "${file}",
+      pythonPath = function()
+        return vim.fn.input('Path to python interpreter: ', vim.fn.getcwd() .. '/.venv/bin/python')
+      end,
     })
   end,
 }

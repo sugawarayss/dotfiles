@@ -1,13 +1,15 @@
 -- Cmdlineの色設定
+local color_palette = require("hybrid.colors").setup()
+
 local noice_cmd_types = {
-  CmdLine = "#94E2F5",
-  Input = "#CDD6F4",
-  Lua = "#CBA6F7",
-  Filter = "#F9E2AF",
-  Rename = "#89B4FA",
-  Search = "#F9E2AF",
-  Substitute = "#FAB387",
-  Help = "#A6E3A1",
+  CmdLine = color_palette.bright_blue,     -- "#7aa5da",
+  Input = color_palette.fg_hard,           -- "#eaeaea",
+  Lua = color_palette.magenta,             -- "#b294bb",
+  Filter = color_palette.dull_green,       -- "#8c9440",
+  Rename = color_palette.red,              -- "#cc6666"
+  Search =  color_palette. bright_yellow,  -- "#f0c674"
+  Substitute = color_palette.dull_yellow,  -- "#de935f"
+  Help = color_palette.cyan,               -- "#8abeb7"
 }
 
 -- CmdLineや通知をpopupで表示するプラグイン
@@ -24,10 +26,9 @@ return {
     { "<leader>nh", "<cmd>Noice telescope<CR>", mode = "n", desc = "Show Notification History by Telescope" },
   },
   config = function()
-    local mocha = require("catppuccin.palettes").get_palette "mocha"
     vim.opt.cmdheight = 0
     require("notify").setup({
-      background_colour = mocha.crust or "#1E1E2D",
+      background_colour = color_palette.bg_hard,
     })
 
     require("noice").setup({
@@ -102,7 +103,7 @@ return {
 
 
     for type, color in pairs(noice_cmd_types) do
-      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg="#313244", fg=color})
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg=color_palette.bg_soft, fg=color})
     end
   end
 }

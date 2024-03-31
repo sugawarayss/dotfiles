@@ -48,7 +48,7 @@ return {
             width = 0.9,
             height = 0.9,
           },
-          winblend = 30,         --ウィンドウを若干半透明にする
+          winblend = 10,         --ウィンドウを若干半透明にする
           color_devicons = true,
           file_ignore_patterns = { --検索結果に含めないファイルを指定
             "^.git/",
@@ -113,9 +113,11 @@ return {
       telescope.load_extension("docker")
       telescope.load_extension("aerial")
       telescope.load_extension("vim_bookmarks")
-      vim.api.nvim_set_hl(0, "FloatBorder", {bg="#313244"})
-      vim.api.nvim_set_hl(0, "NormalFloat", {bg="#313244"})
-      vim.api.nvim_set_hl(0, "TelescopeNormal", {bg="#313244", fg="#94E2D5"})
-      vim.api.nvim_set_hl(0, "TelescopeBorder", {bg="#313244", fg="#94E2D5"})
+      local color_palette = require("hybrid.colors").setup()
+      vim.api.nvim_set_hl(0, "FloatBorder", {bg=color_palette.bg_hard, fg=color_palette.dull_cyan})
+      vim.api.nvim_set_hl(0, "NormalFloat", {bg=color_palette.bg_hard})
+      vim.api.nvim_set_hl(0, "TelescopeNormal", {bg=color_palette.bg_hard})
+      vim.api.nvim_set_hl(0, "TelescopeBorder", {bg=color_palette.bg_hard, fg=color_palette.dull_cyan})
+      vim.api.nvim_set_hl(0, "TelescopeTitle", {bg=color_palette.bg_hard, fg=color_palette.fg_hard, bold=true})
     end
 }

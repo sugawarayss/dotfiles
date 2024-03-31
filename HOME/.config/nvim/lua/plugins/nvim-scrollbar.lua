@@ -6,18 +6,18 @@ return {
     event = { "BufReadPre" },
     dependencies = "kevinhwang91/nvim-hlslens",
     config = function()
-      local mocha = require("catppuccin.palettes").get_palette "mocha"
+      local color_palette = require("hybrid.colors").setup()
       require("scrollbar").setup({
         handle = {
-          color = mocha.surface2,
+          color = color_palette.bg_hard,  -- "#151718"
         },
         marks = {
-          Search = { color = mocha.rosewater},
-          Error = { color = mocha.red },
-          Warn = { color = mocha.yellow },
-          Info = { color = mocha.green },
-          Hint = { color = mocha.sapphire },
-          Misc = { color = mocha.lavender},
+          Search = { color = color_palette.bright_cyan },  -- "#70c0b1"
+          Error = { color = color_palette.bright_red },    -- "#d54e53",
+          Warn = { color = color_palette.bright_yellow },  -- "#de935f"
+          Info = { color = color_palette.bright_green },   -- "#8c9440"
+          Hint = { color = color_palette.bright_blue },    -- "#5f819d"
+          Misc = { color = color_palette.bright_magenta }, -- "#c397d8"
         },
         handlers = {
           search = true

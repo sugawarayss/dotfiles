@@ -1,3 +1,5 @@
+-- local color_palette = require("hybrid.colors").setup()
+
 -- タブごとに表示するバッファを切り替える
 return {
   'akinsho/bufferline.nvim',
@@ -17,23 +19,32 @@ return {
     {"<leader>c", ":bd<CR>", mode = "n", { silent = true }, desc = "Close Current Buffer"},
   },
   config = function()
-    local mocha = require("catppuccin.palettes").get_palette "mocha"
+    local color_palette = require("hybrid.colors").setup()
     require("bufferline").setup({
-      highlights = require("catppuccin.groups.integrations.bufferline").get {
-        styles = { "italic", "bold" },
-        custom = {
-          all = {
-            fill = { bg = mocha.surface1 },
-          },
-          mocha = {
-            background = { fg = mocha.text },
-          },
+      highlights = {
+        fill = {
+          fg = color_palette.fg_soft,     -- "#373b41"
+          bg = color_palette.bg_hard,     -- "#151718"
+        },
+        buffer_visible = {
+          fg = color_palette.fg,          -- "#c5c8c6"
+          bg = color_palette.bg,          -- "#1d1f21"
+        },
+        buffer_selected = {
+          fg = color_palette.dull_blue,   -- "#7aa6da"
+          bg = color_palette.bg,          -- "#1d1f21"
+          bold = true,
+          italic = true,
+        },
+        close_button_visible = {
+          fg = color_palette.dull_yellow, -- "#de935f"
+          bg = color_palette.bg,          -- "#1d1f21"
         },
       },
       options = {
         -- mode = "buffers", -- tabs | buffers
         --style_preset = bufferline.style_preset.default,
-        --themable = true,
+        themable = true,
         numbers = function(opts)
           return string.format("%s.%s", opts.ordinal, opts.lower())
         end,
@@ -42,7 +53,8 @@ return {
         --left_mouse_command = "buffer %d",
         --middle_mouse_command = nil,
         indicator = {
-          style = "underline",
+          icon = "|  ",
+          style = "icon",
         },
         -- buffer_close_icon = '󰅖',
         -- modified_icon = '●',
@@ -56,7 +68,7 @@ return {
         max_name_length = 100,
         max_prefix_length = 15,
         truncate_names = true,
-        tab_size = 20,
+        tab_size = 30,
         diagnostics = "nvim_lsp",
         -- diagnostics_update_in_insert = false
         diagnostics_indicator = function(count, _, _, _)
