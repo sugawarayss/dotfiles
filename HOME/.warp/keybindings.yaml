@@ -1,7 +1,14 @@
 ---
-"input:toggle_workflows": ctrl-alt-w
+"editor_view:home": home
 "editor_view:insert_autosuggestion": tab
-"terminal:select_bookmark_up": "meta-["
-"input:open_completion_suggestions": ctrl-space
-"terminal:select_bookmark_down": "meta-]"
+"workspace:set_a11y_verbose_verbosity_level": none
+"terminal:clear_blocks": none
 "workspace:show_settings_account_page": none
+"input:open_completion_suggestions": none
+"editor_view:move_forward_one_word": none
+"terminal:select_bookmark_up": "meta-["
+"input:toggle_workflows": ctrl-alt-w
+"editor_view:end": end
+"terminal:select_bookmark_down": "meta-]"
+"editor_view:clear_buffer": none
+"workspace:set_a11y_concise_verbosity_level": none
