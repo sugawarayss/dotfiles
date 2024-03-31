@@ -100,10 +100,10 @@ return {
         },
       },
     })
-
-
+    
+    vim.api.nvim_set_hl(0, "NoicePopupBorder", {bg=color_palette.bg_hard})
     for type, color in pairs(noice_cmd_types) do
-      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg=color_palette.bg_soft, fg=color})
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg=color_palette.bg_hard, fg=color})
     end
   end
 }
