@@ -47,7 +47,7 @@ end
 config.use_fancy_tab_bar = true
 -- Color Theme -- NOTE: see all themes https://github.com/mbadolato/iTerm2-Color-Schemes#screenshots
 -- config.color_scheme = 'Catppuccin Macchiato'
-config.color_scheme = 'Catppuccin Frappe'
+config.color_scheme = 'Hybrid'
 -- Background Opacity
 config.window_background_opacity = 0.93
 -- Font
