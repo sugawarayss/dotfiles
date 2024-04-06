@@ -18,7 +18,7 @@ return {
       },
       strikethrough = true,
       inverse = true,
-      transparent = false,
+      transparent = true,
     })
     vim.cmd.colorscheme("hybrid")
   end,
