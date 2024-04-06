@@ -186,3 +186,26 @@ translate | <M-t>
 ## JapaneseIME
 toggle inline IME | <C-j>
 
+## Wezterm @wezterm
+New Window | <⌘-n>
+Toggle Fullscreen | <A-Enter>
+Quit Wezterm | <⌘-q>
+Reload Configuration | <⌘-r>
+Show Command Palette | F1
+Quick Select Mode | <S-C-Space>
+Search Mode | <⌘-f>
+Copy Mode | F4
+Debug Overlay | F12
+
+## Wezterm-Tab @wezterm @tab
+New Tab | <⌘-t>
+Active Right Tab | <C-Tab>
+Active Left Tab | <C-S-Tab>
+
+## Wezterm-Pane @wezterm @pane
+Split Horizontally | <⌘-d>
+Split Vertically | <⌘-S-d>
+Change Focus Pane | <C-A-Tab>
+Swap Pane | <C-S-A-Tab>
+Close Pane | <⌘-w>
+Change Pane Size | <⌘-C-→>, <⌘-C-←>, <⌘-C-↓>, <⌘-C-↑>
