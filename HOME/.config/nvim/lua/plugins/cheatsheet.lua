@@ -15,7 +15,14 @@ return {
   config = function()
     require("cheatsheet").setup({
       bundled_cheatsheets = {
-        disabled = { "default", "unicode", "regex", "netrw", "markdown" },
+        disabled = {
+          "default",
+          "nerd-fonts",
+          "unicode",
+          "regex",
+          "netrw",
+          "markdown",
+        },
       },
       include_only_installed_plugins = true,
       telescope_mappings = {
