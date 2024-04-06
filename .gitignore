@@ -2,3 +2,4 @@
 .DS_store
 HOME/.config/nvim/plugin/
 HOME/.warp/themes
+HOME/.config/nvim/lazy-lock.json
