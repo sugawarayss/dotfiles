@@ -2,59 +2,28 @@ local wezterm = require 'wezterm'
 
 local config = {}
 
--- The filled in variant of the < symbol
-local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
-
--- The filled in variant of the > symbol
-local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
-wezterm.on(
-'format-tab-title',
-function(tab, tabs, panes, config, hover, max_width)
-    local edge_background = '#0b0022'
-    local background = '#1b1032'
-    local foreground = '#808080'
-
-    if tab.is_active then
-        background = '#2b2042'
-        foreground = '#c0c0c0'
-    elseif hover then
-        background = '#3b3052'
-        foreground = '#909090'
-    end
-
-    local edge_foreground = background
-
-    -- ensure that the titles fit in the available space,
-    -- and that we have room for the edges.
-    local title = wezterm.truncate_right(tab.active_pane.title, max_width - 2)
-
-    return {
-        { Background = { Color = edge_background } },
-        { Foreground = { Color = edge_foreground } },
-        { Text = SOLID_LEFT_ARROW },
-        { Background = { Color = background } },
-        { Foreground = { Color = foreground } },
-        { Text = title },
-        { Background = { Color = edge_background } },
-        { Foreground = { Color = edge_foreground } },
-        { Text = SOLID_RIGHT_ARROW },
-    }
-end)
-
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
+config.default_cursor_style = "BlinkingBlock"
 config.enable_scroll_bar = true
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = true
--- Color Theme -- NOTE: see all themes https://github.com/mbadolato/iTerm2-Color-Schemes#screenshots
-config.color_scheme = 'Wombat'
+-- Color Theme
+-- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
+config.color_scheme = 'Hybrid'
+config.foreground_text_hsb = {
+  hue = 1.0,
+  saturation = 1.0,
+  brightness = 1.5
+}
 -- Background Opacity
-config.window_background_opacity = 0.93
+config.window_background_opacity = 0.96
 -- Font
 config.font = wezterm.font("Hack Nerd Font")
 -- Font Size
 config.font_size = 13.0
+config.adjust_window_size_when_changing_font_size = true
 
 -- Enable IME
 config.use_ime = true
@@ -67,6 +36,20 @@ local keybind = require 'keybinds'
 config.keys = keybind.keys
 config.key_tables = keybind.key_tables
 
--- Set Leader Key
+config.background = {
+  {
+    source = {
+      File = wezterm.config_dir .. '/bgimage/rain.jpg'
+    },
+    vertical_align = 'Middle',
+    horizontal_align = 'Center',
+    hsb = {
+      hue = 0.05,
+      saturation = 0.05,
+      brightness = 0.05
+    },
+    opacity = 0.85
+  }
+}
 
 return config
