@@ -11,14 +11,14 @@ config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = true
 -- Color Theme
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = 'Hybrid'
-config.foreground_text_hsb = {
-  hue = 1.0,
-  saturation = 1.0,
-  brightness = 1.5
-}
+config.color_scheme = 'Hybrid (terminal.sexy)'
+-- config.foreground_text_hsb = {
+--   hue = 1.0,
+--   saturation = 1.0,
+--   brightness = 1.5
+-- }
 -- Background Opacity
-config.window_background_opacity = 0.96
+config.window_background_opacity = 0.9
 -- Font
 config.font = wezterm.font("Hack Nerd Font")
 -- Font Size
@@ -44,11 +44,11 @@ config.background = {
     vertical_align = 'Middle',
     horizontal_align = 'Center',
     hsb = {
-      hue = 0.05,
-      saturation = 0.05,
-      brightness = 0.05
+      hue = 1,
+      saturation = 1,
+      brightness = 0.019
     },
-    opacity = 0.85
+    opacity = 0.9
   }
 }
 
