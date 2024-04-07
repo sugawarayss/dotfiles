@@ -23,22 +23,123 @@ return {
     require("bufferline").setup({
       highlights = {
         fill = {
-          fg = color_palette.fg_soft,     -- "#373b41"
-          bg = color_palette.bg_hard,     -- "#151718"
+          fg = color_palette.fg_hard,       -- "#707880"
+          bg = color_palette.bg_hard,       -- "#151718"
         },
+        -- バッファー区切りの色
+        separator = {
+          fg = color_palette.bg_hard,       -- "#151718"
+          bg = color_palette.bg_hard,       -- "#151718"
+        },
+        separator_selected = {
+          fg = color_palette.bg_hard,       -- "#373b41"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        separator_visible = {
+          fg = color_palette.bg_hard,       -- "#151718"
+          bg = color_palette.bg_hard,       -- "#151718"
+        },
+        -- バッファー番号(非選択)の色
+        numbers_visible = {
+          fg = color_palette.fg_hard,       -- "#373b41"
+          bg = color_palette.bg,            -- "#1d1f21"
+        },
+        -- バッファー名(非選択)の色
         buffer_visible = {
-          fg = color_palette.fg,          -- "#c5c8c6"
-          bg = color_palette.bg,          -- "#1d1f21"
+          fg = color_palette.fg_hard,       -- "#707880"
+          bg = color_palette.bg,            -- "#1d1f21"
         },
+
+        hint_visible = {
+          fg = color_palette.dull_blue,     -- "#7aa6da"
+          bg = color_palette.bg,            -- "#151718"
+        },
+        info_visible= {
+          fg = color_palette.dull_magenta,  -- "#b294bb"
+          bg = color_palette.bg,            -- "#151718"
+        },
+        warning_visible= {
+          fg = color_palette.dull_yellow,   -- "#f0c674"
+          bg = color_palette.bg,            -- "#151718"
+        },
+        error_visible= {
+          fg = color_palette.dull_red,      -- "#cc6666"
+          bg = color_palette.bg,            -- "#151718"
+        },
+        -- 選択中の診断結果に応じて指摘数の色を変更
+        info_diagnostic_visible= {
+          fg = color_palette.dull_blue,     -- "#7aa6da"
+          bg = color_palette.bg,            -- "#151718"
+        },
+        warning_diagnostic_visible= {
+          fg = color_palette.dull_yellow,   -- "#f0c674"
+          bg = color_palette.bg,            -- "#151718"
+        },
+        error_diagnostic_visible= {
+          fg = color_palette.dull_red,      -- "#cc6666"
+          bg = color_palette.bg,            -- "#151718"
+        },
+        -- 変更有無インジケータ(非選択)の色
+        modified_visible = {
+          fg = color_palette.dull_cyan,     -- "#8abeb7"
+          bg = color_palette.bg,            -- "#1d1f21"
+        },
+
+
+
+        -- バッファー番号(選択中)の色
+        numbers_selected = {
+          fg = color_palette.fg,            -- "#373b41"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        -- バッファー名(選択中)の色
         buffer_selected = {
-          fg = color_palette.dull_blue,   -- "#7aa6da"
-          bg = color_palette.bg,          -- "#1d1f21"
+          fg = color_palette.fg_soft,       -- "#eaeaea"
+          bg = color_palette.bg_soft,       -- "#151718"
           bold = true,
           italic = true,
         },
-        close_button_visible = {
-          fg = color_palette.dull_yellow, -- "#de935f"
-          bg = color_palette.bg,          -- "#1d1f21"
+        -- 選択中の診断結果に応じてファイル名の色を変更
+        hint_selected = {
+          fg = color_palette.bright_green,  -- "#b9ca4a"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        info_selected = {
+          fg = color_palette.bright_blue,   -- "#7aa6da"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        warning_selected = {
+          fg = color_palette.yellow,        -- "#f0c674"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        error_selected = {
+          fg = color_palette.red,           -- "#cc6666"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        -- 選択中の診断結果に応じて指摘数の色を変更
+        hint_diagnostic_selected = {
+          fg = color_palette.bright_green,  -- "#b9ca4a"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        info_diagnostic_selected = {
+          fg = color_palette.bright_blue,   -- "#7aa6da"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        warning_diagnostic_selected = {
+          fg = color_palette.yellow,        -- "#f0c674"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        error_diagnostic_selected = {
+          fg = color_palette.red,           -- "#cc6666"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        modified_selected = {
+          fg = color_palette.cyan,          -- "#8abeb7"
+          bg = color_palette.bg_soft,       -- "#151718"
+        },
+        close_button_selected = {
+          fg = color_palette.bright_yellow, -- "#e7c547"
+          bg = color_palette.bg_soft,       -- "#151718"
         },
       },
       options = {
