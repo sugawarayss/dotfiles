@@ -100,7 +100,7 @@ return {
       null_ls.builtins.formatting.gofumpt,
       null_ls.builtins.formatting.goimports,
       -- JavaScript/TypeScript
-      null_ls.builtins.formatting.prettier.with({ -- FIXME: 効かない。。。
+      null_ls.builtins.formatting.prettier.with({
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
         only_local = "node_modules/.bin",
       }),
