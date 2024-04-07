@@ -92,7 +92,10 @@ return {
       --  },
       --}),
       -- Lua
-      null_ls.builtins.formatting.stylua,
+      null_ls.builtins.formatting.stylua.with({
+        filetypes = { "lua" },
+        extra_args = { "--config-path", "./stylua.toml" }
+      }),
       -- Golang
       null_ls.builtins.formatting.gofumpt,
       null_ls.builtins.formatting.goimports,
