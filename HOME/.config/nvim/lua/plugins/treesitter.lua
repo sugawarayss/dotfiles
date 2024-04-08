@@ -18,6 +18,7 @@ return {
         "css",
         "csv",
         "dart",
+        "diff",
         "dockerfile",
         "dot",
         "elixir",
