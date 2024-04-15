@@ -83,7 +83,7 @@ format = " [$symbol $context](blue bold) "
 
 [python]
 symbol = ""
-format = "[$symbol](12) [($version)](11) "
+format = "[$symbol](blue) [($version)](yellow) "
 python_binary = ['./.venv/bin/python', 'python', 'python3', 'python2']
 
 [nodejs]
@@ -106,11 +106,11 @@ format = "[$symbol](208) [$version]($style) "
 [php]
 symbol = "󰌟"
 style = "white"
-format = '[$symbol](5) [$version]($style) '
+format = '[$symbol](purple) [$version]($style) '
 
 [package]
-symbol = ""
-format = "$symbol [$version]($style) "
+symbol = ""
+format = "$symbol(yellow) [$version](yellow) "
 
 [git_state]
 cherry_pick = "[🍒]"
