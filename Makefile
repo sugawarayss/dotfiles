@@ -1,4 +1,4 @@
-.PHONY: zsh vim brew_restore brew_dump git warp tig tmux ideavim wezterm all
+.PHONY: zsh vim brew_restore brew_dump git lazygit warp tig tmux ideavim wezterm all
 # GLOBALS
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 SHELL=/bin/zsh
@@ -68,6 +68,13 @@ git:
 	@echo "git global config deploy --- start"
 	ln -s ${PROJECT_DIR}/HOME/.config/git/.gitconfig ${HOME}/.gitconfig
 	@echo "git global config deploy --- finished"
+
+
+lazygit:
+	@echo "lazygit config deploy --- start"
+	ln -s ${PROJECT_DIR}/HOME/${CONFIG_DIR}/lazygit ${HOME}/${CONFIG_DIR}/lazygit
+	ls -l ${HOME}/${CONFIG_DIR}/lazygit
+	@echo "lazygit config deploy --- end"
 
 vim:
 	@echo "nvim settings deploy --- start"

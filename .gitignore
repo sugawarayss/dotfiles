@@ -3,3 +3,4 @@
 HOME/.config/nvim/plugin/
 HOME/.warp/themes
 HOME/.config/nvim/lazy-lock.json
+HOME/.config/lazygit/state.yml
