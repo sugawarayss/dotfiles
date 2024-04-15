@@ -7,12 +7,27 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "lpoto/telescope-docker.nvim",
-      { "tom-anders/telescope-vim-bookmarks.nvim", dependencies = {"MattesGroeger/vim-bookmarks"}},
+      {
+        "tom-anders/telescope-vim-bookmarks.nvim",
+        dependencies = {"MattesGroeger/vim-bookmarks"}
+      },
       "stevearc/aerial.nvim",
+      {
+        "danielfalk/smart-open.nvim",
+        branch = "0.2.x",
+        dependencies = {
+          "kkharji/sqlite.lua",
+          -- Only required if using match_algorithm fzf
+          { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+          -- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+          { "nvim-telescope/telescope-fzy-native.nvim" },
+        }
+      },
     },
     keys = {
-      {"<C-p>", "<cmd>Telescope find_files hidden=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by FileName"},
+      {"<C-p>", "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git <CR>", mode = "n", opt, desc = "Show Fuzzy Finder by FileName"},
       {"<C-g>", "<cmd>Telescope live_grep hidden=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by LiveGrep"},
+      {"<C-s>", "<cmd>Telescope smart_open<CR>", mode = "n", opt, desc = "Smart Search"},
       {"<C-t><C-d>", "<cmd>TodoTelescope<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by ToDo Comment"},
       {"gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of References"},
       {"<M-g><M-b>", "<cmd>Telescope git_branches<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Git Branch"},
@@ -106,6 +121,11 @@ return {
             json = true,
             yaml = true,
           },
+          ["smart_open"] = {
+            ["smart_open"] = {
+              cwd_only = true,
+            },
+          },
         },
       })
       telescope.load_extension("ui-select")
@@ -113,6 +133,7 @@ return {
       telescope.load_extension("docker")
       telescope.load_extension("aerial")
       telescope.load_extension("vim_bookmarks")
+      telescope.load_extension("smart_open")
       local color_palette = require("hybrid.colors").setup()
       vim.api.nvim_set_hl(0, "FloatBorder", {bg=color_palette.bg_hard, fg=color_palette.dull_cyan})
       vim.api.nvim_set_hl(0, "NormalFloat", {bg=color_palette.bg_hard})
