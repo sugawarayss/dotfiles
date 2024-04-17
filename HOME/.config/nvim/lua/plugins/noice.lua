@@ -69,7 +69,7 @@ return {
             winblend = 10,
           },
           position = {
-            row = "30",
+            row = "50%",
             col = "50%",
           },
           size = {
