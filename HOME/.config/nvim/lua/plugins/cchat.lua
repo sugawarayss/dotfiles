@@ -1,6 +1,23 @@
 ---SEE Article--------------------------------
 -- https://qiita.com/lx-sasabo/items/97c49d0f354ea3bdd525
 -----------------------------------
+-- FIXME: Review で表示する virtual text を無効化したいが効かない
+-- _G.disable_review_on_current_line = function()
+--   local bufnr = vim.api.nvim_get_current_buf()
+--   local namespace = vim.api.nvim_create_namespace('copilot_review')
+--   local diagnostics = vim.diagnostic.get(bufnr, { namespace = namespace })
+--   local cursor_pos = vim.api.nvim_win_get_cursor(0)
+--   local cursor_line = cursor_pos[1]
+--   for i, diagnostic in ipairs(diagnostics) do
+--     if diagnostic.lnum == cursor_line then
+--       table.remove(diagnostics, i)
+--       break
+--     end
+--   end
+--   vim.diagnostic.set(namespace, bufnr, diagnostics)
+-- end
+
+-- CopilotChat.nvim
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
   branch = "canary",
@@ -11,7 +28,7 @@ return {
   },
   keys = {
     -- Toggle CopilotChat
-    { "<Leader>cco", "<Cmd>CopilotChatToggle<CR>", desc = "CopilotChat - Toggle" },
+    { "<Leader>cco", "<Cmd>CopilotChatToggle<CR>", mode = {"n", "v"}, desc = "CopilotChat - Toggle" },
     -- Quick Chat Key Mapping
     {
       "<Leader>ccq",
@@ -23,15 +40,12 @@ return {
       end,
       desc = "CopilotChat - Quick Chat"
     },
-    -- Show help actions with Telescope
-    {
-      "<Leader>cch",
-      function()
-        local actions = require("CopilotChat.actions")
-        require("CopilotChat.integrations.telescope").pick(actions.help_actions())
-      end,
-      desc = "CopilotChat - Help Actions"
-    },
+    -- Quick Explain
+    { "<Leader>cce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "v" }, desc = "CopilotChat - Quick Explain" },
+    -- Quick Review
+    { "<Leader>ccr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "v" }, desc = "CopilotChat - Quick Review Buffer" },
+    -- Quick Generate Test Code
+    { "<Leader>cct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "v" }, desc = "CopilotChat - Quick Generate Test Code" },
     -- Show prompt actions with Telescope
     {
       "<Leader>ccp",
@@ -39,11 +53,13 @@ return {
         local actions = require("CopilotChat.actions")
         require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
       end,
+      mode = {"n", "v"},
       desc = "CopilotChat - Prompt Actions"
     },
   },
   opts = {},
   config = function()
+    -- vim.api.nvim_set_keymap('n', '<Leader>ccc', ':lua disable_review_on_current_line()<CR>', { noremap = true, silent = true })
     local select = require("CopilotChat.select")
     local prompts = {
       Explain = {
@@ -58,6 +74,45 @@ return {
       Optimize = {
         prompt = '/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。',
       },
+      Review = {
+        prompt = '/COPILOT_REVIEW コードをレビューしてください。日本語で回答してください。',
+        callback = function(response, source)
+          local namespace = vim.api.nvim_create_namespace('copilot_review')
+          local diagnostics = {}
+          for line in response:gmatch('[^\r\n]+') do
+            if line:find('^line=') then
+              local start_line = nil
+              local end_line = nil
+              local message = nil
+              local single_match, message_match = line:match('^line=(%d+): (.*)$')
+              if not single_match then
+                local start_match, end_match, m_message_match = line:match('^line=(%d+)-(%d+): (.*)$')
+                if start_match and end_match then
+                  start_line = tonumber(start_match)
+                  end_line = tonumber(end_match)
+                  message = m_message_match
+                end
+              else
+                start_line = tonumber(single_match)
+                end_line = start_line
+                message = message_match
+              end
+
+              if start_line and end_line then
+                table.insert(diagnostics, {
+                  lnum = start_line - 1,
+                  end_lnum = end_line - 1,
+                  col = 0,
+                  message = '[Review] ' .. message,
+                  severity = vim.diagnostic.severity.WARN,
+                  source = 'Copilot Review',
+                })
+              end
+            end
+          end
+          -- vim.diagnostic.set(namespace, source.bufnr, diagnostics)
+        end,
+      },
       Docs = {
         prompt = '/COPILOT_REFACTOR 選択したコードのドキュメントを書いてください。ドキュメントをコメントとして追加した元のコードを含むコードブロックで回答してください。使用するプログラミング言語に最も適したドキュメントスタイルを使用してください（例：JavaScriptのJSDoc、Pythonのdocstringsなど）',
       },
@@ -68,6 +123,9 @@ return {
     }
     require("CopilotChat").setup({
       debug = true, -- Enable debug logging
+      selection = function(source)
+        return select.visual(source) or select.line(source)
+      end,
       prompts = prompts,
       question_header = '',
       answer_header = '**Copilot** ',
