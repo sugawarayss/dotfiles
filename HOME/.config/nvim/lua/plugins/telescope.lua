@@ -28,7 +28,7 @@ return {
       {"<C-p>", "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git <CR>", mode = "n", opt, desc = "Show Fuzzy Finder by FileName"},
       {"<C-g>", "<cmd>Telescope live_grep hidden=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by LiveGrep"},
       {"<C-s>", "<cmd>Telescope smart_open<CR>", mode = "n", opt, desc = "Smart Search"},
-      {"<C-t><C-d>", "<cmd>TodoTelescope<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by ToDo Comment"},
+      {"<C-t><C-d>", "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by ToDo Comment"},
       {"gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of References"},
       {"<M-g><M-b>", "<cmd>Telescope git_branches<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Git Branch"},
       {"<M-d><M-c>", "<cmd>Telescope docker containers theme=ivy<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Docker Containers"},
