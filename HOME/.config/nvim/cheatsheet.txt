@@ -1,211 +1,211 @@
-## Neotree
-show File Explorer | <C-t><C-t>
-toggle node | <space>
-open | <CR>
-cancel | <ESC>
-toggle preview | P
-focus preview | l
-open split | <C-s>
-open vsplit | <C-v>
-close node | C
-close all node | z
-add file | a
-add directory | A
-delete | d
-rename | r
-copy to clipboard | y
-cut to clipboard | x
-paste from clipboard | p
-move | m
-close window | q
-refresh | R
-show help | ?
-prev source | <
-next source | >
-show file details | i
+## Neotree @neotree @explorer
+Show File Explorer   | <C-t><C-t>
+Toggle node          | <space>
+Open                 | <CR>
+Cancel               | <ESC>
+Toggle preview       | P
+Focus preview        | l
+Open Split           | <C-s>
+Open vSplit          | <C-v>
+Close node           | C
+Close all node       | z
+Add file             | a
+Add directory        | A
+Delete               | d
+Rename               | r
+Copy to clipboard    | y
+Cut to clipboard     | x
+Paste from clipboard | p
+Move                 | m
+Close window         | q
+Refresh              | R
+Show help            | ?
+Prev source          | <
+Next source          | >
+Show file details    | i
 
 ## Mason
-install package | i
-uninstall package | X
-update package | u
-update all package | U
-cancel installation | <C-c>
-help | g?
+Install Package      | i
+Uninstall Package    | X
+Update Package       | u
+Update All Package   | U
+Cancel Installation  | <C-c>
+Help                 | g?
 
 ## BufferEdit
-focus left buffer | sh
-focus right buffer | sl
-focus upper buffer | sk
-focus lower buffer | sj
-buffer list(Telescope) | <F5>
-close buffer(Telescope) | (insert mode) <C-c>
-move buffer left | <Leader>h
-move buffer right | <Leader>l
-close all left buffer | <C-S-h>
-close all right buffer | <C-S-l>
-collapse code | zc
-expand code | zo
-collapse all code | zM
-expand all code | zR
-display preview of collapsed code | zn
+Focus Left Buffer       | sh
+Focus Right Buffer      | sl
+Focus upper Buffer      | sk
+Focus lower Buffer      | sj
+Buffer List(Telescope)  | <F5>
+Close Buffer(Telescope) | (insert mode) <C-c>
+Move Buffer Left        | <Leader>h
+Move Buffer Right       | <Leader>l
+Close all Left Buffer   | <C-S-h>
+Close all Right Buffer  | <C-S-l>
+Collapse code           | zc
+Expand code             | zo
+Collapse all code       | zM
+Expand all code         | zR
+Display Preview         | zn
 
 ## Obsidian
-search obsidian notes | <Leader>o
-create obsidian note | <Leader>on
-create today's daily note | <Leader>ot
+Search obsidian Notes     | <Leader>o
+Create obsidian Note      | <Leader>on
+Create today's Daily Note | <Leader>ot
 
 ## SplitWindow
-split vertical | ss
-split horizontal | sv
-enable window resize mode | <C-E>
-resize | h, j, k, l
-resize apply | <CR>
+Split Vertical            | ss
+Split Horizontal          | sv
+Enable Window Resize mode | <C-E>
+Resize Direction          | h, j, k, l
+Resize apply              | <CR>
 
 ## terminal
-display terminal as float window | <C-t><C-t>
-display terminal as vertical window | <C-t><C-v>
-display lazygit as float window | <Leader>g
+Display terminal as float window    | <C-t><C-t>
+Display terminal as vertical window | <C-t><C-v>
+Display lazygit as float window     | <Leader>g
 
 ## LSP
-back | <C-o>
-display variable information | <S-k>
-jump to definition | gd
-display reference list(Telescope) | gr
-jump to type definition | gt
-jump to declaration | gD
-jump to implementation | gi
-display error content | go
-display error deal | ga
-rename | gn
-run code formatting | gf
-jump to next error | gj
-jump to prev error | gk
+back                              | <C-o>
+Display variable information      | <S-k>
+Jump to definition                | gd
+Display reference List(Telescope) | gr
+Jump to type definition           | gt
+Jump to declaration               | gD
+Jump to implementation            | gi
+Display error content             | go
+Display error deal                | ga
+rename                            | gn
+run code formatting               | gf
+Jump to Next error                | gj
+Jump to prev error                | gk
 
 ## Debugger
-display dap-ui | <Leader>d
-toggle breakPoint | <M-b><M-b>
-set breakpoint with condition | <M-S-b><M-S-b>
-set breakpoint with log output | <Leader>lp
-launch REPL | <Leader>dr
-rerun latest | <Leader>dl
-continue | <F8>
-step over | <F9>
-step in | <F10>
-step out | <F7>
+Display dap-ui                 | <Leader>d
+Toggle breakPoint              | <M-b><M-b>
+Set breakpoint with condition  | <M-S-b><M-S-b>
+Set breakpoint with log output | <Leader>lp
+Launch REPL                    | <Leader>dr
+Rerun latest                   | <Leader>dl
+Continue                       | <F8>
+Step over                      | <F9>
+Step in                        | <F10>
+Step out                       | <F7>
 
 ## Git
-branch list(Telescope) | <M-g><M-b>
+Branch List(Telescope)         | <M-g><M-b>
 
 ## Docker
-docker container list(Telescope) | <M-d><M-c>
-docker image list(Telescope) | <M-d><M-i>
-docker compose list(Telescope) | <M-d><M-p>
-docker file list(Telescope) | <M-d><M-l>
+docker Container List(Telescope) | <M-d><M-c>
+docker Image List(Telescope)     | <M-d><M-i>
+docker Compose List(Telescope)   | <M-d><M-p>
+docker File List(Telescope)      | <M-d><M-l>
 
 ## TODO
-jump to next TODO | ;t
-jump to prev TODO | :t
+Jump to Next TODO | ;t
+Jump to prev TODO | :t
 
 ## Surround
-空白あり/空白なし | あり: "(" / なし: ")"
-alias | w: word, s: sentence
-カーソル位置の単語を<記号>で囲む | ysiw<記号> : you surround inner word
-カーソル位置の単語を囲む記号ごと<記号2>で囲む | ysa<記号1><記号2> : you surround arround word
-カーソル位置から行末まで<記号>で囲む | ys$<記号>
-カーソル位置の単語を囲む<記号>を除去 | ds<記号> : delete surround 
-カーソル位置の単語を囲む<古>を<新>で置換 | cs<古><新> : change surround
-カーソル位置の単語を囲むタグを除去 | dst : delete sussound tag
-visualで選択状態の文字を<記号>囲む | (選択状態で) <S-s><記号>
+空白あり/空白なし                             | あり: "(" / なし: ")"
+alias                                         | w: Word, s: sentence
+カーソル位置の単語を<記号>で囲む              | ysiw<記号> : you surround inner Word
+カーソル位置の単語を囲む記号ごと<記号2>で囲む | ysa<記号1><記号2> : you surround arround Word
+カーソル位置から行末まで<記号>で囲む          | ys$<記号>
+カーソル位置の単語を囲む<記号>を除去          | ds<記号> : delete surround 
+カーソル位置の単語を囲む<古>を<新>で置換      | cs<古><新> : change surround
+カーソル位置の単語を囲むタグを除去            | dst : delete sussound tag
+visualで選択状態の文字を<記号>囲む            | (選択状態で) <S-s><記号>
 
-## Multiple cursor
-start multiple cursor | <C-n>
-next multiple cursor | <C-n>
-prev multiple cursor | <C-p>
-skip multiple cursor | <C-x>
-select all multiple cursor | <A-a>
+## Multiple Cursor
+Start Multiple Cursor      | <C-n>
+Next Multiple Cursor       | <C-n>
+prev Multiple Cursor       | <C-p>
+skip Multiple Cursor       | <C-x>
+Select All Multiple Cursor | <A-a>
 
 ## trouble
-display troubles | <Leader>xx
-display troubles in workspace | <Leader>xw
-display troubles in document | <Leader>xd
-display troubles in quickfix | <Leader>xq
-display troublesin locallist | <Leader>xl
+Display troubles              | <Leader>xx
+Display troubles in workspace | <Leader>xw
+Display troubles in document  | <Leader>xd
+Display troubles in quickfix  | <Leader>xq
+Display troublesin locallist  | <Leader>xl
 
 ## Noice
-display latest error | <Leader>nl
-display error list(Telescope) | <Leader>nh
+Display Latest Error          | <Leader>nl
+Display Error List(Telescope) | <Leader>nh
 
 ## Increment
-increment | <C-a>
-decrement | <C-x>
+Increment | <C-a>
+Decrement | <C-x>
 
 ## Outline
-jump selected outline (Telescope) | <C-s>t
-display outline pane | <leader>a
-jump to prev outline | <Leader>k
-jump to next outline | <leader>j
+Jump Selected Outline (Telescope) | <C-s>t
+Display Outline Pane              | <leader>a
+Jump to Prev Outline              | <Leader>k
+Jump to Next Outline              | <leader>j
 
 ## Telescope
-search by filename(Telescope) | <C-p>
-search by content(Telescope) | <C-g>
-search by TODO(Telescope) | <C-t><C-d>
-keymap list(Telescope) | <C-k><C-m>
-seatch Comand History(Telescope) | <C-c><C-h>
+Search by Filename(Telescope)    | <C-p>
+Search by Content(Telescope)     | <C-g>
+Search by TODO(Telescope)        | <C-t><C-d>
+Keymap List(Telescope)           | <C-k><C-m>
+Search Command History(Telescope) | <C-c><C-h>
 
 ## Hop
-hop to matched 'input pattern' | <Leader>/
-hop to vertical current line column | <Leader>v
-hop to after cursor word | <Leader>w
-hop to before cursor word | <Leader>b
-hop to after cursor char | <Leader>f
-hop to before cursor char | <Leader>F
-hop before to after cursor line | <Leader>t
-hop before to before cursor line | <Leader>T
+hop to matched 'input pattern'      | <Leader>/
+hop to vertical current Line column | <Leader>v
+hop to after Cursor Word            | <Leader>w
+hop to before Cursor Word           | <Leader>b
+hop to after Cursor char            | <Leader>f
+hop to before Cursor char           | <Leader>F
+hop before to after Cursor Line     | <Leader>t
+hop before to before Cursor Line    | <Leader>T
 
 ## Bookmark
-toggle bookmark | mm
-display bookmark list(Telescope) | <C-b><C-m>
+Toggle Bookmark                  | mm
+Display Bookmark List(Telescope) | <C-b><C-m>
 
 ## Translate
-translate cursor word to japanese | <C-t>j
-translate cursor word to english | <C-t>e
+Translate Cursor Word to Japanese | <C-t>j
+Translate Cursor Word to English  | <C-t>e
 
 ## Pantran(Translate)
-display float window translate | <Leader>tr
-show mappings in floating window | <C-_>
-replase close translation | <C-r>
-replace close input | <M-r>
-append close translation | <C-a>
-append close input | <M-a>
-select engine | <C-e>
-select source | <C-s>
-select target | <C-t>
-switch languages | <M-s>
-translate | <M-t>
+Display float window Translate   | <Leader>tr
+Show Mappings in floating window | <C-_>
+Replace Close Translation        | <C-r>
+Replace Close Input              | <M-r>
+Append Close Translation         | <C-a>
+Append Close Input               | <M-a>
+Select Engine                    | <C-e>
+Select Source                    | <C-s>
+Select Target                    | <C-t>
+Switch Languages                 | <M-s>
+Translate                        | <M-t>
 
-## JapaneseIME
-toggle inline IME | <C-j>
+## JaPaneseIME
+Toggle inLine IME | <C-j>
 
 ## Wezterm @wezterm
-New Window | <⌘-n>
-Toggle Fullscreen | <A-Enter>
-Quit Wezterm | <⌘-q>
+New Window           | <⌘-n>
+Toggle Fullscreen    | <A-Enter>
+Quit Wezterm         | <⌘-q>
 Reload Configuration | <⌘-r>
 Show Command Palette | F1
-Quick Select Mode | <S-C-Space>
-Search Mode | <⌘-f>
-Copy Mode | F4
-Debug Overlay | F12
+Quick Select Mode    | <S-C-Space>
+Search Mode          | <⌘-f>
+Copy Mode            | F4
+Debug Overlay        | F12
 
 ## Wezterm-Tab @wezterm @tab
-New Tab | <⌘-t>
+New Tab          | <⌘-t>
 Active Right Tab | <C-Tab>
-Active Left Tab | <C-S-Tab>
+Active Left Tab  | <C-S-Tab>
 
-## Wezterm-Pane @wezterm @pane
+## Wezterm-Pane @wezterm @Pane
 Split Horizontally | <⌘-d>
-Split Vertically | <⌘-S-d>
-Change Focus Pane | <C-A-Tab>
-Swap Pane | <C-S-A-Tab>
-Close Pane | <⌘-w>
-Change Pane Size | <⌘-C-→>, <⌘-C-←>, <⌘-C-↓>, <⌘-C-↑>
+Split Vertically   | <⌘-S-d>
+Change Focus Pane  | <C-A-Tab>
+Swap Pane          | <C-S-A-Tab>
+Close Pane         | <⌘-w>
+Change Pane Size   | <⌘-C-→>, <⌘-C-←>, <⌘-C-↓>, <⌘-C-↑>
