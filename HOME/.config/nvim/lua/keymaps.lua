@@ -64,7 +64,7 @@ u.keymap("v", "v", "$h", opts)
 
 -- インサートモードのままカーソル移動
 -- Ctrl+fで一つ右へ移動
-u.keymap("i", "<C-f>", "<C-g>U<Right>", opts)
+u.keymap("i", "<C-l>", "<C-g>U<Right>", opts)
 -- Ctrl+f Ctrl+fで一番外へ移動
 u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
 

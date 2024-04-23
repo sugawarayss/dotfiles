@@ -16,6 +16,11 @@ let mapleader = " "
 " ~/.ideavimrc (設定ファイル)を再読み込み
 nnoremap <Leader>rr :source ~/.ideavimrc<CR>
 
+" Ctrl+fで一つ右へ移動
+inoremap <C-l> <Esc>la
+" Ctrl+f Ctrl+f で一番外へ移動
+inoremap <C-f><C-f> <Esc>A
+
 """"""""""""""""""""""""""""""""""
 " 一般設定                       "
 """"""""""""""""""""""""""""""""""
@@ -54,11 +59,11 @@ nnoremap ,c :action CallHierarchy<CR>
 " 検索系キーマップ               "
 """"""""""""""""""""""""""""""""""
 " 複数ファイル内検索
-nmap <C-g> :action FindInPath<CR>
+nmap <C-r> :action FindInPath<CR>
 " 複数ファイル内置換
-nmap <S-C-g> :action ReplaceInPath<CR>
+"nmap <S-C-r> :action ReplaceInPath<CR>
 " すべてモードで検索
-nmap <Leader>s :action SearchEverywhere<CR>
+"nmap <Leader>s :action SearchEverywhere<CR>
 " クラスモードで検索
 nmap <Leader>c :action GotoClass<CR>
 " IDEA アクションモードで検索
