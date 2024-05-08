@@ -1,6 +1,9 @@
 -- コメント系プラグイン
 return {
   "numToStr/Comment.nvim",
+  dependencies =  {
+    "joosepAlviste/nvim-ts-context-commentstring",
+  },
   opts = {
     padding = true,
     sticky = true,
@@ -26,4 +29,13 @@ return {
     post_hook = nil,
   },
   lazy = false,
+  config = function()
+    require("ts_context_commentstring").setup({
+      -- disable default autocmd
+      enable_autocmd = false,
+    })
+    require("Comment").setup({
+      pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    })
+  end
 }
