@@ -7,6 +7,7 @@ return {
   dependencies = {
     -- 対応するキーワードや記号にジャンプできる
     { "andymass/vim-matchup" },
+    { "RRethy/nvim-treesitter-textsubjects" },
   },
   config = function()
     require("nvim-treesitter.configs").setup({
@@ -243,6 +244,16 @@ return {
       },
       matchup = {
         enable = true,
+      },
+      textsubjects = {
+        enable = true,
+        perv_section = ",",
+        keymaps = {
+          ["."] = "textsubjects-smart",
+          [";"] = "textsubjects-container-outer",
+          ["i;"] = "textsubjects-container-inner",
+          ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
+        },
       }
     })
     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
