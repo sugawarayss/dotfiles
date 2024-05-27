@@ -15,8 +15,7 @@ local noice_cmd_types = {
 -- CmdLineや通知をpopupで表示するプラグイン
 return {
   "folke/noice.nvim",
-  lazy = true,
-  event = { "VimEnter" },
+  event = { "VeryLazy" },
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
