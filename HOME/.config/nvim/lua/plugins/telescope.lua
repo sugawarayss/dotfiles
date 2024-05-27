@@ -23,7 +23,7 @@ return {
     keys = {
       {"<C-p>", "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git <CR>", mode = "n", opt, desc = "Show Fuzzy Finder by FileName"},
       {"<C-g>", "<cmd>Telescope live_grep hidden=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by LiveGrep"},
-      {"<C-s>", "<cmd>Telescope smart_open<CR>", mode = "n", opt, desc = "Smart Search"},
+      {"<F5>", "<cmd>Telescope smart_open<CR>", mode = "n", opt, desc = "Smart Search"},
       {"<C-t><C-d>", "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>", mode = "n", opt, desc = "Show Fuzzy Finder by ToDo Comment"},
       {"gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of References"},
       {"<M-g><M-b>", "<cmd>Telescope git_branches<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Git Branch"},
@@ -32,7 +32,7 @@ return {
       {"<M-d><M-p>", "<cmd>Telescope docker compose theme=ivy<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Docker Compose"},
       {"<M-d><M-l>", "<cmd>Telescope docker files theme=ivy<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Dockerfile"},
       {"<C-c><C-h>", "<cmd>Telescope command_history<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Command History"},
-      {"<F5>", "<cmd>Telescope buffers show_all_buffers=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Buffers"},
+      {"<F10>", "<cmd>Telescope buffers show_all_buffers=true<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Buffers"},
       {"<C-b><C-m>", "<cmd>Telescope bookmarks list<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Bookmarks"},
       {"<C-k><C-m>", "<cmd>Telescope keymaps<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Keymaps"},
     },
