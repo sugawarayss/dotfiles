@@ -28,6 +28,7 @@ return {
 -- 検索結果をvirtual textで表示するプラグイン
   {
     "kevinhwang91/nvim-hlslens",
+    enabled = false,
     lazy = true,
     event = { "BufReadPre" },
     config = function()
