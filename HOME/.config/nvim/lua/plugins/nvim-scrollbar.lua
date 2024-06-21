@@ -20,6 +20,7 @@ return {
           Misc = { color = color_palette.bright_magenta }, -- "#c397d8"
         },
         handlers = {
+          gitsigns = true,
           search = true
         }
       })
@@ -28,7 +29,7 @@ return {
 -- 検索結果をvirtual textで表示するプラグイン
   {
     "kevinhwang91/nvim-hlslens",
-    enabled = false,
+    enabled = true,
     lazy = true,
     event = { "BufReadPre" },
     config = function()
@@ -53,10 +54,10 @@ return {
             else
               text = ('[%d/%d]'):format(idx, cnt)
             end
-            chunks = {{" ", "Ignore"}, {text, "HLSearchLensNear"}}
+            chunks = {{" "}, {text, "HLSearchLensNear"}}
           else
             text = ('[%s %d]'):format(indicator, idx)
-            chunks = {{' ', 'Ignore'}, {text, 'HLSearchLens'}}
+            chunks = {{' '}, {text, 'HLSearchLens'}}
           end
           render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
         end
