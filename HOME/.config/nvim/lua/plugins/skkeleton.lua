@@ -2,10 +2,11 @@
 return {
   {
     "vim-skk/skkeleton",
+    enabled = false,
     dependencies = {
       "vim-denops/denops.vim",
       "Shougo/ddc.vim",
-      "delphinus/skkeleton_indicator.nvim"
+      { "delphinus/skkeleton_indicator.nvim", opts = {} }
     },
     lazy = true,
     event = "BufReadPre",
