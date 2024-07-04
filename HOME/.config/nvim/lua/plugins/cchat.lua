@@ -93,6 +93,7 @@ return {
       mode = {"n", "v"},
       desc = "CopilotChat - Prompt Actions"
     },
+    { "<Leader>ccs", "<Cmd>CopilotChatStop<CR>", mode = { "n", "v" }, desc = "CopilotChat - Stop Output" }
   },
   config = function()
     -- vim.api.nvim_set_keymap('n', '<Leader>ccc', ':lua disable_review_on_current_line()<CR>', { noremap = true, silent = true })
