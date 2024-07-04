@@ -32,6 +32,24 @@ Update All Package   | U
 Cancel Installation  | <C-c>
 Help                 | g?
 
+## Copilot @copilot
+Jump prev | [[
+Jump next | ]]
+accept    | <CR>
+refresh   | gr
+open      | <M-CR>
+
+## CopilotChat @copilot
+Chat Toggle as float Window        | <Leader>cco
+Chat Toggle as horizontal Window   | <Leader>ccb
+Quick Chat with buffer is context  | <Leader>ccq
+Explain code                       | <Leader>cce
+Review code                        | <Leader>ccr
+Generate Test code                 | <Leader>cct
+Show Prompt Actions with Telescope | <Leader>ccp
+Stop Output                        | <Leader>ccs
+
+
 ## BufferEdit
 Focus Left Buffer       | sh
 Focus Right Buffer      | sl
