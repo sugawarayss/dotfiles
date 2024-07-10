@@ -66,6 +66,25 @@ return {
       mode = { "n", "v" },
       desc = "CopilotChat - Toggle as bottom window" 
     },
+    {
+      "<Leader>ccn",
+      function()
+        local chat = require("CopilotChat")
+        chat.toggle({
+          window = {
+            layout = "float",
+            relative = "editor",
+            border = "double",
+            width = 1,
+            height = 0.4,
+            title = "Copilot Chat",
+            footer = nil,
+          },
+        })
+      end,
+      mode = { "n", "v" },
+      desc = "CopilotChat - Open New Prompt"
+    },
     -- Quick Chat Key Mapping
     {
       "<Leader>ccq",
