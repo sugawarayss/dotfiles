@@ -2,7 +2,7 @@
 return {
   {
     "vim-skk/skkeleton",
-    enabled = false,
+    enabled = true,
     dependencies = {
       "vim-denops/denops.vim",
       "Shougo/ddc.vim",
