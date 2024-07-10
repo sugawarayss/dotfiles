@@ -11,7 +11,7 @@ config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = true
 -- Color Theme
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = 'Hybrid (terminal.sexy)'
+config.color_scheme = 'tokyonight'
 -- config.foreground_text_hsb = {
 --   hue = 1.0,
 --   saturation = 1.0,
