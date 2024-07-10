@@ -36,20 +36,20 @@ local keybind = require 'keybinds'
 config.keys = keybind.keys
 config.key_tables = keybind.key_tables
 
-config.background = {
-  {
-    source = {
-      File = wezterm.config_dir .. '/bgimage/rain.jpg'
-    },
-    vertical_align = 'Middle',
-    horizontal_align = 'Center',
-    hsb = {
-      hue = 1,
-      saturation = 1,
-      brightness = 0.019
-    },
-    opacity = 0.9
-  }
-}
+-- config.background = {
+--   {
+--     source = {
+--       File = wezterm.config_dir .. '/bgimage/rain.jpg'
+--     },
+--     vertical_align = 'Middle',
+--     horizontal_align = 'Center',
+--     hsb = {
+--       hue = 1,
+--       saturation = 1,
+--       brightness = 0.019
+--     },
+--     opacity = 0.9
+--   }
+-- }
 
 return config
