@@ -25,5 +25,6 @@
 [core]
     quotepath = false
     editor = nvim
+	autocrlf = input
 [init]
     defaultBranch = main
