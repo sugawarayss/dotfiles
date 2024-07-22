@@ -1,7 +1,6 @@
 -- カーソルが大きく移動した時にエフェクトを表示する
 return {
   "edluffy/specs.nvim",
-  enabled = true,
   lazy = true,
   event = { "CursorMoved" },
   config = function ()
@@ -10,9 +9,9 @@ return {
       min_jump = 5,
       popup = {
         delay_ms = 0,
-        inc_ms = 5,
+        inc_ms = 10,
         blend = 80,
-        width = 50,
+        width = 40,
         winhl = "Pmenu",
         -- Faders:
         -- sinus_fader  ⌣/⌢\⌣/⌢\⌣/⌢\⌣/⌢
