@@ -1,6 +1,6 @@
 -- カーソルが大きく移動した時にエフェクトを表示する
 return {
-  "edluffy/specs.nvim",
+  "cxwx/specs.nvim",
   lazy = true,
   event = { "CursorMoved" },
   config = function ()
