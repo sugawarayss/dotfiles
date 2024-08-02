@@ -173,3 +173,6 @@ esac
 # ImageMagick
 export DYLD_LIBRARY_PATH="$BREWPREFIX/lib"
 # ImageMagick END
+
+# cd の履歴からディレクトリを高速移動できるコマンド
+eval "$(zoxide init zsh)"
