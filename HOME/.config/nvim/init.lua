@@ -30,3 +30,4 @@ require("lazy").setup(
     }
   }
 )
+require("vscode_keymap")
