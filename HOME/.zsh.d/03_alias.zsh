@@ -117,3 +117,9 @@ alias -g dv='$(adb devices | tail -n +2 | gum filter --prompt="SELECT SIRIAL NO 
 
 # kiconia works - kobashi project で使用するlocalstack のalias
 alias -g localstackendpoint='$(echo "--endpoint-url=http://s3.localhost.localstack.cloud:4566")'
+
+# xsv でcsv を扱えるように
+if type "xsv" > /dev/null 2>&1; then
+  alias csv='xsv'
+  alias csvheader='xsv headers'
+fi
