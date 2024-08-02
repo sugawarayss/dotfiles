@@ -123,7 +123,6 @@ return {
           end
 
           if server == "tsserver" then
-
             if not is_node_repo then
               return
             end
@@ -147,6 +146,46 @@ return {
                     ["https://cdn.nest.land"] = true,
                     ["https://crux.land"] = true,
                   },
+                },
+              },
+            }
+          end
+
+          if server == "gopls" then
+            opt.settings = {
+              ["gopls"] = {
+                analyses = {
+                  nilness = true,
+                  unusedparams = true,
+                  unusedwrite = true,
+                  useany = true,
+                },
+                experimentalPostfixCompletions = true,
+                staticcheck = true,
+                usePlaceholders = true,
+              },
+            }
+          end
+
+          if server == "rust-analyzer" then
+            opt.settings = {
+              ["rust-analyzer"] = {
+                imports = {
+                  check = {
+                    command = "clippy",
+                  },
+                  granularity = {
+                    group = "module",
+                  },
+                  prefix = "self",
+                },
+                cargo = {
+                  buildScripts = {
+                    enable = true,
+                  },
+                },
+                procMacro = {
+                  enable = true,
                 },
               },
             }
