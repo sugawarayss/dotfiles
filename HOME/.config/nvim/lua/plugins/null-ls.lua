@@ -28,7 +28,7 @@ return {
       --  "--ignore=TD",      -- flake8-todo
       --  "--ignore=FIX",     -- flake8-fixme
       --  "--ignore=YTT",     -- flake8-2020
-      --  "--igonore=S",      -- flake8-bandit
+      --  "--ignore=S",       -- flake8-bandit
       --  "--ignore=BLE",     -- flake8-bind-except
       --  "--ignore=FBT",     -- flake8-boolean-trap
       --  "--ignore=B",       -- flake8-bugbear
@@ -50,9 +50,9 @@ return {
       --  "--ignore=E501",    -- pydocstyle (line-too-log)
       --  "--fix",            -- auto fix
       --}),
-      --null_ls.builtins.diagnostics.mypy.with({
-      --  diagnostics_format = '[mypy] #{m}\n(#{c})'
-      --}),
+      null_ls.builtins.diagnostics.mypy.with({
+       diagnostics_format = '[mypy] #{m}\n(#{c})'
+      }),
       null_ls.builtins.diagnostics.ruff.with({
         filetypes = { "python" },
         diagnostics_format = '[ruff] #{m}\n(#{c})',
@@ -69,7 +69,7 @@ return {
       --    "--ignore=TD",      -- flake8-todo
       --    "--ignore=FIX",     -- flake8-fixme
       --    "--ignore=YTT",     -- flake8-2020
-      --    "--igonore=S",      -- flake8-bandit
+      --    "--ignore=S",       -- flake8-bandit
       --    "--ignore=BLE",     -- flake8-bind-except
       --    "--ignore=FBT",     -- flake8-boolean-trap
       --    "--ignore=B",       -- flake8-bugbear
@@ -97,8 +97,13 @@ return {
         extra_args = { "--config-path", "./stylua.toml" }
       }),
       -- Golang
-      null_ls.builtins.formatting.gofumpt,
-      null_ls.builtins.formatting.goimports,
+      null_ls.builtins.formatting.gofumpt.with({
+        filetypes = { "go" }
+      }),
+      null_ls.builtins.formatting.goimports.with({
+        filetypes = { "go" }
+      }),
+      -- null_ls.builtins.formatting.
       -- JavaScript/TypeScript
       null_ls.builtins.formatting.prettier.with({
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
@@ -108,8 +113,6 @@ return {
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
         diagnostics_format = '[eslint] #{m}\n(#{c})'
       }),
-      -- Json
-      -- null_ls.builtins.formatting.jq,
     }
 
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
