@@ -9,12 +9,12 @@ return {
       -- python
       null_ls.builtins.formatting.black.with({
         filetypes = { "python" },
-        extra_args = { "--line-length=150" }
+        extra_args = { "--config", "./pyproject.toml" }
       }),
-      null_ls.builtins.formatting.isort.with({
-        filetypes = { "python" },
-        extra_args = { "--settings-path", "./pyproject.toml" }
-      }),
+      -- null_ls.builtins.formatting.isort.with({
+      --   filetypes = { "python" },
+      --   extra_args = { "--settings-path", "./pyproject.toml" }
+      -- }),
       null_ls.builtins.formatting.ruff.with({
         filetypes = { "python" },
         extra_args = { "--config", "./pyproject.toml" }
@@ -51,7 +51,9 @@ return {
       --  "--fix",            -- auto fix
       --}),
       null_ls.builtins.diagnostics.mypy.with({
-       diagnostics_format = '[mypy] #{m}\n(#{c})'
+        filetypes = { "python" },
+        diagnostics_format = '[mypy] #{m}\n(#{c})',
+        extra_args = { "--config-file", "./pyproject.toml" }
       }),
       null_ls.builtins.diagnostics.ruff.with({
         filetypes = { "python" },
