@@ -22,15 +22,15 @@ if type "bat" > /dev/null 2>&1; then
   alias catl='(){bat $1 -l $(bat -L | gum filter | cut -d ":" -f 1)}'
 fi
 
-# lsをezaで上書き
-if type "eza" > /dev/null 2>&1; then
+# lsをlsdで上書き
+if type "lsd" > /dev/null 2>&1; then
   alias oldls="/bin/ls"
-  alias ls='eza -@ --git'
-  alias la='eza --long --all --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first'
-  alias ll='eza --long --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first'
-  alias lla="eza --long --all --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first"
-  alias lt="eza -T --icons"
-  alias ld="eza --long --only-dirs --header --created --modified --bytes --icons --git --time-style=long-iso --group-directories-first"
+  alias ls='lsd --git'
+  alias la='lsd --all --header --size bytes --git --group-directories-first'
+  alias ll='lsd --long --header --size bytes --git --group-directories-first'
+  alias lla='lsd --long --all --header --size bytes --git --group-directories-first'
+  alias lt="lsd --tree"
+  alias ld="lsd --directory-only --tree --icon never"
 else
   alias ls="ls -Gh"
   alias la="ls -aGh"
