@@ -6,9 +6,10 @@ return {
   ft = "markdown",
   keys = {
     { "<Leader>os", "<Cmd>ObsidianQuickSwitch<CR>", mode = "n", { noremap = true, silent = true }, desc = "Search Note"},
-    { "<Leader>ot", "<Cmd>ObsidianTags<CR>", mode = "n", { noremap = true, silent = true }, desc = "Search Tag"},
-    { "<Leader>on", "<Cmd>ObsidianNew<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create New Note"},
-    { "<Leader>od", "<Cmd>ObsidianToday<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create Today's Note"},
+    { "<Leader>on", "<Cmd>ObsidianNew<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create/Open New Note"},
+    { "<Leader>od", "<Cmd>ObsidianToday<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create/Open Today's Note"},
+    { "<Leader>oc", "<Cmd>ObsidianTOC<CR>", mode = "n", { noremap = true, silent = true }, desc = "Load Table Of Contents of Current Note" },
+    { "<Leader>otc", "<Cmd>ObsidianToggleCheckbox<CR>", mode = "n", {noremap = true, silent = true }, desc = "Cycle Through CheckBox Options" },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
