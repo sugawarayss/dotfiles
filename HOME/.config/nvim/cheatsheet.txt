@@ -68,9 +68,19 @@ Expand all code         | zR
 Display Preview         | zn
 
 ## Obsidian
-Search obsidian Notes     | <Leader>o
-Create obsidian Note      | <Leader>on
-Create today's Daily Note | <Leader>ot
+Open Note in Obsidian App | :ObsidianOpen <query>
+Create/Open Obsidian Note      | <Leader>on | :ObsidianNew <title>
+Switch Another Note            | <Leader>os | :ObsidianQuickSwitch
+Follow a Note reference Under the Cursor | :ObsidianFollowLink [vsplit|hsplit]
+Search Note by TAG             | :ObsidianTags
+Create/Open Today's Daily Note | <Leader>od | :ObsidianToday
+Search Obsidian Notes          | <Leader>o
+Load TOC of Current Note       | <Leader>otc
+Rename Current Nonte           | :ObsidianRename <new name>
+Switch Another Workspace       | :ObsidianExtractNote <name>
+Extract Note in Visually Selected text | :ObsidianExtractNote <title>
+
+
 
 ## SplitWindow
 Split Vertical            | ss
