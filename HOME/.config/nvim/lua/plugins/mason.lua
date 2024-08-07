@@ -206,7 +206,6 @@ return {
               "isort",
               "ruff",
               "mypy",
-              "debugpy",
               -- Go
               "goimports",
               "staticcheck",
