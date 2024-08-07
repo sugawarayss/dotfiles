@@ -24,7 +24,7 @@ Prev source          | <
 Next source          | >
 Show file details    | i
 
-## Mason
+## Mason @lsp
 Install Package      | i
 Uninstall Package    | X
 Update Package       | u
@@ -50,7 +50,7 @@ Show Prompt Actions with Telescope | <Leader>ccp
 Stop Output                        | <Leader>ccs
 
 
-## BufferEdit
+## BufferEdit @buffer
 Focus Left Buffer       | sh
 Focus Right Buffer      | sl
 Focus upper Buffer      | sk
@@ -68,19 +68,9 @@ Expand all code         | zR
 Display Preview         | zn
 
 ## Obsidian
-Open Note in Obsidian App | :ObsidianOpen <query>
-Create/Open Obsidian Note      | <Leader>on | :ObsidianNew <title>
-Switch Another Note            | <Leader>os | :ObsidianQuickSwitch
-Follow a Note reference Under the Cursor | :ObsidianFollowLink [vsplit|hsplit]
-Search Note by TAG             | :ObsidianTags
-Create/Open Today's Daily Note | <Leader>od | :ObsidianToday
-Search Obsidian Notes          | <Leader>o
-Load TOC of Current Note       | <Leader>otc
-Rename Current Nonte           | :ObsidianRename <new name>
-Switch Another Workspace       | :ObsidianExtractNote <name>
-Extract Note in Visually Selected text | :ObsidianExtractNote <title>
-
-
+Search obsidian Notes     | <Leader>o
+Create obsidian Note      | <Leader>on
+Create today's Daily Note | <Leader>ot
 
 ## SplitWindow
 Split Vertical            | ss
@@ -94,7 +84,7 @@ Display terminal as float window    | <C-t><C-t>
 Display terminal as vertical window | <C-t><C-v>
 Display lazygit as float window     | <Leader>g
 
-## LSP
+## LSP @lsp
 back                              | <C-o>
 Display variable information      | <S-k>
 Jump to definition                | gd
@@ -110,7 +100,7 @@ Jump to Next error                | gj
 Jump to prev error                | gk
 
 ## Debugger
-Display dap-ui                 | <Leader>d
+Display dap-ui                 | <Leader>db
 Toggle breakPoint              | <M-b><M-b>
 Set breakpoint with condition  | <M-S-b><M-S-b>
 Set breakpoint with log output | <Leader>lp
@@ -121,8 +111,43 @@ Step over                      | <F9>
 Step in                        | <F10>
 Step out                       | <F7>
 
-## Git
+## Git @git @diff
 Branch List(Telescope)         | <M-g><M-b>
+Show Diff HEAD~1               | <Leader>df
+Show File History              | <Leader>dh
+Close Diffview                 | <Leader>dc
+
+## Octo @issue
+Search Issue in Current Repository | :Octo issue search
+Browse Issue in Current Repository | :Octo issue browser
+List Issue in Current Repository   | :Octo issue list
+Close Issue                        | :Octo issue close
+Create Issue to Current Repository | :Octo issue create
+Edit Issue in Current Repository   | :Octo issue edit
+Copy URL of Current Issue          | :Octo issue url
+
+## Octo @pr
+Search PR in Current Repository  | :Octo pr search
+List PR                          | :Octo pr list
+Checkout PR                      | :Octo pr checkout
+Create PR for the Current Branch | :Octo pr create
+Close PR                         | :Octo pr close
+ReOpen PR                        | :Octo pr reopen
+Show PR Diff                     | :Octo pr diff
+Browse PR                        | :Octo pr browser
+Copy URL of Current PR           | :Octo pr url
+Add assignee to PR               | :Octo add <user>
+Unassign a user                  | :Octo remove <user>
+Add reviewer to PR               | :Octo reviewer <user>
+
+
+## Octo @review
+Start a new review     | :Octo review start
+Submit the review      | :Octo review submit
+Edit a pending review for current PR | :Octo review resume
+Deletes a pending review for current PR if any | :Octo review discard
+View pending review comments | :Octo review comments
+Close the review window and return to the PR | :Octo review close
 
 ## Docker
 docker Container List(Telescope) | <M-d><M-c>
