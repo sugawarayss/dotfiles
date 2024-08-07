@@ -36,7 +36,7 @@ return {
       },
       line_num = {
           enable = true,
-          use_treesitter = false,
+          use_treesitter = true,
           style = color_palette.bright_magenta,  -- "#c397dB"
       },
 
