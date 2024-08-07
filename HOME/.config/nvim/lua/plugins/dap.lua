@@ -22,7 +22,7 @@ return {
     { "<leader>lp", ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", mode = "n", desc = "Set BreakePoint" },
     { "<leader>dr", ":lua require('dap').repl.open()<CR>", mode = "n", desc = "Debug open REPL" },
     { "<leader>dl", ":lua require('dap').run_last()<CR>", mode = "n", desc = "Debug run last" },
-    { "<leader>d", ":lua require('dapui').toggle()<CR>", mode = "n", desc = "Toggle Debug" },
+    { "<leader>db", ":lua require('dapui').toggle()<CR>", mode = "n", desc = "Toggle Debug" },
   },
   config = function()
     require("dapui").setup({
