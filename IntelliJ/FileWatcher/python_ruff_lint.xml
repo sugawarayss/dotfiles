@@ -1,6 +1,6 @@
 <TaskOptions>
   <TaskOptions>
-    <option name="arguments" value="check $FilePath$ --config $ProjectFileDir$/pyproject.toml --fix" />
+    <option name="arguments" value="check $FilePath$ --config $ProjectFileDir$/pyproject.toml" />
     <option name="checkSyntaxErrors" value="true" />
     <option name="description" />
     <option name="exitCodeBehavior" value="ERROR" />
@@ -16,7 +16,7 @@
     <option name="runOnExternalChanges" value="false" />
     <option name="scopeName" value="Current File" />
     <option name="trackOnlyRoot" value="false" />
-    <option name="workingDir" value="$ProjectFileDir$/backend" />
+    <option name="workingDir" value="$ProjectFileDir$" />
     <envs />
   </TaskOptions>
 </TaskOptions>
