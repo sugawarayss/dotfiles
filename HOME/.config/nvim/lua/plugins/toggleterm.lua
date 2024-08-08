@@ -3,9 +3,9 @@ return {
   "akinsho/toggleterm.nvim",
   version = '*',
   keys = {
-    {"<c-t><c-m>", ":ToggleTerm direction=float<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
+    {"<c-t><c-m>", ":ToggleTerm direction=horizontal<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
     {"<c-t><c-v>", ":ToggleTerm direction=vertical<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
-    {"<c-t><c-h>", ":ToggleTerm direction=horizontal<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
+    {"<c-t><c-f>", ":ToggleTerm direction=float<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
     {"<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>", mode = "t", desc = "Close Terminal"},
     {"<leader>g", "<cmd>lua _lazygit_toggle()<cr>", mode = "n", desc = "Toggle Lazygit"},
   },
@@ -14,7 +14,7 @@ return {
       {
         size = function(term)
           if term.direction == "horizontal" then
-              return 15
+              return 30
           elseif term.direction == "vertical" then
               return 70
           else
@@ -23,8 +23,8 @@ return {
         end,
         dicrection = "float",
         float_opts = {
-        border = "curved",
-        winblend = 20,
+          border = "curved",
+          winblend = 20,
         },
         winbar = {
         enabled = true,
@@ -37,7 +37,7 @@ return {
     local Terminal = require("toggleterm.terminal").Terminal
     local lazygit = Terminal:new({
       cmd = "lazygit",     -- command to execute when creating the terminal e.g. 'top'
-      --  dir = "git_dit", -- the directory for the terminal
+      --  dir = "git_dir", -- the directory for the terminal
       direction = "float", -- the layout for the terminal, same as the main config options
       float_opts = {
         border = "double",
