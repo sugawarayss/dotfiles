@@ -72,8 +72,8 @@ return {
         local chat = require("CopilotChat")
         chat.toggle({
           window = {
-            layout = "float",
-            relative = "editor",
+            layout = "horizontal",
+            relative = "win",
             border = "double",
             width = 1,
             height = 0.4,
