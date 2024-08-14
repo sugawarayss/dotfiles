@@ -19,6 +19,7 @@ return {
   dependencies = {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
+    "hrsh7th/nvim-cmp",
   },
   keys = {
     { "<leader>nl", function() require("noice").cmd("last") end, mode = "n", desc = "Show Last Notification" },
