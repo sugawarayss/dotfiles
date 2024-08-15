@@ -1,197 +1,52 @@
 [
-  {
-      "name": "Slack - Subscribe Github Repo",
-      "text": "/github subscribe {cursor} releases reviews issues pulls comments branches commits:*",
-      "keyword": "!slack-subscribe;"
-  },
-  {
-      "name": "Slack - Unsubscribe Github Repo",
-      "text": "/github unsubscribe ",
-      "keyword": "!slack-unsubscribe;"
-  },
-  {
-      "name": "Slack - Remind",
-      "text": "/remind me to {cursor} on {date +1d \"yyyy-MM-dd\"} at {time}",
-      "keyword": "!slack-remind;"
-  },
-  {
-      "name": "Date - Today (yyyy-MM-dd)",
-      "text": "{date \"yyyy-MM-dd\"}",
-      "keyword": "!today;"
-  },
-  {
-      "name": "Date - Now (yyyy/MM/dd HH:mm:ss)",
-      "text": "{date \"yyyy/MM/dd HH:mm:ss\"}",
-      "keyword": "!now;"
-  },
-  {
-      "name": "Date - 本日日付",
-      "text": "{date \"yyyy年MM月dd日\"}",
-      "keyword": "!jptoday;"
-  },
-  {
-      "name": "Date - Time (HH:mm:ss)",
-      "text": "{date \"HH:mm:ss\"}",
-      "keyword": "!time;"
-  },
-  {
-      "name": "Copy to Clipboard",
-      "text": "| pbcopy",
-      "keyword": "!copy;"
-  },
-  {
-      "name": "MacOS - Change Screenshot Filename Postfix to Number",
-      "text": "defaults write com.apple.screencapture include-date -bool false",
-      "keyword": ""
-  },
-  {
-      "name": "MacOS - Change Screenshot Filename Postfix to Date",
-      "text": "defaults delete com.apple.screencapture include-date",
-      "keyword": ""
-  },
-  {
-      "name": "MacOS - Change Screenshot Filename Prefix to 'screenshot'",
-      "text": "defaults write com.apple.screencapture name screenshot",
-      "keyword": ""
-  },
-  {
-      "name": "MacOS - Add ssh-key (inap)",
-      "text": "ssh-add -K ~/.ssh/sugawarayss-GitHub",
-      "keyword": ""
-  },
-  {
-      "name": "MacOS - Add ssh-key (mac mini)",
-      "text": "ssh-add -K ~/.ssh/waku1123-GitHub",
-      "keyword": ""
-  },
-  {
-      "name": "Golang - Build for Windows",
-      "text": "GOOS=windows GOARCH=amd64 go build -o ./build/windows-amd64/{hoge}.exe ./{hoge}.go",
-      "keyword": "!go-build-windows;"
-  },
-  {
-      "name": "Golang - Build for MacOS",
-      "text": "GOOS=darwin GOARCH=amd64 go build -o ./darwin-amd64/{hoge} {hoge}.go",
-      "keyword": "!go-build-macos;"
-  },
-  {
-      "name": "Golang - Build for Linux",
-      "text": "GOOS=linux GOARCH=amd64 go build -o l./build/inux-amd64/{hoge} ./{hoge}.go",
-      "keyword": "!go-build-linux;"
-  },
-  {
-      "name": "Pipenv - Install Packages form requirement.txt",
-      "text": "pipenv install -r requirements.txt",
-      "keyword": "!pipenv-intall;"
-  },
-  {
-      "name": "Poetry - Add Package",
-      "text": "poetry add {cursor}",
-      "keyword": "!poetry-add;"
-  },
-  {
-      "name": "Poetry - Remove Package",
-      "text": "poetry remove {cursor} ",
-      "keyword": "!poetry-remove;"
-  },
-  {
-      "name": "Poetry - Config virtualenvs.in-project",
-      "text": "poetry config virtualenvs.in-project true",
-      "keyword": "!poetry-config;"
-  },
-  {
-    "name": "pyproject.toml - black",
-    "text": "[tool.black]\nline-length = 150",
-    "keyword": "!pyproject-black;"
-  },
-  {
-    "name": "pyproject.toml - lint",
-    "text": "[tool.rye.scripts]\nlint = { chain = [\"lint:black\", \"lint:ruff\"] }\n\"lint:black\" = \"black ./src/\"  \n\"lint:ruff\" = \"ruff ./src/{cursor} \"",
-    "keyword": "!pyproject-lint;"
-  },
-  {
-    "name": "pyproject.toml - test",
-    "text": "[tool.rye.scripts]\ntest = { cmd = \"pytest -v -s --cov\" }",
-    "keyword": "!pyproject-test;"
-  },
-  {
-    "name": "pyproject.toml - ruff",
-    "text": "[tool.ruff]\nselect = [\"ALL\"]\nignore = [\n  \"ANN101\",  # missing-type-function-argument\n  \"D100\",  # missing docstring in public module\n  \"D102\",  # missing docstring in public method\n  \"D104\",  # missing docstring in public package\n  \"D105\",  # missing docstring in magic method\n  \"D106\",  # missing docstring in public nested class\n  \"D107\",  # missing docstring in __init__\n  \"D203\",  # 1 blank line required before class docstring\n  \"D205\",  # 1 blank line required between summary line and description\n  \"D212\",  # Multi-line docstring summary should start at the first line\n  \"D400\",  # First line should end with a period\n  \"D415\",  # First line should end with a period, question mark, or exclamation point\n  \"BLE\",  # flake8-blind-except\n  \"FA\",  # flake8-future-annotation\n  \"TRY\",  # tryceratops\n  \"TD\",  # flake8-todo\n  \"FIX\",  # flake8-fixme\n]\nline-length = 150",
-    "keyword": "!pyproject-ruff;"
-  },
-  {
-    "name": "Github - Table",
-    "text": "| Title1 | Title2 |\n| ------- | ------- |\n| Content1 | Content2 |\n  ",
-    "keyword": "!gh-table;"
-  },
-  {
-    "name": "Github - Detail",
-    "text": "<details>\n<summary>Title</summary>\n\n</details>",
-    "keyword": "!gh-detail;"
-  },
-  {
-    "name": "Github - Warning",
-    "text": "> **Warning**\n> ",
-    "keyword": "!gh-warning;"
-  },
-  {
-    "name": "Github - Note",
-    "text": "> **Note**\n> ",
-    "keyword": "!gh-note;"
-  },
-  {
-    "name": "Neovim - Startuptime with Log",
-    "text": "nvim --startuptime ~/nvim.log +q",
-    "keyword": "!nvim-startuptime;"
-  },
-  {
-    "name": "echo $PATH",
-    "text": "echo $PATH | tr ':' '\n'",
-    "keyword": "!echo-path;"
-  },
-  {
-    "name": "Homebrew - Uninstall",
-    "text": "brew list | gum choose --no-limit | xargs brew uninstall",
-    "keyword": "!brew-uninstall;"
-  },
-  {
-    "name": "Pipenv - Install Packages form requirement.txt",
-    "text": "pipenv install -r requirements.txt",
-    "keyword": "!pipenv-intall;"
-  },
-  {
-    "name": "Terminal - Copy to Clipboard",
-    "text": "| pbcopy",
-    "keyword": "!copy;"
-  },
-  {
-    "name": "Service - control",
-    "text": "sudo systemctl {cursor} {name}",
-    "keyword": "!systemctl;"
-  },
-  {
-    "name": "Service - log",
-    "text": "sudo journalctl -u <name>",
-    "keyword": "!journalctl;"
-  },
-  {
-    "name": "HTML5 Boilerplate",
-    "text": "<html class=\"no-js\" lang=\"\">\n\n<head>\n  <meta charset=\"utf-8\">\n  <title></title>\n  <meta name=\"description\" content=\"\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n  <meta property=\"og:title\" content=\"\">\n  <meta property=\"og:type\" content=\"\">\n  <meta property=\"og:url\" content=\"\">\n  <meta property=\"og:image\" content=\"\">\n\n  <link rel=\"icon\" href=\"/favicon.ico\" sizes=\"any\">\n  <link rel=\"icon\" href=\"/icon.svg\" type=\"image/svg+xml\">\n  <link rel=\"apple-touch-icon\" href=\"icon.png\">\n\n  <link rel=\"stylesheet\" href=\"css/normalize.css\">  <link rel=\"stylesheet\" href=\"css/style.css\">\n\n  <link rel=\"manifest\" href=\"site.webmanifest\">\n  <meta name=\"theme-color\" content=\"#fafafa\">\n</head>\n\n<body>\n\n  <p>Hello world! This is HTML5 Boilerplate.</p>\n  <script src=\"js/vendor/modernizr-{{MODERNIZR_VERSION}}.min.js\"></script>\n  <script src=\"js/app.js\"></script>\n\n</body>\n\n</html>",
-    "keyword": "!html;"
-  },
-  {
-    "name": "Docker - search always restart container",
-    "text": "docker inspect -f \"{{.Name}} {{.HostConfig.RestartPolicy.Name}}\" $(docker ps -aq) | grep always",
-    "keyword": "!docker-search-always-restart;"
-  },
-  {
-    "name": "Django - dumpdata",
-    "text": "manage.py dumpdata <app>.<table> -o <path>/fixture/<filename>.json",
-    "keyword": "!django-dumpdata;"
-  },
-  {
-    "name": "Localstack - S3",
-    "text": "aws --profile localstack --endpoint-url=http://localhost:4566 s3",
-    "keyword": ""
-  }
+  {"name":"[Android]liftspot client log path","text":"\/storage\/self\/primary\/Android\/data\/com.inforich.liftspot\/files\/logcat"},
+  {"name":"[Android]liftspot pull log","text":"adb pull \/storage\/self\/primary\/Android\/data\/com.inforich.liftspot\/files\/logcat ~\/Desktop\/logcat\/"},
+  {"name":"[SHELL] Password Zip","text":"zipcloak {cursor}"},
+  {"name":"[SHELL] echo $PATH","text":"echo $PATH | tr ':' '\n'","keyword":"!echo-path;"},
+  {"name":"[Review] Tag of Comment","text":"[Ask|FYI|NITS|NR|IMO|MUST]\n# ASK : 質問\n# FYI (For Your Information) : 参考情報\n# NITS (Nitpick) : あら捜し(無視可)\n# NR (No Rush) : お手隙\n# IMO (In My Opinion) : 提案\n# MUST : 必須 "},
+  {"name":"[Slack] Subscribe Github Repo","text":"\/github subscribe {argument name=\"repo\"} releases reviews issues pulls comments branches commits:*"},
+  {"name":"[Slack] Unsubscribe Github Repo","text":"\/github unsubscribe {argument name=\"repo\"}"},
+  {"name":"[Slack] Reminder","text":"\/remind me to {cursor} on {date +1d \"yyyy-MM-dd\"} at {time}"},
+  {"name":"[Date] Today (yyyy-MM-dd)","keyword":"!today;","text":"{date \"yyyy-MM-dd\"}"},
+  {"name":"[Date] Now (yyyy\/MM\/dd HH:mm:ss)","text":"{date \"yyyy\/MM\/dd HH:mm:ss\"}","keyword":"!now;"},
+  {"name":"[Date] 本日日付","text":"{date \"yyyy年MM月dd日\"}","keyword":"!jptoday;"},
+  {"name":"[Date] Time (HH:mm:ss)","text":"{date \"HH:mm:ss\"}","keyword":"!time;"},
+  {"name":"[MacOS] Change Screenshot Filename Postfix to Number","text":"defaults write com.apple.screencapture include-date -bool false"},
+  {"name":"[MacOS] Change Screenshot Filename Postfix to Date","text":"defaults delete com.apple.screencapture include-date"},
+  {"name":"[MacOS] Change Screenshot Filename Prefix to 'screenshot'","text":"defaults write com.apple.screencapture name screenshot"},
+  {"name":"[MacOS] Add ssh-key (inap)","text":"ssh-add -K ~\/.ssh\/sugawarayss-GitHub"},
+  {"name":"[Golang] Build for Windows","text":"GOOS=windows GOARCH=amd64 go build -o .\/build\/windows-amd64\/{hoge}.exe .\/{hoge}.go"},
+  {"name":"[Golang] Build for MacOS","text":"GOOS=darwin GOARCH=amd64 go build -o .\/darwin-amd64\/{hoge} {hoge}.go"},
+  {"name":"[Golang] Build for Linux","text":"GOOS=linux GOARCH=amd64 go build -o l.\/build\/inux-amd64\/{hoge} .\/{hoge}.go"},
+  {"name":"[Pipenv] Install Packages form requirement.txt","text":"pipenv install -r requirements.txt"},
+  {"name":"[Poetry] Config virtualenvs.in-project","text":"poetry config virtualenvs.in-project true"},
+  {"name":"[Poetry] Activate virtualenv","text":"source $(poetry env info --path)\/bin\/activate"},
+  {"name":"[Python] black (pyproject.toml)","text":"[tool.black]\nline-length = 150\nexclude = '''\n\/(\n    \\.eggs\n  | \\.git\n  | \\.hg\n  | \\.mypy_cache\n  | \\.tox\n  | \\.venv\n  | _build\n  | buck-out\n  | build\n  | dist\n)\/\n'''"},
+  {"name":"[Python] ruff py3.11(pyproject.toml)","text":"[tool.ruff]\ntarget-version = \"py311\"\nline-length = 150\nindent-width = 4\n\n[tool.ruff.lint]\nexclude = [\n    \".bzr\",\n    \".direnv\",\n    \".eggs\",\n    \".git\",\n    \".git-rewrite\",\n    \".hg\",\n    \".mypy_cache\",\n    \".nox\",\n    \".pants.d\",\n    \".pytype\",\n    \".ruff_cache\",\n    \".svn\",\n    \".tox\",\n    \".venv\",\n    \"__pypackages__\",\n    \"_build\",\n    \"buck-out\",\n    \"build\",\n    \"dist\",\n    \"node_modules\",\n    \"venv\",\n    \"pyproject.toml\",\n]\nselect = [\"ALL\"]\nignore = [\n    \"D\",      # pydocstyle\n    \"YTT\",    # flake8-2020\n    \"S\",      # flake8-bandit\n    \"BLE\",    # flake8-blind-except\n    \"FBT\",    # flake8-boolean-trap\n    \"B\",      # flake8-bugbear\n    \"COM\",    # flake8-commas\n    \"CPY\",    # flake8-copyright\n    \"C4\",     # flake8-comprehensions\n    \"DTZ\",    # flake8-datetimez\n    \"T10\",    # flake8-debugger\n    \"DJ\",     # flake8-django\n    \"EM\",     # flake8-errmsg\n    \"EXE\",    # flake8-executable\n    \"FA\",     # flake8-future-annotation\n    \"ISC\",    # flake8-implicit-str-concat\n    \"G\",      # flake8-logging-format\n    \"T20\",    # flake8-print\n    \"TID\",    # flake8-tidy-imports\n    \"ARG\",    # flake8-unused-arguments\n    \"PTH\",    # flake8-use-pathlib\n    \"TD\",     # flake8-todo\n    \"FIX\",    # flake8-fixme\n    \"ERA\",    # eradicate\n    \"TRY\",    # tryceratops\n    \"FLY\",    # flynt\n    \"ANN101\", # flake8-annotations (missing-type-function-argument)\n    \"S101\",   # flake8-bandit\n    \"A003\",   # flake8-builtins (builtin-attribute-shadowing)\n    \"B008\",   # flake8-bugbear (function-call-in-default-argument)\n    \"COM812\", # flake8-commas (missing-trailing-comma)\n    \"RET504\", # flake8-return (Unnecessary assignment to `response` before `return` statement)\n    \"ERA001\", # eradicate (Found commented-out code)\n    \"I001\",   # isort (Import block is un-sorted or un-formatted)\n    \"N815\",   # pep8-naming (mixed-case-variable-in-class-scope)\n    \"E501\",   # pycodestyle (line-too-long)\n    \"RUF001\",  # Ruff-specific rules (ambigous-unicode-character-string)\n]\n\n[tool.ruff.format]\nindent-style = \"space\"\nline-ending = \"lf\"\npreview = false\nquote-style = \"double\"\nskip-magic-trailing-comma = true\n\n[tool.ruff.lint.isort]\ncombine-as-imports = true\ncase-sensitive = true\nlines-after-imports = 1\nforce-wrap-aliases = true\nknown-local-folder = [\"tests\", \"migration\"]\nsplit-on-trailing-comma = true\n"},
+  {"name":"[Python] ruff py3.12(pyproject.toml)","text":"[tool.ruff]\ntarget-version = \"py312\"\nline-length = 150\nindent-width = 4\nrespect-gitignore = true\nexclude = [\n    \".bzr\",\n    \".direnv\",\n    \".eggs\",\n    \".git\",\n    \".git-rewrite\",\n    \".hg\",\n    \".mypy_cache\",\n    \".nox\",\n    \".pants.d\",\n    \".pytype\",\n    \".ruff_cache\",\n    \".svn\",\n    \".tox\",\n    \".venv\",\n    \"__pypackages__\",\n    \"_build\",\n    \"buck-out\",\n    \"build\",\n    \"dist\",\n    \"node_modules\",\n    \"venv\",\n]\n\n[tool.ruff.lint]\nselect = [\"ALL\"]\nignore = [\n    \"D\",      # pydocstyle\n    \"YTT\",    # flake8-2020\n    \"S\",      # flake8-bandit\n    \"BLE\",    # flake8-blind-except\n    \"FBT\",    # flake8-boolean-trap\n    \"B\",      # flake8-bugbear\n    \"COM\",    # flake8-commas\n    \"CPY\",    # flake8-copyright\n    \"C4\",     # flake8-comprehensions\n    \"DTZ\",    # flake8-datetimez\n    \"T10\",    # flake8-debugger\n    \"DJ\",     # flake8-django\n    \"EM\",     # flake8-errmsg\n    \"EXE\",    # flake8-executable\n    \"FA\",     # flake8-future-annotation\n    \"ISC\",    # flake8-implicit-str-concat\n    \"G\",      # flake8-logging-format\n    \"T20\",    # flake8-print\n    \"TID\",    # flake8-tidy-imports\n    \"ARG\",    # flake8-unused-arguments\n    \"PTH\",    # flake8-use-pathlib\n    \"TD\",     # flake8-todo\n    \"FIX\",    # flake8-fixme\n    \"ERA\",    # eradicate\n    \"TRY\",    # tryceratops\n    \"FLY\",    # flynt\n    \"ANN101\", # flake8-annotations (missing-type-function-argument)\n    \"S101\",   # flake8-bandit\n    \"A003\",   # flake8-builtins (builtin-attribute-shadowing)\n    \"B008\",   # flake8-bugbear (function-call-in-default-argument)\n    \"COM812\", # flake8-commas (missing-trailing-comma)\n    \"RET504\", # flake8-return (Unnecessary assignment to `response` before `return` statement)\n    \"ERA001\", # eradicate (Found commented-out code)\n    \"I001\",   # isort (Import block is un-sorted or un-formatted)\n    \"N815\",   # pep8-naming (mixed-case-variable-in-class-scope)\n    \"E501\",   # pycodestyle (line-too-long)\n    \"RUF001\",  # Ruff-specific rules (ambigous-unicode-character-string)\n]\n\n[tool.ruff.format]\n# docstring内のコードスニペットもフォーマットする\ndocstring-code-format = true\n# docstring内のコードスニペットの行長\ndocstring-code-line-length = 150\n# インデントにはスペースを使う\nindent-style = \"space\"\n# 改行文字はLFに統一する\nline-ending = \"lf\"\n# 安定していないスタイルの設定は無効化する\npreview = false\n# ダブルクォートで統一する\nquote-style = \"double\"\n# 末尾のカンマは無視しない(blackとの整合性)\nskip-magic-trailing-comma = false\n\n"},
+  {"name":"[Python] isort (pyproject.tml)","text":"[tool.isort]\nline_length = 150\nmulti_line_output = 3\ninclude_trailing_comma = true\nknown_local_folder=['config',]\n"},
+  {"name":"[Python] pytest (pyproject.toml)","text":"[tool.pytest.ini_options]\naddopts = \"-ra -q\"\nasyncio_mode = \"auto\"\nfilterwarnings = [\"ignore::DeprecationWarning\"]\npythonpath = [\"<your source route>\"]\ntestpaths = [\"<your test route>\"]\n"},
+  {"name":"[Python] mypy (pyproject.toml)","text":"# Linter: mypyの設定\n[tool.mypy]\nplugins = [\"pydantic.mypy\"]\n# チェックから除外する対象\nexclude = \".venv\/\"\n# 再帰的に型チェックしていくルールの指定(normal, silent, skip, error)\nfollow_imports = \"silent\"\n# 無駄な型キャストを警告する\nwarn_redundant_casts = true\n# errorを無視するコメントが、本来エラーが発生しない箇所にある場合に警告する\nwarn_unused_ignores = true\n# 明示的な型パラメータを指定しないジェネリック型の使用を禁止する\ndisallow_any_generics = true\n# 型ヒントの無い関数の内部を型チェックする\ncheck_untyped_defs = true\n# インポートしたモジュールを他のモジュールに再エクスポートさせない\nno_implicit_reexport = true\n# サードパーティ製モジュールの型アノテーションチェックを無効化\nignore_missing_imports = true\n\n[tool.pydantic-mypy]\n# pydanticモデルの初期化時に未定義のフィールドを渡している場合に警告する\ninit_forbid_extra = true\n# __init__メソッドの型チェックを行う\ninit_typed = true\n# 必須フィールドに対して動的エイリアスを使用すると警告する\nwarn_required_dynamic_aliases = true\n# Linter: mypyの設定\n[tool.mypy]\nplugins = [\"pydantic.mypy\"]\n# チェックから除外する対象\nexclude = \".venv\/\"\n# 再帰的に型チェックしていくルールの指定(normal, silent, skip, error)\nfollow_imports = \"silent\"\n# 無駄な型キャストを警告する\nwarn_redundant_casts = true\n# errorを無視するコメントが、本来エラーが発生しない箇所にある場合に警告する\nwarn_unused_ignores = true\n# 明示的な型パラメータを指定しないジェネリック型の使用を禁止する\ndisallow_any_generics = true\n# 型ヒントの無い関数の内部を型チェックする\ncheck_untyped_defs = true\n# インポートしたモジュールを他のモジュールに再エクスポートさせない\nno_implicit_reexport = true\n# サードパーティ製モジュールの型アノテーションチェックを無効化\nignore_missing_imports = true\n\n[tool.pydantic-mypy]\n# pydanticモデルの初期化時に未定義のフィールドを渡している場合に警告する\ninit_forbid_extra = true\n# __init__メソッドの型チェックを行う\ninit_typed = true\n# 必須フィールドに対して動的エイリアスを使用すると警告する\nwarn_required_dynamic_aliases = true\n"},
+  {"name":"[Python] pdb breakpoint","text":"breakpoint()"},
+  {"name":"[Python] time measure","text":"from functools import wraps\nimport time\n\n\ndef stop_watch(func):\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        elapsed_time = time.time() start\n        print(f\"{func.__name__} took {elapsed_time} seconds.\")\n        return result\n    return wrapper\n\n\n@stop_watch\ndef target_func():\n    pass\n\ntarget_func()"},
+  {"name":"[Github] Table","text":"| Title1 | Title2 |\n| ------- | ------- |\n| Content1 | Content2 |\n  "},
+  {"name":"[Github] Detail","text":"<details>\n<summary>Title<\/summary>\n\n<\/details>"},
+  {"name":"[Github] Warning","text":"> [!WARNING]\n> "},
+  {"name":"[Github] Note","text":"> [!NOTE]\n> "},
+  {"name":"[Github] Important","text":"> [!IMPORTANT]\n> "},
+  {"name":"[Github] Caution","text":"> [!CAUTION]\n> "},
+  {"name":"[Neovim] Startuptime with Log","text":"nvim --startuptime ~\/nvim.log +q"},
+  {"name":"[Homebrew] Uninstall","text":"brew list | gum choose --no-limit | xargs brew uninstall"},
+  {"name":"[Terminal] Copy to Clipboard","text":"| pbcopy"},
+  {"name":"[Service] control","text":"sudo systemctl {cursor} {name}"},
+  {"name":"[Service] log","text":"sudo journalctl -u <name>"},
+  {"name":"[HTML5] Boilerplate","text":"<html class=\"no-js\" lang=\"\">\n\n<head>\n  <meta charset=\"utf-8\">\n  <title><\/title>\n  <meta name=\"description\" content=\"\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n  <meta property=\"og:title\" content=\"\">\n  <meta property=\"og:type\" content=\"\">\n  <meta property=\"og:url\" content=\"\">\n  <meta property=\"og:image\" content=\"\">\n\n  <link rel=\"icon\" href=\"\/favicon.ico\" sizes=\"any\">\n  <link rel=\"icon\" href=\"\/icon.svg\" type=\"image\/svg+xml\">\n  <link rel=\"apple-touch-icon\" href=\"icon.png\">\n\n  <link rel=\"stylesheet\" href=\"css\/normalize.css\">  <link rel=\"stylesheet\" href=\"css\/style.css\">\n\n  <link rel=\"manifest\" href=\"site.webmanifest\">\n  <meta name=\"theme-color\" content=\"#fafafa\">\n<\/head>\n\n<body>\n\n  <p>Hello world! This is HTML5 Boilerplate.<\/p>\n  <script src=\"js\/vendor\/modernizr-{{MODERNIZR_VERSION}}.min.js\"><\/script>\n  <script src=\"js\/app.js\"><\/script>\n\n<\/body>\n\n<\/html>"},
+  {"name":"[SSH] [STG] LiftSPOT","text":"ssh ec2-user@$(aws ec2 describe-instances --profile liftspot-stg --filters Name=tag-value,Values=\"LiftSPOT_Stg\" | jq -r '.Reservations[].Instances[].PublicIpAddress') -i ~\/.ssh\/keys\/liftspotadmin_stg.pem"},
+  {"name":"[SSH] [PRD] LiftSPOT","text":"ssh ec2-user@$(aws ec2 describe-instances --profile liftspot-prd --filters Name=tag-value,Values=\"LiftSPOT\" | jq -r '.Reservations[].Instances[].PublicIpAddress') -i ~\/.ssh\/keys\/liftspotadmin_prd.pem"},
+  {"name":"[SSH] [STG] AGTC","text":"ssh admin-user@agtc-stg.japanwest.cloudapp.azure.com -i ~\/.ssh\/keys\/kv-agtcdata-agtc-westjp-001.pem"},
+  {"name":"[SSH] [PRD] AGTC","text":"ssh admin-user@agtc-prd.japanwest.cloudapp.azure.com -i ~\/.ssh\/keys\/kv-agtcdata-agtc-westjp-001.pem"},
+  {"name":"[Docker] Search always restart container","text":"docker inspect -f \"{{.Name}} {{.HostConfig.RestartPolicy.Name}}\" $(docker ps -aq) | grep always"},
+  {"name":"[Django] dumpdata","text":"manage.py dumpdata <app>.<table> -o <path>\/fixture\/<filename>.json"},
+  {"name":"[Localstack] S3","text":"aws --profile localstack --endpoint-url=http:\/\/localhost:4566 s3"},
+  {"name":"[Azure] Switch Active Subscription","text":"az account set --subscription $(az account list --output json | jq -r '.[].name' | peco --prompt 'Select SubscriptionName for Switch Active Tenant to >' | xargs -I{} az account list --query \"[?name=='{}'].id\" --output tsv)\n"}
 ]
