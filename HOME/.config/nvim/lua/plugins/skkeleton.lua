@@ -28,15 +28,17 @@ return {
         pattern = "skkeleton-initialize-pre",
         callback = function()
           vim.fn["skkeleton#config"]({
+            acceptIllegalResult = true,  -- 入力に失敗したローマ字がバッファに残る
             eggLikeNewline = true, -- 変換モードで改行キーを押した際に確定のみを行う
             registerConvertResult = true, -- カタカナ変換結果を辞書に登録する
             globalDictionaries = dictionaries, -- グローバル辞書を指定
+            showCandidatesCount = 3,  -- 候補表示数
           })
         end,
       })
 
       -- 英字モードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg = "#2e3440", bg = "#a3be8c" })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg = "#ebcb8b", bg = "#2e3440" })
       -- ひらがなモードのハイライトカラー定義
       vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg = "#88c0d0", bg = "#2e3440" })
       -- カタカナモードのハイライトカラー定義
@@ -76,15 +78,15 @@ return {
         -- 枠線のスタイルを指定
         border = "rounded",
         -- カーソル位置を元にインジケータの表示位置(縦)を指定
-        row = 0,
+        row = 1,
         -- カーソル位置を元にインジケータの表示位置(横)を指定
-        col = 1,
+        col = 2,
         -- インジケータのz軸を指定
         zindex = nil,
         -- 常時表示(IMEがon時にのみ表示)
-        alwaysShown = false,
+        alwaysShown = true,
         -- インジケータの表示時間(ミリ秒)を指定
-        fadeOutMs = 3000,
+        fadeOutMs = 0,
         -- インジケータを表示しないファイルタイプを指定
         ignoreFt = {},
         -- インジケータを表示するか判定する関数を指定(引数はバッファ番号)
