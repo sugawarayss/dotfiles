@@ -45,3 +45,6 @@ pyrightconfig.json
 
 # local ssl
 localhost*pem
+
+# VSCODE setp counter
+.VSCodeCounter/
