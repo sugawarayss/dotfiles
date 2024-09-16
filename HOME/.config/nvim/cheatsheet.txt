@@ -1,115 +1,126 @@
 ## Neotree @neotree @explorer
-Show File Explorer   | <C-t><C-t>
-Toggle node          | <space>
-Open                 | <CR>
-Cancel               | <ESC>
-Toggle preview       | P
-Focus preview        | l
-Open Split           | <C-s>
-Open vSplit          | <C-v>
-Close node           | C
-Close all node       | z
-Add file             | a
-Add directory        | A
-Delete               | d
-Rename               | r
-Copy to clipboard    | y
-Cut to clipboard     | x
-Paste from clipboard | p
-Move                 | m
-Close window         | q
-Refresh              | R
-Show help            | ?
-Prev source          | <
-Next source          | >
-Show file details    | i
+ファイルエクスプローラ表示(トグル) | <C-t><C-t>
+ディレクトリ折畳/展開トグル        | <space>
+開く                               | <CR>
+キャンセル                         | <ESC>
+プレビュー表示/非表示トグル        | P
+プレビューにフォーカス             | l
+水平分割でファイルを開く           | <C-s>
+垂直分割でファイルを開く           | <C-v>
+ディレクトリ折畳                   | C
+全てのディレクトリを折畳           | z
+ファイルを新規作成                 | a
+ディレクトリを新規作成             | A
+削除                               | d
+リネーム                           | r
+クリップボードにコピー             | y
+カットしてクリップボードにコピー   | x
+クリップボードからペースト         | p
+移動                               | m
+ウィンドウを閉じる                 | q
+リフレッシュ                       | R
+ヘルプを表示                       | ?
+前の source                        | <
+次の source                        | >
+ファイルの詳細を表示               | i
 
 ## Mason @lsp
-Install Package      | i
-Uninstall Package    | X
-Update Package       | u
-Update All Package   | U
-Cancel Installation  | <C-c>
-Help                 | g?
+パッケージをインストール      | i
+パッケージをアンインストール  | X
+パッケージをアップデート      | u
+全てのパッケージをアップデート| U
+インストールのキャンセル      | <C-c>
+ヘルプを表示                  | g?
 
 ## Copilot @copilot
-Jump prev | [[
-Jump next | ]]
-accept    | <CR>
-refresh   | gr
-open      | <M-CR>
+前へジャンプ | [[
+次へジャンプ | ]]
+採択         | <CR>
+リフレッシュ | gr
+開く         | <M-CR>
 
 ## CopilotChat @copilot
-Chat Toggle as float Window        | <Leader>cco
-Chat Toggle as horizontal Window   | <Leader>ccb
-Quick Chat with buffer is context  | <Leader>ccq
-Explain code                       | <Leader>cce
-Review code                        | <Leader>ccr
-Generate Test code                 | <Leader>cct
-Show Prompt Actions with Telescope | <Leader>ccp
-Stop Output                        | <Leader>ccs
+CopilotChatをフロートウィンドウで開く              | <Leader>cco
+CopilotChatを水平分割で開く                        | <Leader>ccb
+現在のバッファをコンテキストとしてCopilotChatを開く| <Leader>ccq
+コードを解説する                                   | <Leader>cce
+コードをレビューする                               | <Leader>ccr
+テストコードを生成する                             | <Leader>cct
+プロンプトアクションをTelescopeで表示する          | <Leader>ccp
+出力を停止する                                     | <Leader>ccs
 
 
 ## BufferEdit @buffer
-Focus Left Buffer       | sh
-Focus Right Buffer      | sl
-Focus upper Buffer      | sk
-Focus lower Buffer      | sj
-Buffer List(Telescope)  | <F5>
-Close Buffer(Telescope) | (insert mode) <C-c>
-Move Buffer Left        | <Leader>h
-Move Buffer Right       | <Leader>l
-Close all Left Buffer   | <C-S-h>
-Close all Right Buffer  | <C-S-l>
-Collapse code           | zc
-Expand code             | zo
-Collapse all code       | zM
-Expand all code         | zR
-Display Preview         | zn
+リドゥ(<C-r>をリマップ)             | <S-u>
+左のバッファにフォーカス            | sh
+右のバッファにフォーカス            | sl
+上のバッファにフォーカス            | sk
+下のバッファにフォーカス            | sj
+バッファリストをTelescopeで表示     | <C-b><C-f>
+Telescopeで選択したバッファを閉じる | (insert mode) <C-c>
+バッファを左に移動                  | <Leader>h
+バッファを右に移動                  | <Leader>l
+左のバッファ全てを閉じる            | <C-S-h>
+右のバッファ全てを閉じる            | <C-S-l>
+コードを折畳む                      | zc
+コードを展開する                    | zo
+コードを全て折畳む                  | zM
+コードを全て展開する                | zR
+折畳んだコードのプレビューを表示    | zn
+対応する括弧にジャンプ              | <S-m>
+カーソル位置の単語を大文字に変換    | (insert mode) <C-g><C-u>
+カーソル位置の単語を小文字に変換    | (insert mode) <C-g><C-l>
+カーソル位置の単語の先頭だけ大文字に変換 | (insert mode) <C-g><C-w>
+
+
 
 ## Obsidian
-Search obsidian Notes     | <Leader>o
-Create obsidian Note      | <Leader>on
-Create today's Daily Note | <Leader>ot
+Obsidian ノートを検索する         | <Leader>o
+Obsidian ノートを作成する         | <Leader>on
+Obsidian デイリーノートを作成する | <Leader>ot
 
 ## SplitWindow
-Split Vertical            | ss
-Split Horizontal          | sv
-Enable Window Resize mode | <C-E>
-Resize Direction          | h, j, k, l
-Resize apply              | <CR>
+バッファを上下に分割して開く    | ss
+バッファを左右に分割して開く    | sv
+Enable Window Resize mode       | <C-E>
+ウィンドウサイズ調整モードに入る| <C-E>
+ウィンドウサイズ調整            | h, j, k, l
+ウィンドウサイズ確定            | <CR>
 
 ## terminal
-Display terminal as float window    | <C-t><C-t>
-Display terminal as vertical window | <C-t><C-v>
-Display lazygit as float window     | <Leader>g
+ターミナルをフロートウィンドウで開く| <C-t><C-f>
+ターミナルを垂直分割で開く(左右)| <C-t><C-v>
+ターミナルを水平分割で開く(上下)| <C-t><C-m>
+lazygit を開く | <Leader>g
 
 ## LSP @lsp
-back                              | <C-o>
-Display variable information      | <S-k>
-Jump to definition                | gd
-Display reference List(Telescope) | gr
-Jump to type definition           | gt
-Jump to declaration               | gD
-Jump to implementation            | gi
-Display error content             | go
-Display error deal                | ga
-rename                            | gn
-run code formatting               | gf
-Jump to Next error                | gj
-Jump to prev error                | gk
+戻る                                | <C-o>
+変数の情報を表示する                | <S-k>
+定義にジャンプ                      | gd
+参照箇所一覧を Telescope で表示する | gr
+型定義にジャンプ                    | gt
+宣言箇所にジャンプ                  | gD
+実装箇所にジャンプ                  | gi
+エラー内容を表示する                | go
+エラーアクション候補を表示する      | ga
+リネームする                        | gn
+コードフォーマットを実行する        | gf
+次のエラーにジャンプ                | gj
+前のエラーにジャンプ                | gk
 
 ## Debugger
-Display dap-ui                 | <Leader>db
-Toggle breakPoint              | <M-b><M-b>
-Set breakpoint with condition  | <M-S-b><M-S-b>
-Set breakpoint with log output | <Leader>lp
-Launch REPL                    | <Leader>dr
-Rerun latest                   | <Leader>dl
-Continue                       | <F8>
-Step over                      | <F9>
-Step in                        | <F10>
-Step out                       | <F7>
+デバッグUIを表示する               | <Leader>db
+ブレークポイントをトグル           | <M-b><M-b>
+Set breakpoint with condition      | <M-S-b><M-S-b>
+条件付きブレークポイントを付与     | <M-S-b><M-S-b>
+Set breakpoint with log output     | <Leader>lp
+ログ出力付きブレークポイントを付与 | <Leader>lp
+REPL を起動                        | <Leader>dr
+最新をデバッグを再実行             | <Leader>dl
+コンテニュー                       | <F8>
+ステップオーバー                   | <F9>
+ステップイン                       | <F10>
+ステップアウト                     | <F7>
 
 ## Git @git @diff
 Branch List(Telescope)         | <M-g><M-b>
@@ -170,13 +181,6 @@ alias                                         | w: Word, s: sentence
 カーソル位置の単語を囲むタグを除去            | dst : delete sussound tag
 visualで選択状態の文字を<記号>囲む            | (選択状態で) <S-s><記号>
 
-## Multiple Cursor
-Start Multiple Cursor      | <C-n>
-Next Multiple Cursor       | <C-n>
-prev Multiple Cursor       | <C-p>
-skip Multiple Cursor       | <C-x>
-Select All Multiple Cursor | <A-a>
-
 ## trouble
 Display troubles              | <Leader>xx
 Display troubles in workspace | <Leader>xw
@@ -199,8 +203,9 @@ Jump to Prev Outline              | <Leader>k
 Jump to Next Outline              | <leader>j
 
 ## Telescope
-Search by Filename(Telescope)    | <C-p>
-Search by Content(Telescope)     | <C-g>
+Search by Filename(Telescope)    | <F3>
+Search by Content(Telescope)     | <F4>
+Show Smart Open(Telescope)       | <F5>
 Search by TODO(Telescope)        | <C-t><C-d>
 Keymap List(Telescope)           | <C-k><C-m>
 Search Command History(Telescope) | <C-c><C-h>
@@ -220,8 +225,8 @@ Toggle Bookmark                  | mm
 Display Bookmark List(Telescope) | <C-b><C-m>
 
 ## Translate
-Translate Cursor Word to Japanese | <C-t>j
-Translate Cursor Word to English  | <C-t>e
+カーソル位置の単語を日本語に翻訳  | <C-t>j
+カーソル位置の単語を英語に翻訳    | <C-t>e
 
 ## Pantran(Translate)
 Display float window Translate   | <Leader>tr
