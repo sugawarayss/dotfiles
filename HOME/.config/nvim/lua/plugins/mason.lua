@@ -80,7 +80,7 @@ return {
           -- go
           "gopls",
           -- typescript
-          "ts_ls",
+          "tsserver",
           -- lua
           "lua_ls",
           -- deno
@@ -122,7 +122,7 @@ return {
             }
           end
 
-          if server == "ts_ls" then
+          if server == "tsserver" then
             if not is_node_repo then
               return
             end
