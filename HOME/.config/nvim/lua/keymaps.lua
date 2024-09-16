@@ -48,6 +48,13 @@ end
 -- 行末までのヤンクにする(neovimはデフォルトで行末までヤンク)
 -- u.keymap("n", "Y", "y$", opts)
 
+-- レジスタに入れずにカット
+-- u.keymap("n", "x", "\"_d", opts)
+u.keymap("n", "X", "\"_D", opts)
+u.keymap("x", "x", "\"_x", opts)
+u.keymap("o", "x", "d", opts)
+
+
 -- U で Redo 
 u.keymap("n", "U", "<C-r>", opts)
 
@@ -64,8 +71,8 @@ u.keymap("i", "<C-f>", "<C-g>U<Right>", opts)
 u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
 
 -- 行を上下に移動
--- u.keymap("n", "<M-k>", "$'<Cmd>move-1-{v:count1}<CR>=l'")
--- u.keymap("n", "<M-j>", "$'<Cmd>move+{v:count1}<CR>=l'")
+-- u.keymap("n", "<S-k>", "$'<Cmd>move-1-{v:count1}<CR>=l'")
+-- u.keymap("n", "<S-j>", "$'<Cmd>move+{v:count1}<CR>=l'")
 
 -- M で括弧ジャンプ
 u.keymap("n", "<S-m>", "%")
@@ -90,10 +97,16 @@ u.keymap("n", "#", "#zz", opts)
 u.keymap("n", "g*", "g*zz", opts)
 u.keymap("n", "g#", "g#zz", opts)
 
-
 -----------------------------
 ---         Visual        ---
 -----------------------------
+-- 連続ペーストできるように ペーストしても無名レジスタを更新させない
+u.keymap("x", "p", "P", opts)
+
+-- スペースに挟まれた範囲(WORD単位)を選択
+u.keymap("o", "i<space>", "iW")
+u.keymap("x", "i<space>", "iW")
+
 -- visualモードで選択した範囲をインデントしてもvisualモードを維持する
 u.keymap("v", "<", "<gv", opts)
 u.keymap("v", ">", ">gv", opts)

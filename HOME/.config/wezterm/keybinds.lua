@@ -14,7 +14,7 @@ return {
     -- クイックセレクトモード
     { key = 'phys:Space', mods = 'SHIFT|CTRL', action = act.QuickSelect },
     -- コピーモードを開始
-    { key = 'F4', mods = 'NONE', action = act.ActivateCopyMode },
+    -- { key = 'F4', mods = 'NONE', action = act.ActivateCopyMode },
     -- コマンドパレットを表示
     { key = 'F1', mods = 'NONE', action = act.ActivateCommandPalette },
     -- デバッグ情報を表示

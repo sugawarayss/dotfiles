@@ -82,7 +82,6 @@ Obsidian デイリーノートを作成する | <Leader>ot
 ## SplitWindow
 バッファを上下に分割して開く    | ss
 バッファを左右に分割して開く    | sv
-Enable Window Resize mode       | <C-E>
 ウィンドウサイズ調整モードに入る| <C-E>
 ウィンドウサイズ調整            | h, j, k, l
 ウィンドウサイズ確定            | <CR>
@@ -111,9 +110,7 @@ lazygit を開く | <Leader>g
 ## Debugger
 デバッグUIを表示する               | <Leader>db
 ブレークポイントをトグル           | <M-b><M-b>
-Set breakpoint with condition      | <M-S-b><M-S-b>
 条件付きブレークポイントを付与     | <M-S-b><M-S-b>
-Set breakpoint with log output     | <Leader>lp
 ログ出力付きブレークポイントを付与 | <Leader>lp
 REPL を起動                        | <Leader>dr
 最新をデバッグを再実行             | <Leader>dl

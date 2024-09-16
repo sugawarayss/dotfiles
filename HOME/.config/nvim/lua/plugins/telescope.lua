@@ -34,7 +34,7 @@ return {
       {"<C-c><C-h>", "<cmd>Telescope command_history<CR>", mode = "n", opt, desc = "Show Fuzzy Finder of Command History"},
       {"<C-b><C-f>", "<cmd>Telescope buffers show_all_buffers=true<CR>", mode = "n", opt, desc = "バッファを検索"},
       {"<C-b><C-m>", "<cmd>Telescope bookmarks list<CR>", mode = "n", opt, desc = "ブックマークを検索"},
-      {"<C-k><C-m>", "<cmd>Telescope keymaps<CR>", mode = "n", opt, desc = "Keymap を検索"},
+      {"<M-k><M-m>", "<cmd>Telescope keymaps<CR>", mode = "n", opt, desc = "Keymap を検索"},
     },
     config = function()
       local telescope = require("telescope")
