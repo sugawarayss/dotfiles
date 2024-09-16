@@ -5,7 +5,7 @@ return {
   dependencies = "nvim-tree/nvim-web-devicons",
   event = { "LspAttach" },
   keys = {
-    { "<Leader>aa", "<cmd>AerialToggle!<CR>", mode = "n", desc = "Toggle Show OutLine" },
+    { "<Leader>aa", "<cmd>AerialToggle!<CR>", mode = "n", desc = "アウトライン表示をトグル" },
   },
   config = function()
     require("aerial").setup({

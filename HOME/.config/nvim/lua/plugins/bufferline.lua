@@ -11,12 +11,12 @@ if not vim.g.vscode then
     },
     event = { "BufReadPre" },
     keys = {
-      {"L", "<Cmd>BufferLineCycleNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "Switch Current Window to Next BufferLine"},
-      {"H", "<Cmd>BufferLineCyclePrev<CR>", mode = "n", { noremap = true, silent = true }, desc = "Switch Current Window to Prev BufferLine" },
-      {"<Leader>h", "<Cmd>BufferLineMovePrev<CR>", mode = "n", { noremap = true, silent = true }, desc = "Move BufferLine to Prev"},
-      {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "Move BufferLine to Next"},
-      {"<C-H>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }, desc = "Close Left BufferLines"},
-      {"<C-L>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }, desc = "Close Right BufferLines"},
+      {"L", "<Cmd>BufferLineCycleNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "次のバッファを表示"},
+      {"H", "<Cmd>BufferLineCyclePrev<CR>", mode = "n", { noremap = true, silent = true }, desc = "前のバッファを表示" },
+      {"<Leader>h", "<Cmd>BufferLineMovePrev<CR>", mode = "n", { noremap = true, silent = true }, desc = "バッファを左に移動"},
+      {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "バッファを右に移動"},
+      {"<C-H>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }, desc = "左のバッファを閉じる"},
+      {"<C-L>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }, desc = "右のバッファを閉じる"},
       -- disable keybind because CopilotChat use this keybind
       -- {"<leader>c", ":bd<CR>", mode = "n", { silent = true }, desc = "Close Current Buffer"},
     },

@@ -47,7 +47,7 @@ return {
         })
       end,
       mode = { "n", "v" },
-      desc = "CopilotChat - Toggle as float window" 
+      desc = "CopilotChat を フロートウィンドウで表示"
     },
     {
       "<Leader>ccb",
@@ -64,7 +64,7 @@ return {
         })
       end,
       mode = { "n", "v" },
-      desc = "CopilotChat - Toggle as bottom window" 
+      desc = "CopilotChat - Toggle as bottom window"
     },
     {
       "<Leader>ccn",

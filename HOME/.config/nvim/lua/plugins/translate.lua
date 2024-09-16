@@ -4,8 +4,8 @@ return {
     "voldikss/vim-translator",
     lazy = true,
     keys = {
-      { "<C-t>j", "<cmd>Translate<CR>", mode = "n", desc = "Translate word on cursor to Japanese" },
-      { "<C-t>e", "<cmd>Translate --target_lang=en<CR>", mode = "n", desc = "Translate word on cursor to English"},
+      { "<C-t>j", "<cmd>Translate<CR>", mode = "n", desc = "カーソル位置の単語を日本語に翻訳" },
+      { "<C-t>e", "<cmd>Translate --target_lang=en<CR>", mode = "n", desc = "カーソル位置の単語を英語に翻訳"},
     },
     config = function()
       vim.g.translator_target_lang = "ja"

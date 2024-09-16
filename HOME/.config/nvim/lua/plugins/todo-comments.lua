@@ -5,8 +5,8 @@ return {
   event = "VeryLazy",
   dependencies = "nvim-lua/plenary.nvim",
   keys = {
-    { ";t", function() require("todo-comments").jump_next() end, mode = "n", desc = "Next todo comment" },
-    { ":t", function() require("todo-comments").jump_prev() end, mode = "n", desc = "Previous todo comment"},
+    { ";t", function() require("todo-comments").jump_next() end, mode = "n", desc = "次の TODO コメントにジャンプ" },
+    { ":t", function() require("todo-comments").jump_prev() end, mode = "n", desc = "前の TODO コメントにジャンプ"},
   },
   config = function()
     require("todo-comments").setup({
