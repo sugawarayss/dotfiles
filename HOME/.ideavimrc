@@ -17,7 +17,8 @@ let mapleader = " "
 nnoremap <Leader>rr :source ~/.ideavimrc<CR>
 
 " Ctrl+fで一つ右へ移動
-inoremap <C-l> <Esc>la
+inoremap <C-f> <Esc>la
+sethandler <C-f> n-v:ide i:vim
 " Ctrl+f Ctrl+f で一番外へ移動
 inoremap <C-f><C-f> <Esc>A
 
@@ -58,8 +59,8 @@ nnoremap ,c :action CallHierarchy<CR>
 """"""""""""""""""""""""""""""""""
 " 検索系キーマップ               "
 """"""""""""""""""""""""""""""""""
-" 複数ファイル内検索
-nmap <C-r> :action FindInPath<CR>
+" 複数ファイル内検索(⌘+n,⌘+fでできるのでコメントアウト)
+"nmap <C-r> :action FindInPath<CR>
 " 複数ファイル内置換
 "nmap <S-C-r> :action ReplaceInPath<CR>
 " すべてモードで検索
@@ -73,9 +74,9 @@ nmap <C-p> :action GotoFile<CR>
 " シンボルモード検索
 nmap <Leader>gs :action GotoSymbol<CR>
 " 呼び出し箇所一覧をポップアップで表示
-nnoremap gr :action ShowUsages<CR>
+nnoremap g<C-r> :action ShowUsages<CR>
 " 呼び出し箇所を検索してFindViewPaneで表示
-nnoremap g<C-r> :action FindUsages<CR>
+nnoremap gr :action FindUsages<CR>
 
 """"""""""""""""""""""""""""""""""
 " コードジャンプ系のコマンド定義 "
@@ -94,24 +95,54 @@ nnoremap gt :action GotoTest<CR>
 """"""""""""""""""""""""""""""""""
 " エディター (コード編集)        "
 """"""""""""""""""""""""""""""""""
+" Y で行末までヤンク
+nnoremap Y y$
+" U で リドゥ
+nnoremap U <C-r>
+" M で括弧ジャンプ
+noremap M %
+" 入力してから大文字に変換
+inoremap <C-g><C-u> <ESC>gUiwgi
+" 入力してから小文字に変換
+inoremap <C-g><C-l> <ESC>guiwgi
+" 先頭の文字だけ大文字に変換
+inoremap <C-g><C-w> <ESC>bgUlgi
+
+
 " ブックマークリストを表示
 nnoremap <C-b><C-m> :action ShowBookmarks<CR>
 " カーソル行でブックマークをトグル
 nnoremap mm :action ToggleBookmark<CR>
 " 次のタブへ移動
-nnoremap sl :action NextTab<CR>
+nnoremap <S-l> :action NextTab<CR>
 " 前のタブへ移動
-nnoremap sh :action PreviousTab<CR>
-" 水平分割e
+nnoremap <S-h> :action PreviousTab<CR>
+" 水平分割
 nnoremap <C-s> :action MoveTabDown<CR>
 " 垂直分割
 nnoremap <C-v> :action MoveTabRight<CR>
 " 次の分割グループへ移動
-nnoremap <S-l> :action NextSplitter<CR>
+nnoremap sl :action NextSplitter<CR>
 " 前の分割グループへ移動
-nnoremap <S-h> :action PrevSplitter<CR>
+nnoremap sh :action PrevSplitter<CR>
 " フォーカスを持つエディタタブを他のタブ分割グループに移動
 noremap so :action MoveEditorToOppositeTabGroup<CR>
+
+
+" visual mode時に v で行末まで選択する
+vnoremap v $h
+" visual mode でヤンク時にカーソルが始点に飛ばないようにする
+xnoremap y mzy`z
+" visual mode でペースト時にレジスタの変更を防止
+xnoremap p P
+" visual mode で選択範囲ごと上下に移動できるようにする
+vnoremap <S-K> :move '<-2<CR>gv=gv
+sethandler <S-K> v:vim n-i:ide
+vnoremap <S-J> :move '>+1<CR>gv=gv
+sethandler <S-J> v:vim n-i:ide
+" visual mode で選択範囲をインデントしても visual mode が解除されないようにする
+vnoremap < <gv
+vnoremap > >gv
 
 """"""""""""""""""""""""""""""""""
 " 実行                           "
