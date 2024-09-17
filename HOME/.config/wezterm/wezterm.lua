@@ -28,7 +28,7 @@ config.window_decorations = "TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
 config.color_scheme = 'Hybrid (terminal.sexy)'
 -- 背景の透過度
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.89
 -- フォント
 config.font = wezterm.font("Hack Nerd Font")
 -- フォントサイズ
