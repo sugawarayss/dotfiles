@@ -80,7 +80,7 @@ return {
           -- go
           "gopls",
           -- typescript
-          "typescript-language-server",
+          "ts_ls",
           -- lua
           "lua_ls",
           -- deno
