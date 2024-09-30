@@ -89,6 +89,16 @@ if type "docker" > /dev/null 2>&1; then
 fi
 
 # Git/Github系のalias
+if type "git" > /dev/null 2>&1; then
+  # git log
+  alias gl='git log --oneline --graph --decorate $(git branch --show-current)'
+  # gbl: g(it) b(ranch) l(ist): ブランチ一覧を表示
+  alias gbl='git branch -l'
+  # g(it)s(witch)b(ranch): 選択したブランチに切り替える
+  alias gsb='git switch $(git branch -l | gum filter --prompt="SELECT BRANCH >" | sd "^\*\s*" "")'
+  # g(it)b(ranch)d(delete): 選択したブランチを削除する
+  alias gdb='git branch -D $(git branch -l | gum filter --prompt="SELECT BRANCH >" | sd "^\*\s*" "")'
+fi
 if type "ghq" > /dev/null 2>&1; then
   # ローカルにあるgitリポジトリを選択してpathに移動
   alias repo='cd $(ghq list -p | gum filter --no-fuzzy --prompt="SELECT REPOSITORY >")'
