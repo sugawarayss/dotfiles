@@ -169,14 +169,18 @@ return {
       }),
       -- null_ls.builtins.formatting.
       -- JavaScript/TypeScript
-      null_ls.builtins.formatting.prettier.with({
+      -- null_ls.builtins.formatting.prettier.with({
+      --   filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
+      --   only_local = "node_modules/.bin",
+      -- }),
+      null_ls.builtins.formatting.biome.with({
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
-        only_local = "node_modules/.bin",
+        extra_args = { "--config", "./biome.config.js" }
       }),
-      null_ls.builtins.diagnostics.eslint_d.with({
-        filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
-        diagnostics_format = '[eslint] #{m}\n(#{c})'
-      }),
+      -- null_ls.builtins.diagnostics.eslint_d.with({
+      --   filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
+      --   diagnostics_format = '[eslint] #{m}\n(#{c})'
+      -- }),
     }
 
     -- 辞書に単語を追加するcommandをCode Actionとして呼び出せるようにする
