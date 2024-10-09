@@ -50,6 +50,9 @@ vim.api.nvim_create_user_command(
 -- LinterやFormatterを統合するプラグイン
 return {
   "nvimtools/none-ls.nvim",
+  dependencies = {
+    "nvimtools/none-ls-extras.nvim",
+  },
   lazy = true,
   event = "LspAttach",
   config = function()
@@ -73,20 +76,21 @@ return {
         filetypes = { "python" },
         extra_args = { "--config", "./pyproject.toml" }
       }),
-      -- null_ls.builtins.formatting.ruff.with({
-      --   filetypes = { "python" },
-      --   extra_args = { "--config", "./pyproject.toml" }
-      -- }),
+      require("none-ls.formatting.ruff").with({
+        filetypes = { "python" },
+        extra_args = { "--config", "./pyproject.toml" }
+      }),
       null_ls.builtins.diagnostics.mypy.with({
         filetypes = { "python" },
         diagnostics_format = '[mypy] #{m} (#{c})',
         extra_args = { "--config-file", "./pyproject.toml" }
       }),
-      -- null_ls.builtins.diagnostics.ruff.with({
-      --   filetypes = { "python" },
-      --   diagnostics_format = '[ruff] #{m} (#{c})',
-      --   extra_args = { "--config", "./pyproject.toml" }
-      -- }),
+
+      require("none-ls.diagnostics.ruff").with({
+        filetypes = { "python" },
+        diagnostics_format = '[ruff] #{m} (#{c})',
+        extra_args = vim.fn.filereadable("./pyproject.toml") == 1 and { "--config", "./pyproject.toml" } or nil
+      }),
       -- Lua
       null_ls.builtins.formatting.stylua.with({
         filetypes = { "lua" },
