@@ -117,23 +117,8 @@ return {
       { "hrsh7th/cmp-nvim-lsp" },
     },
     config = function()
-      -- メッセージのフォーマットを変更する関数
-      local format_diagnostics_with_server_name = function(_, result, ctx, config)
-        print("format_diagnostics_with_server_name")
-        local diag = result.diagnostics
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
-        local server_name = client and client.name or "LSP"
-        print("server_name: " .. server_name)
-        for _, diagnostic in ipairs(diag) do
-          print("diagnostic: " .. diagnostic)
-          diagnostic.message = "[" .. server_name .. "] " .. diagnostic.message
-        end
-        vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-      end
-
       -- LSP handlers
-      -- vim.lsp.handlers["textDocument/publishDiagnostics"] = format_diagnostics_with_server_name
-          -- vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
       -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require("noice.lsp.hover").on_hover, { border = "double" })
 
       local mason_lspconfig = require("mason-lspconfig")
@@ -149,71 +134,20 @@ return {
             -- Function executed when the LSP server startup
             on_attach = my_on_attach,
             capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-            handlers = {
-              ["textDocument/publishDiagnostics"] = format_diagnostics_with_server_name
-            }
           }
           local node_root_dir = nvim_lsp.util.root_pattern("package.json")
           local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
 
-          if server == "ruff" then
-            opt.settings = {
-              configuration = "./pyproject.toml",
-              configurationPreference = "filesystemFirst",
-              exclude = {"**/tests/**"},
-              lint = {
-                enable = true,
-                preview = true,
-              },
-              -- import文の整理を行う
-              organizeImports = true,
-              -- 構文エラーを表示する
-              showSyntaxErrors = true,
-              -- サーバで使用するログレベル
-              logLevel = "debug",
-              -- noqa でエラーを無視する
-              codeAction = {
-                disableRuleComment = {
-                  enable = true,
-                }
-              },
-            }
-          end
           if server == "pyright" then
-            nvim_lsp.ruff.setup({
-              init_options = {
-                settings = {
-                  configuration = "./pyproject.toml",
-                  configurationPreference = "filesystemFirst",
-                  exclude = {"**/tests/**"},
-                  lint = {
-                    enable = true,
-                    preview = true,
-                  },
-                  -- import文の整理を行う
-                  organizeImports = true,
-                  -- 構文エラーを表示する
-                  showSyntaxErrors = true,
-                  -- サーバで使用するログレベル
-                  logLevel = "debug",
-                  -- noqa でエラーを無視する
-                  codeAction = {
-                    disableRuleComment = {
-                      enable = true,
-                    }
-                  },
-                },
-              }
-            })
             opt.settings = {
               pyright = {
+                -- ruff 
                 disableOrganizeImports = true,
               },
               python = {
                 venvPath = ".",
                 pythonPath = "./.venv/bin/python",
                 analysis = {
-                  extraPaths = { "." },
                   ignore = { "*" },
                 },
               },
