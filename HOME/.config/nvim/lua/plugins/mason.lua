@@ -34,6 +34,62 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
+
+-- 自動インストールするLSPサーバ
+local lsp_servers = {
+  -- python
+  "pyright",
+  -- sphinx
+  "esbonio",
+  -- rust
+  "rust_analyzer",
+  -- go
+  "gopls",
+  -- typescript
+  "ts_ls",
+  -- lua
+  "lua_ls",
+  -- deno
+  "denols",
+  -- php
+  "intelephense",
+  -- kotlin
+  "kotlin_language_server",
+  -- dockerfile
+  "dockerls",
+  -- yaml
+  "yamlls",
+  -- json
+  "jsonls",
+  -- toml
+  "taplo",
+}
+-- 自動インストールするformatter
+local formatters = {
+  -- python
+  "black",
+  -- "isort",
+  "ruff",
+  -- Go
+  "gofmpt",
+  "goimports",
+  -- lua
+  "stylua",
+}
+-- 自動インストールするlinter
+local diagnostics = {
+  -- spell check
+  "cspell",
+  -- python
+  "mypy",
+  -- TypeScript
+  "biome",
+  -- dart
+  "dcm",
+  -- Go
+  "staticcheck",
+}
+
 return {
   {
     "williamboman/mason.nvim",
@@ -70,34 +126,7 @@ return {
       mason_lspconfig.setup({
         automatic_installation = true,
         -- LSP install
-        ensure_installed = {
-          -- python
-          "pyright",
-          -- sphinx
-          "esbonio",
-          -- rust
-          "rust_analyzer",
-          -- go
-          "gopls",
-          -- typescript
-          "ts_ls",
-          -- lua
-          "lua_ls",
-          -- deno
-          "denols",
-          -- php
-          "intelephense",
-          -- kotlin
-          "kotlin_language_server",
-          -- dockerfile
-          "dockerls",
-          -- yaml
-          "yamlls",
-          -- json
-          "jsonls",
-          -- toml
-          "taplo",
-        },
+        ensure_installed = lsp_servers,
       })
       local nvim_lsp = require("lspconfig")
       mason_lspconfig.setup_handlers({
@@ -195,25 +224,7 @@ return {
           require("mason-null-ls").setup({
             automatic_setup = true,
             automatic_installation = true,
-            ensure_installed = {
-              -- spell check
-              "cspell",
-              -- JS/TS
-              -- "prettier",
-              "biome",
-              -- lua
-              "stylua",
-              -- python
-              "black",
-              "isort",
-              "ruff",
-              "mypy",
-              -- Go
-              "goimports",
-              "staticcheck",
-              -- json
-              -- "jq",  --deprecated
-            },
+            ensure_installed = vim.tbl_flatten({ formatters, diagnostics }),
           })
         end,
       })
