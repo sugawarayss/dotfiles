@@ -113,7 +113,7 @@ return {
     event = { "LspAttach" },
     dependencies = {
       { "jay-babu/mason-null-ls.nvim", dependencies = "jose-elias-alvarez/null-ls.nvim" },
-      { "neovim/nvim-lspconfig"},
+      { "neovim/nvim-lspconfig" },
       { "hrsh7th/cmp-nvim-lsp" },
     },
     config = function()
