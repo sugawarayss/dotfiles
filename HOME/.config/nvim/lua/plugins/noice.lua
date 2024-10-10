@@ -20,6 +20,7 @@ return {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
     "hrsh7th/nvim-cmp",
+    "nvim-treesitter/nvim-treesitter",
   },
   keys = {
     { "<leader>nl", function() require("noice").cmd("last") end, mode = "n", desc = "Show Last Notification" },
