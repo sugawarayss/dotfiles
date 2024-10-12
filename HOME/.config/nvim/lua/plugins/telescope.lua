@@ -131,11 +131,5 @@ return {
       telescope.load_extension("aerial")
       telescope.load_extension("bookmarks")
       telescope.load_extension("smart_open")
-      local color_palette = require("hybrid.colors").setup()
-      vim.api.nvim_set_hl(0, "FloatBorder", {bg=color_palette.bg_hard, fg=color_palette.dull_cyan})
-      vim.api.nvim_set_hl(0, "NormalFloat", {bg=color_palette.bg_hard})
-      vim.api.nvim_set_hl(0, "TelescopeNormal", {bg=color_palette.bg_hard})
-      vim.api.nvim_set_hl(0, "TelescopeBorder", {bg=color_palette.bg_hard, fg=color_palette.dull_cyan})
-      vim.api.nvim_set_hl(0, "TelescopeTitle", {bg=color_palette.bg_hard, fg=color_palette.fg_hard, bold=true})
     end
 }

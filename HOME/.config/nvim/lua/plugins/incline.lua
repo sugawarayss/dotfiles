@@ -6,7 +6,7 @@ return {
   config = function()
     local helpers = require("incline.helpers")
     local devicons = require("nvim-web-devicons")
-    local color_palette = require("hybrid.colors").setup()
+    local color_palette = require("tokyonight.colors").setup()
     require("incline").setup({
       window = {
         padding = 0,
@@ -24,7 +24,7 @@ return {
           ' ',
           { filename, gui = modified and 'bold,italic' or 'bold' },
           ' ',
-          guibg = color_palette.bg_soft,
+          guibg = color_palette.bg,
         }
       end,
     })

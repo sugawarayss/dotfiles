@@ -3,7 +3,7 @@ return {
   "shellRaining/hlchunk.nvim",
   event = { "UIEnter" },
   config = function()
-    local color_palette = require("hybrid.colors").setup()
+    local color_palette = require("tokyonight.colors").setup()
     require("hlchunk").setup({
       chunk = {
         enable = true,
@@ -17,8 +17,8 @@ return {
           right_arrow = ">",
         },
         style = {
-          { fg = color_palette.bright_blue },  -- "#5f819c"
-          { fg = color_palette.bright_red },   -- "#d54e53"
+          { fg = color_palette.blue1 },  -- #2ac3de
+          { fg = color_palette.red1 },    -- #db4b4b
         },
         textobject = "",
         max_file_size = 1024 * 1024,
@@ -26,7 +26,7 @@ return {
       },
       indent = {
         enable = true,
-        use_treesitter = false,
+        use_treesitter = true,
         chars = {
           "▏",
         },
@@ -37,7 +37,7 @@ return {
       line_num = {
           enable = true,
           use_treesitter = true,
-          style = color_palette.bright_magenta,  -- "#c397dB"
+          style = color_palette.magenta,  -- "#bb9af7
       },
 
       blank = {

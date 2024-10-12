@@ -6,18 +6,18 @@ return {
     event = { "BufReadPre" },
     dependencies = "kevinhwang91/nvim-hlslens",
     config = function()
-      local color_palette = require("hybrid.colors").setup()
+      local color_palette = require("tokyonight.colors").setup()
       require("scrollbar").setup({
         handle = {
-          color = color_palette.bg_hard,  -- "#151718"
+          color = color_palette.bg_dark,  -- "#1f2335
         },
         marks = {
-          Search = { color = color_palette.bright_cyan },  -- "#70c0b1"
-          Error = { color = color_palette.bright_red },    -- "#d54e53",
-          Warn = { color = color_palette.bright_yellow },  -- "#de935f"
-          Info = { color = color_palette.bright_green },   -- "#8c9440"
-          Hint = { color = color_palette.bright_blue },    -- "#5f819d"
-          Misc = { color = color_palette.bright_magenta }, -- "#c397d8"
+          Search = { color = color_palette.cyan },  -- #7dcfff
+          Error = { color = color_palette.red },    -- #f7768e
+          Warn = { color = color_palette.yellow },  -- #e0af68
+          Info = { color = color_palette.green },   -- #9ece6a
+          Hint = { color = color_palette.blue },    -- #7aa2f7
+          Misc = { color = color_palette.magenta }, -- #bb9af7
         },
         handlers = {
           gitsigns = true,

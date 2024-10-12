@@ -1,15 +1,15 @@
 -- Cmdlineの色設定
-local color_palette = require("hybrid.colors").setup()
+local color_palette = require("tokyonight.colors").setup()
 
 local noice_cmd_types = {
-  CmdLine = color_palette.bright_blue,     -- "#7aa5da",
-  Input = color_palette.fg_hard,           -- "#eaeaea",
-  Lua = color_palette.magenta,             -- "#b294bb",
-  Filter = color_palette.dull_green,       -- "#8c9440",
-  Rename = color_palette.red,              -- "#cc6666"
-  Search =  color_palette. bright_yellow,  -- "#f0c674"
-  Substitute = color_palette.dull_yellow,  -- "#de935f"
-  Help = color_palette.cyan,               -- "#8abeb7"
+  CmdLine = color_palette.blue0,     -- #3d59a1
+  Input = color_palette.fg_dark,     -- #a9b1d6
+  Lua = color_palette.purple,        -- #9d7cd8
+  Filter = color_palette.green2,     -- #41a6b5
+  Rename = color_palette.orange,     -- #ff9e64
+  Search =  color_palette. yellow,   -- #e0af68
+  Substitute = color_palette.teal,   -- #1abc9c
+  Help = color_palette.comment,      -- #565f89
 }
 
 -- CmdLineや通知をpopupで表示するプラグイン
@@ -29,7 +29,7 @@ return {
   config = function()
     vim.opt.cmdheight = 0
     require("notify").setup({
-      background_colour = color_palette.bg_hard,
+      background_colour = color_palette.bg_dark,
     })
 
     require("noice").setup({
@@ -226,9 +226,9 @@ return {
       format = {},
     })
 
-    vim.api.nvim_set_hl(0, "NoicePopupBorder", {bg=color_palette.bg_hard})
+    vim.api.nvim_set_hl(0, "NoicePopupBorder", {bg=color_palette.bg_dark})
     for type, color in pairs(noice_cmd_types) do
-      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg=color_palette.bg_hard, fg=color})
+      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg=color_palette.bg_dark, fg=color})
     end
   end
 }
