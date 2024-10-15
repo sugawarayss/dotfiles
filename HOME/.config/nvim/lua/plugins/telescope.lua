@@ -2,7 +2,7 @@
 local opt = { silent = true }
 return {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
+    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
