@@ -27,8 +27,8 @@ if type "lsd" > /dev/null 2>&1; then
   alias oldls="/bin/ls"
   alias ls='lsd --git'
   alias la='lsd --all --header --size bytes --git --group-directories-first'
-  alias ll='lsd --long --header --size bytes --git --group-directories-first'
-  alias lla='lsd --long --all --header --size bytes --git --group-directories-first'
+  alias ll="lsd --long --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
+  alias lla="lsd --long --all --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
   alias lt="lsd --tree"
   alias ld="lsd --directory-only --tree --icon never"
 else
@@ -36,6 +36,8 @@ else
   alias la="ls -aGh"
   alias ll="ls -lGh"
   alias lla="ls -laGh"
+  alias lt="tree"
+  alias ld="tree -d"
 fi
 
 # psをprocsで上書き
