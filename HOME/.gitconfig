@@ -1,29 +1,29 @@
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
+    diff          = delta
+    log           = delta
+    reflog        = delta
+    show          = delta
 
 [delta]
-    line-numbers = true
-    side-by-side = true
-    plus-style = "syntax #012800"
-    minus-style = "syntax #340001"
-    syntax-theme = Visual Studio Dark+
-    navigate = true
+    line-numbers  = true
+    side-by-side  = true
+    plus-style    = "syntax #012800"
+    minus-style   = "syntax #340001"
+    syntax-theme  = Visual Studio Dark+
+    navigate      = true
 
 [interractive]
-    diffFilter = delta --color-only
+    diffFilter    = delta --color-only
 
 [user]
-    name = sugawarayss
-    email = sugawarayss@inap-vision.co.jp
+    name          = sugawarayss
+    email         = sugawarayss@inap-vision.co.jp
 [ghq]
-    root = /Users/sugawarayss/PROJECTS
+    root          = /Users/sugawarayss/PROJECTS
 [commit]
-    template = /Users/sugawarayss/.config/git/.commit_template
+    template      = /Users/sugawarayss/.config/git/.commit_template
 [core]
-    quotepath = false
-    editor = nvim
+    quotepath     = false
+    editor        = nvim
 [init]
     defaultBranch = main
