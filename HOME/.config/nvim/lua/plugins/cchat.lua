@@ -178,7 +178,7 @@ return {
       }
     }
     require("CopilotChat").setup({
-      debug = true, -- Enable debug logging
+      debug = false, -- Enable debug logging
       selection = function(source)
         return select.visual(source) or select.line(source)
       end,
