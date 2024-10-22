@@ -30,7 +30,10 @@ config.color_scheme = 'Tokyo Night'
 -- 背景の透過度
 config.window_background_opacity = 0.89
 -- フォント
-config.font = wezterm.font("Hack Nerd Font")
+config.font = wezterm.font_with_fallback {
+  "Hack Nerd Font",
+  "HackGen",
+}
 -- フォントサイズ
 config.font_size = 14.0
 -- フォントサイズ変更時にウィンドウサイズを調整
