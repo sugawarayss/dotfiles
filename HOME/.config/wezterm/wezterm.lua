@@ -32,10 +32,10 @@ config.window_background_opacity = 0.89
 -- フォント
 config.font = wezterm.font_with_fallback {
   "Hack Nerd Font",
-  "HackGen",
+  "HackGen Console NF",
 }
 -- フォントサイズ
-config.font_size = 14.0
+config.font_size = 15.0
 -- フォントサイズ変更時にウィンドウサイズを調整
 config.adjust_window_size_when_changing_font_size = true
 -- IME を有効にする
