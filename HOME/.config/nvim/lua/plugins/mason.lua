@@ -90,6 +90,45 @@ local diagnostics = {
   "staticcheck",
 }
 
+-- 各:withLSPサーバの設定
+local lsp_server_settings = {
+  pyright = {
+    pyright = {
+      -- ruff 
+      disableOrganizeImports = true,
+    },
+    python = {
+      venvPath = ".",
+      pythonPath = "./.venv/bin/python",
+      analysis = {
+        ignore = { "*" },
+      },
+    },
+  },
+  gopls = {
+    analyses = {
+      nilness = true,
+      unusedparams = true,
+      unusedwrite = true,
+      useany = true,
+    },
+    experimentalPostfixCompletions = true,
+    staticcheck = true,
+    usePlaceholders = true,
+  },
+  rust_analyzer = {
+    imports = {
+      check = { command = "clippy" },
+      granularity = { group = "module" },
+      prefix = "self",
+    },
+    cargo = {
+      buildScripts = { enable = true },
+    },
+    procMacro = { enable = true },
+  },
+}
+
 return {
   {
     "williamboman/mason.nvim",
@@ -134,26 +173,12 @@ return {
             -- Function executed when the LSP server startup
             on_attach = my_on_attach,
             capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            settings = lsp_server_settings[server],
+            filetypes = (lsp_server_settings[server] or {}).filetypes,
           }
+          -- node.js と deno が競合しないようにする
           local node_root_dir = nvim_lsp.util.root_pattern("package.json")
           local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
-
-          if server == "pyright" then
-            opt.settings = {
-              pyright = {
-                -- ruff 
-                disableOrganizeImports = true,
-              },
-              python = {
-                venvPath = ".",
-                pythonPath = "./.venv/bin/python",
-                analysis = {
-                  ignore = { "*" },
-                },
-              },
-            }
-          end
-
           if server == "ts_ls" then
             if not is_node_repo then
               return
@@ -178,46 +203,6 @@ return {
                     ["https://cdn.nest.land"] = true,
                     ["https://crux.land"] = true,
                   },
-                },
-              },
-            }
-          end
-
-          if server == "gopls" then
-            opt.settings = {
-              ["gopls"] = {
-                analyses = {
-                  nilness = true,
-                  unusedparams = true,
-                  unusedwrite = true,
-                  useany = true,
-                },
-                experimentalPostfixCompletions = true,
-                staticcheck = true,
-                usePlaceholders = true,
-              },
-            }
-          end
-
-          if server == "rust-analyzer" then
-            opt.settings = {
-              ["rust-analyzer"] = {
-                imports = {
-                  check = {
-                    command = "clippy",
-                  },
-                  granularity = {
-                    group = "module",
-                  },
-                  prefix = "self",
-                },
-                cargo = {
-                  buildScripts = {
-                    enable = true,
-                  },
-                },
-                procMacro = {
-                  enable = true,
                 },
               },
             }
