@@ -125,6 +125,7 @@ return {
       })
     end
   },
+  -- Github Copilotのサジェストを補完リストに表示する
   {
     "zbirenbaum/copilot-cmp",
     config = function()

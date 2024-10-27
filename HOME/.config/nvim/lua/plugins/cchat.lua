@@ -26,6 +26,7 @@ return {
     { "zbirenbaum/copilot.lua" },
     { "nvim-lua/plenary.nvim" },
   },
+  build = "make tiktoken",
   keys = {
     -- Toggle CopilotChat
     {
@@ -56,10 +57,6 @@ return {
         chat.toggle({
           window = {
             layout = 'horizontal',
-            relative = 'win',
-            border = 'double',
-            title = 'Copilot Chat',
-            footer = nil,
           },
         })
       end,
@@ -182,19 +179,23 @@ return {
       selection = function(source)
         return select.visual(source) or select.line(source)
       end,
+
       prompts = prompts,
-      question_header = '',
-      answer_header = '**Copilot** ',
-      error_header = '**Error** ',
+      question_header = '#### User ===> ',
+      answer_header = '#### Copilot ===> ',
+      error_header = '#### Error ===> ',
       separator = '---',
       show_folds = true,
       show_help = true,
       auto_follow_cursor = true,
-      auto_insert_mode = false,
+      auto_insert_mode = true,
       clear_chat_on_new_prompt = false,
+      hightlight_selection = true,
+
       context = 'buffers',
       history_path = vim.fn.stdpath('data') .. '/copilotchat_history',
       callback = nil,
+
       window = {
         layout = 'horizontal',
         relative = 'win',
