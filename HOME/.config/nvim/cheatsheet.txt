@@ -229,21 +229,11 @@ Toggle Bookmark                                     | mm
 Display Bookmark List(Telescope)                    | <C-b><C-m>
 
 ## Translate
-カーソル位置の単語を日本語に翻訳                    | <C-t>j
-カーソル位置の単語を英語に翻訳                      | <C-t>e
-
-## Pantran(Translate)
-Display float window Translate                      | <Leader>tr
-Show Mappings in floating window                    | <C-_>
-Replace Close Translation                           | <C-r>
-Replace Close Input                                 | <M-r>
-Append Close Translation                            | <C-a>
-Append Close Input                                  | <M-a>
-Select Engine                                       | <C-e>
-Select Source                                       | <C-s>
-Select Target                                       | <C-t>
-Switch Languages                                    | <M-s>
-Translate                                           | <M-t>
+カーソル位置の単語を日本語に翻訳                    | <Leader>tj
+(Visual)選択範囲を日本語に翻訳                      | <Leader>tj
+カーソル位置の単語を英語に翻訳                      | <Leader>te
+(Visual)選択範囲を英語に翻訳                        | <Leader>te
+(Visual)選択範囲の日本文を英語に翻訳して置換        | <Leader>tr
 
 ## NeoTest
 フォーカスがあるファイルのテストを実行              | <M-r><M-t>f
@@ -251,7 +241,6 @@ Translate                                           | <M-t>
 テスト実行をSTOP                                    | <M-r><M-t>s
 テスト結果をfloat windowで表示                      | <M-r><M-t>v
 テスト結果をパネル(バッファ)で表示                  | <M-r><M-t>o
-
 
 ## JaPaneseIME
 Toggle inLine IME                                   | <C-j>
