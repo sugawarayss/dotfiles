@@ -10,7 +10,7 @@ return {
       { "hrsh7th/vim-vsnip" },  -- スニペット補完
       { "onsails/lspkind.nvim" },
       { "windwp/nvim-autopairs" },
-      { "zbirenbaum/copilot-cmp" },  -- Github copilotからの補完
+      -- { "zbirenbaum/copilot-cmp" },  -- Github copilotからの補完
     },
     config = function()
       local cmp = require("cmp")
@@ -67,7 +67,7 @@ return {
         }, {
           { name = 'buffer' },
           { name = 'path' },
-          { name = 'copilot' },
+          -- { name = 'copilot' },
         }),
         experimental = {
           ghost_text = true,
@@ -126,13 +126,13 @@ return {
     end
   },
   -- Github Copilotのサジェストを補完リストに表示する
-  {
-    "zbirenbaum/copilot-cmp",
-    config = function()
-      require("copilot_cmp").setup({
-        suggestion = { enabled = true },
-        panel = { enabled = true }
-      })
-    end
-  }
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   config = function()
+  --     require("copilot_cmp").setup({
+  --       suggestion = { enabled = true },
+  --       panel = { enabled = true }
+  --     })
+  --   end
+  -- }
 }
