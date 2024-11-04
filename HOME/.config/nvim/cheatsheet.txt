@@ -244,10 +244,10 @@ Display Bookmark List(Telescope)                    | <C-b><C-m>
 
 
 ## Rust @rust @rustacean
-ドキュメントをブラウザで表示 | :RustLsp openDocs
-リントを実行 | :RustLsp flyCheck
-(カーソル上の)エラー説明を表示 | :RustLsp explainError cycle
-ホバーアクションを表示 | :RustLsp hover {range}
+ドキュメントをブラウザで表示                        | :RustLsp openDocs
+リントを実行                                        | :RustLsp flyCheck
+(カーソル上の)エラー説明を表示                      | :RustLsp explainError cycle
+ホバーアクションを表示                              | :RustLsp hover {range}
 
 
 ## JaPaneseIME
