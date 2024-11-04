@@ -242,6 +242,14 @@ Display Bookmark List(Telescope)                    | <C-b><C-m>
 テスト結果をfloat windowで表示                      | <M-r><M-t>v
 テスト結果をパネル(バッファ)で表示                  | <M-r><M-t>o
 
+
+## Rust @rust @rustacean
+ドキュメントをブラウザで表示 | :RustLsp openDocs
+リントを実行 | :RustLsp flyCheck
+(カーソル上の)エラー説明を表示 | :RustLsp explainError cycle
+ホバーアクションを表示 | :RustLsp hover {range}
+
+
 ## JaPaneseIME
 Toggle inLine IME                                   | <C-j>
 

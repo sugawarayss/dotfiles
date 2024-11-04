@@ -21,7 +21,8 @@ return {
           dap = { justMyCode = false },
           args = { "--log-level", "DEBUG", "-v", "-s" },
           runner = "pytest",
-        })
+        }),
+        require("rustaceanvim.neotest"),
       }
     })
   end

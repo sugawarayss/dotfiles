@@ -24,6 +24,9 @@ local my_on_attach = function(client, bufnr)
   -- 次のエラーへジャンプ
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+
+  -- インラインヒント
+  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 end
 
 -- エラーアイコンの変更
@@ -89,6 +92,11 @@ local diagnostics = {
   -- Go
   "staticcheck",
 }
+-- dap adapters
+local dap_adapters = {
+  -- rust
+  codelldb,
+}
 
 -- 各:withLSPサーバの設定
 local lsp_server_settings = {
@@ -115,17 +123,6 @@ local lsp_server_settings = {
     experimentalPostfixCompletions = true,
     staticcheck = true,
     usePlaceholders = true,
-  },
-  rust_analyzer = {
-    imports = {
-      check = { command = "clippy" },
-      granularity = { group = "module" },
-      prefix = "self",
-    },
-    cargo = {
-      buildScripts = { enable = true },
-    },
-    procMacro = { enable = true },
   },
 }
 
@@ -169,6 +166,9 @@ return {
       local nvim_lsp = require("lspconfig")
       mason_lspconfig.setup_handlers({
         function(server)
+          if server == "rust_analyzer" then
+            return true
+          end
           local opt = {
             -- Function executed when the LSP server startup
             on_attach = my_on_attach,
@@ -212,7 +212,7 @@ return {
           require("mason-null-ls").setup({
             automatic_setup = true,
             automatic_installation = true,
-            ensure_installed = vim.tbl_flatten({ formatters, diagnostics }),
+            ensure_installed = vim.tbl_flatten({ formatters, diagnostics, dap_adapters }),
           })
         end,
       })
