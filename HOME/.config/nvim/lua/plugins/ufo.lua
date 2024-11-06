@@ -42,9 +42,8 @@ return {
   lazy = true,
   event = "VeryLazy",
   keys = {
-    { "zr", function() require('ufo').openAllFolds() end, mode = "n" },
-    { "zm", function() require('ufo').closeAllFolds() end, mode = "n" },
-    { "zn", function() require('ufo').peekFoldedLinesUnderCursor() end, mode = "n" },
+    { "zr", function() require('ufo').openAllFolds() end, mode = "n", desc = "すべての折り畳みを展開" },
+    { "zm", function() require('ufo').closeAllFolds() end, mode = "n", desc = "すべてを折り畳み" },
   },
   config = function()
     vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])

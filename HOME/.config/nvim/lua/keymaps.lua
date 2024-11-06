@@ -22,24 +22,24 @@ vim.g.maplocalleader = " "
 ----  Window/Tab 操作系  ----
 -----------------------------
 -- ウィンドウを水平分割(上下)
-u.keymap("n", "ss", ":split<Return><C-w>w", opts)
+u.keymap("n", "ss", ":split<Return><C-w>w", { desc = "水平分割" })
 -- ウィンドウを垂直分割(左右)
-u.keymap("n", "sv", ":vsplit<Return><C-w>w", opts)
+u.keymap("n", "sv", ":vsplit<Return><C-w>w", { desc = "垂直分割" })
 
 -- ウィンドウ移動(左下上右)
-u.keymap("n", "sh", "<C-w>h", opts)
-u.keymap("n", "sj", "<C-w>j", opts)
-u.keymap("n", "sk", "<C-w>k", opts)
-u.keymap("n", "sl", "<C-w>l", opts)
+u.keymap("n", "sh", "<C-w>h", { desc = "左のバッファへフォーカスを移動" })
+u.keymap("n", "sj", "<C-w>j", { desc = "下のバッファへフォーカスを移動" })
+u.keymap("n", "sk", "<C-w>k", { desc = "上のバッファへフォーカスを移動" })
+u.keymap("n", "sl", "<C-w>l", { desc = "右のバッファへフォーカスを移動" })
 
 -- 新しいタブを一番右に作る
-u.keymap("n", "gn", ":tabnew<Return>", opts)
+u.keymap("n", "gn", ":tabnew<Return>", { desc = "新しいタブを作成" })
 -- タブ移動(左右)
-u.keymap("n", "gh", "gT", opts)
-u.keymap("n", "gl", "gt", opts)
+u.keymap("n", "gh", "gT", { desc = "左のタブへ移動" })
+u.keymap("n", "gl", "gt", { desc = "右のタブへ移動" })
 
 for i = 1, 9 do
-  u.keymap("n", "<leader>"..i, i.."gt", opts)
+  u.keymap("n", "<leader>"..i, i.."gt", { desc = "タブ"..i.."へ移動" })
 end
 
 -----------------------------
@@ -50,25 +50,25 @@ end
 
 -- レジスタに入れずにカット
 -- u.keymap("n", "x", "\"_d", opts)
-u.keymap("n", "X", "\"_D", opts)
-u.keymap("x", "x", "\"_x", opts)
-u.keymap("o", "x", "d", opts)
+u.keymap("n", "X", "\"_D", { desc = "行末までカット" })
+u.keymap("x", "x", "\"_x", { desc = "選択範囲をカット" })
+u.keymap("o", "x", "d", { desc = "選択範囲をカット" })
 
 
 -- U で Redo 
-u.keymap("n", "U", "<C-r>", opts)
+u.keymap("n", "U", "<C-r>", { desc = "Redo" })
 
 -- ESC*2 でハイライトやめる
-u.keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
+u.keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", { desc = "ハイライトをやめる" })
 
 -- インサートモード時、jjでノーマルモードに移行
-u.keymap("i", "jj", "<ESC>", opts)
+u.keymap("i", "jj", "<ESC>", { desc = "ノーマルモードに移行" })
 
 -- インサートモードのままカーソル移動
 -- Ctrl+fで一つ右へ移動
-u.keymap("i", "<C-f>", "<C-g>U<Right>", opts)
+u.keymap("i", "<C-f>", "<C-g>U<Right>", { desc = "インサートモードのままカーソルを右へ移動" })
 -- Ctrl+f Ctrl+fで一番外へ移動
-u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
+u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", { desc = "インサートモードのままカーソルを右へ移動" })
 
 -- 行を上下に移動
 -- u.keymap("n", "<S-k>", "$'<Cmd>move-1-{v:count1}<CR>=l'")
@@ -78,24 +78,24 @@ u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", opts)
 u.keymap("n", "<S-m>", "%")
 
 -- 入力してから大文字を切り替え
-u.keymap("i", "<C-g><C-u>", "<ESC>gUiwgi", opts)
+u.keymap("i", "<C-g><C-u>", "<ESC>gUiwgi", { desc = "入力してから大文字を切り替え" })
 -- 入力してから小文字を切り替え
-u.keymap("i", "<C-g><C-l>", "<ESC>guiwgi", opts)
+u.keymap("i", "<C-g><C-l>", "<ESC>guiwgi", { desc = "入力してから小文字を切り替え" })
 -- 先頭の文字だけ大文字に切り替え
-u.keymap("i", "<C-g><C-w>", "<ESC>bgUlgi", opts)
+u.keymap("i", "<C-g><C-w>", "<ESC>bgUlgi", { desc = "先頭の文字だけ大文字に切り替え" })
 
 -----------------------------
 ---      スクロール       ---
 -----------------------------
 -- 検索結果を画面中央に持ってくる
-u.keymap("n", "n", "nzz", opts)
-u.keymap("n", "N", "Nzz", opts)
+-- u.keymap("n", "n", "nzz", opts)
+-- u.keymap("n", "N", "Nzz", opts)
 -- カーソル上の単語を検索して移動時
-u.keymap("n", "*", "*zz", opts)
-u.keymap("n", "#", "#zz", opts)
+u.keymap("n", "*", "*zz", { desc = "カーソル上の単語を検索して移動" })
+u.keymap("n", "#", "#zz", { desc = "カーソル上の単語を検索して移動" })
 
-u.keymap("n", "g*", "g*zz", opts)
-u.keymap("n", "g#", "g#zz", opts)
+u.keymap("n", "g*", "g*zz", { desc = "カーソル上の単語を検索して移動" })
+u.keymap("n", "g#", "g#zz", { desc = "カーソル上の単語を検索して移動" })
 
 -----------------------------
 ---         Visual        ---

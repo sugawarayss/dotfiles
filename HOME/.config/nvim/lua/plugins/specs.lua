@@ -29,10 +29,10 @@ return {
       ignore_filetypes = {},
       ignore_buftypes = { nofile = true },
     })
-    vim.api.nvim_set_keymap('n', '<M-s><M-p>', ':lua require("specs").toggle()<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', 'zz', 'zz:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', 'N', 'N:lua require("specs").show_specs()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<M-s><M-p>', ':lua require("specs").toggle()<CR>', { noremap = true, silent = true, desc = "specsによるエフェクトをトグル" })
+    vim.api.nvim_set_keymap('n', 'zz', 'zz:lua require("specs").show_specs()<CR>', { noremap = true, silent = true, desc = "カーソル位置を画面中央にスクロール" })
+    vim.api.nvim_set_keymap('n', 'n', 'n:lua require("specs").show_specs()<CR>zz', { noremap = true, silent = true, desc = "次の検索結果に移動" })
+    vim.api.nvim_set_keymap('n', 'N', 'N:lua require("specs").show_specs()<CR>zz', { noremap = true, silent = true, desc = "前の検索結果に移動" })
     require("specs").toggle()
   end
 }

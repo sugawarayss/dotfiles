@@ -253,7 +253,7 @@ return {
           ["."] = "textsubjects-smart",
           [";"] = "textsubjects-container-outer",
           ["i;"] = "textsubjects-container-inner",
-          ["i;"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
+          ["i:"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
         },
       }
     })

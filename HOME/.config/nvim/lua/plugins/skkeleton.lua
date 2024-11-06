@@ -11,8 +11,8 @@ return {
     lazy = true,
     event = "BufReadPre",
     keys = {
-      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "i", desc = "Toggle IME" },
-      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "c", desc = "Toggle IME" },
+      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "i", desc = "IMEをトグル" },
+      { "<C-j>", "<Plug>(skkeleton-toggle)", mode = "c", desc = "IMEをトグル" },
     },
     config = function()
       local dictionaries = {}

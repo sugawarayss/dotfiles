@@ -5,11 +5,11 @@ return {
   lazy = true,
   ft = "markdown",
   keys = {
-    { "<Leader>os", "<Cmd>ObsidianQuickSwitch<CR>", mode = "n", { noremap = true, silent = true }, desc = "Search Note"},
-    { "<Leader>on", "<Cmd>ObsidianNew<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create/Open New Note"},
-    { "<Leader>od", "<Cmd>ObsidianToday<CR>", mode = "n", { noremap = true, silent = true }, desc = "Create/Open Today's Note"},
-    { "<Leader>oc", "<Cmd>ObsidianTOC<CR>", mode = "n", { noremap = true, silent = true }, desc = "Load Table Of Contents of Current Note" },
-    { "<Leader>otc", "<Cmd>ObsidianToggleCheckbox<CR>", mode = "n", {noremap = true, silent = true }, desc = "Cycle Through CheckBox Options" },
+    { "<Leader>os", "<Cmd>ObsidianQuickSwitch<CR>", mode = "n", { noremap = true, silent = true }, desc = "Obsidianノートを検索" },
+    { "<Leader>on", "<Cmd>ObsidianNew<CR>", mode = "n", { noremap = true, silent = true }, desc = "Obsidianノートを開く(作成)" },
+    { "<Leader>od", "<Cmd>ObsidianToday<CR>", mode = "n", { noremap = true, silent = true }, desc = "デイリーノートを開く(作成)" },
+    { "<Leader>oc", "<Cmd>ObsidianTOC<CR>", mode = "n", { noremap = true, silent = true }, desc = "現在のノートの目次を表示" },
+    { "<Leader>otc", "<Cmd>ObsidianToggleCheckbox<CR>", mode = "n", {noremap = true, silent = true }, desc = "チェックボックスをトグル" },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",

@@ -61,7 +61,7 @@ return {
         })
       end,
       mode = { "n", "v" },
-      desc = "CopilotChat - Toggle as bottom window"
+      desc = "CopilotChat - 水平分割表示をトグル"
     },
     {
       "<Leader>ccn",
@@ -94,11 +94,11 @@ return {
       desc = "CopilotChat - Quick Chat"
     },
     -- Quick Explain
-    { "<Leader>cce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "v" }, desc = "CopilotChat - Quick Explain" },
+    { "<Leader>cce", "<Cmd>CopilotChatExplain<CR>", mode = { "n", "v" }, desc = "CopilotChat - クイック解説" },
     -- Quick Review
-    { "<Leader>ccr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "v" }, desc = "CopilotChat - Quick Review Buffer" },
+    { "<Leader>ccr", "<Cmd>CopilotChatReview<CR>", mode = { "n", "v" }, desc = "CopilotChat - クイックバッファレビュー" },
     -- Quick Generate Test Code
-    { "<Leader>cct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "v" }, desc = "CopilotChat - Quick Generate Test Code" },
+    { "<Leader>cct", "<Cmd>CopilotChatTests<CR>", mode = { "n", "v" }, desc = "CopilotChat - クイックテストコード生成" },
     -- Show prompt actions with Telescope
     {
       "<Leader>ccp",
@@ -107,9 +107,9 @@ return {
         require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
       end,
       mode = {"n", "v"},
-      desc = "CopilotChat - Prompt Actions"
+      desc = "CopilotChat - プロンプトアクション"
     },
-    { "<Leader>ccs", "<Cmd>CopilotChatStop<CR>", mode = { "n", "v" }, desc = "CopilotChat - Stop Output" }
+    { "<Leader>ccs", "<Cmd>CopilotChatStop<CR>", mode = { "n", "v" }, desc = "CopilotChat - 回答中止" }
   },
   config = function()
     -- vim.api.nvim_set_keymap('n', '<Leader>ccc', ':lua disable_review_on_current_line()<CR>', { noremap = true, silent = true })

@@ -3,11 +3,11 @@ return {
   "akinsho/toggleterm.nvim",
   version = '*',
   keys = {
-    {"<c-t><c-m>", ":ToggleTerm direction=horizontal<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
-    {"<c-t><c-v>", ":ToggleTerm direction=vertical<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
-    {"<c-t><c-f>", ":ToggleTerm direction=float<CR>", mode = "n", desc = "Toggle Terminal as float Window"},
-    {"<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>", mode = "t", desc = "Close Terminal"},
-    {"<leader>g", "<cmd>lua _lazygit_toggle()<cr>", mode = "n", desc = "Toggle Lazygit"},
+    {"<c-t><c-m>", ":ToggleTerm direction=horizontal<CR>", mode = "n", desc = "水平分割でターミナルをトグル"},
+    {"<c-t><c-v>", ":ToggleTerm direction=vertical<CR>", mode = "n", desc = "垂直分割でターミナルをトグル"},
+    {"<c-t><c-f>", ":ToggleTerm direction=float<CR>", mode = "n", desc = "Floatウィンドウでターミナルをトグル"},
+    {"<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>", mode = "t", desc = "ターミナルを閉じる"},
+    {"<leader>g", "<cmd>lua _lazygit_toggle()<cr>", mode = "n", desc = "Lazygitを開く"},
   },
   config = function()
     require("toggleterm").setup(
