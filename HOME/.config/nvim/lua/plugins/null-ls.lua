@@ -68,7 +68,7 @@ return {
           -- cspellが実行できるときのみ有効
           return vim.fn.executable("cspell") > 0
         end,
-        diagnostics_format = '[cspell] #{m}\n(#{c})',
+        diagnostics_format = '[cspell] #{s} (#{c}) #{m}',
         extra_args = { "--config", "~/.config/cspell/cspell.json" }
       }),
       -- python
@@ -82,13 +82,13 @@ return {
       }),
       null_ls.builtins.diagnostics.mypy.with({
         filetypes = { "python" },
-        diagnostics_format = '[mypy] #{m} (#{c})',
+        diagnostics_format = '[#{s}] (#{c}) #{m}',
         extra_args = { "--config-file", "./pyproject.toml" }
       }),
 
       require("none-ls.diagnostics.ruff").with({
         filetypes = { "python" },
-        diagnostics_format = '[ruff] #{m} (#{c})',
+        diagnostics_format = '[#{s}] (#{c}) #{m}',
         extra_args = vim.fn.filereadable("./pyproject.toml") == 1 and { "--config", "./pyproject.toml" } or nil
       }),
       -- Lua
