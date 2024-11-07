@@ -59,7 +59,7 @@ u.keymap("o", "x", "d", { desc = "選択範囲をカット" })
 u.keymap("n", "U", "<C-r>", { desc = "Redo" })
 
 -- ESC*2 でハイライトやめる
-u.keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", { desc = "ハイライトをやめる" })
+u.keymap("n", "<Esc><Esc>", ":nohlsearch<CR>", { desc = "ハイライトをやめる" })
 
 -- インサートモード時、jjでノーマルモードに移行
 u.keymap("i", "jj", "<ESC>", { desc = "ノーマルモードに移行" })
