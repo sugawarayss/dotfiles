@@ -1,3 +1,4 @@
+-- 記号で整列するプラグイン
 return {
   "junegunn/vim-easy-align",
   keys = {

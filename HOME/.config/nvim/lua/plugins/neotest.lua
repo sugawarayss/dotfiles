@@ -1,3 +1,4 @@
+-- テストコードを実行するプラグイン
 return {
   "nvim-neotest/neotest",
   dependencies = {
