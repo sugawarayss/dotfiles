@@ -19,11 +19,12 @@ return {
           { "nvim-telescope/telescope-fzy-native.nvim" },
         }
       },
+      "jonarrien/telescope-cmdline.nvim",
     },
     keys = {
       {"<F3>", "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git <CR>", mode = "n", opt, desc = "ファイル名で検索"},
       {"<F4>", "<cmd>Telescope live_grep hidden=true<CR>", mode = "n", opt, desc = "ファイル内容で検索"},
-      {"<F5>", "<cmd>Telescope smart_open<CR>", mode = "n", opt, desc = "スマートファイル検索"},
+      {"<F5>", ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>", mode = "n", opt, desc = "スマートファイル検索"},
       {"<C-t><C-d>", "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>", mode = "n", opt, desc = "TODO 検索"},
       {"gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opt, desc = "参照先を曖昧検索"},
       {"<M-g><M-b>", "<cmd>Telescope git_branches<CR>", mode = "n", opt, desc = "Git ブランチを検索"},
@@ -35,6 +36,7 @@ return {
       {"<C-b><C-f>", "<cmd>Telescope buffers show_all_buffers=true<CR>", mode = "n", opt, desc = "バッファを検索"},
       {"<C-b><C-m>", "<cmd>Telescope bookmarks list<CR>", mode = "n", opt, desc = "ブックマークを検索"},
       {"<M-k><M-m>", "<cmd>Telescope keymaps<CR>", mode = "n", opt, desc = "Keymap を検索"},
+      {"Q", "<cmd>Telescope cmdline<CR>", mode = "n", opt, desc = "Cmdline"}
     },
     config = function()
       local telescope = require("telescope")
@@ -88,6 +90,7 @@ return {
         },
         pickers = {
           find_files = {
+            no_ignore = true,
             layout_strategy = "vertical",
             layout_config = {
               prompt_position = "bottom",
@@ -103,25 +106,30 @@ return {
             enable_preview = true,
           },
         },
-        extentions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown {}
-          },
-          ["docker"] = {
+        extensions = {
+          docker = {
             theme = "ivy",
             binary = "docker",
             log_level = vim.log.levels.INFO,
             init_term = "split new",
           },
-          ["aerial"] = {
+          aerial = {
             ["_"] = false,
             json = true,
             yaml = true,
           },
-          ["smart_open"] = {
-            ["smart_open"] = {
-              cwd_only = true,
-            },
+          smart_open = {
+            show_scores = true,
+          },
+          cmdline = {
+            picker = {
+              layout_config = {
+                width = 120,
+                height = 25,
+            }
+          },
+            mappings = {},
+            -- overseer = { enabled = true },
           },
         },
       })
