@@ -15,6 +15,7 @@ if not vim.g.vscode then
       {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>", mode = "n", { noremap = true, silent = true }, desc = "バッファを右に移動"},
       {"<C-H>", "<Cmd>BufferLineCloseLeft<CR>", mode = "n", { noremap = true, silent = true }, desc = "左のバッファを閉じる"},
       {"<C-L>", "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }, desc = "右のバッファを閉じる"},
+      {"<M-c>", "<Cmd>BufferLinePickClose<CR>", mode = "n", { noremap = true, silent = true }, desc = "選択したバッファを閉じる"},
       -- disable keybind because CopilotChat use this keybind
       -- {"<leader>c", ":bd<CR>", mode = "n", { silent = true }, desc = "Close Current Buffer"},
     },
@@ -93,10 +94,10 @@ if not vim.g.vscode then
           end,
           offsets = {
             {
-               filetype = "neo-tree",
-               text = "File Explorer",
-               text_align = "left",
-               separator = true,
+              filetype = "neo-tree",
+              text = "File Explorer",
+              text_align = "left",
+              separator = true,
             },
           },
           color_icons = true,
