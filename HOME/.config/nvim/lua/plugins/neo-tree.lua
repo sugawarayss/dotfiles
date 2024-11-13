@@ -213,11 +213,8 @@ return {
             hide_dotfiles = false,
             hide_gitignored = true,
             hide_hidden = false, -- only works on Windows for hidden files/directories
-            hide_by_name = {
-              --"node_modules"
-            },
-            hide_by_pattern = {
-            },
+            hide_by_name = {},
+            hide_by_pattern = {},
             always_show = {
               "hoge.py",
               "local.settings.json",
