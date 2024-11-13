@@ -1,3 +1,4 @@
+-- Rust 用の機能を提供するプラグイン
 return {
   "mrcjkb/rustaceanvim",
   version = "^5",

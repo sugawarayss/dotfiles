@@ -1,4 +1,4 @@
--- 
+-- コードを分割したり結合したりできるようにするプラグイン
 return {
   "Wansmer/treesj",
   keys = {

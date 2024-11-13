@@ -1,3 +1,4 @@
+-- vim から Obsidian を操作するプラグイン
 vim.opt.conceallevel = 1
 return {
   "epwalsh/obsidian.nvim",
