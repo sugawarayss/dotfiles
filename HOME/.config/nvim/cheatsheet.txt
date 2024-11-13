@@ -78,6 +78,7 @@ Telescopeで選択したバッファを閉じる                 | (insert mode)
 カーソル位置の単語の先頭だけ大文字に変換            | (insert mode) <C-g><C-w>
 記号の位置を整列する(パラグラフ)                    | vipga{整列する記号}
 選択範囲を記号で整列する(easy-align)                | (visual) ga{整列する記号}
+キー押下履歴を右上に表示する(:ShowkeysToggle)       | <M-s>k
 
 
 
