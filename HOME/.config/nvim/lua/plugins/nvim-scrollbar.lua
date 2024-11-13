@@ -8,6 +8,13 @@ return {
     config = function()
       local color_palette = require("tokyonight.colors").setup()
       require("scrollbar").setup({
+        show = true,
+        show_in_active_only = false,
+        set_highlights = true,
+        folds = 1000,
+        max_lines = false,
+        hide_if_all_visible = false,
+        throttle_ms = 100,
         handle = {
           color = color_palette.bg_dark,  -- "#1f2335
         },
@@ -20,6 +27,8 @@ return {
           Misc = { color = color_palette.magenta }, -- #bb9af7
         },
         handlers = {
+          cursor = true,
+          diagnostic = true,
           gitsigns = true,
           search = true
         }
