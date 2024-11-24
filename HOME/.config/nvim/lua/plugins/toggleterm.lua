@@ -21,16 +21,26 @@ return {
               return 20
           end
         end,
+        start_in_insert = true,
+        insert_mappings = true,
+        terminal_mappings = true,
+        persist_size = true,
+        persist_mode = true,
+        hide_numbers = true,
         dicrection = "float",
+        close_on_exit = true,
+        clear_env = false,
+        shell = vim.o.shell,
+        auto_scroll = true,
         float_opts = {
           border = "curved",
           winblend = 20,
         },
         winbar = {
-        enabled = true,
-        name_formatter = function(term)
-            return term.name
-        end
+          enabled = true,
+          name_formatter = function(term)
+              return term.name
+          end
         },
       }
     )
