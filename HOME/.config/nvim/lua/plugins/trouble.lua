@@ -9,8 +9,8 @@ return {
     { "<leader>xx", function() require("trouble").toggle() end, mode = "n", desc = "Toggle Trouble"},
     { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, mode = "n", desc = "Toggle Trouble WS diagnostics"},
     { "<leader>xd", function() require("trouble").toggle("document_diagnostics") end, mode = "n", desc = "Toggle Trouble Doc diagnostics"},
-    { "<leader>xq", function() require("trouble").toggle("quickfix") end, mode = "n", desc = ""},
-    { "<leader>xl", function() require("trouble").toggle("loclist") end, mode = "n", desc = ""},
+    { "<leader>xq", function() require("trouble").toggle("quickfix") end, mode = "n", desc = "エラーや警告をクイックフィックスで表示"},
+    { "<leader>xl", function() require("trouble").toggle("loclist") end, mode = "n", desc = "エラーや警告をロケーションリストで表示"},
   },
   opts = {
     position = "bottom",  -- position of the list can be: bottom, top, left, right_align
