@@ -28,14 +28,14 @@ config.window_decorations = "TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
 config.color_scheme = 'Tokyo Night'
 -- 背景の透過度
-config.window_background_opacity = 0.89
+config.window_background_opacity = 0.79
 -- フォント
 config.font = wezterm.font_with_fallback {
   "Hack Nerd Font",
   "HackGen Console NF",
 }
 -- フォントサイズ
-config.font_size = 15.0
+config.font_size = 13.0
 -- フォントサイズ変更時にウィンドウサイズを調整
 config.adjust_window_size_when_changing_font_size = true
 -- IME を有効にする
