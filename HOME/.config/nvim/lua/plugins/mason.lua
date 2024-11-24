@@ -1,32 +1,3 @@
--- LSPを管理するプラグイン
-local my_on_attach = function(client, bufnr)
-  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format {async=true}<CR>", { noremap = true, silent = false, desc = "フォーマットを実行" })
-  -- 'K' でカーソル下の変数情報を表示
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {  noremap = true, silent = false, desc = "カーソル下の変数情報を表示" })
-  -- 'gr' でカーソル下の変数を参照している箇所の一覧表示
-  --vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- 定義へジャンプ
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = false, desc = "定義へジャンプ" })
-  -- 宣言へジャンプ
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = false, desc = "宣言へジャンプ" })
-  -- 実装へジャンプ
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = false, desc = "実装へジャンプ" })
-  -- 型定義へジャンプ
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = false, desc = "型定義へジャンプ" })
-  -- Error/Warning/Hint が出ている箇所で実行可能な修正の候補を表示
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = false, desc = "Error/Warning/Hint が出ている箇所で実行可能な修正の候補を表示" })
-  -- 変数名のリネーム
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = false, desc = "変数名のリネーム" })
-
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "go", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = false, desc = "エラーをフロートウィンドウで表示" })
-  -- 次のエラーへジャンプ
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = false, desc = "次のエラーへジャンプ" })
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = false, desc = "前のエラーへジャンプ" })
-
-  -- インラインヒント
-  vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-end
 
 -- エラーアイコンの変更
 local signs = { Error = "", Warn = "", Hint = "", Info = "" }
@@ -94,9 +65,44 @@ local diagnostics = {
 -- dap adapters
 local dap_adapters = {
   -- rust
-  codelldb,
+  "codelldb",
 }
 
+local my_on_attach = function(client, bufnr)
+  print("call my on attach")
+  for _, value in pairs(lsp_servers) do
+    if client == value then
+      print("yes")
+      -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format {async=true}<CR>", { noremap = true, silent = false, desc = "フォーマットを実行" })
+      -- 'K' でカーソル下の変数情報を表示
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {  noremap = true, silent = false, desc = "カーソル下の変数情報を表示" })
+      -- 'gr' でカーソル下の変数を参照している箇所の一覧表示
+      --vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+      -- 定義へジャンプ
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = false, desc = "定義へジャンプ" })
+      -- 宣言へジャンプ
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = false, desc = "宣言へジャンプ" })
+      -- 実装へジャンプ
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = false, desc = "実装へジャンプ" })
+      -- 型定義へジャンプ
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = false, desc = "型定義へジャンプ" })
+      -- Error/Warning/Hint が出ている箇所で実行可能な修正の候補を表示
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = false, desc = "Error/Warning/Hint が出ている箇所で実行可能な修正の候補を表示" })
+      -- 変数名のリネーム
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = false, desc = "変数名のリネーム" })
+
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "go", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = false, desc = "エラーをフロートウィンドウで表示" })
+      -- 次のエラーへジャンプ
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = false, desc = "次のエラーへジャンプ" })
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = false, desc = "前のエラーへジャンプ" })
+    end
+  end
+  if client ~= "ruff" then
+    -- インラインヒント
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
+end
 -- 各:withLSPサーバの設定
 local lsp_server_settings = {
   pyright = {
@@ -127,6 +133,7 @@ local lsp_server_settings = {
 
 return {
   {
+    -- LSPを管理するプラグイン
     "williamboman/mason.nvim",
     lazy = true,
     event = { "LspAttach" },
@@ -217,4 +224,103 @@ return {
       })
     end
   },
+  {
+    "nvimdev/lspsaga.nvim",
+    event = { "LspAttach" },
+    keys = {
+      -- カーソル下の情報を表示
+      { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", desc = "カーソル下の情報を表示" },
+      -- 定義へジャンプ
+      { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = "n", desc = "定義にジャンプ" },
+      -- 呼出階層を表示
+      { "gr", "<cmd>Lspsaga incoming_calls<CR>", mode = "n", desc = "呼出階層を表示" },
+      -- 型定義へジャンプ
+      { "gt", "<cmd>Lspsage goto_type_definition<CR>", mode = "n", desc = "型定義にジャンプ"},
+      -- コードアクションを表示
+      { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", desc = "コードアクションを表示" },
+      -- 次の診断へジャンプ
+      { "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n", desc = "次の診断へジャンプ" },
+      -- 前の診断へジャンプ
+      { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", desc = "前の診断へジャンプ" },
+
+    },
+    config = function()
+      require("lspsaga").setup({
+        -- パンくずリスト
+        symbol_in_winbar = {
+          enable = false,
+          sparator = " › ",
+          hide_keyword = false,
+          show_file = true,
+          folder_level = 1,
+          color_mode = true,
+          delay = 300,
+        },
+        -- コードアクション
+        code_action = {
+          num_shortcut = true,
+          show_server_name = true,
+          extend_gitsigns = false,
+          keys = {
+            quit = "q",
+            exec = "<CR>",
+          }
+        },
+        hover = {
+          max_width = 0.9,
+          max_height = 0.8,
+          open_link = "gx",
+          open_cmd = "!chrome",
+        },
+        -- diagnostic
+        diagnostics = {
+          show_code_action = true,
+          jump_num_shortcut = true,
+          max_width = 0.8,
+          max_height = 0.6,
+          text_hl_follow = true,
+          border_follow = true,
+          extend_relatedInformation = false,
+          show_layout = "float",
+          show_normal_height = 10,
+          max_show_width = 0.9,
+          max_show_height = 0.6,
+          diagnostic_only_current = false,
+          keys = {
+            exec_action = "<CR>",
+            quit = "q",
+            toggle_or_jump = "<CR>",
+            quit_in_show = { "q", "<ESC>" },
+          }
+        },
+        -- 定義
+        definition = {
+          width = 0.6,
+          height = 0.5,
+          keys = {
+            edit = "<CR>",
+            vsplit = "sv",
+            split = "ss",
+            tabe = "<C-c>t",
+            quit = "q",
+            close = "<ESC>",
+          }
+        },
+        -- 呼出階層表示時のアクションキーマップ
+        callhierarchy = {
+          keys = {
+            -- ファイルを開く
+            edit = "<CR>",
+            vsplit = "sv",
+            split = "ss",
+          }
+        }
+      })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+
+    }
+  }
 }
