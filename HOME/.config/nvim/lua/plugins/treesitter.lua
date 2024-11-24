@@ -250,10 +250,9 @@ return {
         enable = true,
         perv_section = ",",
         keymaps = {
-          ["."] = "textsubjects-smart",
-          [";"] = "textsubjects-container-outer",
-          ["i;"] = "textsubjects-container-inner",
-          ["i:"] = { "textsubjects-container-inner", desc = "Select inside containers (classes, functions, etc.)" },
+          ["."] = { "textsubjects-smart", desc = "コメント, 関数呼び出し, 関数定義などスマートに選択" },
+          [";"] = { "textsubjects-container-outer", desc = "クラス, 構造体, 関数を外側から選択" },
+          ["i;"] = { "textsubjects-container-inner", desc = "クラス, 構造体, 関数の内部を選択" },
         },
       }
     })
