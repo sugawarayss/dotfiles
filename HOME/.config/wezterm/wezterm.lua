@@ -28,7 +28,9 @@ config.window_decorations = "TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
 config.color_scheme = 'Tokyo Night'
 -- 背景の透過度
-config.window_background_opacity = 0.79
+config.window_background_opacity = 0.9
+-- 背景のぼかし
+config.macos_window_background_blur = 9
 -- フォント
 config.font = wezterm.font_with_fallback {
   "Hack Nerd Font",
