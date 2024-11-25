@@ -69,11 +69,10 @@ local dap_adapters = {
 }
 
 local my_on_attach = function(client, bufnr)
-  print("call my on attach")
   for _, value in pairs(lsp_servers) do
     if client == value then
-      print("yes")
       -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      -- FIXME: WhichKey が gf を使用しているので使えない。。。
       vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format {async=true}<CR>", { noremap = true, silent = false, desc = "フォーマットを実行" })
       -- 'K' でカーソル下の変数情報を表示
       -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {  noremap = true, silent = false, desc = "カーソル下の変数情報を表示" })
@@ -233,7 +232,7 @@ return {
       -- 定義へジャンプ
       { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = "n", desc = "定義にジャンプ" },
       -- 呼出階層を表示
-      { "gr", "<cmd>Lspsaga incoming_calls<CR>", mode = "n", desc = "呼出階層を表示" },
+      { "gr", "<cmd>Lspsaga finder<CR>", mode = "n", desc = "参照先の表示" },
       -- 型定義へジャンプ
       { "gt", "<cmd>Lspsage goto_type_definition<CR>", mode = "n", desc = "型定義にジャンプ"},
       -- コードアクションを表示
@@ -265,6 +264,26 @@ return {
             quit = "q",
             exec = "<CR>",
           }
+        },
+        finder = {
+          max_height = 0.5,
+          left_width = 0.3,
+          right_width = 0.3,
+          default = "ref",
+          methods = {}, -- e.g.) {"tyd" = "textDocument/typeDefinition"}
+          layout = "float",
+          filter = {},
+          silent = false,
+          keys = {
+            shuttle = "[w", -- Finder ウィンドウ間を移動
+            toggle_or_open = "<CR>",
+            vsplit = "sv",
+            split = "ss",
+            tabnew = "r",
+            quit = "q",
+            close = "<ESC>",
+          }
+
         },
         hover = {
           max_width = 0.9,
