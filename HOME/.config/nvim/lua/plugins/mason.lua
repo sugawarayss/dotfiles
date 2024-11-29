@@ -61,6 +61,8 @@ local diagnostics = {
   "dcm",
   -- Go
   "staticcheck",
+  -- markdown
+  "markdownlint",
 }
 -- dap adapters
 local dap_adapters = {

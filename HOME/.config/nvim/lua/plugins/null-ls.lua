@@ -91,6 +91,11 @@ return {
         diagnostics_format = '[#{s}] (#{c}) #{m}',
         extra_args = vim.fn.filereadable("./pyproject.toml") == 1 and { "--config", "./pyproject.toml" } or nil
       }),
+      -- markdown
+      null_ls.builtins.diagnostics.markdownlint.with({
+        filetypes = { "markdown" },
+        diagnostics_format = "[#{s}] (#{c}) #{m}",
+      }),
       -- Lua
       null_ls.builtins.formatting.stylua.with({
         filetypes = { "lua" },
