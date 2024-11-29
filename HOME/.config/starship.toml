@@ -7,7 +7,7 @@ command_timeout   = 1000
 
 # 左プロンプト
 format            = """
-[┌───────────────────>](bold green) [$memory_usage]() $time $cmd_duration
+[┌───────────────────](bold green) [$memory_usage]() $time $cmd_duration
 [│](bold green)$username$hostname$localip$singularity$container$docker_context$kubernetes$package
 [│](bold green)$git_state$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
@@ -17,11 +17,11 @@ right_format      = '\[$jobs[$directory](bold green)\]'
 
 [character]
 # コマンド成功時
-success_symbol    = "[>](bold green)"
+success_symbol    = "[](bold green)"
 # コマンド失敗時
-error_symbol      = "[>](bold red)"
+error_symbol      = "[](bold red)"
 # vimノーマルモード時
-vimcmd_symbol     = "[<](bold green)"
+vimcmd_symbol     = "[](bold green)"
 
 [cmd_duration]
 format            = "took 󱫡 [$duration]($style) "
@@ -60,6 +60,7 @@ style             = "bold 208"
 
 [aws.region_aliases]
 ap-northeast-1    = "tokyo"
+
 [azure]
 disabled          = true
 format            = '[$symbol]($style)$subscription '
@@ -67,7 +68,7 @@ format            = '[$symbol]($style)$subscription '
 [gcloud]
 # GCPの表示は無効化
 disabled          = true
-symbol            = "󱇶 "
+symbol            = "󱇶"
 style             = "bold green"
 format            = '[$symbol]($style)$project '
 
@@ -78,7 +79,7 @@ style             = "bold yellow"
 format            = "[$output]($style) "
 
 [docker_context]
-symbol            = "🐳 "
+symbol            = ""
 format            = " [$symbol $context](blue bold) "
 
 [python]
@@ -113,20 +114,20 @@ symbol            = ""
 format            = "$symbol(yellow) [$version](yellow) "
 
 [git_state]
-cherry_pick       = "[🍒]"
+cherry_pick       = "[ ](red)"
 
 [git_status]
 # Gitのステータス表示アイコン
-conflicted        = "💥"
-ahead             = "🏎"
-behind            = "😰"
-diverged          = "😵"
-untracked         = "🌚"
-stashed           = "📦"
-modified          = "📝"
-staged            = "🔦"
-renamed           = "🏷"
-deleted           = "🗑"
+conflicted        = "[ ${count} ](bright-red) "
+ahead             = "[ ${count} ](green)"
+behind            = "[ ${count} ](blue)"
+diverged          = "[ ${count} ](bright-purple)"
+untracked         = "[ ${count} ](bright-blue)"
+stashed           = "[ ${count} ](purple)"
+modified          = "[ ${count} ](bright-cyan)"
+staged            = "[ ${count} ](bright-yellow)"
+renamed           = "[ ${count} ](yellow) "
+deleted           = "[ ${count} ](red)"
 
 [git_branch]
 # Gitブランチの表示アイコン
