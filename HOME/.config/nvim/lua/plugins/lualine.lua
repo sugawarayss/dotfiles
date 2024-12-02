@@ -11,7 +11,7 @@ if not vim.g.vscode then
       require("lualine").setup({
         options = {
           icons_enabled = true,
-          theme = "tokyonight",
+          theme = "ayu_mirage",
           --component_separators = { left = '', right = ''},
           --section_separators = { left = '', right = ''},
           disabled_filetypes = {
@@ -20,19 +20,21 @@ if not vim.g.vscode then
           },
           ignore_focus = {},
           always_divide_middle = true,
+          -- :set laststatus=3 の状態(グローバルステータス)にするか
           globalstatus = true,
           refresh = {
-            statusline = 1000,
+            statusline = 100,
             tabline = 1000,
             winbar = 1000,
           }
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff', 'diagnostics' },
-          lualine_c = {
-            { 'filename', path = 4 },
+          lualine_b = {
+            { 'filename', path = 1 },
+            'diagnostics',
           },
+          lualine_c = { 'branch', 'diff' },
           lualine_x = { 'encoding', 'fileformat', 'filetype' },
           lualine_y = { 'location', 'progress' },
           lualine_z = {
@@ -40,15 +42,12 @@ if not vim.g.vscode then
           }
         },
         inactive_sections = {
-          lualine_a = {
-            {
-              'filename',
-              path = 4,
-            },
-          },
+          lualine_a = {},
           lualine_b = {
+            { 'filename', path = 1 },
           },
           lualine_c = {
+            { 'diff', 'diagnostics' }
           },
           lualine_x = { 'location' },
           lualine_y = {},

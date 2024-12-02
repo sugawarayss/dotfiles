@@ -56,4 +56,3 @@ vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 -- vim.cmd([[set spelllang=en,cjk]]) -- 日本語はスペルチェックしない
 -- vim.cmd([[set spell]]) -- スペルチェックを有効にする
-vim.cmd([[set laststatus=3]]) -- global statusline
