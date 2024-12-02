@@ -9,7 +9,7 @@ return {
   },
   config = function()
     require("swap-buffers").setup({
-      ignore_filetypes = { "neo-tree", "terminal" },
+      ignore_filetypes = { "neo-tree", "toggleterm" },
     })
   end
 }
