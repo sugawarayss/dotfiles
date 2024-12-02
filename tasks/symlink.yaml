@@ -8,8 +8,10 @@ tasks:
   starship:
     desc: Create Symbolic Link for starship
     cmds:
-      - '[ ! -L ~/.config/starship.toml ] ln -s {{.PROJECT_DIR}}/HOME/.config/starship.toml ~/.config/starship.toml
-        || echo starship.toml is already exists'
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/starship.toml ~/.config/starship.toml
+    preconditions:
+      - sh: '[ ! -L ~/.config/starship.toml ]'
+        msg: "~/.config/starship.toml is already exists"
 
   ideavim:
     desc: Create Symbolic Link for ideavim

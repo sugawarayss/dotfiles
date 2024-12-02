@@ -9,6 +9,13 @@ tasks:
       - asdf plugin add nodejs
       - asdf plugin add deno
       - asdf plugin add golang
+      - asdf plugin add bun
+      - asdf plugin add flutter
+      - asdf plugin add dart
+      - asdf plugin add java
+      - asdf plugin add rust
+      - asdf plugin add r
+
   latest:
     desc: Install Latest Versions
     cmds:
@@ -17,6 +24,10 @@ tasks:
       - asdf install nodejs latest
       - asdf install deno latest
       - asdf install golang latest
+      - asdf install bun latest
+      - asdf install flutter latest
+      - asdf install java latest
+      - asdf install rust latest
   set_global:
     desc: Set Global versions
     cmds:
