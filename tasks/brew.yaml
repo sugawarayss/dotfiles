@@ -1,0 +1,16 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+
+tasks:
+  restore:
+    desc: Install Formulaes from Brewfile
+    cmds:
+      - brew bundle --file "{{.PROJECT_DIR}}/homebrew/Brewfile"
+  dump:
+    desc: Dump Installed Formulaes
+    cmds:
+      - brew bundle dump --force --file "{{.PROJECT_DIR}}/homebrew/Brewfile"
+

@@ -1,0 +1,25 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+
+includes:
+  brew: ./tasks/brew.yaml
+  asdf: ./tasks/asdf.yaml
+  links:
+    taskfile: ./tasks/symlink.yaml
+    flattern: true
+  neovim:
+    taskfile: ./tasks/nvim.yaml
+    flatten: true
+  git:
+    taskfile: ./tasks/git.yaml
+    flatten: true
+
+tasks:
+  default:
+    desc: Show commands
+    cmds:
+      - task -l --sort none
+

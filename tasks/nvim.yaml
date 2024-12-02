@@ -1,0 +1,41 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+
+tasks:
+  nvim-config:
+    internal: true
+    desc: Create Symbolic Links for neovim
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/nvim ~/.config/nvim
+    preconditions:
+      - sh: '[ ! -L ~/.config/nvim ]'
+        msg: "~/.config/nvim is already exists"
+
+  skk_dictionary:
+    internal: true
+    desc: Create Skk Dictionary Symbolic Link
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/skkeleton/dictionary ~/.skk
+    preconditions:
+      - sh: '[ ! -L ~/.skk ]'
+        msg: "skk dictionary is already exists"
+
+  skkeleton_dictionary:
+    internal: true
+    desc: Create Skkeleton User Dictionary Symbolic Link
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/skkeleton/my_dictionary ~/.skkeleton
+    preconditions:
+      - sh: '[ ! -L ~/.skkeleton ]'
+        msg: "skkeleton user dictionary is already exists"
+
+  nvim:
+    desc: Create Symbolic Links for neovim
+    deps: [nvim-config, skk_dictionary, skkeleton_dictionary]
+    # cmds:
+    #   - task: nvim-config
+    #   - task: skk_dictionary
+    #   - task: skkeleton_dictionary

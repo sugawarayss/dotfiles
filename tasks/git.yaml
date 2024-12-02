@@ -1,0 +1,23 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+
+tasks:
+  git:
+    desc: Create Symbolic Links for git
+    cmds:
+      - '[ ! -L ~/.config/git/ignore ] && ln -s {{.PROJECT_DIR}}/HOME/.config/git/ignore ~/.config/git/ignore
+        || echo "git ignore is already exists"'
+      - '[ ! -L ~/.config/git/.commit_template ] && ln -s {{.PROJECT_DIR}}/HOME/.config/git/.commit_template ~/.config/git/.commit_template
+        || echo "git commit_template is already exists"'
+      - '[ ! -L ~/.config/.gitconfig ] && ln -s {{.PROJECT_DIR}}/HOME/.config/git/.gitconfig ~/.gitconfig
+        || echo "git config is already exists"'
+  lazygit:
+    desc: Create Symbolic Link for lazygit
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/lazygit
+    preconditions:
+      - sh: '[ ! -L ~/.config/lazygit ]'
+        msg: "lazygit is already exists"

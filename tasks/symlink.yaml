@@ -1,0 +1,35 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+
+tasks:
+  starship:
+    desc: Create Symbolic Link for starship
+    cmds:
+      - '[ ! -L ~/.config/starship.toml ] ln -s {{.PROJECT_DIR}}/HOME/.config/starship.toml ~/.config/starship.toml
+        || echo starship.toml is already exists'
+
+  ideavim:
+    desc: Create Symbolic Link for ideavim
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.ideavimrc ~/.ideavimrc
+    preconditions:
+      - sh: '[ ! -L ~/.ideavimrc ]'
+        msg: "~/.ideavimrc is already exists"
+  warp:
+    desc: Create Symbolic Links for terminal app
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.warp ~/.warp
+    preconditions:
+      - sh: '[ ! -L ~/.warp ]'
+        msg: "~/.warp is already exists"
+  wezterm:
+    desc: Create Symbolic Links for wezterm
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/wezterm ~/.config/wezterm
+    preconditions:
+      - sh: '[ ! -L ~/.config/wezterm ]'
+        msg: "~/.config/wezterm is already exists"
+

@@ -1,0 +1,28 @@
+version: "3"
+
+tasks:
+  plugins:
+    desc: Install asdf plugins
+    cmds:
+      - echo "---Install asdf Plugins---"
+      - asdf plugin add python
+      - asdf plugin add nodejs
+      - asdf plugin add deno
+      - asdf plugin add golang
+  latest:
+    desc: Install Latest Versions
+    cmds:
+      - echo "---Install Latest Versions---"
+      - asdf install python latest
+      - asdf install nodejs latest
+      - asdf install deno latest
+      - asdf install golang latest
+  set_global:
+    desc: Set Global versions
+    cmds:
+      - echo "---Set Global Versions---"
+      - asdf global python latest
+      - asdf global nodejs latest
+      - asdf global deno latest
+      - asdf global golang latest
+
