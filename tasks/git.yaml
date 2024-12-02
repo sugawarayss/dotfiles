@@ -7,13 +7,32 @@ vars:
 tasks:
   git:
     desc: Create Symbolic Links for git
+    deps: [config, ignore, template]
+  config:
+    internal: true
+    desc: Create Symbolic Link of git config
     cmds:
-      - '[ ! -L ~/.config/git/ignore ] && ln -s {{.PROJECT_DIR}}/HOME/.config/git/ignore ~/.config/git/ignore
-        || echo "git ignore is already exists"'
-      - '[ ! -L ~/.config/git/.commit_template ] && ln -s {{.PROJECT_DIR}}/HOME/.config/git/.commit_template ~/.config/git/.commit_template
-        || echo "git commit_template is already exists"'
-      - '[ ! -L ~/.config/.gitconfig ] && ln -s {{.PROJECT_DIR}}/HOME/.config/git/.gitconfig ~/.gitconfig
-        || echo "git config is already exists"'
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/git/.gitconfig ~/.gitconfig
+    preconditions:
+      - sh: '[ ! -L ~/.gitconfig ]'
+        msg: "~/.gitconfig is already exists"
+  ignore:
+    internal: true
+    desc: Create Symbolic Link of git global ignore
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/git/ignore ~/.config/git/ignore
+    preconditions:
+      - sh: '[ ! -L ~/.config/git/ignore ]'
+        msg: "~/.config/git/ignore is already exists"
+  template:
+    internal: true
+    desc: Create Symbolic Link of commit_template
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/git/.commit_template ~/.config/git/.commit_template
+    preconditions:
+      - sh: '[ ! -L ~/.config/git/.commit_template ]'
+        msg: "~/.config.git/.commit_template is already exists"
+
   lazygit:
     desc: Create Symbolic Link for lazygit
     cmds:
