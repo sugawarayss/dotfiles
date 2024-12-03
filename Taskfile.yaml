@@ -16,6 +16,7 @@ includes:
   git:
     taskfile: ./tasks/git.yaml
     flatten: true
+  zed: ./tasks/zed.yaml
 
 tasks:
   default:

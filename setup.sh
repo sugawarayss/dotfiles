@@ -50,3 +50,6 @@ else
   task asdf:latest
   task asdf:set_global
 fi
+
+task zed:settings
+task zed:keymap

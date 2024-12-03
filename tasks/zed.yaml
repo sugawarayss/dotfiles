@@ -1,0 +1,22 @@
+version: "3"
+
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+
+tasks:
+  settings:
+    desc: Create Symbolic Link for zed editor
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/zed/settings.json ~/.config/zed/settings.json
+    preconditions:
+      - sh: '[ ! -L ~/.config/zed/settings.json ]'
+        msg: "~/.config/zed/settings.json is already exists"
+  keymap:
+    desc: Create Symbolic Link for zed editor
+    cmds:
+      - cp -f {{.PROJECT_DIR}}/HOME/.config/zed/keymap.json ~/.config/zed/keymap.json
+    preconditions:
+      - sh: '[ ! -L ~/.config/zed/keymap.json ]'
+        msg: "~/.config/zed/keymap.json"

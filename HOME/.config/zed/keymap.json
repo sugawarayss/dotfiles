@@ -1,0 +1,20 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      // アクティブなPaneの移動
+      "s h": ["workspace::ActivatePaneInDirection", "Left"],
+      "s l": ["workspace::ActivatePaneInDirection", "Right"],
+      "s k": ["workspace::ActivatePaneInDirection", "Up"],
+      "s j": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  }
+]
+
