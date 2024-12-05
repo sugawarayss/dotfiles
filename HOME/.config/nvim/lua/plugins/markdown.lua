@@ -16,13 +16,16 @@ return {
   -- markdownレンダリング
   {
     "MeanderingProgrammer/markdown.nvim",
-    lazy = true,
-    name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     ft = { "markdown" },
-    build = ":RenderMarkdown toggle" ,
     config = function()
       require("render-markdown").setup({
+        enabled = true,
+        max_file_size = 10.0,
+        debounce = 100,
+        preset = "none",
+        log_level = "error",
+        log_runtime = false,
         file_types = { "markdown", "vimwiki" },
         -- 見出しの表示設定
         heading = { border = true },
