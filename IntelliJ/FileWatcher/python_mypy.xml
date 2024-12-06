@@ -1,6 +1,6 @@
 <TaskOptions>
   <TaskOptions>
-    <option name="arguments" value="$FilePath$ --install-types --config-file ./pyproject.toml" />
+    <option name="arguments" value="$FilePath$ --install-types --non-interactive --config-file ./pyproject.toml" />
     <option name="checkSyntaxErrors" value="true" />
     <option name="description" />
     <option name="exitCodeBehavior" value="ERROR" />
