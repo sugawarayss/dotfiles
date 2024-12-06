@@ -129,3 +129,7 @@ if type "xsv" > /dev/null 2>&1; then
   alias csv='xsv'
   alias csvheader='xsv headers'
 fi
+
+if type "freeze" > /dev/null 2>&1; then
+  alias freeze='freeze -c full --font.family "Hack Nerd Font" --output ~/Documents/FREEZE_CODES/frozen_code.png'
+fi
