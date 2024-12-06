@@ -16,7 +16,7 @@ tasks:
   keymap:
     desc: Create Symbolic Link for zed editor
     cmds:
-      - cp -f {{.PROJECT_DIR}}/HOME/.config/zed/keymap.json ~/.config/zed/keymap.json
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/zed/keymap.json ~/.config/zed/keymap.json
     preconditions:
       - sh: '[ ! -L ~/.config/zed/keymap.json ]'
         msg: "~/.config/zed/keymap.json"
