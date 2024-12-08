@@ -3,7 +3,6 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
-    lazy = true,
     keys = {
       { "<C-t><C-t>", ":Neotree toggle<CR>", mode = "n", desc = "ファイルエクスプローラをトグル" },
     },
@@ -11,28 +10,8 @@ return {
       { "nvim-lua/plenary.nvim" },
       { "nvim-tree/nvim-web-devicons" },
       { "MunifTanjim/nui.nvim" },
+      { "s1n7ax/nvim-window-picker" },
       -- { "3rd/image.nvim" },
-      {
-        "s1n7ax/nvim-window-picker",
-        name = "window-picker",
-        event = "VeryLazy",
-        version = "2.*",
-        config = function()
-          require "window-picker".setup({
-            filter_rules = {
-              include_current_win = false,
-              autoselect_one = true,
-              -- filter using buffer options
-              bo = {
-                -- if the file type is one of following, the window will be ignored
-                filetype = { "neo-tree", "neo-tree-popup", "notify" },
-                -- if the buffer type is one of following, the window will be ignored
-                buftype = { "terminal", "quickfix" },
-              },
-            },
-          })
-        end,
-      },
     },
     config = function ()
       -- If you want icons for diagnostic errors, you'll need to define them somewhere:
@@ -193,8 +172,10 @@ return {
             ["<"] = "prev_source",
             [">"] = "next_source",
             ["i"] = "show_file_details",
-            ["<C-s>"] = "open_split",  -- 水平分割で開く
-            ["<C-v>"] = "open_vsplit",  -- 垂直分割で開く
+            -- ["<C-s>"] = "open_split",  -- 水平分割で開く
+            ["<C-s>"] = "split_with_window_picker",
+            -- ["<C-v>"] = "open_vsplit",  -- 垂直分割で開く
+            ["<C-v>"] = "vsplit_with_window_picker",
             ['<tab>'] = function (state) -- ファイルを開いてもNeotreeを閉じない
               local node = state.tree:get_node()
               if require("neo-tree.utils").is_expandable(node) then
