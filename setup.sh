@@ -36,17 +36,22 @@ then
   echo "go-task is not installed."
   brew install go-task
 else
-  echo "--- Create Symbolic Links ---"
+  echo "--- Setup MacOS Settings ---"
   task macos:screenshot
   task prepare:directories
+  echo "--- Setup starship ---"
   task links:starship
+  echo "--- Setup GIt ---"
   task git:setup
   task lazygit
+  echo "--- Setup Editor ---"
   task nvim
   task links:ideavim
+  task zed:settings
+  task zed:keymap
+  echo "--- Setup Terminal App ---"
   task links:warp
   task links:wezterm
-
   echo "--- SetUp asdf ---"
   task asdf:plugins
   task asdf:latest
