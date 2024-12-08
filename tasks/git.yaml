@@ -3,30 +3,44 @@ version: "3"
 vars:
   PROJECT_DIR:
     sh: pwd
+  GIT_DIR: .config/git
 
 tasks:
-  git:
-    desc: Create Symbolic Links for git
-    deps: [config, ignore, template]
-  config:
+  setup:
+    deps: [directories]
+    cmds:
+      - task: config
+      - task: ignore
+      - task: template
+
+  directories:
     internal: true
+    desc: Check Zed dir exists
+    cmds:
+      - '[[ ! -d ~/{{.GIT_DIR}} ]] && mkdir -p ~/{{.GIT_DIT}} || echo "~/{{.GIT_DIR}} is already exist"'
+      -
+    silent: true
+
+  config:
     desc: Create Symbolic Link of git config
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/.config/git/.gitconfig ~/.gitconfig
     preconditions:
       - sh: '[ ! -L ~/.gitconfig ]'
         msg: "~/.gitconfig is already exists"
+
   ignore:
-    internal: true
     desc: Create Symbolic Link of git global ignore
+    deps: [directories]
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/.config/git/ignore ~/.config/git/ignore
     preconditions:
       - sh: '[ ! -L ~/.config/git/ignore ]'
         msg: "~/.config/git/ignore is already exists"
+
   template:
-    internal: true
     desc: Create Symbolic Link of commit_template
+    deps: [directories]
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/.config/git/.commit_template ~/.config/git/.commit_template
     preconditions:
@@ -35,8 +49,9 @@ tasks:
 
   lazygit:
     desc: Create Symbolic Link for lazygit
+    deps: [directories]
     cmds:
-      - ln -s {{.PROJECT_DIR}}/HOME/.config/lazygit
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/lazygit ~/.config/lazygit
     preconditions:
       - sh: '[ ! -L ~/.config/lazygit ]'
-        msg: "lazygit is already exists"
+        msg: "~/.config/lazygit is already exists"

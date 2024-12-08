@@ -27,6 +27,7 @@ tasks:
     preconditions:
       - sh: '[ ! -L ~/.warp ]'
         msg: "~/.warp is already exists"
+
   wezterm:
     desc: Create Symbolic Links for wezterm
     cmds:
@@ -34,4 +35,3 @@ tasks:
     preconditions:
       - sh: '[ ! -L ~/.config/wezterm ]'
         msg: "~/.config/wezterm is already exists"
-

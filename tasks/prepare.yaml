@@ -1,0 +1,12 @@
+version: "3"
+
+vars:
+  TARGET_DIRS: [ ~/.config, ~/.config/git, ~/.config/zed, ~/SCREENSHOTS, ~/Documents/FREEZE_CODES, ~/PROJECTS]
+
+tasks:
+  directories:
+    cmds:
+      - for:
+          var: TARGET_DIRS
+        cmd: '[[ ! -d {{.ITEM}} ]] && mkdir -p {{.ITEM}} || echo "{{.ITEM}} is already exist"'
+    silent: true

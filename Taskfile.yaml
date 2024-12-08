@@ -15,12 +15,12 @@ includes:
     flatten: true
   git:
     taskfile: ./tasks/git.yaml
-    flatten: true
   zed: ./tasks/zed.yaml
+  prepare: ./tasks/prepare.yaml
+  macos: ./tasks/macos.yaml
 
 tasks:
   default:
     desc: Show commands
     cmds:
       - task -l --sort none
-

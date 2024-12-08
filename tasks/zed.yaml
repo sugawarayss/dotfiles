@@ -1,22 +1,33 @@
 version: "3"
 
-
 vars:
   PROJECT_DIR:
     sh: pwd
+  ZED_DIR: .config/zed
+
 
 tasks:
+  directories:
+    internal: true
+    desc: Check Zed dir exists
+    cmds:
+      - '[[ ! -d ~/{{.ZED_DIR}} ]] && mkdir -p ~/{{.ZED_DIR}} || echo "~/{{.ZED_DIR}} is already exist"'
+    silent: true
+
   settings:
     desc: Create Symbolic Link for zed editor
+    deps: [directories]
     cmds:
-      - ln -s {{.PROJECT_DIR}}/HOME/.config/zed/settings.json ~/.config/zed/settings.json
+      - ln -s {{.PROJECT_DIR}}/HOME/{{.ZED_DIR}}/settings.json ~/{{.ZED_DIR}}/settings.json
     preconditions:
-      - sh: '[ ! -L ~/.config/zed/settings.json ]'
-        msg: "~/.config/zed/settings.json is already exists"
+      - sh: '[ ! -L ~/{{.ZED_DIR}}/settings.json ]'
+        msg: "~/{{.ZED_DIR}}/settings.json is already exists"
+
   keymap:
     desc: Create Symbolic Link for zed editor
+    deps: [directories]
     cmds:
-      - ln -s {{.PROJECT_DIR}}/HOME/.config/zed/keymap.json ~/.config/zed/keymap.json
+      - ln -s {{.PROJECT_DIR}}/HOME/{{.ZED_DIR}}/keymap.json ~/{{.ZED_DIR}}/keymap.json
     preconditions:
-      - sh: '[ ! -L ~/.config/zed/keymap.json ]'
-        msg: "~/.config/zed/keymap.json"
+      - sh: '[ ! -L ~/{{.ZED_DIR}}/keymap.json ]'
+        msg: "~/{{.ZED_DIR}}/keymap.json"

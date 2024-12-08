@@ -1,0 +1,11 @@
+version: "3"
+
+tasks:
+  screenshot:
+    desc: Change Screenshot Settings
+    cmds:
+      - defaults write com.apple.screencapture location ~/SCREENSHOTS
+      - defaults write com.apple.screencapture name screenshot
+      - defaults write com.apple.screencapture include-date -bool false
+      - defaults write com.apple.screencapture show-thumbnail -bool false
+      - killall SystemUIServer
