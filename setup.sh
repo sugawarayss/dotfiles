@@ -7,10 +7,10 @@ echo "PROJECT DIRECTORY: $PROJECT_DIR"
 echo "--- Homebrew ---"
 if ! command -v brew &> /dev/null
 then
-  echo -e "\n Homebrew is not installed. Installing Homebrew..."
+  echo -e "Homebrew is not installed. Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-  echo -e "\n Homebrew is already installed."
+  echo -e "Homebrew is already installed."
 fi
 
 echo "--- Brew Bundle ---"
