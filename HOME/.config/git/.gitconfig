@@ -23,13 +23,13 @@
   # show git current branch
   current = branch --show-current
   lg = !"git log --oneline --graph --decorate $(git cb)"
+
 [delta]
     line-numbers  = true
     side-by-side  = true
-    plus-style    = "syntax #012800"
-    minus-style   = "syntax #340001"
-    syntax-theme  = Visual Studio Dark+
+    syntax-theme  = Monokai Extended
     navigate      = true
+    side-by-side  = true
 
 [interractive]
     diffFilter    = delta --color-only
@@ -38,9 +38,9 @@
     name          = sugawarayss
     email         = sugawarayss@inap-vision.co.jp
 [ghq]
-    root          = /Users/sugawarayss/PROJECTS
+    root          = ~/PROJECTS
 [commit]
-    template      = /Users/sugawarayss/.config/git/.commit_template
+    template      = ~/.config/git/.commit_template
 [core]
     quotepath     = false
     editor        = nvim
