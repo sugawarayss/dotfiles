@@ -67,7 +67,11 @@
     "line_height": {
       "custom": 1.2
     },
-    "working_directory": "current_project_directory"
+    "working_directory": "current_project_directory",
+    "env": {
+      "LANG": "ja_JP.UTF-8",
+      "LC_ALL": "ja_JP.UTF-8"
+    }
   },
   "languages": {
     "Python": {
