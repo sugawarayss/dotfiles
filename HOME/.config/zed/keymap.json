@@ -7,6 +7,26 @@
 // from the command palette.
 [
   {
+    "context": "Workspace",
+    "bindings": {
+      // コマンドパレットのトグル
+      "cmd-shift-p": "command_palette::Toggle",
+      // プロジェクトパネル(ファイルエクスプローラへのフォーカスをトグル)
+      "ctrl-t ctrl-t": "project_panel::ToggleFocus",
+      // ファイルファインダーのトグル
+      "shift shift": "file_finder::Toggle",
+      // 左側のDockをトグル
+      "cmd-b": "workspace::ToggleLeftDock",
+      // 右側k(AI Chat用)のDockをトグル
+      "cmd-r": "workspace::ToggleRightDock",
+      // 下側(Terminal用)のDockをトグル
+      "cmd-j": "workspace::ToggleBottomDock",
+      // タブスイッチャーのトグル
+      "ctrl-tab": "tab_switcher::Toggle"
+      //
+    }
+  },
+  {
     "context": "ProjectPanel",
     "bindings": {
       "a": "project_panel::NewFile",
@@ -19,11 +39,31 @@
   {
     "context": "FileFinder && !menu_open",
     "bindings": {
-      "cmd-shift-p": "file_finder::SelectPrev",
+      "shift shift": "file_finder::Toggle",
       "cmd-j": "pane::SplitDown",
       "cmd-k": "pane::SplitUp",
       "cmd-h": "pane::SplitLeft",
       "cmd-l": "pane::SplitRight"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {}
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      // 検索モードのトグル
+      "cmd-f": "buffer_search::Deploy",
+      // 置換モードのトグル
+      "cmd-alt-f": ["buffer_search::Deploy", { "replace_enabled": true }]
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal) && !menu",
+    "bindings": {
+      "u": "editor::Undo",
+      "shift-u": "editor::Redo"
     }
   },
   {
@@ -33,8 +73,6 @@
       "g a": "editor::ToggleCodeActions",
       // 行番号表示トグルを無効化
       "cmd-;": null,
-      // プロジェクトパネル(ファイルエクスプローラへのフォーカスをトグル)
-      "ctrl-t ctrl-t": "project_panel::ToggleFocus",
       // ペインの分割
       "s s k": "pane::SplitUp",
       "s s j": "pane::SplitDown",
