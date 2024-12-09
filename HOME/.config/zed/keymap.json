@@ -49,7 +49,12 @@
       "space a a": "outline::Toggle",
       // タブ選択
       "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePrevItem"
+      "shift-h": "pane::ActivatePrevItem",
+      // lazygitを起動
+      "space g": [
+        "workspace::SendKeystrokes",
+        ": new center terminal enter lazygit space && space exit enter"
+      ]
     }
   }
 ]
