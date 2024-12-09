@@ -46,7 +46,10 @@
       "s k": ["workspace::ActivatePaneInDirection", "Up"],
       "s j": ["workspace::ActivatePaneInDirection", "Down"],
       // アウトラインの表示
-      "space a a": "outline::Toggle"
+      "space a a": "outline::Toggle",
+      // タブ選択
+      "shift-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePrevItem"
     }
   }
 ]
