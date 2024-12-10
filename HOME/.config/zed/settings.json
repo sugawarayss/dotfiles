@@ -16,11 +16,10 @@
   },
   "base_keymap": "JetBrains",
   "telemetry": {
-    "metrics": false,
-    "diagnostics": false
+    "metrics": false, // メトリクスの送信
+    "diagnostics": false // ダイアグノスティックの送信
   },
-  // 終了前に確認
-  "confirm_quit": true,
+  "confirm_quit": true, // 終了時の確認
   // UI のフォント設定
   "ui_font_size": 15,
   "ui_font_family": "Hack Nerd Font",
@@ -37,28 +36,40 @@
     "light": "One Light",
     "dark": "Catppuccin Macchiato"
   },
-  // vim モード
-  "vim_mode": true,
-  "vim": {
-    // システムクリップボードの使用
-    "use_system_clipboard": "always",
-    // `f` や `t` での検索範囲を複数行にする
-    "use_multiline_find": true,
-    // `f` や `t` での検索時に大文字小文字を区別しない
-    "use_smartcase_find": true,
-    // 相対行数と絶対行数の切り替え(Insert Mode時)
-    "toggle_relative_line_numbers": true
+  "tabs": {
+    "git_status": true,
+    "file_icons": true
   },
-  // 空白文字の表示
-  "show_whitespace": true,
+  "file_finder": {
+    "modal_max_width": "large"
+  },
+  "scrollbar": {
+    "show": "always"
+  },
+  "vim_mode": true, // Vim モードの有効化
+  "vim": {
+    "use_system_clipboard": "always", // システムクリップボードの使用
+    "use_multiline_find": true, // 検索時に複数行を検索する
+    "use_smartcase_find": true, // 検索時に大文字小文字を区別しない
+    "toggle_relative_line_numbers": true // 相対行数と絶対行数の切り替え
+  },
+  "show_whitespaces": "boundary", // 空白文字の表示
+  "indent_guides": {
+    "enabled": true,
+    "line_width": 1, // インデントガイドの幅
+    "active_line_width": 2, // アクティブな行のインデントガイドの幅
+    "coloring": "indent_aware", // インデントガイドの色
+    "background_coloring": "disabled" // インデントガイドの背景色
+  },
+  // インレイヒントの設定
   "inlay_hints": {
     "enabled": true,
-    "show_type_hints": true,
-    "show_parameter_hints": true,
-    "show_other_hints": true,
-    "show_background": true,
-    "edit_debounce_ms": 700,
-    "scroll_debounce_ms": 50
+    "show_type_hints": true, // 型ヒントの表示
+    "show_parameter_hints": true, // パラメーターヒントの表示
+    "show_other_hints": true, // その他のヒントの表示
+    "show_background": true, // ヒントの背景色の表示
+    "edit_debounce_ms": 700, // ヒントの表示までの待機時間
+    "scroll_debounce_ms": 50 // ヒントのスクロールまでの待機時間
   },
   "terminal": {
     "font_size": 13,
@@ -67,7 +78,7 @@
     "line_height": {
       "custom": 1.2
     },
-    "working_directory": "current_project_directory",
+    "working_directory": "current_project_directory", // ターミナルの作業ディレクトリ
     "env": {
       "LANG": "ja_JP.UTF-8",
       "LC_ALL": "ja_JP.UTF-8"

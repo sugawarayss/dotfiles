@@ -12,18 +12,19 @@
       // コマンドパレットのトグル
       "cmd-shift-p": "command_palette::Toggle",
       // プロジェクトパネル(ファイルエクスプローラへのフォーカスをトグル)
-      "ctrl-t ctrl-t": "project_panel::ToggleFocus",
+      // "ctrl-t ctrl-": "project_panel::ToggleFocus",
       // ファイルファインダーのトグル
       "shift shift": "file_finder::Toggle",
       // 左側のDockをトグル
-      "cmd-b": "workspace::ToggleLeftDock",
+      "ctrl-t ctrl-t": "workspace::ToggleLeftDock",
       // 右側k(AI Chat用)のDockをトグル
       "cmd-r": "workspace::ToggleRightDock",
       // 下側(Terminal用)のDockをトグル
-      "cmd-j": "workspace::ToggleBottomDock",
+      "ctrl-t ctrl-m": "workspace::ToggleBottomDock",
       // タブスイッチャーのトグル
-      "ctrl-tab": "tab_switcher::Toggle"
-      //
+      "ctrl-tab": "tab_switcher::Toggle",
+      // アウトラインの表示
+      "space a a": "outline::Toggle"
     }
   },
   {
@@ -33,7 +34,8 @@
       "shift-a": "project_panel::NewDirectory",
       "r": "project_panel::Rename",
       "d": ["project_panel::Trash", { "skip_prompt": false }],
-      "ctrl-t ctrl-t": "project_panel::ToggleFocus"
+      "ctrl-t ctrl-t": "project_panel::ToggleFocus",
+      "ctrl-shift-enter": null
     }
   },
   {
@@ -48,7 +50,11 @@
   },
   {
     "context": "Editor",
-    "bindings": {}
+    "bindings": {
+      "ctrl-m": null,
+      "alt-cmd-[": null,
+      "alt-cmd-]": null
+    }
   },
   {
     "context": "Editor && mode == full",
