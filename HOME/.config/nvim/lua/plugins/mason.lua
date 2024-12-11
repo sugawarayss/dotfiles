@@ -119,6 +119,14 @@ local lsp_server_settings = {
       },
     },
   },
+  ruff = {
+    init_options = {
+      settings = {
+        configuration = "./pyproject.toml",
+        configurationPreference = "filesystemFirst",
+      }
+    }
+  },
   gopls = {
     analyses = {
       nilness = true,
