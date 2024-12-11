@@ -40,7 +40,7 @@ local lsp_servers = {
 -- 自動インストールするformatter
 local formatters = {
   -- python
-  "black",
+  --"black",
   -- "isort",
   "ruff",
   -- Go
@@ -107,13 +107,13 @@ end
 -- 各:withLSPサーバの設定
 local lsp_server_settings = {
   pyright = {
-    pyright = {
-      -- ruff 
-      disableOrganizeImports = true,
-    },
+    --pyright = {
+    --  -- ruff
+    --},
     python = {
       venvPath = ".",
       pythonPath = "./.venv/bin/python",
+      disableOrganizeImports = true,
       analysis = {
         ignore = { "*" },
       },
@@ -124,6 +124,10 @@ local lsp_server_settings = {
       settings = {
         configuration = "./pyproject.toml",
         configurationPreference = "filesystemFirst",
+        lint = {
+          enable = true,
+          extendSelect = {"I"}
+        }
       }
     }
   },
