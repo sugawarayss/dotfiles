@@ -34,12 +34,23 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Macchiato"
+    "dark": "Tokyo Night"
   },
   "tabs": {
     "git_status": true,
     "file_icons": true
   },
+  "tabs": {
+    "git_status": true,
+    "file_icons": true
+  },
+  "file_finder": {
+    "modal_max_width": "large"
+  },
+  "scrollbar": {
+    "show": "always"
+  },
+  "vim_mode": true, // Vim モードの有効化
   "file_finder": {
     "modal_max_width": "large"
   },
@@ -122,11 +133,13 @@
       "pyright": {
         "settings": {
           "python": {
-            "pythonPath": ".venv/bin/python"
-          },
-          "python.analysis": {
-            "diagnosticMode": "workspace",
-            "typeCheckingMode": "strict"
+            "pythonPath": ".venv/bin/python",
+            "disableOrganizeImports": true,
+            "analysis": {
+              "diagnosticMode": "openFilesOnly",
+              "typeCheckingMode": "basic",
+              "autoImportCompletions": true
+            }
           }
         }
       },
@@ -135,11 +148,12 @@
           "settings": {
             // Ruff server settings goes here
             "lineLength": 150,
+            "fixAll": true,
             "lint": {
               "enable": true,
-              "select": ["ALL"],
-              "extendSelect": ["I"],
-              "ignore": [],
+              // "select": ["ALL"],
+              // "extendSelect": ["I"],
+              // "ignore": [],
               "showSyntaxErrors": true,
               "args": ["--config", "./pyproject.toml"]
             },
