@@ -82,7 +82,8 @@ return {
       null_ls.builtins.diagnostics.mypy.with({
         filetypes = { "python" },
         diagnostics_format = '[#{s}] (#{c}) #{m}',
-        extra_args = { "--config-file", "./pyproject.toml" }
+        -- run `cd ~/.local/share/nvim/mason/packages/mypy/ && source venv/bin/activate && pip install 'pydantic[email, timezone]` pydantic-settings && deactivate`
+        extra_args = { "--install-types", "--non-interactive" }
       }),
 
       null_ls.builtins.diagnostics.ruff.with({
