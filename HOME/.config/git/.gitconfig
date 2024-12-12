@@ -5,10 +5,18 @@
     show          = delta
 
 [alias]
+  # ブランチ一覧(local/remote)
+  branchs = branch -a
+  ba = branch -a
+  # リモートブランチ一覧
+  remotes = branch -r
+  br = branch -r
+  # ローカルブランチ一覧
+  locals = branch -l
+  bl = branch -l
   # git st == git status
   st = status
-  # git br == git branch -l
-  bl = branch -l
+  # ブランチ削除
   delete = branch -D
   # git branch graph
   bg = log --graph --simplify-by-decoration --pretty=format:'%d' --all
