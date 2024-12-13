@@ -1,6 +1,16 @@
 version: "3"
 
 tasks:
+  general:
+    desc: Change General Settings
+    cmds:
+      // スクロールバーを常時表示
+      - defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+      // 入力時の自動大文字化を無効
+      - defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool FXDefaultSearchScope
+      // バッテリー残量の%表示
+      - defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
   dock:
     desc: Change Dock Settings
     cmds:
@@ -16,6 +26,8 @@ tasks:
       - defaults write com.apple.finder ShowStatusBar -bool true
       // パスバーを表示
       - defaults write com.apple.finder ShowPathbar -bool true
+      // タブバーを表示
+      - defaults write com.apple.finder ShowTabView -bool true
       // すべての拡張子のファイルを表示
       - defaults write NSGlobalDomain AppleShowAllExtensions -bool true
       // 隠しファイルを表示
