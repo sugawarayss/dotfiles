@@ -1,0 +1,9 @@
+version: "3"
+
+tasks:
+  raycast:
+    desc: Change Raycast Settings
+    cmds:
+    - defaults write com.raycast.macos raycastGlobalHotkey -string "Option-49"
+    - defaults write com.raycast.macos navigationCommandStyleIdentifierKey vim
+    - defaults write com.raycast.macos NSNavLastRootDirectory -string "~/PROJECTS/sugawarayss/dotfiles/raycast/snippets"
