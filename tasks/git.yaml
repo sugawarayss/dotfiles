@@ -15,7 +15,7 @@ tasks:
 
   directories:
     internal: true
-    desc: Check Zed dir exists
+    desc: Check Git dir exists
     cmds:
       - '[[ ! -d ~/{{.GIT_DIR}} ]] && mkdir -p ~/{{.GIT_DIT}} || echo "~/{{.GIT_DIR}} is already exist"'
       -
@@ -24,6 +24,7 @@ tasks:
   config:
     desc: Create Symbolic Link of git config
     cmds:
+      # .gitconfig
       - ln -s {{.PROJECT_DIR}}/HOME/.config/git/.gitconfig ~/.gitconfig
     preconditions:
       - sh: '[ ! -L ~/.gitconfig ]'
@@ -33,6 +34,7 @@ tasks:
     desc: Create Symbolic Link of git global ignore
     deps: [directories]
     cmds:
+      # Git Global Ignore
       - ln -s {{.PROJECT_DIR}}/HOME/.config/git/ignore ~/.config/git/ignore
     preconditions:
       - sh: '[ ! -L ~/.config/git/ignore ]'
@@ -42,6 +44,7 @@ tasks:
     desc: Create Symbolic Link of commit_template
     deps: [directories]
     cmds:
+      # Git Commit Template
       - ln -s {{.PROJECT_DIR}}/HOME/.config/git/.commit_template ~/.config/git/.commit_template
     preconditions:
       - sh: '[ ! -L ~/.config/git/.commit_template ]'
@@ -51,6 +54,7 @@ tasks:
     desc: Create Symbolic Link for lazygit
     deps: [directories]
     cmds:
+      # Lazygit Config File
       - ln -s {{.PROJECT_DIR}}/HOME/.config/lazygit ~/.config/lazygit
     preconditions:
       - sh: '[ ! -L ~/.config/lazygit ]'

@@ -24,6 +24,7 @@ tasks:
     desc: Create Symbolic Links for terminal app
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/.warp ~/.warp
+      - cd ~/.warp && git clone https://github.com/warpdotdev/themes.git
     preconditions:
       - sh: '[ ! -L ~/.warp ]'
         msg: "~/.warp is already exists"

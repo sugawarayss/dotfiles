@@ -1,6 +1,7 @@
 version: "3"
 
 vars:
+  # 作成対象ディレクトリ
   TARGET_DIRS: [ ~/.config, ~/.config/git, ~/.config/zed, ~/SCREENSHOTS, ~/Documents/FREEZE_CODES, ~/PROJECTS]
 
 tasks:
@@ -8,5 +9,6 @@ tasks:
     cmds:
       - for:
           var: TARGET_DIRS
+        # 存在しない場合のみ作成する
         cmd: '[[ ! -d {{.ITEM}} ]] && mkdir -p {{.ITEM}} || echo "{{.ITEM}} is already exist"'
     silent: true
