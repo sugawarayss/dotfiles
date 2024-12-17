@@ -1,14 +1,9 @@
 # add:     新規（ファイル)
+# remove:  削除（ファイル）
 # feat:    機能追加
 # fix:     バグ修正
-# hotfix:  クリティカルなバグ修正
-# update:  機能修正（バグではない）
 # change:  仕様変更
 # clean:   整理（リファクタリング）
-# disable: 無効化（コメントアウト等）
-# remove:  削除（ファイル）
-# upgrade: バージョンアップ
-# revert:  変更取り消し
-# test:    テストコード
+# test:    テストコード関連
 # style:   コードフォーマット
 # chore:   ビルド、補助ツール、ライブラリ関連
