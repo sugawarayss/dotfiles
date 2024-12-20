@@ -22,9 +22,11 @@ vim.g.maplocalleader = " "
 ----  Window/Tab 操作系  ----
 -----------------------------
 -- ウィンドウを水平分割(上下)
-u.keymap("n", "ss", ":split<Return><C-w>w", { desc = "水平分割" })
--- ウィンドウを垂直分割(左右)
-u.keymap("n", "sv", ":vsplit<Return><C-w>w", { desc = "垂直分割" })
+u.keymap("n", "ssk", ":leftabove split<Return>", { desc = "上に水平分割" })
+u.keymap("n", "ssj", ":rightbelow split<Return>", { desc = "下に水平分割" })
+-- ウィンドウを垂分割(左右)
+u.keymap("n", "svh", ":leftabove vsplit<Return>", { desc = "左に垂直分割" })
+u.keymap("n", "svl", ":rightbelow vsplit<Return>", { desc = "右に垂直分割" })
 
 -- ウィンドウ移動(左下上右)
 u.keymap("n", "sh", "<C-w>h", { desc = "左のバッファへフォーカスを移動" })
