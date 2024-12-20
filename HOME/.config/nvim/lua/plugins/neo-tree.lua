@@ -138,7 +138,7 @@ return {
             ["t"] = "open_tabnew",
             -- ["<cr>"] = "open_drop",
             -- ["t"] = "open_tab_drop",
-            ["w"] = "open_with_window_picker",
+            -- ["w"] = "open_with_window_picker",
             --["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
             ["C"] = "close_node",
             -- ['C'] = 'close_all_subnodes',
@@ -172,10 +172,10 @@ return {
             ["<"] = "prev_source",
             [">"] = "next_source",
             ["i"] = "show_file_details",
-            -- ["<C-s>"] = "open_split",  -- 水平分割で開く
-            ["<C-s>"] = "split_with_window_picker",
-            -- ["<C-v>"] = "open_vsplit",  -- 垂直分割で開く
-            ["<C-v>"] = "vsplit_with_window_picker",
+            ["<C-s>"] = "open_split",  -- 水平分割で開く
+            -- ["<C-s>"] = "split_with_window_picker",
+            ["<C-v>"] = "open_vsplit",  -- 垂直分割で開く
+            -- ["<C-v>"] = "vsplit_with_window_picker",
             ['<tab>'] = function (state) -- ファイルを開いてもNeotreeを閉じない
               local node = state.tree:get_node()
               if require("neo-tree.utils").is_expandable(node) then
