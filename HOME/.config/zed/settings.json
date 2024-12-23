@@ -40,17 +40,6 @@
     "git_status": true,
     "file_icons": true
   },
-  "tabs": {
-    "git_status": true,
-    "file_icons": true
-  },
-  "file_finder": {
-    "modal_max_width": "large"
-  },
-  "scrollbar": {
-    "show": "always"
-  },
-  "vim_mode": true, // Vim モードの有効化
   "file_finder": {
     "modal_max_width": "large"
   },
