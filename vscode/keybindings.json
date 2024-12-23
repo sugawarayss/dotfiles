@@ -1,0 +1,108 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入します
+[
+    // shift+esc で どのSideBarも閉じる
+    // {
+    //     "key": "shift+esc",
+    //     "command": "workbench.action.closeSidebar",
+    //     "when": "sideBarFocus"
+    // },
+    // 下パネル(ターミナル)を切替トグル
+    {
+        "key": "ctrl+t ctrl+m",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
+    // 下パネルの次のViewに移動
+
+    // 左パネル(ファイルエクスプローラ)を表示トグル
+    // エクスプローラが表示状態なら非表示
+    {
+        "key": "ctrl+t ctrl+t",
+        "command": "workbench.action.closeSidebar",
+        "when": "explorerViewletVisible && !editorTextFocus"
+    },
+    // エクスプローラが表示状態ならアクティブファイルを表示
+    {
+        "key": "ctrl+t ctrl+t",
+        "command": "workbench.files.action.showActiveFileInExplorer",
+        "when": "!explorerViewletVisible || editorTextFocus"
+    },
+    // エクスプローラが非表示状態なら表示
+    {
+        "key": "ctrl+t ctrl+t",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled && !explorerViewletVisible"
+    },
+    // 右パネル(Copilot Chat)を表示トグル
+    // Copilot Chatが表示状態なら非表示
+    // {
+    //     "key": "ctrl+t ctrl+l",
+    //     "command": "workbench.action.closeAuxiliaryBar",
+    //     "when": "!inChat"
+    // },
+    // {
+    //     "key": "ctrl+t ctrl+l",
+    //     "command": "workbench.action.chat",
+    //     // "when": "inChat && quickChatHasFocus && !inChatInput"
+    // },
+    // 検索パネルを表示トグル
+    {
+        "key": "cmd+n cmd+f",
+        // "command": "workbench.action.findInFiles"
+        "command": "workbench.action.findInWorkspace"
+    },
+    // 右のタブに移動
+    {
+        "key": "shift+l",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    // 左のタブに移動
+    {
+        "key": "shift+h",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    // 右のタブグループに移動
+    {
+        "key": "s l",
+        "command": "workbench.action.focusRightGroup",
+        "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && vim.mode != 'SearchInProgreMode'"
+    },
+    // 下のタブグループに移動
+    {
+        "key": "s j",
+        "command": "workbench.action.focusBelowGroup",
+        "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && vim.mode != 'SearchInProgreMode'"
+    },
+    // 左のタブグループに移動
+    {
+        "key": "s h",
+        "command": "workbench.action.focusLeftGroup",
+        "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && vim.mode != 'SearchInProgreMode'"
+    },
+    // 上のタブグループに移動
+    {
+        "key": "s k",
+        "command": "workbench.action.focusAboveGroup",
+        "when": "editorTextFocus && vim.active && vim.mode == 'Normal' && vim.mode != 'SearchInProgreMode'"
+    },
+    // 左に垂直分割
+    {
+        "key": "ctrl+s ctrl+h",
+        "command": "workbench.action.splitEditorLeft"
+    },
+    // 上に水平分割
+    {
+        "key": "ctrl+s ctrl+k",
+        "command": "workbench.action.splitEditorUp"
+    },
+    // 右に垂直分割
+    {
+        "key": "ctrl+s ctrl+l",
+        "command": "workbench.action.splitEditorRight"
+    },
+    // 下に水平分割
+    {
+        "key": "ctrl+s ctrl+j",
+        "command": "workbench.action.splitEditorDown"
+    },
+]

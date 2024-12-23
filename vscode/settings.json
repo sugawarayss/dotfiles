@@ -1,0 +1,280 @@
+{
+  // テーマ
+  "workbench.iconTheme": "ayu",
+  "workbench.colorTheme": "Ayu Mirage Bordered",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#005f87",
+    "statusBar.noFolderBackground": "#005f87",
+    "statusBar.debuggingBackground": "#005f87",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff",
+    "activityBar.activeBackground": "#3399ff",
+    "activityBar.background": "#3399ff",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#bf0060",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#3399ff",
+    "statusBarItem.hoverBackground": "#3399ff",
+    "statusBarItem.remoteBackground": "#007fff",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#007fff",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#007fff99",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  // ターミナル
+  "terminal.external.osxExec": "Wezterm.app",
+  "editor.accessibilitySupport": "off",
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+
+  /////////////////
+  // エディタ設定 //
+  /////////////////
+  // フォントサイズ
+  "editor.fontSize": 13,
+  // フォント
+  "editor.fontFamily": "'Hack Nerd Font', 'HackGen Console NF'",
+  // フォントウェイト
+  "editor.fontWeight": "normal",
+  // 行の高さ
+  "editor.lineHeight": 16,
+  // 現在行番号を含めて強調表示
+  "editor.renderLineHighlight": "all",
+  // tab をspaceとして扱う
+  "editor.insertSpaces": true,
+  // 空白文字の表示
+  "editor.renderWhitespace": "all",
+  // 制御文字の表示
+  "editor.renderControlCharacters": true,
+  // 自動インデント
+  "editor.autoIndent": "full",
+  ///////////////////
+  // Git 周辺の設定 //
+  ///////////////////
+  // Git の自動フェッチ
+  "git.autofetch": true,
+  // Git のブランチのソート順をアルファベット順にする
+  "git.branchSortOrder": "alphabetically",
+  //////////////////////////
+  // Github Copilot の設定 //
+  //////////////////////////
+  // Github Copilot の言語設定
+  "github.copilot.chat.localeOverride": "ja",
+  // Github Copilot の自動補完を有効にする
+  "github.copilot.editor.enableAutoCompletions": true,
+  //////////////
+  // Vim 設定 //
+  //////////////
+  "vim.leader": "<space>",
+  // インデントを自動で行う
+  "vim.autoindent": true,
+  // clipboardと同期
+  "vim.useSystemClipboard": true,
+  // 検索でマッチした箇所をハイライト
+  "vim.hlsearch": true,
+  // カーソル上にある単語を"*"で検索
+  "vim.visualstar": true,
+  // Ctrl キーを使った操作を有効にする(vscodeのデフォルトのキーバインドを無効にする)
+  "vim.useCtrlKeys": true,
+  // vscodeのキーを一部有効にする
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+  },
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // u で undo, U で redo
+    {
+      "before": [
+        "u"
+      ],
+      "commands": [
+        "undo"
+      ]
+    },
+    {
+      "before": [
+        "U"
+      ],
+      "commands": [
+        "redo"
+      ]
+    },
+    // H で前のタブに移動
+    {
+      "before": [
+        "H"
+      ],
+      "commands": [
+        "workbench.action.previousEditor"
+      ]
+    },
+    // L で次のタブに移動
+    {
+      "before": [
+        "L"
+      ],
+      "commands": [
+        "workbench.action.nextEditor"
+      ]
+    },
+    // <C-w> でウィンドウを閉じる
+    {
+      "before": [
+        "<C-w>"
+      ],
+      "commands": [
+        ":q!"
+      ]
+    },
+    // ss で 水平分割
+    {
+      "before": [
+        "s",
+        "s"
+      ],
+      "commands": [
+        ":split"
+      ]
+    },
+    // sv で 垂直分割
+    {
+      "before": [
+        "s",
+        "v"
+      ],
+      "commands": [
+        ":vsplit"
+      ]
+    },
+    // <Leader>w で easy-motion を単語単位で前方検索(easy-motionのキーバインド)
+    {
+      "before": [
+        "<Leader>",
+        "w"
+      ],
+      "commands": [
+        "<Leder>",
+        "<Leader>",
+        "w"
+      ]
+    },
+    // <Leader>b で easy-motion を単語単位で後方検索(easy-motionのキーバインド)
+    {
+      "before": [
+        "<Leader>",
+        "b"
+      ],
+      "commands": [
+        "<Leader>",
+        "<Leader>",
+        "b"
+      ]
+    },
+    // <Leader>j で easy-motion を行単位で前方検索(easy-motionのキーバインド)
+    {
+      "before": [
+        "<Leader>",
+        "j"
+      ],
+      "commands": [
+        "<Leader>",
+        "<Leader>",
+        "j"
+      ]
+    },
+    // <Leader>k で easy-motion を行単位で後方検索(easy-motionのキーバインド)
+    {
+      "before": [
+        "<Leader>",
+        "k"
+      ],
+      "commands": [
+        "<Leader>",
+        "<Leader>",
+        "k"
+      ]
+    },
+  ],
+  // Vim プラグインの有効化
+  "vim.easymotion": true,
+  "vim.surround": true,
+  // easy-motion設定
+  "vim.easymotionMarkerForegroundColorOneChar": "rgba(0,240,170,0.9)", //一文字目の色
+  "vim.easymotionMarkerBackgroundColor": "", //背景色
+  "vim.easymotionMarkerFontWeight": "normal", //フォントの太さ
+  "vim.easymotionKeys": "asdfghjkl", //マーカーに使用される文字列
+  // vim imeの設定を行う
+  "vim.autoSwitchInputMethod.enable": true,
+  // デフォルトのIMEを Google日本語入力の英数に設定
+  "vim.autoSwitchInputMethod.defaultIM": "com.goolge.inputmethod.Japanese.base",
+  "vim.autoSwitchInputMethod.obtainIMCmd": "/opt/homebrew/bin/im-select",
+  "vim.autoSwitchInputMethod.switchIMCmd": "/opt/homebrew/bin/im-select {im}",
+  "vim.statusBarColorControl": true,
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.cursorStylePerMode.normal": "block",
+  /////////////////
+  // Pythonの設定 //
+  /////////////////
+  // Python のデフォルトインタプリタを指定
+  "python.defaultInterpreterPath": ".venv/bin/python",
+  "autoDocstring.docstringFormat": "sphinx",
+  // 保存時にフォーマットを実行
+  "editor.formatOnSave": true,
+  // Mypy の設定
+  "mypy-type-checker.interpreter": [
+    ".venv/bin/python"
+  ],
+  "mypy-type-checker.args": [
+    "--install-types", "--non-interactive", "--config-file=pyproject.toml"
+  ],
+  "mypy-type-checker.showNotifications": "always",
+  "mypy-type-checker.path": [
+    ".venv/bin/mypy"
+  ],
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  // Ruff の設定
+  "ruff.logLevel": "info",
+  // Ruff の設定は pyproject.toml から取得する
+  "ruff.configuration": "./pyproject.toml",
+  "editor.codeActionsOnSave": {
+    // ファイル保存時とフォーカスが外れた時に自動で修正を行う
+    "source.fixAll": "always",
+    "source.organizeImports": "always"
+  },
+  // デフォルトのフォーマッタを Ruff に設定
+  "editor.defaultFormatter": "charliermarsh.ruff",
+  //////////////////////////////////
+  // JavaScript/TypeScript の設定 //
+  //////////////////////////////////
+  // リンター/フォーマッタに biome を使用
+  "biome.enabled": false,
+  /////////////////////
+  // MarkDown の設定 //
+  /////////////////////
+  "markdown-preview-enhanced.alwaysShowBacklinksInPreview": true,
+  "markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true,
+  "markdown-preview-enhanced.codeBlockTheme": "monokai.css",
+  "markdown-preview-enhanced.mermaidTheme": "dark",
+  "markdownlint.config": {
+    "MD007": false, // ブレットリストのインデント
+    "MD013": false, // 行の長さが80文字以内
+    "MD024": false, // 同じレベルの見出しが複数ある
+    "MD033": false // インラインHTMLが存在する
+  },
+  ///////////////
+  // Go の設定 //
+  ///////////////
+  // Go tools の自動更新を有効にする
+  "go.toolsManagement.autoUpdate": true,
+  /////////////////
+  // Azure の設定 //
+  /////////////////
+  // Azure のサブスクリプション ID
+  "@azure.argTenant": "",
+  // Azure のリソースフィルタ
+  "azure.resourceFilter": [],
+}
