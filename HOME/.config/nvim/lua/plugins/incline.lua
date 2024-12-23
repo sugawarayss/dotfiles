@@ -1,4 +1,4 @@
--- floating statusline
+-- バッファの右上にファイル名を表示するプラグイン
 return {
   "b0o/incline.nvim",
   event = "VeryLazy",
