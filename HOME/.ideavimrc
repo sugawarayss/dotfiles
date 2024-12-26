@@ -31,6 +31,8 @@ set keep-english-in-normal
 "set cmdheight=2
 " ステータス行を常に表示
 set laststatus=2
+" status bar にモードを表示
+set showmode
 " ウィンドウの右下にまだ実行していない入力中のコマンドを表示
 set showcmd
 " 省略せずに表示する
@@ -42,7 +44,7 @@ set listchars=tab:▸\ ,eol:↴
 "検索する時に大文字小文字を区別しない
 set ignorecase
 " 検索する時に大文字を含む場合は区別する
-set smartcase
+    set smartcase
 " インクリメンタル検索(検索ワードの最初の文字を入力した時点で検索が開始)
 set incsearch
 " 検索対象をハイライト
@@ -50,7 +52,7 @@ set hlsearch
 " Escの2回押しでハイライト消去
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 " ファイルの構造をポップアップ画面で表示する
-nnoremap <Leader>fs :action FileStructurePopup<CR>
+nnoremap <Leader>aa :action FileStructurePopup<CR>
 " 最近開いたファイル一覧ポップアップを表示する
 nnoremap ,r :action RecentFiles<CR>
 " 呼び出し階層一覧viewを表示
@@ -62,6 +64,19 @@ inoremap <C-g><C-u> <ESC>gUiwgi
 inoremap <C-g><C-l> <ESC>guiwgi
 " インサートモードで直前の単語のキャメルケース(先頭文字のみ大文字)に変換
 inoremap <C-g><C-w> <ESC>bgUlgi
+" ProjectWindowを表示
+nnoremap <C-t><C-t> :action ActivateProjectToolWindow<CR>
+" TODOウィンドウを表示
+nnoremap <C-t><C-d> :action ActivateTODOToolWindow<CR>
+" ターミナルウィンドウを表示
+nnoremap <C-t><C-m> :action ActivateTerminalToolWindow<CR>
+" GithubCopilotChatを表示
+nnoremap <Leader>ccb :action copilot.chat.show<CR>
+nnoremap <Leader>aib :action AIAssistant.ToolWindow.ShowOrFocus<CR>
+" 戻る
+nnoremap <C-o> :action Back<CR>
+" 進む
+nnoremap <C-i> :action Forward<CR>
 """"""""""""""""""""""""""""""""""
 " 検索系キーマップ               "
 """"""""""""""""""""""""""""""""""
@@ -70,7 +85,7 @@ inoremap <C-g><C-w> <ESC>bgUlgi
 " 複数ファイル内置換
 "nmap <S-C-r> :action ReplaceInPath<CR>
 " すべてモードで検索
-"nmap <Leader>s :action SearchEverywhere<CR>
+"nnoremap <S><S> :action SearchEverywhere<CR>
 " クラスモードで検索
 nmap <Leader>c :action GotoClass<CR>
 " IDEA アクションモードで検索
@@ -123,14 +138,19 @@ nnoremap mm :action ToggleBookmark<CR>
 nnoremap <S-l> :action NextTab<CR>
 " 前のタブへ移動
 nnoremap <S-h> :action PreviousTab<CR>
-" 水平分割
-nnoremap <C-s> :action MoveTabDown<CR>
-" 垂直分割
-nnoremap <C-v> :action MoveTabRight<CR>
-" 次の分割グループへ移動
-nnoremap sl :action NextSplitter<CR>
-" 前の分割グループへ移動
-nnoremap sh :action PrevSplitter<CR>
+" 水平分割(上)
+nnoremap <C-s>k :action MoveTabUp<CR>
+" 水平分割(下)
+nnoremap <C-s>j :action MoveTabDown<CR>
+" 垂直分割(右)
+nnoremap <C-v>l :action MoveTabRight<CR>
+" 垂直分割(左)
+nnoremap <C-v>h :action MoveTabLeft<CR>
+" フォーカス移動
+nnoremap sl <C-w>l
+nnoremap sk <C-w>k
+nnoremap sj <C-w>j
+nnoremap sh <C-w>h
 " フォーカスを持つエディタタブを他のタブ分割グループに移動
 noremap so :action MoveEditorToOppositeTabGroup<CR>
 
@@ -186,6 +206,11 @@ nmap <Leader>k <Plug>(easymotion-k)
 set which-key
 " disable the timeout option
 set notimeout
+
+" highlight yank (bundle plugin)
+set highlightedyank
+let g:highlightedyank_highlight_duration = "1000"
+let g:highlightedyank_highlight_color = "rgba(57, 197, 187, 155)"
 
 " surround plugin
 Plug tpope/vim-surround
