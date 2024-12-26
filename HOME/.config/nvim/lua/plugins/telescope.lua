@@ -22,9 +22,9 @@ return {
       "jonarrien/telescope-cmdline.nvim",
     },
     keys = {
-      {"<F3>", "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git <CR>", mode = "n", opt, desc = "ファイル名で検索"},
+      -- {"<F3>", "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git <CR>", mode = "n", opt, desc = "ファイル名で検索"},
       {"<F4>", "<cmd>Telescope live_grep hidden=true<CR>", mode = "n", opt, desc = "ファイル内容で検索"},
-      {"<F5>", ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>", mode = "n", opt, desc = "スマートファイル検索"},
+      {"<Leader><Leader>", ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>", mode = "n", opt, desc = "スマートファイル検索"},
       {"<C-t><C-d>", "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>", mode = "n", opt, desc = "TODO 検索"},
       -- {"gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opt, desc = "参照先を曖昧検索"},
       {"<M-g><M-b>", "<cmd>Telescope git_branches<CR>", mode = "n", opt, desc = "Git ブランチを検索"},
