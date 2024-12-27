@@ -66,7 +66,7 @@ CopilotChatを水平分割で開く                         | <Leader>ccb
 上のバッファと位置を入れ替える                      | <C-s>k
 下のバッファと位置を入れ替える                      | <C-s>j
 バッファリストをTelescopeで表示                     | <C-b><C-f>
-Telescopeで選択したバッファを閉じる                 | (insert mode) <C-c>
+Telescopeで選択したバッファを閉じる                 | <C-c>
 バッファを左に移動                                  | <Leader>h
 バッファを右に移動                                  | <Leader>l
 左のバッファ全てを閉じる                            | <C-S-h>
@@ -83,7 +83,8 @@ Telescopeで選択したバッファを閉じる                 | (insert mode)
 記号の位置を整列する(パラグラフ)                    | vipga{整列する記号}
 選択範囲を記号で整列する(easy-align)                | (visual) ga{整列する記号}
 キー押下履歴を右上に表示する(:ShowkeysToggle)       | <M-s>k
-
+前の空白行にジャンプ                                | {
+次の空白行にジャンプ                                | }
 
 
 ## Obsidian
@@ -91,14 +92,16 @@ Obsidian ノートを検索する                           | <Leader>o
 Obsidian ノートを作成する                           | <Leader>on
 Obsidian デイリーノートを作成する                   | <Leader>ot
 
-## SplitWindow
-バッファを上下に分割して開く                        | ss
-バッファを左右に分割して開く                        | sv
+## SplitWindow @split
+バッファを上に分割して開く                          | ssk
+バッファを下に分割して開く                          | ssj
+バッファを左に分割して開く                          | svh
+バッファを右に分割して開く                          | svl
 ウィンドウサイズ調整モードに入る                    | <C-E>
 ウィンドウサイズ調整                                | h, j, k, l
 ウィンドウサイズ確定                                | <CR>
 
-## terminal
+## Terminal
 ターミナルをフロートウィンドウで開く                | <C-t><C-f>
 ターミナルを垂直分割で開く(左右)                    | <C-t><C-v>
 ターミナルを水平分割で開く(上下)                    | <C-t><C-m>
@@ -175,20 +178,20 @@ docker Image List(Telescope)                        | <M-d><M-i>
 docker Compose List(Telescope)                      | <M-d><M-p>
 docker File List(Telescope)                         | <M-d><M-l>
 
-## TODO
-Jump to Next TODO                                   | ;t
-Jump to prev TODO                                   | :t
+## TODO @todo
+次の TODO コメントにジャンプ                        | ;t
+前の TODO コメントにジャンプ                        | :t
 
-## Surround
+## Surround @surround
 空白あり/空白なし                                   | あり: "(" / なし: ")"
 alias                                               | w: Word, s: sentence
-カーソル位置の単語を<記号>で囲む                    | ysiw<記号> : you surround inner Word
-カーソル位置の単語を囲む記号ごと<記号2>で囲む       | ysa<記号1><記号2> : you surround arround Word
-カーソル位置から行末まで<記号>で囲む                | ys$<記号>
-カーソル位置の単語を囲む<記号>を除去                | ds<記号> : delete surround
-カーソル位置の単語を囲む<古>を<新>で置換            | cs<古><新> : change surround
-カーソル位置の単語を囲むタグを除去                  | dst : delete sussound tag
-visualで選択状態の文字を<記号>囲む                  | (選択状態で) <S-s><記号>
+カーソル位置の単語を<記号>で囲む                    | ysiw{記号}
+カーソル位置の単語を囲む記号ごと<記号2>で囲む       | ysa{記号1}{記号2}
+カーソル位置から行末まで<記号>で囲む                | ys${記号}
+カーソル位置の単語を囲む<記号>を除去                | ds{記号}
+カーソル位置の単語を囲む<古>を<新>で置換            | cs{古}{新}
+カーソル位置の単語を囲むタグを除去                  | dst
+(visual)選択状態の文字を<記号>囲む                  | (選択状態で) <S-s>{記号}
 
 ## trouble
 Display troubles                                    | <Leader>xx
@@ -202,22 +205,19 @@ Display Latest Error                                | <Leader>nl
 Display Error List(Telescope)                       | <Leader>nh
 
 ## Increment
-Increment                                           | <C-a>
-Decrement                                           | <C-x>
+インクリメント                                      | <C-a>
+デクリメント                                        | <C-x>
 
-## Outline
-Jump Selected Outline (Telescope)                   | <C-s>t
-Display Outline Pane                                | <leader>a
-Jump to Prev Outline                                | <Leader>k
-Jump to Next Outline                                | <leader>j
+## Outline @aerial @outline
+アウトラインを表示(aerial.nvim)                     | <leader>aa
+アウトラインを表示(Outline.nvim)                    | <leader>ol
 
 ## Telescope
-Search by Filename(Telescope)                       | <F3>
-Search by Content(Telescope)                        | <F4>
-Show Smart Open(Telescope)                          | <F5>
-Search by TODO(Telescope)                           | <C-t><C-d>
-Keymap List(Telescope)                              | <C-k><C-m>
-Search Command History(Telescope)                   | <C-c><C-h>
+ファイル内容で検索(Telescope)                       | <F4>
+ファイル名で検索(Telescope)                         | <Leader><Leader>
+TODOコメントを検索(Telescope)                       | <C-t><C-d>
+キーマップ一覧から検索(Telescope)                   | <C-k><C-m>
+コマンド履歴から検索(Telescope)                     | <C-c><C-h>
 
 ## Hop
 hop to matched 'input pattern'                      | <Leader>/
@@ -230,8 +230,8 @@ hop before to after Cursor Line                     | <Leader>t
 hop before to before Cursor Line                    | <Leader>T
 
 ## Bookmark
-Toggle Bookmark                                     | mm
-Display Bookmark List(Telescope)                    | <C-b><C-m>
+ブックマークをトグル                                | mm
+ブックマークリストから検索(Telescope)               | <C-b><C-m>
 
 ## Translate
 カーソル位置の単語を日本語に翻訳                    | <Leader>tj
