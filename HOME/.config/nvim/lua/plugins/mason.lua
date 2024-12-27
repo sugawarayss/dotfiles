@@ -57,6 +57,8 @@ local diagnostics = {
   "mypy",
   -- TypeScript
   "biome",
+  -- lua
+  "luacheck",
   -- dart
   "dcm",
   -- Go
