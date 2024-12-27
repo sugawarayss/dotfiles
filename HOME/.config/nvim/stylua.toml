@@ -1,0 +1,12 @@
+# 1行の文字数上限
+column_width = 120
+# 改行文字 "Unix"(LF) or "Windows"(CRLF)
+line_endings = "Unix"
+# インデントタイプ "Tabs" or ""Spaces""
+indent_type = "Spaces"
+# インデント幅
+indent_width = 2
+# クォートスタイル
+quote_style = "AutoPreferDouble"
+# 括弧の省略
+no_call_parentheses = false
