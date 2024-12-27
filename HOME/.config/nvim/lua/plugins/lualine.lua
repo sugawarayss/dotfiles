@@ -8,6 +8,13 @@ if not vim.g.vscode then
     },
     event = { "VimEnter" },
     config = function()
+      local lint_progress = function()
+        local linters = require("lint").get_running()
+        if #linters == 0 then
+          return "󰦕"
+        end
+        return "󱉶 " .. table.concat(linters, ", ")
+      end
       require("lualine").setup({
         options = {
           icons_enabled = true,
