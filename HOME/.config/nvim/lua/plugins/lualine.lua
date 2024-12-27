@@ -33,41 +33,41 @@ if not vim.g.vscode then
             statusline = 100,
             tabline = 1000,
             winbar = 1000,
-          }
+          },
         },
         sections = {
-          lualine_a = { 'mode' },
+          lualine_a = { "mode" },
           lualine_b = {
-            { 'filename', path = 1 },
-            'diagnostics',
+            { "filename", path = 1 },
+            "diagnostics",
           },
-          lualine_c = { 'branch', 'diff' },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { 'location', 'progress' },
+          lualine_c = { "branch", "diff" },
+          lualine_x = { "encoding", "fileformat", "filetype" },
+          lualine_y = { { lint_progress }, "location", "progress" },
           lualine_z = {
-            { 'datetime', style = "%Y/%m/%d %H:%M:%S" }
-          }
+              { "datetime", style = "%Y/%m/%d %H:%M:%S" },
+          },
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {
-            { 'filename', path = 1 },
+              { "filename", path = 1 },
           },
           lualine_c = {
-            { 'diff', 'diagnostics' }
+              { "diff", "diagnostics" },
           },
-          lualine_x = { 'location' },
-          lualine_y = {},
-          lualine_z = {}
+          lualine_x = { "location" },
+            lualine_y = {},
+            lualine_z = {},
         },
         tabline = {},
         winbar = {},
         inactive_winbar = {},
-        extensions = { 'neo-tree', 'aerial', 'toggleterm', "mason", "lazy" }
-      })
-    end
-  }
+        extensions = { "neo-tree", "aerial", "toggleterm", "mason", "lazy" },
+        })
+      end,
+	}
 else
-  print("LuaLine is disabled in VSCode mode")
-  return {}
+	print("LuaLine is disabled in VSCode mode")
+	return {}
 end
