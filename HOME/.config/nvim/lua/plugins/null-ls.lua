@@ -6,6 +6,7 @@ local cspell_files = {
   vim = vim.call("expand", cspell_data_dir .. "/vim.txt.gz"),
   user = vim.call("expand", cspell_data_dir .. "/user.txt"),
 }
+
 -- vim辞書がなければダウンロード
 if vim.fn.filereadable(cspell_files.vim) ~= 1 then
   local vim_dictionary_url = "https://github.com/iamcco/coc-spell-checker/raw/master/dicts/vim/vim.txt.gz"
@@ -28,11 +29,7 @@ local cspell_append = function(opts)
   local dictionary_name = opts.bang and "dotfiles" or "user"
   io.popen("echo " .. word .. " >> " .. cspell_files[dictionary_name])
   -- 追加した単語および辞書を表示
-  vim.notify(
-    '"' .. word .. '" is appended to ' .. dictionary_name .. ' dictionary.',
-    vim.log.levels.INFO,
-    {}
-  )
+  vim.notify('"' .. word .. '" is appended to ' .. dictionary_name .. " dictionary.", vim.log.levels.INFO, {})
   -- cspellをリロードするため、現在行を更新してすぐ戻す
   if vim.api.nvim_get_option_value("modifiable", {}) then
     vim.api.nvim_set_current_line(vim.api.nvim_get_current_line())
@@ -40,12 +37,7 @@ local cspell_append = function(opts)
   end
 end
 
-vim.api.nvim_create_user_command(
-  "CSpellAppend",
-  cspell_append,
-  { nargs = "?", bang = true }
-)
-
+vim.api.nvim_create_user_command("CSpellAppend", cspell_append, { nargs = "?", bang = true })
 
 -- LinterやFormatterを統合するプラグイン
 return {
@@ -68,32 +60,31 @@ return {
           -- cspellが実行できるときのみ有効
           return vim.fn.executable("cspell") > 0
         end,
-        diagnostics_format = '[cspell] #{s} (#{c}) #{m}',
-        extra_args = { "--config", "~/.config/cspell/cspell.json" }
+        diagnostics_format = "[cspell] #{s} (#{c}) #{m}",
+        extra_args = { "--config", "~/.config/cspell/cspell.json" },
       }),
       -- python
-
       -- ↓ 構文が間違っているが、ここを消すと ruff-lsp が動かなくなるので残す
       require("none-ls.formatting.ruff").with({
         filetypes = { "python" },
-        extra_args = { "--config", "./pyproject.toml" }
+        extra_args = { "--config", "./pyproject.toml" },
       }),
 
-      null_ls.builtins.diagnostics.mypy.with({
-        filetypes = { "python" },
-        diagnostics_format = '[#{s}] (#{c}) #{m}',
-        -- if you want to mypy settings to pyproject.toml, you should run the following command
-        -- cd ~/.local/share/nvim/mason/packages/mypy/ \
-        --    && source venv/bin/activate \
-        --    && pip install 'pydantic[email, timezone]` pydantic-settings \
-        --    && deactivate`
-        extra_args = { "--install-types", "--non-interactive" }
-      }),
+      -- null_ls.builtins.diagnostics.mypy.with({
+      --   filetypes = { "python" },
+      --   diagnostics_format = '[#{s}] (#{c}) #{m}',
+      --   -- if you want to mypy settings to pyproject.toml, you should run the following command
+      --   -- cd ~/.local/share/nvim/mason/packages/mypy/ \
+      --   --    && source venv/bin/activate \
+      --   --    && pip install 'pydantic[email, timezone]` pydantic-settings \
+      --   --    && deactivate`
+      --   extra_args = { "--install-types", "--non-interactive" }
+      -- }),
 
       null_ls.builtins.diagnostics.ruff.with({
         filetypes = { "python" },
-        diagnostics_format = '[#{s}] (#{c}) #{m}',
-        extra_args = { "--config", "./pyproject.toml" }
+        diagnostics_format = "[#{s}] (#{c}) #{m}",
+        extra_args = { "--config", "./pyproject.toml" },
       }),
       -- markdown
       null_ls.builtins.diagnostics.markdownlint.with({
@@ -101,26 +92,31 @@ return {
         diagnostics_format = "[#{s}] (#{c}) #{m}",
       }),
       -- Lua
+      null_ls.builtins.diagnostics.luacheck.with({
+        filetypes = { "lua" },
+        diagnostics_format = "[luacheck] #{m} (#{c})",
+        extra_args = { "--config", "~/.config/nvim/.luarc.json"}
+      }),
       null_ls.builtins.formatting.stylua.with({
         filetypes = { "lua" },
-        extra_args = { "--config-path", "./stylua.toml" }
+        extra_args = { "--config-path", "~/.config/nvim/stylua.toml" },
       }),
       -- Golang
       null_ls.builtins.formatting.gofumpt.with({
-        filetypes = { "go" }
+        filetypes = { "go" },
       }),
       null_ls.builtins.formatting.goimports.with({
-        filetypes = { "go" }
+        filetypes = { "go" },
       }),
       null_ls.builtins.formatting.biome.with({
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
-        extra_args = { "--config", "./biome.config.js" }
+        extra_args = { "--config", "./biome.config.js" },
       }),
     }
 
     -- 辞書に単語を追加するcommandをCode Actionとして呼び出せるようにする
     local cspell_custom_actions = {
-      name = 'append-to-cspell-dictionary',
+      name = "append-to-cspell-dictionary",
       method = null_ls.methods.CODE_ACTION,
       filetypes = {},
       generator = {
@@ -133,21 +129,24 @@ return {
           local diagnostics = vim.diagnostic.get(0, { lnum = lnum })
 
           -- カーソル位置にcspellの警告が出ているか探索
-          local word = ''
-          local regex = '^Unknown word %((%w+)%)$'
+          local word = ""
+          local regex = "^Unknown word %((%w+)%)$"
           for _, v in pairs(diagnostics) do
-            if v.source == "cspell" and
-                v.col < col and col <= v.end_col and
-                string.match(v.message, regex) then
-          -- 見つかった場合、単語を抽出
-              word = string.gsub(v.message, regex, '%1'):lower()
+            if
+              v.source == "cspell"
+              and v.col < col
+              and col <= v.end_col
+              and string.match(v.message, regex)
+            then
+              -- 見つかった場合、単語を抽出
+              word = string.gsub(v.message, regex, "%1"):lower()
               break
             end
           end
 
           -- 警告が見つからなければ終了
-          if word == '' then
-            return
+          if word == "" then
+              return
           end
 
           -- cspell_appendを呼び出すactionのリストを返却
@@ -156,17 +155,17 @@ return {
               title = 'Append "' .. word .. '" to user dictionary',
               action = function()
                 cspell_append({ args = word })
-              end
+              end,
             },
             {
               title = 'Append "' .. word .. '" to dotfiles dictionary',
               action = function()
-                cspell_append({ args = word, bang = true })
-              end
-            }
+                  cspell_append({ args = word, bang = true })
+              end,
+            },
           }
-        end
-      }
+        end,
+      },
     }
 
     null_ls.register(cspell_custom_actions)
@@ -182,15 +181,15 @@ return {
             buffer = bufnr,
             callback = function()
               vim.lsp.buf.format({
-                  bufnr = bufnr,
-                  filter = function(client)
-                    return client.name == "null-ls"
-                  end,
+                bufnr = bufnr,
+                filter = function(client)
+                  return client.name == "null-ls"
+                end,
               })
             end,
           })
         end
       end,
     })
-  end
+  end,
 }
