@@ -75,13 +75,13 @@ local dap_adapters = {
 local my_on_attach = function(client, bufnr)
   for _, value in pairs(lsp_servers) do
     if client == value then
-      -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
       -- FIXME: WhichKey が gf を使用しているので使えない。。。
       vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format {async=true}<CR>", { noremap = true, silent = false, desc = "フォーマットを実行" })
-      -- 'K' でカーソル下の変数情報を表示
+      -- "K" でカーソル下の変数情報を表示
       -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {  noremap = true, silent = false, desc = "カーソル下の変数情報を表示" })
-      -- 'gr' でカーソル下の変数を参照している箇所の一覧表示
-      --vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+      -- "gr" でカーソル下の変数を参照している箇所の一覧表示
+      --vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
       -- 定義へジャンプ
       -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = false, desc = "定義へジャンプ" })
       -- 宣言へジャンプ
@@ -135,14 +135,14 @@ local lsp_server_settings = {
   },
   gopls = {
     analyses = {
-      nilness = true,
+      nilness      = true,
       unusedparams = true,
-      unusedwrite = true,
-      useany = true,
+      unusedwrite  = true,
+      useany       = true,
     },
     experimentalPostfixCompletions = true,
-    staticcheck = true,
-    usePlaceholders = true,
+    staticcheck                    = true,
+    usePlaceholders                = true,
   },
 }
 
@@ -263,91 +263,91 @@ return {
       require("lspsaga").setup({
         -- パンくずリスト
         symbol_in_winbar = {
-          enable = false,
-          sparator = " › ",
+          enable       = false,
+          sparator     = " › ",
           hide_keyword = false,
-          show_file = true,
+          show_file    = true,
           folder_level = 1,
-          color_mode = true,
-          delay = 300,
+          color_mode   = true,
+          delay        = 300,
         },
         -- コードアクション
         code_action = {
-          num_shortcut = true,
+          num_shortcut     = true,
           show_server_name = true,
-          extend_gitsigns = false,
+          extend_gitsigns  = false,
           keys = {
             quit = "q",
             exec = "<CR>",
           }
         },
         finder = {
-          max_height = 0.5,
-          left_width = 0.3,
+          max_height  = 0.5,
+          left_width  = 0.3,
           right_width = 0.3,
-          default = "ref",
-          methods = {}, -- e.g.) {"tyd" = "textDocument/typeDefinition"}
-          layout = "float",
-          filter = {},
-          silent = false,
+          default     = "ref",
+          methods     = {}, -- e.g.) {"tyd" = "textDocument/typeDefinition"}
+          layout      = "float",
+          filter      = {},
+          silent      = false,
           keys = {
-            shuttle = "[w", -- Finder ウィンドウ間を移動
+            shuttle        = "[w", -- Finder ウィンドウ間を移動
             toggle_or_open = "<CR>",
-            vsplit = "sv",
-            split = "ss",
-            tabnew = "r",
-            quit = "q",
-            close = "<ESC>",
+            vsplit         = "sv",
+            split          = "ss",
+            tabnew         = "r",
+            quit           = "q",
+            close          = "<ESC>",
           }
 
         },
         hover = {
-          max_width = 0.9,
+          max_width  = 0.9,
           max_height = 0.8,
-          open_link = "gx",
-          open_cmd = "!chrome",
+          open_link  = "gx",
+          open_cmd   = "!chrome",
         },
         -- diagnostic
         diagnostics = {
-          show_code_action = true,
-          jump_num_shortcut = true,
-          max_width = 0.8,
-          max_height = 0.6,
-          text_hl_follow = true,
-          border_follow = true,
+          show_code_action          = true,
+          jump_num_shortcut         = true,
+          max_width                 = 0.8,
+          max_height                = 0.6,
+          text_hl_follow            = true,
+          border_follow             = true,
           extend_relatedInformation = false,
-          show_layout = "float",
-          show_normal_height = 10,
-          max_show_width = 0.9,
-          max_show_height = 0.6,
-          diagnostic_only_current = false,
+          show_layout               = "float",
+          show_normal_height        = 10,
+          max_show_width            = 0.9,
+          max_show_height           = 0.6,
+          diagnostic_only_current   = false,
           keys = {
-            exec_action = "<CR>",
-            quit = "q",
+            exec_action    = "<CR>",
+            quit           = "q",
             toggle_or_jump = "<CR>",
-            quit_in_show = { "q", "<ESC>" },
+            quit_in_show   = { "q", "<ESC>" },
           }
         },
         -- 定義
         definition = {
-          width = 0.6,
+          width  = 0.6,
           height = 0.5,
           keys = {
-            edit = "<CR>",
+            edit   = "<CR>",
             vsplit = "sv",
-            split = "ss",
-            tabe = "<C-c>t",
-            quit = "q",
-            close = "<ESC>",
+            split  = "ss",
+            tabe   = "<C-c>t",
+            quit   = "q",
+            close  = "<ESC>",
           }
         },
         -- 呼出階層表示時のアクションキーマップ
         callhierarchy = {
           keys = {
             -- ファイルを開く
-            edit = "<CR>",
+            edit   = "<CR>",
             vsplit = "sv",
-            split = "ss",
+            split  = "ss",
           }
         }
       })

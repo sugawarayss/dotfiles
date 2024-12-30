@@ -5,7 +5,7 @@ return {
   lazy = false,
   opts = {
     tools = {
-      executor = "toggleterm",
+      executor      = "toggleterm",
       test_executor = "neotest",
       enable_clippy = true,
       hover_actions = {
@@ -41,9 +41,9 @@ return {
       end,
       default_settings = {
         imports = {
-          check = { command = "clippy" },
+          check       = { command = "clippy" },
           granularity = { group = "module" },
-          prefix = "self",
+          prefix      = "self",
         },
         cargo = {
           buildScripts = { enable = true },

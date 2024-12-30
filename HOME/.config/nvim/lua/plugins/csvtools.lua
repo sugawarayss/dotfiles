@@ -7,11 +7,11 @@ return {
   ft = { "csv" },
   config = function()
     require("csvtools").setup({
-      before = 10,
-      after = 10,
-      clearafter = true,
+      before       = 10,
+      after        = 10,
+      clearafter   = true,
       showoverflow = false,
-      titleflow = true,
+      titleflow    = true,
     })
   end
 }

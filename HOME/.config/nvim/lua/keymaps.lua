@@ -11,21 +11,21 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Modes
---   normal_mode = 'n',
---   insert_mode = 'i',
---   visual_mode = 'v',
---   visual_block_mode = 'x',
---   term_mode = 't',
---   command_mode = 'c',
+--   normal_mode = "n",
+--   insert_mode = "i",
+--   visual_mode = "v",
+--   visual_block_mode = "x",
+--   term_mode = "t",
+--   command_mode = "c",
 
 -----------------------------
 ----  Window/Tab 操作系  ----
 -----------------------------
 -- ウィンドウを水平分割(上下)
-u.keymap("n", "ssk", ":leftabove split<Return>", { desc = "上に水平分割" })
-u.keymap("n", "ssj", ":rightbelow split<Return>", { desc = "下に水平分割" })
+u.keymap("n", "ssk", ":leftabove split<Return>",   { desc = "上に水平分割" })
+u.keymap("n", "ssj", ":rightbelow split<Return>",  { desc = "下に水平分割" })
 -- ウィンドウを垂分割(左右)
-u.keymap("n", "svh", ":leftabove vsplit<Return>", { desc = "左に垂直分割" })
+u.keymap("n", "svh", ":leftabove vsplit<Return>",  { desc = "左に垂直分割" })
 u.keymap("n", "svl", ":rightbelow vsplit<Return>", { desc = "右に垂直分割" })
 
 -- ウィンドウ移動(左下上右)
@@ -54,7 +54,7 @@ end
 -- u.keymap("n", "x", "\"_d", opts)
 u.keymap("n", "X", "\"_D", { desc = "行末までカット" })
 u.keymap("x", "x", "\"_x", { desc = "選択範囲をカット" })
-u.keymap("o", "x", "d", { desc = "選択範囲をカット" })
+u.keymap("o", "x", "d",    { desc = "選択範囲をカット" })
 
 
 -- U で Redo 

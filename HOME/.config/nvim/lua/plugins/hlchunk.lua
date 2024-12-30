@@ -11,40 +11,36 @@ return {
         use_treesitter = true,
         chars = {
           horizontal_line = "─",
-          vertical_line = "│",
-          left_top = "╭",
-          left_bottom = "╰",
-          right_arrow = ">",
+          vertical_line   = "│",
+          left_top        = "╭",
+          left_bottom     = "╰",
+          right_arrow     = ">",
         },
         style = {
-          { fg = color_palette.blue1 },  -- #2ac3de
-          { fg = color_palette.red1 },    -- #db4b4b
+          { fg = color_palette.blue1 }, -- #2ac3de
+          { fg = color_palette.red1 },  -- #db4b4b
         },
-        textobject = "",
+        textobject    = "",
         max_file_size = 1024 * 1024,
-        error_sign = true,
+        error_sign    = true,
       },
       indent = {
-        enable = true,
+        enable         = true,
         use_treesitter = true,
-        chars = {
-          "▏",
-        },
-        style = {
+        chars          = { "▏" },
+        style          = {
             { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") }
         },
       },
       line_num = {
-          enable = true,
+          enable         = true,
           use_treesitter = true,
-          style = color_palette.magenta,  -- "#bb9af7
+          style          = color_palette.magenta, --#bb9af7
       },
 
       blank = {
           enable = true,
-          chars = {
-              "․",
-          },
+          chars = { "․" },
           style = {
               vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
           },

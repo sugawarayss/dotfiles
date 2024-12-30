@@ -3,11 +3,11 @@ return {
   "akinsho/toggleterm.nvim",
   version = '*',
   keys = {
-    {"<c-t><c-m>", ":ToggleTerm direction=horizontal<CR>", mode = "n", desc = "水平分割でターミナルをトグル"},
-    {"<c-t><c-v>", ":ToggleTerm direction=vertical<CR>", mode = "n", desc = "垂直分割でターミナルをトグル"},
-    {"<c-t><c-f>", ":ToggleTerm direction=float<CR>", mode = "n", desc = "Floatウィンドウでターミナルをトグル"},
-    {"<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>", mode = "t", desc = "ターミナルを閉じる"},
-    {"<leader>g", "<cmd>lua _lazygit_toggle()<cr>", mode = "n", desc = "Lazygitを開く"},
+    { "<c-t><c-m>", ":ToggleTerm direction=horizontal<CR>", mode = "n", desc = "水平分割でターミナルをトグル" },
+    { "<c-t><c-v>", ":ToggleTerm direction=vertical<CR>",   mode = "n", desc = "垂直分割でターミナルをトグル" },
+    { "<c-t><c-f>", ":ToggleTerm direction=float<CR>",      mode = "n", desc = "Floatウィンドウでターミナルをトグル" },
+    { "<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>",           mode = "t", desc = "ターミナルを閉じる" },
+    { "<leader>g",  "<cmd>lua _lazygit_toggle()<cr>",       mode = "n", desc = "Lazygitを開く" },
   },
   config = function()
     require("toggleterm").setup(
@@ -21,24 +21,24 @@ return {
               return 20
           end
         end,
-        start_in_insert = true,
-        insert_mappings = true,
+        start_in_insert   = true,
+        insert_mappings   = true,
         terminal_mappings = true,
-        persist_size = true,
-        persist_mode = true,
-        hide_numbers = true,
-        dicrection = "float",
-        close_on_exit = true,
-        clear_env = false,
-        shell = vim.o.shell,
-        auto_scroll = true,
+        persist_size      = true,
+        persist_mode      = true,
+        hide_numbers      = true,
+        dicrection        = "float",
+        close_on_exit     = true,
+        clear_env         = false,
+        shell             = vim.o.shell,
+        auto_scroll       = true,
         float_opts = {
-          border = "curved",
-          winblend = 20,
+          border          = "curved",
+          winblend        = 20,
         },
         winbar = {
-          enabled = true,
-          name_formatter = function(term)
+          enabled         = true,
+          name_formatter  = function(term)
               return term.name
           end
         },

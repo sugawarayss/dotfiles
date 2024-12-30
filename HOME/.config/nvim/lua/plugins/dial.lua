@@ -3,10 +3,8 @@ return {
   "monaqa/dial.nvim",
   dependencies = "nvim-lua/plenary.nvim",
   keys = {
-    { "<C-a>",  "<Plug>(dial-increment)", "n", desc = "インクリメント" },
-    { "<C-x>",  "<Plug>(dial-decrement)", "n", desc = "デクリメント" },
-    { "<C-a>",  "<Plug>(dial-increment)", "v", desc = "インクリメント" },
-    { "<C-x>",  "<Plug>(dial-decrement)", "v", desc = "デクリメント" },
+    { "<C-a>",  "<Plug>(dial-increment)", mode = { "n", "v" }, desc = "インクリメント" },
+    { "<C-x>",  "<Plug>(dial-decrement)", mode = { "n", "v" }, desc = "デクリメント" }
   },
   config = function()
     local config = require("dial.config")

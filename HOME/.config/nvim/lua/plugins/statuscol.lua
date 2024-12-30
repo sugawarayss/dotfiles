@@ -9,9 +9,9 @@ return {
       relculright = true,
       segments = {
         {
-          text = { builtin.foldfunc, " " },
+          text  = { builtin.foldfunc, " " },
           click = "v:lua.ScFa",
-          hl = "Comment",
+          hl    = "Comment",
         },
         { text = { "%s" }, click = "v:lua.ScSa" },
         { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },

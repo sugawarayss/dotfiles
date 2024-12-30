@@ -42,8 +42,8 @@ return {
   --       -- code blockの表示設定
   --       code = {
   --         sign = false,
-  --         position = 'right',
-  --         width = 'block',
+  --         position = "right",
+  --         width = "block",
   --         min_width = 45,
   --         left_pad = 2,
   --         language_pad = 2,
@@ -54,7 +54,7 @@ return {
   --         alignment_indicator = "┅",
   --       },
   --       -- call outの表示設定
-  --       callout = { note = { rendered = '󰅾 Notary' } },
+  --       callout = { note = { rendered = "󰅾 Notary" } },
   --       -- インデントの表示設定
   --       indent = { enabled = true, per_level = 2 },
   --     })

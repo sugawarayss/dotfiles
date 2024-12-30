@@ -7,10 +7,10 @@ local ftMap = {
 -- 折り畳んだ範囲の行数をvirtual textで表示
 local handler = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
-    local suffix = (" 󰁂 %d "):format(endLnum - lnum)
-    local sufWidth = vim.fn.strdisplaywidth(suffix)
+    local suffix      = (" 󰁂 %d "):format(endLnum - lnum)
+    local sufWidth    = vim.fn.strdisplaywidth(suffix)
     local targetWidth = width - sufWidth
-    local curWidth = 0
+    local curWidth    = 0
     for _, chunk in ipairs(virtText) do
       local chunkText = chunk[1]
       local chunkWidth = vim.fn.strdisplaywidth(chunkText)
@@ -42,8 +42,8 @@ return {
   lazy = true,
   event = "VeryLazy",
   keys = {
-    { "zr", function() require('ufo').openAllFolds() end, mode = "n", desc = "すべての折り畳みを展開" },
-    { "zm", function() require('ufo').closeAllFolds() end, mode = "n", desc = "すべてを折り畳み" },
+    { "zr", function() require("ufo").openAllFolds() end,  mode = "n", desc = "すべての折り畳みを展開" },
+    { "zm", function() require("ufo").closeAllFolds() end, mode = "n", desc = "すべてを折り畳み" },
   },
   config = function()
     vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])

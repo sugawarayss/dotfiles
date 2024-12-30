@@ -6,7 +6,7 @@ return {
   keys = {
     { "*", function()
         require("lasterisk").search()
-        require('hlslens').start()
+        require("hlslens").start()
       end,
       mode = "n",
       desc = "カーソル位置の単語を検索してハイライト"
