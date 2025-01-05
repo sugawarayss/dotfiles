@@ -1,5 +1,6 @@
--- csvを色付け
 return {
+-- csvを色付け
+{
   "Decodetalkers/csv-tools.lua",
   -- 遅延読み込みする
   lazy = true,
@@ -14,4 +15,17 @@ return {
       titleflow    = true,
     })
   end
+},
+-- csvをテーブル状に表示できるプラグイン
+{
+  "hat0uma/csvview.nvim",
+  ft = { "csv" },
+  config = function()
+    require("csvview").setup({
+      view = {
+        display_mode = "border"
+      }
+    })
+  end
+}
 }
