@@ -70,14 +70,14 @@ u.keymap("i", "jj", "<ESC>", { desc = "ノーマルモードに移行" })
 -- Ctrl+fで一つ右へ移動
 u.keymap("i", "<C-f>", "<C-g>U<Right>", { desc = "インサートモードのままカーソルを右へ移動" })
 -- Ctrl+f Ctrl+fで一番外へ移動
-u.keymap("i", "<C-f><C-f>", "<C-g>U<Esc><S-a>", { desc = "インサートモードのままカーソルを右へ移動" })
+u.keymap("i", "<C-l><C-l>", "<C-g>U<Esc><S-a>", { desc = "インサートモードのままカーソルを右へ移動" })
 
 -- 行を上下に移動
 -- u.keymap("n", "<S-k>", "$'<Cmd>move-1-{v:count1}<CR>=l'")
 -- u.keymap("n", "<S-j>", "$'<Cmd>move+{v:count1}<CR>=l'")
 
 -- M で括弧ジャンプ
-u.keymap("n", "<S-m>", "%")
+u.keymap("n", "<S-m>", "%", { desc = "括弧ジャンプ" })
 
 -- 入力してから大文字を切り替え
 u.keymap("i", "<C-g><C-u>", "<ESC>gUiwgi", { desc = "入力してから大文字を切り替え" })
