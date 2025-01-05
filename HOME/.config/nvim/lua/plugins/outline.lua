@@ -32,9 +32,7 @@ return {
       },
       symbol_folding = {
         autofold_depth = 1,
-        auto_unfold = {
-          hovered = true,
-        }
+        auto_unfold    = { hovered = true }
       },
       preview_window = {
         auto_preview          = false,
