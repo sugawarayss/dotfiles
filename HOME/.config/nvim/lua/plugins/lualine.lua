@@ -28,7 +28,7 @@ if not vim.g.vscode then
           ignore_focus = {},
           always_divide_middle = true,
           -- :set laststatus=3 の状態(グローバルステータス)にするか
-          globalstatus = true,
+          globalstatus = false,
           refresh = {
             statusline = 100,
             tabline    = 1000,
