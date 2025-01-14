@@ -66,7 +66,12 @@ fi
 ########
 # asdf #
 ########
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+# . /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+########
+# mise #
+########
+eval "$(mise activate zsh)"
 
 ##########
 # poetry #

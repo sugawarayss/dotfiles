@@ -6,7 +6,7 @@ vars:
 
 includes:
   brew: ./tasks/brew.yaml
-  asdf: ./tasks/asdf.yaml
+  mise: ./tasks/mise.yaml
   links:
     taskfile: ./tasks/symlink.yaml
     flattern: true

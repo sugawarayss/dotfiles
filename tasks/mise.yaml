@@ -1,0 +1,17 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+  MISE_DIR: .config/mise
+
+tasks:
+  setup:
+    desc: Create Symbolic Links
+    preconditions:
+      - sh: '[[ ! -L ~/.config/mise/ ]]'
+        msg: "~/.config/mise is already exists"
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/mise ~/{{.MISE_DIR}}
+      - mise i
+      
