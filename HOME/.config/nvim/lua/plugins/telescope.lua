@@ -32,7 +32,7 @@ return {
       { "<M-d><M-l>",       "<cmd>Telescope docker files theme=ivy<CR>",                                       mode = "n", opt, desc = "Dockerfileを曖昧検索" },
       { "<C-c><C-h>",       "<cmd>Telescope command_history<CR>",                                              mode = "n", opt, desc = "コマンド履歴を曖昧検索" },
       { "<C-b><C-f>",       "<cmd>Telescope buffers show_all_buffers=true<CR>",                                mode = "n", opt, desc = "バッファを検索" },
-      { "<C-b><C-m>",       "<cmd>Telescope bookmarks list<CR>",                                               mode = "o", opt, desc = "ブックマークを検索" },
+      { "<C-b><C-m>",       "<cmd>Telescope bookmarks list<CR>",                                               mode = "n", opt, desc = "ブックマークを検索" },
       { "<M-k><M-m>",       "<cmd>Telescope keymaps<CR>",                                                      mode = "n", opt, desc = "Keymap を検索" },
       { "Q",                "<cmd>Telescope cmdline<CR>",                                                      mode = "n", opt, desc = "Cmdline" }
     },
