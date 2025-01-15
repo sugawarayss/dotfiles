@@ -48,3 +48,6 @@ localhost*pem
 
 # VSCODE setp counter
 .VSCodeCounter/
+
+# mise
+.mise.toml
