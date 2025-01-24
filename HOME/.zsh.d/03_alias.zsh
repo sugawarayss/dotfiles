@@ -130,6 +130,7 @@ if type "xsv" > /dev/null 2>&1; then
   alias csvheader='xsv headers'
 fi
 
+# コードや標準出力を画像に変換する
 if type "freeze" > /dev/null 2>&1; then
   alias freeze='freeze -c full --font.family "Hack Nerd Font" --output ~/Documents/FREEZE_CODES/frozen_code.png'
 fi
