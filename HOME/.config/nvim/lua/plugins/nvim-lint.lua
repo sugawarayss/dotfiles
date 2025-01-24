@@ -6,23 +6,25 @@ return {
     local nvim_lint = require("lint")
     local venv_dir = "./.venv/"
     nvim_lint.linters.mypy.cmd = venv_dir .. "/bin/mypy"
-    -- nvim_lint.linters.mypy.args = {
-    --   mypy_path,
-    --   '--show-column-numbers',
-    --   '--show-error-end',
-    --   '--hide-error-context',
-    --   '--install-types',
-    --   '--non-interactive',
-    --   '--no-color-output',
-    --   '--no-error-summary',
-    --   '--no-pretty',
-    --   '--python-executable',
-    --   venv_dir .. "/bin/python",
-    -- }
+    nvim_lint.linters.mypy.args = {
+      "--install-types",
+      "--non-interactive",
+      "--config-file",
+      "./pyproject.toml",
+      "--python-executable",
+      venv_dir .. "/bin/python",
+    }
     vim.diagnostic.config({
       virtual_text = {
         format = function(diagnostic)
-          return string.format('[%s] (%s) %s', diagnostic.source, diagnostic.code, diagnostic.message)
+          -- diagnostic.source と diagnositc.code が nil でない場合のみカスタマイズする
+          if diagnostic.source ~= nil then
+            if diagnostic.code ~= nil then
+              return string.format('[%s] (%s) %s', diagnostic.source, diagnostic.code, diagnostic.message)
+            end
+            return string.format('[%s] %s', diagnostic.source, diagnostic.message)
+          end
+          return string.format(base_format, diagnostic.source, diagnostic.code, diagnostic.message)
         end
       }
     })
