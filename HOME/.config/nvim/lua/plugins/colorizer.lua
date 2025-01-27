@@ -1,13 +1,15 @@
--- カラーコードを色付け
+-- カラーコードを色付け と カラーピッカーを表示するプラグイン
 return {
-  "norcalli/nvim-colorizer.lua",
-  -- 遅延読み込みする
-  lazy = true,
-  -- バッファがウィンドウに表示された時にロードする
+  "uga-rosa/ccc.nvim",
   event = { "BufReadPre" },
   config = function()
-    require("colorizer").setup({
-      "*", -- Highligt all files
+    vim.opt.termguicolors = true
+    local ccc = require("ccc")
+    ccc.setup({
+      highlighter = {
+        auto_enable = true,
+        lsp = true,
+      }
     })
   end
 }
