@@ -5,6 +5,7 @@ if not vim.g.vscode then
     version = "*",
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
+      { "pnx/lualine-lsp-status" },
     },
     event = { "VimEnter" },
     config = function()
@@ -43,7 +44,7 @@ if not vim.g.vscode then
           },
           lualine_c = { "branch", "diff" },
           lualine_x = { "encoding", "fileformat", "filetype" },
-          lualine_y = { { lint_progress }, "location", "progress" },
+          lualine_y = { "lsp-status", { lint_progress }, "location", "progress" },
           lualine_z = {
               { "datetime", style = "%Y/%m/%d %H:%M:%S" },
           },
