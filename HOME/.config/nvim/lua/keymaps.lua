@@ -67,9 +67,7 @@ u.keymap("n", "<Esc><Esc>", ":nohlsearch<CR>", { desc = "ハイライトをや�
 u.keymap("i", "jj", "<ESC>", { desc = "ノーマルモードに移行" })
 
 -- インサートモードのままカーソル移動
--- Ctrl+fで一つ右へ移動
-u.keymap("i", "<C-f>", "<C-g>U<Right>", { desc = "インサートモードのままカーソルを右へ移動" })
--- Ctrl+f Ctrl+fで一番外へ移動
+-- Ctrl+l Ctrl+lで一番外へ移動
 u.keymap("i", "<C-l><C-l>", "<C-g>U<Esc><S-a>", { desc = "インサートモードのままカーソルを右へ移動" })
 
 -- 行を上下に移動
