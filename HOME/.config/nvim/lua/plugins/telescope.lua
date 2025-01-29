@@ -34,7 +34,8 @@ return {
       { "<C-b><C-f>",       "<cmd>Telescope buffers show_all_buffers=true<CR>",                                mode = "n", opt, desc = "バッファを検索" },
       { "<C-b><C-m>",       "<cmd>Telescope bookmarks list<CR>",                                               mode = "n", opt, desc = "ブックマークを検索" },
       { "<M-k><M-m>",       "<cmd>Telescope keymaps<CR>",                                                      mode = "n", opt, desc = "Keymap を検索" },
-      { "Q",                "<cmd>Telescope cmdline<CR>",                                                      mode = "n", opt, desc = "Cmdline" }
+      { "Q",                "<cmd>Telescope cmdline<CR>",                                                      mode = "n", opt, desc = "Cmdline" },
+      { "<C-S-p>",          "<cmd>Telescope projects<CR>",                                                     mode = "n", opt, desc = "プロジェクトリストを表示"}
     },
     config = function()
       local telescope         = require("telescope")
@@ -137,5 +138,6 @@ return {
       telescope.load_extension("aerial")
       telescope.load_extension("bookmarks")
       telescope.load_extension("smart_open")
+      telescope.load_extension("projects")
     end
 }
