@@ -1,0 +1,15 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+  GHOSTTY_DIR: .config/ghostty
+
+tasks:
+  deploy:
+    desc: Create Symbolic Links
+    preconditions:
+      - sh: "[[ ! -L ~/.config/ghostty/ ]]"
+        msg: "~/.config/ghostty is already exists"
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/ghostty ~/{{.GHOSTTY_DIR}}

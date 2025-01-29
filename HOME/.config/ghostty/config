@@ -1,0 +1,24 @@
+font-family = "Hack Nerd Font"
+font-family = "Hack Gen Console NF"
+font-size = 13
+theme = tokyonight
+background-opacity = 0.9
+background-blur-radius = 20
+cursor-style-blink = true
+
+keybind = "global:ctrl+shift+l=resize_split:right,20"
+keybind = "global:ctrl+shift+h=resize_split:left,20"
+keybind = "global:ctrl+shift+k=resize_split:up,20"
+keybind = "global:ctrl+shift+j=resize_split:down,20"
+
+keybind = "global:ctrl+opt+shift+l=goto_split:right"
+keybind = "global:ctrl+opt+shift+h=goto_split:left"
+keybind = "global:ctrl+opt+shift+k=goto_split:top"
+keybind = "global:ctrl+opt+shift+j=goto_split:bottom"
+keybind = "global:ctrl+opt+shift+tab=goto_split:next"
+
+quick-terminal-position = "top"
+quick-terminal-screen = "main"
+quick-terminal-animation-duration = 0.1
+keybind = "global:shift+opt+space=toggle_quick_terminal"
+

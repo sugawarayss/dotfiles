@@ -18,6 +18,7 @@ includes:
   zed: ./tasks/zed.yaml
   prepare: ./tasks/prepare.yaml
   macos: ./tasks/macos.yaml
+  ghostty: ./tasks/ghostty.yaml
 
 tasks:
   default:
