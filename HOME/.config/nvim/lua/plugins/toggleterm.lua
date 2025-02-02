@@ -8,6 +8,8 @@ return {
     { "<c-t><c-f>", ":ToggleTerm direction=float<CR>",      mode = "n", desc = "Floatウィンドウでターミナルをトグル" },
     { "<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>",           mode = "t", desc = "ターミナルを閉じる" },
     { "<leader>g",  "<cmd>lua _lazygit_toggle()<cr>",       mode = "n", desc = "Lazygitを開く" },
+    { "<leader>f",  "<cmd>lua _superfile_toggle()<cr>",     mode = "n", desc = "File ExplorerとしてSuperfileを開く" },
+    { "<leader>h",  "<cmd>lua _harlequin_toggle()<cr>",     mode = "n", desc = "SQLClientとしてHarlequinを開く" },
   },
   config = function()
     require("toggleterm").setup(
@@ -45,19 +47,17 @@ return {
       }
     )
     local Terminal = require("toggleterm.terminal").Terminal
+    -- lazygit を開く
     local lazygit = Terminal:new({
       cmd = "lazygit",     -- command to execute when creating the terminal e.g. 'top'
-      --  dir = "git_dir", -- the directory for the terminal
       direction = "float", -- the layout for the terminal, same as the main config options
       float_opts = {
         border = "double",
       },
-      -- function to run on opening the terminal
       on_open = function(term)
         vim.cmd("startinsert!")
         vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
       end,
-      -- function to run on closing the terminal
       on_close = function(_)
         vim.cmd("startinsert!")
       end,
@@ -67,5 +67,40 @@ return {
       lazygit:toggle()
     end
 
+    -- File Explorer として Superfile を開く
+    local superfile = Terminal:new({
+      cmd = "spf",
+      direction = "float",
+      float_opts = { border = "double" },
+      on_open = function(term)
+        vim.cmd("startinsert!")
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+      end,
+      on_close = function(_)
+        vim.cmd("startinsert!")
+      end,
+    })
+
+    function _superfile_toggle()
+      superfile:toggle()
+    end
+
+    -- SQLClient として harlequin を開く
+    local harlequin = Terminal:new({
+      cmd = "harlequin",
+      direction = "float",
+      float_opts = { border = "double" },
+      on_open = function(term)
+        vim.cmd("startinsert!")
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<C-q>", "<cmd>close<CR>", { noremap = true, silent = true })
+      end,
+      on_close = function(_)
+        vim.cmd("startinsert!")
+      end,
+    })
+    function _harlequin_toggle()
+      harlequin:toggle()
+    end
   end
+
 }
