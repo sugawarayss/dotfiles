@@ -19,6 +19,7 @@ includes:
   prepare: ./tasks/prepare.yaml
   macos: ./tasks/macos.yaml
   ghostty: ./tasks/ghostty.yaml
+  superfile: ./tasks/superfile.yaml
 
 tasks:
   default:

@@ -1,0 +1,13 @@
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+  SUPERFILE_DIR: .config/superfile
+
+tasks:
+  deploy:
+    desc: Create Symbolic Linkc
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/{{.SUPERFILE_DIR}}/config.toml ~/{{.SUPERFILE_DIR}}/config.toml
+      - ln -s {{.PROJECT_DIR}}/HOME/{{.SUPERFILE_DIR}}/hotkeys.toml ~/{{.SUPERFILE_DIR}}/hotkeys.toml

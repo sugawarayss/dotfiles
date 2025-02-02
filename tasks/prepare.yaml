@@ -2,7 +2,7 @@ version: "3"
 
 vars:
   # 作成対象ディレクトリ
-  TARGET_DIRS: [ ~/.config, ~/.config/git, ~/.config/zed, ~/SCREENSHOTS, ~/Documents/FREEZE_CODES, ~/PROJECTS]
+  TARGET_DIRS: [ ~/.config, ~/.config/git, ~/.config/zed, ~/.config/superfile, ~/SCREENSHOTS, ~/Documents/FREEZE_CODES, ~/PROJECTS]
 
 tasks:
   directories:
