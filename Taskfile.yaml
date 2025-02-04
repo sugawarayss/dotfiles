@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
 vars:
@@ -20,6 +21,7 @@ includes:
   macos: ./tasks/macos.yaml
   ghostty: ./tasks/ghostty.yaml
   superfile: ./tasks/superfile.yaml
+  harlequin: ./tasks/harlequin.yaml
 
 tasks:
   default:
