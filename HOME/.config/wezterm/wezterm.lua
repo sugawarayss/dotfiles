@@ -33,8 +33,8 @@ config.window_background_opacity = 0.9
 config.macos_window_background_blur = 9
 -- フォント
 config.font = wezterm.font_with_fallback {
-  "Hack Nerd Font",
-  "HackGen Console NF",
+  {family="Hack Nerd Font", weight="Regular"},
+  {family="HackGen35 Console NF", weight="Regular"},
 }
 -- フォントサイズ
 config.font_size = 13.0
@@ -48,5 +48,6 @@ config.disable_default_key_bindings = true
 local keybind = require 'keybinds'
 config.keys = keybind.keys
 config.key_tables = keybind.key_tables
+
 
 return config
