@@ -1,0 +1,30 @@
+{
+  "table":{
+    "prefix": "table",
+    "body": [
+      "| $1 | $2 | $3 |",
+      "| --- | --- | --- |"
+    ],
+    "description": "Table"
+  },
+  "summary": {
+    "prefix": "summary",
+    "body": [
+      "<details>",
+      "<summary>$1</summary>",
+      "",
+      "$2",
+      "",
+      "</details>"
+    ],
+    "description": "Summary"
+  },
+  "call-out": {
+    "prefix": "warning",
+    "body": [
+      "> [!WARNING]",
+      ">"
+    ],
+    "description": "Call-out Warning"
+  }
+}

@@ -7,7 +7,9 @@ return {
       { "hrsh7th/cmp-nvim-lsp" },  -- LSP補完
       { "hrsh7th/cmp-buffer" },  -- バッファ補完
       { "hrsh7th/cmp-path" },  -- パス補完
-      { "hrsh7th/vim-vsnip" },  -- スニペット補完
+      -- { "hrsh7th/vim-vsnip" },  -- スニペット補完
+      { "L3MON4D3/LuaSnip" },  -- スニペットエンジン
+      { "saadparwaiz1/cmp_luasnip" },  -- cmp と luasnip の連携
       { "onsails/lspkind.nvim" },
       { "windwp/nvim-autopairs" },
       -- { "zbirenbaum/copilot-cmp" },  -- Github copilotからの補完
@@ -16,6 +18,8 @@ return {
       local cmp = require("cmp")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       local lspkind = require("lspkind")
+      local luasnip = require("luasnip")
+      require("luasnip.loaders/from_vscode").lazy_load({ paths = {"./snippets"} })
 
       cmp.setup({
         formatting = {
@@ -29,6 +33,7 @@ return {
               luasnip       = "[LuaSnip]",
               nvim_lua      = "[Lua]",
               latex_symbols = "[Latex]",
+
             }),
           })
         },
@@ -60,8 +65,8 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "vsnip" }, -- For vsnip users.
-          -- { name = "luasnip" }, -- For luasnip users.
+          -- { name = "vsnip" }, -- For vsnip users.
+          { name = "luasnip", priority_weight = 20 }, -- For luasnip users.
           -- { name = "ultisnips" }, -- For ultisnips users.
           -- { name = "snippy" }, -- For snippy users.
         }, {

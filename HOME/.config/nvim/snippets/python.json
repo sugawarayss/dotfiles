@@ -1,0 +1,33 @@
+{
+  "main": {
+    "prefix": ".main",
+    "body": [
+      "if __name__ == \"__main__\":"
+    ]
+  },
+  "time_measure": {
+    "prefix": ".time",
+    "body": [
+      "def measure_time(func: Callable) -> Any:",
+      "    \"\"\"",
+      "    関数の実行時間を計測するデコレータ",
+      "    :param func: デコレートする関数",
+      "    \"\"\"",
+      "    import time",
+      "    from functools import wraps",
+      "",
+      "    @wraps(func)",
+      "    def wrapper(*args, **kwargs) -> Any:",
+      "        \"\"\"",
+      "        関数の実行時間を計測するラッパー関数",
+      "        \"\"\"",
+      "        start = time.perf_counter()",
+      "        result = func(*args, **kwargs)",
+      "        elapsed_time = time.perf_counter() - start",
+      "        print(f\"{func.__name__} took {elapsed_time} seconds.\")",
+      "        return result",
+      "",
+      "        return wrapper"
+    ]
+  }
+}
