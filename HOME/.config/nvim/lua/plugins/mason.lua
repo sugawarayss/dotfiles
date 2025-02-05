@@ -36,6 +36,8 @@ local lsp_servers = {
   "jsonls",
   -- toml
   "taplo",
+  -- markdown
+  "marksman",
 }
 -- 自動インストールするformatter
 local formatters = {
@@ -144,6 +146,9 @@ local lsp_server_settings = {
     staticcheck                    = true,
     usePlaceholders                = true,
   },
+  marksman = {
+    filetypes = { "markdown" },
+  }
 }
 
 return {
