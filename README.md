@@ -35,7 +35,7 @@ My dotfiles for MacOSX.
 | [hrsh7th/cmp-buffer](https://github.com/hrsh7th/cmp-buffer)                                           |
 | [hrsh7th/cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp)                                       |
 | [hrsh7th/cmp-path](https://github.com/hrsh7th/cmp-path)                                               |
-|  [zbirenbaum/copilot.lua](https://github.com/zbirenbaum/copilot.lua) |
+| [zbirenbaum/copilot.lua](https://github.com/zbirenbaum/copilot.lua) |
 | [CopilotC-Nvim/CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim)                   |
 | [Shougo/ddc.vim](https://github.com/Shougo/ddc.vim)                                                   |
 | [vim-denops/denops.vim](https://github.com/vim-denops/denops.vim)                                     |
