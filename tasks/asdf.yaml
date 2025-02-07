@@ -37,4 +37,3 @@ tasks:
       - asdf global nodejs latest
       - asdf global deno latest
       - asdf global golang latest
-

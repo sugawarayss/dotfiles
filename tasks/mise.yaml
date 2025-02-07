@@ -15,4 +15,3 @@ tasks:
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/.config/mise ~/{{.MISE_DIR}}
       - mise i
-      

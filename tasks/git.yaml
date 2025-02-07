@@ -19,7 +19,6 @@ tasks:
     desc: Check Git dir exists
     cmds:
       - '[[ ! -d ~/{{.GIT_DIR}} ]] && mkdir -p ~/{{.GIT_DIT}} || echo "~/{{.GIT_DIR}} is already exist"'
-      -
     silent: true
 
   config:
