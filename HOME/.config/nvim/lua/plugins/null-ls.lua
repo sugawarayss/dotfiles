@@ -69,18 +69,6 @@ return {
         filetypes = { "python" },
         extra_args = { "--config", "./pyproject.toml" },
       }),
-
-      -- null_ls.builtins.diagnostics.mypy.with({
-      --   filetypes = { "python" },
-      --   diagnostics_format = '[#{s}] (#{c}) #{m}',
-      --   -- if you want to mypy settings to pyproject.toml, you should run the following command
-      --   -- cd ~/.local/share/nvim/mason/packages/mypy/ \
-      --   --    && source venv/bin/activate \
-      --   --    && pip install 'pydantic[email, timezone]` pydantic-settings \
-      --   --    && deactivate`
-      --   extra_args = { "--install-types", "--non-interactive" }
-      -- }),
-
       null_ls.builtins.diagnostics.ruff.with({
         filetypes = { "python" },
         diagnostics_format = "[#{s}] (#{c}) #{m}",
@@ -112,6 +100,19 @@ return {
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
         extra_args = { "--config", "./biome.config.js" },
       }),
+      -- dart
+      -- null_ls.builtins.diagnostics.dcm.with({ filetypes = { "dart" } }),
+      -- php
+      null_ls.builtins.diagnostics.phpstan.with({ filetypes = { "php" } }),
+      -- yaml
+      null_ls.builtins.diagnostics.yamllint.with({ filetypes = { "yaml" } }),
+      -- dockerfile
+      null_ls.builtins.diagnostics.hadolint.with({ filetypes = { "dockerfile" } }),
+      -- code security
+      -- null_ls.builtins.diagnostics.gitleaks,
+      null_ls.builtins.diagnostics.semgrep,
+
+
     }
 
     -- 辞書に単語を追加するcommandをCode Actionとして呼び出せるようにする
