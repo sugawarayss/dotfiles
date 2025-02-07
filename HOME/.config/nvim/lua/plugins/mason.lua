@@ -67,6 +67,18 @@ local diagnostics = {
   "staticcheck",
   -- markdown
   "markdownlint",
+  -- php
+  "phpstan",
+  -- yaml
+  "yamllint",
+  -- shell script
+  "shellcheck",
+  -- code security
+  "semgrep",
+  -- code security
+  "gitleaks",
+  -- dockerfile
+  "hadolint",
 }
 -- dap adapters
 local dap_adapters = {
@@ -148,6 +160,15 @@ local lsp_server_settings = {
   },
   marksman = {
     filetypes = { "markdown" },
+  },
+  yamlls = {
+    filetypes = { "yaml" },
+  },
+  jsonls = {
+    filetypes = { "json" },
+  },
+  taplo = {
+    filetypes = { "toml" },
   }
 }
 
