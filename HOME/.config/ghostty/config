@@ -32,7 +32,7 @@ keybind = "global:shift+opt+space=toggle_quick_terminal"
 keybind = "all:cmd+,=open_config"
 
 # 分割ペインのフォーカス移動キーバインド
-keybind = "preformable:ctrl+opt+shift+l=goto_split:right"
+keybind = "all:ctrl+opt+shift+l=goto_split:right"
 keybind = "all:ctrl+opt+shift+h=goto_split:left"
 keybind = "all:ctrl+opt+shift+k=goto_split:top"
 keybind = "all:ctrl+opt+shift+j=goto_split:bottom"
