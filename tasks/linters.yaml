@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  PROJECT_DIR:
+    sh: pwd
+  YAMLLINT_DIR: .config/yamllint
+
+tasks:
+  deploy:
+    desc: Create Symbolic Links
+    preconditions:
+      - sh: '[[ ! -L ~/.config/yamllint/ ]]'
+        msg: "~/.config/yamllint is already exists"
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/{{.YAMLLINT_DIR}} ~/{{.YAMLLINT_DIR}}

@@ -21,7 +21,7 @@ includes:
   macos: ./tasks/macos.yaml
   ghostty: ./tasks/ghostty.yaml
   superfile: ./tasks/superfile.yaml
-  harlequin: ./tasks/harlequin.yaml
+  linters: ./tasks/linters.yaml
 
 tasks:
   default:

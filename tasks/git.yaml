@@ -14,6 +14,23 @@ tasks:
       - task: ignore
       - task: template
 
+  gh:
+    # internal: true
+    desc: setup gh with dh-dash
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/gh ~/.config/gh
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/gh-dash ~/.config/gh-dash
+      - echo "[MUST] You should edit `user` in ~/.config/gh/hosts.yml"
+      - echo "git config get user.name"
+
+  gh-dash:
+    desc: install gh-dash extension of gh
+    preconditions:
+      - sh: 'command -v gh 2>&1'
+        msg: "gh command is not installed"
+    cmds:
+      - gh extension install dlvhdr/gh-dash
+
   directories:
     internal: true
     desc: Check Git dir exists
