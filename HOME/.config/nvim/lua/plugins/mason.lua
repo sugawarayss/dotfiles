@@ -285,7 +285,7 @@ return {
       -- カーソル下の情報を表示
       { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", desc = "カーソル下の情報を表示" },
       -- 定義へジャンプ
-      { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = "n", desc = "定義にジャンプ" },
+      { "gd", "<cmd>Lspsaga peek_definition<CR>", mode = "n", desc = "定義にジャンプ" },
       -- 呼出階層を表示
       { "gr", "<cmd>Lspsaga finder<CR>", mode = "n", desc = "参照先の表示" },
       -- 型定義へジャンプ
@@ -296,13 +296,15 @@ return {
       { "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n", desc = "次の診断へジャンプ" },
       -- 前の診断へジャンプ
       { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", desc = "前の診断へジャンプ" },
+      -- アウトライン表示
+      { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = "n", desc = "アウトライン表示" },
 
     },
     config = function()
       require("lspsaga").setup({
         -- パンくずリスト
         symbol_in_winbar = {
-          enable       = false,
+          enable       = true,
           sparator     = " › ",
           hide_keyword = false,
           show_file    = true,
@@ -324,27 +326,43 @@ return {
           max_height  = 0.5,
           left_width  = 0.3,
           right_width = 0.3,
-          default     = "ref",
-          methods     = {}, -- e.g.) {"tyd" = "textDocument/typeDefinition"}
+          default     = "ref+imp",
+          methods     = {}, -- { 'tyd' = 'textDocument/typeDefinition' },
           layout      = "float",
           filter      = {},
           silent      = false,
           keys = {
             shuttle        = "[w", -- Finder ウィンドウ間を移動
             toggle_or_open = "<CR>",
-            vsplit         = "sv",
-            split          = "ss",
+            vsplit         = "<C-s><C-v>",
+            split          = "<C-s><C-s>",
             tabnew         = "r",
             quit           = "q",
             close          = "<ESC>",
           }
-
+        },
+        -- アウトライン表示
+        outline = {
+          win_position = "right",
+          win_width = 30,
+          auto_preview = true,
+          detail = true,
+          auto_close = true,
+          close_after_jump = false,
+          layout = "normal", -- or "normal"
+          max_height = 0.5, -- float layout height
+          left_width = 0.3, -- float layout left pane width
+          keys = {
+            toggle_or_jump = "<CR>",
+            quit = "q",
+            jump = "e" -- jump to pos even on a expand/collapse node
+          }
         },
         hover = {
           max_width  = 0.9,
           max_height = 0.8,
           open_link  = "gx",
-          open_cmd   = "!chrome",
+          open_cmd   = "!arc",
         },
         -- diagnostic
         diagnostics = {
@@ -373,8 +391,8 @@ return {
           height = 0.5,
           keys = {
             edit   = "<CR>",
-            vsplit = "sv",
-            split  = "ss",
+            vsplit = "<C-s><C-v>",
+            split  = "<C-s><C-s>",
             tabe   = "<C-c>t",
             quit   = "q",
             close  = "<ESC>",
@@ -385,8 +403,8 @@ return {
           keys = {
             -- ファイルを開く
             edit   = "<CR>",
-            vsplit = "sv",
-            split  = "ss",
+            vsplit = "<C-s><C-v>",
+            split  = "<C-s><C-s>",
           }
         }
       })
