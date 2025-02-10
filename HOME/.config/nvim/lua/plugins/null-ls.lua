@@ -100,6 +100,10 @@ return {
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
         extra_args = { "--config", "./biome.config.js" },
       }),
+      -- json
+      null_ls.builtins.formatting.jq.with({
+        filetypes = { "json" },
+      }),
       -- dart
       -- null_ls.builtins.diagnostics.dcm.with({ filetypes = { "dart" } }),
       -- php

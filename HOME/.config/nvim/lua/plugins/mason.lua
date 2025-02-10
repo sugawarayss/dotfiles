@@ -52,6 +52,8 @@ local formatters = {
   "goimports",
   -- lua
   "stylua",
+  -- json,
+  "jq",
 }
 -- 自動インストールするlinter
 local diagnostics = {
