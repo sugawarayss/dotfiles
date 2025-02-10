@@ -92,6 +92,8 @@ local dap_adapters = {
   "codelldb",
   -- python
   "debugpy",
+  -- go
+  "delve",
 }
 
 local my_on_attach = function(client, bufnr)
