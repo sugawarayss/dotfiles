@@ -104,6 +104,21 @@ return {
       null_ls.builtins.formatting.jq.with({
         filetypes = { "json" },
       }),
+      -- yaml
+      null_ls.builtins.formatting.yamlfmt.with({
+        filetypes = { "yaml" },
+        extra_args = {
+          -- see: https://github.com/google/yamlfmt/blob/main/docs/config-file.md#command
+          -- indent
+          indent = 2,
+          -- 多数の空行は1行に整形する
+          retain_line_breaks_single = true,
+          -- 最大行長は150文字
+          max_line_length = 150,
+          -- 行末の空白を削除
+          trim_trailing_whitespace = true,
+        },
+      }),
       -- dart
       -- null_ls.builtins.diagnostics.dcm.with({ filetypes = { "dart" } }),
       -- php

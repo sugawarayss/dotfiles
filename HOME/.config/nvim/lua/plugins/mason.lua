@@ -54,6 +54,8 @@ local formatters = {
   "stylua",
   -- json,
   "jq",
+  -- yaml
+  "yamlfmt",
 }
 -- 自動インストールするlinter
 local diagnostics = {
