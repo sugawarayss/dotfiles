@@ -38,6 +38,8 @@ local lsp_servers = {
   "taplo",
   -- markdown
   "marksman",
+  -- bash(zsh)
+  "bashls"
 }
 -- 自動インストールするformatter
 local formatters = {
@@ -169,6 +171,9 @@ local lsp_server_settings = {
   },
   taplo = {
     filetypes = { "toml" },
+  },
+  bashls = {
+    filetypes = { "sh", "zsh" },
   }
 }
 
