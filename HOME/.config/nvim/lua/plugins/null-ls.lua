@@ -96,6 +96,7 @@ return {
       null_ls.builtins.formatting.goimports.with({
         filetypes = { "go" },
       }),
+      -- js/ts
       null_ls.builtins.formatting.biome.with({
         filetypes = { "javascript", "typescript", "jsx", "html", "css", "scss", "markdown" },
         extra_args = { "--config", "./biome.config.js" },

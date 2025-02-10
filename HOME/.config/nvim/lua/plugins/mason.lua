@@ -44,8 +44,6 @@ local lsp_servers = {
 -- 自動インストールするformatter
 local formatters = {
   -- python
-  --"black",
-  -- "isort",
   "ruff",
   -- Go
   "gofmpt",
