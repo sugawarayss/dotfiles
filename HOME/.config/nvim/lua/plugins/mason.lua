@@ -46,7 +46,7 @@ local formatters = {
   -- python
   "ruff",
   -- Go
-  "gofmpt",
+  "gofumpt",
   "goimports",
   -- lua
   "stylua",
