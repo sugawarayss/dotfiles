@@ -56,6 +56,8 @@ local formatters = {
   "jq",
   -- yaml
   "yamlfmt",
+  -- shell
+  "shfmt",
 }
 -- 自動インストールするlinter
 local diagnostics = {

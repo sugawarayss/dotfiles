@@ -119,6 +119,10 @@ return {
           trim_trailing_whitespace = true,
         },
       }),
+      -- shellscript
+      null_ls.builtins.formatting.shfmt.with({
+        filetypes = { "sh", "bash", "zsh" },
+      }),
       -- dart
       -- null_ls.builtins.diagnostics.dcm.with({ filetypes = { "dart" } }),
       -- php
