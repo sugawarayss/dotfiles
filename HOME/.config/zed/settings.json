@@ -98,6 +98,26 @@
           }
         }
       ]
+    },
+    "Lua": {
+      "format_on_save": "on",
+      "formatter": "language_server"
+    },
+    "Markdown": {
+      "format_on_save": "on",
+      "remove_trailing_whitespace_on_save": true
+    },
+    "JSON": {
+      "format_on_save": "on",
+      "formatter": "language_server"
+    },
+    "TOML": {
+      "format_on_save": "on",
+      "formatter": "language_server"
+    },
+    "YAML": {
+      "format_on_save": "on",
+      "formatter": "language_server"
     }
   },
   "features": {
@@ -148,6 +168,37 @@
             },
             "format": {
               "enable": true
+            }
+          }
+        }
+      },
+      "json-language-server": {
+        "settings": {
+          "json": {
+            "schemas": [
+              {
+                "fileMatch": ["*/*.luarc.json"],
+                "url": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json"
+              }
+            ]
+          }
+        }
+      },
+      "taplo": {
+        "settings": {
+          "array_auto_collapse": false
+        }
+      },
+      "yaml-language-server": {
+        "settings": {
+          "yaml": {
+            "keyOrdering": true,
+            "format": {
+              "singleQuote": true
+            },
+            "schemas": {
+              "http://json.schemastore.org/composer": ["/*"],
+              "../relative/path/schema.json": ["/config*.yaml"]
             }
           }
         }
