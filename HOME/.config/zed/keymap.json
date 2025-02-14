@@ -96,8 +96,12 @@
       "shift-h": "pane::ActivatePrevItem",
       // lazygitを起動
       "space g": [
-        "workspace::SendKeystrokes",
-        ": new center terminal enter lazygit space && space exit enter"
+        "task::Spawn",
+        { "task_name": "lazygit", "target": "center" }
+      ],
+      "space f": [
+        "task::Spawn",
+        { "task_name": "superfile", "target": "center" }
       ]
     }
   }
