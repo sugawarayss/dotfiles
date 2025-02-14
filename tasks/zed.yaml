@@ -6,7 +6,6 @@ vars:
     sh: pwd
   ZED_DIR: .config/zed
 
-
 tasks:
   directories:
     internal: true
@@ -21,7 +20,7 @@ tasks:
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/{{.ZED_DIR}}/settings.json ~/{{.ZED_DIR}}/settings.json
     preconditions:
-      - sh: '[ ! -L ~/{{.ZED_DIR}}/settings.json ]'
+      - sh: "[ ! -L ~/{{.ZED_DIR}}/settings.json ]"
         msg: "~/{{.ZED_DIR}}/settings.json is already exists"
 
   keymap:
@@ -30,5 +29,14 @@ tasks:
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/{{.ZED_DIR}}/keymap.json ~/{{.ZED_DIR}}/keymap.json
     preconditions:
-      - sh: '[ ! -L ~/{{.ZED_DIR}}/keymap.json ]'
+      - sh: "[ ! -L ~/{{.ZED_DIR}}/keymap.json ]"
         msg: "~/{{.ZED_DIR}}/keymap.json"
+
+  task:
+    desc: Create Symbolic Link for zed editor
+    deps: [directories]
+    cmds:
+      - ln -s {{.PROJECT_DIR}}/HOME/{{.ZED_DIR}}/tasks.json ~/{{.ZED_DIR}}/tasks.json
+    preconditions:
+      - sh: "[ ! -L ~/{{.ZED_DIR}}/tasks.json ]"
+        msg: "~/{{.ZED_DIR}}/tasks.json"
