@@ -14,6 +14,9 @@
     },
     "version": "2"
   },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
   "base_keymap": "JetBrains",
   "telemetry": {
     "metrics": false, // メトリクスの送信
@@ -34,7 +37,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Tokyo Night"
+    "dark": "Monokai Charcoal"
   },
   "tabs": {
     "git_status": true,
@@ -119,9 +122,6 @@
       "format_on_save": "on",
       "formatter": "language_server"
     }
-  },
-  "features": {
-    "inline_completion_provider": "copilot"
   },
   "lsp": {
     "lsp": {

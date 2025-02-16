@@ -85,10 +85,10 @@
       "s v l": "pane::SplitRight",
       "s v h": "pane::SplitLeft",
       // アクティブなPaneの移動
-      "s h": ["workspace::ActivatePaneInDirection", "Left"],
-      "s l": ["workspace::ActivatePaneInDirection", "Right"],
-      "s k": ["workspace::ActivatePaneInDirection", "Up"],
-      "s j": ["workspace::ActivatePaneInDirection", "Down"],
+      "s h": "workspace::ActivatePaneLeft",
+      "s l": "workspace::ActivatePaneRight",
+      "s k": "workspace::ActivatePaneUp",
+      "s j": "workspace::ActivatePaneDown",
       // アウトラインの表示
       "space a a": "outline::Toggle",
       // タブ選択
