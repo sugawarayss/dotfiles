@@ -16,6 +16,7 @@ local options = {
   conceallevel   = 0,                              -- conceal構文属性のテキストでも通常通り表示する
   -- 検索系設定 --
   hlsearch       = true,                           -- 検索パターンにマッチするテキストを強調表示
+  helplang       = "ja,en",
   ignorecase     = true,                           -- 検索時に大文字小文字を区別しない
   smartcase      = true,                           -- 検索パターンに大文字を含んでいたら区別する
   pumheight      = 10,                             -- 挿入モード補完のポップアップ表示数の最大値
