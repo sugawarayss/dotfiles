@@ -1,9 +1,7 @@
 -- 少ないキー数で様々な場所に遷移できるモーションを提供
 return {
-  "phaazon/hop.nvim",
-  lazy = true,
-  enabled = true,
-  branch = "v2",
+  "smoka7/hop.nvim",
+  version = "*",
   event = { "BufReadPre" },
   keys = {
       { "<Leader>/", "<cmd>HopPattern<CR>",     desc = "入力したパターンでhop" },
