@@ -24,19 +24,18 @@ return {
     require("hop").setup({
       keys                    = "asdghklqwertyuiopzxcvbnmfj",
       quite_key               = "<Esc>",
-      term_seq_bias           = 0.5,
-      revirse_distribution    = false,
-      teasing                 = true,
       jump_on_sole_occurrence = true,
       case_insensitive        = true,
       create_hl_autocmd       = true,
-      direction               = nil,
       hint_position           = require("hop.hint").HintPosition.BEGIN,
       current_lint_only       = false,
-      upperCase_labels        = false,
-      char2_fallback_key      = nil,
-      extensions              = nil,
       multi_windows           = false,
+      -- direction               = nil,
+      -- term_seq_bias           = 0.5,
+      -- revirse_distribution    = false,
+      -- teasing                 = true,
+      -- char2_fallback_key      = nil,
+      -- extensions              = nil,
     })
   end
 }
