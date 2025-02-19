@@ -6,7 +6,7 @@ font-family = "Hack Gen Console NF"
 font-size = 13
 
 # カラーテーマ
-theme = Ryuuko
+theme = GitHub Dark
 
 # ウィンドウの左右の余白
 window-padding-x = 4,2
