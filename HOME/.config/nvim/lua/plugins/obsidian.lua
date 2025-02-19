@@ -7,7 +7,7 @@ return {
   ft = "markdown",
   keys = {
     { "<Leader>os", "<Cmd>ObsidianQuickSwitch<CR>",     mode = "n", { noremap = true, silent = true }, desc = "Obsidianノートを検索" },
-    { "<Leader>on", "<Cmd>ObsidianNew<CR>",             mode = "n", { noremap = true, silent = true }, desc = "Obsidianノートを開く(作成)" },
+    { "<Leader>on", "<Cmd>ObsidianNewFromTemplate<CR>", mode = "n", { noremap = true, silent = true }, desc = "Obsidianノートを開く(作成)" },
     { "<Leader>od", "<Cmd>ObsidianToday<CR>",           mode = "n", { noremap = true, silent = true }, desc = "デイリーノートを開く(作成)" },
     { "<Leader>oc", "<Cmd>ObsidianTOC<CR>",             mode = "n", { noremap = true, silent = true }, desc = "現在のノートの目次を表示" },
     { "<Leader>otc", "<Cmd>ObsidianToggleCheckbox<CR>", mode = "n", { noremap = true, silent = true }, desc = "チェックボックスをトグル" },
