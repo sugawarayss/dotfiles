@@ -22,13 +22,25 @@ return {
   },
   config = function()
     require("hop").setup({
+      -- 移動先ラベルキー
       keys                    = "asdghklqwertyuiopzxcvbnmfj",
+      -- 中止キー
       quite_key               = "<Esc>",
+      -- ジャンプ先が1つしかない場合は自動ジャンプする
       jump_on_sole_occurrence = true,
+      -- HopChar* や HopPattern で大文字小文字を区別する
       case_insensitive        = true,
+      -- 独自のハイライトを行う
       create_hl_autocmd       = true,
+      -- ジャンプ位置の指定を開始位置にする
       hint_position           = require("hop.hint").HintPosition.BEGIN,
+      -- ジャンプ位置のオフセット
+      hint_offset             = 0,
+      -- 現在行のみのモード
       current_lint_only       = false,
+      -- ラベルを大文字で表示しない
+      uppercase_labels        = false,
+      -- バッファを超えて動作するか
       multi_windows           = false,
       -- direction               = nil,
       -- term_seq_bias           = 0.5,
