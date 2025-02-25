@@ -24,7 +24,7 @@ return {
   },
   keys = {
     { "<leader>nl", function() require("noice").cmd("last") end, mode = "n", desc = "直近の通知を表示" },
-    { "<leader>nh", "<cmd>Noice telescope<CR>",                  mode = "n", desc = "Telescopeで通知を表示" },
+    -- { "<leader>nh", "<cmd>Noice telescope<CR>",                  mode = "n", desc = "Telescopeで通知を表示" },
   },
   config = function()
     vim.opt.cmdheight = 0
@@ -101,7 +101,7 @@ return {
         },
       },
       notify = {
-        enabled = true,
+        enabled = false,
         view = "notify",
       },
       lsp = {
