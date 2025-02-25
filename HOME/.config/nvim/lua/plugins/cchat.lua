@@ -20,7 +20,6 @@
 -- CopilotChat.nvim
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
-  branch = "canary",
   lazy = false,
   dependencies = {
     { "zbirenbaum/copilot.lua" },
@@ -223,14 +222,22 @@ return {
           normal = "<CR>",
           insert = "<C-m>"
         },
+        toggle_sticky = {
+          detail = "Makes line under cursor sticky or deletes sticky line.",
+          normal = "gr",
+        },
         accept_diff = {
           normal = "<C-y>",
           insert = "<C-y>"
         },
+        jump_to_diff = { normal = "gj" },
+        quickfix_answers = { normal = "gqa" },
+        quickfix_diffs = { normal = "gqd" },
         yank_diff = { normal = "gy" },
         show_diff = { normal = "gd" },
-        show_system_prompt = { normal = "gp" },
-        show_user_selection = { normal = "gs" },
+        show_info = { normal = "gi" },
+        show_context = { normal = "gc" },
+        show_help = { normal = "gh" },
       },
     })
   end,
