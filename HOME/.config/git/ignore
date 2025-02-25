@@ -51,3 +51,5 @@ localhost*pem
 
 # mise
 .mise.toml
+
+.env.azure
