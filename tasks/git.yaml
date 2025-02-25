@@ -23,13 +23,15 @@ tasks:
       - echo "[MUST] You should edit `user` in ~/.config/gh/hosts.yml"
       - echo "git config get user.name"
 
-  gh-dash:
-    desc: install gh-dash extension of gh
+  gh-extension:
+    desc: install extensions of gh
     preconditions:
       - sh: 'command -v gh 2>&1'
         msg: "gh command is not installed"
     cmds:
       - gh extension install dlvhdr/gh-dash
+      - gh extension install meiji163/gh-notify
+      - gh extension install github/gh-copilot
 
   directories:
     internal: true
