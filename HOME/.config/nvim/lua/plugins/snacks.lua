@@ -52,15 +52,11 @@ return {
     -- ダッシュボード
     dashboard = {
       enabled = false,
+      -- need install colorscript
+      -- https://gitlab.com/dwt1/shell-color-scripts
       sections = {
+        -- FIXME: 折りたたみが自動で入ってしまう
         { section = "header" },
-        {
-          pane = 2,
-          section = "terminal",
-          cmd = "colorscript -e square",
-          height = 5,
-          padding = 1,
-        },
         { section = "keys", gap = 1, padding = 1 },
         {
           pane = 2,
@@ -130,7 +126,7 @@ return {
     -- カーソルのあるスコープ以外を暗く表示する
     dim = { enabled = false },
     -- ファイルエクスプローラ
-    explorer = { enabled = false },
+    explorer = { enabled = true },
     -- アクティブファイルのリポジトリを開く
     gitbrowse = { enabled = false },
     -- 画像ファイルを表示する
@@ -158,7 +154,6 @@ return {
       doc = {
         enabled = true,
         inline = true,
-        float = true,
         float = true,
         max_width = 80,
         max_height = 40,
@@ -280,7 +275,7 @@ return {
     -- { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-    -- { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     -- find
     -- { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
