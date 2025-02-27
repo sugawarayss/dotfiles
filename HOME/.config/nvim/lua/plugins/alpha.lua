@@ -249,34 +249,51 @@ return {
     local gh_notify = {
       type = "terminal",
       command = "gh notify -s -a -n5",
-      width = 60,
-      height = 10,
+      width = 120,
+      height = 5,
       opts = {
         position = "center",
         redraw = true,
         window_config = {},
       }
     }
-    local gh_status = {
+    local gh_pr = {
       type = "terminal",
-      command = "git --no-pager diff --stat -B -M -C",
-      width = 60,
-      height = 10,
+      command = "gh pr list -L 3",
+      width = 120,
+      height = 7,
       opts = {
         position = "center",
         redraw = true,
         window_config = {},
       }
     }
+    local git_status = {
+      type = "terminal",
+      command = "git status -s",
+      width = 120,
+      height = 5,
+      opts = {
+        position = "center",
+        redraw = true,
+        window_config = {},
+      }
+    }
+
     local gh_info = {
       type = "group",
       val = {
         { type = "text",    val = "GitHub Notifications", opts = { hl = "SpecialComment", position = "center" } },
         { type = "padding", val = 1 },
         gh_notify,
-        -- { type = "text",    val = "GitHub Status", opts = { hl = "SpecialComment", position = "center" } },
-        -- { type = "padding", val = 1 },
-        -- gh_status,
+        { type = "padding", val = 1 },
+        { type = "text", val = "Git Status", opts = { hl = "SpecialComment", position = "center" } },
+        { type = "padding", val = 1 },
+        git_status,
+        { type = "padding", val = 1 },
+        { type = "text",    val = "GitHub Pull Requests", opts = { hl = "SpecialComment", position = "center" } },
+        { type = "padding", val = 1 },
+        gh_pr,
       }
     }
 
