@@ -9,6 +9,8 @@ return {
     { "<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>",           mode = "t", desc = "ターミナルを閉じる" },
     -- { "<leader>g",  "<cmd>lua _lazygit_toggle()<cr>",       mode = "n", desc = "Lazygitを開く" },
     { "<leader>f",  "<cmd>lua _superfile_toggle()<cr>",     mode = "n", desc = "File ExplorerとしてSuperfileを開く" },
+    { "<leader>gr", "<cmd>lua _gh_dash_toggle()<cr>",       mode = "n", desc = "PullRequestViewer として gh dash を開く" },
+    -- { "<leader>h",  "<cmd>lua _harlequin_toggle()<cr>",     mode = "n", desc = "SQLClientとしてHarlequinを開く" },
   },
   config = function()
     require("toggleterm").setup(
