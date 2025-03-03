@@ -134,7 +134,16 @@ return {
     -- カーソルのあるスコープ以外を暗く表示する
     dim = { enabled = false },
     -- ファイルエクスプローラ
-    explorer = { enabled = true },
+    explorer = {
+      enabled = true,
+      win = {
+        list = {
+          keys = {
+            ["<C-t>"] = nil,
+          }
+        }
+      },
+    },
     -- アクティブファイルのリポジトリを開く
     gitbrowse = { enabled = false },
     -- 画像ファイルを表示する
@@ -243,7 +252,20 @@ return {
     -- 通知
     notifier = { enabled = true },
     -- ファジーファインダー
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      sources = {
+        explorer = {
+          win = {
+            list = {
+              keys = {
+                ["<C-t>"] = nil,
+              }
+            }
+          },
+        }
+      }
+    },
     -- Luaプロファイラ
     profiler = { enabled = true },
     -- プラグインをロードする前に内容をレンダリングする
@@ -294,7 +316,7 @@ return {
     { "<F4>", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-    { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    { "<Leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     -- find
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
