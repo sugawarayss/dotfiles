@@ -2,7 +2,7 @@
 return {
   "Wansmer/treesj",
   keys = {
-    { "<leader>m" }
+    { "<leader>m", function() require("treesj").toggle() end, mode = "n", desc = "配列やオブジェクトを分割/結合する" }
   },
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   config = function()
