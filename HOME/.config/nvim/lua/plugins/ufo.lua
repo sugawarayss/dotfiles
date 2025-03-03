@@ -3,6 +3,7 @@ local ftMap = {
   vim = "indent",
   python = { "indent" },
   git = "",
+  snacks_dashboard = "",
 }
 -- 折り畳んだ範囲の行数をvirtual textで表示
 local handler = function(virtText, lnum, endLnum, width, truncate)
