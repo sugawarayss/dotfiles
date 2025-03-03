@@ -1,7 +1,7 @@
 # メインフォント
 font-family = "Hack Nerd Font"
 # サブフォント(フォールバック)
-font-family = "Hack Gen Console NF"
+font-family = "HackGen Console NF"
 # フォントサイズ
 font-size = 13
 
