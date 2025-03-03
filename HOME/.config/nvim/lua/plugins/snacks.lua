@@ -136,10 +136,24 @@ return {
     -- ファイルエクスプローラ
     explorer = {
       enabled = true,
+      actions = {
+        safe_delete = function(picker)
+          local selected = picker:selected { fallback = true }
+          local has_root = vim.iter(selected):any(function(s)
+            return not s.parent
+          end)
+          if has_root then
+            vim.print("Cannot delete root directory")
+            return
+          end
+          picker:action "explorer_del"
+        end,
+      },
       win = {
         list = {
           keys = {
             ["<C-t>"] = nil,
+            ["d"] = "safe_delete",
           }
         }
       },
