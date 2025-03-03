@@ -1,7 +1,16 @@
+# Help
+ヘルプを検索(Snacks)                                | <Leader>sh
+manページを検索(Snacks)                             | <Leader>sM
+
+
+## Zen mode @snacks
+Zen mode をトグル                                  | <Leader>z
+
+
 ## Neotree @neotree @explorer
 ファイルエクスプローラ表示(トグル)                  | <C-t><C-t>
 ディレクトリ折畳/展開トグル                         | <space>
-開く                                                | <CR>
+開く                                               | <CR>
 キャンセル                                          | <ESC>
 プレビュー表示/非表示トグル                         | P
 プレビューにフォーカス                              | l
@@ -23,6 +32,27 @@
 前の source                                         | <
 次の source                                         | >
 ファイルの詳細を表示                                | i
+
+## Snacks @explorer
+ファイルエクスプローラ                              | <Leader>e
+
+## Snacks @history
+コマンド履歴(Snacks)                                | <Leader>:
+通知履歴(Snacks)                                    | <Leader>n
+undo履歴を検索                                      | <Leader>su
+検索履歴を検索                                      | <Leader>s/
+
+## Scnacks Search
+レジスタを検索(Snacks)                              | <Leader>s"
+キーマップを検索(Snacks)                            | <Leader>sk
+LSP diagnostic を検索(Snacks)                       | <Leader>sd
+コマンドを検索(Snacks)                              | <Leader>sC
+キーマップを検索(Snacks)                            | <Leader>sk
+Nerd Font Icon を検索(Snacks)                       | <Leader>si
+Quickfix List を検索(Snacks)                        | <Leader>sq
+プラグインを検索(Snacks)                            | <Leader>sp
+Locallist を検索(Snacks)                            | <Leader>sl
+autocmds を検索(Snacks)                             | <Leader>sa
 
 ## superfile @spf @explorer
 superfile を開く                                    | spf or <Leader>f
@@ -106,6 +136,7 @@ CopilotChatを水平分割で開く                         | <Leader>ccb
 Telescopeで選択したバッファを閉じる                 | <C-c>
 バッファを左に移動                                  | <Leader>h
 バッファを右に移動                                  | <Leader>l
+バッファを閉じる                                    | <Leader>bd
 左のバッファ全てを閉じる                            | <C-S-h>
 右のバッファ全てを閉じる                            | <C-S-l>
 コードを折畳む                                      | zc
@@ -142,7 +173,8 @@ Obsidian デイリーノートを作成する                   | <Leader>ot
 ターミナルをフロートウィンドウで開く                | <C-t><C-f>
 ターミナルを垂直分割で開く(左右)                    | <C-t><C-v>
 ターミナルを水平分割で開く(上下)                    | <C-t><C-m>
-lazygit を開く                                      | <Leader>g
+lazygit を開く                                      | <Leader>gg
+ファイルをGithubで開く                              | <Leader>gB
 
 ## LSP @lsp
 戻る                                                | <C-o>
@@ -237,9 +269,10 @@ Display troubles in document                        | <Leader>xd
 Display troubles in quickfix                        | <Leader>xq
 Display troublesin locallist                        | <Leader>xl
 
-## Noice
-Display Latest Error                                | <Leader>nl
-Display Error List(Telescope)                       | <Leader>nh
+## Notify
+通知履歴を表示(Snacks)                              | <Leader>n
+直近の通知を表示(Noice)                             | <Leader>nl
+通知のリストを表示(Telescope)                       | <Leader>nh
 
 ## Increment
 インクリメント                                      | <C-a>
