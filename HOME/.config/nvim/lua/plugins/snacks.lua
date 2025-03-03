@@ -1,3 +1,5 @@
+local tool_logo = require("tool_logo")
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -6,7 +8,8 @@ return {
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
-        -- Setup some globals for debugging (lazy-loaded)
+        -- lua デバッグ用にdd関数を定義
+        -- dd(something) で通知領域に内容を表示する
         _G.dd = function(...)
           Snacks.debug.inspect(...)
         end
@@ -17,16 +20,16 @@ return {
 
         -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-        Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-        Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+        -- Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+        -- Snacks.toggle.line_number():map("<leader>ul")
+        Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ul")
         Snacks.toggle.diagnostics():map("<leader>ud")
-        Snacks.toggle.line_number():map("<leader>ul")
-        Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
-        Snacks.toggle.treesitter():map("<leader>uT")
-        Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+        -- Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
+        -- Snacks.toggle.treesitter():map("<leader>uT")
+        -- Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
         Snacks.toggle.inlay_hints():map("<leader>uh")
-        Snacks.toggle.indent():map("<leader>ug")
-        Snacks.toggle.dim():map("<leader>uD")
+        -- Snacks.toggle.indent():map("<leader>ug")
+        -- Snacks.toggle.dim():map("<leader>uD")
       end,
     })
   end,
@@ -51,12 +54,17 @@ return {
     debug = { enabled = false },
     -- ダッシュボード
     dashboard = {
-      enabled = false,
+      enabled = true,
       -- need install colorscript
       -- https://gitlab.com/dwt1/shell-color-scripts
+      width = 117,
+      preset = {
+        --ランダムなロゴを表示する
+        header = tool_logo.random_logo(),
+      },
       sections = {
-        -- FIXME: 折りたたみが自動で入ってしまう
         { section = "header" },
+        -- TODO: telescopeを使うようにする?
         { section = "keys", gap = 1, padding = 1 },
         {
           pane = 2,
@@ -130,7 +138,7 @@ return {
     -- アクティブファイルのリポジトリを開く
     gitbrowse = { enabled = false },
     -- 画像ファイルを表示する
-    image = { 
+    image = {
       enabled = true,
       formats = {
         "png",
@@ -220,7 +228,7 @@ return {
     indent = { enabled = false },
     -- インプットモードの表示
     input = {
-      enabled = true, 
+      enabled = true,
       icon = " ",
       icon_hl = "SnacksInputIcon",
       icon_pos = "left",
@@ -266,7 +274,18 @@ return {
         disabled = "Enable ",
       },
     },
-    words = { enabled = true },
+    words = {
+      enabled = true,
+      debounce = 200,
+      notify_jump = false,
+      notify_end = true,
+      foldopen = true,
+      jumplist = true,
+      modes = { "n", "i", "c" },
+      filter = function(buf)
+        return vim.g.snacks_words ~= false and vim.b[buf].snacks_words ~= false
+      end
+    },
   },
   keys = {
     -- Top Pickers & Explorer
@@ -300,8 +319,8 @@ return {
     { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
     { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Search History" },
     { "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
-    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
-    { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
+    -- { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+    -- { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
     { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
@@ -315,7 +334,7 @@ return {
     { "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages" },
     { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
     { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
-    { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
+    -- { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
     { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
     -- { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
     -- LSP
@@ -328,9 +347,9 @@ return {
     { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
     -- Other
     { "<leader>z",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
-    { "<leader>Z",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
-    { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-    { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+    -- { "<leader>Z",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
+    -- { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    -- { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
     { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     -- { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
