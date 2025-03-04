@@ -1,6 +1,8 @@
 -- プロジェクトを切り替えられるプラグイン
 return {
   "ahmedkhalf/project.nvim",
+  -- ファイルエクスプローラを開くと、強制的にプロジェクトルートが開かれるのが使い勝手が悪かった
+  enabled = false,
   lazy = false,
   config = function()
     require("project_nvim").setup({
