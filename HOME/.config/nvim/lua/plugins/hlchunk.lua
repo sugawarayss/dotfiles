@@ -33,17 +33,17 @@ return {
         },
       },
       line_num = {
-          enable         = true,
-          use_treesitter = true,
-          style          = color_palette.magenta, --#bb9af7
+        enable         = true,
+        use_treesitter = true,
+        style          = color_palette.magenta, --#bb9af7
       },
 
       blank = {
-          enable = true,
-          chars = { "․" },
-          style = {
-              vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
-          },
+        enable = true,
+        chars = { "․" },
+        style = {
+          vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
+        },
       },
     })
   end
