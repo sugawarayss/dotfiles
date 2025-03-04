@@ -284,8 +284,11 @@ return {
     keys = {
       -- カーソル下の情報を表示
       { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", desc = "カーソル下の情報を表示" },
+      -- 呼び出し階層を表示
+      { "go", "<cmd>Lspsaga outgoing_calls<CR>", mode = "n", desc = "呼び出し階層を表示" },
       -- 定義へジャンプ
-      { "gd", "<cmd>Lspsaga peek_definition<CR>", mode = "n", desc = "定義にジャンプ" },
+      { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = "n", desc = "定義にジャンプ" },
+      { "gD", "<cmd>Lspsaga peek_definition<CR>", mode = "n", desc = "定義にジャンプ" },
       -- 呼出階層を表示
       { "gr", "<cmd>Lspsaga finder<CR>", mode = "n", desc = "参照先の表示" },
       -- 型定義へジャンプ
@@ -302,6 +305,9 @@ return {
     },
     config = function()
       require("lspsaga").setup({
+        border = "double",
+        devicon = true,
+        title = true,
         -- パンくずリスト
         symbol_in_winbar = {
           enable       = true,
@@ -333,11 +339,17 @@ return {
           silent      = false,
           keys = {
             shuttle        = "[w", -- Finder ウィンドウ間を移動
+            -- 展開または開く
             toggle_or_open = "<CR>",
+            -- 垂直分割
             vsplit         = "<C-s><C-v>",
+            -- 水平分割
             split          = "<C-s><C-s>",
+            -- 新しいタブで開く
             tabnew         = "r",
+            -- 終了
             quit           = "q",
+            -- 閉じる
             close          = "<ESC>",
           }
         },
@@ -349,12 +361,15 @@ return {
           detail = true,
           auto_close = true,
           close_after_jump = false,
-          layout = "normal", -- or "normal"
+          layout = "normal", -- "float" or "normal"
           max_height = 0.5, -- float layout height
           left_width = 0.3, -- float layout left pane width
           keys = {
+            -- ジャンプ
             toggle_or_jump = "<CR>",
+            -- アウトラインウィンドウを閉じる
             quit = "q",
+            -- 選択箇所にジャンプ
             jump = "e" -- jump to pos even on a expand/collapse node
           }
         },
@@ -379,9 +394,13 @@ return {
           max_show_height           = 0.6,
           diagnostic_only_current   = false,
           keys = {
+            -- アクションを実行
             exec_action    = "<CR>",
+            -- ジャンプウィンドウを閉じる
             quit           = "q",
+            -- ウィンドウで選択箇所に ジャンプ
             toggle_or_jump = "<CR>",
+            -- ウィンドウを閉じる
             quit_in_show   = { "q", "<ESC>" },
           }
         },
@@ -390,11 +409,17 @@ return {
           width  = 0.6,
           height = 0.5,
           keys = {
+            -- ファイルを開く
             edit   = "<CR>",
+            -- 垂直分割
             vsplit = "<C-s><C-v>",
+            -- 水平分割
             split  = "<C-s><C-s>",
+            -- 新しいタブで開く
             tabe   = "<C-c>t",
+            -- 終了
             quit   = "q",
+            -- 閉じる
             close  = "<ESC>",
           }
         },
@@ -403,8 +428,20 @@ return {
           keys = {
             -- ファイルを開く
             edit   = "<CR>",
+            -- 垂直分割
             vsplit = "<C-s><C-v>",
+            -- 水平分割
             split  = "<C-s><C-s>",
+            -- 新しいタブで開く
+            tabe = "t",
+            -- 終了
+            quit = "q",
+            -- レイアウトを左右に移動する
+            shuttle = "[w",
+            -- トグルまたはリクエストを実行する
+            toggle_or_req = "u",
+            -- 閉じる
+            close = "<ESC>"
           }
         }
       })
