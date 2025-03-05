@@ -176,3 +176,13 @@ export DYLD_LIBRARY_PATH="$BREWPREFIX/lib"
 
 # cd の履歴からディレクトリを高速移動できるコマンド
 eval "$(zoxide init zsh)"
+
+# yazi を閉じた時にそのディレクトリに移動する
+function yz() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
