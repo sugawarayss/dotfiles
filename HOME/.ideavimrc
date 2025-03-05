@@ -98,6 +98,10 @@ nmap <Leader>gs :action GotoSymbol<CR>
 nnoremap g<C-r> :action ShowUsages<CR>
 " 呼び出し箇所を検索してFindViewPaneで表示
 nnoremap gr :action FindUsages<CR>
+" 次のブックマークへ移動
+nnoremap ;j :action GotoNextBookmark<CR>
+" 前のブックマークへ移動
+nnoremap ;k :action GotoPreviousBookmark<CR>
 
 """"""""""""""""""""""""""""""""""
 " コードジャンプ系のコマンド定義 "
@@ -133,7 +137,7 @@ inoremap <C-g><C-w> <ESC>bgUlgi
 " ブックマークリストを表示
 nnoremap <C-b><C-m> :action ShowBookmarks<CR>
 " カーソル行でブックマークをトグル
-nnoremap mm :action ToggleBookmark<CR>
+nnoremap ;m :action ToggleBookmark<CR>
 " 次のタブへ移動
 nnoremap <S-l> :action NextTab<CR>
 " 前のタブへ移動
