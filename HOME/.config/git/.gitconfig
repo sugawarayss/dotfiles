@@ -6,13 +6,10 @@
 
 [alias]
   # ブランチ一覧(local/remote)
-  branchs = branch -a
   ba = branch -a
   # リモートブランチ一覧
-  remotes = branch -r
   br = branch -r
   # ローカルブランチ一覧
-  locals = branch -l
   bl = branch -l
   # git st == git status
   st = status
@@ -45,13 +42,17 @@
 [user]
     name          = sugawarayss
     email         = sugawarayss@inap-vision.co.jp
+
 [ghq]
     root          = ~/PROJECTS
+
 [commit]
     template      = ~/.config/git/.commit_template
+
 [core]
     quotepath     = false
     editor        = nvim
 	autocrlf      = input
+
 [init]
     defaultBranch = main
