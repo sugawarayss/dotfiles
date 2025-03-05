@@ -22,6 +22,7 @@ includes:
   ghostty: ./tasks/ghostty.yaml
   superfile: ./tasks/superfile.yaml
   linters: ./tasks/linters.yaml
+  yazi: ./tasks/yazi.yaml
 
 tasks:
   default:

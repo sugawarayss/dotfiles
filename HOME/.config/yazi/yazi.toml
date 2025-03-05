@@ -1,0 +1,259 @@
+[manager]
+# レイアウト比率 1/8, 4/8, 3/8
+ratio = [1, 4, 3]
+# ファイルのソート方法
+#   "none": ソートしない,
+#   "mtime": ファイルの更新日時でソート,
+#   "btime": ファイルの作成日時でソート,
+#   "extension": 拡張子でソート,
+#   "alphabetical": アルファベット順でソート
+#   "natural": 自然順でソート
+#   "size": ファイルサイズでソート
+#   "random": ランダムにソート
+sort_by = "natural"
+# 大文字小文字を区別するか
+sort_sensitive = true
+# ファイルを逆順にするか
+sort_reverse = false
+# ディレクトリを先に表示するか
+sort_dir_first = true
+# ソートのために音訳するか
+sort_translit = false
+# ファイル関連情報をリストの右側に表示するか
+#   "none": 表示しない,
+#   "size": ファイルサイズ(byte)
+#   "btime": ファイルの作成日時
+#   "mtime": ファイルの更新日時
+#   "permissions": ファイルのパーミッション
+#   "owner": ファイルの所有者
+linemode = "permissions"
+# 隠しファイルを表示するか
+show_hidden = true
+# シンボリックリンクを表示するか
+show_symlink = true
+# リストのスクロール時にカーソルの上下に保持するファイル数
+scrolloff = 5
+# プラグインが受信できるマウスイベントの種類
+#mouse_events = ["click", "scroll", "touch", "move", "drag"]
+# ターミナルのタイトル形式
+title_format = "yazi explorer: {cwd}"
+
+[preview]
+# コードプレビューで折り返しを行うか
+wrap = "no"
+# プレビューペインでの `\t` 文字の表示幅
+tab_size = 4
+# 画像の最大プレビュー幅
+#   変更後は `yazi --clear-cache` を実行する必要あり
+#   値が大きいほどCPUの消費量も増加する
+#max_width =
+# 画像の最大プレビュー高さ
+#   変更後は `yazi --clear-cache` を実行する必要あり
+#   値が大きいほどCPUの消費量も増加する
+#max_height =
+# 独自のキャッシュディレクトリを指定する
+#   デフォルトではシステムキャッシュディレクトリを使用
+#cache_dir = ""
+# 画像プレビューデータを端末に送信するまでの待機時間(ミリ秒)
+#image_delay = 
+# 画像の縮小に使用するフィルター
+#   "nearest": 高速で低品質
+#   "triangle": 中速で中品質
+#   "catmull-rom": 中速で高品質
+#   "lanczos3": 低速で高品質
+image_filter = "nearest"
+# 画像の事前キャッシュの品質
+#    50 ~ 90
+image_quality = 50
+# 古い画像形式の品質を改善するためのニューラルネットワークトレーニング用サンプル数
+# sixel_fraction = 10
+
+[opener]
+edit = [
+  { run = 'zed "$@"', desc = "Edit", block = true, for="unix" }
+]
+open = [
+  { run = 'open "$@"', desc = "Open", for="macos" },
+]
+reveal = [
+  { run = 'open -R "$1"', desc = "Reveal", for = "macos" }
+]
+extract = [
+  { run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" }
+]
+
+[open]
+rules = [
+  # Folder
+  { name = "*/", use = [ "edit", "open", "reveal" ] },
+  # Text
+  { mime = "text/*", use = [ "edit", "reveal" ] },
+  # Image
+  { mime = "image/*", use = [ "open", "reveal" ] },
+  # Media
+  { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+  # Archive
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
+  # JSON
+  { mime = "application/{json,ndjson}", use = [ "edit", "reveal" ] },
+  { mime = "*/javascript", use = [ "edit", "reveal" ] },
+  # Empty file
+  { mime = "inode/empty", use = [ "edit", "reveal" ] },
+  # Fallback
+  { name = "*", use = [ "open", "reveal" ] },
+]
+
+[tasks]
+# 同時実行可能なマイクタスクの最大数
+micro_workers = 4
+# 同時マクロタスクの最大数
+macro_workers = 2
+# 異常な障害が発生した場合の最大試行回数
+bizarre_retry = 3
+# 画像のデコード時に使用する最大メモリ割り当て量
+#   0: 制限なし
+# image_alloc = 0
+# 画像のデコード時の最大ピクセル数
+#   0: 制限なし
+# image_bound = [0, 0]
+
+[plugin]
+fetchers = [
+	# Mimetype
+	{ id = "mime", name = "*", run = "mime", prio = "high" },
+]
+spotters = [
+	{ name = "*/", run = "folder" },
+	# Code
+	{ mime = "text/*", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
+	# Image
+	{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# Fallback
+	{ name = "*", run = "file" },
+]
+preloaders = [
+	# Image
+	{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# PDF
+	{ mime = "application/pdf", run = "pdf" },
+	# Font
+	{ mime = "font/*", run = "font" },
+	{ mime = "application/ms-opentype", run = "font" },
+]
+previewers = [
+	{ name = "*/", run = "folder", sync = true },
+	# Code
+	{ mime = "text/*", run = "code" },
+	{ mime = "application/{mbox,javascript,wine-extension-ini}", run = "code" },
+	# JSON
+	{ mime = "application/{json,ndjson}", run = "json" },
+	# Image
+	{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# PDF
+	{ mime = "application/pdf", run = "pdf" },
+	# Archive
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", run = "archive" },
+	{ mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}", run = "archive" },
+	{ name = "*.{AppImage,appimage}", run = "archive" },
+	# Virtual Disk / Disk Image
+	{ mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}", run = "archive" },
+	{ mime = "application/virtualbox-{vhd,vhdx}", run = "archive" },
+	{ name = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}", run = "archive" },
+	# Font
+	{ mime = "font/*", run = "font" },
+	{ mime = "application/ms-opentype", run = "font" },
+	# Empty file
+	{ mime = "inode/empty", run = "empty" },
+	# Fallback
+	{ name = "*", run = "file" },
+]
+
+[input]
+# カーソルの点滅
+cursor_blink = true
+
+# cd
+cd_title  = "Change directory:"
+cd_origin = "top-center"
+cd_offset = [ 0, 2, 50, 3 ]
+
+# create
+create_title  = [ "Create:", "Create (dir):" ]
+create_origin = "top-center"
+create_offset = [ 0, 2, 50, 3 ]
+
+# rename
+rename_title  = "Rename:"
+rename_origin = "hovered"
+rename_offset = [ 0, 1, 50, 3 ]
+
+# filter
+filter_title  = "Filter:"
+filter_origin = "top-center"
+filter_offset = [ 0, 2, 50, 3 ]
+
+# find
+find_title  = [ "Find next:", "Find previous:" ]
+find_origin = "top-center"
+find_offset = [ 0, 2, 50, 3 ]
+
+# search
+search_title  = "Search via {n}:"
+search_origin = "top-center"
+search_offset = [ 0, 2, 50, 3 ]
+
+# shell
+shell_title  = [ "Shell:", "Shell (block):" ]
+shell_origin = "top-center"
+shell_offset = [ 0, 2, 50, 3 ]
+
+[confirm]
+# trash
+trash_title 	= "Trash {n} selected file{s}?"
+trash_origin	= "center"
+trash_offset	= [ 0, 0, 70, 20 ]
+
+# delete
+delete_title 	= "Permanently delete {n} selected file{s}?"
+delete_origin	= "center"
+delete_offset	= [ 0, 0, 70, 20 ]
+
+# overwrite
+overwrite_title   = "Overwrite file?"
+overwrite_content = "Will overwrite the following file:"
+overwrite_origin  = "center"
+overwrite_offset  = [ 0, 0, 50, 15 ]
+
+# quit
+quit_title   = "Quit?"
+quit_content = "The following tasks are still running, are you sure you want to quit?"
+quit_origin  = "center"
+quit_offset  = [ 0, 0, 50, 15 ]
+
+[pick]
+open_title  = "Open with:"
+open_origin = "hovered"
+open_offset = [ 0, 1, 50, 7 ]
+
+[which]
+# 候補のソート方法
+#  "none": ソートしない
+#  "key": キーでソート
+#  "desc": 説明順でソート
+sort_by = "key"
+# 候補ソートで大文字小文字を区別するか
+sort_sensitive = true
+# 候補ソートを逆順にするか
+sort_reverse = false
+# 候補ソートのために音訳するか
+sort_translit = false
