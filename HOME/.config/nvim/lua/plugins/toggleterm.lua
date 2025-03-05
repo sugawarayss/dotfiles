@@ -8,7 +8,7 @@ return {
     -- { "<c-t><c-f>", ":ToggleTerm direction=float<CR>",      mode = "n", desc = "Floatウィンドウでターミナルをトグル" },
     { "<c-t><c-m>", "<c-\\><c-n>:ToggleTerm<CR>",           mode = "t", desc = "ターミナルを閉じる" },
     -- { "<leader>g",  "<cmd>lua _lazygit_toggle()<cr>",       mode = "n", desc = "Lazygitを開く" },
-    -- { "<leader>f",  "<cmd>lua _superfile_toggle()<cr>",     mode = "n", desc = "File ExplorerとしてSuperfileを開く" },
+    { "<C-t><C-t>",  "<cmd>lua _yazi_toggle()<cr>",     mode = "n", desc = "File Explorerとしてyaziを開く" },
     { "<leader>gr", "<cmd>lua _gh_dash_toggle()<cr>",       mode = "n", desc = "PullRequestViewer として gh dash を開く" },
     -- { "<leader>h",  "<cmd>lua _harlequin_toggle()<cr>",     mode = "n", desc = "SQLClientとしてHarlequinを開く" },
   },
@@ -68,9 +68,9 @@ return {
       lazygit:toggle()
     end
 
-    -- File Explorer として Superfile を開く
-    local superfile = Terminal:new({
-      cmd = "spf",
+    -- File Explorer として yazi を開く
+    local yazi = Terminal:new({
+      cmd = "yazi",
       direction = "float",
       float_opts = { border = "double" },
       on_open = function(term)
@@ -82,27 +82,10 @@ return {
       end,
     })
 
-    -- function _superfile_toggle()
-    --   superfile:toggle()
-    -- end
+    function _yazi_toggle()
+      yazi:toggle()
+    end
 
-    -- SQLClient として harlequin を開く
-    -- うまく使えなかったので使用をやめた
-    -- local harlequin = Terminal:new({
-    --   cmd = "harlequin",
-    --   direction = "float",
-    --   float_opts = { border = "double" },
-    --   on_open = function(term)
-    --     vim.cmd("startinsert!")
-    --     vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<C-q>", "<cmd>close<CR>", { noremap = true, silent = true })
-    --   end,
-    --   on_close = function(_)
-    --     vim.cmd("startinsert!")
-    --   end,
-    -- })
-    -- function _harlequin_toggle()
-    --   harlequin:toggle()
-    -- end
 
     -- Pull Requst として gh dash を開く
     local gh_dash = Terminal:new({
