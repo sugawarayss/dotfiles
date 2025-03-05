@@ -34,7 +34,6 @@
     side-by-side  = true
     syntax-theme  = Monokai Extended
     navigate      = true
-    side-by-side  = true
 
 [interractive]
     diffFilter    = delta --color-only
