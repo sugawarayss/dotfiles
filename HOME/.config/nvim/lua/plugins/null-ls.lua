@@ -134,7 +134,10 @@ return {
       null_ls.builtins.diagnostics.hadolint.with({ filetypes = { "dockerfile" } }),
       -- code security
       -- null_ls.builtins.diagnostics.gitleaks,
-      null_ls.builtins.diagnostics.semgrep,
+      null_ls.builtins.diagnostics.semgrep.with({
+        args = { "--config", "auto", "-q", "--json", "--timeout", "0" },
+        timeout = 15000,
+      }),
 
 
     }
