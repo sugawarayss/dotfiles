@@ -36,17 +36,17 @@ return {
   opts = {
     -- アニメーションライブラリ
     animate = {
-      enabled = true,
+      enabled  = true,
       duration = 20,
-      easing = "linear",
-      fps = 60,
+      easing   = "linear",
+      fps      = 60,
     },
     -- 指定のサイズより大きいファイルを開いたときにattach されるfiletypeを追加する。
     -- LSP や treesitter がバッファにattachされるのが自動的に防止される。
     bigfile = {
-      enabled = true,
-      notify = true,
-      size = 1.5 * 1024 * 1024, -- 1.5MB
+      enabled     = true,
+      notify      = true,
+      size        = 1.5 * 1024 * 1024, -- 1.5MB
       line_length = 1000,
 
     },
@@ -67,12 +67,12 @@ return {
         -- TODO: telescopeを使うようにする?
         { section = "keys", gap = 1, padding = 1 },
         {
-          pane = 2,
-          icon = " ",
-          desc = "Browse Repo",
+          pane    = 2,
+          icon    = " ",
+          desc    = "Browse Repo",
           padding = 1,
-          key = "b",
-          action = function()
+          key     = "b",
+          action  = function()
             Snacks.gitbrowse()
           end,
         },
@@ -80,51 +80,51 @@ return {
           local in_git = Snacks.git.get_root() ~= nil
           local cmds = {
             {
-              title = "Notifications",
-              cmd = "gh notify -s -a -n5",
-              action = function()
+              title   = "Notifications",
+              cmd     = "gh notify -s -a -n5",
+              action  = function()
                 vim.ui.open("https://github.com/notifications")
               end,
-              key = "N",
-              icon = " ",
-              height = 5,
+              key     = "N",
+              icon    = " ",
+              height  = 5,
               enabled = true,
             },
             {
-              title = "Open Issues",
-              cmd = "gh issue list -L 3",
-              key = "I",
+              title  = "Open Issues",
+              cmd    = "gh issue list -L 3",
+              key    = "I",
               action = function()
                 vim.fn.jobstart("gh issue list --web", { detach = true })
               end,
-              icon = " ",
+              icon   = " ",
               height = 7,
             },
             {
-              icon = " ",
-              title = "Open PRs",
-              cmd = "gh pr list -L 3",
-              key = "P",
+              icon   = " ",
+              title  = "Open PRs",
+              cmd    = "gh pr list -L 3",
+              key    = "P",
               action = function()
                 vim.fn.jobstart("gh pr list --web", { detach = true })
               end,
               height = 7,
             },
             {
-              icon = " ",
-              title = "Git Status",
-              cmd = "git --no-pager diff --stat -B -M -C",
+              icon   = " ",
+              title  = "Git Status",
+              cmd    = "git --no-pager diff --stat -B -M -C",
               height = 10,
             },
           }
           return vim.tbl_map(function(cmd)
             return vim.tbl_extend("force", {
-              pane = 2,
+              pane    = 2,
               section = "terminal",
               enabled = in_git,
               padding = 1,
-              ttl = 5 * 60,
-              indent = 3,
+              ttl     = 5 * 60,
+              indent  = 3,
             }, cmd)
           end, cmds)
         end,
