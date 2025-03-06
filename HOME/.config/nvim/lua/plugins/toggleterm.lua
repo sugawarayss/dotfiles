@@ -49,24 +49,24 @@ return {
     )
     local Terminal = require("toggleterm.terminal").Terminal
     -- lazygit を開く
-    local lazygit = Terminal:new({
-      cmd = "lazygit",     -- command to execute when creating the terminal e.g. 'top'
-      direction = "float", -- the layout for the terminal, same as the main config options
-      float_opts = {
-        border = "double",
-      },
-      on_open = function(term)
-        vim.cmd("startinsert!")
-        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
-      end,
-      on_close = function(_)
-        vim.cmd("startinsert!")
-      end,
-    })
-
-    function _lazygit_toggle()
-      lazygit:toggle()
-    end
+    -- local lazygit = Terminal:new({
+    --   cmd = "lazygit",     -- command to execute when creating the terminal e.g. 'top'
+    --   direction = "float", -- the layout for the terminal, same as the main config options
+    --   float_opts = {
+    --     border = "double",
+    --   },
+    --   on_open = function(term)
+    --     vim.cmd("startinsert!")
+    --     vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    --   end,
+    --   on_close = function(_)
+    --     vim.cmd("startinsert!")
+    --   end,
+    -- })
+    --
+    -- function _lazygit_toggle()
+    --   lazygit:toggle()
+    -- end
 
     -- File Explorer として yazi を開く
     local yazi = Terminal:new({
@@ -88,21 +88,21 @@ return {
 
 
     -- Pull Requst として gh dash を開く
-    local gh_dash = Terminal:new({
-      cmd = "gh dash",
-      direction = "float",
-      float_opts = { border = "double" },
-      on_open = function(term)
-        vim.cmd("startinsert!")
-        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<C-q>", "<cmd>close<CR>", { noremap = true, silent = true })
-      end,
-      on_close = function(_)
-        vim.cmd("startinsert!")
-      end,
-    })
-    function _gh_dash_toggle()
-      gh_dash:toggle()
-    end
+    -- local gh_dash = Terminal:new({
+    --   cmd = "gh dash",
+    --   direction = "float",
+    --   float_opts = { border = "double" },
+    --   on_open = function(term)
+    --     vim.cmd("startinsert!")
+    --     vim.api.nvim_buf_set_keymap(term.bufnr, "n", "<C-q>", "<cmd>close<CR>", { noremap = true, silent = true })
+    --   end,
+    --   on_close = function(_)
+    --     vim.cmd("startinsert!")
+    --   end,
+    -- })
+    -- function _gh_dash_toggle()
+    --   gh_dash:toggle()
+    -- end
   end
 
 }
