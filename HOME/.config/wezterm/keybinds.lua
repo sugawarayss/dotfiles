@@ -6,19 +6,19 @@ return {
     -- 新規ウィンドウを表示
     { key = 'n', mods = 'SUPER', action = act.SpawnWindow },
     -- フルスクリーンをトグル
-    { key = 'Enter', mods = 'ALT', action = act.ToggleFullScreen },
+    -- { key = 'Enter', mods = 'ALT', action = act.ToggleFullScreen },
     -- Weztermを終了
     { key = 'q', mods = 'SUPER', action = act.QuitApplication },
     -- Weztermの設定をロード
-    { key = 'r', mods = 'SUPER', action = act.ReloadConfiguration },
+    -- { key = 'r', mods = 'SUPER', action = act.ReloadConfiguration },
     -- クイックセレクトモード
-    { key = 'phys:Space', mods = 'SHIFT|CTRL', action = act.QuickSelect },
-    -- コピーモードを開始
-    -- { key = 'F4', mods = 'NONE', action = act.ActivateCopyMode },
+    -- { key = 'phys:Space', mods = 'SHIFT|CTRL', action = act.QuickSelect },
     -- コマンドパレットを表示
     { key = 'F1', mods = 'NONE', action = act.ActivateCommandPalette },
+    -- コピーモードを開始
+    { key = 'F2', mods = 'NONE', action = act.ActivateCopyMode },
     -- デバッグ情報を表示
-    { key = 'F12', mods = 'NONE', action = act.ShowDebugOverlay },
+    -- { key = 'F12', mods = 'NONE', action = act.ShowDebugOverlay },
 
     ----------------
     -- タブ操作   --
@@ -52,11 +52,11 @@ return {
     -- フォントサイズ --
     --------------------
     -- フォントサイズを大きくする
-    { key = '+', mods = 'CTRL', action = act.IncreaseFontSize },
+    -- { key = '+', mods = 'CTRL', action = act.IncreaseFontSize },
     -- フォントサイズを小さくする
-    { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+    -- { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
     -- フォントサイズをリセット
-    { key = '0', mods = 'SHIFT|CTRL', action = act.ResetFontSize },
+    -- { key = '0', mods = 'SHIFT|CTRL', action = act.ResetFontSize },
 
     -- クリップボードにコピー
     { key = 'c', mods = 'SUPER', action = act.CopyTo 'Clipboard' },
@@ -101,6 +101,10 @@ return {
       -- 上に移動
       { key = 'k', mods = 'NONE', action = act.CopyMode 'MoveUp' },
       { key = 'UpArrow', mods = 'NONE', action = act.CopyMode 'MoveUp' },
+      -- 一番上へ移動
+      { key = "g", mods = "NONE", action = act.CopyMode "MoveToScrollbackTop" },
+      -- 一番下へ移動
+      { key = "G", mods = "NONE", action = act.CopyMode "MoveToScrollbackBottom" },
       -- 右に移動
       { key = 'l', mods = 'NONE', action = act.CopyMode 'MoveRight' },
       { key = 'RightArrow', mods = 'NONE', action = act.CopyMode 'MoveRight' },
@@ -154,7 +158,6 @@ return {
       { key = 'd', mods = 'CTRL', action = act.CopyMode{ MoveByPage = (0.5) } },
       -- ページ下に移動
       { key = 'PageDown', mods = 'SHIFT', action = act.CopyMode 'PageDown' },
-
     },
 
     search_mode = {
