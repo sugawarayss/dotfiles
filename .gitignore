@@ -5,3 +5,4 @@ HOME/.warp/themes
 HOME/.config/nvim/lazy-lock.json
 HOME/.config/lazygit/state.yml
 HOME/.config/yazi/flavors/*.yazi
+HOME/.config/yazi/plugins/*.yazi

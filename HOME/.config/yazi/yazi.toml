@@ -26,7 +26,8 @@ sort_translit = false
 #   "mtime": ファイルの更新日時
 #   "permissions": ファイルのパーミッション
 #   "owner": ファイルの所有者
-linemode = "permissions"
+# その他のカスタム情報は .config/yazi/init.lua で設定可能
+linemode = "size_and_mtime"
 # 隠しファイルを表示するか
 show_hidden = true
 # シンボリックリンクを表示するか

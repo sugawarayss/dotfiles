@@ -10,8 +10,5 @@
 # : Flavor {{{
 
 [flavor]
-# dark  = "tokyo-night"
-# dark = "gruvbox-dark"
-dark = "ayu-dark"
-
+dark = "catppuccin-mocha"
 # : }}}

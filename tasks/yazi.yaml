@@ -12,6 +12,7 @@ tasks:
         msg: "~/.config/yazi is already exists"
     cmds:
       - ln -s {{.PROJECT_DIR}}/HOME/{{.YAZI_DIR}} ~/{{.YAZI_DIR}}
-      - git clone https://github.com/BennyOe/tokyo-night.yazi.git ~/.config/yazi/flavors/tokyo-night.yazi
-      - git clone https://github.com/bennyyip/gruvbox-dark.yazi.git ~/.config/yazi/flavors/gruvbox-dark.yazi
-      - git clone https://github.com/kmlupreti/ayu-dark.yazi.git ~/.config/yazi/flavors/ayu-dark.yazi
+      - ya pack -a yazi-rs/flavors:catppuccin-mocha
+      - ya pack -a h-hg/yamb
+      - ya pack -a yazi-rs/plugins:full-border
+      - ya pack -a Rolv-Apneseth/starship
