@@ -132,8 +132,7 @@ CopilotChatを水平分割で開く                         | <Leader>ccb
 左のバッファと位置を入れ替える                      | <C-s>h
 上のバッファと位置を入れ替える                      | <C-s>k
 下のバッファと位置を入れ替える                      | <C-s>j
-バッファリストをTelescopeで表示                     | <C-b><C-f>
-Telescopeで選択したバッファを閉じる                 | <C-c>
+バッファリストをTelescopeで表示                     | <Leader>fb
 バッファを左に移動                                  | <Leader>h
 バッファを右に移動                                  | <Leader>l
 バッファを閉じる                                    | <Leader>bd
@@ -204,7 +203,7 @@ REPL を起動                                         | <Leader>dr
 ステップアウト                                      | <F7>
 
 ## Git @git @diff
-Branch List(Telescope)                              | <M-g><M-b>
+Branch List(Telescope)                              | <Leader>gb
 Show Diff HEAD~1                                    | <Leader>df
 Show File History                                   | <Leader>dh
 Close Diffview                                      | <Leader>dc
@@ -272,7 +271,6 @@ Display troublesin locallist                        | <Leader>xl
 ## Notify
 通知履歴を表示(Snacks)                              | <Leader>n
 直近の通知を表示(Noice)                             | <Leader>nl
-通知のリストを表示(Telescope)                       | <Leader>nh
 
 ## Increment
 インクリメント                                      | <C-a>
@@ -285,9 +283,9 @@ Display troublesin locallist                        | <Leader>xl
 ## Telescope
 ファイル内容で検索(Telescope)                       | <F4>
 ファイル名で検索(Telescope)                         | <Leader><Leader>
-TODOコメントを検索(Telescope)                       | <C-t><C-d>
-キーマップ一覧から検索(Telescope)                   | <C-k><C-m>
-コマンド履歴から検索(Telescope)                     | <C-c><C-h>
+TODOコメントを検索(Telescope)                       | <Leader>std
+キーマップ一覧から検索(Telescope)                   | <Leader>skm
+コマンド履歴から検索(Telescope)                     | <Leader>s:
 
 ## Hop
 hop to matched 'input pattern'                      | <Leader>/
@@ -301,7 +299,7 @@ hop before to before Cursor Line                    | <Leader>T
 
 ## Bookmark
 ブックマークをトグル                                | mm
-ブックマークリストから検索(Telescope)               | <C-b><C-m>
+ブックマークリストから検索(Telescope)               | <Leader>sbm
 
 ## Translate
 カーソル位置の単語を日本語に翻訳                    | <Leader>tj

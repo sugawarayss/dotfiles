@@ -22,12 +22,14 @@ return {
       -- "jonarrien/telescope-cmdline.nvim",
     },
     keys = {
-      { "<C-t><C-d>",       "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",                                 mode = "n", opt, desc = "TODO 検索" },
+      -- search todo
+      { "<leader>std",      "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",                                 mode = "n", opt, desc = "TODO 検索" },
+      -- search book mark
+      { "<leader>sbm",      "<cmd>Telescope bookmarks list<CR>",                                               mode = "n", opt, desc = "ブックマークを検索" },
       { "<M-d><M-c>",       "<cmd>Telescope docker containers theme=ivy<CR>",                                  mode = "n", opt, desc = "Docker コンテナを検索" },
       { "<M-d><M-i>",       "<cmd>Telescope docker images theme=ivy<CR>",                                      mode = "n", opt, desc = "Docker イメージを検索" },
       { "<M-d><M-p>",       "<cmd>Telescope docker compose theme=ivy<CR>",                                     mode = "n", opt, desc = "Docker Compose を曖昧検索" },
       { "<M-d><M-l>",       "<cmd>Telescope docker files theme=ivy<CR>",                                       mode = "n", opt, desc = "Dockerfileを曖昧検索" },
-      { "<C-b><C-m>",       "<cmd>Telescope bookmarks list<CR>",                                               mode = "n", opt, desc = "ブックマークを検索" },
       -- snacks.nvim で代替
       -- { "<F4>",             "<cmd>Telescope live_grep hidden=true<CR>",                                        mode = "n", opt, desc = "ファイル内容で検索" },
       -- { "<Leader><Leader>", ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>", mode = "n", opt, desc = "スマートファイル検索" },
