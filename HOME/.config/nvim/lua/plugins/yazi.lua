@@ -1,5 +1,5 @@
 -- yazi (file explorer) plugin
-return{
+return {
   "mikavilpas/yazi.nvim",
   event = "VeryLazy",
   dependencies = { "folke/snacks.nvim", lazy = true },
@@ -7,19 +7,9 @@ return{
     -- 👇 in this section, choose your own keymappings!
     {
       "<Leader>e", mode = { "n", "v" }, "<cmd>Yazi<cr>",
-      desc = "Open yazi at the current file",
-    },
-    {
-      -- Open in the current working directory
-      "<leader>cw", "<cmd>Yazi cwd<cr>",
-      desc = "Open the file manager in nvim's working directory",
-    },
-    {
-      "<c-up>", "<cmd>Yazi toggle<cr>",
-      desc = "Resume the last yazi session",
+      desc = "現在のファイルをyaziで開く",
     },
   },
-  ---@type YaziConfig | {}
   opts = {
     -- if you want to open yazi instead of netrw, see below for more info
     open_for_directories = false,
