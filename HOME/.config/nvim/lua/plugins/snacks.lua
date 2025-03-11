@@ -345,7 +345,7 @@ return {
     { '<leader>s"',       function() Snacks.picker.registers() end,             desc = "レジスタを検索" },
     { '<leader>s/',       function() Snacks.picker.search_history() end,        desc = "検索履歴を検索" },
     { "<leader>sa",       function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
-    { "Q",                function() Snacks.picker.commands() end,              desc = "Commandを検索" },
+    -- { "Q",                function() Snacks.picker.commands() end,              desc = "Commandを検索" },
     { "<leader>sd",       function() Snacks.picker.diagnostics() end,           desc = "LSP診断を検索" },
     { "<leader>sD",       function() Snacks.picker.diagnostics_buffer() end,    desc = "バッファ内のLSP診断を検索" },
     { "<leader>sh",       function() Snacks.picker.help() end,                  desc = "ヘルプページを検索" },

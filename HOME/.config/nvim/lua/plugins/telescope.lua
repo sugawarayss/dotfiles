@@ -19,7 +19,7 @@ return {
           { "nvim-telescope/telescope-fzy-native.nvim" },
         }
       },
-      -- "jonarrien/telescope-cmdline.nvim",
+      "jonarrien/telescope-cmdline.nvim",
     },
     keys = {
       -- search todo
@@ -37,7 +37,7 @@ return {
       -- { "<C-c><C-h>",       "<cmd>Telescope command_history<CR>",                                              mode = "n", opt, desc = "コマンド履歴を曖昧検索" },
       -- { "<C-b><C-f>",       "<cmd>Telescope buffers show_all_buffers=true<CR>",                                mode = "n", opt, desc = "バッファを検索" },
       -- { "<M-k><M-m>",       "<cmd>Telescope keymaps<CR>",                                                      mode = "n", opt, desc = "Keymap を検索" },
-      -- { "Q",                "<cmd>Telescope cmdline<CR>",                                                      mode = "n", opt, desc = "Cmdline" },
+      { "Q",                "<cmd>Telescope cmdline<CR>",                                                      mode = "n", opt, desc = "Cmdline" },
       -- { "<C-S-p>",          "<cmd>Telescope projects<CR>",                                                     mode = "n", opt, desc = "プロジェクトリストを表示"}
     },
     config = function()
