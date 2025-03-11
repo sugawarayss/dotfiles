@@ -14,6 +14,15 @@ return {
         changedelete = { text = "~" },
         untracked    = { text = "󰇙" },
       },
+      signs_staged = {
+        add          = { text = '┃' },
+        change       = { text = '┃' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+      },
+      signs_staged_enable          = true,
       signcolumn                   = true, -- サインを行番号のある列に表示する `:Gitsigns toggle_signs`
       numhl                        = false, --  行番号をハイライトする         `Gitsigns toggle_numhl`
       linehl                       = false, --  バッファ本文のハイライトを行単位で変更する `Gitsigns toggle_linehl`
