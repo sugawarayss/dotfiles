@@ -69,6 +69,5 @@ if not vim.g.vscode then
     { "pnx/lualine-lsp-status", lazy = true },
   }
 else
-	print("LuaLine is disabled in VSCode mode")
 	return {}
 end

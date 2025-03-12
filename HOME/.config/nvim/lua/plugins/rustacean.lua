@@ -58,7 +58,5 @@ return {
       -- 
     },
   },
-  config = function()
-    print("hoge")
-  end
+  config = function()end
 }

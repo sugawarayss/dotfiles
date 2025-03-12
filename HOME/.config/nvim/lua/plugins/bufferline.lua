@@ -110,6 +110,5 @@ if not vim.g.vscode then
     { "nvim-tree/nvim-web-devicons", lazy = true },
   }
 else
-  print("BufferLine is disabled in VSCode mode")
   return {}
 end
