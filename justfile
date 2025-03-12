@@ -13,7 +13,7 @@ zsh:
   @test -L ~/.zsh.d || ln -s {{pwd}}/HOME/.zsh.d ~/.zsh.d
   @test -L ~/.zshrc || ln -s {{pwd}}/HOME/.zshrc ~/.zshrc
   @test -L ~/.zprofile || ln -s {{pwd}}/HOME/.zprofile ~/.zprofile
-  @source ~/.zshrc && source ~/.zprofile
+  @echo "you need run 'source ~/.zshrc && source ~/.zprofile'"
 
 # homebrewのインストール
 brew:
@@ -21,6 +21,7 @@ brew:
 
 #  Brewfile からパッケージをインストール
 brew-restore:
+  # Brewfile から全てのパッケージをインストール
   @brew bundle --file {{pwd}}/homebrew/Brewfile
 
 # Brewfile を更新
@@ -30,8 +31,6 @@ brew-dump:
 _macos-general-settings:
   # スクロールバーを常時表示
   @defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
-  # 入力時の自動大文字化を無効
-  @defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool FXDefaultSearchScope
 
 _macos-dock-settings:
   # デフォルトアプリをDockから除去
@@ -133,28 +132,38 @@ wezterm:
 
 # JetBrains IDE - vim プラグイン用設定ファイルを展開
 ideavim:
+  # JetBrains IDE - vim プラグイン用設定ファイルを展開
   @test -L ~/.ideavimrc || ln -s {{pwd}}/HOME/.ideavimrc ~/.ideavimrc
 
 # neovim 用設定ファイルを展開
 neovim:
+  # Neovim 設定ファイルを展開
   @test -L ~/.config/nvim || ln -s {{pwd}}/HOME/.config/nvim ~/.config/nvim
+  # skk 用グローバル辞書ファイルを展開
   @test -L ~/.skk || ln -s {{pwd}}/HOME/skkeleton/dictionary ~/.skk
+  # skk 用 ユーザ辞書ファイルを展開
   @test -L ~/.skkeleton || ln -s {{pwd}}/HOME/skkeleton/my_dictionary ~/.skkeleton
 
 # ghostty 用設定ファイルを展開
 ghostty:
+  # ghostty 設定ファイルを展開
   @test -L ~/.config/ghostty || ln -s {{pwd}}/HOME/.config/ghostty ~/.config/ghostty
 
 # zed 用設定ファイルを展開
 zed:
+  # zed 設定ファイルを展開
   @test -L ~/.config/zed/settings.json || ln -s {{pwd}}/HOME/.config/zed/settings.json ~/.config/zed/settings.json
+  # zed キーマップ設定ファイルを展開
   @test -L ~/.config/zed/keymap.json || ln -s {{pwd}}/HOME/.config/zed/keymap.json ~/.config/zed/keymap.json
+  # zed タスク設定ファイルを展開
   @test -L ~/.config/zed/tasks.json || ln -s {{pwd}}/HOME/.config/zed/tasks.json ~/.config/zed/tasks.json
 
 # 各種リンターの設定ファイルを展開
 linters:
+  # yamllint 設定ファイルを展開
   @test -L ~/.config/yamllint || ln -s {{pwd}}/HOME/.config/yamllint ~/.config/yamllint
+  # markdownlint 設定ファイルを展開
   @test -L ~/.markdownlintrc || ln -s {{pwd}}/HOME/.config/markdownlint/.markdownlintrc ~/.markdownlintrc
 
 # 端末の初期設定
-setup: system-preferences brew zsh brew-restore starship git lazygit yazi wezterm ideavim neovim ghostty zed linters
+setup: system-preferences brew brew-restore zsh starship git lazygit yazi wezterm ideavim neovim ghostty zed linters
