@@ -365,6 +365,8 @@ if not vim.g.vscode then
       { "<leader>:",        function() Snacks.picker.command_history() end,       desc = "コマンド履歴を表示" },
       { "<leader>n",        function() Snacks.picker.notifications() end,         desc = "通知履歴を表示" },
       { "<C-t><C-t>",       function() Snacks.picker.explorer() end,              desc = "ファイルエクスプローラを表示" },
+      { "<F3>",             function() Snacks.terminal.toggle() end,              desc = "ターミナルを開く" },
+      { "<F3>",             function() Snacks.terminal.toggle() end,              desc = "ターミナルを閉じる", mode = { "t" } },
       -- find
       { "<leader>fb",       function() Snacks.picker.buffers() end,               desc = "バッファリストを表示" },
       -- { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Neovim設定ファイルリストを表示" },
