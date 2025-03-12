@@ -1,11 +1,9 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
-
 vars:
   PROJECT_DIR:
     sh: pwd
   YAMLLINT_DIR: .config/yamllint
-
 tasks:
   deploy:
     desc: Create Symbolic Links
@@ -13,4 +11,7 @@ tasks:
       - sh: '[[ ! -L ~/.config/yamllint/ ]]'
         msg: "~/.config/yamllint is already exists"
     cmds:
+      # yamllint の設定
       - ln -s {{.PROJECT_DIR}}/HOME/{{.YAMLLINT_DIR}} ~/{{.YAMLLINT_DIR}}
+      # markdownlint の設定
+      - ln -s {{.PROJECT_DIR}}/HOME/.config/markdownlint/.markdownlintrc ~/.markdownlintrc
