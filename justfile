@@ -15,10 +15,6 @@ zsh:
   @test -L ~/.zprofile || ln -s {{pwd}}/HOME/.zprofile ~/.zprofile
   @echo "you need run 'source ~/.zshrc && source ~/.zprofile'"
 
-# homebrewのインストール
-brew:
-  @command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
 #  Brewfile からパッケージをインストール
 brew-restore:
   # Brewfile から全てのパッケージをインストール
@@ -165,5 +161,8 @@ linters:
   # markdownlint 設定ファイルを展開
   @test -L ~/.markdownlintrc || ln -s {{pwd}}/HOME/.config/markdownlint/.markdownlintrc ~/.markdownlintrc
 
-# 端末の初期設定
-setup: system-preferences brew brew-restore zsh starship git lazygit yazi wezterm ideavim neovim ghostty zed linters
+# OSの設定、ツールのインストール
+initial: system-preferences brew-restore 
+
+# 各種ツールの設定ファイルを展開
+setup: initial zsh starship git lazygit yazi wezterm ideavim neovim ghostty zed linters
