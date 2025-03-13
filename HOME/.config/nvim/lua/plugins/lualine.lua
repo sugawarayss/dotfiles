@@ -13,12 +13,13 @@ if not vim.g.vscode then
           end
           return "󱉶 " .. table.concat(linters, ", ")
         end
+        local snacks_terminal = { sections = { lualine_a = { "mode" }, lualine_z = { { "datetime", style = "%Y/%m/%d %H:%M:%S" }} }, filetypes = { "snacks_terminal" }}
         require("lualine").setup({
           options = {
             icons_enabled = true,
-            theme = "ayu_mirage",
-            --component_separators = { left = "", right = ""},
-            --section_separators = { left = "", right = ""},
+            theme = "OceanicNext",
+            component_separators = { left = "", right = ""},
+            section_separators = { left = "", right = ""},
             disabled_filetypes = {
               statusline = {},
               winbar     = {},
@@ -40,8 +41,8 @@ if not vim.g.vscode then
               "diagnostics",
             },
             lualine_c = { "branch", "diff" },
-            lualine_x = { "encoding", "fileformat", "filetype" },
-            lualine_y = { "lsp-status", { lint_progress }, "location", "progress" },
+            lualine_x = { "lsp-status", lint_progress  },
+            lualine_y = { "encoding", "fileformat", "filetype", "location" },
             lualine_z = {
                 { "datetime", style = "%Y/%m/%d %H:%M:%S" },
             },
@@ -61,7 +62,7 @@ if not vim.g.vscode then
           tabline = {},
           winbar = {},
           inactive_winbar = {},
-          extensions = { "neo-tree", "aerial", "toggleterm", "mason", "lazy" },
+          extensions = { "neo-tree", "mason", "lazy", "nvim-dap-ui", "quickfix", snacks_terminal  },
         })
       end,
 	},
