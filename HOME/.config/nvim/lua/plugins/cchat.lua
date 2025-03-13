@@ -16,7 +16,7 @@
 --   end
 --   vim.diagnostic.set(namespace, bufnr, diagnostics)
 -- end
-if vim.g.vscode then
+if not vim.g.vscode then
   return {
     -- CopilotChat.nvim
     {
