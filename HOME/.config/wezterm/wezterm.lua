@@ -25,42 +25,42 @@ config.hide_tab_bar_if_only_one_tab = false
 -- タブの最大幅
 config.tab_max_width = 16
 -- タブバーの表示スタイル
--- config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = true
 -- config.window_decorations = "TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
-config.window_decorations = "RESIZE"
--- タブバーを透明にする
-config.window_frame = {
-  inactive_titlebar_bg = "none",
-  active_titlebar_bg = "none"
-}
--- タブバーの背景色をtokyonight-moonと合わせる
-config.window_background_gradient = {
-  colors = { "#222436" },
-}
--- タブバーのタブ追加ボタンを非表示
-config.show_new_tab_button_in_tab_bar = false
--- タブの閉じるボタンを非表示(nightlyでのみ)
--- config.show_close_tab_button_in_tabs = false
--- アクティブタブに色をつける
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-  -- tokyonight-moon.bg_dark
-  local background = "#1e2030"
-  -- tokyonight-moon.fg_dark
-  local foreground = "#828bb8"
-
-  if tab.is_active then
-    -- tokyonight-moon.blue7
-    background = "#394b70"
-    -- tokyonight-moon.fg
-    foreground = "#c8d3f5"
-  end
-  local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
-  return {
-    { Background = { Color = background } },
-    { Foreground = { Color = foreground } },
-    { Text = title },
-  }
-end)
+-- config.window_decorations = "RESIZE"
+-- -- タブバーを透明にする
+-- config.window_frame = {
+--   inactive_titlebar_bg = "none",
+--   active_titlebar_bg = "none"
+-- }
+-- -- タブバーの背景色をtokyonight-moonと合わせる
+-- config.window_background_gradient = {
+--   colors = { "#222436" },
+-- }
+-- -- タブバーのタブ追加ボタンを非表示
+-- config.show_new_tab_button_in_tab_bar = false
+-- -- タブの閉じるボタンを非表示(nightlyでのみ)
+-- -- config.show_close_tab_button_in_tabs = false
+-- -- アクティブタブに色をつける
+-- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+--   -- tokyonight-moon.bg_dark
+--   local background = "#1e2030"
+--   -- tokyonight-moon.fg_dark
+--   local foreground = "#828bb8"
+--
+--   if tab.is_active then
+--     -- tokyonight-moon.blue7
+--     background = "#394b70"
+--     -- tokyonight-moon.fg
+--     foreground = "#c8d3f5"
+--   end
+--   local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
+--   return {
+--     { Background = { Color = background } },
+--     { Foreground = { Color = foreground } },
+--     { Text = title },
+--   }
+-- end)
 
 -- カラーテーマ
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
@@ -87,5 +87,48 @@ local keybind = require 'keybinds'
 config.keys = keybind.keys
 config.key_tables = keybind.key_tables
 
+
+-- wezterm にステータスバーを表示するプラグイン
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+
+tabline.setup({
+  options = {
+    icons_enabled = true,
+    theme = 'tokyonight_night',
+    tabs_enabled = true,
+    theme_overrides = {},
+    section_separators = {
+      left = wezterm.nerdfonts.ple_ice_waveform,
+      right = wezterm.nerdfonts.ple_ice_waveform_mirrored,
+    },
+    component_separators = {
+      left = wezterm.nerdfonts.pl_left_soft_divider,
+      right = wezterm.nerdfonts.pl_right_soft_divider,
+    },
+    tab_separators = {
+      left = wezterm.nerdfonts.ple_lego_block_sideways,
+      right = wezterm.nerdfonts.pl_right_hard_divider,
+    },
+  },
+  sections = {
+    tabline_a = { 'mode' },
+    tabline_b = { 'workspace' },
+    tabline_c = { ' ' },
+    tab_active = {
+      'index',
+      { 'parent', padding = 0 },
+      '/',
+      { 'cwd', padding = { left = 0, right = 1 } },
+      { 'zoomed', padding = 0 },
+    },
+    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+    tabline_x = { 'ram', 'cpu' },
+    tabline_y = { 'datetime', 'battery' },
+    tabline_z = { 'domain' },
+  },
+  extensions = {},
+})
+
+tabline.apply_to_config(config)
 
 return config
