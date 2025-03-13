@@ -18,7 +18,7 @@ config.default_cursor_style = "BlinkingBlock"
 -- スクロールバーを表示
 config.enable_scroll_bar = true
 -- Leaderキーを設定
-config.leader = { key = "q", mods = "CTRL", timeout_milliseconds = 2000 }
+config.leader = { key = ",", mods = "SUPER", timeout_milliseconds = 2000 }
 
 -- 1つのタブしかない場合はタブバーを非表示
 config.hide_tab_bar_if_only_one_tab = false
