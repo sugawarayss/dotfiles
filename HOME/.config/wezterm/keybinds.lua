@@ -63,7 +63,7 @@ return {
     -- クリップボードからペースト
     { key = 'v', mods = 'SUPER', action = act.PasteFrom 'Clipboard' },
     -- セレクションの値で検索
-    { key = 'f', mods = 'SUPER', action = act.Search 'CurrentSelectionOrEmptyString' },
+    -- { key = 'f', mods = 'SUPER', action = act.Search 'CurrentSelectionOrEmptyString' },
 
     ----------------
     -- スクロール --
