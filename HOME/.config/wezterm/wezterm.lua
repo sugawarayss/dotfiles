@@ -94,7 +94,8 @@ local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabl
 tabline.setup({
   options = {
     icons_enabled = true,
-    theme = 'tokyonight_night',
+    -- theme = 'MaterialOcean',
+    theme = "Nep (Gogh)",
     tabs_enabled = true,
     theme_overrides = {},
     section_separators = {
@@ -112,8 +113,8 @@ tabline.setup({
   },
   sections = {
     tabline_a = { 'mode' },
-    tabline_b = { 'workspace' },
-    tabline_c = { ' ' },
+    tabline_b = { '' },
+    tabline_c = { '' },
     tab_active = {
       'index',
       { 'parent', padding = 0 },
@@ -121,7 +122,7 @@ tabline.setup({
       { 'cwd', padding = { left = 0, right = 1 } },
       { 'zoomed', padding = 0 },
     },
-    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+    tab_inactive = { 'index', { 'cwd', padding = { left = 0, right = 1 } } },
     tabline_x = { 'ram', 'cpu' },
     tabline_y = { 'datetime', 'battery' },
     tabline_z = { 'domain' },
