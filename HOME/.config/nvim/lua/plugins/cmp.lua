@@ -12,7 +12,7 @@ return {
       { "saadparwaiz1/cmp_luasnip" },  -- cmp と luasnip の連携
       { "onsails/lspkind.nvim" },
       { "windwp/nvim-autopairs" },
-      -- { "zbirenbaum/copilot-cmp" },  -- Github copilotからの補完
+      { "zbirenbaum/copilot-cmp" },  -- Github copilotからの補完
     },
     config = function()
       local cmp = require("cmp")
@@ -33,6 +33,7 @@ return {
               luasnip       = "[LuaSnip]",
               nvim_lua      = "[Lua]",
               latex_symbols = "[Latex]",
+              Copilot       = "[Copilot]",
 
             }),
           })
@@ -72,7 +73,7 @@ return {
         }, {
           { name = "buffer" },
           { name = "path" },
-          -- { name = "copilot" },
+          { name = "copilot" },
         }),
         experimental = {
           ghost_text = true,
@@ -106,6 +107,7 @@ return {
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end
   },
+  -- 括弧を自動で補完する
   {
     "windwp/nvim-autopairs",
     config = function()
@@ -131,13 +133,13 @@ return {
     end
   },
   -- Github Copilotのサジェストを補完リストに表示する
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   config = function()
-  --     require("copilot_cmp").setup({
-  --       suggestion = { enabled = true },
-  --       panel = { enabled = true }
-  --     })
-  --   end
-  -- }
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup({
+        suggestion = { enabled = true },
+        panel = { enabled = true }
+      })
+    end
+  }
 }
