@@ -99,10 +99,7 @@
         "task::Spawn",
         { "task_name": "lazygit", "target": "center" }
       ],
-      "space f": [
-        "task::Spawn",
-        { "task_name": "superfile", "target": "center" }
-      ]
+      "space f": ["task::Spawn", { "task_name": "yazi", "target": "center" }]
     }
   }
 ]
