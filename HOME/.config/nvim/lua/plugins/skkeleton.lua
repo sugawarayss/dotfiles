@@ -3,11 +3,6 @@ return {
   {
     "vim-skk/skkeleton",
     enabled = true,
-    dependencies = {
-      "vim-denops/denops.vim",
-      "Shougo/ddc.vim",
-      { "delphinus/skkeleton_indicator.nvim", opts = {} }
-    },
     lazy = true,
     event = "BufReadPre",
     keys = {
@@ -93,5 +88,12 @@ return {
         bufFilter     = function(_) return true end,
       })
     end
+  },
+  { "vim-denops/denops.vim" },
+  { "Shougo/ddc.vim" },
+  {
+    "delphinus/skkeleton_indicator.nvim",
+    version = "v2",
+    opts = {},
   }
 }
