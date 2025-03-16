@@ -5,14 +5,14 @@ return {
     event = { "BufReadPre" },
     keys = {
       { "*", function()
-          require("lasterisk").search()
+          require("lasterisk").search({ silent = true })
           require("hlslens").start()
         end,
         mode = "n",
         desc = "カーソル位置の単語を検索してハイライト"
       },
       { "g*", function()
-        require("lasterisk").search({ is_whole = false })
+        require("lasterisk").search({ is_whole = false, silent = true })
         require("hlslens").start()
       end,
         mode = {"n", "x"},
