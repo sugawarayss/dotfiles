@@ -1,50 +1,50 @@
-if not vim.g.vscode then
-  return {
-    -- スクロールバー拡張
-    {
-      "petertriho/nvim-scrollbar",
-      lazy = true,
-      event = { "BufReadPre" },
-      config = function()
-        local color_palette = require("tokyonight.colors").setup()
-        require("scrollbar").setup({
-          show                = true,
-          show_in_active_only = false,
-          set_highlights      = true,
-          folds               = 1000,
-          max_lines           = false,
-          hide_if_all_visible = false,
-          throttle_ms         = 100,
-          handle = {
-            color = color_palette.bg_dark,  -- "#1f2335
-          },
-          marks = {
-            Search = { color = color_palette.cyan },    -- #7dcfff
-            Error  = { color = color_palette.red },     -- #f7768e
-            Warn   = { color = color_palette.yellow },  -- #e0af68
-            Info   = { color = color_palette.green },   -- #9ece6a
-            Hint   = { color = color_palette.blue },    -- #7aa2f7
-            Misc   = { color = color_palette.magenta }, -- #bb9af7
-          },
-          handlers = {
-            cursor     = true,
-            diagnostic = true,
-            gitsigns   = true,
-            search     = true
-          }
-        })
-      end
-    },
-    -- 検索結果をvirtual textで表示するプラグイン
-    {
-      "kevinhwang91/nvim-hlslens",
-      enabled = true,
-      lazy = true,
-      event = { "BufReadPre" },
-      config = function()
-        require("hlslens").setup({
-          -- 検索結果に対してvirtual text (例[▼ 1/5] )を表示する設定
-          override_lens = function(render, posList, nearest, idx, relIdx)
+return {
+  -- スクロールバー拡張
+  {
+    "petertriho/nvim-scrollbar",
+    lazy = true,
+    event = { "BufReadPre" },
+    config = function()
+      local color_palette = require("tokyonight.colors").setup()
+      require("scrollbar").setup({
+        show                = true,
+        show_in_active_only = false,
+        set_highlights      = true,
+        folds               = 1000,
+        max_lines           = false,
+        hide_if_all_visible = false,
+        throttle_ms         = 100,
+        handle = {
+          color = color_palette.bg_dark,  -- "#1f2335
+        },
+        marks = {
+          Search = { color = color_palette.cyan },    -- #7dcfff
+          Error  = { color = color_palette.red },     -- #f7768e
+          Warn   = { color = color_palette.yellow },  -- #e0af68
+          Info   = { color = color_palette.green },   -- #9ece6a
+          Hint   = { color = color_palette.blue },    -- #7aa2f7
+          Misc   = { color = color_palette.magenta }, -- #bb9af7
+        },
+        handlers = {
+          cursor     = true,
+          diagnostic = true,
+          gitsigns   = true,
+          search     = true
+        }
+      })
+    end
+  },
+  -- 検索結果をvirtual textで表示するプラグイン
+  {
+    "kevinhwang91/nvim-hlslens",
+    enabled = true,
+    lazy = true,
+    event = { "BufReadPre" },
+    config = function()
+      require("hlslens").setup({
+        -- 検索結果に対してvirtual text (例[▼ 1/5] )を表示する設定
+        override_lens = function(render, posList, nearest, idx, relIdx)
+          if not vim.g.vscode then
             local sfw = vim.v.searchforward == 1
             local indicator, text, chunks
             local absRelIdx = math.abs(relIdx)
@@ -70,15 +70,15 @@ if not vim.g.vscode then
               chunks = {{' '}, {text, 'HLSearchLens'}}
             end
             render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
-          end,
-          -- nvim-scrollbar に検索位置を表示する設定
-          build_position_cb = function(plist, _, _, _)
-            require("scrollbar.handlers.search").handler.show(plist.start_pos)
+          else
+            print("disable hlslens virtual text in vscode")
           end
-        })
-      end
-    }
+        end,
+        -- nvim-scrollbar に検索位置を表示する設定
+        build_position_cb = function(plist, _, _, _)
+          require("scrollbar.handlers.search").handler.show(plist.start_pos)
+        end
+      })
+    end
   }
-else
-  return {}
-end
+}
