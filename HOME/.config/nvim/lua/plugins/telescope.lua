@@ -32,7 +32,7 @@ return {
       { "<M-d><M-l>",       "<cmd>Telescope docker files theme=ivy<CR>",                                       mode = "n", opt, desc = "Dockerfileを曖昧検索" },
       -- snacks.nvim で代替
       -- { "<F4>",             "<cmd>Telescope live_grep hidden=true<CR>",                                        mode = "n", opt, desc = "ファイル内容で検索" },
-      -- { "<Leader><Leader>", ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>", mode = "n", opt, desc = "スマートファイル検索" },
+      { "<Leader><Leader>", ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>", mode = "n", opt, desc = "スマートファイル検索" },
       -- { "<M-g><M-b>",       "<cmd>Telescope git_branches<CR>",                                                 mode = "n", opt, desc = "Git ブランチを検索" },
       -- { "<C-c><C-h>",       "<cmd>Telescope command_history<CR>",                                              mode = "n", opt, desc = "コマンド履歴を曖昧検索" },
       -- { "<C-b><C-f>",       "<cmd>Telescope buffers show_all_buffers=true<CR>",                                mode = "n", opt, desc = "バッファを検索" },
@@ -132,7 +132,7 @@ return {
           },
             mappings = {},
             -- overseer = { enabled = true },
-          },
+         },
         },
       })
       telescope.load_extension("ui-select")

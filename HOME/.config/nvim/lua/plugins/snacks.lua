@@ -359,9 +359,9 @@ if not vim.g.vscode then
     },
     keys = {
       -- Top Pickers & Explorer
-      { "<leader><leader>", function() Snacks.picker.smart() end,                 desc = "スマートファイル検索から表示" },
+      -- { "<leader><leader>", function() Snacks.picker.smart() end,                 desc = "スマートファイル検索から表示" },
       { "<leader>,",        function() Snacks.picker.buffers() end,               desc = "バッファリストを表示" },
-      { "<F4>",             function() Snacks.picker.grep() end,                  desc = "ファイル内容から表示" },
+      { "<F5>",             function() Snacks.picker.grep() end,                  desc = "ファイル内容から表示" },
       { "<leader>:",        function() Snacks.picker.command_history() end,       desc = "コマンド履歴を表示" },
       { "<leader>n",        function() Snacks.picker.notifications() end,         desc = "通知履歴を表示" },
       { "<leader>e",       function() Snacks.picker.explorer() end,              desc = "ファイルエクスプローラを表示" },
