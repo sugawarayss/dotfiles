@@ -37,7 +37,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Monokai Charcoal"
+    "dark": "Nightfox"
   },
   "tabs": {
     "git_status": true,
@@ -92,7 +92,7 @@
       "enable_language_server": true,
       "preferred_line_length": 150,
       "show_whitespaces": "all",
-      "language_servers": ["pyright", "ruff"],
+      "language_servers": ["ruff"],
       "format_on_save": "on",
       "formatter": [
         {
@@ -139,19 +139,19 @@
           }
         }
       },
-      "pyright": {
-        "settings": {
-          "python": {
-            "pythonPath": ".venv/bin/python",
-            "disableOrganizeImports": true,
-            "analysis": {
-              "diagnosticMode": "openFilesOnly",
-              "typeCheckingMode": "basic",
-              "autoImportCompletions": true
-            }
-          }
-        }
-      },
+      // "pyright": {
+      //   "settings": {
+      //     "python": {
+      //       "pythonPath": ".venv/bin/python",
+      //       "disableOrganizeImports": true,
+      //       "analysis": {
+      //         "diagnosticMode": "openFilesOnly",
+      //         "typeCheckingMode": "basic",
+      //         "autoImportCompletions": true
+      //       }
+      //     }
+      //   }
+      // },
       "ruff": {
         "initialization_options": {
           "settings": {

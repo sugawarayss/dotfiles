@@ -95,11 +95,11 @@
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePrevItem",
       // lazygitを起動
-      "space g": [
+      "space g g": [
         "task::Spawn",
         { "task_name": "lazygit", "target": "center" }
       ],
-      "space f": ["task::Spawn", { "task_name": "yazi", "target": "center" }]
+      "space e": ["task::Spawn", { "task_name": "yazi", "target": "center" }]
     }
   }
 ]
