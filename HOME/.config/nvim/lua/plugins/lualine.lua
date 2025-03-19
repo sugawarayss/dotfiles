@@ -21,7 +21,7 @@ if not vim.g.vscode then
             component_separators = { left = "", right = ""},
             section_separators = { left = "", right = ""},
             disabled_filetypes = {
-              statusline = {},
+              statusline = {"sagaoutline"},
               winbar     = {},
             },
             ignore_focus = {},
