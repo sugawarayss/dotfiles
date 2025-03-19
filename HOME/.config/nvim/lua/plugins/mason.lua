@@ -300,7 +300,7 @@ return {
       -- 前の診断へジャンプ
       { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", desc = "前の診断へジャンプ" },
       -- アウトライン表示
-      { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = "n", desc = "アウトライン表示" },
+      { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = "n", desc = "アウトライン表示(Lspsaga)" },
 
     },
     config = function()
@@ -317,6 +317,9 @@ return {
           folder_level = 1,
           color_mode   = true,
           delay        = 300,
+        },
+        ui = {
+          code_action = ""
         },
         -- コードアクション
         code_action = {
