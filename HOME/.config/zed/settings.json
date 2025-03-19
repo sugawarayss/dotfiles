@@ -47,7 +47,18 @@
     "modal_max_width": "large"
   },
   "scrollbar": {
-    "show": "always"
+    // スクロールバーの設定
+    "show": "always",
+    "cursors": true, // カーソルの位置にスクロールバーを表示
+    "git_diff": true, // Git の差分の表示
+    "search_results": true, // 検索結果のハイライト
+    "selected_text": true, // 選択されたテキストのハイライト
+    "selected_symbol": true, // 選択されたシンボルのハイライト
+    "diagnostics": "all", // 診断結果の表示
+    "axes": {
+      "horizontal": true,
+      "vertical": true
+    }
   },
   "vim_mode": true, // Vim モードの有効化
   "vim": {
@@ -57,6 +68,10 @@
     "toggle_relative_line_numbers": true // 相対行数と絶対行数の切り替え
   },
   "show_whitespaces": "boundary", // 空白文字の表示
+  "current_line_highlight": "all", // 現在行のハイライト
+  "selection_highlight": true, // 選択範囲のハイライト
+  "cursor_blink": true, // カーソルの点滅
+  "cursor_shape": "block", // カーソルの形状
   "indent_guides": {
     "enabled": true,
     "line_width": 1, // インデントガイドの幅
@@ -64,6 +79,8 @@
     "coloring": "indent_aware", // インデントガイドの色
     "background_coloring": "disabled" // インデントガイドの背景色
   },
+  "use_smartcase_search": true,
+
   // インレイヒントの設定
   "inlay_hints": {
     "enabled": true,
@@ -85,6 +102,19 @@
     "env": {
       "LANG": "ja_JP.UTF-8",
       "LC_ALL": "ja_JP.UTF-8"
+    }
+  },
+  "diagnostics": {
+    "include_warnings": true,
+    "update_with_cursor": true,
+    "primary_only": false,
+    "use_rendered": true,
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4,
+      "min_column": 0,
+      "max_severity": null
     }
   },
   "languages": {
@@ -164,7 +194,7 @@
               // "extendSelect": ["I"],
               // "ignore": [],
               "showSyntaxErrors": true,
-              "args": ["--config", "./pyproject.toml"]
+              "args": ["--config", "./pyproject.toml", "{buffer_path}"]
             },
             "format": {
               "enable": true
