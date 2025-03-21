@@ -54,6 +54,7 @@
     "label": "yazi",
     "command": "yazi",
     "hide": "on_success",
+    "working_directory": "${ZED_WORKTREE_ROOT}",
     "use_new_terminal": false,
     "reveal": "always"
   }
