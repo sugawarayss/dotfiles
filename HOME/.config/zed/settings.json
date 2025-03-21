@@ -71,7 +71,7 @@
   "current_line_highlight": "all", // 現在行のハイライト
   "selection_highlight": true, // 選択範囲のハイライト
   "cursor_blink": true, // カーソルの点滅
-  "cursor_shape": "block", // カーソルの形状
+  "cursor_shape": "bar", // カーソルの形状
   "indent_guides": {
     "enabled": true,
     "line_width": 1, // インデントガイドの幅
