@@ -23,8 +23,9 @@ else
               adapter = "copilot",
               roles = {
                 llm = function(adapter)
-                  return " CodeCompanion (" .. adapter.formatted_name .. ")"                end,
-                user = " Me"
+                  return " CodeCompanion (" .. adapter.formatted_name .. ") "
+                end,
+                user = " Me "
               },
             },
             inline = {

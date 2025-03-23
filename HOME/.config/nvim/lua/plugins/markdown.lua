@@ -8,14 +8,12 @@ if not vim.g.vscode then
     -- markdownレンダリング
     {
       "OXY2DEV/markview.nvim",
-      ft = { "markdown" },
-    },
-    -- CodeCompanion用のレンダリング
-    {
-      "MeanderingProgrammer/render-markdown.nvim",
-      ft = { "codecompanion" },
+      ft = { "markdown", "codecompanion" },
       opts = {
-        file_types = { "codecompanion" },
+        preview = {
+          filetypes = { "markdown", "codecompanion" },
+          ignore_buftypes = {},
+        },
       },
     },
     { "nvim-treesitter/nvim-treesitter", lazy = true },
