@@ -103,29 +103,45 @@ tabline.setup({
       right = wezterm.nerdfonts.ple_ice_waveform_mirrored,
     },
     component_separators = {
-      left = wezterm.nerdfonts.pl_left_soft_divider,
-      right = wezterm.nerdfonts.pl_right_soft_divider,
+      left = wezterm.nerdfonts.ple_backslash_separator,
+      right = wezterm.nerdfonts.ple_forwardslash_separator,
     },
     tab_separators = {
-      left = wezterm.nerdfonts.ple_lego_block_sideways,
-      right = wezterm.nerdfonts.pl_right_hard_divider,
+      left = wezterm.nerdfonts.ple_lower_left_triangle,
+      right = wezterm.nerdfonts.ple_lower_right_triangle,
     },
   },
   sections = {
-    tabline_a = { 'mode' },
-    tabline_b = { '' },
-    tabline_c = { '' },
-    tab_active = {
-      'index',
-      { 'parent', padding = 0 },
-      '/',
-      { 'cwd', padding = { left = 0, right = 1 } },
-      { 'zoomed', padding = 0 },
+    tabline_a = { "domain", "hostname" },
+    tabline_b = {
+      {
+        "datetime",
+        style = "%Y-%m-%d",
+      },
     },
-    tab_inactive = { 'index', { 'cwd', padding = { left = 0, right = 1 } } },
-    tabline_x = { 'ram', 'cpu' },
-    tabline_y = { 'datetime', 'battery' },
-    tabline_z = { 'domain' },
+    tabline_c = {
+      {
+        "datetime",
+        style = "%H:%M:%S",
+      },
+    },
+    tab_active = {
+      "index",
+      { "parent", padding = 0 },
+      "/",
+      { "cwd", padding = { left = 0, right = 1 } },
+      { "zoomed", padding = 0 },
+    },
+    tab_inactive = { "index", { "cwd", padding = { left = 0, right = 1 } } },
+    tabline_x = {},
+    tabline_y = {
+      "ram",
+      "cpu",
+      "battery"
+    },
+    tabline_z = {
+      "mode"
+    },
   },
   extensions = {},
 })
