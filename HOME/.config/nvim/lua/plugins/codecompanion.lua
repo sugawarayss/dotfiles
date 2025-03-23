@@ -17,6 +17,7 @@ else
         require("codecompanion").setup({
           opts = {
             language = "Japanese",
+            -- log_level = "DEBUG",
           },
           strategies = {
             chat = {
@@ -40,7 +41,11 @@ else
               return require("codecompanion.adapters").extend("copilot", {
                 schema = {
                   model = {
-                    default = "claude-3.7-sonnet",
+                    -- FIXME: claude を指定するとBad Request になる
+                    -- default = "claude-3.7-sonnet",
+                    -- default = "claude-3.5-sonnet",
+                    -- default = "gpt-4o",
+                    default = "o1",
                   },
                 },
               })
