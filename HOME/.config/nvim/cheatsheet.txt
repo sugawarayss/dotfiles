@@ -112,14 +112,8 @@ Copilotパネルを表示                                 | :Copilot panel
 (サジェスト) 却下                                   | <C-l>
 
 ## CopilotChat @copilot
-CopilotChatをフロートウィンドウで開く               | <Leader>cco
-CopilotChatを水平分割で開く                         | <Leader>ccb
-現在のバッファをコンテキストとしてCopilotChatを開く | <Leader>ccq
-コードを解説する                                    | <Leader>cce
-コードをレビューする                                | <Leader>ccr
-テストコードを生成する                              | <Leader>cct
-プロンプトアクションをTelescopeで表示する           | <Leader>ccp
-出力を停止する                                      | <Leader>ccs
+CopilotChatを垂直分割で開く(CodeCompanion)          | <Leader>cc
+CopilotActionsメニューを開く(CodeCompanion)         | <Leader>ca
 
 
 ## BufferEdit @buffer

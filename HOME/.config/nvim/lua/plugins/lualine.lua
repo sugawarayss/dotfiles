@@ -36,16 +36,12 @@ if not vim.g.vscode then
           },
           sections = {
             lualine_a = { "mode" },
-            lualine_b = {
-              { "filename", path = 1 },
-              "diagnostics",
-            },
-            lualine_c = { "branch", "diff" },
-            lualine_x = { "lsp-status", lint_progress  },
-            lualine_y = { "encoding", "fileformat", "filetype", "location" },
-            lualine_z = {
-                { "datetime", style = "%Y/%m/%d %H:%M:%S" },
-            },
+            lualine_b = { { "filename", path = 1 } },
+            lualine_c = { "branch" },
+            -- CodeCompanion の進捗を lualine で表示する場合
+            lualine_x = { require("plugins.spinners.cc-compontnt"), "lsp-status" },
+            lualine_y = { lint_progress },
+            lualine_z = { "encoding", "fileformat", "filetype" },
           },
           inactive_sections = {
             lualine_a = {},
