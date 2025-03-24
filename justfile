@@ -161,6 +161,37 @@ linters:
   # markdownlint 設定ファイルを展開
   @test -L ~/.markdownlintrc || ln -s {{pwd}}/HOME/.config/markdownlint/.markdownlintrc ~/.markdownlintrc
 
+# ファイルの関連付け設定
+apps:
+  @duti -s dev.zed.Zed public.plain-text all
+  @duti -s dev.zed.Zed public.data all
+  @duti -s dev.zed.Zed .css all
+  @duti -s dev.zed.Zed .csv all
+  @duti -s dev.zed.Zed .d.ts all
+  @duti -s dev.zed.Zed .env all
+  @duti -s dev.zed.Zed .ini all
+  @duti -s dev.zed.Zed .js all
+  @duti -s dev.zed.Zed .json all
+  @duti -s dev.zed.Zed .jsonc all
+  @duti -s dev.zed.Zed .lock all
+  @duti -s dev.zed.Zed .lua all
+  @duti -s dev.zed.Zed .map all
+  @duti -s dev.zed.Zed .md all
+  @duti -s dev.zed.Zed .mjs all
+  @duti -s dev.zed.Zed .php all
+  @duti -s dev.zed.Zed .py all
+  @duti -s dev.zed.Zed .scss all
+  @duti -s dev.zed.Zed .sh all
+  @duti -s dev.zed.Zed .sql all
+  @duti -s dev.zed.Zed .test.js all
+  @duti -s dev.zed.Zed .test.ts all
+  @duti -s dev.zed.Zed .ts all
+  @duti -s dev.zed.Zed .tsx all
+  @duti -s dev.zed.Zed .txt all
+  @duti -s dev.zed.Zed .toml all
+  @duti -s dev.zed.Zed .xml all
+  @duti -s dev.zed.Zed .yaml all
+
 # OSの設定、ツールのインストール
 initial: system-preferences brew-restore 
 
