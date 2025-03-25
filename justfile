@@ -15,6 +15,18 @@ zsh:
   @test -L ~/.zprofile || ln -s {{pwd}}/HOME/.zprofile ~/.zprofile
   @echo "you need run 'source ~/.zshrc && source ~/.zprofile'"
 
+# fish の設定ファイルを展開
+fish:
+  @test -L ~/.config/fish/config.fish || ln -s {{pwd}}/HOME/.config/fish/config.fish ~/.config/fish/config.fish
+  @test -L ~/.config/fish/fish_plugins || ln -s {{pwd}}/HOME/.config/fish/fish_plugins ~/.config/fish/fish_plugins
+  @test -L ~/.config/fish/conf.d/bobthefish.fish || ln -s {{pwd}}/HOME/.config/fish/conf.d/bobthefish.fish ~/.config/fish/conf.d/bobthefish.fish
+  # デフォルトシェルをfishに変更
+  echo $(which fish) | sudo tee -a /etc/shells
+  chsh -s $(which fish)
+  # fisher のインストール
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+  fisher update
+
 #  Brewfile からパッケージをインストール
 brew-restore:
   # Brewfile から全てのパッケージをインストール
