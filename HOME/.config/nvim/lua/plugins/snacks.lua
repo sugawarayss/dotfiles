@@ -364,7 +364,7 @@ if not vim.g.vscode then
       { "<F5>",             function() Snacks.picker.grep() end,                  desc = "ファイル内容から表示" },
       { "<leader>:",        function() Snacks.picker.command_history() end,       desc = "コマンド履歴を表示" },
       { "<leader>n",        function() Snacks.picker.notifications() end,         desc = "通知履歴を表示" },
-      { "<leader>e",       function() Snacks.picker.explorer() end,              desc = "ファイルエクスプローラを表示" },
+      { "<leader>fe",       function() Snacks.picker.explorer() end,              desc = "ファイルエクスプローラを表示" },
       { "<F3>",             function() Snacks.terminal.toggle() end,              desc = "ターミナルを開く" },
       { "<F3>",             function() Snacks.terminal.toggle() end,              desc = "ターミナルを閉じる", mode = { "t" } },
       -- find
