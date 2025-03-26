@@ -4,11 +4,12 @@
 ############
 set PATH /opt/homebrew/bin $PATH
 # RUST
-set PATH $HOME/cargo/bin $PATH
+set PATH $HOME/.cargo/bin $PATH
 # psql
 set PATH /opt/homebrew/Cellar/libpq/15.3_1/bin $PATH
 # mysql
 set PATH /opt/homebrew/opt/mysql-client/bin $PATH
+
 
 #########################
 # ENViRONMENT VARIABLES #
@@ -33,7 +34,7 @@ set -g theme_display_user yes
 set -g theme_display_hostname yes
 
 # 日付の表示書式を変更する
-set -g theme_date_format "+[%H:%M:%S]"
+set -g theme_date_format "+[%Y/%m/%d %H:%M:%S]"
 
 # プロンプトから入力欄の前に改行をする
 set -g theme_newline_cursor yes
@@ -135,9 +136,25 @@ function fish_user_key_bindings
     # The argument specifies the initial mode (insert, "default" or visual).
     fish_vi_key_bindings --no-erase insert
 end
+
 # yy で クリップボードにコピー
 bind yy fish_clipboard_copy
 bind p fish_clipboard_paste
+
+# aws cli の補完
+complete -c aws -f -a '(
+  begin
+    set -lx COMP_SHELL fish
+    set -lx COMP_LINE (commandline)
+    aws_completer
+  end
+)'
+
+#################
+# Plugin の設定 #
+#################
+# yuys13/fish-autols
+set -U autols_cmd ll
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
