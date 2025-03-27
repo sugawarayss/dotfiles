@@ -43,7 +43,7 @@ local options = {
   splitbelow     = false,                          -- オンのとき、ウィンドウを横分割すると新しいウィンドウはカレントウィンドウの下に開かれる
   splitright     = false,                          -- オンのとき、ウィンドウを縦分割すると新しいウィンドウはカレントウィンドウの右に開かれる
   pumblend       = 10,                             -- pop upメニュー(補完時のポップアップ)を半透明にする
-  winblend       = 10,                             -- 任意のfloating windowを半透明にする
+  winblend       = 0,                              -- 任意のfloating windowを半透明にする
 }
 
 vim.opt.shortmess:append("c")
