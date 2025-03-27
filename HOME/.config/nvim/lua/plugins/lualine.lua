@@ -6,6 +6,8 @@ if not vim.g.vscode then
       version = "*",
       event = { "VimEnter" },
       config = function()
+        local color_palette = require("tokyonight.colors").setup()
+        -- Linter実行の進捗を表示
         local lint_progress = function()
           local linters = require("lint").get_running()
           if #linters == 0 then
@@ -13,11 +15,20 @@ if not vim.g.vscode then
           end
           return "󱉶 " .. table.concat(linters, ", ")
         end
+        -- Snacks Terminal 表示時の設定
         local snacks_terminal = { sections = { lualine_a = { "mode" }, lualine_z = { { "datetime", style = "%Y/%m/%d %H:%M:%S" }} }, filetypes = { "snacks_terminal" }}
+        -- マクロ記録中の表示内容の定義
+        local function macro_recording()
+          local reg = vim.fn.reg_recording()
+          if reg ~= "" then
+            return "󰑋 MACRO RECODING TO (" .. reg .. ")"
+          end
+          return ""
+        end
         require("lualine").setup({
           options = {
             icons_enabled = true,
-            theme = "OceanicNext",
+            theme = "tokyonight",
             component_separators = { left = "", right = ""},
             section_separators = { left = "", right = ""},
             disabled_filetypes = {
@@ -39,9 +50,26 @@ if not vim.g.vscode then
             lualine_b = { { "filename", path = 1 } },
             lualine_c = { "branch" },
             -- CodeCompanion の進捗を lualine で表示する場合
-            lualine_x = { require("plugins.spinners.cc-compontnt"), "lsp-status" },
+            lualine_x = {
+              -- マクロの記録中の表示
+              {
+                macro_recording,
+                color = { fg = color_palette.magenta2 }, -- #ff007c
+              },
+              -- Copilotの進捗状況の表示
+              {
+                require("plugins.spinners.cc-compontnt"),
+                color = { fg = color_palette.orange }, -- #ff966c
+              },
+              -- Language Server の起動状況
+              "lsp-status"
+            },
             lualine_y = { lint_progress },
-            lualine_z = { "encoding", "fileformat", "filetype" },
+            lualine_z = {
+              "encoding",
+              "fileformat",
+              "filetype"
+            },
           },
           inactive_sections = {
             lualine_a = {},
