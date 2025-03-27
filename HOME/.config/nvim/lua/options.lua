@@ -2,7 +2,7 @@
 local options = {
   encoding       = "utf-8",                        -- 文字コードの指定
   fileencoding   = "utf-8",                        -- ファイル文字コードの指定
-  shell          = "zsh",                          -- :!コマンドで使用するシェル
+  shell          = "fish",                          -- :!コマンドで使用するシェル
   mouse          = "a",                            -- マウスを利用可能にする
   title          = true,                           -- ウィンドウタイトルにファイル名を使用する
   backup         = false,                          -- ファイル上書き保存時にバックアップファイルを作成しない
