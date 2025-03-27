@@ -378,7 +378,7 @@ if not vim.g.vscode then
       -- Grep
       { "<leader>sw",       function() Snacks.picker.grep_word() end,             desc = "Visual selection or word", mode = { "n", "x" } },
       -- search
-      { '<leader>s"',       function() Snacks.picker.registers() end,             desc = "レジスタを検索" },
+      { '<leader>sr',       function() Snacks.picker.registers() end,             desc = "レジスタを検索" },
       { '<leader>s/',       function() Snacks.picker.search_history() end,        desc = "検索履歴を検索" },
       { "<leader>sa",       function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
       -- { "Q",                function() Snacks.picker.commands() end,              desc = "Commandを検索" },
