@@ -67,7 +67,7 @@ return {
       },
       window = {
         normal_hl  = "Comment",
-        winblend   = 100,
+        winblend   = 10,
         border     = "none",
         zindex     = 45,
         max_width  = 0,
