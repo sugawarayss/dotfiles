@@ -1,17 +1,3 @@
--- Cmdlineの色設定
-local color_palette = require("tokyonight.colors").setup()
-
-local noice_cmd_types = {
-  CmdLine    = color_palette.blue0,   --#3d59a1
-  Input      = color_palette.fg_dark, --#a9b1d6
-  Lua        = color_palette.purple,  --#9d7cd8
-  Filter     = color_palette.green2,  --#41a6b5
-  Rename     = color_palette.orange,  --#ff9e64
-  Search     = color_palette. yellow, --#e0af68
-  Substitute = color_palette.teal,    --#1abc9c
-  Help       = color_palette.comment, --#565f89
-}
-
 -- CmdLineや通知をpopupで表示するプラグイン
 return {
   "folke/noice.nvim",
@@ -28,11 +14,9 @@ return {
   },
   config = function()
     vim.opt.cmdheight = 0
-    require("notify").setup({
-      background_colour = color_palette.bg_dark,
-    })
 
     require("noice").setup({
+      theme = "tokyonight",
       cmdline = {
         enabled = true,
         view    = "cmdline_popup",
@@ -176,10 +160,10 @@ return {
       },
       throttle = 1000 / 30,
       views = {
-        notify        = { win_options = { winblend = 10 } },
-        cmdline       = { win_options = { winblend = 10 } },
+        notify        = { win_options = { winblend = 0 } },
+        cmdline       = { win_options = { winblend = 0 } },
         cmdline_popup = {
-          win_options = { winblend = 10 },
+          win_options = { winblend = 0 },
           position    = { row = "50%", col = "50%" },
           size        = { width = "100", height = "auto" },
         },
@@ -198,10 +182,5 @@ return {
       status = {},
       format = {},
     })
-
-    vim.api.nvim_set_hl(0, "NoicePopupBorder", {bg=color_palette.bg_dark})
-    for type, color in pairs(noice_cmd_types) do
-      vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder" .. type, {bg=color_palette.bg_dark, fg=color})
-    end
   end
 }
