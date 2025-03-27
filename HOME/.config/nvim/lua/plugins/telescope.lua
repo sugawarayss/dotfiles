@@ -8,6 +8,10 @@ if not vim.g.vscode then
       keys = {
         -- search todo
         { "<leader>std",      "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",                                 mode = "n", opt, desc = "TODO 検索" },
+        -- resume
+        { "<leader>r",        "<cmd>Telescope resume<CR>",                                                       mode = "n", opt, desc = "直前のTelescopeでの検索を再開"},
+        -- help
+        { "<leader>help",     "<cmd>Telescope help_tags<CR>",                                                    mode = "n", opt, desc = "  ヘルプタグを検索" },
         -- search book mark
         { "<leader>sbm",      "<cmd>Telescope bookmarks list<CR>",                                               mode = "n", opt, desc = "ブックマークを検索" },
         { "<M-d><M-c>",       "<cmd>Telescope docker containers theme=ivy<CR>",                                  mode = "n", opt, desc = "Docker コンテナを検索" },
