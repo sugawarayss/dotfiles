@@ -66,7 +66,7 @@ config.use_fancy_tab_bar = true
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
 config.color_scheme = 'tokyonight_night'
 -- 背景の透過度
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.95
 -- 背景のぼかし
 config.macos_window_background_blur = 9
 -- フォント
@@ -75,7 +75,7 @@ config.font = wezterm.font_with_fallback {
   {family="HackGen Console NF", weight="Regular"},
 }
 -- フォントサイズ
-config.font_size = 13.0
+config.font_size = 14.0
 -- フォントサイズ変更時にウィンドウサイズを調整
 config.adjust_window_size_when_changing_font_size = true
 -- IME を有効にする
