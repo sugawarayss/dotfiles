@@ -2,5 +2,5 @@
 return {
   "tyru/capture.vim",
   lazy = true,
-  event = { "BufReadPre" },
+  cmd = { "Capture" },
 }
