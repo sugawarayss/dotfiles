@@ -11,8 +11,6 @@ return {
       { "L3MON4D3/LuaSnip" },  -- スニペットエンジン
       { "saadparwaiz1/cmp_luasnip" },  -- cmp と luasnip の連携
       { "onsails/lspkind.nvim" },
-      { "windwp/nvim-autopairs" },
-      { "zbirenbaum/copilot-cmp" },  -- Github copilotからの補完
     },
     config = function()
       local cmp = require("cmp")
@@ -113,7 +111,7 @@ return {
     config = function()
       require("nvim-autopairs").setup({
         -- Default Config
-        disable_filetype                  = {"TelescopePrompt", "spectre_panel"},
+        disable_filetype                  = {"TelescopePrompt", "spectre_panel", "snacks_picker_input"},
         disable_in_macro                  = true,
         disable_in_visualblock            = false,
         disable_in_replace_mode           = true,
