@@ -345,7 +345,7 @@ if not vim.g.vscode then
         }
       },
       words = {
-        enabled = true,
+        enabled = false,
         debounce = 200,
         notify_jump = false,
         notify_end = true,
@@ -399,7 +399,7 @@ if not vim.g.vscode then
       -- Other
       { "<leader>z",        function() Snacks.zen() end,                          desc = "Zen モードをトグル" },
       { "<leader>n",        function() Snacks.notifier.show_history() end,        desc = "通知履歴を表示" },
-      { "<leader>bd",       function() Snacks.bufdelete() end,                    desc = "バッファを閉じる" },
+      { "<leader>dd",       function() Snacks.bufdelete() end,                    desc = "バッファを閉じる" },
       { "<leader>gB",       function() Snacks.gitbrowse() end,                    desc = "リポジトリをGitHubで開く", mode = { "n", "v" } },
       { "<leader>gg",       function() Snacks.lazygit() end,                      desc = "Lazygitを起動" },
       { "<leader>un",       function() Snacks.notifier.hide() end,                desc = "全ての通知を却下する" },
