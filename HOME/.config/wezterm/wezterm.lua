@@ -28,43 +28,10 @@ config.tab_max_width = 16
 config.use_fancy_tab_bar = true
 -- config.window_decorations = "TITLE|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
 -- config.window_decorations = "RESIZE"
--- -- タブバーを透明にする
--- config.window_frame = {
---   inactive_titlebar_bg = "none",
---   active_titlebar_bg = "none"
--- }
--- -- タブバーの背景色をtokyonight-moonと合わせる
--- config.window_background_gradient = {
---   colors = { "#222436" },
--- }
--- -- タブバーのタブ追加ボタンを非表示
--- config.show_new_tab_button_in_tab_bar = false
--- -- タブの閉じるボタンを非表示(nightlyでのみ)
--- -- config.show_close_tab_button_in_tabs = false
--- -- アクティブタブに色をつける
--- wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
---   -- tokyonight-moon.bg_dark
---   local background = "#1e2030"
---   -- tokyonight-moon.fg_dark
---   local foreground = "#828bb8"
---
---   if tab.is_active then
---     -- tokyonight-moon.blue7
---     background = "#394b70"
---     -- tokyonight-moon.fg
---     foreground = "#c8d3f5"
---   end
---   local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
---   return {
---     { Background = { Color = background } },
---     { Foreground = { Color = foreground } },
---     { Text = title },
---   }
--- end)
 
 -- カラーテーマ
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = 'tokyonight_night'
+config.color_scheme = 'Ef-Duo-Dark'
 -- 背景の透過度
 config.window_background_opacity = 0.95
 -- 背景のぼかし
@@ -88,64 +55,125 @@ config.keys = keybind.keys
 config.key_tables = keybind.key_tables
 
 
--- wezterm にステータスバーを表示するプラグイン
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-
-tabline.setup({
-  options = {
-    icons_enabled = true,
-    -- theme = 'MaterialOcean',
-    theme = "Nep (Gogh)",
-    tabs_enabled = true,
-    theme_overrides = {},
-    section_separators = {
-      left = wezterm.nerdfonts.ple_ice_waveform,
-      right = wezterm.nerdfonts.ple_ice_waveform_mirrored,
+-- wezterm.erm にステータスバーを表示するプラグイン
+-- local tabline = wezterm.erm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+--
+-- tabline.setup({
+--   options = {
+--     icons_enabled = true,
+--     -- theme = 'MaterialOcean',
+--     theme = "Nep (Gogh)",
+--     tabs_enabled = true,
+--     theme_overrides = {},
+--     section_separators = {
+--       left = wezterm.erm.nerdfonts.ple_ice_waveform,
+--       right = wezterm.erm.nerdfonts.ple_ice_waveform_mirrored,
+--     },
+--     component_separators = {
+--       left = wezterm.erm.nerdfonts.ple_backslash_separator,
+--       right = wezterm.erm.nerdfonts.ple_forwardslash_separator,
+--     },
+--     tab_separators = {
+--       left = wezterm.erm.nerdfonts.ple_lower_left_triangle,
+--       right = wezterm.erm.nerdfonts.ple_lower_right_triangle,
+--     },
+--   },
+--   sections = {
+--     tabline_a = { "domain", "hostname" },
+--     tabline_b = {
+--       {
+--         "datetime",
+--         style = "%Y-%m-%d",
+--       },
+--     },
+--     tabline_c = {
+--       {
+--         "datetime",
+--         style = "%H:%M:%S",
+--       },
+--     },
+--     tab_active = {
+--       "index",
+--       { "parent", padding = 0 },
+--       "/",
+--       { "cwd", padding = { left = 0, right = 1 } },
+--       { "zoomed", padding = 0 },
+--     },
+--     tab_inactive = { "index", { "cwd", padding = { left = 0, right = 1 } } },
+--     tabline_x = {},
+--     tabline_y = {
+--       "ram",
+--       "cpu",
+--       "battery"
+--     },
+--     tabline_z = {
+--       "mode"
+--     },
+--   },
+--   extensions = {},
+-- })
+--
+-- tabline.apply_to_config(config)
+local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
+bar.apply_to_config(
+  config,
+  {
+    position = "bottom",
+    separator = {
+      space = 1,
+      left_icon = wezterm.nerdfonts.md_menu_right,
+      right_icon = wezterm.nerdfonts.md_menu_left,
+      field_icon = wezterm.nerdfonts.indent_line,
     },
-    component_separators = {
-      left = wezterm.nerdfonts.ple_backslash_separator,
-      right = wezterm.nerdfonts.ple_forwardslash_separator,
-    },
-    tab_separators = {
-      left = wezterm.nerdfonts.ple_lower_left_triangle,
-      right = wezterm.nerdfonts.ple_lower_right_triangle,
-    },
-  },
-  sections = {
-    tabline_a = { "domain", "hostname" },
-    tabline_b = {
-      {
-        "datetime",
-        style = "%Y-%m-%d",
+    modules = {
+      tabs = {
+        active_tab_fg = 5,
+        inactive_tab_fg = 2,
+      },
+      workspace = {
+        enabled = false,
+        icon = wezterm.nerdfonts.cod_window,
+        color = 8,
+      },
+      leader = {
+        enabled = true,
+        icon = wezterm.nerdfonts.oct_rocket,
+        color = 2,
+      },
+      pane = {
+        enabled = true,
+        icon = wezterm.nerdfonts.cod_multiple_windows,
+        color = 7,
+      },
+      username = {
+        enabled = true,
+        icon = wezterm.nerdfonts.fa_user,
+        color = 6,
+      },
+      hostname = {
+        enabled = true,
+        icon = wezterm.nerdfonts.md_monitor,
+        color = 8,
+      },
+      clock = {
+        enabled = true,
+        icon = wezterm.nerdfonts.fa_clock_o,
+        color = 5,
+      },
+      cwd = {
+        enabled = true,
+        icon = wezterm.nerdfonts.oct_file_directory,
+        color = 7,
+      },
+      spotify = {
+        enabled = false,
+        icon = wezterm.nerdfonts.fa_spotify,
+        color = 3,
+        max_width = 64,
+        throttle = 15,
       },
     },
-    tabline_c = {
-      {
-        "datetime",
-        style = "%H:%M:%S",
-      },
-    },
-    tab_active = {
-      "index",
-      { "parent", padding = 0 },
-      "/",
-      { "cwd", padding = { left = 0, right = 1 } },
-      { "zoomed", padding = 0 },
-    },
-    tab_inactive = { "index", { "cwd", padding = { left = 0, right = 1 } } },
-    tabline_x = {},
-    tabline_y = {
-      "ram",
-      "cpu",
-      "battery"
-    },
-    tabline_z = {
-      "mode"
-    },
-  },
-  extensions = {},
-})
-
-tabline.apply_to_config(config)
+  }
+)
 
 return config
