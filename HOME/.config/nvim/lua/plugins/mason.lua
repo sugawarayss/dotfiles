@@ -60,7 +60,7 @@ local formatters = {
 -- 自動インストールするlinter
 local diagnostics = {
   -- spell check
-  "cspell",
+  -- "cspell",
   -- python
   "mypy",
   -- TypeScript
@@ -100,8 +100,8 @@ local my_on_attach = function(client, bufnr)
   for _, value in pairs(lsp_servers) do
     if client == value then
       -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-      -- FIXME: WhichKey が gf を使用しているので使えない。。。
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format {async=true}<CR>", { noremap = true, silent = false, desc = "フォーマットを実行" })
+      -- WhichKey が gf を使用しているので使えない。。。
+      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format {async=true}<CR>", { noremap = true, silent = false, desc = "フォーマットを実行" })
       -- "K" でカーソル下の変数情報を表示
       -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {  noremap = true, silent = false, desc = "カーソル下の変数情報を表示" })
       -- "gr" でカーソル下の変数を参照している箇所の一覧表示
@@ -114,15 +114,9 @@ local my_on_attach = function(client, bufnr)
       vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = false, desc = "実装へジャンプ" })
       -- 型定義へジャンプ
       -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = false, desc = "型定義へジャンプ" })
-      -- Error/Warning/Hint が出ている箇所で実行可能な修正の候補を表示
-      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = false, desc = "Error/Warning/Hint が出ている箇所で実行可能な修正の候補を表示" })
       -- 変数名のリネーム
       vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = false, desc = "変数名のリネーム" })
-
       vim.api.nvim_buf_set_keymap(bufnr, "n", "go", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = false, desc = "エラーをフロートウィンドウで表示" })
-      -- 次のエラーへジャンプ
-      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true, silent = false, desc = "次のエラーへジャンプ" })
-      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true, silent = false, desc = "前のエラーへジャンプ" })
     end
   end
   if client ~= "ruff" then
@@ -208,7 +202,7 @@ return {
     lazy = true,
     event = { "LspAttach" },
     dependencies = {
-      { "jay-babu/mason-null-ls.nvim", dependencies = "jose-elias-alvarez/null-ls.nvim" },
+      { "jay-babu/mason-null-ls.nvim", dependencies = "nvimtools/none-ls.nvim" },
       { "neovim/nvim-lspconfig" },
       { "hrsh7th/cmp-nvim-lsp" },
     },
