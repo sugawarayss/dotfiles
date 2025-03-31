@@ -51,18 +51,18 @@ return {
     local null_ls = require("null-ls")
     local sources = {
       -- cspell(スペルチェック)
-      null_ls.builtins.diagnostics.cspell.with({
-        diagnostics_postprocess = function(diagnostics)
-          -- レベルをWARNに変更
-          diagnostics.severity = vim.diagnostic.severity["WARN"]
-        end,
-        condition = function()
-          -- cspellが実行できるときのみ有効
-          return vim.fn.executable("cspell") > 0
-        end,
-        diagnostics_format = "[cspell] #{s} (#{c}) #{m}",
-        extra_args = { "--config", "~/.config/cspell/cspell.json" },
-      }),
+      -- null_ls.builtins.diagnostics.cspell.with({
+      --   diagnostics_postprocess = function(diagnostics)
+      --     -- レベルをWARNに変更
+      --     diagnostics.severity = vim.diagnostic.severity["WARN"]
+      --   end,
+      --   condition = function()
+      --     -- cspellが実行できるときのみ有効
+      --     return vim.fn.executable("cspell") > 0
+      --   end,
+      --   diagnostics_format = "[cspell] #{s} (#{c}) #{m}",
+      --   extra_args = { "--config", "~/.config/cspell/cspell.json" },
+      -- }),
       -- python
       -- ↓ 構文が間違っているが、ここを消すと ruff-lsp が動かなくなるので残す
       require("none-ls.formatting.ruff").with({
@@ -200,6 +200,7 @@ return {
 
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
     null_ls.setup({
+      debug = true,
       sources = sources,
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
