@@ -39,6 +39,7 @@ set -g theme_date_format "+[%Y/%m/%d %H:%M:%S]"
 # プロンプトから入力欄の前に改行をする
 set -g theme_newline_cursor yes
 
+
 # 改行後入力欄の前に表示する文字を設定する（Nerd Font が文字化けしてます）
 set -g theme_newline_prompt "\e[32m\e[m "
 
@@ -124,7 +125,7 @@ if type "hub" > /dev/null 2>&1;
 end
 
 #################
-# Vimモード設定 #
+# KeyBindings   #
 #################
 function fish_user_key_bindings
     # Execute this once per mode that emacs bindings should be used in
@@ -135,11 +136,24 @@ function fish_user_key_bindings
     # resetting all bindings.
     # The argument specifies the initial mode (insert, "default" or visual).
     fish_vi_key_bindings --no-erase insert
-end
 
-# yy で クリップボードにコピー
-bind yy fish_clipboard_copy
-bind p fish_clipboard_paste
+    # yy で クリップボードにコピー
+    bind yy fish_clipboard_copy
+    bind p fish_clipboard_paste
+    # ghq を選択
+    bind \cl peco_select_ghq_repository
+    # コマンド履歴を見る
+    bind \cr peco_select_history
+    # プロセスをキルする(要ps/procs対応)
+    bind \cx\ck peco_kill
+    # 最近見たディレクトリに移動
+    # bind \cx\cr peco_recentd
+
+    # fzf
+    bind \cx\cf '__fzf_find_file' # (要sd/sed対応)
+    bind \ctr '__fzf_reverse_isearch'
+    bind \ed '__fzf_cd' # (要sd/sed 対応)
+end
 
 # aws cli の補完
 complete -c aws -f -a '(
@@ -155,6 +169,8 @@ complete -c aws -f -a '(
 #################
 # yuys13/fish-autols
 set -U autols_cmd ll
+# fzf
+set -U FZF_LEGACY_KEYBINDINGS 0
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
