@@ -127,16 +127,13 @@ end
 -- 各:withLSPサーバの設定
 local lsp_server_settings = {
   pyright = {
-    --pyright = {
-    --  -- ruff
-    --},
     python = {
       venvPath = ".",
       pythonPath = "./.venv/bin/python",
+      -- import 文の sort は ruffに任せる 
       disableOrganizeImports = true,
-      analysis = {
-        ignore = { "*" },
-      },
+      -- チェック周りも ruff に任せる
+      analysis = { ignore = { "*" } },
     },
   },
   ruff = {
@@ -144,11 +141,38 @@ local lsp_server_settings = {
     init_options = {
       settings = {
         configuration = "./pyproject.toml",
+        -- ワークスペース内に存在する設定ファイル(ruff.toml/pyproject.toml)を以下の設定より優先する
         configurationPreference = "filesystemFirst",
+        -- リンティングとフォーマットから除外するファイルパターンリスト
+        exclude = {"**/tests/**"},
+        -- lint/format 時の1行の長さ
+        lineLength = 150,
+        -- import 文のソートをコードアクションに追加
+        organizeImports = true,
+        -- 構文エラー診断を表示する
+        showSyntaxErrors = true,
+        codeAction = {
+          -- `noqa` でルールを無視するクイックフィックスアクションを表示する
+          disableRuleComment = { enable = true },
+          -- 違反を自動修正するためのクイック修正アクションを表示する
+          fixViolation = { enable = true },
+        },
+        -- リンティング設定
         lint = {
           enable = true,
-          extendSelect = {"I"}
-        }
+          -- 不安定なルールは適用しない
+          preview = false,
+          -- 有効にするルール
+          select = {},
+          -- 追加で有効にするルール
+          extendSelect = {"I"},
+          -- 無効にするルール
+          ignore = {},
+        },
+        format = {
+          -- 不安定なルールは適用しない
+          preview = false,
+        },
       }
     }
   },

@@ -50,30 +50,6 @@ return {
   config = function()
     local null_ls = require("null-ls")
     local sources = {
-      -- cspell(スペルチェック)
-      -- null_ls.builtins.diagnostics.cspell.with({
-      --   diagnostics_postprocess = function(diagnostics)
-      --     -- レベルをWARNに変更
-      --     diagnostics.severity = vim.diagnostic.severity["WARN"]
-      --   end,
-      --   condition = function()
-      --     -- cspellが実行できるときのみ有効
-      --     return vim.fn.executable("cspell") > 0
-      --   end,
-      --   diagnostics_format = "[cspell] #{s} (#{c}) #{m}",
-      --   extra_args = { "--config", "~/.config/cspell/cspell.json" },
-      -- }),
-      -- python
-      -- ↓ 構文が間違っているが、ここを消すと ruff-lsp が動かなくなるので残す
-      require("none-ls.formatting.ruff").with({
-        filetypes = { "python" },
-        extra_args = { "--config", "./pyproject.toml" },
-      }),
-      null_ls.builtins.diagnostics.ruff.with({
-        filetypes = { "python" },
-        diagnostics_format = "[#{s}] (#{c}) #{m}",
-        extra_args = { "--config", "./pyproject.toml" },
-      }),
       -- markdown
       null_ls.builtins.diagnostics.markdownlint.with({
         filetypes = { "markdown" },
@@ -106,6 +82,7 @@ return {
         filetypes = { "json" },
       }),
       -- yaml
+      null_ls.builtins.diagnostics.yamllint.with({ filetypes = { "yaml" } }),
       null_ls.builtins.formatting.yamlfmt.with({
         filetypes = { "yaml" },
         extra_args = {
@@ -124,12 +101,12 @@ return {
       null_ls.builtins.formatting.shfmt.with({
         filetypes = { "sh", "bash", "zsh" },
       }),
+      -- fish
+      null_ls.builtins.diagnostics.fish.with({ filetypes = { "fish" } }),
       -- dart
       -- null_ls.builtins.diagnostics.dcm.with({ filetypes = { "dart" } }),
       -- php
       null_ls.builtins.diagnostics.phpstan.with({ filetypes = { "php" } }),
-      -- yaml
-      null_ls.builtins.diagnostics.yamllint.with({ filetypes = { "yaml" } }),
       -- dockerfile
       null_ls.builtins.diagnostics.hadolint.with({ filetypes = { "dockerfile" } }),
       -- code security
@@ -138,8 +115,6 @@ return {
         args = { "--config", "auto", "-q", "--json", "--timeout", "0" },
         timeout = 15000,
       }),
-
-
     }
 
     -- 辞書に単語を追加するcommandをCode Actionとして呼び出せるようにする
