@@ -59,8 +59,6 @@ local formatters = {
 }
 -- 自動インストールするlinter
 local diagnostics = {
-  -- spell check
-  -- "cspell",
   -- python
   "mypy",
   -- TypeScript
