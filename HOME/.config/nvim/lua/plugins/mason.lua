@@ -140,6 +140,7 @@ local lsp_server_settings = {
     },
   },
   ruff = {
+    filetypes = { "python" },
     init_options = {
       settings = {
         configuration = "./pyproject.toml",
@@ -152,6 +153,7 @@ local lsp_server_settings = {
     }
   },
   gopls = {
+    filetypes = { "go" },
     analyses = {
       nilness      = true,
       unusedparams = true,
@@ -184,8 +186,7 @@ return {
     -- LSPを管理するプラグイン
     "williamboman/mason.nvim",
     lazy = true,
-    event = { "LspAttach" },
-    build = ":MasonUpdate",
+    cmd = "Mason",
     config = function()
       require("mason").setup({
         ui = {
@@ -200,9 +201,9 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     lazy = true,
-    event = { "LspAttach" },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "jay-babu/mason-null-ls.nvim", dependencies = "nvimtools/none-ls.nvim" },
+      { "jay-babu/mason-null-ls.nvim" },
       { "neovim/nvim-lspconfig" },
       { "hrsh7th/cmp-nvim-lsp" },
     },
