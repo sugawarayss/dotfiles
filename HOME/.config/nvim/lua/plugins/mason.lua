@@ -186,6 +186,9 @@ local lsp_server_settings = {
     staticcheck                    = true,
     usePlaceholders                = true,
   },
+  dockerls = {
+    filetypes = { "dockerfile" },
+  },
   marksman = {
     filetypes = { "markdown" },
   },
