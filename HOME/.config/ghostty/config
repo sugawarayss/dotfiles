@@ -3,7 +3,7 @@ font-family = "Hack Nerd Font"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
 # フォントサイズ
-font-size = 15
+font-size = 14
 
 # カラーテーマ
 theme = GitHub Dark
@@ -11,7 +11,7 @@ theme = GitHub Dark
 # ウィンドウの左右の余白
 window-padding-x = 4,2
 # ウィンドウの背景透過度
-background-opacity = 0.9
+background-opacity = 0.95
 # 背景のぼかし度合い
 background-blur-radius = 20
 # カーソルの点滅
