@@ -8,7 +8,7 @@ fish_add_path $HOME/.cargo/bin
 # psql
 fish_add_path /opt/homebrew/opt/libpq/bin
 # mysql
-fish_add_path /opt/homebrew/opt/mysql-client/sbin
+fish_add_path /opt/homebrew/opt/mysql-client/bin
 
 
 #########################
