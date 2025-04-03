@@ -2,13 +2,13 @@
 ############
 # set PATH #
 ############
-set PATH /opt/homebrew/bin $PATH
+fish_add_path /opt/homebrew/bin
 # RUST
-set PATH $HOME/.cargo/bin $PATH
+fish_add_path $HOME/.cargo/bin
 # psql
-set PATH /opt/homebrew/Cellar/libpq/15.3_1/bin $PATH
+fish_add_path /opt/homebrew/opt/libpq/bin
 # mysql
-set PATH /opt/homebrew/opt/mysql-client/bin $PATH
+fish_add_path /opt/homebrew/opt/mysql-client/sbin
 
 
 #########################
@@ -23,8 +23,10 @@ set -Ux XDG_CONFIG_HOME $HOME/.config
 set -Ux EDITOR nvim
 # android sdk
 set -Ux ANDROID_HOME $HOME/Library/Android/sdk
-set PATH $ANDROID_HOME/tools $PATH
-set PATH $ANDROID_HOME/platform-tools $PATH
+# set PATH $ANDROID_HOME/tools $PATH
+fish_add_path $ANDROID_HOME/tools
+# set PATH $ANDROID_HOME/platform-tools $PATH
+fish_add_path $ANDROID_HOME/platform-tools
 
 # vi モードのインジケータを常に表示する
 set -g theme_display_vi yes
@@ -40,7 +42,7 @@ set -g theme_date_format "+[%Y/%m/%d %H:%M:%S]"
 set -g theme_newline_cursor yes
 
 
-# 改行後入力欄の前に表示する文字を設定する（Nerd Font が文字化けしてます）
+# 改行後入力欄の前に表示する文字を設定する
 set -g theme_newline_prompt "\e[32m\e[m "
 
 # setup mise
@@ -49,63 +51,70 @@ set -g theme_newline_prompt "\e[32m\e[m "
 #########
 # alias #
 #########
-alias vim="nvim"
+abbr -a paths "echo \$PATH | tr ' ' '\n'"
+# sc で ~/.config/fish/config.fish を再読み込み
+abbr -a sc source ~/.config/fish/config.fish
+# c で clear
+abbr -a c clear
+# pbc で pbcopy
+abbr -a pbc pbcopy
+# vim で nvim
+abbr -a vim nvim
 
 if type "bat" > /dev/null 2>&1;
-  alias oldcat="/bin/cat"
-  alias cat="bat"
+  abbr -a oldcat /bin/cat
+  abbr -a cat bat
 end
 
 if type "procs" > /dev/null 2>&1;
-  alias oldps="/bin/ps"
-  alias ps="procs"
+  abbr -a oldps /bin/ps
+  abbr -a ps procs
 end
 
 if type "lsd" > /dev/null 2>&1;
-  alias oldls="/bin/ls"
-  alias ls='lsd --git'
-  alias la='lsd --all --header --size bytes --git --group-directories-first'
-  alias ll="lsd --long --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
-  alias lla="lsd --long --all --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
-  alias lt="lsd --tree"
-  alias ld="lsd --directory-only --tree --icon never"
+  abbr -a oldls /bin/ls
+  abbr -a ls lsd --git
+  abbr -a la lsd --all --header --size bytes --git --group-directories-first
+  abbr -a ll lsd --long --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'
+  abbr -a lla lsd --long --all --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'
+  abbr -a lt lsd --tree
+  abbr -a ld lsd --directory-only --tree --icon never
 else
-  alias ls="ls -Gh"
-  alias la="ls -aGh"
-  alias ll="ls -lGh"
-  alias lla="ls -laGh"
-  alias lt="tree"
-  alias ld="tree -d"
+  abbr -a ls ls -Gh
+  abbr -a la ls -aGh
+  abbr -a ll ls -lGh
+  abbr -a lla ls -laGh
+  abbr -a lt tree
+  abbr -a ld tree -d
 end
 
-if type "fd" > /dev/null 2>&1;
-  alias oldfind="/usr/bin/find"
-  alias find='fd'
-  # alias pcd='cd $(fd -t d | gum filter --prompt="cd to ... >")'
-end
+# if type "fd" > /dev/null 2>&1;
+#   alias oldfind="/usr/bin/find"
+#   alias find='fd'
+# end
 
 # sedをsdで上書き
-if type "sd" > /dev/null 2>&1;
-  alias oldsed="/usr/bin/sed"
-  alias sed="sd"
-end
+# if type "sd" > /dev/null 2>&1;
+#   alias oldsed="/usr/bin/sed"
+#   alias sed="sd"
+# end
 
 # grepをrgで上書き
-if type "rg" > /dev/null 2>&1;
-  alias oldgrep="/usr/bin/grep"
-  alias grep="rg"
-end
+# if type "rg" > /dev/null 2>&1;
+#   alias oldgrep="/usr/bin/grep"
+#   alias grep="rg"
+# end
 
 # diffをcolordiffで上書き
 if type "colordiff" > /dev/null 2>&1;
-  alias olddiff="/usr/bin/diff"
-  alias diff='colordiff'
+  abbr -a olddiff /usr/bin/diff
+  abbr -a diff colordiff
 end
 
 if type "ghq" > /dev/null 2>&1;
   # ローカルにあるgitリポジトリを選択してpathに移動
   function repo
-    set -l selected_repo (ghq list -p | gum filter --no-fuzzy --prompt="SELECT REPOSITORY >")
+    set -l selected_repo (ghq list -p | peco --prompt="SELECT REPOSITORY >")
     if test -n "$selected_repo"
         cd $selected_repo
     end
@@ -117,7 +126,7 @@ if type "hub" > /dev/null 2>&1;
   # 選択したリモートリポジトリをGithubで開く
   function remote
     set -l current_dir (basename (pwd))
-    set -l repo (ghq list | gum filter --no-fuzzy --value=$current_dir --prompt="SELECT REPOSITORY >")
+    set -l repo (ghq list | peco --query=$current_dir --prompt="SELECT REPOSITORY >")
     if test -n "$repo"
         hub browse $repo
     end
@@ -140,14 +149,10 @@ function fish_user_key_bindings
     # yy で クリップボードにコピー
     bind yy fish_clipboard_copy
     bind p fish_clipboard_paste
-    # ghq を選択
-    bind \cl peco_select_ghq_repository
     # コマンド履歴を見る
     bind \cr peco_select_history
     # プロセスをキルする(要ps/procs対応)
     bind \cx\ck peco_kill
-    # 最近見たディレクトリに移動
-    # bind \cx\cr peco_recentd
 
     # fzf
     bind \cx\cf '__fzf_find_file' # (要sd/sed対応)
