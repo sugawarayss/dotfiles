@@ -39,7 +39,9 @@ local lsp_servers = {
   -- markdown
   "marksman",
   -- bash(zsh)
-  "bashls"
+  "bashls",
+  -- terraform
+  "terraformls"
 }
 -- 自動インストールするformatter
 local formatters = {
@@ -185,6 +187,9 @@ local lsp_server_settings = {
     experimentalPostfixCompletions = true,
     staticcheck                    = true,
     usePlaceholders                = true,
+  },
+  terraformls = {
+    filetypes = { "tf", "tfstate" },
   },
   dockerls = {
     filetypes = { "dockerfile" },
