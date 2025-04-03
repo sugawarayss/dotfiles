@@ -114,7 +114,7 @@ if not vim.g.vscode then
             -- ファイル名での曖昧検索
             smart_open = {
               show_scores = true,
-              match_algorithm = "fzf",
+              match_algorithm = "fzy",
               disable_devicons = false,
               open_buffer_indicators = {previous = "", others = "󰺕"},
               result_limit = 40,
