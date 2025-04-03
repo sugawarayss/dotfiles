@@ -16,9 +16,11 @@
       // ファイルファインダーのトグル
       "shift shift": "file_finder::Toggle",
       // 左側のDockをトグル
-      "space e": "workspace::ToggleLeftDock",
+      "space f e": "workspace::ToggleLeftDock",
       // 右側k(AI Chat用)のDockをトグル
-      "cmd-r": "workspace::ToggleRightDock",
+      "space n": "workspace::ToggleRightDock",
+      // アシスタントパネルのトグル
+      // "space c c": "assistant::Toggle",
       // 下側(Terminal用)のDockをトグル
       "f3": "workspace::ToggleBottomDock",
       // タブスイッチャーのトグル
@@ -89,8 +91,6 @@
       "s l": "workspace::ActivatePaneRight",
       "s k": "workspace::ActivatePaneUp",
       "s j": "workspace::ActivatePaneDown",
-      // アウトラインの表示
-      "space a a": "outline::Toggle",
       // タブ選択
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePrevItem",
@@ -99,7 +99,10 @@
         "task::Spawn",
         { "task_name": "lazygit", "target": "center" }
       ],
-      "ctrl-t ctrl-t": ["task::Spawn", { "task_name": "yazi", "target": "center" }]
+      "ctrl-t ctrl-t": [
+        "task::Spawn",
+        { "task_name": "yazi", "target": "center" }
+      ]
     }
   }
 ]

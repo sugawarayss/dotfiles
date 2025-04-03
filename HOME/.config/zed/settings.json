@@ -39,6 +39,11 @@
     "light": "One Light",
     "dark": "Nightfox"
   },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Material Icon Theme"
+  },
   "tabs": {
     "git_status": true,
     "file_icons": true
