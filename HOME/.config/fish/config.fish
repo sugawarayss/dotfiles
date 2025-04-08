@@ -73,12 +73,12 @@ end
 
 if type "lsd" > /dev/null 2>&1;
   abbr -a oldls /bin/ls
-  abbr -a ls lsd --git
-  abbr -a la lsd --all --header --size bytes --git --group-directories-first
-  abbr -a ll lsd --long --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'
-  abbr -a lla lsd --long --all --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'
-  abbr -a lt lsd --tree
-  abbr -a ld lsd --directory-only --tree --icon never
+  alias ls='lsd --git'
+  alias la='lsd --all --header --size bytes --git --group-directories-first'
+  alias ll="lsd --long --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
+  alias lla="lsd --long --all --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
+  alias lt="lsd --tree"
+  alias ld="lsd --directory-only --tree --icon never"
 else
   abbr -a ls ls -Gh
   abbr -a la ls -aGh
@@ -132,6 +132,9 @@ if type "hub" > /dev/null 2>&1;
     end
   end
 end
+
+# if type "git" > /dev/null 2>&1;
+# end
 
 #################
 # KeyBindings   #
