@@ -7,14 +7,14 @@ return {
 
     -- mypy の設定
     local venv_dir = "./.venv/"
-    nvim_lint.linters.mypy.cmd = venv_dir .. "/bin/mypy"
+    nvim_lint.linters.mypy.cmd = venv_dir .. "bin/mypy"
     nvim_lint.linters.mypy.args = {
       "--install-types",
       "--non-interactive",
       "--config-file",
       "./pyproject.toml",
       "--python-executable",
-      venv_dir .. "/bin/python",
+      venv_dir .. "bin/python",
     }
     -- github actions の設定
     -- nvim_lint.linters.ghalint = {
