@@ -12,6 +12,7 @@ end
 local lsp_servers = {
   -- python
   "pyright",
+  "ruff",
   -- sphinx
   "esbonio",
   -- rust
@@ -173,6 +174,15 @@ local lsp_server_settings = {
           -- 不安定なルールは適用しない
           preview = false,
         },
+      }
+    }
+  },
+  lua_ls = {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { "vim" },
+        }
       }
     }
   },
