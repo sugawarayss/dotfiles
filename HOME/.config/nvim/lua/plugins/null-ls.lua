@@ -9,17 +9,7 @@ return {
   config = function()
     local null_ls = require("null-ls")
     local sources = {
-      -- markdown
-      null_ls.builtins.diagnostics.markdownlint.with({
-        filetypes = { "markdown" },
-        diagnostics_format = "[#{s}] (#{c}) #{m}",
-      }),
-      -- Lua
-      -- null_ls.builtins.diagnostics.luacheck.with({
-      --   filetypes = { "lua" },
-      --   diagnostics_format = "[luacheck] #{m} (#{c})",
-      --   extra_args = { "--config", "~/.config/nvim/.luarc.json"}
-      -- }),
+      -- markdown は nvim-lint
       null_ls.builtins.formatting.stylua.with({
         filetypes = { "lua" },
         extra_args = { "--config-path", "~/.config/nvim/stylua.toml" },
@@ -37,11 +27,7 @@ return {
         extra_args = { "--config", "./biome.config.js" },
       }),
       -- json
-      null_ls.builtins.formatting.jq.with({
-        filetypes = { "json" },
-      }),
-      -- yaml
-      -- null_ls.builtins.diagnostics.yamllint.with({ filetypes = { "yaml" } }),
+      require("none-ls.formatting.jq"),
       null_ls.builtins.formatting.yamlfmt.with({
         filetypes = { "yaml" },
         extra_args = {
@@ -56,8 +42,6 @@ return {
           trim_trailing_whitespace = true,
         },
       }),
-      -- toml
-      null_ls.builtins.diagnostics.taplo.with({ filetypes = { "toml" } }),
       -- shellscript
       null_ls.builtins.formatting.shfmt.with({
         filetypes = { "sh", "bash", "zsh" },
@@ -69,7 +53,7 @@ return {
       -- php
       null_ls.builtins.diagnostics.phpstan.with({ filetypes = { "php" } }),
       -- dockerfile
-      null_ls.builtins.diagnostics.dockerls.with({ filetypes = { "dockerfile" } }),
+      -- null_ls.builtins.diagnostics.dockerls.with({ filetypes = { "dockerfile" } }),
       -- code security
       -- null_ls.builtins.diagnostics.gitleaks,
       null_ls.builtins.diagnostics.semgrep.with({
