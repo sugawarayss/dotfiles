@@ -61,7 +61,7 @@ return {
     nvim_lint.linters_by_ft = {
       python = { "mypy" },
       fish = { "fish" },
-      markdown = { "mardownlint" },
+      markdown = { "markdownlint" },
       lua = { "luacheck" },
       yaml = { "yamllint" },
       dockerfile = { "hadolint" },
