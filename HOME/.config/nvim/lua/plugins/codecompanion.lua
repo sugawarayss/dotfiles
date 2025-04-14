@@ -1,9 +1,11 @@
 if vim.g.vscode then
   return {}
 else
+  vim.cmd([[cab cc CodeCompanion]])
   return {
     {
       "olimorris/codecompanion.nvim",
+      cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
       keys = {
         { "<Leader>cf", "<cmd>CodeCompanion<CR>",            mode = {"n", "v"}, desc = "ユーザプロンプトを入力" },
         { "<Leader>ca", "<Cmd>CodeCompanionActions<CR>",     mode = {"n", "v"}, desc = "Copilot アクションリストを表示" },
@@ -35,6 +37,50 @@ else
               })
             end,
           },
+          -- 独自のプロンプト定義
+          prompt_library = {
+            ["Review"] = {
+              strategy = "inline",
+              description = "Review the codes",
+              opts = {
+                auto_submit = true,
+
+              },
+              prompts = {
+                {
+                  role = "system",
+                  content = "あなたは優秀なフルスタックソフトウェアエンジニアです。あなたの仕事は、コードをレビューし、問題点を指摘し、改善点を提案することです。",
+                },
+                {
+                  role = "user",
+                  content = function(context)
+                    vim.print(context)
+                    return "以下のコードをレビューしてください。問題が見つかった場合は改善点を提案してください。\n\n" .. "#buffer"
+                  end
+                }
+              }
+            },
+            ["Refactor"] = {
+              strategy = "inline",
+              description = "Refactor the codes",
+              opts = {
+                auto_submit = true,
+              },
+              prompts = {
+                {
+                  role = "system",
+                  content = "あなたは優秀なフルスタックソフトウェアエンジニアです。あなたの仕事は、コードをリファクタリングし、改善点を提案することです。",
+                },
+                {
+                  role = "user",
+                  content = function(context)
+                    vim.print(context)
+                    return "以下のコードをリファクタリングしてください。改善点があれば提案してください。\n\n" .. "#buffer"
+                  end
+                }
+              }
+            }
+          },
           strategies = {
             chat = {
               adapter = "copilot",
@@ -44,6 +90,20 @@ else
               --   end,
               --   user = " Me "
               -- },
+              slash_commands = {
+                ["buffer"] = {
+                  opts = { provider = "snacks" },
+                },
+                ["file"] = {
+                  opts = { provider = "snacks" },
+                },
+                ["help"] = {
+                  opts = { provider = "snacks" },
+                },
+                ["symbols"] = {
+                  opts = { provider = "snacks" },
+                },
+              },
               keymaps = {
                 send = {
                   modes = { n = "<CR>", i = "<C-s>" },
