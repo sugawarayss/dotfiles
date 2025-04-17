@@ -48,7 +48,6 @@ if not vim.g.vscode then
         notify      = true,
         size        = 1.5 * 1024 * 1024, -- 1.5MB
         line_length = 1000,
-
       },
       -- debug用の設定
       debug = { enabled = false },
@@ -356,6 +355,23 @@ if not vim.g.vscode then
           return vim.g.snacks_words ~= false and vim.b[buf].snacks_words ~= false
         end
       },
+      styles = {
+        input = {
+          backdrop = false,
+          position = "float",
+          border = "rounded",
+          title_pos = "center",
+          height = 1,
+          width = 150,
+          relative = "editor", -- "cursor" or "editor"
+          row = 0.5,
+          bo = {
+            filetype = "snacks_input",
+            buftype = "prompt",
+          },
+          b = { completion = true },
+        },
+      }
     },
     keys = {
       -- Top Pickers & Explorer
