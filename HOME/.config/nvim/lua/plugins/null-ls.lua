@@ -56,10 +56,10 @@ return {
       -- null_ls.builtins.diagnostics.dockerls.with({ filetypes = { "dockerfile" } }),
       -- code security
       -- null_ls.builtins.diagnostics.gitleaks,
-      null_ls.builtins.diagnostics.semgrep.with({
-        args = { "--config", "auto", "-q", "--json", "--timeout", "0" },
-        timeout = 15000,
-      }),
+      -- null_ls.builtins.diagnostics.semgrep.with({
+      --   args = { "--config", "auto", "-q", "--json", "--timeout", "0" },
+      --   timeout = 15000,
+      -- }),
     }
 
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
