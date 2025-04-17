@@ -8,7 +8,11 @@ return {
       { "hrsh7th/cmp-buffer" },  -- バッファ補完
       { "hrsh7th/cmp-path" },  -- パス補完
       -- { "hrsh7th/vim-vsnip" },  -- スニペット補完
-      { "L3MON4D3/LuaSnip" },  -- スニペットエンジン
+      {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        build = "make install_jsregexp",
+      },  -- スニペットエンジン
       { "saadparwaiz1/cmp_luasnip" },  -- cmp と luasnip の連携
       { "onsails/lspkind.nvim" },
     },
