@@ -1,8 +1,7 @@
 -- Language Serverの進捗を右下に表示する
 return {
   "j-hui/fidget.nvim",
-  tag="legacy",
-  event = { "LspAttach" },
+  enabled = true,
   ops = {
     progress = {
       poll_rate            = 0,
