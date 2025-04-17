@@ -2,14 +2,26 @@ if vim.g.vscode then
   return {}
 else
   vim.cmd([[cab cc CodeCompanion]])
+  vim.cmd([[cab cca CodeCompanionActions]])
   return {
     {
       "olimorris/codecompanion.nvim",
       cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
       keys = {
-        { "<Leader>cf", "<cmd>CodeCompanion<CR>",            mode = {"n", "v"}, desc = "ユーザプロンプトを入力" },
-        { "<Leader>ca", "<Cmd>CodeCompanionActions<CR>",     mode = {"n", "v"}, desc = "Copilot アクションリストを表示" },
-        { "<Leader>cc", "<Cmd>CodeCompanionChat Toggle<CR>", mode = {"n", "v"}, desc = "Copilot Chat をトグル" },
+        { "<Leader>ca", "<Cmd>CodeCompanionActions<CR>",     mode = {"n", "v"}, desc = "LLMアクションリストを表示" },
+        { "<Leader>cc", "<Cmd>CodeCompanionChat Toggle<CR>", mode = {"n", "v"}, desc = "LLMとのChatをトグル" },
+        { "<Leader>cf", function() require("codecompanion").prompt("fix") end, mode = "v", desc = "LLMで選択範囲を修正する" },
+        { "<Leader>ce", function() require("codecompanion").prompt("explain") end, mode = "v", desc = "LLMで選択範囲を実装内容を説明する" },
+        { "<Leader>cl", function() require("codecompanion").prompt("lsp") end, mode = "v", desc = "LLMで選択範囲をLSPの診断結果を表示する" },
+        { "<Leader>cm", function()
+          -- 差分がなければメッセージ表示して終了する
+          local diff = vim.fn.system("git diff --no-ext-diff --staged")
+          if diff == "" then
+            vim.notify("ステージされた差分がないため、コミットメッセージを生成できません。", vim.log.levels.WARN)
+            return
+          end
+          require("codecompanion").prompt("commit")
+        end, mode = "n", desc = "LLM でコミットメッセージを生成する"}
       },
       -- CodeCompanion の進捗をfidget で表示する場合
       -- init = function()
@@ -27,7 +39,6 @@ else
               return require("codecompanion.adapters").extend("copilot", {
                 schema = {
                   model = {
-                    -- FIXME: claude を指定するとBad Request になる
                     default = "claude-3.7-sonnet",
                     -- default = "claude-3.5-sonnet",
                     -- default = "gpt-4o",
@@ -39,57 +50,48 @@ else
           },
           -- 独自のプロンプト定義
           prompt_library = {
-            ["Review"] = {
-              strategy = "inline",
-              description = "Review the codes",
+            -- FIXME: キーマップから呼ぶとエラーになる...
+            ["Generate Semantic Commit Message"] = {
+              strategy = "chat",
+              description = "Generate a semantic commit message from the diff.",
               opts = {
+                short_name = "semantic_commit",
                 auto_submit = true,
+              },
+              prompts = {
+                role = "user",
+                content = function()
+                  local diff = vim.fn.system("git diff --no-ext-diff --staged")
+                  vim.print(diff)
+                  local prompt = string.format(
+                    [[あなたは優秀なソフトウェアエンジニアです。以下の変更に対して、適切なコミットメッセージを生成してください。
+このとき以下のルールを厳守してください。
+ルール:
+  - Semantic Commit Message の形式にする。
+  - コミットメッセージは英語で記述する。
 
-              },
-              prompts = {
-                {
-                  role = "system",
-                  content = "あなたは優秀なフルスタックソフトウェアエンジニアです。あなたの仕事は、コードをレビューし、問題点を指摘し、改善点を提案することです。",
+```diff
+%s
+```
+]], "hoge")
+                  vim.print(prompt)
+                  return "hoge"
+                end,
+                opts = {
+                  contains_code = true,
                 },
-                {
-                  role = "user",
-                  content = function(context)
-                    vim.print(context)
-                    return "以下のコードをレビューしてください。問題が見つかった場合は改善点を提案してください。\n\n" .. "#buffer"
-                  end
-                }
-              }
+              },
             },
-            ["Refactor"] = {
-              strategy = "inline",
-              description = "Refactor the codes",
-              opts = {
-                auto_submit = true,
-              },
-              prompts = {
-                {
-                  role = "system",
-                  content = "あなたは優秀なフルスタックソフトウェアエンジニアです。あなたの仕事は、コードをリファクタリングし、改善点を提案することです。",
-                },
-                {
-                  role = "user",
-                  content = function(context)
-                    vim.print(context)
-                    return "以下のコードをリファクタリングしてください。改善点があれば提案してください。\n\n" .. "#buffer"
-                  end
-                }
-              }
-            }
           },
           strategies = {
             chat = {
               adapter = "copilot",
-              -- roles = {
-              --   llm = function(adapter)
-              --     return " CodeCompanion (" .. adapter.formatted_name .. ") "
-              --   end,
-              --   user = " Me "
-              -- },
+              roles = {
+                llm = function(adapter)
+                  return " " .. adapter.formatted_name .. ":"  -- NOTE: 末尾に半角スペースを入れるとエラーになる
+                end,
+                user = " Me:"
+              },
               slash_commands = {
                 ["buffer"] = {
                   opts = { provider = "snacks" },
@@ -154,6 +156,14 @@ else
                 height = 0.5,
                 width = 0.5,
                 relative = "editor",
+              }
+            },
+            action_palette = {
+              opts = {
+                -- Show the default actions in the action palette?
+                show_default_actions = true,
+                -- Show the default prompt library in the action palette?
+                show_default_prompt_library = true,
               }
             }
           }
