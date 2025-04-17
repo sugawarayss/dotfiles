@@ -2,12 +2,25 @@
   "main": {
     "prefix": ".main",
     "body": [
-      "if __name__ == \"__main__\":"
-    ]
+      "def main():",
+      "    $1",
+    ],
+    "description": "Python main function"
+  },
+  "entrypoint": {
+    "prefix": ".entrypoint",
+    "body": [
+      "if __name__ == \"__main__\":",
+      "    $1"
+    ],
+    "description": "Python entry point"
   },
   "time_measure": {
     "prefix": ".time",
     "body": [
+      "from typing import Callable, Any",
+      "",
+      "",
       "def measure_time(func: Callable) -> Any:",
       "    \"\"\"",
       "    関数の実行時間を計測するデコレータ",
