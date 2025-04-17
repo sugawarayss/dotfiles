@@ -5,7 +5,7 @@ return {
   config = function()
     require("copilot").setup({
       panel = {
-        enabled                = true,
+        enabled                = false,
         auto_refresh           = false,
         keymap                 = {
           jump_prev            = "[[",
@@ -24,6 +24,7 @@ return {
         auto_trigger           = true,
         hide_during_completion = true,
         debounce               = 75,
+        trigger_on_accept      = true,
         keymap                 = {
           accept               = "<M-l>",
           accept_word          = false,
@@ -44,7 +45,18 @@ return {
         cvs                    = false,
         ["."]                  = false,
       },
+      auth_provider_url        = nil,
+      logger = {
+        file                   = vim.fn.stdpath("log") .. "/copilot-lua.log",
+        file_log_level         = vim.log.levels.OFF,
+        print_log_level        = vim.log.levels.WARN,
+        trace_lsp              = "off",
+        trace_lsp_progress     = false,
+        log_lsp_messages       = false,
+      },
       copilot_node_command     = "node",
+      workspace_folders        = {},
+      copilot_model            = "gpt-4o-copilot",
       server_opts_overrides    = {},
     })
   end,
