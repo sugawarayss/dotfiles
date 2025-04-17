@@ -140,7 +140,7 @@ else
               show_settings = false,
               show_token_count = true,
               start_in_insert_mode = false,
-              auto_scroll = false,
+              auto_scroll = true,
               -- デフォルトアイコンの設定
               icons = {
                 pinned_buffer = " ",
