@@ -18,7 +18,8 @@ return {
   -- google/budox で日本語の単語区切りで移動できるように
   {
     "atusy/budouxify.nvim",
-    enable = true,
+    -- 有効にすると vim-smartword での移動のレスポンスが悪くなるので無効化
+    enabled = false,
     dependencies = {
       "atusy/budoux.lua",
     },
