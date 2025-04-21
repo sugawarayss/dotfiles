@@ -20,7 +20,7 @@ else
             vim.notify("ステージされた差分がないため、コミットメッセージを生成できません。", vim.log.levels.WARN)
             return
           end
-          require("codecompanion").prompt("commit")
+          require("codecompanion").prompt("semantic_commit")
         end, mode = "n", desc = "LLM でコミットメッセージを生成する"}
       },
       -- CodeCompanion の進捗をfidget で表示する場合
@@ -50,35 +50,46 @@ else
           },
           -- 独自のプロンプト定義
           prompt_library = {
-            -- FIXME: キーマップから呼ぶとエラーになる...
             ["Generate Semantic Commit Message"] = {
               strategy = "chat",
               description = "Generate a semantic commit message from the diff.",
               opts = {
+                index = 9,
+                is_slash_cmd = true,
                 short_name = "semantic_commit",
                 auto_submit = true,
               },
               prompts = {
-                role = "user",
-                content = function()
-                  local diff = vim.fn.system("git diff --no-ext-diff --staged")
-                  vim.print(diff)
-                  local prompt = string.format(
-                    [[あなたは優秀なソフトウェアエンジニアです。以下の変更に対して、適切なコミットメッセージを生成してください。
-このとき以下のルールを厳守してください。
-ルール:
-  - Semantic Commit Message の形式にする。
-  - コミットメッセージは英語で記述する。
+                {
+                  role = "user",
+                  content = function()
+                      local diff = vim.fn.system("git diff --no-ext-diff --staged")
+                      local prompt = string.format(
+                      [[あなたは優秀なソフトウェアエンジニアです。以下の差分(`git diff`の結果) を理解し、制約条件を厳守して適切なコミットメッセージを生成してください。
+差分:
 
 ```diff
 %s
 ```
-]], "hoge")
-                  vim.print(prompt)
-                  return "hoge"
-                end,
-                opts = {
-                  contains_code = true,
+
+制約条件:
+  - Semantic Commit Message (`<type>: <subject>`)の形式にする。
+    - <type> は 以下のいずれかを選択すること。
+      - feat: 新機能の追加
+      - fix: バグ修正
+      - docs: ドキュメントの追加や変更
+      - style: フォーマット、セミコロンなどの変更（コードの動作に影響しない）
+      - refactor: リファクタリング（機能追加やバグ修正を伴わない）
+      - perf: パフォーマンス改善
+      - test: テストコードの追加や修正
+      - chore: ビルドプロセスや補助ツールの変更
+    - <subject> は変更内容を説明する簡潔な英語の文章にすること。
+]], diff)
+                      return prompt
+                  end,
+                  opts = {
+                    contains_code = true,
+                  },
                 },
               },
             },
