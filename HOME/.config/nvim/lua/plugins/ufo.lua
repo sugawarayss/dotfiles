@@ -47,8 +47,8 @@ return {
     { "zm", function() require("ufo").closeAllFolds() end, mode = "n", desc = "すべてを折り畳み" },
   },
   config = function()
-    vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])
-    vim.api.nvim_set_option("foldcolumn", "2")
+    vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])
+    vim.api.nvim_set_option("foldcolumn", "1")
     vim.api.nvim_set_option("foldlevel", 99)
     vim.api.nvim_set_option("foldlevelstart", 99)
     vim.api.nvim_set_option("foldenable", true)
