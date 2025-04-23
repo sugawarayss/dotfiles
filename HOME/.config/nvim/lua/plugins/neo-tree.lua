@@ -2,6 +2,7 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     branch = "v3.x",
     keys = {
       -- { "<C-t><C-t>", ":Neotree toggle<CR>", mode = "n", desc = "ファイルエクスプローラをトグル" },
