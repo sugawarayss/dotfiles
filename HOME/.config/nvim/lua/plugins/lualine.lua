@@ -57,10 +57,10 @@ if not vim.g.vscode then
                 color = { fg = color_palette.magenta2 }, -- #ff007c
               },
               -- Copilotの進捗状況の表示
-              {
-                require("plugins.spinners.cc-compontnt"),
-                color = { fg = color_palette.orange }, -- #ff966c
-              },
+              -- {
+              --   require("plugins.spinners.cc-compontnt"),
+              --   color = { fg = color_palette.orange }, -- #ff966c
+              -- },
               -- Language Server の起動状況
               "lsp-status"
             },

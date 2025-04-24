@@ -24,9 +24,9 @@ else
         end, mode = "n", desc = "LLM でコミットメッセージを生成する"}
       },
       -- CodeCompanion の進捗をfidget で表示する場合
-      -- init = function()
-      --   require("plugins.spinners.fidget-cc-spinner"):init()
-      -- end,
+      init = function()
+        require("plugins.spinners.fidget-cc-spinner"):init()
+      end,
       config = function()
         require("codecompanion").setup({
           opts = {
