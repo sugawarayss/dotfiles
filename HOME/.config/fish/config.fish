@@ -172,6 +172,13 @@ complete -c aws -f -a '(
   end
 )'
 
+###################
+# function の定義 #
+###################
+function notify
+  echo "command execution is finished" | say -v Ava
+end
+
 #################
 # Plugin の設定 #
 #################
