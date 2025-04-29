@@ -4,8 +4,8 @@ if vim.g.vscode then
   vim.keymap.set("n", "<Leader><Leader>", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
 
   -- タブ移動
-  vim.keymap.set("n", "H", "<Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>")
-  vim.keymap.set("n", "L", "<Cmd>call VSCodeNotify('workbench.action.nextEditor')<CR>")
+  vim.keymap.set("n", "<C-]>", "<Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>")
+  vim.keymap.set("n", "<C-[>", "<Cmd>call VSCodeNotify('workbench.action.nextEditor')<CR>")
 
   -- 画面の分割
   vim.keymap.set("n", "ssj", "<Cmd>call VSCodeNotify('workbench.action.splitEditorDown')<CR>")
