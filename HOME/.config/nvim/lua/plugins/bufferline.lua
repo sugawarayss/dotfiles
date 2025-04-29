@@ -7,8 +7,8 @@ if not vim.g.vscode then
       lazy = true,
       event = { "BufReadPre" },
       keys = {
-        {"<C-]>",         "<Cmd>BufferLineCycleNext<CR>",  mode = "n", { noremap = true, silent = true }, desc = "次のバッファを表示"},
-        {"<C-[>",         "<Cmd>BufferLineCyclePrev<CR>",  mode = "n", { noremap = true, silent = true }, desc = "前のバッファを表示" },
+        {"L",         "<Cmd>BufferLineCycleNext<CR>",  mode = "n", { noremap = true, silent = true }, desc = "次のバッファを表示"},
+        {"H",         "<Cmd>BufferLineCyclePrev<CR>",  mode = "n", { noremap = true, silent = true }, desc = "前のバッファを表示" },
         {"<Leader>h", "<Cmd>BufferLineMovePrev<CR>",   mode = "n", { noremap = true, silent = true }, desc = "バッファを左に移動"},
         {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>",   mode = "n", { noremap = true, silent = true }, desc = "バッファを右に移動"},
         {"<C-H>",     "<Cmd>BufferLineCloseLeft<CR>",  mode = "n", { noremap = true, silent = true }, desc = "左のバッファを閉じる"},
