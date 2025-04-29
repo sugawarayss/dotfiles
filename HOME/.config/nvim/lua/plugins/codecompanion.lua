@@ -165,7 +165,7 @@ else
                 position = "right", -- left|right|top|bottom|nil
                 border = "double",
                 height = 0.5,
-                width = 0.5,
+                width = 0.4,
                 relative = "editor",
               }
             },
