@@ -68,13 +68,13 @@ return {
           if vim.wo.diff then return "]c" end
           vim.schedule(function() gs.next_hunk() end)
           return "<Ignore>"
-        end, { expr = true })
+        end, { expr = true, desc = "次のHunkに移動" })
 
         map("n", "[c", function()
           if vim.wo.diff then return "[c" end
           vim.schedule(function() gs.prev_hunk() end)
           return "<Ignore>"
-        end, { expr = true })
+        end, { expr = true, desc = "前のHunkに移動" })
 
         -- Actions
         -- map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>",      { desc = "カーソル位置の変更をステージする" })
@@ -82,10 +82,10 @@ return {
         -- map("n",          "<leader>hS", gs.stage_buffer,                 { desc = "バッファのすべての変更をステージする" })
         -- map("n",          "<leader>hu", gs.undo_stage_hunk,              { desc = "直近の変更ステージを取り消す" })
         -- map("n",          "<leader>hR", gs.reset_buffer,                 { desc = "バッファのすべての変更をリセットする" })
-        map("n",          "<leader>hp", gs.preview_hunk,                 { desc = "カーソル位置の変更内容をプレビューする" })
-        map("n",          "<leader>hd", gs.diffthis,                     { desc = "diff表示をトグル" })
-        map("n",          "<leader>hD", function() gs.diffthis("~") end, { desc = "HEADとのdiff表示をトグル" })
-        map("n",          "<leader>td", gs.toggle_deleted,               { desc = "削除されたファイルのdiff表示をトグル" })
+        -- map("n",          "<leader>hp", gs.preview_hunk,                 { desc = "カーソル位置の変更内容をプレビューする" })
+        -- map("n",          "<leader>hd", gs.diffthis,                     { desc = "diff表示をトグル" })
+        -- map("n",          "<leader>hD", function() gs.diffthis("~") end, { desc = "HEADとのdiff表示をトグル" })
+        -- map("n",          "<leader>td", gs.toggle_deleted,               { desc = "削除されたファイルのdiff表示をトグル" })
 
         -- Text object
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
