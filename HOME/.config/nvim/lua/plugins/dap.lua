@@ -17,8 +17,8 @@ return {
     { "<Leader>tm",     ":lua require('dap-python').test_method()<CR>",                                             mode = "n", desc = "テストメソッドにジャンプ" },
     { "<Leader>tc",     ":lua require('dap-python').test_class()<CR>",                                              mode = "n", desc = "テストクラスにジャンプ" },
     { "<Leader>ts",     "<ESC>:lua require('dap-python').debug_selection()<CR>",                                    mode = "v", desc = "選択範囲のpythonコードをデバッグ開始" },
-    { "<M-b><M-b>",     ":DapToggleBreakpoint<CR>",                                                                 mode = "n", desc = "ブレークポイントをトグル" },
-    { "<M-S-b><M-S-b>", ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Breakpoint condition: '))<CR>", mode = "n", desc = "条件付きブレークポイントをセット" },
+    { "<C-b><C-b>",     ":DapToggleBreakpoint<CR>",                                                                 mode = "n", desc = "ブレークポイントをトグル" },
+    { "<C-S-b><C-S-b>", ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Breakpoint condition: '))<CR>", mode = "n", desc = "条件付きブレークポイントをセット" },
     { "<leader>lp",     ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",    mode = "n", desc = "ブレークポイントをセット" },
     { "<leader>dr",     ":lua require('dap').repl.open()<CR>",                                                      mode = "n", desc = "REPL でデバッグを開始" },
     { "<leader>dl",     ":lua require('dap').run_last()<CR>",                                                       mode = "n", desc = "Debug run last" },
@@ -48,9 +48,10 @@ return {
         }
       }
     })
-    local debugpy_path = require("mason-registry").get_package("debugpy"):get_install_path()
-    require("dap-python").setup(debugpy_path .. "/venv/bin/python")
-    require("dap-python").test_runner = "pytest"
+    -- local debugpy_path = require("mason-registry").get_package("debugpy"):get_install_path()
+    -- require("dap-python").setup(debugpy_path .. "/venv/bin/python")
+    -- require("dap-python").test_runner = "pytest"
+    require("dap-python").setup("uv")
 
     table.insert(require("dap").configurations.python, {
       type = "python",

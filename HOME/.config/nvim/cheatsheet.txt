@@ -186,8 +186,8 @@ lazygit を開く                                      | <Leader>gg
 
 ## Debugger
 デバッグUIを表示する                                | <Leader>db
-ブレークポイントをトグル                            | <M-b><M-b>
-条件付きブレークポイントを付与                      | <M-S-b><M-S-b>
+ブレークポイントをトグル                            | <C-b><C-b>
+条件付きブレークポイントを付与                      | <C-S-b><C-S-b>
 ログ出力付きブレークポイントを付与                  | <Leader>lp
 REPL を起動                                         | <Leader>dr
 最新をデバッグを再実行                              | <Leader>dl
