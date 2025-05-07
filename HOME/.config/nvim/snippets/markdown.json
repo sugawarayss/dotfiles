@@ -27,7 +27,7 @@
       "| ${1:row name1} | ${2:row name2} | ${3:row name3} |"
     ],
     "description": "Table Row"
-  }
+  },
   "details": {
     "prefix": ".details",
     "body": [
@@ -41,7 +41,7 @@
     "description": "Summary"
   },
   "warning-call-out": {
-    "prefix": ".warning",
+    "prefix": ".callout-warning",
     "body": [
       "> [!WARNING]",
       "> ",
@@ -50,7 +50,7 @@
     "description": "Call-out Warning"
   },
   "note-call-out": {
-    "prefix": ".note",
+    "prefix": ".callout-note",
     "body": [
       "> [!NOTE]",
       "> ",

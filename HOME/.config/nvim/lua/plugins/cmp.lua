@@ -12,16 +12,25 @@ return {
         "L3MON4D3/LuaSnip",
         version = "v2.*",
         build = "make install_jsregexp",
+        config = function()
+          vim.keymap.set("n", "<C-s><C-s>", function()
+            require("luasnip.loaders").edit_snippet_files()
+          end, { desc = "スニペットを編集" })
+          require("luasnip.loaders/from_vscode").lazy_load({ paths = {"./snippets"} })
+        end
       },  -- スニペットエンジン
       { "saadparwaiz1/cmp_luasnip" },  -- cmp と luasnip の連携
       { "onsails/lspkind.nvim" },
+    },
+    keys = {
+      -- { "<C-s><C-s>", require("luasnip.loaders").edit_snippet_files, mode = "n", desc = "スニペットを編集" },
     },
     config = function()
       local cmp = require("cmp")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       local lspkind = require("lspkind")
       local luasnip = require("luasnip")
-      require("luasnip.loaders/from_vscode").lazy_load({ paths = {"./snippets"} })
+      -- require("luasnip.loaders/from_vscode").lazy_load({ paths = {"./snippets"} })
 
       cmp.setup({
         formatting = {
@@ -43,8 +52,8 @@ return {
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            -- require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
             -- require("snippy").expand_snippet(args.body) -- For `snippy` users.
             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
           end,
@@ -64,7 +73,35 @@ return {
           ["<C-f>"]     = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"]     = cmp.mapping.abort(),
-          ["<CR>"]      = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<CR>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              if luasnip.expandable() then
+                luasnip.expand()
+              else
+                cmp.confirm({ select = true })
+              end
+            else
+              fallback()
+            end
+          end),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.locally_jumpable(1) then
+              luasnip.jump(1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
