@@ -254,63 +254,32 @@ return {
 
       local mason_lspconfig = require("mason-lspconfig")
       mason_lspconfig.setup({
+        automatic_enable = false,
         automatic_installation = true,
         -- LSP install
         ensure_installed = lsp_servers,
       })
-      local nvim_lsp = require("lspconfig")
-      mason_lspconfig.setup_handlers({
-        function(server)
-          if server == "rust_analyzer" then
-            return true
-          end
-          local opt = {
-            -- Function executed when the LSP server startup
-            on_attach = my_on_attach,
-            capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-            settings = lsp_server_settings[server],
-            filetypes = (lsp_server_settings[server] or {}).filetypes,
-          }
-          -- node.js と deno が競合しないようにする
-          local node_root_dir = nvim_lsp.util.root_pattern("package.json")
-          local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
-          if server == "ts_ls" then
-            if not is_node_repo then
-              return
-            end
-            opt.on_attach = function(client, bufnr)
-              -- client.resolved_capabilities.document_formatting = false
-              my_on_attach(client, bufnr)
-            end
-            opt.root_dir = node_root_dir
-          elseif server == "denols" then
-            if is_node_repo then
-              return
-            end
-            opt.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
-            opt.init_options = {
-              lint = true,
-              unstable = true,
-              suggest = {
-                imports = {
-                  hosts = {
-                    ["https://deno.land"] = true,
-                    ["https://cdn.nest.land"] = true,
-                    ["https://crux.land"] = true,
-                  },
-                },
-              },
-            }
-          end
-
-          nvim_lsp[server].setup(opt)
-          require("mason-null-ls").setup({
-            automatic_setup = true,
-            automatic_installation = true,
-            ensure_installed = vim.tbl_flatten({ formatters, diagnostics, dap_adapters }),
-          })
-        end,
+      require("mason-null-ls").setup({
+        automatic_setup = true,
+        automatic_installation = true,
+        ensure_installed = vim.tbl_flatten({ formatters, diagnostics, dap_adapters }),
       })
+
+      -- NOTE: LSP共通設定
+      vim.lsp.config("*", {
+        -- 共通設定
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      })
+      -- LSPサーバ別に settings を lsp_server_settingsから設定する
+      -- TODO: node.js と deno が競合しないようにする
+      for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
+        require("lspconfig")[server].setup({
+          on_attach = my_on_attach,
+          settings = lsp_server_settings[server],
+          filetypes = (lsp_server_settings[server] or {}).filetypes,
+        })
+      end
+      vim.lsp.enable(require("mason-lspconfig").get_installed_servers())
     end
   },
   {
