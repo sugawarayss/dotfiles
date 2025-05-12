@@ -147,13 +147,13 @@ return {
     end
   },
   -- Github Copilotのサジェストを補完リストに表示する
-  {
-    "zbirenbaum/copilot-cmp",
-    config = function()
-      require("copilot_cmp").setup({
-        suggestion = { enabled = true },
-        panel = { enabled = true }
-      })
-    end
-  }
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   config = function()
+  --     require("copilot_cmp").setup({
+  --       suggestion = { enabled = true },
+  --       panel = { enabled = true }
+  --     })
+  --   end
+  -- }
 }
