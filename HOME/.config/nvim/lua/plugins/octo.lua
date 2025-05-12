@@ -3,7 +3,7 @@ if not vim.g.vscode then
   return {
     {
       "pwntester/octo.nvim",
-      enabled = false,
+      enabled = true,
       -- dependencies = {
         -- { "nvim-telescope/telescope.nvim" },
         -- { "nvim-tree/nvim-web-devicons" },
