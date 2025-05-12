@@ -98,6 +98,9 @@ local dap_adapters = {
 }
 
 local my_on_attach = function(client, bufnr)
+  local is_node_dir = function()
+    return require("lspconfig").util.root_pattern('package.json')(vim.fn.getcwd())
+  end
   for _, value in pairs(lsp_servers) do
     if client == value then
       -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -123,6 +126,17 @@ local my_on_attach = function(client, bufnr)
   if client ~= "ruff" then
     -- インラインヒント
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
+  if is_node_dir() then
+    if client.name == "denols" then
+      vim.print("[LSP] ts_ls: run, denols: stop")
+      client.stop(true)
+    end
+  else
+    if client.name == "ts_ls" then
+      vim.print("[LSP] ts_ls: stop, denols: run")
+      client.stop(true)
+    end
   end
 end
 -- 各:withLSPサーバの設定
@@ -271,7 +285,6 @@ return {
         capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
       })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
-      -- TODO: node.js と deno が競合しないようにする
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
         require("lspconfig")[server].setup({
           on_attach = my_on_attach,
