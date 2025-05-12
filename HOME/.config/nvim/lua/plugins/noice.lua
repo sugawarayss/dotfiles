@@ -10,6 +10,16 @@ if not vim.g.vscode then
       },
       config = function()
         vim.opt.cmdheight = 0
+        local ok, extui = pcall(require, "vim._extui")
+        if ok then
+          extui.enable({
+            enable = true,
+            msg = {
+              pos = "cmd",
+              box = { timeout = 5000 },
+            },
+          })
+        end
 
         require("noice").setup({
           theme = "tokyonight",
