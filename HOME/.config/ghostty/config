@@ -20,6 +20,8 @@ cursor-style-blink = true
 ############
 # KeyBinds #
 ############
+#
+macos-option-as-alt = true
 # ホットキーウィンドウの設定
 quick-terminal-position = "top"
 quick-terminal-screen = "main"
