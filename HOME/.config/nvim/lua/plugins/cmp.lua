@@ -4,9 +4,11 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
+      { "f3fora/cmp-spell" },  -- 英語入力時のスペル補完ソース
       { "hrsh7th/cmp-nvim-lsp" },  -- LSP補完
       { "hrsh7th/cmp-buffer" },  -- バッファ補完
       { "hrsh7th/cmp-path" },  -- パス補完
+      { "hrsh7th/cmp-cmdline" }, -- コマンドライン入力の補完ソース
       -- { "hrsh7th/vim-vsnip" },  -- スニペット補完
       {
         "L3MON4D3/LuaSnip",
@@ -45,7 +47,8 @@ return {
               nvim_lua      = "[Lua]",
               latex_symbols = "[Latex]",
               Copilot       = "[Copilot]",
-
+              path          = "[Path]",
+              cmdline       = "[Cmdline]",
             }),
           })
         },
@@ -112,6 +115,17 @@ return {
         }, {
           { name = "buffer" },
           { name = "path" },
+          { name = "cmdline"},
+          {
+              name = "spell",
+              option = {
+                keep_all_entries = false,
+                enable_in_context = function()
+                  return true
+                end,
+                preselect_correct_word = true,
+              },
+          },
           { name = "copilot" },
         }),
         experimental = {
