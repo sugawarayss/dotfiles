@@ -61,6 +61,9 @@ if not vim.g.vscode then
               --   require("plugins.spinners.cc-compontnt"),
               --   color = { fg = color_palette.orange }, -- #ff966c
               -- },
+
+              -- MCPサーバの起動状況
+              {require("mcphub.extensions.lualine")},
               -- Language Server の起動状況
               "lsp-status"
             },

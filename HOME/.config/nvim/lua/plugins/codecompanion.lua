@@ -28,6 +28,8 @@ else
         require("plugins.spinners.fidget-cc-spinner"):init()
       end,
       config = function()
+        -- mcphub.nvim 用の設定
+        vim.g.mcphub_auto_approve = true
         require("codecompanion").setup({
           opts = {
             language = "Japanese",
@@ -175,6 +177,16 @@ else
                 show_default_actions = true,
                 -- Show the default prompt library in the action palette?
                 show_default_prompt_library = true,
+              }
+            }
+          },
+          extensions = {
+            mcphub = {
+              callback = "mcphub.extensions.codecompanion",
+              opts = {
+                show_result_in_chat = true,
+                make_vars = true,
+                make_slash_commands = true,
               }
             }
           }
