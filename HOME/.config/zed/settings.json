@@ -7,237 +7,263 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "assistant": {
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-3-7-sonnet"
+    "agent": {
+        "default_model": {
+            "provider": "copilot_chat",
+            "model": "claude-3.7-sonnet"
+        },
+        "version": "2"
     },
-    "version": "2"
-  },
-  "features": {
-    "edit_prediction_provider": "copilot"
-  },
-  "base_keymap": "JetBrains",
-  "telemetry": {
-    "metrics": false, // メトリクスの送信
-    "diagnostics": false // ダイアグノスティックの送信
-  },
-  //"confirm_quit": true, // 終了時の確認
-  // UI のフォント設定
-  "ui_font_size": 15,
-  "ui_font_family": "Hack Nerd Font",
-  "ui_font_fallbacks": ["HackGen Console NF"],
-  // エディタのフォント設定
-  "buffer_font_size": 13,
-  // フォント設定
-  "buffer_font_family": "Hack Nerd Font",
-  "buffer_font_fallbacks": ["HackGen Console NF"],
-  "buffer_line_height": "standard",
-  // カラーテーマ
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "Nightfox"
-  },
-  "icon_theme": {
-    "mode": "system",
-    "light": "Zed (Default)",
-    "dark": "Material Icon Theme"
-  },
-  "tabs": {
-    "git_status": true,
-    "file_icons": true
-  },
-  "file_finder": {
-    "modal_max_width": "large"
-  },
-  "scrollbar": {
-    // スクロールバーの設定
-    "show": "always",
-    "cursors": true, // カーソルの位置にスクロールバーを表示
-    "git_diff": true, // Git の差分の表示
-    "search_results": true, // 検索結果のハイライト
-    "selected_text": true, // 選択されたテキストのハイライト
-    "selected_symbol": true, // 選択されたシンボルのハイライト
-    "diagnostics": "all", // 診断結果の表示
-    "axes": {
-      "horizontal": true,
-      "vertical": true
-    }
-  },
-  "vim_mode": true, // Vim モードの有効化
-  "vim": {
-    "use_system_clipboard": "always", // システムクリップボードの使用
-    "use_multiline_find": true, // 検索時に複数行を検索する
-    "use_smartcase_find": true, // 検索時に大文字小文字を区別しない
-    "toggle_relative_line_numbers": true // 相対行数と絶対行数の切り替え
-  },
-  "show_whitespaces": "boundary", // 空白文字の表示
-  "current_line_highlight": "all", // 現在行のハイライト
-  "selection_highlight": true, // 選択範囲のハイライト
-  "cursor_blink": true, // カーソルの点滅
-  "cursor_shape": "bar", // カーソルの形状
-  "indent_guides": {
-    "enabled": true,
-    "line_width": 1, // インデントガイドの幅
-    "active_line_width": 2, // アクティブな行のインデントガイドの幅
-    "coloring": "indent_aware", // インデントガイドの色
-    "background_coloring": "disabled" // インデントガイドの背景色
-  },
-  "use_smartcase_search": true,
+    "features": {
+        "edit_prediction_provider": "copilot"
+    },
+    "base_keymap": "JetBrains",
+    "telemetry": {
+        "metrics": false, // メトリクスの送信
+        "diagnostics": false // ダイアグノスティックの送信
+    },
+    //"confirm_quit": true, // 終了時の確認
+    // UI のフォント設定
+    "ui_font_size": 15,
+    "ui_font_family": "Hack Nerd Font",
+    "ui_font_fallbacks": ["HackGen Console NF"],
+    // エディタのフォント設定
+    "buffer_font_size": 15,
+    // フォント設定
+    "buffer_font_family": "Hack Nerd Font",
+    "buffer_font_fallbacks": ["HackGen Console NF"],
+    "buffer_line_height": "standard",
+    // カラーテーマ
+    "theme": {
+        "mode": "system",
+        "light": "One Light",
+        "dark": "Catppuccin Mocha"
+    },
+    "icon_theme": {
+        "mode": "system",
+        "light": "Zed (Default)",
+        "dark": "Material Icon Theme"
+    },
+    "tabs": {
+        "git_status": true,
+        "file_icons": true
+    },
+    "file_finder": {
+        "modal_max_width": "large"
+    },
+    "scrollbar": {
+        // スクロールバーの設定
+        "show": "always",
+        "cursors": true, // カーソルの位置にスクロールバーを表示
+        "git_diff": true, // Git の差分の表示
+        "search_results": true, // 検索結果のハイライト
+        "selected_text": true, // 選択されたテキストのハイライト
+        "selected_symbol": true, // 選択されたシンボルのハイライト
+        "diagnostics": "all", // 診断結果の表示
+        "axes": {
+            "horizontal": true,
+            "vertical": true
+        }
+    },
+    "vim_mode": true, // Vim モードの有効化
+    "vim": {
+        "use_system_clipboard": "always", // システムクリップボードの使用
+        "use_multiline_find": true, // 検索時に複数行を検索する
+        "use_smartcase_find": true, // 検索時に大文字小文字を区別しない
+        "toggle_relative_line_numbers": true // 相対行数と絶対行数の切り替え
+    },
+    "show_whitespaces": "boundary", // 空白文字の表示
+    "current_line_highlight": "all", // 現在行のハイライト
+    "selection_highlight": true, // 選択範囲のハイライト
+    "cursor_blink": true, // カーソルの点滅
+    "cursor_shape": "bar", // カーソルの形状
+    "indent_guides": {
+        "enabled": true,
+        "line_width": 1, // インデントガイドの幅
+        "active_line_width": 2, // アクティブな行のインデントガイドの幅
+        "coloring": "indent_aware", // インデントガイドの色
+        "background_coloring": "disabled" // インデントガイドの背景色
+    },
+    "use_smartcase_search": true,
 
-  // インレイヒントの設定
-  "inlay_hints": {
-    "enabled": true,
-    "show_type_hints": true, // 型ヒントの表示
-    "show_parameter_hints": true, // パラメーターヒントの表示
-    "show_other_hints": true, // その他のヒントの表示
-    "show_background": true, // ヒントの背景色の表示
-    "edit_debounce_ms": 700, // ヒントの表示までの待機時間
-    "scroll_debounce_ms": 50 // ヒントのスクロールまでの待機時間
-  },
-  "terminal": {
-    "font_size": 13,
-    "font_family": "Hack Nerd Font",
-    "font_fallbacks": ["HackGen Console NF"],
-    "line_height": {
-      "custom": 1.2
+    // インレイヒントの設定
+    "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": true, // 型ヒントの表示
+        "show_parameter_hints": true, // パラメーターヒントの表示
+        "show_other_hints": true, // その他のヒントの表示
+        "show_background": true, // ヒントの背景色の表示
+        "edit_debounce_ms": 700, // ヒントの表示までの待機時間
+        "scroll_debounce_ms": 50 // ヒントのスクロールまでの待機時間
     },
-    "working_directory": "current_project_directory", // ターミナルの作業ディレクトリ
-    "env": {
-      "LANG": "ja_JP.UTF-8",
-      "LC_ALL": "ja_JP.UTF-8"
-    }
-  },
-  "diagnostics": {
-    "include_warnings": true,
-    "update_with_cursor": true,
-    "primary_only": false,
-    "use_rendered": true,
-    "inline": {
-      "enabled": true,
-      "update_debounce_ms": 150,
-      "padding": 4,
-      "min_column": 0,
-      "max_severity": null
-    }
-  },
-  "languages": {
-    "Python": {
-      "enable_language_server": true,
-      "preferred_line_length": 150,
-      "show_whitespaces": "all",
-      "language_servers": ["ruff"],
-      "format_on_save": "on",
-      "formatter": [
-        {
-          "language_server": {
-            "name": "ruff"
-          }
+    "terminal": {
+        "font_size": 13,
+        "font_family": "Hack Nerd Font",
+        "font_fallbacks": ["HackGen Console NF"],
+        "line_height": {
+            "custom": 1.2
+        },
+        "working_directory": "current_project_directory", // ターミナルの作業ディレクトリ
+        "env": {
+            "LANG": "ja_JP.UTF-8",
+            "LC_ALL": "ja_JP.UTF-8"
         }
-      ]
     },
-    "Lua": {
-      "format_on_save": "on",
-      "formatter": "language_server"
-    },
-    "Markdown": {
-      "format_on_save": "on",
-      "remove_trailing_whitespace_on_save": true
-    },
-    "JSON": {
-      "format_on_save": "on",
-      "formatter": "language_server"
-    },
-    "TOML": {
-      "format_on_save": "on",
-      "formatter": "language_server"
-    },
-    "YAML": {
-      "format_on_save": "on",
-      "formatter": "language_server"
-    }
-  },
-  "lsp": {
-    "lsp": {
-      "rust-analyzer": {
-        "initialization_options": {
-          "inlayHints": {
-            "maxLength": null,
-            "lifetimeElisionHints": {
-              "enable": "skip_trivial",
-              "useParameterNames": true
-            },
-            "closureReturnTypeHints": {
-              "enable": "always"
-            }
-          }
+    "diagnostics": {
+        "include_warnings": true,
+        "update_with_cursor": true,
+        "primary_only": false,
+        "use_rendered": true,
+        "inline": {
+            "enabled": true,
+            "update_debounce_ms": 150,
+            "padding": 4,
+            "min_column": 0,
+            "max_severity": null
         }
-      },
-      // "pyright": {
-      //   "settings": {
-      //     "python": {
-      //       "pythonPath": ".venv/bin/python",
-      //       "disableOrganizeImports": true,
-      //       "analysis": {
-      //         "diagnosticMode": "openFilesOnly",
-      //         "typeCheckingMode": "basic",
-      //         "autoImportCompletions": true
-      //       }
-      //     }
-      //   }
-      // },
-      "ruff": {
-        "initialization_options": {
-          "settings": {
-            // Ruff server settings goes here
-            "lineLength": 150,
-            "fixAll": true,
-            "lint": {
-              "enable": true,
-              // "select": ["ALL"],
-              // "extendSelect": ["I"],
-              // "ignore": [],
-              "showSyntaxErrors": true,
-              "args": ["--config", "./pyproject.toml", "{buffer_path}"]
-            },
-            "format": {
-              "enable": true
-            }
-          }
-        }
-      },
-      "json-language-server": {
-        "settings": {
-          "json": {
-            "schemas": [
-              {
-                "fileMatch": ["*/*.luarc.json"],
-                "url": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json"
-              }
+    },
+    "auto_install_extensions": {
+        "fish": true,
+        "html": true,
+        "dockerfile": true,
+        "toml": true,
+        "sql": true,
+        "lua": true,
+        "terraform": true,
+        "docker compose": true,
+        "ruff": true,
+        "justfile": true,
+        "env": true,
+        "rainbow csv": true,
+        "catppuccin": true,
+        "material icon theme": true
+    },
+    "languages": {
+        "Python": {
+            "enable_language_server": true,
+            "preferred_line_length": 150,
+            "show_whitespaces": "all",
+            "language_servers": ["ruff"],
+            "format_on_save": "on",
+            "formatter": [
+                {
+                    "code_actions": {
+                        // Fix all auto-fixable lint violations
+                        "source.fixAll.ruff": true,
+                        // Organiza imports
+                        "source.organizaImports.ruff": true
+                    },
+                    "language_server": {
+                        "name": "ruff"
+                    }
+                }
             ]
-          }
+        },
+        "Lua": {
+            "format_on_save": "on",
+            "formatter": "language_server"
+        },
+        "Markdown": {
+            "format_on_save": "on",
+            "remove_trailing_whitespace_on_save": true
+        },
+        "JSON": {
+            "format_on_save": "on",
+            "formatter": "language_server"
+        },
+        "TOML": {
+            "format_on_save": "on",
+            "formatter": "language_server"
+        },
+        "YAML": {
+            "format_on_save": "on",
+            "formatter": "language_server"
         }
-      },
-      "taplo": {
-        "settings": {
-          "array_auto_collapse": false
-        }
-      },
-      "yaml-language-server": {
-        "settings": {
-          "yaml": {
-            "keyOrdering": true,
-            "format": {
-              "singleQuote": true
+    },
+    "lsp": {
+        "lsp": {
+            "rust-analyzer": {
+                "initialization_options": {
+                    "inlayHints": {
+                        "maxLength": null,
+                        "lifetimeElisionHints": {
+                            "enable": "skip_trivial",
+                            "useParameterNames": true
+                        },
+                        "closureReturnTypeHints": {
+                            "enable": "always"
+                        }
+                    }
+                }
             },
-            "schemas": {
-              "http://json.schemastore.org/composer": ["/*"],
-              "../relative/path/schema.json": ["/config*.yaml"]
+            "pyright": {
+                "settings": {
+                    "python": {
+                        "pythonPath": ".venv/bin/python",
+                        "disableOrganizeImports": true,
+                        "analysis": {
+                            "diagnosticMode": "openFilesOnly",
+                            "typeCheckingMode": "basic",
+                            "autoImportCompletions": true
+                        }
+                    }
+                }
+            },
+            "ruff": {
+                "initialization_options": {
+                    "settings": {
+                        // Ruff server settings goes here
+                        "lineLength": 150,
+                        "fixAll": true,
+                        "lint": {
+                            "enable": true,
+                            // "select": ["ALL",]
+                            // "extendSelect": ["I"],
+                            // "ignore": [],
+                            "showSyntaxErrors": true,
+                            "args": [
+                                "--config",
+                                "./pyproject.toml",
+                                "{buffer_path}"
+                            ]
+                        },
+                        "format": {
+                            "enable": true
+                        }
+                    }
+                }
+            },
+            "json-language-server": {
+                "settings": {
+                    "json": {
+                        "schemas": [
+                            {
+                                "fileMatch": ["*/*.luarc.json"],
+                                "url": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json"
+                            }
+                        ]
+                    }
+                }
+            },
+            "taplo": {
+                "settings": {
+                    "array_auto_collapse": false
+                }
+            },
+            "yaml-language-server": {
+                "settings": {
+                    "yaml": {
+                        "keyOrdering": true,
+                        "format": {
+                            "singleQuote": true
+                        },
+                        "schemas": {
+                            "http://json.schemastore.org/composer": ["/*"],
+                            "../relative/path/schema.json": ["/config*.yaml"]
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }
