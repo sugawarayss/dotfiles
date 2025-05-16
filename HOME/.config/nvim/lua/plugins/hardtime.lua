@@ -3,6 +3,7 @@ return {
   {
     "m4xshen/hardtime.nvim",
     lazy = false,
+    enabled = false,
     opts = {},
     config = function()
       require("hardtime").setup({
