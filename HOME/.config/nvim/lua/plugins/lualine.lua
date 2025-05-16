@@ -4,7 +4,7 @@ if not vim.g.vscode then
     {
       "nvim-lualine/lualine.nvim",
       version = "*",
-      event = { "VimEnter" },
+      event = { "BufReadPre" },
       config = function()
         local color_palette = require("tokyonight.colors").setup()
         -- Linter実行の進捗を表示
