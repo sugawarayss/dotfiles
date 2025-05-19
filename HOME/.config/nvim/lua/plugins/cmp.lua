@@ -115,7 +115,7 @@ return {
         }, {
           { name = "buffer" },
           { name = "path" },
-          { name = "cmdline"},
+          -- { name = "cmdline"},
           {
               name = "spell",
               option = {
