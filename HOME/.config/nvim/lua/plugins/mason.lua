@@ -309,7 +309,7 @@ return {
       -- 呼出階層を表示
       { "gr", "<cmd>Lspsaga finder<CR>", mode = "n", desc = "参照先の表示" },
       -- 型定義へジャンプ
-      { "gt", "<cmd>Lspsage goto_type_definition<CR>", mode = "n", desc = "型定義にジャンプ"},
+      { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = "n", desc = "型定義にジャンプ"},
       -- コードアクションを表示
       { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", desc = "コードアクションを表示" },
       -- 次の診断へジャンプ
