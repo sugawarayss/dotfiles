@@ -99,7 +99,11 @@ local dap_adapters = {
 
 local my_on_attach = function(client, bufnr)
   local is_node_dir = function()
-    return require("lspconfig").util.root_pattern('package.json')(vim.fn.getcwd())
+    -- 親ディレクトリに package.json が存在する場合はtrue
+    local in_parents_dirs = require("lspconfig").util.root_pattern('package.json')(vim.fn.getcwd())
+    -- 配下に package.jsonが存在する場合はtrue
+    local in_child_dirs = vim.fn.findfile("package.json", vim.fn.getcwd() .. "/**") ~= ""
+    return in_parents_dirs or in_child_dirs
   end
   for _, value in pairs(lsp_servers) do
     if client == value then
@@ -129,12 +133,12 @@ local my_on_attach = function(client, bufnr)
   end
   if is_node_dir() then
     if client.name == "denols" then
-      vim.print("[LSP] ts_ls: run, denols: stop")
+      vim.notify("[LSP] ts_ls: ACTIVE")
       client.stop(true)
     end
   else
     if client.name == "ts_ls" then
-      vim.print("[LSP] ts_ls: stop, denols: run")
+      vim.notify("[LSP] denols: ACTIVE")
       client.stop(true)
     end
   end
