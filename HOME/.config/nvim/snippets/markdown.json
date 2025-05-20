@@ -2,21 +2,21 @@
   "link": {
     "prefix": ".link",
     "body": [
-      "[${1:link text}](${2:link url})"
+      "[${1:label}](${2:url})"
     ],
     "description": "Markdown Link"
   },
   "image": {
     "prefix": ".image",
     "body": [
-      "![${1:image text}](${2:image url})"
+      "![${1:label}](${2:url})"
     ],
     "description": "Markdown Image"
   },
   "table-header": {
     "prefix": ".t-header",
     "body": [
-      "| ${1:col name1} | ${2:col name2} | ${3:col name3} |",
+      "| ${1} | ${2} | ${3} |",
       "| --- | --- | --- |"
     ],
     "description": "Table Header"
@@ -24,7 +24,7 @@
   "table-row": {
     "prefix": ".t-row",
     "body": [
-      "| ${1:row name1} | ${2:row name2} | ${3:row name3} |"
+      "| ${1} | ${2} | ${3} |"
     ],
     "description": "Table Row"
   },
@@ -32,7 +32,7 @@
     "prefix": ".details",
     "body": [
       "<details>",
-      "<summary>${1:title}</summary>",
+      "<summary>${1}</summary>",
       "",
       "$2",
       "",
@@ -45,7 +45,7 @@
     "body": [
       "> [!WARNING]",
       "> ",
-      "> ${1:content}"
+      "> ${1}"
     ],
     "description": "Call-out Warning"
   },
@@ -54,7 +54,7 @@
     "body": [
       "> [!NOTE]",
       "> ",
-      "> ${1:content}"
+      "> ${1}"
     ],
     "description": "Call-out Note"
   }
