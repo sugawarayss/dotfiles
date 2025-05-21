@@ -46,7 +46,7 @@ return {
 "",
 "6.  もし、いっぱい変更するとこあるなら、1個ずつ分けて、それぞれにさっきのヘッダー（どのファイルの何行目か書くやつね📝）付けて見せてね～🙏✨ 分かりやすくが大事っしょ💖",
             }, "\n"),
-            user_prompt= "#lsp\n#buffer\n\n日本語でペアプロしよ。",
+            user_prompt= "@mcp\n#lsp\n#buffer\n\n日本語でペアプロしよ。",
           })
         end,
         { desc = "Start Aibou" })
