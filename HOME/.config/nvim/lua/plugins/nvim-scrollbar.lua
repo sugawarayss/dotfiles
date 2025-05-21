@@ -56,7 +56,9 @@ return {
               indicator = ""
             end
 
-            local lnum, col = table.unpack(posList[idx])
+            -- lua 5.1と5.2+の互換のため
+            local unpck = unpack or table.unpack
+            local lnum, col = unpck(posList[idx])
             if nearest then
               local cnt = #posList
               if indicator ~= "" then
