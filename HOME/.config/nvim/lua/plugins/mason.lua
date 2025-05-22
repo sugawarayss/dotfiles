@@ -42,7 +42,9 @@ local lsp_servers = {
   -- bash(zsh)
   "bashls",
   -- terraform
-  "terraformls"
+  "terraformls",
+  -- github actions
+  "gh_actions_ls"
 }
 -- 自動インストールするformatter
 local formatters = {
