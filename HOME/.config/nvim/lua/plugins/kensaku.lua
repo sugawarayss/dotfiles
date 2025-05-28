@@ -3,21 +3,21 @@ return {
   -- 日本語をローマ字で検索できる
   {
     "lambdalisue/kensaku.vim",
-    enabled = true,
+    enabled = false,
     event = "BufReadPre",
   },
   { "vim-denops/denops.vim", lazy = false },
   -- 日本語をローマ字で検索できるKensakuコマンドを使えるようにする
   {
     "lambdalisue/kensaku-command.vim",
-    enabled = true,
+    enabled = false,
     lazy=true,
     event = "BufReadPre",
   },
   -- /コマンドでローマ字で日本語を検索できるようにする
   {
     "lambdalisue/kensaku-search.vim",
-    enabled = true,
+    enabled = false,
     lazy=true,
     event = "BufReadPre",
     config = function()
