@@ -11,6 +11,11 @@ fish_add_path /opt/homebrew/opt/libpq/bin
 fish_add_path /opt/homebrew/opt/mysql-client/bin
 
 
+# HWS-案件用ローカル開発環境
+#set -gx LDFLAGS "-L/opt/homebrew/opt/bzip2/lib"
+#set -gx CPPFLAGS "-I/opt/homebrew/opt/bzip2/include"
+#fish_add_path /opt/homebrew/opt/bzip2/bin/
+
 #########################
 # ENViRONMENT VARIABLES #
 #########################
