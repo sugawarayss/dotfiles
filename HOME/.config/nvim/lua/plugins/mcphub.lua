@@ -26,7 +26,7 @@ return {
       end,
       on_error = function(err)
         vim.notify("MCPHub error occurred")
-        -- dd(err)
+        vim.print(err)
       end,
       use_bundled_binary = false,
       shutdown_delay = 600000,
