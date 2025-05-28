@@ -341,6 +341,18 @@ return {
           color_mode   = true,
           delay        = 300,
         },
+        lightbulb = {
+          enable = false,
+          -- sign = true,
+          -- debounce = 10,
+          -- sign_priority = 40,
+          -- virtual_text = true,
+          -- enable_in_insert = true,
+          -- ignore = {
+          --   clients = {},
+          --   ft = {},
+          -- },
+        },
         ui = {
           code_action = ""
         },
