@@ -238,6 +238,19 @@ local lsp_server_settings = {
   },
   bashls = {
     filetypes = { "sh", "zsh" },
+  },
+  gh_actions_ls = {
+    cmd = { "gh-actions-language-server", "--stdio" },
+    filetypes = { "yaml.github" },
+    -- root_dir = require("lspconfig").util.root_pattern(".github"),
+    single_file_support = true,
+    capabilities = {
+      workspace = {
+        didChangeWorkspaceFolders = {
+          dynamicRegistration = true,
+        },
+      },
+    }
   }
 }
 
@@ -292,6 +305,13 @@ return {
       })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
+        if "gh_actions_ls" == server then
+          vim.filetype.add({
+            pattern = {
+              ['.*/%.github[%w/]+workflows[%w/]+.*%.ya?ml'] = 'yaml.github',
+            },
+          })
+        end
         require("lspconfig")[server].setup({
           on_attach = my_on_attach,
           settings = lsp_server_settings[server],
