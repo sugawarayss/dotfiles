@@ -4,7 +4,6 @@ if vim.g.vscode then
   vim.keymap.set("n", "<Leader><Leader>", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
 
   -- タブ移動
-  -- FIXME: mode の判定が効いていないかも?
   vim.keymap.set("n", "H", "<Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>")
   vim.keymap.set("n", "L", "<Cmd>call VSCodeNotify('workbench.action.nextEditor')<CR>")
 
@@ -14,7 +13,6 @@ if vim.g.vscode then
   vim.keymap.set("n", "svl", "<Cmd>call VSCodeNotify('workbench.action.splitEditorRight')<CR>")
   vim.keymap.set("n", "svh", "<Cmd>call VSCodeNotify('workbench.action.splitEditorLeft')<CR>")
 
-
   -- 分割ペインのフォーカス移動
   vim.keymap.set("n", "sh", "<Cmd>call VSCodeNotify('workbench.action.navigateLeft')<CR>")
   vim.keymap.set("n", "sl", "<Cmd>call VSCodeNotify('workbench.action.navigateRight')<CR>")
@@ -22,8 +20,16 @@ if vim.g.vscode then
   vim.keymap.set("n", "sj", "<Cmd>call VSCodeNotify('workbench.action.navigateDown')<CR>")
 
   -- 現在のタブのタブグループを移動(ペインを移動) FIXME: きかない!
-  -- vim.keymap.set("n", "<C-s><C-l>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToRightGroup')<CR>")
-  -- vim.keymap.set("n", "<C-s><C-h>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToLeftGroup')<CR>")
-  -- vim.keymap.set("n", "<C-s><C-j>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToBelowGroup')<CR>")
-  -- vim.keymap.set("n", "<C-s><C-k>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToAboveGroup')<CR>")
+  vim.keymap.set("n", "<C-s><C-l>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToRightGroup')<CR>")
+  vim.keymap.set("n", "<C-s><C-h>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToLeftGroup')<CR>")
+  vim.keymap.set("n", "<C-s><C-j>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToBelowGroup')<CR>")
+  vim.keymap.set("n", "<C-s><C-k>", "<Cmd>call VSCodeNotify('workbench.action.moveEditorToAboveGroup')<CR>")
+
+  -- vim.keymap.set("n", "<F5>", "<Cmd>call VSCodeNotify('workbench.action.findInWorkspace')<CR>")
+
+  -- Chat Pane のトグル
+  vim.keymap.set("n", "<Leader>cc", "<Cmd>call VSCodeNotify('workbench.action.toggleAuxiliaryBar')<CR>")
+
+  -- ブックマークのトグル
+  vim.keymap.set("n", ";m", "<Cmd>call VSCodeNotify('bookmarks.toggle')")
 end
