@@ -151,6 +151,8 @@ neovim:
   @test -L ~/.skk || ln -s {{pwd}}/HOME/skkeleton/dictionary ~/.skk
   # skk 用 ユーザ辞書ファイルを展開
   @test -L ~/.skkeleton || ln -s {{pwd}}/HOME/skkeleton/my_dictionary ~/.skkeleton
+  # mcphub 用のMCP設定ディレクトリを展開
+  @test -L ~/.config/mcphub || ln -s {{pwd}}/HOME/.config/mcphub ~/.config/mcphub
 
 # ghostty 用設定ファイルを展開
 ghostty:
