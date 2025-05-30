@@ -1,0 +1,101 @@
+{
+  "nativeMCPServers": {
+    "neovim": {
+      "disabled_resources": [
+        "neovim://diagnostics/current",
+        "neovim://diagnostics/workspace",
+        "neovim://buffer"
+      ],
+      "disabled_prompts": [
+        "parrot"
+      ]
+    },
+    "mcphub": {
+      "disabled_resources": [
+        "mcphub://docs",
+        "mcphub://native_server_guide",
+        "mcphub://changelog"
+      ],
+      "disabled_prompts": [
+        "create_native_server"
+      ]
+    }
+  },
+  "mcpServers": {
+    "github.com/modelcontextprotocol/servers/tree/main/src/time": {
+      "env": [],
+      "args": [
+        "mcp-server-time",
+        "--local-timezone=Asia/Tokyo"
+      ],
+      "disabled": false,
+      "autoApprove": [],
+      "command": "uvx"
+    },
+    "github.com/awslabs/mcp/tree/main/src/aws-documentation-mcp-server": {
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "read_documentation",
+        "search_documentation",
+        "recommend"
+      ],
+      "command": "uvx"
+    },
+    "github.com/awslabs/mcp/tree/main/src/terraform-mcp-server": {
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "SearchUserProvidedModule",
+        "SearchSpecificAwsIaModules",
+        "SearchAwsccProviderDocs",
+        "SearchAwsProviderDocs"
+      ],
+      "command": "uvx"
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/filesystem": {
+      "env": [],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/sugawarayss/PROJECTS/"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "read_file",
+        "read_multiple_files",
+        "list_directory",
+        "search_files",
+        "get_file_info",
+        "list_allowed_directories",
+        "directory_tree",
+        "move_file",
+        "write_file",
+        "create_directory",
+        "edit_file"
+      ],
+      "command": "npx"
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
+      "disabled": false,
+      "autoApprove": [
+        "sequentialthinking"
+      ],
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    }
+  }
+}
