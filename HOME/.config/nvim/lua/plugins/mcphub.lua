@@ -3,10 +3,13 @@ if vim.g.vscode then
 else
   return {
     "ravitemer/mcphub.nvim",
+    enabled = true,
     cmd = "MCPHub",
-    build = "npm install -g mcp-hub@latest",
+    -- build = "npm install -g mcp-hub@latest",
+    build = "bundled_build.lua",
     config = function()
       require("mcphub").setup({
+        use_bundled_binary = true, -- userlocal `mcp-hub` binary
         port = 37373, -- Default port for MCP hub
         -- config = vim.fn.expand("~/.config/mcphub/servers.json"),
         native_servers = {},
@@ -31,7 +34,6 @@ else
           vim.notify("MCPHub error occurred")
           vim.print(err)
         end,
-        use_bundled_binary = false,
         shutdown_delay = 600000,
         log = {
           level = vim.log.levels.WARN,
