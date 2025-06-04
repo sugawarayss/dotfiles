@@ -7,31 +7,79 @@ if not vim.g.vscode then
       lazy = false,
       keys = {
         -- search todo
-        { "<leader>std",      "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",                                 mode = "n", opt, desc = "TODO 検索" },
+        {
+          "<leader>std",
+          "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",
+          mode = "n",
+          opt,
+          desc = "TODO 検索",
+        },
         -- resume
-        { "<leader>r",        "<cmd>Telescope resume<CR>",                                                       mode = "n", opt, desc = "直前のTelescopeでの検索を再開"},
+        {
+          "<leader>r",
+          "<cmd>Telescope resume<CR>",
+          mode = "n",
+          opt,
+          desc = "直前のTelescopeでの検索を再開",
+        },
         -- ブックマーク検索(Search Book Marks)
-        { "<leader>sbm",      "<cmd>Telescope bookmarks list<CR>",                                               mode = "n", opt, desc = "ブックマークを検索" },
-        { "<M-d><M-c>",       "<cmd>Telescope docker containers theme=ivy<CR>",                                  mode = "n", opt, desc = "Docker コンテナを検索" },
-        { "<M-d><M-i>",       "<cmd>Telescope docker images theme=ivy<CR>",                                      mode = "n", opt, desc = "Docker イメージを検索" },
-        { "<M-d><M-p>",       "<cmd>Telescope docker compose theme=ivy<CR>",                                     mode = "n", opt, desc = "Docker Compose を曖昧検索" },
-        { "<M-d><M-l>",       "<cmd>Telescope docker files theme=ivy<CR>",                                       mode = "n", opt, desc = "Dockerfileを曖昧検索" },
+        {
+          "<leader>sbm",
+          "<cmd>Telescope bookmarks list<CR>",
+          mode = "n",
+          opt,
+          desc = "ブックマークを検索",
+        },
+        {
+          "<M-d><M-c>",
+          "<cmd>Telescope docker containers theme=ivy<CR>",
+          mode = "n",
+          opt,
+          desc = "Docker コンテナを検索",
+        },
+        {
+          "<M-d><M-i>",
+          "<cmd>Telescope docker images theme=ivy<CR>",
+          mode = "n",
+          opt,
+          desc = "Docker イメージを検索",
+        },
+        {
+          "<M-d><M-p>",
+          "<cmd>Telescope docker compose theme=ivy<CR>",
+          mode = "n",
+          opt,
+          desc = "Docker Compose を曖昧検索",
+        },
+        {
+          "<M-d><M-l>",
+          "<cmd>Telescope docker files theme=ivy<CR>",
+          mode = "n",
+          opt,
+          desc = "Dockerfileを曖昧検索",
+        },
         -- snacks.nvim で代替
         -- { "<F4>",             "<cmd>Telescope live_grep hidden=true<CR>",                                        mode = "n", opt, desc = "ファイル内容で検索" },
-        { "<Leader><Leader>", ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>", mode = "n", opt, desc = "スマートファイル検索" },
+        {
+          "<Leader><Leader>",
+          ":lua require('telescope').extensions.smart_open.smart_open({cwd_only=true})<CR>",
+          mode = "n",
+          opt,
+          desc = "スマートファイル検索",
+        },
         -- { "<M-g><M-b>",       "<cmd>Telescope git_branches<CR>",                                                 mode = "n", opt, desc = "Git ブランチを検索" },
         -- { "<C-c><C-h>",       "<cmd>Telescope command_history<CR>",                                              mode = "n", opt, desc = "コマンド履歴を曖昧検索" },
         -- { "<C-b><C-f>",       "<cmd>Telescope buffers show_all_buffers=true<CR>",                                mode = "n", opt, desc = "バッファを検索" },
         -- { "<M-k><M-m>",       "<cmd>Telescope keymaps<CR>",                                                      mode = "n", opt, desc = "Keymap を検索" },
-        { "Q",                "<cmd>Telescope cmdline<CR>",                                                      mode = "n", opt, desc = "Cmdline" },
+        { "Q", "<cmd>Telescope cmdline<CR>", mode = "n", opt, desc = "Cmdline" },
         -- { "<C-S-p>",          "<cmd>Telescope projects<CR>",                                                     mode = "n", opt, desc = "プロジェクトリストを表示"}
       },
       config = function()
-        local telescope         = require("telescope")
-        local actions           = require("telescope.actions")
-        local action_layout     = require("telescope.actions.layout")
+        local telescope = require("telescope")
+        local actions = require("telescope.actions")
+        local action_layout = require("telescope.actions.layout")
         local open_with_trouble = require("trouble.sources.telescope").open
-        local add_to_trouble    = require("trouble.sources.telescope").add
+        local add_to_trouble = require("trouble.sources.telescope").add
         telescope.setup({
           defaults = {
             vimgrep_arguments = {
@@ -50,7 +98,7 @@ if not vim.g.vscode then
               width = 0.9,
               height = 0.5,
             },
-            winblend = 10,         --ウィンドウを若干半透明にする
+            winblend = 10, --ウィンドウを若干半透明にする
             color_devicons = true,
             file_ignore_patterns = { --検索結果に含めないファイルを指定
               "^.git/",
@@ -63,18 +111,24 @@ if not vim.g.vscode then
             dynamic_preview_title = true,
             mappings = {
               n = {
-                ["<ESC>"] = function(...) return actions.close(...) end,
+                ["<ESC>"] = function(...)
+                  return actions.close(...)
+                end,
                 ["<C-t>"] = action_layout.toggle_preview,
               },
               i = {
                 ["<C-c>"] = actions.delete_buffer,
-                ["<C-u>"] = function(...) return actions.preview_scrolling_up(...) end,
-                ["<C-d>"] = function(...) return actions.preview_scrolling_down(...) end,
+                ["<C-u>"] = function(...)
+                  return actions.preview_scrolling_up(...)
+                end,
+                ["<C-d>"] = function(...)
+                  return actions.preview_scrolling_down(...)
+                end,
                 ["<C-s>"] = actions.select_horizontal,
                 ["<C-x>"] = false,
                 ["<C-t>"] = open_with_trouble,
-              }
-            }
+              },
+            },
           },
           pickers = {
             find_files = {
@@ -116,7 +170,7 @@ if not vim.g.vscode then
               show_scores = true,
               match_algorithm = "fzy",
               disable_devicons = false,
-              open_buffer_indicators = {previous = "", others = "󰺕"},
+              open_buffer_indicators = { previous = "", others = "󰺕" },
               result_limit = 40,
             },
             -- コマンド履歴を検索/実行できる拡張
@@ -125,7 +179,7 @@ if not vim.g.vscode then
                 layout_config = {
                   width = 120,
                   height = 25,
-                }
+                },
               },
               mappings = {
                 complete = "<Tab>",
@@ -133,14 +187,14 @@ if not vim.g.vscode then
                 run_input = "<CR>",
               },
               -- overseer = { enabled = true },
-           },
+            },
           },
         })
         telescope.load_extension("ui-select")
         telescope.load_extension("docker")
         telescope.load_extension("bookmarks")
         telescope.load_extension("smart_open")
-      end
+      end,
     },
     { "nvim-lua/plenary.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },

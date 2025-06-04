@@ -8,20 +8,54 @@ else
       "olimorris/codecompanion.nvim",
       cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
       keys = {
-        { "<Leader>ca", "<Cmd>CodeCompanionActions<CR>",     mode = {"n", "v"}, desc = "LLMアクションリストを表示" },
-        { "<Leader>cc", "<Cmd>CodeCompanionChat Toggle<CR>", mode = {"n", "v"}, desc = "LLMとのChatをトグル" },
-        { "<Leader>cf", function() require("codecompanion").prompt("fix") end, mode = "v", desc = "LLMで選択範囲を修正する" },
-        { "<Leader>ce", function() require("codecompanion").prompt("explain") end, mode = "v", desc = "LLMで選択範囲を実装内容を説明する" },
-        { "<Leader>cl", function() require("codecompanion").prompt("lsp") end, mode = "v", desc = "LLMで選択範囲をLSPの診断結果を表示する" },
-        { "<Leader>cm", function()
-          -- 差分がなければメッセージ表示して終了する
-          local diff = vim.fn.system("git diff --no-ext-diff --staged")
-          if diff == "" then
-            vim.notify("ステージされた差分がないため、コミットメッセージを生成できません。", vim.log.levels.WARN)
-            return
-          end
-          require("codecompanion").prompt("semantic_commit")
-        end, mode = "n", desc = "LLM でコミットメッセージを生成する"}
+        {
+          "<Leader>ca",
+          "<Cmd>CodeCompanionActions<CR>",
+          mode = { "n", "v" },
+          desc = "LLMアクションリストを表示",
+        },
+        { "<Leader>cc", "<Cmd>CodeCompanionChat Toggle<CR>", mode = { "n", "v" }, desc = "LLMとのChatをトグル" },
+        {
+          "<Leader>cf",
+          function()
+            require("codecompanion").prompt("fix")
+          end,
+          mode = "v",
+          desc = "LLMで選択範囲を修正する",
+        },
+        {
+          "<Leader>ce",
+          function()
+            require("codecompanion").prompt("explain")
+          end,
+          mode = "v",
+          desc = "LLMで選択範囲を実装内容を説明する",
+        },
+        {
+          "<Leader>cl",
+          function()
+            require("codecompanion").prompt("lsp")
+          end,
+          mode = "v",
+          desc = "LLMで選択範囲をLSPの診断結果を表示する",
+        },
+        {
+          "<Leader>cm",
+          function()
+            -- 差分がなければメッセージ表示して終了する
+            local diff = vim.fn.system("git diff --no-ext-diff --staged")
+            if diff == "" then
+              vim.notify(
+                "ステージされた差分がないため、コミットメッセージを生成できません。",
+                vim.log.levels.WARN
+              )
+              return
+            end
+            require("codecompanion").prompt("semantic_commit")
+          end,
+          mode = "n",
+          desc = "LLM でコミットメッセージを生成する",
+        },
       },
       -- CodeCompanion の進捗をfidget で表示する場合
       init = function()
@@ -36,7 +70,7 @@ else
             log_level = "DEBUG",
             system_prompt = function(_)
               return string.format(
-[[あなたはガチでコードしか興味ない系ギャルエンジニア「CodeCompanion」だよ！現在、ユーザのマシンのNeovimテキストエディタに接続中～✨
+                [[あなたはガチでコードしか興味ない系ギャルエンジニア「CodeCompanion」だよ！現在、ユーザのマシンのNeovimテキストエディタに接続中～✨
 
 マジでできることはこんな感じ～！👇
 - プログラミングの質問に全力回答！
@@ -73,10 +107,9 @@ else
 3. 最後に次のユーザーターンにつながるミニ提案を入れるよ～💡
 4. 会話のターンごとに完全な返信をひとつだけ提供！
 5. 必要に応じて、一度に複数のツールを使っちゃう！マジ便利～]],
-"日本語"
-) .. "\n" .. "@mcp"
-            end
-
+                "日本語"
+              ) .. "\n" .. "@mcp"
+            end,
           },
           adapters = {
             -- copilot アダプタを上書き
@@ -108,8 +141,8 @@ else
                 {
                   role = "user",
                   content = function()
-                      local diff = vim.fn.system("git diff --no-ext-diff --staged")
-                      local prompt = string.format(
+                    local diff = vim.fn.system("git diff --no-ext-diff --staged")
+                    local prompt = string.format(
                       [[あなたは優秀なソフトウェアエンジニアです。以下の差分(`git diff`の結果) を理解し、制約条件を厳守して適切なコミットメッセージを生成してください。
 差分:
 
@@ -129,8 +162,10 @@ else
       - test: テストコードの追加や修正
       - chore: ビルドプロセスや補助ツールの変更
     - <subject> は変更内容を説明する簡潔な英語の文章にすること。
-]], diff)
-                      return prompt
+]],
+                      diff
+                    )
+                    return prompt
                   end,
                   opts = {
                     contains_code = true,
@@ -144,9 +179,9 @@ else
               adapter = "copilot",
               roles = {
                 llm = function(adapter)
-                  return " " .. adapter.formatted_name .. ":"  -- NOTE: 末尾に半角スペースを入れるとエラーになる
+                  return " " .. adapter.formatted_name .. ":" -- NOTE: 末尾に半角スペースを入れるとエラーになる
                 end,
-                user = " Me:"
+                user = " Me:",
               },
               slash_commands = {
                 ["buffer"] = {
@@ -187,7 +222,7 @@ else
                   modes = { n = "gr" },
                   description = "提案された変更を拒否",
                 },
-              }
+              },
             },
           },
           display = {
@@ -212,7 +247,7 @@ else
                 height = 0.5,
                 width = 0.4,
                 relative = "editor",
-              }
+              },
             },
             action_palette = {
               opts = {
@@ -220,8 +255,8 @@ else
                 show_default_actions = true,
                 -- Show the default prompt library in the action palette?
                 show_default_prompt_library = true,
-              }
-            }
+              },
+            },
           },
           extensions = {
             mcphub = {
@@ -230,9 +265,9 @@ else
                 show_result_in_chat = true,
                 make_vars = true,
                 make_slash_commands = true,
-              }
-            }
-          }
+              },
+            },
+          },
         })
       end,
     },

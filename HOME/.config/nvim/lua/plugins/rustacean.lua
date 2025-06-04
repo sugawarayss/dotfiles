@@ -5,7 +5,7 @@ return {
   lazy = false,
   opts = {
     tools = {
-      executor      = "toggleterm",
+      executor = "toggleterm",
       test_executor = "neotest",
       enable_clippy = true,
       hover_actions = {
@@ -14,7 +14,7 @@ return {
       float_win_config = {
         auto_focus = true,
         open_split = "horizontal",
-      }
+      },
     },
     server = {
       on_attach = function()
@@ -41,9 +41,9 @@ return {
       end,
       default_settings = {
         imports = {
-          check       = { command = "clippy" },
+          check = { command = "clippy" },
           granularity = { group = "module" },
-          prefix      = "self",
+          prefix = "self",
         },
         cargo = {
           buildScripts = { enable = true },
@@ -51,12 +51,12 @@ return {
         procMacro = { enable = true },
         rustfmt = {
           overrideCommand = { "rustfmt", "--edition", "2021" },
-        }
+        },
       },
     },
     dap = {
-      -- 
+      --
     },
   },
-  config = function()end
+  config = function() end,
 }

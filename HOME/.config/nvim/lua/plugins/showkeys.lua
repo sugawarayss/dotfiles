@@ -3,17 +3,17 @@ return {
   "nvzone/showkeys",
   cmd = "ShowkeysToggle",
   keys = {
-    { "<M-s>k", ":ShowkeysToggle<CR>", mode = "n", desc = "キー押下履歴を右上に表示する"}
+    { "<M-s>k", ":ShowkeysToggle<CR>", mode = "n", desc = "キー押下履歴を右上に表示する" },
   },
   opts = {
     winopts = {
       focusable = false,
-      relative  = "editor",
-      style     = "minimal",
-      border    = "double",
-      height    = 1,
-      row       = 2,
-      col       = 0,
+      relative = "editor",
+      style = "minimal",
+      border = "double",
+      height = 1,
+      row = 2,
+      col = 0,
     },
     -- 表示が消えるまでの秒数
     timeout = 3,
@@ -25,17 +25,17 @@ return {
     -- bottom-left, bottom-center, bottom-right, top-left, top-center, top-right
     position = "top-right",
     keyformat = {
-      ["<BS>"]       = "󰁮 ",
-      ["<CR>"]       = "󰘌",
-      ["<Space>"]    = "󱁐",
-      ["<Up>"]       = "󰁝",
-      ["<Down>"]     = "󰁅",
-      ["<Left>"]     = "󰁍",
-      ["<Right>"]    = "󰁔",
-      ["<PageUp>"]   = "Page 󰁝",
+      ["<BS>"] = "󰁮 ",
+      ["<CR>"] = "󰘌",
+      ["<Space>"] = "󱁐",
+      ["<Up>"] = "󰁝",
+      ["<Down>"] = "󰁅",
+      ["<Left>"] = "󰁍",
+      ["<Right>"] = "󰁔",
+      ["<PageUp>"] = "Page 󰁝",
       ["<PageDown>"] = "Page 󰁅",
-      ["<M>"]        = "Alt",
-      ["<C>"]        = "Ctrl",
+      ["<M>"] = "Alt",
+      ["<C>"] = "Ctrl",
     },
   },
 }

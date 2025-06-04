@@ -1,4 +1,3 @@
-
 -- エラーアイコンの変更
 local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 
@@ -6,7 +5,6 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
-
 
 -- 自動インストールするLSPサーバ
 local lsp_servers = {
@@ -44,7 +42,7 @@ local lsp_servers = {
   -- terraform
   "terraformls",
   -- github actions
-  "gh_actions_ls"
+  "gh_actions_ls",
 }
 -- 自動インストールするformatter
 local formatters = {
@@ -102,7 +100,7 @@ local dap_adapters = {
 local my_on_attach = function(client, bufnr)
   local is_node_dir = function()
     -- 親ディレクトリに package.json が存在する場合はtrue
-    local in_parents_dirs = require("lspconfig").util.root_pattern('package.json')(vim.fn.getcwd())
+    local in_parents_dirs = require("lspconfig").util.root_pattern("package.json")(vim.fn.getcwd())
     -- 配下に package.jsonが存在する場合はtrue
     local in_child_dirs = vim.fn.findfile("package.json", vim.fn.getcwd() .. "/**") ~= ""
     return in_parents_dirs or in_child_dirs
@@ -119,14 +117,38 @@ local my_on_attach = function(client, bufnr)
       -- 定義へジャンプ
       -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = false, desc = "定義へジャンプ" })
       -- 宣言へジャンプ
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = false, desc = "宣言へジャンプ" })
+      vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "gD",
+        "<cmd>lua vim.lsp.buf.declaration()<CR>",
+        { noremap = true, silent = false, desc = "宣言へジャンプ" }
+      )
       -- 実装へジャンプ
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { noremap = true, silent = false, desc = "実装へジャンプ" })
+      vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "gi",
+        "<cmd>lua vim.lsp.buf.implementation()<CR>",
+        { noremap = true, silent = false, desc = "実装へジャンプ" }
+      )
       -- 型定義へジャンプ
       -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = false, desc = "型定義へジャンプ" })
       -- 変数名のリネーム
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = false, desc = "変数名のリネーム" })
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "go", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = false, desc = "エラーをフロートウィンドウで表示" })
+      vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "gn",
+        "<cmd>lua vim.lsp.buf.rename()<CR>",
+        { noremap = true, silent = false, desc = "変数名のリネーム" }
+      )
+      vim.api.nvim_buf_set_keymap(
+        bufnr,
+        "n",
+        "go",
+        "<cmd>lua vim.diagnostic.open_float()<CR>",
+        { noremap = true, silent = false, desc = "エラーをフロートウィンドウで表示" }
+      )
     end
   end
   if client ~= "ruff" then
@@ -151,7 +173,7 @@ local lsp_server_settings = {
     python = {
       venvPath = ".",
       pythonPath = "./.venv/bin/python",
-      -- import 文の sort は ruffに任せる 
+      -- import 文の sort は ruffに任せる
       disableOrganizeImports = true,
       -- チェック周りも ruff に任せる
       analysis = { ignore = { "*" } },
@@ -165,7 +187,7 @@ local lsp_server_settings = {
         -- ワークスペース内に存在する設定ファイル(ruff.toml/pyproject.toml)を以下の設定より優先する
         configurationPreference = "filesystemFirst",
         -- リンティングとフォーマットから除外するファイルパターンリスト
-        exclude = {"**/tests/**"},
+        exclude = { "**/tests/**" },
         -- lint/format 時の1行の長さ
         lineLength = 150,
         -- import 文のソートをコードアクションに追加
@@ -186,7 +208,7 @@ local lsp_server_settings = {
           -- 有効にするルール
           select = {},
           -- 追加で有効にするルール
-          extendSelect = {"I"},
+          extendSelect = { "I" },
           -- 無効にするルール
           ignore = {},
         },
@@ -194,29 +216,29 @@ local lsp_server_settings = {
           -- 不安定なルールは適用しない
           preview = false,
         },
-      }
-    }
+      },
+    },
   },
   lua_ls = {
     settings = {
       Lua = {
         diagnostics = {
           globals = { "vim" },
-        }
-      }
-    }
+        },
+      },
+    },
   },
   gopls = {
     filetypes = { "go" },
     analyses = {
-      nilness      = true,
+      nilness = true,
       unusedparams = true,
-      unusedwrite  = true,
-      useany       = true,
+      unusedwrite = true,
+      useany = true,
     },
     experimentalPostfixCompletions = true,
-    staticcheck                    = true,
-    usePlaceholders                = true,
+    staticcheck = true,
+    usePlaceholders = true,
   },
   terraformls = {
     filetypes = { "tf", "tfstate" },
@@ -250,8 +272,8 @@ local lsp_server_settings = {
           dynamicRegistration = true,
         },
       },
-    }
-  }
+    },
+  },
 }
 
 return {
@@ -269,7 +291,7 @@ return {
           border = "double",
         },
       })
-    end
+    end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
@@ -308,7 +330,7 @@ return {
         if "gh_actions_ls" == server then
           vim.filetype.add({
             pattern = {
-              ['.*/%.github[%w/]+workflows[%w/]+.*%.ya?ml'] = 'yaml.github',
+              [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml.github",
             },
           })
         end
@@ -319,7 +341,7 @@ return {
         })
       end
       vim.lsp.enable(require("mason-lspconfig").get_installed_servers())
-    end
+    end,
   },
   {
     "nvimdev/lspsaga.nvim",
@@ -335,7 +357,7 @@ return {
       -- 呼出階層を表示
       { "gr", "<cmd>Lspsaga finder<CR>", mode = "n", desc = "参照先の表示" },
       -- 型定義へジャンプ
-      { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = "n", desc = "型定義にジャンプ"},
+      { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = "n", desc = "型定義にジャンプ" },
       -- コードアクションを表示
       { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", desc = "コードアクションを表示" },
       -- 次の診断へジャンプ
@@ -344,7 +366,6 @@ return {
       { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", desc = "前の診断へジャンプ" },
       -- アウトライン表示
       { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = "n", desc = "アウトライン表示(Lspsaga)" },
-
     },
     config = function()
       require("lspsaga").setup({
@@ -353,13 +374,13 @@ return {
         title = true,
         -- パンくずリスト
         symbol_in_winbar = {
-          enable       = true,
-          sparator     = " › ",
+          enable = true,
+          sparator = " › ",
           hide_keyword = false,
-          show_file    = true,
+          show_file = true,
           folder_level = 1,
-          color_mode   = true,
-          delay        = 300,
+          color_mode = true,
+          delay = 300,
         },
         lightbulb = {
           enable = false,
@@ -374,42 +395,42 @@ return {
           -- },
         },
         ui = {
-          code_action = ""
+          code_action = "",
         },
         -- コードアクション
         code_action = {
-          num_shortcut     = true,
+          num_shortcut = true,
           show_server_name = true,
-          extend_gitsigns  = false,
+          extend_gitsigns = false,
           keys = {
             quit = "q",
             exec = "<CR>",
-          }
+          },
         },
         finder = {
-          max_height  = 0.5,
-          left_width  = 0.3,
+          max_height = 0.5,
+          left_width = 0.3,
           right_width = 0.3,
-          default     = "ref+imp",
-          methods     = {}, -- { 'tyd' = 'textDocument/typeDefinition' },
-          layout      = "float",
-          filter      = {},
-          silent      = false,
+          default = "ref+imp",
+          methods = {}, -- { 'tyd' = 'textDocument/typeDefinition' },
+          layout = "float",
+          filter = {},
+          silent = false,
           keys = {
-            shuttle        = "[w", -- Finder ウィンドウ間を移動
+            shuttle = "[w", -- Finder ウィンドウ間を移動
             -- 展開または開く
             toggle_or_open = "<CR>",
             -- 垂直分割
-            vsplit         = "<C-s><C-v>",
+            vsplit = "<C-s><C-v>",
             -- 水平分割
-            split          = "<C-s><C-s>",
+            split = "<C-s><C-s>",
             -- 新しいタブで開く
-            tabnew         = "r",
+            tabnew = "r",
             -- 終了
-            quit           = "q",
+            quit = "q",
             -- 閉じる
-            close          = "<ESC>",
-          }
+            close = "<ESC>",
+          },
         },
         -- アウトライン表示
         outline = {
@@ -428,68 +449,68 @@ return {
             -- アウトラインウィンドウを閉じる
             quit = "q",
             -- 選択箇所にジャンプ
-            jump = "e" -- jump to pos even on a expand/collapse node
-          }
+            jump = "e", -- jump to pos even on a expand/collapse node
+          },
         },
         hover = {
-          max_width  = 0.9,
+          max_width = 0.9,
           max_height = 0.8,
-          open_link  = "gx",
-          open_cmd   = "!arc",
+          open_link = "gx",
+          open_cmd = "!arc",
         },
         -- diagnostic
         diagnostics = {
-          show_code_action          = true,
-          jump_num_shortcut         = true,
-          max_width                 = 0.8,
-          max_height                = 0.6,
-          text_hl_follow            = true,
-          border_follow             = true,
+          show_code_action = true,
+          jump_num_shortcut = true,
+          max_width = 0.8,
+          max_height = 0.6,
+          text_hl_follow = true,
+          border_follow = true,
           extend_relatedInformation = false,
-          show_layout               = "float",
-          show_normal_height        = 10,
-          max_show_width            = 0.9,
-          max_show_height           = 0.6,
-          diagnostic_only_current   = false,
+          show_layout = "float",
+          show_normal_height = 10,
+          max_show_width = 0.9,
+          max_show_height = 0.6,
+          diagnostic_only_current = false,
           keys = {
             -- アクションを実行
-            exec_action    = "<CR>",
+            exec_action = "<CR>",
             -- ジャンプウィンドウを閉じる
-            quit           = "q",
+            quit = "q",
             -- ウィンドウで選択箇所に ジャンプ
             toggle_or_jump = "<CR>",
             -- ウィンドウを閉じる
-            quit_in_show   = { "q", "<ESC>" },
-          }
+            quit_in_show = { "q", "<ESC>" },
+          },
         },
         -- 定義
         definition = {
-          width  = 0.6,
+          width = 0.6,
           height = 0.5,
           keys = {
             -- ファイルを開く
-            edit   = "<CR>",
+            edit = "<CR>",
             -- 垂直分割
             vsplit = "<C-s><C-v>",
             -- 水平分割
-            split  = "<C-s><C-s>",
+            split = "<C-s><C-s>",
             -- 新しいタブで開く
-            tabe   = "<C-c>t",
+            tabe = "<C-c>t",
             -- 終了
-            quit   = "q",
+            quit = "q",
             -- 閉じる
-            close  = "<ESC>",
-          }
+            close = "<ESC>",
+          },
         },
         -- 呼出階層表示時のアクションキーマップ
         callhierarchy = {
           keys = {
             -- ファイルを開く
-            edit   = "<CR>",
+            edit = "<CR>",
             -- 垂直分割
             vsplit = "<C-s><C-v>",
             -- 水平分割
-            split  = "<C-s><C-s>",
+            split = "<C-s><C-s>",
             -- 新しいタブで開く
             tabe = "t",
             -- 終了
@@ -499,15 +520,14 @@ return {
             -- トグルまたはリクエストを実行する
             toggle_or_req = "u",
             -- 閉じる
-            close = "<ESC>"
-          }
-        }
+            close = "<ESC>",
+          },
+        },
       })
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
-
-    }
-  }
+    },
+  },
 }

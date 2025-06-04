@@ -24,7 +24,7 @@ else
             zindex = 50,
             border = "rounded",
           },
-          wo ={},
+          wo = {},
         },
         on_ready = function(hub)
           vim.notify("MCPHub has ready")
@@ -40,8 +40,8 @@ else
           to_file = false,
           file_path = nil,
           prefix = "MCPHub",
-        }
+        },
       })
-    end
+    end,
   }
 end

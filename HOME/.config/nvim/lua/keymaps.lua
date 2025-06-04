@@ -22,10 +22,10 @@ vim.g.maplocalleader = " "
 ----  Window/Tab 操作系  ----
 -----------------------------
 -- ウィンドウを水平分割(上下)
-u.keymap("n", "ssk", ":leftabove split<Return>",   { desc = "上に水平分割" })
-u.keymap("n", "ssj", ":rightbelow split<Return>",  { desc = "下に水平分割" })
+u.keymap("n", "ssk", ":leftabove split<Return>", { desc = "上に水平分割" })
+u.keymap("n", "ssj", ":rightbelow split<Return>", { desc = "下に水平分割" })
 -- ウィンドウを垂分割(左右)
-u.keymap("n", "svh", ":leftabove vsplit<Return>",  { desc = "左に垂直分割" })
+u.keymap("n", "svh", ":leftabove vsplit<Return>", { desc = "左に垂直分割" })
 u.keymap("n", "svl", ":rightbelow vsplit<Return>", { desc = "右に垂直分割" })
 
 -- ウィンドウ移動(左下上右)
@@ -41,7 +41,7 @@ u.keymap("n", "gh", "gT", { desc = "左のタブへ移動" })
 u.keymap("n", "gl", "gt", { desc = "右のタブへ移動" })
 
 for i = 1, 9 do
-  u.keymap("n", "<leader>"..i, i.."gt", { desc = "タブ"..i.."へ移動" })
+  u.keymap("n", "<leader>" .. i, i .. "gt", { desc = "タブ" .. i .. "へ移動" })
 end
 
 -----------------------------
@@ -52,12 +52,11 @@ end
 
 -- レジスタに入れずにカット
 -- u.keymap("n", "x", "\"_d", opts)
-u.keymap("n", "X", "\"_D", { desc = "行末までカット" })
-u.keymap("x", "x", "\"_x", { desc = "選択範囲をカット" })
-u.keymap("o", "x", "d",    { desc = "選択範囲をカット" })
+u.keymap("n", "X", '"_D', { desc = "行末までカット" })
+u.keymap("x", "x", '"_x', { desc = "選択範囲をカット" })
+u.keymap("o", "x", "d", { desc = "選択範囲をカット" })
 
-
--- U で Redo 
+-- U で Redo
 u.keymap("n", "U", "<C-r>", { desc = "Redo" })
 
 -- ESC*2 でハイライトやめる
@@ -68,7 +67,12 @@ u.keymap("i", "jj", "<ESC>", { desc = "ノーマルモードに移行" })
 
 -- インサートモードのままカーソル移動
 -- Ctrl+l Ctrl+lで一番外へ移動
-u.keymap("i", "<C-l><C-l>", "<C-g>U<Esc><S-a>", { desc = "インサートモードのままカーソルを右へ移動" })
+u.keymap(
+  "i",
+  "<C-l><C-l>",
+  "<C-g>U<Esc><S-a>",
+  { desc = "インサートモードのままカーソルを右へ移動" }
+)
 
 -- 行を上下に移動
 -- u.keymap("n", "<S-k>", "$'<Cmd>move-1-{v:count1}<CR>=l'")

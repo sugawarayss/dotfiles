@@ -16,7 +16,7 @@ return {
       bo = {},
       wo = {
         winblend = 0,
-      }
+      },
     },
     layout = {
       width = { min = 20 },
@@ -74,6 +74,6 @@ return {
         bt = {},
       },
       debug = false,
-    }
-  }
+    },
+  },
 }

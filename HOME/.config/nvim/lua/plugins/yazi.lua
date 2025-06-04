@@ -7,7 +7,9 @@ if not vim.g.vscode then
     keys = {
       -- 👇 in this section, choose your own keymappings!
       {
-        "<C-t><C-t>", mode = { "n", "v" }, "<cmd>Yazi<cr>",
+        "<C-t><C-t>",
+        mode = { "n", "v" },
+        "<cmd>Yazi<cr>",
         desc = "現在のファイルをyaziで開く",
       },
     },

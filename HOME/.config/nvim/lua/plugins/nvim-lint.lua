@@ -42,7 +42,7 @@ return {
     -- }
 
     -- luacheck の設定ファイルの指定
-    nvim_lint.linters.luacheck.args = { "--config", "~/.config/nvim/.luarc.json"}
+    nvim_lint.linters.luacheck.args = { "--config", "~/.config/nvim/.luarc.json" }
 
     vim.diagnostic.config({
       virtual_text = {
@@ -50,13 +50,13 @@ return {
           -- diagnostic.source と diagnositc.code が nil でない場合のみカスタマイズする
           if diagnostic.source ~= nil then
             if diagnostic.code ~= nil then
-              return string.format('[%s] (%s) %s', diagnostic.source, diagnostic.code, diagnostic.message)
+              return string.format("[%s] (%s) %s", diagnostic.source, diagnostic.code, diagnostic.message)
             end
-            return string.format('[%s] %s', diagnostic.source, diagnostic.message)
+            return string.format("[%s] %s", diagnostic.source, diagnostic.message)
           end
           return string.format(base_format, diagnostic.source, diagnostic.code, diagnostic.message)
-        end
-      }
+        end,
+      },
     })
     nvim_lint.linters_by_ft = {
       python = { "mypy" },

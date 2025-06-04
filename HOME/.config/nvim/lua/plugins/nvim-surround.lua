@@ -19,7 +19,7 @@ return {
         delete = "ds",
         change = "cs",
         change_line = "cS",
-    },
+      },
       surrounds = {
         ["("] = {
           add = { "( ", " )" },
@@ -255,5 +255,5 @@ return {
         end
       end,
     })
-  end
+  end,
 }

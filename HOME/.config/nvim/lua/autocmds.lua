@@ -22,7 +22,6 @@ autocmd({ "BufReadPost" }, {
   end,
 })
 
-
 -- 外部からファイルを変更されたら反映する
 autocmd({ "WinEnter", "FocusGained", "BufEnter" }, {
   pattern = "*",

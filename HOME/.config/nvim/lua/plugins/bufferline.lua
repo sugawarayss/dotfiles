@@ -7,13 +7,55 @@ if not vim.g.vscode then
       lazy = true,
       event = { "BufReadPre" },
       keys = {
-        {"L",         "<Cmd>BufferLineCycleNext<CR>",  mode = "n", { noremap = true, silent = true }, desc = "次のバッファを表示"},
-        {"H",         "<Cmd>BufferLineCyclePrev<CR>",  mode = "n", { noremap = true, silent = true }, desc = "前のバッファを表示" },
-        {"<Leader>h", "<Cmd>BufferLineMovePrev<CR>",   mode = "n", { noremap = true, silent = true }, desc = "バッファを左に移動"},
-        {"<Leader>l", "<Cmd>BufferLineMoveNext<CR>",   mode = "n", { noremap = true, silent = true }, desc = "バッファを右に移動"},
-        {"<C-H>",     "<Cmd>BufferLineCloseLeft<CR>",  mode = "n", { noremap = true, silent = true }, desc = "左のバッファを閉じる"},
-        {"<C-L>",     "<Cmd>BufferLineCloseRight<CR>", mode = "n", { noremap = true, silent = true }, desc = "右のバッファを閉じる"},
-        {"<M-c>",     "<Cmd>BufferLinePickClose<CR>",  mode = "n", { noremap = true, silent = true }, desc = "選択したバッファを閉じる"},
+        {
+          "L",
+          "<Cmd>BufferLineCycleNext<CR>",
+          mode = "n",
+          { noremap = true, silent = true },
+          desc = "次のバッファを表示",
+        },
+        {
+          "H",
+          "<Cmd>BufferLineCyclePrev<CR>",
+          mode = "n",
+          { noremap = true, silent = true },
+          desc = "前のバッファを表示",
+        },
+        {
+          "<Leader>h",
+          "<Cmd>BufferLineMovePrev<CR>",
+          mode = "n",
+          { noremap = true, silent = true },
+          desc = "バッファを左に移動",
+        },
+        {
+          "<Leader>l",
+          "<Cmd>BufferLineMoveNext<CR>",
+          mode = "n",
+          { noremap = true, silent = true },
+          desc = "バッファを右に移動",
+        },
+        {
+          "<C-H>",
+          "<Cmd>BufferLineCloseLeft<CR>",
+          mode = "n",
+          { noremap = true, silent = true },
+          desc = "左のバッファを閉じる",
+        },
+        {
+          "<C-L>",
+          "<Cmd>BufferLineCloseRight<CR>",
+          mode = "n",
+          { noremap = true, silent = true },
+          desc = "右のバッファを閉じる",
+        },
+        {
+          "<M-c>",
+          "<Cmd>BufferLinePickClose<CR>",
+          mode = "n",
+          { noremap = true, silent = true },
+          desc = "選択したバッファを閉じる",
+        },
         -- disable keybind because CopilotChat use this keybind
         -- {"<leader>c", ":bd<CR>", mode = "n", { silent = true }, desc = "Close Current Buffer"},
       },
@@ -21,10 +63,10 @@ if not vim.g.vscode then
         local color_palette = require("tokyonight.colors").setup()
         require("bufferline").setup({
           highlights = {
-            error_selected              = { fg = color_palette.red },    -- #f7768e
+            error_selected = { fg = color_palette.red }, -- #f7768e
             warning_diagnostic_selected = { fg = color_palette.orange }, -- #ff9e64
-            error_diagnostic_selected   = { fg = color_palette.red },    -- #f7768e
-            close_button_selected       = { fg = color_palette.yellow }  -- #e0af68
+            error_diagnostic_selected = { fg = color_palette.red }, -- #f7768e
+            close_button_selected = { fg = color_palette.yellow }, -- #e0af68
           },
           options = {
             themable = true,
@@ -92,7 +134,7 @@ if not vim.g.vscode then
             hover = {
               enabled = true,
               delay = 200,
-              reveal = {"close"}
+              reveal = { "close" },
             },
             sort_by = function(buffer_a, buffer_b)
               if not buffer_a and buffer_b then
@@ -104,7 +146,7 @@ if not vim.g.vscode then
             end,
           },
         })
-      end
+      end,
     },
     -- bufferline.nvim の依存プラグイン
     { "nvim-tree/nvim-web-devicons", lazy = true },

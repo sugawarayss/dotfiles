@@ -16,7 +16,8 @@ if not vim.g.vscode then
           return "󱉶 " .. table.concat(linters, ", ")
         end
         -- Snacks Terminal 表示時の設定
-        local snacks_terminal = { sections = { lualine_a = { "mode" }, lualine_z = { { "datetime", style = "%Y/%m/%d %H:%M:%S" }} }, filetypes = { "snacks_terminal" }}
+        local snacks_terminal =
+          { sections = { lualine_a = { "mode" }, lualine_z = { { "datetime", style = "%Y/%m/%d %H:%M:%S" } } }, filetypes = { "snacks_terminal" } }
         -- マクロ記録中の表示内容の定義
         local function macro_recording()
           local reg = vim.fn.reg_recording()
@@ -29,11 +30,11 @@ if not vim.g.vscode then
           options = {
             icons_enabled = true,
             theme = "tokyonight",
-            component_separators = { left = "", right = ""},
-            section_separators = { left = "", right = ""},
+            component_separators = { left = "", right = "" },
+            section_separators = { left = "", right = "" },
             disabled_filetypes = {
-              statusline = {"sagaoutline", "dbui"},
-              winbar     = {},
+              statusline = { "sagaoutline", "dbui" },
+              winbar = {},
             },
             ignore_focus = {},
             always_divide_middle = true,
@@ -41,8 +42,8 @@ if not vim.g.vscode then
             globalstatus = false,
             refresh = {
               statusline = 100,
-              tabline    = 1000,
-              winbar     = 1000,
+              tabline = 1000,
+              winbar = 1000,
             },
           },
           sections = {
@@ -63,39 +64,39 @@ if not vim.g.vscode then
               -- },
 
               -- MCPサーバの起動状況
-              {require("mcphub.extensions.lualine")},
+              { require("mcphub.extensions.lualine") },
               -- Language Server の起動状況
-              "lsp-status"
+              "lsp-status",
             },
             lualine_y = { lint_progress },
             lualine_z = {
               "encoding",
               "fileformat",
-              "filetype"
+              "filetype",
             },
           },
           inactive_sections = {
             lualine_a = {},
             lualine_b = {
-                { "filename", path = 1 },
+              { "filename", path = 1 },
             },
             lualine_c = {
-                { "diff", "diagnostics" },
+              { "diff", "diagnostics" },
             },
             lualine_x = { "location" },
-              lualine_y = {},
-              lualine_z = {},
+            lualine_y = {},
+            lualine_z = {},
           },
           tabline = {},
           winbar = {},
           inactive_winbar = {},
-          extensions = { "neo-tree", "mason", "lazy", "nvim-dap-ui", "quickfix", snacks_terminal  },
+          extensions = { "neo-tree", "mason", "lazy", "nvim-dap-ui", "quickfix", snacks_terminal },
         })
       end,
-	},
+    },
     { "nvim-tree/nvim-web-devicons", lazy = true },
     { "pnx/lualine-lsp-status", lazy = true },
   }
 else
-	return {}
+  return {}
 end

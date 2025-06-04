@@ -11,17 +11,17 @@ return {
   {
     "lambdalisue/kensaku-command.vim",
     enabled = false,
-    lazy=true,
+    lazy = true,
     event = "BufReadPre",
   },
   -- /コマンドでローマ字で日本語を検索できるようにする
   {
     "lambdalisue/kensaku-search.vim",
     enabled = false,
-    lazy=true,
+    lazy = true,
     event = "BufReadPre",
     config = function()
-      vim.keymap.set("c", "<CR>", "<Plug>(kensaku-search-replace)<CR>", {noremap = true, silent = true})
+      vim.keymap.set("c", "<CR>", "<Plug>(kensaku-search-replace)<CR>", { noremap = true, silent = true })
     end,
   },
 }

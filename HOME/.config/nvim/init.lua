@@ -19,15 +19,12 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("lazy").setup(
-  "plugins",
-  {
-    defaults = {
-      lazy = true,
-    },
-    ui = {
-      border = "double"
-    }
-  }
-)
+require("lazy").setup("plugins", {
+  defaults = {
+    lazy = true,
+  },
+  ui = {
+    border = "double",
+  },
+})
 require("vscode_keymap")

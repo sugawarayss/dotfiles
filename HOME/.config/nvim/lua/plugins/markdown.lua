@@ -3,7 +3,7 @@ if not vim.g.vscode then
     --markdownのSyntaxとキーマップを拡張するプラグイン
     {
       "ixru/nvim-markdown",
-      ft = { "markdown"}
+      ft = { "markdown" },
     },
     -- markdownレンダリング
     {

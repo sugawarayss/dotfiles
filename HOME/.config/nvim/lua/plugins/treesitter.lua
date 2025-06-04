@@ -3,7 +3,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = "VeryLazy",
-    build = ":TSUpdate" ,
+    build = ":TSUpdate",
     priority = 1001,
     dependencies = {
       -- 対応するキーワードや記号にジャンプできる
@@ -69,7 +69,7 @@ return {
           "vue",
           "xml",
           "yaml",
-          "zig"
+          "zig",
         },
         auto_install = true,
         sync_install = false,
@@ -225,7 +225,7 @@ return {
           "wing",
           "yang",
           "yuck",
-          "zig"
+          "zig",
         },
         highlight = {
           enable = true,
@@ -255,11 +255,11 @@ return {
             [";"] = { "textsubjects-container-outer", desc = "クラス, 構造体, 関数を外側から選択" },
             ["i;"] = { "textsubjects-container-inner", desc = "クラス, 構造体, 関数の内部を選択" },
           },
-        }
+        },
       })
       local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
       ts_update()
-    end
+    end,
   },
   -- 画面に収まりきらない関数名を上部に表示するプラグイン
   {
@@ -268,19 +268,19 @@ return {
     event = "BufRead",
     config = function()
       require("treesitter-context").setup({
-        enable              = true,      -- Enable this plugin (Can be enabled/disabled later via commands)
-        max_lines           = 0,         -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height   = 0,         -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-        line_numbers        = true,
-        multiline_threshold = 20,        -- Maximum number of lines to show for a single context
-        trim_scope          = "outer",   -- Which context lines to discard if `max_lines` is exceeded. Choices: "inner", "outer"
-        mode                = "cursor",  -- Line used to calculate context. Choices: "cursor", "topline"
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        line_numbers = true,
+        multiline_threshold = 20, -- Maximum number of lines to show for a single context
+        trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: "inner", "outer"
+        mode = "cursor", -- Line used to calculate context. Choices: "cursor", "topline"
         -- Separator between context and content. Should be a single character string, like "-".
         -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-        separator           = nil,
-        zindex              = 20,        -- The Z-index of the context window
-        on_attach           = nil,       -- (fun(buf: integer): boolean) return false to disable attaching
+        separator = nil,
+        zindex = 20, -- The Z-index of the context window
+        on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
       })
-    end
-  }
+    end,
+  },
 }

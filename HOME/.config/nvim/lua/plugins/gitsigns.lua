@@ -6,53 +6,53 @@ return {
   dependencies = "nvim-lua/plenary.nvim",
   config = function()
     require("gitsigns").setup({
-      signs                        = {
-        add          = { text = "┃" },
-        change       = { text = "┃" },
-        delete       = { text = "_" },
-        topdelete    = { text = "‾" },
+      signs = {
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
         changedelete = { text = "~" },
-        untracked    = { text = "󰇙" },
+        untracked = { text = "󰇙" },
       },
       signs_staged = {
-        add          = { text = '┃' },
-        change       = { text = '┃' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked    = { text = '┆' },
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
       },
-      signs_staged_enable          = true,
-      signcolumn                   = true, -- サインを行番号のある列に表示する `:Gitsigns toggle_signs`
-      numhl                        = false, --  行番号をハイライトする         `Gitsigns toggle_numhl`
-      linehl                       = false, --  バッファ本文のハイライトを行単位で変更する `Gitsigns toggle_linehl`
-      word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
-      watch_gitdir                 = {
-        interval                   = 1000,
-        follow_files               = true
+      signs_staged_enable = true,
+      signcolumn = true, -- サインを行番号のある列に表示する `:Gitsigns toggle_signs`
+      numhl = false, --  行番号をハイライトする         `Gitsigns toggle_numhl`
+      linehl = false, --  バッファ本文のハイライトを行単位で変更する `Gitsigns toggle_linehl`
+      word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+      watch_gitdir = {
+        interval = 1000,
+        follow_files = true,
       },
-      auto_attach                  = true,
-      attach_to_untracked          = true,
-      current_line_blame           = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-      current_line_blame_opts      = {
-        virt_text                  = true,
-        virt_text_pos              = "right_align", -- "eol" | "overlay" | "right_align"
-        delay                      = 1000,
-        ignore_whitespace          = false,
-        virt_text_priority         = 100,
+      auto_attach = true,
+      attach_to_untracked = true,
+      current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = "right_align", -- "eol" | "overlay" | "right_align"
+        delay = 1000,
+        ignore_whitespace = false,
+        virt_text_priority = 100,
       },
       current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
-      sign_priority                = 6,
-      update_debounce              = 100,
-      status_formatter             = nil, -- Use default
-      max_file_length              = 40000, -- Disable if file is longer than this (in lines)
-      preview_config               = {
+      sign_priority = 6,
+      update_debounce = 100,
+      status_formatter = nil, -- Use default
+      max_file_length = 40000, -- Disable if file is longer than this (in lines)
+      preview_config = {
         -- Options passed to nvim_open_win
-        border                     = "single",
-        style                      = "minimal",
-        relative                   = "editor",
-        row                        = 0,
-        col                        = 1,
+        border = "single",
+        style = "minimal",
+        relative = "editor",
+        row = 0,
+        col = 1,
       },
       on_attach = function(bufnr)
         local gs = require("gitsigns")
@@ -65,14 +65,22 @@ return {
 
         -- Navigation
         map("n", "]c", function()
-          if vim.wo.diff then return "]c" end
-          vim.schedule(function() gs.next_hunk() end)
+          if vim.wo.diff then
+            return "]c"
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
           return "<Ignore>"
         end, { expr = true, desc = "次のHunkに移動" })
 
         map("n", "[c", function()
-          if vim.wo.diff then return "[c" end
-          vim.schedule(function() gs.prev_hunk() end)
+          if vim.wo.diff then
+            return "[c"
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
           return "<Ignore>"
         end, { expr = true, desc = "前のHunkに移動" })
 
@@ -89,8 +97,8 @@ return {
 
         -- Text object
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
-      end
+      end,
     })
     require("scrollbar.handlers.gitsigns").setup()
-  end
+  end,
 }

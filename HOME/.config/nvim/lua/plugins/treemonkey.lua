@@ -3,7 +3,7 @@ return {
   "atusy/treemonkey.nvim",
   enabled = true,
   init = function()
-    vim.keymap.set({"x", "o"}, "m", function()
+    vim.keymap.set({ "x", "o" }, "m", function()
       require("treemonkey").select({
         ignore_injections = true,
         highlight = {
@@ -15,5 +15,5 @@ return {
         },
       })
     end)
-  end
+  end,
 }

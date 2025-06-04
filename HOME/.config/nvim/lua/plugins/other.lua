@@ -12,25 +12,23 @@ return {
       "OtherVSplit",
     },
     config = function()
-      require("other-nvim").setup(
-        {
-          mappings = {
-            "livewire",
-            "angular",
-            "laravel",
-            "rails",
-            "golang",
-            {
-              pattern = "(.*).py$",
-              target = "tests/test_%1.py",
-            }
+      require("other-nvim").setup({
+        mappings = {
+          "livewire",
+          "angular",
+          "laravel",
+          "rails",
+          "golang",
+          {
+            pattern = "(.*).py$",
+            target = "tests/test_%1.py",
           },
-          style = {
-            border = "rounded",
-            seperator = "|",
-          }
-        }
-      )
+        },
+        style = {
+          border = "rounded",
+          seperator = "|",
+        },
+      })
     end,
   },
 }

@@ -11,5 +11,5 @@ return {
     require("swap-buffers").setup({
       ignore_filetypes = { "neo-tree", "toggleterm" },
     })
-  end
+  end,
 }

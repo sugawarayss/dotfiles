@@ -9,7 +9,7 @@ return {
       highlighter = {
         auto_enable = true,
         lsp = true,
-      }
+      },
     })
-  end
+  end,
 }

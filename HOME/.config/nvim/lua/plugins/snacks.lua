@@ -20,7 +20,9 @@ if not vim.g.vscode then
           -- スペルチェックの有効/無効のトグル
           Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us", { desc = "スペルチェックの有効/無効のトグル" })
           -- 行番号の相対表示の有効/無効のトグル
-          Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ul", { desc = "行番号の相対表示の有効/無効のトグル" })
+          Snacks.toggle
+            .option("relativenumber", { name = "Relative Number" })
+            :map("<leader>ul", { desc = "行番号の相対表示の有効/無効のトグル" })
           -- 診断の有効/無効のトグル
           Snacks.toggle.diagnostics():map("<leader>ud", { desc = "診断の有効/無効のトグル" })
           -- インレイヒントの有効/無効のトグル
@@ -46,17 +48,17 @@ if not vim.g.vscode then
     opts = {
       -- アニメーションライブラリ
       animate = {
-        enabled  = true,
+        enabled = true,
         duration = 20,
-        easing   = "linear",
-        fps      = 60,
+        easing = "linear",
+        fps = 60,
       },
       -- 指定のサイズより大きいファイルを開いたときにattach されるfiletypeを追加する。
       -- LSP や treesitter がバッファにattachされるのが自動的に防止される。
       bigfile = {
-        enabled     = true,
-        notify      = true,
-        size        = 1.5 * 1024 * 1024, -- 1.5MB
+        enabled = true,
+        notify = true,
+        size = 1.5 * 1024 * 1024, -- 1.5MB
         line_length = 1000,
       },
       -- debug用の設定
@@ -75,12 +77,12 @@ if not vim.g.vscode then
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
           {
-            pane    = 2,
-            icon    = " ",
-            desc    = "Browse Repo",
+            pane = 2,
+            icon = " ",
+            desc = "Browse Repo",
             padding = 1,
-            key     = "b",
-            action  = function()
+            key = "b",
+            action = function()
               Snacks.gitbrowse()
             end,
           },
@@ -88,51 +90,51 @@ if not vim.g.vscode then
             local in_git = Snacks.git.get_root() ~= nil
             local cmds = {
               {
-                title   = "Notifications",
-                cmd     = "gh notify -s -a -n5",
-                action  = function()
+                title = "Notifications",
+                cmd = "gh notify -s -a -n5",
+                action = function()
                   vim.ui.open("https://github.com/notifications")
                 end,
-                key     = "N",
-                icon    = " ",
-                height  = 5,
+                key = "N",
+                icon = " ",
+                height = 5,
                 enabled = true,
               },
               {
-                title  = "Open Issues",
-                cmd    = "gh issue list -L 3",
-                key    = "I",
+                title = "Open Issues",
+                cmd = "gh issue list -L 3",
+                key = "I",
                 action = function()
                   vim.fn.jobstart("gh issue list --web", { detach = true })
                 end,
-                icon   = " ",
+                icon = " ",
                 height = 7,
               },
               {
-                icon   = " ",
-                title  = "Open PRs",
-                cmd    = "gh pr list -L 3",
-                key    = "P",
+                icon = " ",
+                title = "Open PRs",
+                cmd = "gh pr list -L 3",
+                key = "P",
                 action = function()
                   vim.fn.jobstart("gh pr list --web", { detach = true })
                 end,
                 height = 7,
               },
               {
-                icon   = " ",
-                title  = "Git Status",
-                cmd    = "git --no-pager diff --stat -B -M -C",
+                icon = " ",
+                title = "Git Status",
+                cmd = "git --no-pager diff --stat -B -M -C",
                 height = 10,
               },
             }
             return vim.tbl_map(function(cmd)
               return vim.tbl_extend("force", {
-                pane    = 2,
+                pane = 2,
                 section = "terminal",
                 enabled = in_git,
                 padding = 1,
-                ttl     = 5 * 60,
-                indent  = 3,
+                ttl = 5 * 60,
+                indent = 3,
               }, cmd)
             end, cmds)
           end,
@@ -146,7 +148,7 @@ if not vim.g.vscode then
         enabled = true,
         actions = {
           safe_delete = function(picker)
-            local selected = picker:selected { fallback = true }
+            local selected = picker:selected({ fallback = true })
             local has_root = vim.iter(selected):any(function(s)
               return not s.parent
             end)
@@ -154,7 +156,7 @@ if not vim.g.vscode then
               vim.print("Cannot delete root directory")
               return
             end
-            picker:action "explorer_del"
+            picker:action("explorer_del")
           end,
         },
         win = {
@@ -162,8 +164,8 @@ if not vim.g.vscode then
             keys = {
               ["<c-t>"] = nil,
               ["d"] = "safe_delete",
-            }
-          }
+            },
+          },
         },
       },
       -- アクティブファイルのリポジトリを開く
@@ -282,11 +284,11 @@ if not vim.g.vscode then
               list = {
                 keys = {
                   ["<c-t>"] = nil,
-                }
-              }
+                },
+              },
             },
-          }
-        }
+          },
+        },
       },
       -- Luaプロファイラ
       profiler = { enabled = true },
@@ -304,7 +306,7 @@ if not vim.g.vscode then
         map = vim.keymap.set,
         which_key = true,
         notify = true,
-          icon = {
+        icon = {
           enabled = " ",
           disabled = " ",
         },
@@ -350,7 +352,7 @@ if not vim.g.vscode then
             expr = true,
             desc = "Double escape to normal mode",
           },
-        }
+        },
       },
       words = {
         enabled = false,
@@ -362,7 +364,7 @@ if not vim.g.vscode then
         modes = { "n", "i", "c" },
         filter = function(buf)
           return vim.g.snacks_words ~= false and vim.b[buf].snacks_words ~= false
-        end
+        end,
       },
       styles = {
         input = {
@@ -380,57 +382,290 @@ if not vim.g.vscode then
           },
           b = { completion = true },
         },
-      }
+      },
     },
     keys = {
       -- Top Pickers & Explorer
       -- { "<leader><leader>", function() Snacks.picker.smart() end,                 desc = "スマートファイル検索から表示" },
-      { "<leader>s,",        function() Snacks.picker.buffers() end,               desc = "バッファリストを表示" },
-      { "<F5>",             function() Snacks.picker.grep() end,                  desc = "ファイル内容から表示" },
-      { "<leader>s:",        function() Snacks.picker.command_history() end,       desc = "コマンド履歴を表示" },
-      { "<leader>n",        function() Snacks.picker.notifications() end,         desc = "通知履歴を表示" },
-      { "<leader>fe",       function() Snacks.picker.explorer() end,              desc = "ファイルエクスプローラを表示" },
-      { "<F3>",             function() Snacks.terminal.toggle() end,              desc = "ターミナルを開く" },
-      { "<F3>",             function() Snacks.terminal.toggle() end,              desc = "ターミナルを閉じる", mode = { "t" } },
+      {
+        "<leader>s,",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "バッファリストを表示",
+      },
+      {
+        "<F5>",
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = "ファイル内容から表示",
+      },
+      {
+        "<leader>s:",
+        function()
+          Snacks.picker.command_history()
+        end,
+        desc = "コマンド履歴を表示",
+      },
+      {
+        "<leader>n",
+        function()
+          Snacks.picker.notifications()
+        end,
+        desc = "通知履歴を表示",
+      },
+      {
+        "<leader>fe",
+        function()
+          Snacks.picker.explorer()
+        end,
+        desc = "ファイルエクスプローラを表示",
+      },
+      {
+        "<F3>",
+        function()
+          Snacks.terminal.toggle()
+        end,
+        desc = "ターミナルを開く",
+      },
+      {
+        "<F3>",
+        function()
+          Snacks.terminal.toggle()
+        end,
+        desc = "ターミナルを閉じる",
+        mode = { "t" },
+      },
       -- find
-      { "<leader>fb",       function() Snacks.picker.buffers() end,               desc = "バッファリストを表示" },
+      {
+        "<leader>fb",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "バッファリストを表示",
+      },
       -- { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Neovim設定ファイルリストを表示" },
-      { "<leader>ff",       function() Snacks.picker.files() end,                 desc = "ファイル名リストを表示" },
-      { "<leader>fr",       function() Snacks.picker.recent() end,                desc = "直近開いたファイルリストを表示" },
+      {
+        "<leader>ff",
+        function()
+          Snacks.picker.files()
+        end,
+        desc = "ファイル名リストを表示",
+      },
+      {
+        "<leader>fr",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "直近開いたファイルリストを表示",
+      },
       -- git
-      { "<leader>gb",       function() Snacks.picker.git_branches() end,          desc = "Gitブランチリストを表示" },
-      { "<leader>gl",       function() Snacks.picker.git_log() end,               desc = "Git Logを表示" },
+      {
+        "<leader>gb",
+        function()
+          Snacks.picker.git_branches()
+        end,
+        desc = "Gitブランチリストを表示",
+      },
+      {
+        "<leader>gl",
+        function()
+          Snacks.picker.git_log()
+        end,
+        desc = "Git Logを表示",
+      },
       -- Grep
-      { "<leader>sw",       function() Snacks.picker.grep_word() end,             desc = "Visual selection or word", mode = { "n", "x" } },
+      {
+        "<leader>sw",
+        function()
+          Snacks.picker.grep_word()
+        end,
+        desc = "Visual selection or word",
+        mode = { "n", "x" },
+      },
       -- search
-      { '<leader>sr',       function() Snacks.picker.registers() end,             desc = "レジスタを検索" },
-      { '<leader>s/',       function() Snacks.picker.search_history() end,        desc = "検索履歴を検索" },
-      { "<leader>sa",       function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
+      {
+        "<leader>sr",
+        function()
+          Snacks.picker.registers()
+        end,
+        desc = "レジスタを検索",
+      },
+      {
+        "<leader>s/",
+        function()
+          Snacks.picker.search_history()
+        end,
+        desc = "検索履歴を検索",
+      },
+      {
+        "<leader>sa",
+        function()
+          Snacks.picker.autocmds()
+        end,
+        desc = "Autocmds",
+      },
       -- { "Q",                function() Snacks.picker.commands() end,              desc = "Commandを検索" },
-      { "<leader>sd",       function() Snacks.picker.diagnostics() end,           desc = "LSP診断を検索" },
-      { "<leader>sD",       function() Snacks.picker.diagnostics_buffer() end,    desc = "バッファ内のLSP診断を検索" },
-      { "<leader>sh",       function() Snacks.picker.help() end,                  desc = "ヘルプページを検索" },
-      { "<leader>si",       function() Snacks.picker.icons() end,                 desc = "Iconを検索" },
-      { "<leader>sj",       function() Snacks.picker.jumps() end,                 desc = "Jumps" },
-      { "<leader>skm",      function() Snacks.picker.keymaps() end,               desc = "Keymapリストを検索" },
-      { "<leader>sl",       function() Snacks.picker.loclist() end,               desc = "Location List" },
-      { "<leader>sM",       function() Snacks.picker.man() end,                   desc = "Man ページを検索" },
-      { "<leader>sp",       function() Snacks.picker.lazy() end,                  desc = "Neovimプラグイン設定を検索" },
-      { "<leader>sq",       function() Snacks.picker.qflist() end,                desc = "Quickfix リストを検索" },
-      { "<leader>su",       function() Snacks.picker.undo() end,                  desc = "Undo 履歴を検索" },
+      {
+        "<leader>sd",
+        function()
+          Snacks.picker.diagnostics()
+        end,
+        desc = "LSP診断を検索",
+      },
+      {
+        "<leader>sD",
+        function()
+          Snacks.picker.diagnostics_buffer()
+        end,
+        desc = "バッファ内のLSP診断を検索",
+      },
+      {
+        "<leader>sh",
+        function()
+          Snacks.picker.help()
+        end,
+        desc = "ヘルプページを検索",
+      },
+      {
+        "<leader>si",
+        function()
+          Snacks.picker.icons()
+        end,
+        desc = "Iconを検索",
+      },
+      {
+        "<leader>sj",
+        function()
+          Snacks.picker.jumps()
+        end,
+        desc = "Jumps",
+      },
+      {
+        "<leader>skm",
+        function()
+          Snacks.picker.keymaps()
+        end,
+        desc = "Keymapリストを検索",
+      },
+      {
+        "<leader>sl",
+        function()
+          Snacks.picker.loclist()
+        end,
+        desc = "Location List",
+      },
+      {
+        "<leader>sM",
+        function()
+          Snacks.picker.man()
+        end,
+        desc = "Man ページを検索",
+      },
+      {
+        "<leader>sp",
+        function()
+          Snacks.picker.lazy()
+        end,
+        desc = "Neovimプラグイン設定を検索",
+      },
+      {
+        "<leader>sq",
+        function()
+          Snacks.picker.qflist()
+        end,
+        desc = "Quickfix リストを検索",
+      },
+      {
+        "<leader>su",
+        function()
+          Snacks.picker.undo()
+        end,
+        desc = "Undo 履歴を検索",
+      },
       -- LSP
-      { "<leader>ss",       function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols"},
-      { "<leader>sS",       function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+      {
+        "<leader>ss",
+        function()
+          Snacks.picker.lsp_symbols()
+        end,
+        desc = "LSP Symbols",
+      },
+      {
+        "<leader>sS",
+        function()
+          Snacks.picker.lsp_workspace_symbols()
+        end,
+        desc = "LSP Workspace Symbols",
+      },
       -- Other
-      { "<leader>z",        function() Snacks.zen() end,                          desc = "Zen モードをトグル" },
-      { "<leader>n",        function() Snacks.notifier.show_history() end,        desc = "通知履歴を表示" },
-      { "<leader>dd",       function() Snacks.bufdelete() end,                    desc = "バッファを閉じる" },
-      { "<leader>gB",       function() Snacks.gitbrowse() end,                    desc = "リポジトリをGitHubで開く", mode = { "n", "v" } },
-      { "<leader>gg",       function() Snacks.lazygit() end,                      desc = "Lazygitを起動" },
-      { "<leader>un",       function() Snacks.notifier.hide() end,                desc = "全ての通知を却下する" },
-      { "<c-_>",            function() Snacks.terminal() end,                     desc = "which_key_ignore" },
-      { "]]",               function() Snacks.words.jump(vim.v.count1) end,       desc = "Next Reference", mode = { "n", "t" } },
-      { "[[",               function() Snacks.words.jump(-vim.v.count1) end,      desc = "Prev Reference", mode = { "n", "t" } },
+      {
+        "<leader>z",
+        function()
+          Snacks.zen()
+        end,
+        desc = "Zen モードをトグル",
+      },
+      {
+        "<leader>n",
+        function()
+          Snacks.notifier.show_history()
+        end,
+        desc = "通知履歴を表示",
+      },
+      {
+        "<leader>dd",
+        function()
+          Snacks.bufdelete()
+        end,
+        desc = "バッファを閉じる",
+      },
+      {
+        "<leader>gB",
+        function()
+          Snacks.gitbrowse()
+        end,
+        desc = "リポジトリをGitHubで開く",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gg",
+        function()
+          Snacks.lazygit()
+        end,
+        desc = "Lazygitを起動",
+      },
+      {
+        "<leader>un",
+        function()
+          Snacks.notifier.hide()
+        end,
+        desc = "全ての通知を却下する",
+      },
+      {
+        "<c-_>",
+        function()
+          Snacks.terminal()
+        end,
+        desc = "which_key_ignore",
+      },
+      {
+        "]]",
+        function()
+          Snacks.words.jump(vim.v.count1)
+        end,
+        desc = "Next Reference",
+        mode = { "n", "t" },
+      },
+      {
+        "[[",
+        function()
+          Snacks.words.jump(-vim.v.count1)
+        end,
+        desc = "Prev Reference",
+        mode = { "n", "t" },
+      },
     },
   }
 else

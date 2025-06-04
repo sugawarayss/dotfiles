@@ -8,7 +8,6 @@ local sample = [[
 ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
 ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]]
 
-
 local tool_1992_2001 = [[
 IBYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYBI 
 Iz                                                                                                                      zI 
@@ -87,8 +86,6 @@ local tool_2019 = [[
                                              .)    7.. _d&    ,~    (5`     ?b.   .r    .@>  .7    ,}                       .#>                   
                                              .)      (=(.?S,  ,~  .Y!        (4.. .r  .J3(.?^      ,}                   ...V=`                    
                                              .'           !??77=7!              ?77"77!!`          .7<<<<<<<<<?7777777777!`                       ]]
-
-
 
 local char_headers = { tool_1992_2001, tool_2001_2006, tool_2006_2019, tool_2019 }
 
