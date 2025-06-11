@@ -1,76 +1,72 @@
 {
   "nativeMCPServers": {
     "neovim": {
+      "disabled_prompts": [
+        "parrot"
+      ],
       "disabled_resources": [
         "neovim://diagnostics/current",
         "neovim://diagnostics/workspace",
         "neovim://buffer"
-      ],
-      "disabled_prompts": [
-        "parrot"
       ]
     },
     "mcphub": {
+      "disabled_prompts": [
+        "create_native_server"
+      ],
       "disabled_resources": [
         "mcphub://docs",
         "mcphub://native_server_guide",
         "mcphub://changelog"
-      ],
-      "disabled_prompts": [
-        "create_native_server"
       ]
     }
   },
   "mcpServers": {
-    "github.com/modelcontextprotocol/servers/tree/main/src/time": {
-      "env": [],
-      "args": [
-        "mcp-server-time",
-        "--local-timezone=Asia/Tokyo"
-      ],
-      "disabled": false,
-      "autoApprove": [],
-      "command": "uvx"
-    },
-    "github.com/awslabs/mcp/tree/main/src/aws-documentation-mcp-server": {
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      },
-      "args": [
-        "awslabs.aws-documentation-mcp-server@latest"
-      ],
-      "disabled": false,
+    "github.com/tavily-ai/tavily-mcp": {
       "autoApprove": [
-        "read_documentation",
-        "search_documentation",
-        "recommend"
+        "tavily-search",
+        "tavily-extract",
+        "tavily-map",
+        "tavily-crawl"
       ],
-      "command": "uvx"
+      "env": {
+        "TAVILY_API_KEY": "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"
+      },
+      "disabled": false,
+      "command": "npx",
+      "args": [
+        "-y",
+        "tavily-mcp@0.2.1"
+      ]
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
+      "autoApprove": [
+        "sequentialthinking"
+      ],
+      "disabled": false,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
     },
     "github.com/awslabs/mcp/tree/main/src/terraform-mcp-server": {
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      },
-      "args": [
-        "awslabs.terraform-mcp-server@latest"
-      ],
-      "disabled": false,
       "autoApprove": [
         "SearchUserProvidedModule",
         "SearchSpecificAwsIaModules",
         "SearchAwsccProviderDocs",
         "SearchAwsProviderDocs"
       ],
-      "command": "uvx"
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "command": "uvx",
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ]
     },
     "github.com/modelcontextprotocol/servers/tree/main/src/filesystem": {
-      "env": [],
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/Users/sugawarayss/PROJECTS/"
-      ],
-      "disabled": false,
       "autoApprove": [
         "read_file",
         "read_multiple_files",
@@ -84,17 +80,30 @@
         "create_directory",
         "edit_file"
       ],
-      "command": "npx"
-    },
-    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
-      "disabled": false,
-      "autoApprove": [
-        "sequentialthinking"
+      "env": [
+        
       ],
+      "disabled": false,
       "command": "npx",
       "args": [
         "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/sugawarayss/PROJECTS/"
+      ]
+    },
+    "github.com/awslabs/mcp/tree/main/src/aws-documentation-mcp-server": {
+      "autoApprove": [
+        "read_documentation",
+        "search_documentation",
+        "recommend"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "command": "uvx",
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
       ]
     }
   }
