@@ -2,7 +2,9 @@
 ############
 # set PATH #
 ############
+# Homebrew
 fish_add_path /opt/homebrew/bin
+fish_add_path /opt/homebrew/sbin
 # RUST
 fish_add_path $HOME/.cargo/bin
 # psql
