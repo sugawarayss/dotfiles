@@ -18,7 +18,9 @@ if not vim.g.vscode then
           end
           vim.print = _G.dd -- Override print to use snacks for `:=` command
           -- スペルチェックの有効/無効のトグル
-          Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us", { desc = "スペルチェックの有効/無効のトグル" })
+          Snacks.toggle
+            .option("spell", { name = "Spelling" })
+            :map("<leader>us", { desc = "スペルチェックの有効/無効のトグル" })
           -- 行番号の相対表示の有効/無効のトグル
           Snacks.toggle
             .option("relativenumber", { name = "Relative Number" })

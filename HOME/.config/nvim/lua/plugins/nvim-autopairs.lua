@@ -27,7 +27,9 @@ return {
     })
     -- codecompanionのmarkdown でもコードブロックを補完できるようにする
     npairs.add_rules({
-      Rule("```", "```", { "codecompanion", "markdown", "vimwiki", "rmarkdown", "rmd", "pandoc", "quarto" }):with_pair(cond.not_before_char("`", 3)),
+      Rule("```", "```", { "codecompanion", "markdown", "vimwiki", "rmarkdown", "rmd", "pandoc", "quarto" }):with_pair(
+        cond.not_before_char("`", 3)
+      ),
     })
   end,
 }

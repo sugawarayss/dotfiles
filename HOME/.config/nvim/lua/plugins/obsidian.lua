@@ -30,8 +30,20 @@ return {
     "ObsidianTOC", -- 現在のノートの目次をpicker list に読み込む
   },
   keys = {
-    { "<Leader>sn", "<Cmd>ObsidianQuickSwitch<CR>", mode = "n", { noremap = true, silent = true }, desc = "Obsidianノートを検索" },
-    { "<Leader>on", "<Cmd>ObsidianNewFromTemplate<CR>", mode = "n", { noremap = true, silent = true }, desc = "Obsidianノートを開く(作成)" },
+    {
+      "<Leader>sn",
+      "<Cmd>ObsidianQuickSwitch<CR>",
+      mode = "n",
+      { noremap = true, silent = true },
+      desc = "Obsidianノートを検索",
+    },
+    {
+      "<Leader>on",
+      "<Cmd>ObsidianNewFromTemplate<CR>",
+      mode = "n",
+      { noremap = true, silent = true },
+      desc = "Obsidianノートを開く(作成)",
+    },
     {
       "<Leader>od",
       "<Cmd>ObsidianToday<CR>",

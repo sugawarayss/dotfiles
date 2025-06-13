@@ -251,7 +251,10 @@ return {
           enable = true,
           perv_section = ",",
           keymaps = {
-            ["."] = { "textsubjects-smart", desc = "コメント, 関数呼び出し, 関数定義などスマートに選択" },
+            ["."] = {
+              "textsubjects-smart",
+              desc = "コメント, 関数呼び出し, 関数定義などスマートに選択",
+            },
             [";"] = { "textsubjects-container-outer", desc = "クラス, 構造体, 関数を外側から選択" },
             ["i;"] = { "textsubjects-container-inner", desc = "クラス, 構造体, 関数の内部を選択" },
           },

@@ -9,7 +9,12 @@ return {
     "nvim-neotest/neotest-python",
   },
   keys = {
-    { "<M-r><M-t>r", ":lua require('neotest').run.run({strategy = 'dap'})<CR>", mode = "n", desc = "最も近いテストをデバッグする" },
+    {
+      "<M-r><M-t>r",
+      ":lua require('neotest').run.run({strategy = 'dap'})<CR>",
+      mode = "n",
+      desc = "最も近いテストをデバッグする",
+    },
     { "<M-r><M-t>s", ":lua require('neotest').run.stop()<CR>", mode = "n", desc = "テストをストップ" },
     {
       "<M-r><M-t>f",
@@ -23,7 +28,12 @@ return {
       mode = "n",
       desc = "テストの結果を表示する(float window)",
     },
-    { "<M-r><M-t>o", ":lua require('neotest').output_panel.open()<CR>", mode = "n", desc = "テストの結果をパネル表示する" },
+    {
+      "<M-r><M-t>o",
+      ":lua require('neotest').output_panel.open()<CR>",
+      mode = "n",
+      desc = "テストの結果をパネル表示する",
+    },
   },
   config = function()
     require("neotest").setup({
