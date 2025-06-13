@@ -1,19 +1,21 @@
+# shell 統合
+shell-integration = fish
 # メインフォント
 font-family = "Hack Nerd Font"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
 # フォントサイズ
-font-size = 15
+font-size = 15.5
 
 # カラーテーマ
-theme = GitHub Dark
+theme = Duotone Dark
 
 # ウィンドウの左右の余白
 window-padding-x = 4,2
 # ウィンドウの背景透過度
-background-opacity = 0.80
+background-opacity = 0.75
 # 背景のぼかし度合い
-background-blur-radius = 20
+background-blur-radius = 15
 # カーソルの点滅
 cursor-style-blink = true
 
