@@ -47,3 +47,4 @@ keybind = "all:ctrl+shift+l=resize_split:right,20"
 keybind = "all:ctrl+shift+h=resize_split:left,20"
 keybind = "all:ctrl+shift+k=resize_split:up,20"
 keybind = "all:ctrl+shift+j=resize_split:down,20"
+keybind = shift+enter=text:\n
