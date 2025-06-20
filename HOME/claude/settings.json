@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(fd:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(chmod:*)",
+      "Bash(rg:*)",
+      "Bash(task:*)",
+      "Bash(uv:*)",
+      "Bash(npm:*)",
+      "Bash(aws:*)"
+    ],
+    "deny": [
+      "Bash(git:*)"
+    ]
+  },
+  "env": {
+    "ANTHROPIC_MODEL": "claude-opus-4-20250514",
+    "ANTHROPIC_SMALL_FAST_MODEL": "claude-3-5-haiku-20241022"
+  }
+}
