@@ -4,6 +4,12 @@ pwd := `pwd`
 # デフォルトはタスクのリスト表示
 default: _list
 
+# claude code 用設定ファイル
+claude:
+  @test -d ~/.claude || mkdir -p ~/.claude
+  @test -L ~/.claude/CLAUDE.md || ln -s {{pwd}}/HOME/claude/CLAUDE.md ~/.claude/CLAUDE.md
+  @test -L ~/.claude/settings.json || ln -s {{pwd}}/HOME/claude/settings.json ~/.claude/settings.json
+
 # 定義済タスクリスト表示
 _list:
   @just --list
