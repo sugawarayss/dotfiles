@@ -1,0 +1,61 @@
+{
+    "globalShortcut": "Alt+Ctrl+Tab",
+    "mcpServers": {
+        "time": {
+            "command": "uvx",
+            "args": ["mcp-server-time", "--local-timezone=Asia/Tokyo"]
+        },
+        "tavily-mcp": {
+            "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
+            "args": ["-y", "tavily-mcp@0.1.2"],
+            "env": {
+                "TAVILY_API_KEY": "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"
+            }
+        },
+        "filesystem": {
+            "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "/Users/sugawarayss"
+            ],
+            "autoApprove": [
+                "read_file",
+                "read_multiple_files",
+                "list_directory",
+                "search_files",
+                "get_file_info",
+                "list_allowed_directories",
+                "directory_tree",
+                "move_file",
+                "write_file",
+                "create_directory",
+                "edit_file"
+            ]
+        },
+        "aws-document": {
+            "command": "uvx",
+            "args": ["awslabs.aws-documentation-mcp-server@latest"],
+            "env": {
+                "FASTMCP_LOG_LEVEL": "ERROR",
+                "AWS_DOCUMENTATION_PARTITION": "aws"
+            },
+            "disabled": false,
+            "autoApprove": []
+        },
+        "aws-terraform": {
+            "command": "uvx",
+            "args": ["awslabs.terraform-mcp-server@latest"],
+            "env": {
+                "FASTMCP_LOG_LEVEL": "ERROR"
+            },
+            "disabled": false,
+            "autoApprove": [
+                "SearchUserProvidedModule",
+                "SearchSpecificAwsIaModules",
+                "SearchAwsccProviderDocs",
+                "SearchAwsProviderDocs"
+            ]
+        }
+    }
+}
