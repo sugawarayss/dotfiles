@@ -1,3 +1,18 @@
-## Conversation Guidelines
+# CLAUDE.md
+
+## 会話のガイドライン
 
 - 常に日本語で会話する
+
+### 通知
+
+**条件**: ユーザへ何らかのを通知を行いたい時
+
+**アクション**: 以下のコマンドを実行する:
+
+```shell
+
+say -v Kyoko "${message}"
+```
+
+ここで、`${message}` は、Claude Code がユーザに通知する必要がある内容に基づいて決定する
