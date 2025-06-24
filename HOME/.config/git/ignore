@@ -61,3 +61,5 @@ localhost*pem
 CLAUDE.md
 # プロジェクト固有の個人設定
 CLAUDE.local.md
+
+**/.claude/settings.local.json
