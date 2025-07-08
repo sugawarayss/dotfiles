@@ -1,12 +1,69 @@
 {
+  "nativeMCPServers": {
+    "neovim": {
+      "disabled_prompts": [
+        "parrot"
+      ],
+      "disabled_resources": [
+        
+      ]
+    },
+    "mcphub": {
+      "disabled_prompts": [
+        "create_native_server"
+      ],
+      "disabled_resources": [
+        "mcphub://docs",
+        "mcphub://native_server_guide",
+        "mcphub://changelog"
+      ]
+    }
+  },
   "mcpServers": {
-    "github.com/awslabs/mcp/tree/main/src/terraform-mcp-server": {
+    "github.com/tavily-ai/tavily-mcp": {
+      "autoApprove": [
+        "tavily-search",
+        "tavily-extract",
+        "tavily-map",
+        "tavily-crawl"
+      ],
+      "disabled": false,
+      "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
+      "env": {
+        "TAVILY_API_KEY": "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"
+      },
+      "args": [
+        "-y",
+        "tavily-mcp@0.2.1"
+      ]
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
+      "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
+      "autoApprove": [
+        "sequentialthinking"
+      ],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "disabled": false
+    },
+    "github.com/awslabs/mcp/tree/main/src/aws-documentation-mcp-server": {
+      "autoApprove": [
+        "read_documentation",
+        "search_documentation",
+        "recommend"
+      ],
+      "disabled": false,
+      "command": "uvx",
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
       "args": [
-        "awslabs.terraform-mcp-server@latest"
-      ],
+        "awslabs.aws-documentation-mcp-server@latest"
+      ]
+    },
+    "github.com/awslabs/mcp/tree/main/src/terraform-mcp-server": {
       "autoApprove": [
         "SearchUserProvidedModule",
         "SearchSpecificAwsIaModules",
@@ -17,19 +74,15 @@
       "command": "uvx",
       "disabled_resources": [
         
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
       ]
     },
     "github.com/modelcontextprotocol/servers/tree/main/src/filesystem": {
-      "env": [
-        
-      ],
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/Users/sugawarayss/PROJECTS/"
-      ],
-      "disabled": false,
-      "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
       "autoApprove": [
         "read_file",
         "read_multiple_files",
@@ -42,71 +95,16 @@
         "write_file",
         "create_directory",
         "edit_file"
-      ]
-    },
-    "github.com/tavily-ai/tavily-mcp": {
-      "env": {
-        "TAVILY_API_KEY": "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"
-      },
-      "args": [
-        "-y",
-        "tavily-mcp@0.2.1"
       ],
       "disabled": false,
       "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
-      "autoApprove": [
-        "tavily-search",
-        "tavily-extract",
-        "tavily-map",
-        "tavily-crawl"
-      ]
-    },
-    "github.com/awslabs/mcp/tree/main/src/aws-documentation-mcp-server": {
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      },
-      "args": [
-        "awslabs.aws-documentation-mcp-server@latest"
+      "env": [
+        
       ],
-      "disabled": false,
-      "command": "uvx",
-      "autoApprove": [
-        "read_documentation",
-        "search_documentation",
-        "recommend"
-      ]
-    },
-    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
-      "disabled": false,
-      "autoApprove": [
-        "sequentialthinking"
-      ],
-      "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
       "args": [
         "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
-    }
-  },
-  "nativeMCPServers": {
-    "mcphub": {
-      "disabled_prompts": [
-        "create_native_server"
-      ],
-      "disabled_resources": [
-        "mcphub://docs",
-        "mcphub://native_server_guide",
-        "mcphub://changelog"
-      ]
-    },
-    "neovim": {
-      "disabled_prompts": [
-        "parrot"
-      ],
-      "disabled_resources": [
-        "neovim://diagnostics/current",
-        "neovim://diagnostics/workspace",
-        "neovim://buffer"
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/sugawarayss/PROJECTS/"
       ]
     }
   }
