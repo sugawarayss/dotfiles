@@ -26,6 +26,9 @@ return {
       },
       indent = {
         enable = true,
+        exclude_filetypes = {
+          "", -- 空のファイルタイプを対象外にしないとエラー
+        },
         use_treesitter = true,
         chars = { "▏" },
         style = {
