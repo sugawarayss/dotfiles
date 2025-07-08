@@ -43,7 +43,7 @@ else
           "<Leader>cm",
           function()
             -- 差分がなければメッセージ表示して終了する
-            local diff = vim.fn.system("git diff --no-ext-diff --staged")
+            local diff = vim.fn.system("git diff --no-ext-diff")
             if diff == "" then
               vim.notify(
                 "ステージされた差分がないため、コミットメッセージを生成できません。",
