@@ -43,18 +43,28 @@ else
           "<Leader>cm",
           function()
             -- 差分がなければメッセージ表示して終了する
-            local diff = vim.fn.system("git diff --no-ext-diff")
+            local diff = vim.fn.system("git diff --no-ext-diff --staged")
             if diff == "" then
-              vim.notify(
-                "ステージされた差分がないため、コミットメッセージを生成できません。",
-                vim.log.levels.WARN
-              )
+              vim.notify("ステージ済みの差分がないため、コミットメッセージを生成できません。", vim.log.levels.WARN)
               return
             end
             require("codecompanion").prompt("semantic_commit")
           end,
           mode = "n",
           desc = "LLM でコミットメッセージを生成する",
+        },
+        {
+          "<Leader>crv",
+          function()
+            local diff = vim.fn.system("git diff --merge-base develop")
+            if diff == "" then
+              vim.notify("差分がないため、コードレビューを行えません。", vim.log.levels.WARN)
+              return
+            end
+            require("codecompanion").prompt("review_local_diff")
+          end,
+          mode = "n",
+          desc = "LLM でコードレビューを行う",
         },
       },
       -- CodeCompanion の進捗をfidget で表示する場合
@@ -129,6 +139,38 @@ else
           },
           -- 独自のプロンプト定義
           prompt_library = {
+            ["Review Local Diff"] = {
+              strategy = "chat",
+              description = "Perform a Code Review",
+              opts = {
+                short_name = "review_local_diff",
+                is_slash_cmd = true,
+                auto_submit = true,
+                user_prompt = false,
+              },
+              prompts = {
+                {
+                  role = "user",
+                  content = function()
+                    local target_branch = vim.fn.input("差分を取得するベースブランチ名を選択 (default: main): ", "develop")
+                    print(target_branch)
+
+                    return string.format(
+                      [[あなたはコードレビューを行う上級ソフトウェアエンジニアです。以下のコード変更を分析してください。
+                      潜在的なバグ、パフォーマンスの問題、セキュリティ上の脆弱性、そして可読性や保守性を向上させるためにリファクタリングできる領域を特定してください。
+                      その理由を明確に説明し、具体的な改善提案を行ってください。
+                      エッジケース、エラー処理、ベストプラクティスとコーディング標準の遵守を考慮してください。
+                      コード変更は以下のとおりです。
+                     ```
+                      %s
+                     ```
+                    ]],
+                      vim.fn.system("git diff --merge-base " .. target_branch .. " HEAD")
+                    )
+                  end,
+                },
+              },
+            },
             ["Generate Semantic Commit Message"] = {
               strategy = "chat",
               description = "Generate a semantic commit message from the diff.",
