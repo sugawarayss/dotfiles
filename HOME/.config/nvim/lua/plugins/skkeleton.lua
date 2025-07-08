@@ -2,7 +2,7 @@
 return {
   {
     "vim-skk/skkeleton",
-    enabled = true,
+    enabled = false,
     lazy = true,
     event = "BufReadPre",
     keys = {
@@ -95,6 +95,7 @@ return {
   { "Shougo/ddc.vim" },
   {
     "delphinus/skkeleton_indicator.nvim",
+    enabled = false,
     version = "v2",
     opts = {},
   },
