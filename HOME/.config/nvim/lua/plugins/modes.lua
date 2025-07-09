@@ -1,3 +1,4 @@
+-- Mode でHighlightを設定するプラグイン
 return {
   "mvllow/modes.nvim",
   event = { "VimEnter" },

@@ -1,6 +1,7 @@
 if vim.g.vscode then
   return {}
 else
+  -- MCPサーバを管理するプラグイン
   return {
     "ravitemer/mcphub.nvim",
     enabled = true,

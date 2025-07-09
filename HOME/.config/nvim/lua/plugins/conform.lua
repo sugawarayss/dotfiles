@@ -1,3 +1,4 @@
+-- ファイル・フォーマットを自動実行できるようにするプラグイン
 return {
   "stevearc/conform.nvim",
   event = "BufWritePre",
