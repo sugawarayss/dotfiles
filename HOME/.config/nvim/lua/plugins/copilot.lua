@@ -54,9 +54,10 @@ return {
         trace_lsp_progress = false,
         log_lsp_messages = false,
       },
+      -- NOTE: NEED node.js version must be > 20
       copilot_node_command = "node",
       workspace_folders = {},
-      copilot_model = "gpt-4o-copilot",
+      copilot_model = "claude-sonnet-4",
       server_opts_overrides = {},
     })
   end,
