@@ -1,24 +1,41 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls:*)",
-      "Bash(fd:*)",
-      "Bash(cp:*)",
-      "Bash(mv:*)",
-      "Bash(chmod:*)",
       "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Bash(lsd:*)",
+      "Bash(grep:*)",
+      "Bash(colordiff:*)",
+      "Bash(mkdir:*)",
+      "Bash(bat:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker compose exec:*)",
+      "Bash(docker compose logs:*)",
       "Bash(task:*)",
-      "Bash(uv:*)",
-      "Bash(npm:*)",
-      "Bash(aws:*)",
-      "Bash(say:*)"
+      "Bash(uv run:*)",
+      "Bash(say:*)",
+      ""
     ],
     "deny": [
-      "Bash(git:*)"
+      "Bash(sudo:*)",
+      "Bash(rm -rf:*)",
+      "Bash(git push:*)",
+      "Bash(git reset:*)",
+      "Bash(git rebase:*)",
+      "Bash(uv remove:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm remove:*)",
+      "Read(.env.*)",
+      "Write(.env*)",
+      "Read(id_rsa)",
+      "Read(id_ed25519)"
     ]
   },
   "env": {
     "CLAUDE_CODE_USE_BEDROCK": 1,
+    "AWS_PROFILE": "inap-zoo",
     "AWS_REGION": "ap-northeast-1",
     "ANTHROPIC_MODEL": "apac.anthropic.claude-sonnet-4-20250514-v1:0",
     "ANTHROPIC_SMALL_FAST_MODEL": "apac.anthropic.claude-3-5-sonnet-20241022-v2:0"
