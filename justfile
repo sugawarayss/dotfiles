@@ -135,6 +135,9 @@ lazygit:
 lazysql:
   @test -L ~/.config/lazysql || ln -s {{pwd}}/HOME/.config/lazysql ~/.config/lazysql
 
+# lazydockerコマンド用の設定ファイルを展開
+lazydocker:
+  @test -L ~/.config/lazydocker || ln -s {{pwd}}/HOME/.config/lazydocker ~/.config/lazydocker
 # starship 用設定ファイルを展開
 starship:
   # starship の設定ファイル
