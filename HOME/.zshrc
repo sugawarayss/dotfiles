@@ -186,3 +186,5 @@ function yz() {
 	fi
 	rm -f -- "$tmp"
 }
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"

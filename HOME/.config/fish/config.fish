@@ -200,3 +200,5 @@ end
 
 # uv
 fish_add_path "/Users/sugawarayss/.local/bin"
+
+string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
