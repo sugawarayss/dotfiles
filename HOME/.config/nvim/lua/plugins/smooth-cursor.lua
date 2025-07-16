@@ -1,6 +1,7 @@
 -- カーソル移動を目立たせてくれるプラグイン
 return {
   "gen740/SmoothCursor.nvim",
+  enabled = false,
   event = { "BufReadPre" },
   config = function()
     require("smoothcursor").setup({
