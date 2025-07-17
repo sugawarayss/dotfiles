@@ -15,8 +15,7 @@
       "Bash(docker compose logs:*)",
       "Bash(task:*)",
       "Bash(uv run:*)",
-      "Bash(say:*)",
-      ""
+      "Bash(say:*)"
     ],
     "deny": [
       "Bash(sudo:*)",
