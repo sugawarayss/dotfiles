@@ -1,9 +1,9 @@
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 
 local config = {}
 
 if wezterm.config_builder then
-  config = wezterm.config_builder()
+	config = wezterm.config_builder()
 end
 -- 更新を確認
 config.check_for_updates = true
@@ -31,16 +31,16 @@ config.use_fancy_tab_bar = true
 
 -- カラーテーマ
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = 'Ef-Duo-Dark'
+config.color_scheme = "Ef-Duo-Dark"
 -- 背景の透過度
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.85
 -- 背景のぼかし
-config.macos_window_background_blur = 9
+config.macos_window_background_blur = 8
 -- フォント
-config.font = wezterm.font_with_fallback {
-  {family="Hack Nerd Font", weight="Regular"},
-  {family="HackGen Console NF", weight="Regular"},
-}
+config.font = wezterm.font_with_fallback({
+	{ family = "Hack Nerd Font", weight = "Regular" },
+	{ family = "HackGen Console NF", weight = "Regular" },
+})
 -- フォントサイズ
 config.font_size = 15.0
 -- フォントサイズ変更時にウィンドウサイズを調整
@@ -50,71 +50,68 @@ config.use_ime = true
 -- デフォルトのキーバインディングを無効化
 config.disable_default_key_bindings = true
 -- キーバインディングを外部ファイルから読み込む
-local keybind = require 'keybinds'
+local keybind = require("keybinds")
 config.keys = keybind.keys
 config.key_tables = keybind.key_tables
 
 -- tabline.apply_to_config(config)
 local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
-bar.apply_to_config(
-  config,
-  {
-    position = "bottom",
-    separator = {
-      space = 1,
-      left_icon = wezterm.nerdfonts.md_menu_right,
-      right_icon = wezterm.nerdfonts.md_menu_left,
-      field_icon = wezterm.nerdfonts.indent_line,
-    },
-    modules = {
-      tabs = {
-        active_tab_fg = 5,
-        inactive_tab_fg = 2,
-      },
-      workspace = {
-        enabled = false,
-        icon = wezterm.nerdfonts.cod_window,
-        color = 8,
-      },
-      leader = {
-        enabled = true,
-        icon = wezterm.nerdfonts.oct_rocket,
-        color = 2,
-      },
-      pane = {
-        enabled = true,
-        icon = wezterm.nerdfonts.cod_multiple_windows,
-        color = 7,
-      },
-      username = {
-        enabled = true,
-        icon = wezterm.nerdfonts.fa_user,
-        color = 6,
-      },
-      hostname = {
-        enabled = true,
-        icon = wezterm.nerdfonts.md_monitor,
-        color = 8,
-      },
-      clock = {
-        enabled = true,
-        icon = wezterm.nerdfonts.fa_clock_o,
-        color = 5,
-      },
-      cwd = {
-        enabled = true,
-        icon = wezterm.nerdfonts.oct_file_directory,
-        color = 7,
-      },
-      spotify = {
-        enabled = false,
-        icon = wezterm.nerdfonts.fa_spotify,
-        color = 3,
-        max_width = 64,
-        throttle = 15,
-      },
-    },
-  }
-)
+bar.apply_to_config(config, {
+	position = "bottom",
+	separator = {
+		space = 1,
+		left_icon = wezterm.nerdfonts.md_menu_right,
+		right_icon = wezterm.nerdfonts.md_menu_left,
+		field_icon = wezterm.nerdfonts.indent_line,
+	},
+	modules = {
+		tabs = {
+			active_tab_fg = 5,
+			inactive_tab_fg = 2,
+		},
+		workspace = {
+			enabled = false,
+			icon = wezterm.nerdfonts.cod_window,
+			color = 8,
+		},
+		leader = {
+			enabled = true,
+			icon = wezterm.nerdfonts.oct_rocket,
+			color = 2,
+		},
+		pane = {
+			enabled = true,
+			icon = wezterm.nerdfonts.cod_multiple_windows,
+			color = 7,
+		},
+		username = {
+			enabled = true,
+			icon = wezterm.nerdfonts.fa_user,
+			color = 6,
+		},
+		hostname = {
+			enabled = true,
+			icon = wezterm.nerdfonts.md_monitor,
+			color = 8,
+		},
+		clock = {
+			enabled = true,
+			icon = wezterm.nerdfonts.fa_clock_o,
+			color = 5,
+		},
+		cwd = {
+			enabled = true,
+			icon = wezterm.nerdfonts.oct_file_directory,
+			color = 7,
+		},
+		spotify = {
+			enabled = false,
+			icon = wezterm.nerdfonts.fa_spotify,
+			color = 3,
+			max_width = 64,
+			throttle = 15,
+		},
+	},
+})
 
 return config
