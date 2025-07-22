@@ -26,6 +26,9 @@ zsh:
 
 # fish の設定ファイルを展開
 fish:
+  @test -d ~/.config/fish || mkdir -p ~/.config/fish
+  @test -d ~/.config/fish/conf.d || mkdir -p ~/.config/fish
+  # 設定ファイルを展開
   @test -L ~/.config/fish/config.fish || ln -s {{pwd}}/HOME/.config/fish/config.fish ~/.config/fish/config.fish
   @test -L ~/.config/fish/conf.d/bobthefish.fish || ln -s {{pwd}}/HOME/.config/fish/conf.d/bobthefish.fish ~/.config/fish/conf.d/bobthefish.fish
   # デフォルトシェルをfishに変更
@@ -35,9 +38,9 @@ fish:
 
 # fishプラグインマネージャ
 fisher:
-  # fisher のインストール
-  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
   @test -L ~/.config/fish/fish_plugins || ln -s {{pwd}}/HOME/.config/fish/fish_plugins ~/.config/fish/fish_plugins
+  # fisher のインストール
+  @type -q fisher || curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
   fisher update
 
 #  Brewfile からパッケージをインストール
