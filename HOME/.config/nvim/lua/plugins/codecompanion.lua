@@ -153,8 +153,6 @@ else
                   role = "user",
                   content = function()
                     local target_branch = vim.fn.input("差分を取得するベースブランチ名を選択 (default: main): ", "develop")
-                    print(target_branch)
-
                     return string.format(
                       [[あなたはコードレビューを行う上級ソフトウェアエンジニアです。以下のコード変更を分析してください。
                       潜在的なバグ、パフォーマンスの問題、セキュリティ上の脆弱性、そして可読性や保守性を向上させるためにリファクタリングできる領域を特定してください。
