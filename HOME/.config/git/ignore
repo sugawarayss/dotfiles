@@ -72,5 +72,8 @@ CLAUDE.local.md
 
 **/.claude/settings.local.json
 
+# serenaのプロジェクト設定指示ファイル
+.serena/**
+
 # 開発用に出力したpickleファイル
 *.pkl
