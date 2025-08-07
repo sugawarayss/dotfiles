@@ -112,7 +112,7 @@ fi
 # gumコマンド #
 ################
 function gum-select-history() {
-  BUFFER=$(\history -n -r 1 | gum filter --value="$LBUFFER")
+  BUFFER=$(\history -n -r 1 | peco --query="$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
@@ -124,7 +124,7 @@ bindkey '^R' gum-select-history
 function gum-get-destination-from-cdr() {
   cdr -l | \
   oldsed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  gum filter --value="$LBUFFER"
+  peco --query="$LBUFFER"
 }
 
 function gum-cdr() {
@@ -137,7 +137,7 @@ function gum-cdr() {
       zle reset-prompt
     fi
   else
-    cdr -l | awk '{print $2}' | gum filter | cd
+    cdr -l | awk '{print $2}' | peco | cd
   fi
 }
 # cdr with gum はCtrl+Eに割り当てる
