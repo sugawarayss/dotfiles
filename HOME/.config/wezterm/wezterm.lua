@@ -38,11 +38,11 @@ config.window_background_opacity = 0.85
 config.macos_window_background_blur = 8
 -- フォント
 config.font = wezterm.font_with_fallback({
-	{ family = "Hack Nerd Font", weight = "Regular" },
+	{ family = "Hack Nerd Font Mono", weight = "Regular" },
 	{ family = "HackGen Console NF", weight = "Regular" },
 })
 -- フォントサイズ
-config.font_size = 15.0
+config.font_size = 14.5
 -- フォントサイズ変更時にウィンドウサイズを調整
 config.adjust_window_size_when_changing_font_size = true
 -- IME を有効にする
