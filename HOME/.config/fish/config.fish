@@ -33,8 +33,6 @@ set -g FISH_CONFIG_DIR $XDG_CONFIG_HOME/fish
 set -g FISH_CONFIG $FISH_CONFIG_DIR/config.fish
 set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
 
-# direnv
-set -Ux EDITOR nvim
 # android sdk
 # set -Ux ANDROID_HOME $HOME/Library/Android/sdk
 # set PATH $ANDROID_HOME/tools $PATH
@@ -55,10 +53,11 @@ set -g theme_date_format "+[%Y/%m/%d %H:%M:%S]"
 # プロンプトから入力欄の前に改行をする
 set -g theme_newline_cursor yes
 
-
 # 改行後入力欄の前に表示する文字を設定する
 set -g theme_newline_prompt "\e[32m\e[m "
 
+# neovim
+set -gx EDITOR nvim
 # setup mise
 /opt/homebrew/bin/mise activate fish | source
 
@@ -69,7 +68,7 @@ abbr -a paths "echo \$PATH | tr ' ' '\n'"
 # sc で ~/.config/fish/config.fish を再読み込み
 abbr -a sc source ~/.config/fish/config.fish
 # c で clear
-abbr -a c clear
+abbr -a c 'clear && ll'
 # pbc で pbcopy
 abbr -a pbc pbcopy
 # vim で nvim
