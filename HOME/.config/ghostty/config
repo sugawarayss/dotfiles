@@ -1,7 +1,7 @@
 # shell 統合
 shell-integration = fish
 # メインフォント
-font-family = "Hack Nerd Font"
+font-family = "Hack Nerd Font Mono"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
 # フォントサイズ
@@ -16,6 +16,8 @@ window-padding-x = 4,2
 background-opacity = 0.75
 # 背景のぼかし度合い
 background-blur-radius = 15
+# カーソルのスタイル
+cursor-style = block
 # カーソルの点滅
 cursor-style-blink = true
 
