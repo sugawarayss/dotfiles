@@ -31,7 +31,7 @@ config.use_fancy_tab_bar = true
 
 -- カラーテーマ
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "Ef-Duo-Dark"
+config.color_scheme = "Duotone Dark"
 -- 背景の透過度
 config.window_background_opacity = 0.85
 -- 背景のぼかし
@@ -42,7 +42,7 @@ config.font = wezterm.font_with_fallback({
 	{ family = "HackGen Console NF", weight = "Regular" },
 })
 -- フォントサイズ
-config.font_size = 14.5
+config.font_size = 15.5
 -- フォントサイズ変更時にウィンドウサイズを調整
 config.adjust_window_size_when_changing_font_size = true
 -- IME を有効にする
