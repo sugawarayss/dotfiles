@@ -24,8 +24,15 @@ fish_add_path /opt/homebrew/opt/mysql-client/bin
 set -Ux LANG ja_JP.UTF-8
 set -Ux KCODE u
 set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
-# Neovim
-set -Ux XDG_CONFIG_HOME $HOME/.config
+# XDG PATHs 
+set -q XDG_CONFIG_HOME || set -gx XDG_CONFIG_HOME $HOME/.config
+set -q XDG_DATA_HOME || set -gx XDG_DATA_HOME $HOME/.local/share
+set -q XDG_CACHE_HOME || set -gx XDG_CACHE_HOME $HOME/.cache
+# fish CONFIG PATHs
+set -g FISH_CONFIG_DIR $XDG_CONFIG_HOME/fish
+set -g FISH_CONFIG $FISH_CONFIG_DIR/config.fish
+set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
+
 # direnv
 set -Ux EDITOR nvim
 # android sdk
