@@ -36,11 +36,11 @@ set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
 # direnv
 set -Ux EDITOR nvim
 # android sdk
-set -Ux ANDROID_HOME $HOME/Library/Android/sdk
+# set -Ux ANDROID_HOME $HOME/Library/Android/sdk
 # set PATH $ANDROID_HOME/tools $PATH
-fish_add_path $ANDROID_HOME/tools
+# fish_add_path $ANDROID_HOME/tools
 # set PATH $ANDROID_HOME/platform-tools $PATH
-fish_add_path $ANDROID_HOME/platform-tools
+# fish_add_path $ANDROID_HOME/platform-tools
 
 # vi モードのインジケータを常に表示する
 set -g theme_display_vi yes
