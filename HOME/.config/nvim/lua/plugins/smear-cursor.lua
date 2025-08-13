@@ -8,5 +8,6 @@ return {
     scroll_buffer_space = true,
     legacy_computing_sumbols_support = false,
     smear_insert_mode = true,
-  }
+    time_interval = 10, --milliseconds
+  },
 }
