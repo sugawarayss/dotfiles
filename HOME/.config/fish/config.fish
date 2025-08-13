@@ -65,26 +65,26 @@ set -g theme_newline_cursor yes
 set -g theme_newline_prompt "\e[92m\e[m "
 # 直前のコマンド実行結果に応じてプロンプトの色を変える
 function __update_detailed_prompt_status --on-event fish_prompt
-    switch $status
-        case 0
-            # 成功（緑）
-            set -g theme_newline_prompt "\e[92m\e[m "
-        case 1
-            # 一般的なエラー（赤）
-            set -g theme_newline_prompt "\e[91m\e[m "
-        case 126
-            # コマンドが実行可能でない（オレンジ）
-            set -g theme_newline_prompt "\e[38;5;208m\e[m "
-        case 127
-            # コマンドが見つからない（紫）
-            set -g theme_newline_prompt "\e[95m\e[m "
-        case 130
-            # Ctrl+Cで中断（シアン）
-            set -g theme_newline_prompt "\e[96m\e[m "
-        case '*'
-            # その他のエラー（黄）
-            set -g theme_newline_prompt "\e[93m\e[m "
-    end
+  switch $status
+    case 0
+      # 成功（緑）
+      set -g theme_newline_prompt "\e[92m\e[m "
+    case 1
+      # 一般的なエラー（赤）
+      set -g theme_newline_prompt "\e[91m\e[m "
+    case 126
+      # コマンドが実行可能でない（オレンジ）
+      set -g theme_newline_prompt "\e[38;5;208m\e[m "
+    case 127
+      # コマンドが見つからない（紫）
+      set -g theme_newline_prompt "\e[95m\e[m "
+    case 130
+      # Ctrl+Cで中断（シアン）
+      set -g theme_newline_prompt "\e[96m\e[m "
+    case '*'
+      # その他のエラー（黄）
+      set -g theme_newline_prompt "\e[93m\e[m "
+  end
 end
 
 
@@ -239,4 +239,4 @@ end
 # uv
 fish_add_path "/Users/sugawarayss/.local/bin"
 
-string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+# string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
