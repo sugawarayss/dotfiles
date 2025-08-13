@@ -5,7 +5,7 @@ return {
   lazy = false,
   opts = {
     tools = {
-      executor = "toggleterm",
+      executor = "snacks_terminal",
       test_executor = "neotest",
       enable_clippy = true,
       hover_actions = {
