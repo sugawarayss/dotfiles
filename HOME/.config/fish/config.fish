@@ -45,6 +45,9 @@ set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
 # vi モードのインジケータを常に表示する
 set -g theme_display_vi yes
 
+# NerdFontを使用する
+set -g theme_nerd_fonts yes
+
 # ユーザ名とホスト名を常に表示する
 set -g theme_display_user yes
 set -g theme_display_hostname yes
