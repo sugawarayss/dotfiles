@@ -40,6 +40,8 @@ set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
 # set PATH $ANDROID_HOME/platform-tools $PATH
 # fish_add_path $ANDROID_HOME/platform-tools
 
+# カラーテーマ
+# set -g theme_color_scheme dark  # dark | solarized-dark | gruvbox | dracula | nord | catpuccin-mocha
 # vi モードのインジケータを常に表示する
 set -g theme_display_vi yes
 
