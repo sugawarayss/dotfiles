@@ -53,7 +53,10 @@ set -g theme_display_user yes
 set -g theme_display_hostname yes
 
 # 日付の表示書式を変更する
-set -g theme_date_format "+[%Y/%m/%d %H:%M:%S]"
+set -g theme_date_format "+[%Y-%m-%d %H:%M:%S]"
+set -g theme_date_timezone "Asia/Tokyo"
+# コマンド実行時間を右側に表示する
+set -g theme_display_cmd_duration yes
 
 # プロンプトから入力欄の前に改行をする
 set -g theme_newline_cursor yes
