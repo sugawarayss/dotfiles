@@ -19,7 +19,7 @@ fish_add_path /opt/homebrew/opt/mysql-client/bin
 #fish_add_path /opt/homebrew/opt/bzip2/bin/
 
 #########################
-# ENViRONMENT VARIABLES #
+# ENVIRONMENT VARIABLES #
 #########################
 set -Ux LANG ja_JP.UTF-8
 set -Ux KCODE u
