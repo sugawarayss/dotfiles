@@ -92,6 +92,10 @@ _macos-screenshot-settings:
 [macos]
 system-preferences: _macos-general-settings _macos-dock-settings _macos-finder-settings _macos-screenshot-settings
 
+# Karabiner-Elementsの設定ファイルを展開
+karabiner:
+  @test -d ~/.config/karabiner || mkdir -p ~/.config/karabiner
+  @test -L ~/.config/karabiner/karabiner.json || ln -s {{pwd}}/HOME/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
 # raycastの設定変更
 raycast:
   # 起動キーを<Option-Space> に変更
