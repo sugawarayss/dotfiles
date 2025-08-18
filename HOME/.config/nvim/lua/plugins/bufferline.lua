@@ -43,9 +43,7 @@ if not vim.g.vscode then
                 return false
               end
               -- -- filter out by buffer name
-              if
-                vim.api.nvim_buf_get_name(buf_number) == "" or vim.api.nvim_buf_get_name(buf_number) == "[No Name]"
-              then
+              if vim.api.nvim_buf_get_name(buf_number) == "" or vim.api.nvim_buf_get_name(buf_number) == "[No Name]" then
                 return false
               end
               if vim.api.nvim_buf_get_name(buf_number) == "[dap-repl]" then
