@@ -24,7 +24,7 @@ if not vim.g.vscode then
         local function macro_recording()
           local reg = vim.fn.reg_recording()
           if reg ~= "" then
-            return "󰑋 MACRO RECODING TO (" .. reg .. ")"
+            return "󰑋 MACRO RECORDING TO (" .. reg .. ")"
           end
           return ""
         end
