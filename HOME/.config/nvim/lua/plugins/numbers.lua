@@ -10,6 +10,7 @@ return {
       -- snacks.nvim のピッカーには表示しない
       "snacks_picker_list",
       "snacks_terminal",
+      "snacks_dashboard",
     }
   end,
 }
