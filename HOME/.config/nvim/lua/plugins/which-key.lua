@@ -5,6 +5,7 @@ return {
   opts = {
     -- false | "classic" | "modern" | "helix"
     preset = "helix",
+    notify = true,
     win = {
       no_overlap = true,
       border = "double",
@@ -75,5 +76,12 @@ return {
       },
       debug = false,
     },
+    show_help = true,
+    show_keys = true,
+    disable = {
+      ft = {},
+      bt = {},
+    },
+    debug = false,
   },
 }
