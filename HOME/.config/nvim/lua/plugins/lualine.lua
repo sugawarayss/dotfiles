@@ -28,6 +28,16 @@ if not vim.g.vscode then
           end
           return ""
         end
+        -- trouble.nvim統合
+        local trouble = require("trouble")
+        local symbols = trouble.statusline({
+          mode = "lsp_document_symbols",
+          groups = {},
+          title = false,
+          filter = { range = true },
+          format = "{kind_icon}{symbol.name:Normal}",
+          hl_group = "lualine_c_normal",
+        })
         require("lualine").setup({
           options = {
             icons_enabled = true,
@@ -51,7 +61,7 @@ if not vim.g.vscode then
           sections = {
             lualine_a = { "mode" },
             lualine_b = { { "filename", path = 1 } },
-            lualine_c = { "branch" },
+            lualine_c = { "branch", { symbols.get, cond = symbols.has } },
             -- CodeCompanion の進捗を lualine で表示する場合
             lualine_x = {
               -- マクロの記録中の表示
