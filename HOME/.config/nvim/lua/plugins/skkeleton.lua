@@ -2,8 +2,7 @@
 return {
   {
     "vim-skk/skkeleton",
-    enabled = false,
-    lazy = true,
+    lazy = false,
     event = "BufReadPre",
     config = function()
       local wk = require("which-key")
@@ -95,7 +94,8 @@ return {
   { "Shougo/ddc.vim" },
   {
     "delphinus/skkeleton_indicator.nvim",
-    enabled = false,
+    enabled = true,
+    event = "BufReadPre",
     version = "v2",
     opts = {},
   },
