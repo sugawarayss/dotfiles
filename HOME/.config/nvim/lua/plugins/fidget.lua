@@ -19,7 +19,7 @@ return {
       display = {
         render_limit = 16,
         done_ttl = 3,
-        done_icon = "✔",
+        done_icon = "",
         done_style = "Constant",
         progress_ttl = math.huge,
         progress_icon = { pattern = "clock", period = 2 },
@@ -58,7 +58,7 @@ return {
       view = {
         stack_upwards = true,
         icon_separator = " ",
-        group_separator = "---",
+        group_separator = "󰇜󰇜󰇜",
         group_separator_hl = "Comment",
         render_message = function(msg, cnt)
           return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
