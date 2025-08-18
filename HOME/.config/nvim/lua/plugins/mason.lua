@@ -108,14 +108,6 @@ local my_on_attach = function(client, bufnr)
   for _, value in pairs(lsp_servers) do
     if client == value then
       -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-      -- WhichKey が gf を使用しているので使えない。。。
-      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gf", "<cmd>lua vim.lsp.buf.format {async=true}<CR>", { noremap = true, silent = false, desc = "フォーマットを実行" })
-      -- "K" でカーソル下の変数情報を表示
-      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {  noremap = true, silent = false, desc = "カーソル下の変数情報を表示" })
-      -- "gr" でカーソル下の変数を参照している箇所の一覧表示
-      --vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-      -- 定義へジャンプ
-      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = false, desc = "定義へジャンプ" })
       -- 宣言へジャンプ
       vim.api.nvim_buf_set_keymap(
         bufnr,
@@ -132,8 +124,6 @@ local my_on_attach = function(client, bufnr)
         "<cmd>lua vim.lsp.buf.implementation()<CR>",
         { noremap = true, silent = false, desc = "実装へジャンプ" }
       )
-      -- 型定義へジャンプ
-      -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = false, desc = "型定義へジャンプ" })
       -- 変数名のリネーム
       vim.api.nvim_buf_set_keymap(
         bufnr,
@@ -347,28 +337,8 @@ return {
   {
     "nvimdev/lspsaga.nvim",
     event = { "LspAttach" },
-    keys = {
-      -- カーソル下の情報を表示
-      { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", desc = "カーソル下の情報を表示" },
-      -- 呼び出し階層を表示
-      { "go", "<cmd>Lspsaga outgoing_calls<CR>", mode = "n", desc = "呼び出し階層を表示" },
-      -- 定義へジャンプ
-      { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = "n", desc = "定義にジャンプ" },
-      { "gD", "<cmd>Lspsaga peek_definition<CR>", mode = "n", desc = "定義にジャンプ" },
-      -- 呼出階層を表示
-      { "gr", "<cmd>Lspsaga finder<CR>", mode = "n", desc = "参照先の表示" },
-      -- 型定義へジャンプ
-      { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = "n", desc = "型定義にジャンプ" },
-      -- コードアクションを表示
-      { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", desc = "コードアクションを表示" },
-      -- 次の診断へジャンプ
-      { "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n", desc = "次の診断へジャンプ" },
-      -- 前の診断へジャンプ
-      { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", desc = "前の診断へジャンプ" },
-      -- アウトライン表示
-      { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = "n", desc = "アウトライン表示(Lspsaga)" },
-    },
     config = function()
+      local wk = require("which-key")
       require("lspsaga").setup({
         border = "double",
         devicon = true,
@@ -524,6 +494,27 @@ return {
             close = "<ESC>",
           },
         },
+      })
+      wk.add({
+        -- カーソル下の情報を表示
+        { "K", "<cmd>Lspsaga hover_doc<CR>", mode = { "n" }, icon = "", desc = "カーソル下の情報を表示" },
+        -- 呼び出し階層を表示
+        { "go", "<cmd>Lspsaga outgoing_calls<CR>", mode = { "n" }, desc = "呼び出し階層を表示" },
+        -- 定義へジャンプ
+        { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
+        { "gD", "<cmd>Lspsaga peek_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
+        -- 呼出階層を表示
+        { "gr", "<cmd>Lspsaga finder<CR>", mode = { "n" }, desc = "参照先の表示" },
+        -- 型定義へジャンプ
+        { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = { "n" }, desc = "型定義にジャンプ" },
+        -- コードアクションを表示
+        { "ga", "<cmd>Lspsaga code_action<CR>", mode = { "n" }, desc = "コードアクションを表示" },
+        -- 次の診断へジャンプ
+        { "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = { "n" }, desc = "次の診断へジャンプ" },
+        -- 前の診断へジャンプ
+        { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = { "n" }, desc = "前の診断へジャンプ" },
+        -- アウトライン表示
+        { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = { "n" }, icon = "󰭸", desc = "アウトライン表示(Lspsaga)" },
       })
     end,
     dependencies = {

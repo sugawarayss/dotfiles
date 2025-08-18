@@ -4,25 +4,28 @@ return {
   lazy = true,
   event = "VeryLazy",
   dependencies = "nvim-lua/plenary.nvim",
-  keys = {
-    {
-      ";t",
-      function()
-        require("todo-comments").jump_next()
-      end,
-      mode = "n",
-      desc = "次の TODO コメントにジャンプ",
-    },
-    {
-      ":t",
-      function()
-        require("todo-comments").jump_prev()
-      end,
-      mode = "n",
-      desc = "前の TODO コメントにジャンプ",
-    },
-  },
   config = function()
+    local wk = require("which-key")
+    wk.add({
+      {
+        "<Leader>tj",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        mode = "n",
+        icon = "󰜮",
+        desc = "次の TODO コメントにジャンプ",
+      },
+      {
+        "<Leader>tk",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        mode = "n",
+        icon = "󰜷",
+        desc = "前の TODO コメントにジャンプ",
+      },
+    })
     require("todo-comments").setup({
       signs = true, -- show icons in the signs column
       sign_priority = 8, -- sign priority

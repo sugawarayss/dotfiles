@@ -61,6 +61,27 @@ return {
     },
   },
   config = function()
+    local wk = require("which-key")
+    wk.add({
+      {
+        "zr",
+        function()
+          require("ufo").openAllFolds()
+        end,
+        mode = { "n" },
+        icon = "",
+        desc = "すべての折り畳みを展開",
+      },
+      {
+        "zm",
+        function()
+          require("ufo").closeAllFolds()
+        end,
+        mode = { "n" },
+        icon = "",
+        desc = "すべてを折り畳み",
+      },
+    })
     vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])
     vim.api.nvim_set_option("foldcolumn", "1")
     vim.api.nvim_set_option("foldlevel", 99)

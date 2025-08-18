@@ -22,27 +22,27 @@ vim.g.maplocalleader = " "
 ----  Window/Tab 操作系  ----
 -----------------------------
 -- ウィンドウを水平分割(上下)
-u.keymap("n", "ssk", ":leftabove split<Return>", { desc = "上に水平分割" })
-u.keymap("n", "ssj", ":rightbelow split<Return>", { desc = "下に水平分割" })
+u.keymap("n", "<C-k>", ":leftabove split<Return>", { desc = "上に水平分割" })
+u.keymap("n", "<C-j>", ":rightbelow split<Return>", { desc = "下に水平分割" })
 -- ウィンドウを垂分割(左右)
-u.keymap("n", "svh", ":leftabove vsplit<Return>", { desc = "左に垂直分割" })
-u.keymap("n", "svl", ":rightbelow vsplit<Return>", { desc = "右に垂直分割" })
+u.keymap("n", "<C-h>", ":leftabove vsplit<Return>", { desc = "左に垂直分割" })
+u.keymap("n", "<C-l>", ":rightbelow vsplit<Return>", { desc = "右に垂直分割" })
 
--- ウィンドウ移動(左下上右)
-u.keymap("n", "sh", "<C-w>h", { desc = "左のバッファへフォーカスを移動" })
-u.keymap("n", "sj", "<C-w>j", { desc = "下のバッファへフォーカスを移動" })
-u.keymap("n", "sk", "<C-w>k", { desc = "上のバッファへフォーカスを移動" })
-u.keymap("n", "sl", "<C-w>l", { desc = "右のバッファへフォーカスを移動" })
+-- ウィンドウフォーカス移動(左下上右)
+u.keymap("n", "<M-k>", "<C-w>k", { desc = "上のバッファへフォーカスを移動" })
+u.keymap("n", "<M-j>", "<C-w>j", { desc = "下のバッファへフォーカスを移動" })
+u.keymap("n", "<M-h>", "<C-w>h", { desc = "左のバッファへフォーカスを移動" })
+u.keymap("n", "<M-l>", "<C-w>l", { desc = "右のバッファへフォーカスを移動" })
 
 -- 新しいタブを一番右に作る
-u.keymap("n", "gn", ":tabnew<Return>", { desc = "新しいタブを作成" })
+-- u.keymap("n", "gn", ":tabnew<Return>", { desc = "新しいタブを作成" })
 -- タブ移動(左右)
-u.keymap("n", "gh", "gT", { desc = "左のタブへ移動" })
-u.keymap("n", "gl", "gt", { desc = "右のタブへ移動" })
-
-for i = 1, 9 do
-  u.keymap("n", "<leader>" .. i, i .. "gt", { desc = "タブ" .. i .. "へ移動" })
-end
+-- u.keymap("n", "gh", "gT", { desc = "左のタブへ移動" })
+-- u.keymap("n", "gl", "gt", { desc = "右のタブへ移動" })
+--
+-- for i = 1, 9 do
+--   u.keymap("n", "<leader>" .. i, i .. "gt", { desc = "タブ" .. i .. "へ移動" })
+-- end
 
 -----------------------------
 ---        編集系         ---
@@ -67,19 +67,14 @@ u.keymap("i", "jj", "<ESC>", { desc = "ノーマルモードに移行" })
 
 -- インサートモードのままカーソル移動
 -- Ctrl+l Ctrl+lで一番外へ移動
-u.keymap(
-  "i",
-  "<C-l><C-l>",
-  "<C-g>U<Esc><S-a>",
-  { desc = "インサートモードのままカーソルを右へ移動" }
-)
+u.keymap("i", "<C-l><C-l>", "<C-g>U<Esc><S-a>", { desc = "インサートモードのままカーソルを右へ移動" })
 
 -- 行を上下に移動
 -- u.keymap("n", "<S-k>", "$'<Cmd>move-1-{v:count1}<CR>=l'")
 -- u.keymap("n", "<S-j>", "$'<Cmd>move+{v:count1}<CR>=l'")
 
 -- M で括弧ジャンプ
-u.keymap("n", "<S-m>", "%", { desc = "括弧ジャンプ" })
+-- u.keymap("n", "<S-m>", "%", { desc = "括弧ジャンプ" })
 
 -- 入力してから大文字を切り替え
 u.keymap("i", "<C-g><C-u>", "<ESC>gUiwgi", { desc = "入力してから大文字を切り替え" })

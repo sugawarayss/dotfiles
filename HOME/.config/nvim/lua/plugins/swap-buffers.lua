@@ -1,27 +1,28 @@
 -- バッファを入れ替えるプラグイン
 return {
   "caenrique/swap-buffers.nvim",
+  enabled = true,
   keys = {
     {
-      "<C-s>l",
+      "<C-M-l>",
       "<cmd>lua require('swap-buffers').swap_buffers('l')<CR>",
       mode = "n",
       desc = "バッファ右と入れ替える",
     },
     {
-      "<C-s>h",
+      "<C-M-h>",
       "<cmd>lua require('swap-buffers').swap_buffers('h')<CR>",
       mode = "n",
       desc = "バッファ左と入れ替える",
     },
     {
-      "<C-s>k",
+      "<C-M-k>",
       "<cmd>lua require('swap-buffers').swap_buffers('k')<CR>",
       mode = "n",
       desc = "バッファ上と入れ替える",
     },
     {
-      "<C-s>j",
+      "<C-M-j>",
       "<cmd>lua require('swap-buffers').swap_buffers('j')<CR>",
       mode = "n",
       desc = "バッファ下と入れ替える",
