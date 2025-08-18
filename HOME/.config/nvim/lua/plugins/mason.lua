@@ -157,12 +157,14 @@ local my_on_attach = function(client, bufnr)
     end
   end
 end
+
+
 -- 各:withLSPサーバの設定
 local lsp_server_settings = {
   pyright = {
     python = {
-      venvPath = ".",
-      pythonPath = "./.venv/bin/python",
+      venvPath = require("utils").find_project_root({"pyproject.toml", "requirements.txt"}),
+      pythonPath = require("utils").find_python_venv({"pyproject.toml", "requirements.txt"}),
       -- import 文の sort は ruffに任せる
       disableOrganizeImports = true,
       -- チェック周りも ruff に任せる
@@ -294,8 +296,7 @@ return {
     },
     config = function()
       -- LSP handlers
-      vim.lsp.handlers["textDocument/publishDiagnostics"] =
-        vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
       -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(require("noice.lsp.hover").on_hover, { border = "double" })
 
       local mason_lspconfig = require("mason-lspconfig")

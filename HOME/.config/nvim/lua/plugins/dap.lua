@@ -99,12 +99,13 @@ return {
       request = "launch",
       name = "Launch current file",
       program = "${file}",
-      cwd = vim.fn.getcwd(),
+      cwd = require("utils").find_project_root({ "pyproject.toml" }),
       env = "PYTHONPATH=.",
-      pythonPath = function()
-        local cwd = vim.fn.getcwd()
-        return vim.fn.input("Path to python interpreter: ", cwd .. "/.venv/bin/python")
-      end,
+      pythonPath = require("utils").find_python_venv({"pyproject.toml"}),
+      --pythonPath = function()
+      --  local cwd = vim.fn.getcwd()
+      --  return vim.fn.input("Path to python interpreter: ", cwd .. "/.venv/bin/python")
+      --end,
     })
     local wk = require("which-key")
     wk.add({
