@@ -7,20 +7,20 @@ return {
   config = function()
     require("gitsigns").setup({
       signs = {
-        add = { text = "┃" },
-        change = { text = "┃" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "󰇙" },
+        add = { text = "󰫮" },
+        change = { text = "󰫰" },
+        delete = { text = "󰫱" },
+        topdelete = { text = "󰬁󰫱" },
+        changedelete = { text = "󰫰󰫱" },
+        untracked = { text = "󰬂󰬁" },
       },
       signs_staged = {
-        add = { text = "┃" },
-        change = { text = "┃" },
-        delete = { text = "_" },
-        topdelete = { text = "‾" },
-        changedelete = { text = "~" },
-        untracked = { text = "┆" },
+        add = { text = "󰫮" },
+        change = { text = "󰫰" },
+        delete = { text = "󰫱" },
+        topdelete = { text = "󰬁󰫱" },
+        changedelete = { text = "󰫰󰫱" },
+        untracked = { text = "󰬂󰬁" },
       },
       signs_staged_enable = true,
       signcolumn = true, -- サインを行番号のある列に表示する `:Gitsigns toggle_signs`
