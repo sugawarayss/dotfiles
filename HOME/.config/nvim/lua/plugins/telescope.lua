@@ -1,5 +1,4 @@
 -- Fuzzy Finder プラグイン
-local opt = { silent = true }
 if not vim.g.vscode then
   return {
     {
@@ -97,32 +96,8 @@ if not vim.g.vscode then
               override_file_sorter = true,
               case_mode = "smart_case",
             },
-            -- ファイル名での曖昧検索
-            smart_open = {
-              show_scores = true,
-              match_algorithm = "fzy",
-              disable_devicons = false,
-              open_buffer_indicators = { previous = "", others = "󰺕" },
-              result_limit = 40,
-            },
-            -- コマンド履歴を検索/実行できる拡張
-            cmdline = {
-              picker = {
-                layout_config = {
-                  width = 120,
-                  height = 25,
-                },
-              },
-              mappings = {
-                complete = "<Tab>",
-                run_selection = "<C-CR>",
-                run_input = "<CR>",
-              },
-              -- overseer = { enabled = true },
-            },
           },
         })
-        telescope.load_extension("ui-select")
         telescope.load_extension("docker")
         telescope.load_extension("bookmarks")
         -- キーマップを設定
@@ -175,13 +150,7 @@ if not vim.g.vscode then
       end,
     },
     { "nvim-lua/plenary.nvim" },
-    { "nvim-telescope/telescope-ui-select.nvim" },
-    -- ファイル名での曖昧検索
-    { "danielfalk/smart-open.nvim", branch = "0.2.x" },
-    { "kkharji/sqlite.lua" },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    -- telescope でコマンド履歴を検索/実行できる拡張
-    { "jonarrien/telescope-cmdline.nvim" },
     -- telescope で docker 操作が行える拡張
     { "lpoto/telescope-docker.nvim" },
   }
