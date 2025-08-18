@@ -53,7 +53,7 @@ else
             })
           end,
           mode = { "n" },
-          icon = "",
+          icon = "󰵰",
           desc = "ペアプロモードを起動",
         })
       end,
