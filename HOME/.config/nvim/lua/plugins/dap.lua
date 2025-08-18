@@ -44,7 +44,7 @@ return {
       "<leader>lp",
       ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
       mode = "n",
-      desc = "ブレークポイントをセット",
+      desc = "メッセージ付きブレークポイントをセット",
     },
     {
       "<leader>dr",
@@ -101,7 +101,7 @@ return {
       program = "${file}",
       cwd = require("utils").find_project_root({ "pyproject.toml" }),
       env = "PYTHONPATH=.",
-      pythonPath = require("utils").find_python_venv({"pyproject.toml"}),
+      pythonPath = require("utils").find_python_venv({ "pyproject.toml" }),
       --pythonPath = function()
       --  local cwd = vim.fn.getcwd()
       --  return vim.fn.input("Path to python interpreter: ", cwd .. "/.venv/bin/python")
@@ -134,6 +134,5 @@ return {
         desc = "ステップアウト",
       },
     })
-
   end,
 }
