@@ -12,7 +12,7 @@
 
 ```shell
 
-say -v Kyoko "${message}"
+say -v Ave "${message}"
 ```
 
 ここで、`${message}` は、Claude Code がユーザに通知する必要がある内容に基づいて決定する
