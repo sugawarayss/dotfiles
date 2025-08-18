@@ -2,7 +2,7 @@
 return {
   {
     "rgroli/other.nvim",
-    --  カスタムパターンが上手く動作しないので、一旦無効化
+    -- TODO: カスタムパターンが上手く動作しないので、一旦無効化
     enabled = false,
     lazy = true,
     cmd = {
