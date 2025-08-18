@@ -3,6 +3,9 @@
     "allow": [
       "Bash(rg:*)",
       "Bash(fd:*)",
+      "Bash(find:*)",
+      "Bash(sd:*)",
+      "Bash(sed:*)",
       "Bash(lsd:*)",
       "Bash(grep:*)",
       "Bash(colordiff:*)",
