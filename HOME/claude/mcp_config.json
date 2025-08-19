@@ -1,22 +1,21 @@
 {
   "globalShortcut": "Alt+Ctrl+Tab",
   "mcpServers": {
-    "tavily-mcp": {
-      "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
+    "fetch": {
       "args": [
-        "-y",
-        "tavily-mcp@0.1.2"
+        "mcp-server-fetch"
       ],
-      "env": {
-        "TAVILY_API_KEY": "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"
-      }
+      "autoApprove": [
+        "fetch"
+      ],
+      "command": "uvx"
     },
     "filesystem": {
-      "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
+      "command": "/Users/yss/.local/share/mise/shims/npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/Users/sugawarayss"
+        "/Users/yss"
       ],
       "autoApprove": [
         "read_file",
@@ -29,7 +28,10 @@
         "move_file",
         "write_file",
         "create_directory",
-        "edit_file"
+        "edit_file",
+        "list_directory_with_sizes",
+        "read_media_file",
+        "read_text_file"
       ]
     },
     "aws-document": {
@@ -43,6 +45,29 @@
       },
       "disabled": false,
       "autoApprove": []
+    },
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ],
+      "autoApprove": [
+        "find_file",
+        "find_symbol",
+        "list_dir",
+        "read_memory",
+        "write_memory",
+        "list_memories",
+        "think_about_collected_information",
+        "activate_project",
+        "onboarding",
+        "search_for_pattern"
+      ]
     },
     "aws-terraform": {
       "command": "uvx",
