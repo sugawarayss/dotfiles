@@ -89,23 +89,16 @@ return {
         },
       },
     })
-    -- local debugpy_path = require("mason-registry").get_package("debugpy"):get_install_path()
-    -- require("dap-python").setup(debugpy_path .. "/venv/bin/python")
-    -- require("dap-python").test_runner = "pytest"
     require("dap-python").setup("uv")
 
     table.insert(require("dap").configurations.python, {
       type = "python",
       request = "launch",
-      name = "Launch current file",
+      name = "現在開いているファイルを実行",
       program = "${file}",
       cwd = require("utils").find_project_root({ "pyproject.toml" }),
-      env = "PYTHONPATH=.",
-      pythonPath = require("utils").find_python_venv({ "pyproject.toml" }),
-      --pythonPath = function()
-      --  local cwd = vim.fn.getcwd()
-      --  return vim.fn.input("Path to python interpreter: ", cwd .. "/.venv/bin/python")
-      --end,
+      env = { PYTHONPATH = "." },
+      python = require("utils").find_python_venv({ "pyproject.toml" }),
     })
     local wk = require("which-key")
     wk.add({
