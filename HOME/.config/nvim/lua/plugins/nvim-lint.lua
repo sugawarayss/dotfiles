@@ -6,13 +6,14 @@ return {
     local nvim_lint = require("lint")
 
     -- mypy の設定
-    local venv_dir = "./.venv/"
-    nvim_lint.linters.mypy.cmd = venv_dir .. "bin/mypy"
+    local project_root = require("utils").find_project_root({ "pyproject.toml" })
+    local venv_dir = project_root .. "/.venv"
+    nvim_lint.linters.mypy.cmd = venv_dir .. "/bin/mypy"
     nvim_lint.linters.mypy.args = {
       "--install-types",
       "--non-interactive",
       "--config-file",
-      "./pyproject.toml",
+      project_root .. "/pyproject.toml",
       "--python-executable",
       venv_dir .. "bin/python",
     }
