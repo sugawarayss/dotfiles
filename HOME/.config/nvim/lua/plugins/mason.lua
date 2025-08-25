@@ -158,13 +158,13 @@ local my_on_attach = function(client, bufnr)
   end
 end
 
-
+local pyproject_path = require("utils").find_project_root({ "pyproject.toml", "requirements.txt" })
 -- 各:withLSPサーバの設定
 local lsp_server_settings = {
   pyright = {
     python = {
-      venvPath = require("utils").find_project_root({"pyproject.toml", "requirements.txt"}),
-      pythonPath = require("utils").find_python_venv({"pyproject.toml", "requirements.txt"}),
+      venvPath = pyproject_path,
+      pythonPath = require("utils").find_python_venv({ "pyproject.toml", "requirements.txt" }),
       -- import 文の sort は ruffに任せる
       disableOrganizeImports = true,
       -- チェック周りも ruff に任せる
@@ -175,7 +175,7 @@ local lsp_server_settings = {
     filetypes = { "python" },
     init_options = {
       settings = {
-        configuration = "./pyproject.toml",
+        configuration = pyproject_path .. "/pyproject.toml",
         -- ワークスペース内に存在する設定ファイル(ruff.toml/pyproject.toml)を以下の設定より優先する
         configurationPreference = "filesystemFirst",
         -- リンティングとフォーマットから除外するファイルパターンリスト
