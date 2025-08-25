@@ -58,12 +58,6 @@ nnoremap ,r :action RecentFiles<CR>
 " 呼び出し階層一覧viewを表示
 nnoremap ,c :action CallHierarchy<CR>
 
-" インサートモードで直前の単語を全てUPPER CASEに変換
-inoremap <C-g><C-u> <ESC>gUiwgi
-" インサートモードで直前の単語を全てlower caseに変換.
-inoremap <C-g><C-l> <ESC>guiwgi
-" インサートモードで直前の単語のキャメルケース(先頭文字のみ大文字)に変換
-inoremap <C-g><C-w> <ESC>bgUlgi
 " ProjectWindowを表示
 nnoremap <C-t><C-t> :action ActivateProjectToolWindow<CR>
 " TODOウィンドウを表示
@@ -98,10 +92,6 @@ nmap <Leader>gs :action GotoSymbol<CR>
 nnoremap g<C-r> :action ShowUsages<CR>
 " 呼び出し箇所を検索してFindViewPaneで表示
 nnoremap gr :action FindUsages<CR>
-" 次のブックマークへ移動
-nnoremap ;j :action GotoNextBookmark<CR>
-" 前のブックマークへ移動
-nnoremap ;k :action GotoPreviousBookmark<CR>
 
 """"""""""""""""""""""""""""""""""
 " コードジャンプ系のコマンド定義 "
@@ -125,7 +115,7 @@ nnoremap Y y$
 " U で リドゥ
 nnoremap U <C-r>
 " M で括弧ジャンプ
-noremap M %
+" noremap M %
 " 入力してから大文字に変換
 inoremap <C-g><C-u> <ESC>gUiwgi
 " 入力してから小文字に変換
@@ -135,26 +125,32 @@ inoremap <C-g><C-w> <ESC>bgUlgi
 
 
 " ブックマークリストを表示
-nnoremap <C-b><C-m> :action ShowBookmarks<CR>
+nnoremap <Leader>sbm :action ShowBookmarks<CR>
 " カーソル行でブックマークをトグル
-nnoremap ;m :action ToggleBookmark<CR>
+nnoremap ;mm :action ToggleBookmark<CR>
+" 次のブックマークへ移動
+nnoremap ;mj :action GotoNextBookmark<CR>
+" 前のブックマークへ移動
+nnoremap ;mk :action GotoPreviousBookmark<CR>
+
 " 次のタブへ移動
 nnoremap <S-l> :action NextTab<CR>
 " 前のタブへ移動
 nnoremap <S-h> :action PreviousTab<CR>
 " 水平分割(上)
-nnoremap <C-s>k :action MoveTabUp<CR>
+nnoremap <C-k> :action MoveTabUp<CR>
 " 水平分割(下)
-nnoremap <C-s>j :action MoveTabDown<CR>
+nnoremap <C-j> :action MoveTabDown<CR>
 " 垂直分割(右)
-nnoremap <C-v>l :action MoveTabRight<CR>
+nnoremap <C-l> :action MoveTabRight<CR>
 " 垂直分割(左)
-nnoremap <C-v>h :action MoveTabLeft<CR>
+nnoremap <C-h> :action MoveTabLeft<CR>
 " フォーカス移動
-nnoremap sl <C-w>l
-nnoremap sk <C-w>k
-nnoremap sj <C-w>j
-nnoremap sh <C-w>h
+nnoremap <M-l> <C-w>l
+nnoremap <M-k> <C-w>k
+nnoremap <M-j> <C-w>j
+nnoremap <M-h> <C-w>h
+
 " フォーカスを持つエディタタブを他のタブ分割グループに移動
 noremap so :action MoveEditorToOppositeTabGroup<CR>
 
@@ -185,25 +181,49 @@ noremap RC :action ChooseRunConfiguration<CR>
 """"""""""""""""""""""""""""""""""
 
 " easymotion plugin
-Plug easymotion/vim-easymotion
-set easymotion
+"Plug easymotion/vim-easymotion
+"set easymotion
 " デフォルトのキーマップを無効化
-let g:EasyMotion_do_mapping = 0
+"let g:EasyMotion_do_mapping = 0
 " 大文字小文字を区別しない
-let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_smartcase = 1
 
 " カーソル以降の単語の先頭にジャンプ
-nmap <Leader>w <Plug>(easymotion-wl)
+"nmap <Leader>w <Plug>(easymotion-wl)
 " カーソル以前の単語の先頭にジャンプ
-nmap <Leader>b <Plug>(easymotion-bl)
+"nmap <Leader>b <Plug>(easymotion-bl)
 " カーソル以降の単語の末尾にジャンプ
-nmap <Leader>e <Plug>(easymotion-el)
+"nmap <Leader>e <Plug>(easymotion-el)
 " カーソル以前の単語の末尾にジャンプ
-nmap <Leader>ge <Plug>(easymotion-ge)
+"nmap <Leader>ge <Plug>(easymotion-ge)
 " カーソル以降の行の先頭にジャンプ
-nmap <Leader>j <Plug>(easymotion-j)
+"nmap <Leader>j <Plug>(easymotion-j)
 " カーソル以前の行の先頭にジャンプ
-nmap <Leader>k <Plug>(easymotion-k)
+"nmap <Leader>k <Plug>(easymotion-k)
+
+" vim-flash plugin
+" NOTE: require install 'vim-flash' plugin by plugin marketplace
+set vim-flash
+nmap s <Action>(flash.search)
+xmap s <Action>(flash.search)
+" enhance vim f (find for char in characters to the right of the current cursor)
+nmap f <Action>(flash.find)
+xmap f <Action>(flash.find)
+" enhance vim F (find for char in characters to the left of the current cursor)
+nmap F <Action>(flash.find_backward)
+xmap F <Action>(flash.find_backward)
+" enhance vim t (till for char in characters to the right of the current cursor)
+nmap t <Action>(flash.till)
+xmap t <Action>(flash.till)
+" enhance vim T (till for char in characters to the left of the current cursor)
+nmap T <Action>(flash.till_backward)
+xmap T <Action>(flash.till_backward)
+" enhance vim ; (Repeat the last f/F/t/T search)
+nmap ; <Action>(flash.repeat)
+xmap ; <Action>(flash.repeat)
+" enhance vim , (Repeat the last f/F/t/T search backward)
+nmap , <Action>(flash.repeat_backward)
+xmap , <Action>(flash.repeat_backward)
 
 " which-key plugin
 " NOTE: require install 'Which-Key' plugin by plugin marketplace
