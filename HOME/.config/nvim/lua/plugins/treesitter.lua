@@ -37,6 +37,7 @@ return {
           "haskell",
           "html",
           "htmldjango",
+          "http",
           "ini",
           "java",
           "javascript",
