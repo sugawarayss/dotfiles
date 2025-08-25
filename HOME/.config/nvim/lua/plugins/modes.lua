@@ -11,7 +11,7 @@ return {
         copy = color_palette.cyan,
         delete = color_palette.red1,
         insert = color_palette.green2,
-        -- visual = color_palette.magenta,
+        visual = color_palette.orange,
       },
       -- Set opacity for cursorline and number background
       line_opacity = 0.4,
