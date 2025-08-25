@@ -77,3 +77,7 @@ CLAUDE.local.md
 
 # 開発用に出力したpickleファイル
 *.pkl
+
+# IntelliJ や Neovim(rest.nvim) のHTTPリクエストファイル
+.restclients/**.env
+.restclients/**.env.json
