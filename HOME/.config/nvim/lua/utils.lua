@@ -94,7 +94,7 @@ utils.slice_table = function(obj, start, finish)
 end
 
 -- 親ディレクトリを辿ってプロジェクトルートを探す
-function search_up(dir, root_markers)
+local function search_up(dir, root_markers)
   for _, marker in ipairs(root_markers) do
     if vim.fn.filereadable(dir .. "/" .. marker) == 1 or vim.fn.isdirectory(dir .. "/" .. marker) == 1 then
       return dir
@@ -171,13 +171,11 @@ utils.find_python_venv = function(root_markers)
     if executable then
       vim.notify("Found Python venv: " .. path)
       return path
-    else
-      vim.notify("Python venv not found at: " .. path, vim.log.levels.INFO)
     end
   end
   -- 見つからない場合はシステムのpython
   local system_python = vim.fn.exepath("python3") or vim.fn.exepath("python")
-  vim.notify("Using system Python: " .. system_python, vim.log.levels.INFO)
+  vim.notify("venv not found.Using system Python: " .. system_python, vim.log.levels.WARNING)
   return system_python
 end
 
