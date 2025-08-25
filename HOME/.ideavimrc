@@ -152,7 +152,7 @@ nnoremap <M-j> <C-w>j
 nnoremap <M-h> <C-w>h
 
 " フォーカスを持つエディタタブを他のタブ分割グループに移動
-noremap so :action MoveEditorToOppositeTabGroup<CR>
+noremap <C-M>o :action MoveEditorToOppositeTabGroup<CR>
 
 
 " visual mode時に v で行末まで選択する
