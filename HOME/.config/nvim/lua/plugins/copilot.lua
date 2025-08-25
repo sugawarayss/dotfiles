@@ -29,9 +29,9 @@ return {
           -- 提案を全て受け入れる
           accept = "<Tab>",
           -- 提案を単語単位で受け入れる
-          accept_word = "<M-Tab>",
+          accept_word = false, --"<M-Tab>",
           -- 提案を行単位で受け入れる
-          accept_line = "<S-Tab>",
+          accept_line = false, --"<S-Tab>",
           next = "<M-]>",
           prev = "<M-[>",
           -- 提案を拒否する
