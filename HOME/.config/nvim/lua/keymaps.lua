@@ -28,11 +28,11 @@ u.keymap("n", "<C-j>", ":rightbelow split<Return>", { desc = "下に水平分割
 u.keymap("n", "<C-h>", ":leftabove vsplit<Return>", { desc = "左に垂直分割" })
 u.keymap("n", "<C-l>", ":rightbelow vsplit<Return>", { desc = "右に垂直分割" })
 
--- ウィンドウフォーカス移動(左下上右)
-u.keymap("n", "<M-k>", "<C-w>k", { desc = "上のバッファへフォーカスを移動" })
-u.keymap("n", "<M-j>", "<C-w>j", { desc = "下のバッファへフォーカスを移動" })
-u.keymap("n", "<M-h>", "<C-w>h", { desc = "左のバッファへフォーカスを移動" })
-u.keymap("n", "<M-l>", "<C-w>l", { desc = "右のバッファへフォーカスを移動" })
+-- ウィンドウフォーカス移動(左下上右) smart-splits.nvimで代替
+-- u.keymap("n", "<M-k>", "<C-w>k", { desc = "上のバッファへフォーカスを移動" })
+-- u.keymap("n", "<M-j>", "<C-w>j", { desc = "下のバッファへフォーカスを移動" })
+-- u.keymap("n", "<M-h>", "<C-w>h", { desc = "左のバッファへフォーカスを移動" })
+-- u.keymap("n", "<M-l>", "<C-w>l", { desc = "右のバッファへフォーカスを移動" })
 
 -- 新しいタブを一番右に作る
 -- u.keymap("n", "gn", ":tabnew<Return>", { desc = "新しいタブを作成" })
@@ -103,8 +103,8 @@ u.keymap("n", "g#", "g#zz", { desc = "カーソル上の単語を検索して移
 u.keymap("x", "p", "P", opts)
 
 -- スペースに挟まれた範囲(WORD単位)を選択
-u.keymap("o", "i<space>", "iW")
-u.keymap("x", "i<space>", "iW")
+-- u.keymap("o", "i<space>", "iW")
+-- u.keymap("x", "i<space>", "iW")
 
 -- visualモードで選択した範囲をインデントしてもvisualモードを維持する
 u.keymap("v", "<", "<gv", opts)
