@@ -211,6 +211,14 @@ local lsp_server_settings = {
       },
     },
   },
+  ty = {
+    disableLanguageServices = false,
+    diagnosticMode = "openFilesOnly",
+    inlayHints = {
+      variableTypes = false,
+      callArgumentNamdes = false,
+    },
+  },
   lua_ls = {
     settings = {
       Lua = {
