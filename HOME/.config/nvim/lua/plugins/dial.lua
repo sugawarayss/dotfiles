@@ -2,11 +2,9 @@
 return {
   {
     "monaqa/dial.nvim",
-    keys = {
-      { "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" }, desc = "インクリメント" },
-      { "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "v" }, desc = "デクリメント" },
-    },
+    event = { "BufReadPre" },
     config = function()
+      local wk = require("which-key")
       local config = require("dial.config")
       local augend = require("dial.augend")
 
@@ -30,6 +28,10 @@ return {
           augend.constant.alias.Alpha, -- 大文字アルファベット
           augend.semver.alias.semver, -- セマンティックバージョンナンバー
         },
+      })
+      wk.add({
+        { "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" }, desc = "インクリメント" },
+        { "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "v" }, desc = "デクリメント" },
       })
     end,
   },
