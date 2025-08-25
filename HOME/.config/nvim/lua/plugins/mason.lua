@@ -11,6 +11,7 @@ local lsp_servers = {
   -- python
   "pyright",
   "ruff",
+  "ty",
   -- sphinx
   "esbonio",
   -- rust
