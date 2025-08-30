@@ -1,0 +1,12 @@
+{
+  "globalShortcut": "Alt+Ctrl+Tab",
+  "mcpServers": {
+    "fetch": {
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "autoApprove": [
+        "fetch"
+      ],
+      "command": "uvx"
+    },

@@ -1,0 +1,108 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: [https://zed.dev/docs/key-bindings](https://zed.dev/docs/key-bindings)
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // コマンドパレットのトグル
+      "cmd-shift-p": "command_palette::Toggle",
+      // プロジェクトパネル(ファイルエクスプローラへのフォーカスをトグル)
+      // "ctrl-t ctrl-": "project_panel::ToggleFocus",
+      // ファイルファインダーのトグル
+      "shift shift": "file_finder::Toggle",
+      // 左側のDockをトグル
+      "space f e": "workspace::ToggleLeftDock",
+      // 右側k(AI Chat用)のDockをトグル
+      "space n": "workspace::ToggleRightDock",
+      // アシスタントパネルのトグル
+      // "space c c": "assistant::Toggle",
+      // 下側(Terminal用)のDockをトグル
+      "f3": "workspace::ToggleBottomDock",
+      // タブスイッチャーのトグル
+      "ctrl-tab": "tab_switcher::Toggle",
+      // アウトラインの表示
+      "space o l": "outline::Toggle"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": ["project_panel::Trash", { "skip_prompt": false }],
+      "space e": "project_panel::ToggleFocus",
+      "ctrl-shift-enter": null
+    }
+  },
+  {
+    "context": "FileFinder && !menu_open",
+    "bindings": {
+      "shift shift": "file_finder::Toggle",
+      "cmd-j": "pane::SplitDown",
+      "cmd-k": "pane::SplitUp",
+      "cmd-h": "pane::SplitLeft",
+      "cmd-l": "pane::SplitRight"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-m": null,
+      "alt-cmd-[": null,
+      "alt-cmd-]": null
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      // 検索モードのトグル
+      "cmd-f": "buffer_search::Deploy",
+      // 置換モードのトグル
+      "cmd-alt-f": ["buffer_search::Deploy", { "replace_enabled": true }]
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal) && !menu",
+    "bindings": {
+      "u": "editor::Undo",
+      "shift-u": "editor::Redo"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !menu",
+    "bindings": {
+      // コードアクション候補を表示
+      "g a": "editor::ToggleCodeActions",
+      // 行番号表示トグルを無効化
+      "cmd-;": null,
+      // ペインの分割
+      "s s k": "pane::SplitUp",
+      "s s j": "pane::SplitDown",
+      "s v l": "pane::SplitRight",
+      "s v h": "pane::SplitLeft",
+      // アクティブなPaneの移動
+      "s h": "workspace::ActivatePaneLeft",
+      "s l": "workspace::ActivatePaneRight",
+      "s k": "workspace::ActivatePaneUp",
+      "s j": "workspace::ActivatePaneDown",
+      // タブ選択
+      "shift-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePrevItem",
+      // lazygitを起動
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "lazygit", "target": "center" }
+      ],
+      "ctrl-t ctrl-t": [
+        "task::Spawn",
+        { "task_name": "yazi", "target": "center" }
+      ]
+    }
+  }
+]
