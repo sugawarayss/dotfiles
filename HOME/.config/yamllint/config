@@ -1,0 +1,110 @@
+---
+
+yaml-files:
+    - '*.yaml'
+    - '*.yml'
+    - '.yamllint'
+
+rules:
+    anchors:
+        # 未定義のアンカーへの参照を禁止
+        forbid-undeclared-aliases: true
+        # アンカーの重複を許可
+        forbid-duplicated-anchors: false
+        # 未使用のアンカーの存在を許可
+        forbid-unused-anchors: false
+    braces:
+        # {} で囲んだフローマッピングの使用は禁止しない
+        forbid: false
+        # {} 内のスペース最小数
+        min-spaces-inside: 0
+        # {} 内のスペース最大数
+        max-spaces-inside: 0
+        # 空の{} 内 スペース最小数 (-1は無制限)
+        min-spaces-inside-empty: -1
+        # 空の{} 内 スペース最大数 (-1は無制限)
+        max-spaces-inside-empty: -1
+    brackets:
+        # [] で囲んだフローシーケンスの使用は禁止しない
+        forbid: false
+        # [] 内のスペース最小数
+        min-spaces-inside: 0
+        # [] 内のスペース最大数
+        max-spaces-inside: 0
+        # 空の[] 内 スペース最小数 (-1は無制限)
+        min-spaces-inside-empty: -1
+        # 空の[] 内 スペース最大数 (-1は無制限)
+        max-spaces-inside-empty: -1
+    colons:
+        # コロン前のスペース最大数
+        max-spaces-before: 0
+        # コロン後のスペース最小数
+        max-spaces-after: 1
+    commas:
+        # カンマ前のスペース最大数
+        max-spaces-before: 0
+        # カンマ後のスペース最小数
+        min-spaces-after: 1
+        # カンマ後のスペース最大数
+        max-spaces-after: 1
+    comments:
+        # コメント記号 とコメントの間のスペースが必須
+        require-starting-space: true
+        # シェバン行のコメントを無視
+        ignore-shebangs: true
+        # インラインコメント前のスペース最小数
+        min-spaces-from-content: 2
+    # コメントのインデント
+    comments-indentation:
+        level: warning
+    # ドキュメント終了マーカーは不要
+    document-end: disable
+    # ドキュメント開始マーカーは不要
+    document-start:
+        present: false
+    empty-lines:
+        # ドキュメント内の最大空行数
+        max: 2
+        # ファイル先頭の最大空行数
+        max-start: 0
+        # ファイル末尾の最大空行数
+        max-end: 0
+    # 空のノードは許可
+    empty-values: disable
+    # 浮動小数点の許容値は制限しない
+    float-values: disable
+    hyphens:
+        # ハイフン後のスペース最大数
+        max-spaces-after: 1
+    indentation:
+        # インデントのスペース数は統一されていればいくつでも良い
+        spaces: consistent
+        # ブロックシーケンスをインデントする 
+        indent-sequences: true
+        # 複数行の文字列のインデントする
+        check-multi-line-strings: true
+    key-duplicates:
+        # 複数のマージキーの使用は許可
+        forbid-duplicated-merge-keys: false
+    # キーの定義順は制限しない
+    key-ordering: disable
+    line-length:
+        # 行の最大文字数
+        max: 150
+        # 分割できない単語ならばmaxを超えても良い
+        allow-non-breakable-words: true
+        # 分割できないインラインマッピングはmaxを超えてはならない
+        allow-non-breakable-inline-mappings: false
+    new-lines:
+        # 改行文字は \n
+        type: unix
+    # 8進数の制限はしない
+    octal-values: disable
+    # クオートのスタイルについては制限しない
+    quoted-strings: disable
+    # 末尾のスペースは許さない
+    trailing-spaces: enable
+    # boolean は true/false のみ
+    truthy:
+        level: warning
+        
