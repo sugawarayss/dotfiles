@@ -1,0 +1,83 @@
+# MacOS
+.DS_Store
+
+# vscode
+.vscode/
+
+# JetBrains IDE
+.idea/
+
+# fleet(JetBrains editor)
+.fleet/
+
+# Python virtual environment
+.venv/
+venv/
+
+.tool-versions
+
+# Node.js
+node_modules/
+
+*.py[cod]
+*$py.class
+
+# mypy
+.mypy_cache/
+__pycache__/
+
+# pytest
+.pytest_cache/
+.coverage
+
+(hoge|fuga|piyo|moge|foo|bar|bazz).*
+hoge.*
+fuga.*
+piyo.*
+moge.*
+foo.*
+bar.*
+bazz.*
+debug.*
+recreate_container.sh
+sample_csv/
+
+# direnv
+.envrc
+
+# pyright
+pyrightconfig.json
+
+# ruff
+.ruff_cache
+
+# local ssl
+localhost*pem
+
+# VSCODE setp counter
+.VSCodeCounter/
+
+# mise
+.mise.toml
+
+.env.azure
+
+# cline
+.clinerules/
+
+# プロジェクト全体で共有する設定(アーキテクチャ設計、コーディング標準、共通ワークフローなど)
+CLAUDE.md
+# プロジェクト固有の個人設定
+CLAUDE.local.md
+
+**/.claude/settings.local.json
+
+# serenaのプロジェクト設定指示ファイル
+.serena/**
+
+# 開発用に出力したpickleファイル
+*.pkl
+
+# IntelliJ や Neovim(rest.nvim) のHTTPリクエストファイル
+.restclients/**.env
+.restclients/**.env.json

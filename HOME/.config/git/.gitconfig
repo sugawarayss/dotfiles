@@ -1,0 +1,57 @@
+[pager]
+    diff          = delta
+    log           = delta
+    reflog        = delta
+    show          = delta
+
+[alias]
+  # ブランチ一覧(local/remote)
+  ba = branch -a
+  # リモートブランチ一覧
+  br = branch -r
+  # ローカルブランチ一覧
+  bl = branch -l
+  # git st == git status
+  st = status
+  # ブランチ削除
+  delete = branch -D
+  # git branch graph
+  bg = log --graph --simplify-by-decoration --pretty=format:'%d' --all
+  # git switch -c {create branch} {base branch}
+  create = switch -c
+  # git checkout
+  co = checkout
+  # リモートブランチをチェックアウト
+  corb = !"git branch -r | sd \"origin/\" \"\" | gum filter --prompt=\"SELECT CHECKOUT BRANCH > \" | xargs git checkout"
+  # ローカルブランチにスイッチ
+  sw = !"git branch -l | sd \"origin/\" \"\" | gum filter --prompt=\"SELECT CHECKOUT BRANCH > \" | xargs git switch"
+  # show git current branch
+  current = branch --show-current
+  lg = !"git log --oneline --graph --decorate $(git cb)"
+
+[delta]
+    line-numbers  = true
+    side-by-side  = true
+    syntax-theme  = Monokai Extended
+    navigate      = true
+
+[interractive]
+    diffFilter    = delta --color-only
+
+[user]
+    name          = sugawarayss
+    email         = sugawarayss@inap-vision.co.jp
+
+[ghq]
+    root          = ~/PROJECTS
+
+[commit]
+    template      = ~/.config/git/.commit_template
+
+[core]
+    quotepath     = false
+    editor        = nvim
+	autocrlf      = input
+
+[init]
+    defaultBranch = main
