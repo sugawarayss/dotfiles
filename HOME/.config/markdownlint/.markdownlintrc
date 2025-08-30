@@ -1,0 +1,5 @@
+MD007=false # 番号なしリストのインデント
+MD013=false # 行の長さ
+MD024=false # 同じレベルの見出し
+MD033=false # インラインHTML
+MD046=false # コードブロックのスタイル(<detail>で囲うと誤検知してしまう)
