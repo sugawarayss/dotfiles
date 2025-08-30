@@ -15,10 +15,6 @@
       // "ctrl-t ctrl-": "project_panel::ToggleFocus",
       // ファイルファインダーのトグル
       "shift shift": "file_finder::Toggle",
-      // 左側のDockをトグル
-      "space f e": "workspace::ToggleLeftDock",
-      // 右側k(AI Chat用)のDockをトグル
-      "space n": "workspace::ToggleRightDock",
       // アシスタントパネルのトグル
       // "space c c": "assistant::Toggle",
       // 下側(Terminal用)のDockをトグル
@@ -27,6 +23,16 @@
       "ctrl-tab": "tab_switcher::Toggle",
       // アウトラインの表示
       "space o l": "outline::Toggle"
+    }
+  },
+  {
+    // spaceをLeader キーとして使うため 空白入力と衝突回避
+    "context": "Workspace && not_editing",
+    "bindings": {
+      // 左側のDockをトグル
+      "space f e": "workspace::ToggleLeftDock",
+      // 右側k(AI Chat用)のDockをトグル
+      "space c c": "workspace::ToggleRightDock"
     }
   },
   {
@@ -44,10 +50,10 @@
     "context": "FileFinder && !menu_open",
     "bindings": {
       "shift shift": "file_finder::Toggle",
-      "cmd-j": "pane::SplitDown",
-      "cmd-k": "pane::SplitUp",
-      "cmd-h": "pane::SplitLeft",
-      "cmd-l": "pane::SplitRight"
+      "ctrl-j": "pane::SplitDown",
+      "ctrl-k": "pane::SplitUp",
+      "ctrl-h": "pane::SplitLeft",
+      "ctrl-l": "pane::SplitRight"
     }
   },
   {
@@ -82,18 +88,18 @@
       // 行番号表示トグルを無効化
       "cmd-;": null,
       // ペインの分割
-      "s s k": "pane::SplitUp",
-      "s s j": "pane::SplitDown",
-      "s v l": "pane::SplitRight",
-      "s v h": "pane::SplitLeft",
+      "ctrl-k": "pane::SplitUp",
+      "ctrl-j": "pane::SplitDown",
+      "ctrl-l": "pane::SplitRight",
+      "ctrl-h": "pane::SplitLeft",
       // アクティブなPaneの移動
-      "s h": "workspace::ActivatePaneLeft",
-      "s l": "workspace::ActivatePaneRight",
-      "s k": "workspace::ActivatePaneUp",
-      "s j": "workspace::ActivatePaneDown",
+      "alt-h": "workspace::ActivatePaneLeft",
+      "alt-l": "workspace::ActivatePaneRight",
+      "alt-k": "workspace::ActivatePaneUp",
+      "alt-j": "workspace::ActivatePaneDown",
       // タブ選択
       "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePrevItem",
+      "shift-h": "pane::ActivatePreviousItem",
       // lazygitを起動
       "space g g": [
         "task::Spawn",
