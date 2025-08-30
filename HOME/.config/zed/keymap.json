@@ -27,7 +27,7 @@
   },
   {
     // spaceをLeader キーとして使うため 空白入力と衝突回避
-    "context": "Workspace && not_editing",
+    "context": "Workspace && (vim_mode == normal)",
     "bindings": {
       // 左側のDockをトグル
       "space f e": "workspace::ToggleLeftDock",
@@ -43,7 +43,14 @@
       "r": "project_panel::Rename",
       "d": ["project_panel::Trash", { "skip_prompt": false }],
       "space e": "project_panel::ToggleFocus",
-      "ctrl-shift-enter": null
+      "ctrl-shift-enter": null,
+      // 左側のDockをトグル
+      "space f e": "workspace::ToggleLeftDock",
+      // ペインの分割 直接分割はなさそう。。。
+      "ctrl-k": "project_panel::Open"
+      // "ctrl-j": "pane::SplitDown",
+      // "ctrl-l": "pane::SplitRight",
+      // "ctrl-h": "pane::SplitLeft"
     }
   },
   {
@@ -77,7 +84,11 @@
     "context": "Editor && (vim_mode == normal) && !menu",
     "bindings": {
       "u": "editor::Undo",
-      "shift-u": "editor::Redo"
+      "shift-u": "editor::Redo",
+      // 左側のDockをトグル
+      "space f e": "workspace::ToggleLeftDock",
+      // 右側k(AI Chat用)のDockをトグル
+      "space c c": "workspace::ToggleRightDock"
     }
   },
   {
@@ -103,11 +114,11 @@
       // lazygitを起動
       "space g g": [
         "task::Spawn",
-        { "task_name": "lazygit", "target": "center" }
+        { "task_name": "lazygit", "reveal_target": "center" }
       ],
       "ctrl-t ctrl-t": [
         "task::Spawn",
-        { "task_name": "yazi", "target": "center" }
+        { "task_name": "yazi", "reveal_target": "center" }
       ]
     }
   }
