@@ -1,0 +1,12 @@
+[tools]
+deno = "latest"
+go = "latest"
+node = "latest"
+pnpm = "latest"
+python = "3.12"
+terraform = "latest"
+usage = "latest"
+yarn = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
