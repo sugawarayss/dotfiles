@@ -1,0 +1,52 @@
+# shell 統合
+shell-integration = fish
+# メインフォント
+font-family = "Hack Nerd Font Mono"
+# サブフォント(フォールバック)
+font-family = "HackGen Console NF"
+# フォントサイズ
+font-size = 13.5
+
+# カラーテーマ
+theme = Duotone Dark
+
+# ウィンドウの左右の余白
+window-padding-x = 4,2
+# ウィンドウの背景透過度
+background-opacity = 0.75
+# 背景のぼかし度合い
+background-blur-radius = 15
+# カーソルのスタイル
+cursor-style = block
+# カーソルの点滅
+cursor-style-blink = true
+
+############
+# KeyBinds #
+############
+#
+macos-option-as-alt = true
+# ホットキーウィンドウの設定
+quick-terminal-position = "top"
+quick-terminal-screen = "main"
+quick-terminal-animation-duration = 0.1
+
+# ホットキーウィンドウ表示トグルのキーバインド
+keybind = "global:shift+opt+space=toggle_quick_terminal"
+
+# この設定ファイルを開く
+keybind = "all:cmd+,=open_config"
+
+# 分割ペインのフォーカス移動キーバインド
+keybind = "all:ctrl+opt+shift+l=goto_split:right"
+keybind = "all:ctrl+opt+shift+h=goto_split:left"
+keybind = "all:ctrl+opt+shift+k=goto_split:top"
+keybind = "all:ctrl+opt+shift+j=goto_split:bottom"
+keybind = "all:ctrl+opt+shift+tab=goto_split:next"
+
+# 分割したペインのリサイズキーバインド
+keybind = "all:ctrl+shift+l=resize_split:right,20"
+keybind = "all:ctrl+shift+h=resize_split:left,20"
+keybind = "all:ctrl+shift+k=resize_split:up,20"
+keybind = "all:ctrl+shift+j=resize_split:down,20"
+keybind = shift+enter=text:\n
