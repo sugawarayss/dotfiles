@@ -1,0 +1,61 @@
+{
+  "link": {
+    "prefix": ".link",
+    "body": [
+      "[${1:label}](${2:url})"
+    ],
+    "description": "Markdown Link"
+  },
+  "image": {
+    "prefix": ".image",
+    "body": [
+      "![${1:label}](${2:url})"
+    ],
+    "description": "Markdown Image"
+  },
+  "table-header": {
+    "prefix": ".t-header",
+    "body": [
+      "| ${1} | ${2} | ${3} |",
+      "| --- | --- | --- |"
+    ],
+    "description": "Table Header"
+  },
+  "table-row": {
+    "prefix": ".t-row",
+    "body": [
+      "| ${1} | ${2} | ${3} |"
+    ],
+    "description": "Table Row"
+  },
+  "details": {
+    "prefix": ".details",
+    "body": [
+      "<details>",
+      "<summary>${1}</summary>",
+      "",
+      "$2",
+      "",
+      "</details>"
+    ],
+    "description": "Summary"
+  },
+  "warning-call-out": {
+    "prefix": ".callout-warning",
+    "body": [
+      "> [!WARNING]",
+      "> ",
+      "> ${1}"
+    ],
+    "description": "Call-out Warning"
+  },
+  "note-call-out": {
+    "prefix": ".callout-note",
+    "body": [
+      "> [!NOTE]",
+      "> ",
+      "> ${1}"
+    ],
+    "description": "Call-out Note"
+  }
+}

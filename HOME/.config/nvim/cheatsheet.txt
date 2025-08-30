@@ -1,0 +1,269 @@
+# Help
+ヘルプを検索(Snacks)                                | <Leader>sh
+manページを検索(Snacks)                             | <Leader>sM
+
+
+## Zen mode @snacks
+Zen mode をトグル                                  | <Leader>z
+
+
+## Explorer @yazi @explorer
+ファイルエクスプローラ表示(yazi)                    | <C-t><C-t>
+ファイルエクスプローラ表示(snacks)                  | <Leader>fe
+
+## Snacks @history
+コマンド履歴(Snacks)                                | <Leader>:
+通知履歴(Snacks)                                    | <Leader>n
+undo履歴を検索                                      | <Leader>su
+検索履歴を検索                                      | <Leader>s/
+
+## Scnacks Search
+レジスタを検索(Snacks)                              | <Leader>s"
+キーマップを検索(Snacks)                            | <Leader>sk
+LSP diagnostic を検索(Snacks)                       | <Leader>sd
+コマンドを検索(Snacks)                              | <Leader>sC
+キーマップを検索(Snacks)                            | <Leader>sk
+Nerd Font Icon を検索(Snacks)                       | <Leader>si
+Quickfix List を検索(Snacks)                        | <Leader>sq
+プラグインを検索(Snacks)                            | <Leader>sp
+Locallist を検索(Snacks)                            | <Leader>sl
+autocmds を検索(Snacks)                             | <Leader>sa
+
+## Mason @lsp
+パッケージをインストール                            | i
+パッケージをアンインストール                        | X
+パッケージをアップデート                            | u
+全てのパッケージをアップデート                      | U
+インストールのキャンセル                            | <C-c>
+ヘルプを表示                                        | g?
+
+## Copilot @copilot
+(サジェスト) 採択                                   | <Tab>
+(サジェスト) 次のサジェスト                         | <M-]>
+(サジェスト) 前のサジェスト                         | <M-[>
+(サジェスト) 却下                                   | <C-l>
+
+## CopilotChat @copilot
+CopilotChatを垂直分割で開く(CodeCompanion)          | <Leader>cc
+CopilotActionsメニューを開く(CodeCompanion)         | <Leader>ca
+
+## BufferEdit @buffer
+リドゥ(<C-r>をリマップ)                             | <S-u>
+コードを折畳む                                      | zc
+コードを展開する                                    | zo
+コードを全て折畳む                                  | zM
+コードを全て展開する                                | zR
+折畳んだコードのプレビューを表示                    | zn
+対応する括弧にジャンプ                              | %
+カーソル位置の単語を大文字に変換                    | (insert mode) <C-g><C-u>
+カーソル位置の単語を小文字に変換                    | (insert mode) <C-g><C-l>
+カーソル位置の単語の先頭だけ大文字に変換            | (insert mode) <C-g><C-w>
+記号の位置を整列する(パラグラフ)                    | vipga{整列する記号}
+選択範囲を記号で整列する(easy-align)                | (visual) ga{整列する記号}
+キー押下履歴を右上に表示する(:ShowkeysToggle)       | <M-s>k
+前の空白行にジャンプ                                | {
+次の空白行にジャンプ                                | }
+
+## Obsidian
+Obsidian ノートを検索する                           | <Leader>o
+Obsidian ノートを作成する                           | <Leader>on
+Obsidian デイリーノートを作成する                   | <Leader>ot
+
+## SplitWindow @split
+バッファを上に分割して開く                          | <C-k>
+バッファを下に分割して開く                          | <C-j>
+バッファを左に分割して開く                          | <C-h>
+バッファを右に分割して開く                          | <C-l>
+ウィンドウサイズ調整モード                          | <C-M-(h|j|k|l)
+左のバッファにフォーカス                            | <M-h>
+右のバッファにフォーカス                            | <M-l>
+上のバッファにフォーカス                            | <M-k>
+下のバッファにフォーカス                            | <M-j>
+左のバッファと位置を入れ替える                      | <C-S-s>h
+右のバッファと位置を入れ替える                      | <C-S-s>l
+上のバッファと位置を入れ替える                      | <C-S-s>k
+下のバッファと位置を入れ替える                      | <C-S-s>j
+左のバッファを表示                                  | <S-h>
+右のバッファを表示                                  | <S-l>
+バッファを閉じる                                    | <Leader>dd
+
+
+## Terminal
+ターミナルを水平分割で開く(上下)                    | <F3>
+lazygit を開く                                      | <Leader>gg
+ファイルをGithubで開く                              | <Leader>gB
+
+## LSP @lsp
+戻る                                                | <C-o>
+変数の情報を表示する                                | <S-k>
+定義にジャンプ                                      | gd
+参照箇所一覧を Telescope で表示する                 | gr
+型定義にジャンプ                                    | gt
+宣言箇所にジャンプ                                  | gD
+実装箇所にジャンプ                                  | gi
+エラー内容を表示する                                | go
+エラーアクション候補を表示する                      | ga
+リネームする                                        | gn
+コードフォーマットを実行する                        | gf
+次のエラーにジャンプ                                | gj
+前のエラーにジャンプ                                | gk
+
+## Debugger
+デバッグUIを表示する                                | <Leader>db
+ブレークポイントをトグル                            | :DapToggleBreakpoint
+条件付きブレークポイントを付与                      | ;cbm
+メッセージ付きブレークポイントを付与                | ;ibm
+REPL を起動                                         | <Leader>dr
+最新をデバッグを再実行                              | <Leader>dl
+コンテニュー                                        | <F8>
+ステップオーバー                                    | <F9>
+ステップイン                                        | <F10>
+ステップアウト                                      | <F7>
+
+## Git @git @diff
+Branch List(Telescope)                              | <Leader>gb
+Show Diff HEAD~1                                    | <Leader>df
+Show File History                                   | <Leader>dh
+Close Diffview                                      | <Leader>dc
+
+## Octo @issue
+Search Issue in Current Repository                  | :Octo issue search
+Browse Issue in Current Repository                  | :Octo issue browser
+List Issue in Current Repository                    | :Octo issue list
+Close Issue                                         | :Octo issue close
+Create Issue to Current Repository                  | :Octo issue create
+Edit Issue in Current Repository                    | :Octo issue edit
+Copy URL of Current Issue                           | :Octo issue url
+
+## Octo @pr
+Search PR in Current Repository                     | :Octo pr search
+List PR                                             | :Octo pr list
+Checkout PR                                         | :Octo pr checkout
+Create PR for the Current Branch                    | :Octo pr create
+Close PR                                            | :Octo pr close
+ReOpen PR                                           | :Octo pr reopen
+Show PR Diff                                        | :Octo pr diff
+Browse PR                                           | :Octo pr browser
+Copy URL of Current PR                              | :Octo pr url
+Add assignee to PR                                  | :Octo add <user>
+Unassign a user                                     | :Octo remove <user>
+Add reviewer to PR                                  | :Octo reviewer <user>
+
+
+## Octo @review
+Start a new review                                  | :Octo review start
+Submit the review                                   | :Octo review submit
+Edit a pending review for current PR                | :Octo review resume
+Deletes a pending review for current PR if any      | :Octo review discard
+View pending review comments                        | :Octo review comments
+Close the review window and return to the PR        | :Octo review close
+
+## Docker
+docker Container List(Telescope)                    | <M-d><M-c>
+docker Image List(Telescope)                        | <M-d><M-i>
+docker Compose List(Telescope)                      | <M-d><M-p>
+docker File List(Telescope)                         | <M-d><M-l>
+
+## TODO @todo
+次の TODO コメントにジャンプ                        | ;t
+前の TODO コメントにジャンプ                        | :t
+
+## Surround @surround
+空白あり/空白なし                                   | あり: "(" / なし: ")"
+alias                                               | w: Word, s: sentence
+カーソル位置の単語を<記号>で囲む                    | ysiw{記号}
+カーソル位置の単語を囲む記号ごと<記号2>で囲む       | ysa{記号1}{記号2}
+カーソル位置から行末まで<記号>で囲む                | ys${記号}
+カーソル位置の単語を囲む<記号>を除去                | ds{記号}
+カーソル位置の単語を囲む<古>を<新>で置換            | cs{古}{新}
+カーソル位置の単語を囲むタグを除去                  | dst
+(visual)選択状態の文字を<記号>囲む                  | (選択状態で) <S-s>{記号}
+
+## trouble
+Display troubles                                    | <Leader>xx
+Display troubles in workspace                       | <Leader>xw
+Display troubles in document                        | <Leader>xd
+Display troubles in quickfix                        | <Leader>xq
+Display troublesin locallist                        | <Leader>xl
+
+## Notify
+通知履歴を表示(Snacks)                              | <Leader>n
+直近の通知を表示(Noice)                             | <Leader>nl
+
+## Increment
+インクリメント                                      | <C-a>
+デクリメント                                        | <C-x>
+
+## Outline @aerial @outline
+アウトラインを表示(aerial.nvim)                     | <leader>aa
+アウトラインを表示(Outline.nvim)                    | <leader>ol
+
+## Telescope
+ファイル内容で検索(Telescope)                       | <F4>
+ファイル名で検索(Telescope)                         | <Leader><Leader>
+TODOコメントを検索(Telescope)                       | <Leader>std
+キーマップ一覧から検索(Telescope)                   | <Leader>skm
+コマンド履歴から検索(Telescope)                     | <Leader>s:
+
+## Hop
+hop to matched 'input pattern'                      | <Leader>/
+hop to vertical current Line column                 | <Leader>v
+hop to after Cursor Word                            | <Leader>w
+hop to before Cursor Word                           | <Leader>b
+hop to after Cursor char                            | <Leader>f
+hop to before Cursor char                           | <Leader>F
+hop before to after Cursor Line                     | <Leader>t
+hop before to before Cursor Line                    | <Leader>T
+
+## Bookmark
+ブックマークをトグル                                | mm
+ブックマークリストから検索(Telescope)               | <Leader>sbm
+
+## Translate
+カーソル位置の単語を日本語に翻訳                    | <Leader>tj
+(Visual)選択範囲を日本語に翻訳                      | <Leader>tj
+カーソル位置の単語を英語に翻訳                      | <Leader>te
+(Visual)選択範囲を英語に翻訳                        | <Leader>te
+(Visual)選択範囲の日本文を英語に翻訳して置換        | <Leader>tr
+
+## NeoTest
+フォーカスがあるファイルのテストを実行              | <M-r><M-t>f
+カーソルが最も近いテストを実行する                  | <M-r><M-t>r
+テスト実行をSTOP                                    | <M-r><M-t>s
+テスト結果をfloat windowで表示                      | <M-r><M-t>v
+テスト結果をパネル(バッファ)で表示                  | <M-r><M-t>o
+
+
+## Rust @rust @rustacean
+ドキュメントをブラウザで表示                        | :RustLsp openDocs
+リントを実行                                        | :RustLsp flyCheck
+(カーソル上の)エラー説明を表示                      | :RustLsp explainError cycle
+ホバーアクションを表示                              | :RustLsp hover {range}
+
+
+## JaPaneseIME
+Toggle inLine IME                                   | <C-j>
+
+## Wezterm @wezterm
+New Window                                          | <⌘-n>
+Toggle Fullscreen                                   | <A-Enter>
+Quit Wezterm                                        | <⌘-q>
+Reload Configuration                                | <⌘-r>
+Show Command Palette                                | F1
+Quick Select Mode                                   | <S-C-Space>
+Search Mode                                         | <⌘-f>
+Copy Mode                                           | F4
+Debug Overlay                                       | F12
+
+## Wezterm-Tab @wezterm @tab
+New Tab                                             | <⌘-t>
+Active Right Tab                                    | <C-Tab>
+Active Left Tab                                     | <C-S-Tab>
+
+## Wezterm-Pane @wezterm @Pane
+Split Horizontally                                  | <⌘-d>
+Split Vertically                                    | <⌘-S-d>
+Change Focus Pane                                   | <C-A-Tab>
+Swap Pane                                           | <C-S-A-Tab>
+Close Pane                                          | <⌘-w>
+Change Pane Size                                    | <⌘-C-→>, <⌘-C-←>, <⌘-C-↓>, <⌘-C-↑>
