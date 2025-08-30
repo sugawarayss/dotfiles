@@ -1,0 +1,241 @@
+" IntelliJ - IdeaVimプラグイン用の設定
+" $HOME/.ideavimrcに配置するとIntelliJ起動時にloadされる
+
+" vimrcと共通のkeymap等は切り出すことが可能
+"source .vimrc.keymap
+
+"see following actions list of ideavim
+" `:actionlist [keymap]`
+
+" クリップボードを有効化
+set clipboard=unnamedplus,unnamed,ideaput " integrate with system clipboard
+
+" <Space> をリーダーキーにする
+let mapleader = " "
+
+" ~/.ideavimrc (設定ファイル)を再読み込み
+nnoremap <Leader>rr :source ~/.ideavimrc<CR>
+
+" Ctrl+fで一つ右へ移動
+inoremap <C-f> <Esc>la
+sethandler <C-f> n-v:ide i:vim
+" Ctrl+f Ctrl+f で一番外へ移動
+inoremap <C-f><C-f> <Esc>A
+
+""""""""""""""""""""""""""""""""""
+" 一般設定                       "
+""""""""""""""""""""""""""""""""""
+" Normalモードに戻ったら必ず半角にする(IdeaVimExtension pluginのinstallが必要)
+set keep-english-in-normal
+" (効いていない)cmdlineを2行分の高さにする
+"set cmdheight=2
+" ステータス行を常に表示
+set laststatus=2
+" status bar にモードを表示
+set showmode
+" ウィンドウの右下にまだ実行していない入力中のコマンドを表示
+set showcmd
+" 省略せずに表示する
+set display=lastline
+" 不可視文字を表示する(spaceはIDE側で)
+set listchars=tab:▸\ ,eol:↴
+" /による検索はIDE側のものを使う
+" nnoremap / :<C-u>action Find<CR>
+"検索する時に大文字小文字を区別しない
+set ignorecase
+" 検索する時に大文字を含む場合は区別する
+    set smartcase
+" インクリメンタル検索(検索ワードの最初の文字を入力した時点で検索が開始)
+set incsearch
+" 検索対象をハイライト
+set hlsearch
+" Escの2回押しでハイライト消去
+nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+" ファイルの構造をポップアップ画面で表示する
+nnoremap <Leader>aa :action FileStructurePopup<CR>
+" 最近開いたファイル一覧ポップアップを表示する
+nnoremap ,r :action RecentFiles<CR>
+" 呼び出し階層一覧viewを表示
+nnoremap ,c :action CallHierarchy<CR>
+
+" ProjectWindowを表示
+nnoremap <C-t><C-t> :action ActivateProjectToolWindow<CR>
+" TODOウィンドウを表示
+nnoremap <C-t><C-d> :action ActivateTODOToolWindow<CR>
+" ターミナルウィンドウを表示
+nnoremap <C-t><C-m> :action ActivateTerminalToolWindow<CR>
+" GithubCopilotChatを表示
+nnoremap <Leader>ccb :action copilot.chat.show<CR>
+nnoremap <Leader>aib :action AIAssistant.ToolWindow.ShowOrFocus<CR>
+" 戻る
+nnoremap <C-o> :action Back<CR>
+" 進む
+nnoremap <C-i> :action Forward<CR>
+""""""""""""""""""""""""""""""""""
+" 検索系キーマップ               "
+""""""""""""""""""""""""""""""""""
+" 複数ファイル内検索(⌘+n,⌘+fでできるのでコメントアウト)
+"nmap <C-r> :action FindInPath<CR>
+" 複数ファイル内置換
+"nmap <S-C-r> :action ReplaceInPath<CR>
+" すべてモードで検索
+"nnoremap <S><S> :action SearchEverywhere<CR>
+" クラスモードで検索
+nmap <Leader>c :action GotoClass<CR>
+" IDEA アクションモードで検索
+nmap <Leader>a :action GotoAction<CR>
+" ファイルモード検索
+nmap <C-p> :action GotoFile<CR>
+" シンボルモード検索
+nmap <Leader>gs :action GotoSymbol<CR>
+" 呼び出し箇所一覧をポップアップで表示
+nnoremap g<C-r> :action ShowUsages<CR>
+" 呼び出し箇所を検索してFindViewPaneで表示
+nnoremap gr :action FindUsages<CR>
+
+""""""""""""""""""""""""""""""""""
+" コードジャンプ系のコマンド定義 "
+""""""""""""""""""""""""""""""""""
+" スーパーメソッドへジャンプ
+nnoremap gs :action GotoSuperMethod<CR>
+" 実装箇所へジャンプ
+nnoremap gi :action GotoImplementation<CR>
+" 定義へのジャンプ
+nnoremap gd :action GotoDeclaration<CR>
+" 直近の変更箇所へジャンプ
+nnoremap gb :action JumpToLastChange<CR>
+" テスト実装箇所へジャンプ
+nnoremap gt :action GotoTest<CR>
+
+""""""""""""""""""""""""""""""""""
+" エディター (コード編集)        "
+""""""""""""""""""""""""""""""""""
+" Y で行末までヤンク
+nnoremap Y y$
+" U で リドゥ
+nnoremap U <C-r>
+" M で括弧ジャンプ
+" noremap M %
+" 入力してから大文字に変換
+inoremap <C-g><C-u> <ESC>gUiwgi
+" 入力してから小文字に変換
+inoremap <C-g><C-l> <ESC>guiwgi
+" 先頭の文字だけ大文字に変換
+inoremap <C-g><C-w> <ESC>bgUlgi
+
+
+" ブックマークリストを表示
+nnoremap <Leader>sbm :action ShowBookmarks<CR>
+" カーソル行でブックマークをトグル
+nnoremap ;mm :action ToggleBookmark<CR>
+" 次のブックマークへ移動
+nnoremap ;mj :action GotoNextBookmark<CR>
+" 前のブックマークへ移動
+nnoremap ;mk :action GotoPreviousBookmark<CR>
+
+" 次のタブへ移動
+nnoremap <S-l> :action NextTab<CR>
+" 前のタブへ移動
+nnoremap <S-h> :action PreviousTab<CR>
+" 水平分割(上)
+nnoremap <C-k> :action MoveTabUp<CR>
+" 水平分割(下)
+nnoremap <C-j> :action MoveTabDown<CR>
+" 垂直分割(右)
+nnoremap <C-l> :action MoveTabRight<CR>
+" 垂直分割(左)
+nnoremap <C-h> :action MoveTabLeft<CR>
+" フォーカス移動
+nnoremap <M-l> <C-w>l
+nnoremap <M-k> <C-w>k
+nnoremap <M-j> <C-w>j
+nnoremap <M-h> <C-w>h
+
+" フォーカスを持つエディタタブを他のタブ分割グループに移動
+noremap <C-M>o :action MoveEditorToOppositeTabGroup<CR>
+
+
+" visual mode時に v で行末まで選択する
+vnoremap v $h
+" visual mode でヤンク時にカーソルが始点に飛ばないようにする
+xnoremap y mzy`z
+" visual mode でペースト時にレジスタの変更を防止
+xnoremap p P
+" visual mode で選択範囲ごと上下に移動できるようにする
+vnoremap <S-K> :move '<-2<CR>gv=gv
+sethandler <S-K> v:vim n-i:ide
+vnoremap <S-J> :move '>+1<CR>gv=gv
+sethandler <S-J> v:vim n-i:ide
+" visual mode で選択範囲をインデントしても visual mode が解除されないようにする
+vnoremap < <gv
+vnoremap > >gv
+
+""""""""""""""""""""""""""""""""""
+" 実行                           "
+""""""""""""""""""""""""""""""""""
+" 実行の構成を選んで実行
+noremap RC :action ChooseRunConfiguration<CR>
+
+""""""""""""""""""""""""""""""""""
+" IdeaVim Plugin
+""""""""""""""""""""""""""""""""""
+
+" easymotion plugin
+"Plug easymotion/vim-easymotion
+"set easymotion
+" デフォルトのキーマップを無効化
+"let g:EasyMotion_do_mapping = 0
+" 大文字小文字を区別しない
+"let g:EasyMotion_smartcase = 1
+
+" カーソル以降の単語の先頭にジャンプ
+"nmap <Leader>w <Plug>(easymotion-wl)
+" カーソル以前の単語の先頭にジャンプ
+"nmap <Leader>b <Plug>(easymotion-bl)
+" カーソル以降の単語の末尾にジャンプ
+"nmap <Leader>e <Plug>(easymotion-el)
+" カーソル以前の単語の末尾にジャンプ
+"nmap <Leader>ge <Plug>(easymotion-ge)
+" カーソル以降の行の先頭にジャンプ
+"nmap <Leader>j <Plug>(easymotion-j)
+" カーソル以前の行の先頭にジャンプ
+"nmap <Leader>k <Plug>(easymotion-k)
+
+" vim-flash plugin
+" NOTE: require install 'vim-flash' plugin by plugin marketplace
+set vim-flash
+nmap s <Action>(flash.search)
+xmap s <Action>(flash.search)
+" enhance vim f (find for char in characters to the right of the current cursor)
+nmap f <Action>(flash.find)
+xmap f <Action>(flash.find)
+" enhance vim F (find for char in characters to the left of the current cursor)
+nmap F <Action>(flash.find_backward)
+xmap F <Action>(flash.find_backward)
+" enhance vim t (till for char in characters to the right of the current cursor)
+nmap t <Action>(flash.till)
+xmap t <Action>(flash.till)
+" enhance vim T (till for char in characters to the left of the current cursor)
+nmap T <Action>(flash.till_backward)
+xmap T <Action>(flash.till_backward)
+" enhance vim ; (Repeat the last f/F/t/T search)
+nmap ; <Action>(flash.repeat)
+xmap ; <Action>(flash.repeat)
+" enhance vim , (Repeat the last f/F/t/T search backward)
+nmap , <Action>(flash.repeat_backward)
+xmap , <Action>(flash.repeat_backward)
+
+" which-key plugin
+" NOTE: require install 'Which-Key' plugin by plugin marketplace
+set which-key
+" disable the timeout option
+set notimeout
+
+" highlight yank (bundle plugin)
+set highlightedyank
+let g:highlightedyank_highlight_duration = "1000"
+let g:highlightedyank_highlight_color = "rgba(57, 197, 187, 155)"
+
+" surround plugin
+Plug tpope/vim-surround
+set surround

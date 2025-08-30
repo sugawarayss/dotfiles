@@ -1,0 +1,82 @@
+<TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="$FilePathRelativeToProjectRoot$" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="yml" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="actionlint" />
+    <option name="output" value="" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="/opt/homebrew/bin/actionlint" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="Current File" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="$ProjectFileDir$" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="run" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="yml" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="ghalint run" />
+    <option name="output" value="" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="/opt/homebrew/bin/ghalint" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="Current File" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="$ProjectFileDir$" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="run-action" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="yml" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="ghalint run-action" />
+    <option name="output" value="" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="/opt/homebrew/bin/ghalint" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="Current File" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="$ProjectFileDir$" />
+    <envs />
+  </TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="$FilePathRelativeToProjectRoot$" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="yml" />
+    <option name="immediateSync" value="true" />
+    <option name="name" value="zizmor" />
+    <option name="output" value="" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="/opt/homebrew/bin/zizmor" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="Current File" />
+    <option name="trackOnlyRoot" value="false" />
+    <option name="workingDir" value="$ProjectFileDir$" />
+    <envs />
+  </TaskOptions>
+</TaskOptions>
