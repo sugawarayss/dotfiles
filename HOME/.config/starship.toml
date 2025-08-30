@@ -1,0 +1,143 @@
+# 空行追加
+add_newline       = true
+
+# タイムアウト時間(millisec)
+scan_timeout      = 100
+command_timeout   = 1000
+
+# 左プロンプト
+format            = """
+[┌───────────────────](bold green) [$memory_usage]() $time $cmd_duration
+[│](bold green)$username$hostname$localip$singularity$container$docker_context$kubernetes$package
+[│](bold green)$git_state$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
+[└─](bold green)$character"""
+
+# 右プロンプト
+right_format      = '\[$jobs[$directory](bold green)\]'
+
+[character]
+# コマンド成功時
+success_symbol    = "[](bold green)"
+# コマンド失敗時
+error_symbol      = "[](bold red)"
+# vimノーマルモード時
+vimcmd_symbol     = "[](bold green)"
+
+[cmd_duration]
+format            = "took 󱫡 [$duration]($style) "
+style             = "bold yellow"
+
+[directory]
+format            = '[ ](208) [$path]($style)[$read_only]($read_only_style)'
+style             = 'bold cyan'
+truncation_length = 5
+truncate_to_repo  = false
+truncation_symbol = "…/"
+
+[memory_usage]
+disabled          = false
+threshold         = 1
+symbol            = ""
+format            = '$symbol [${ram}( ${ram_pct})]($style) '
+
+[time]
+disabled          = false
+format            = '󱑆 [$time](blue) '
+utc_time_offset   = '9'
+time_format       = '%Y-%m-%d %T %Z (%A) '
+
+[localip]
+ssh_only          = false
+format            = '@ [$localipv4](bold yellow) '
+disabled          = false
+
+[aws]
+# AWSの表示は無効化
+disabled          = true
+format            = '[$symbol]($style) $profile(\($region\)) '
+symbol            = ''
+style             = "bold 208"
+
+[aws.region_aliases]
+ap-northeast-1    = "tokyo"
+
+[azure]
+disabled          = true
+format            = '[$symbol]($style)$subscription '
+
+[gcloud]
+# GCPの表示は無効化
+disabled          = true
+symbol            = "󱇶"
+style             = "bold green"
+format            = '[$symbol]($style)$project '
+
+[custom.arch]
+command           = "uname -m"
+when              = """ test $(uname -m) = "x86_64" """
+style             = "bold yellow"
+format            = "[$output]($style) "
+
+[docker_context]
+symbol            = ""
+format            = " [$symbol $context](blue bold) "
+
+[python]
+symbol            = ""
+format            = "[$symbol](blue) [($version)](yellow) "
+python_binary     = ['./.venv/bin/python', 'python', 'python3', 'python2']
+
+[nodejs]
+symbol            = "󰎙"
+format            = "[$symbol $version](bold green) "
+
+[golang]
+symbol            = ""
+format            = "$symbol [($version)]($style) "
+
+[ruby]
+symbol            = ""
+format            = "[$symbol](9) [($version)]($style) "
+style             = "bold red"
+
+[rust]
+symbol            = ""
+format            = "[$symbol](208) [$version]($style) "
+
+[php]
+symbol            = "󰌟"
+style             = "white"
+format            = '[$symbol](purple) [$version]($style) '
+
+[package]
+symbol            = ""
+format            = "$symbol(yellow) [$version](yellow) "
+
+[git_state]
+cherry_pick       = "[ ](red)"
+
+[git_status]
+# Gitのステータス表示アイコン
+conflicted        = "[ ${count} ](bright-red) "
+ahead             = "[ ${count} ](green)"
+behind            = "[ ${count} ](blue)"
+diverged          = "[ ${count} ](bright-purple)"
+untracked         = "[ ${count} ](bright-blue)"
+stashed           = "[ ${count} ](purple)"
+modified          = "[ ${count} ](bright-cyan)"
+staged            = "[ ${count} ](bright-yellow)"
+renamed           = "[ ${count} ](yellow) "
+deleted           = "[ ${count} ](red)"
+
+[git_branch]
+# Gitブランチの表示アイコン
+symbol            = " "
+format            = '$symbol[$branch(:$remote_branch)]($style) '
+style             = "purple"
+
+[username]
+style_user        = "#ffffff bold"
+style_root        = "black bold"
+format            = "[$user]($style) "
+disabled          = false
+show_always       = true
