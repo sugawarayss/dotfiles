@@ -1,0 +1,147 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "autoApprove": [
+        "fetch"
+      ],
+      "command": "uvx"
+    },
+    "filesystem": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${ALLOWED_DIRECTORY}"
+      ],
+      "autoApprove": [
+        "list_allowed_directories",
+        "list_directory",
+        "read_file",
+        "read_media_file",
+        "read_multiple_files",
+        "read_text_file",
+        "search_files",
+        "write_file",
+        "edit_file",
+        "directory_tree",
+        "create_directory",
+        "get_file_info",
+        "list_directory_with_sizes",
+        "move_file"
+      ],
+      "command": "npx",
+      "env": {
+        "ALLOWED_DIRECTORY": "~/PROJECTS/"
+      }
+    },
+    "github.com/awslabs/mcp/tree/main/src/aws-documentation-mcp-server": {
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "autoApprove": [
+        "read_documentation",
+        "search_documentation",
+        "recommend"
+      ],
+      "command": "uvx",
+      "disabled": false,
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "github.com/awslabs/mcp/tree/main/src/terraform-mcp-server": {
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "autoApprove": [
+        "SearchUserProvidedModule",
+        "SearchSpecificAwsIaModules",
+        "SearchAwsccProviderDocs",
+        "SearchAwsProviderDocs"
+      ],
+      "command": "uvx",
+      "disabled": false,
+      "disabled_resources": [],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "sequentialthinking": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "command": "npx"
+    },
+    "serena": {
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ],
+      "autoApprove": [
+        "find_file",
+        "find_symbol",
+        "list_dir",
+        "read_memory",
+        "write_memory",
+        "list_memories",
+        "think_about_collected_information",
+        "activate_project",
+        "onboarding",
+        "search_for_pattern",
+        "think_about_task_adherence",
+        "think_about_whether_you_are_done",
+        "get_symbols_overview",
+        "delete_memory",
+        "check_onboarding_performed",
+        "find_referencing_symbols",
+        "insert_after_symbol",
+        "insert_before_symbol",
+        "replace_symbol_body"
+      ],
+      "command": "uvx",
+      "disabled_tools": []
+    }
+  },
+  "nativeMCPServers": {
+    "mcphub": {
+      "autoApprove": [
+        "get_current_servers",
+        "toggle_mcp_server"
+      ],
+      "disabled_prompts": [
+        "create_native_server"
+      ],
+      "disabled_resources": [
+        "mcphub://docs",
+        "mcphub://native_server_guide",
+        "mcphub://changelog"
+      ]
+    },
+    "neovim": {
+      "autoApprove": [
+        "execute_command",
+        "find_files",
+        "list_directory",
+        "read_file",
+        "read_multiple_files",
+        "write_file",
+        "move_item",
+        "edit_file"
+      ],
+      "disabled_prompts": [
+        "parrot"
+      ],
+      "disabled_resources": [],
+      "disabled_tools": [
+        "delete_items"
+      ]
+    }
+  }
+}
