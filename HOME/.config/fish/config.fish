@@ -122,7 +122,7 @@ if type "lsd" > /dev/null 2>&1;
   alias la='lsd --all --git '
   alias ll="lsd --long --git" 
   alias lla="lsd --long --all --git"
-  alias lt="lsd --tree --icon never"
+  alias lt="lsd --tree --all --icon never"
   alias ld="lsd --directory-only --tree --icon never"
 else
   abbr -a ls ls -Gh
