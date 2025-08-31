@@ -133,6 +133,11 @@ _gh-extensions:
 # git 関連の設定を展開
 git: _git-config _gh-config _gh-extensions
 
+# lsd (ls 代替コマンド)の設定ファイル
+lsd:
+  @test -d ~/.config/lsd || mkdir ~/.config/lsd
+  @test -L ~/.config/lsd/config.yaml || ln -s {{pwd}}/HOME/.config/lsd/config.yaml ~/.config/lsd/config.yaml
+
 # lazygitコマンド用の設定ファイルを展開
 lazygit:
   # lazygit の設定ファイル

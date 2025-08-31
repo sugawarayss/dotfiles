@@ -119,10 +119,10 @@ end
 if type "lsd" > /dev/null 2>&1;
   abbr -a oldls /bin/ls
   alias ls='lsd --git'
-  alias la='lsd --all --header --size bytes --git --group-directories-first'
-  alias ll="lsd --long --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
-  alias lla="lsd --long --all --header --size bytes --git --group-directories-first --date '+%Y-%m-%dT%H:%M:%S'"
-  alias lt="lsd --tree"
+  alias la='lsd --all --git '
+  alias ll="lsd --long --git" 
+  alias lla="lsd --long --all --git"
+  alias lt="lsd --tree --icon never"
   alias ld="lsd --directory-only --tree --icon never"
 else
   abbr -a ls ls -Gh
