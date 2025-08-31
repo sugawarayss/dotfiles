@@ -4,9 +4,47 @@
       "complex_modifications": {
         "rules": [
           {
-            "description": "escキーを押したときに、英数キーも送信する（vim用）",
+            "description": "全角スペース->半角スペース",
             "manipulators": [
               {
+                "conditions": [
+                  {
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ],
+                    "type": "input_source_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "spacebar"
+                },
+                "to": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "[JetBrainsIDE]escキーを押したときに、英数キーも送信する（vim用）",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.jetbrains\\.pycharm$",
+                      "^com\\.jetbrains\\.intellij$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
                 "from": {
                   "key_code": "escape"
                 },
@@ -21,10 +59,62 @@
                 "type": "basic"
               }
             ]
+          },
+          {
+            "description": "[Microsoft Teams] Shift+Enter で改行, Command+Enter で送信",
+            "enabled": false,
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.microsoft\\.teams2$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "return_or_enter"
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.microsoft\\.teams2$"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "return_or_enter",
+                  "modifiers": {
+                    "mandatory": [
+                      "command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter"
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
           }
         ]
       },
-      "name": "Default profile",
+      "name": "INAPVisionMacOSMachine",
       "selected": true,
       "virtual_hid_keyboard": {
         "keyboard_type_v2": "ansi"
