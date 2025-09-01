@@ -310,7 +310,8 @@ return {
   },
   {
     "smoka7/hop.nvim",
-    branch = "v2",
+    enabled = true,
+    version = "*",
     event = "VeryLazy",
     keys = {
       {
