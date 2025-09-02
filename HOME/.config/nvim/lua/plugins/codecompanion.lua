@@ -14,7 +14,12 @@ else
           mode = { "n", "v" },
           desc = "LLMアクションリストを表示",
         },
-        { "<Leader>cc", "<Cmd>CodeCompanionChat Toggle<CR>", mode = { "n", "v" }, desc = "LLMとのChatをトグル" },
+        {
+          "<D-C-i>", -- Coomand+Ctrl+i
+          "<Cmd>CodeCompanionChat Toggle<CR>",
+          mode = { "n", "v" },
+          desc = "LLMとのChatをトグル",
+        },
         {
           "<Leader>cf",
           function()
