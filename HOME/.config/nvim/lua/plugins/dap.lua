@@ -9,6 +9,35 @@ return {
   },
   -- pythonファイルを開いた時にloadする
   ft = { "python" },
+  init = function()
+    local wk = require("which-key")
+    wk.add({
+      {
+        "<F8>",
+        ":DapContinue<CR>",
+        mode = "n",
+        desc = "デバッグ再開",
+      },
+      {
+        "<F9>",
+        ":DapStepOver<CR>",
+        mode = "n",
+        desc = "ステップオーバー",
+      },
+      {
+        "<F10>",
+        ":DapStepInto<CR>",
+        mode = "n",
+        desc = "ステップイントゥ",
+      },
+      {
+        "<F7>",
+        ":DapStepOut<CR>",
+        mode = "n",
+        desc = "ステップアウト",
+      },
+    })
+  end,
   keys = {
     {
       "<Leader>tm",
@@ -32,19 +61,19 @@ return {
       ";bb",
       ":DapToggleBreakpoint<CR>",
       mode = "n",
-      desc = "ブレークポイントをトグル",
+      desc = "BreakPointをトグル",
     },
     {
       ";cbb",
       ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Breakpoint condition: '))<CR>",
       mode = "n",
-      desc = "条件付きブレークポイントをセット",
+      desc = "条件付きBreakPointをセット",
     },
     {
       ";ibb",
       ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
       mode = "n",
-      desc = "メッセージ付きブレークポイントをセット",
+      desc = "メッセージ付きBreakPointをセット",
     },
     {
       "<leader>dr",
@@ -99,33 +128,6 @@ return {
       cwd = require("utils").find_project_root({ "pyproject.toml" }),
       env = { PYTHONPATH = "." },
       python = require("utils").find_python_venv({ "pyproject.toml" }),
-    })
-    local wk = require("which-key")
-    wk.add({
-      {
-        "<F8>",
-        ":DapContinue<CR>",
-        mode = "n",
-        desc = "デバッグ再開",
-      },
-      {
-        "<F9>",
-        ":DapStepOver<CR>",
-        mode = "n",
-        desc = "ステップオーバー",
-      },
-      {
-        "<F10>",
-        ":DapStepInto<CR>",
-        mode = "n",
-        desc = "ステップイントゥ",
-      },
-      {
-        "<F7>",
-        ":DapStepOut<CR>",
-        mode = "n",
-        desc = "ステップアウト",
-      },
     })
   end,
 }

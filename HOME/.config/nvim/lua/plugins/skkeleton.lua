@@ -4,11 +4,13 @@ return {
     "vim-skk/skkeleton",
     lazy = false,
     event = "BufReadPre",
-    config = function()
+    init = function()
       local wk = require("which-key")
       wk.add({
         { "<C-j>", "<Plug>(skkeleton-toggle)", mode = { "i", "c" }, icon = "", desc = "IMEをトグル" },
       })
+    end,
+    config = function()
       local dictionaries = {}
       local handle = io.popen("ls $HOME/.skk/*")
       if handle then

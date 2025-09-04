@@ -6,9 +6,43 @@ if not vim.g.vscode then
       version = "*",
       lazy = true,
       event = { "BufReadPre" },
+      init = function()
+        local wk = require("which-key")
+        wk.add({
+          {
+            "L",
+            "<Cmd>BufferLineCycleNext<CR>",
+            mode = "n",
+            desc = "次のバッファを表示",
+          },
+          {
+            "H",
+            "<Cmd>BufferLineCyclePrev<CR>",
+            mode = "n",
+            desc = "前のバッファを表示",
+          },
+          {
+            "<Leader>h",
+            "<Cmd>BufferLineMovePrev<CR>",
+            mode = "n",
+            desc = "バッファを左に移動",
+          },
+          {
+            "<Leader>l",
+            "<Cmd>BufferLineMoveNext<CR>",
+            mode = "n",
+            desc = "バッファを右に移動",
+          },
+          {
+            "<M-c>",
+            "<Cmd>BufferLinePickClose<CR>",
+            mode = "n",
+            desc = "選択したバッファを閉じる",
+          },
+        })
+      end,
       config = function()
         local color_palette = require("tokyonight.colors").setup()
-        local wk = require("which-key")
         require("bufferline").setup({
           highlights = {
             error_selected = { fg = color_palette.red }, -- #f7768e
@@ -93,53 +127,6 @@ if not vim.g.vscode then
               return buffer_a.ordinal < buffer_b.ordinal
             end,
           },
-        })
-        -- キーバインドの設定
-        wk.add({
-          {
-            "L",
-            "<Cmd>BufferLineCycleNext<CR>",
-            mode = "n",
-            desc = "次のバッファを表示",
-          },
-          {
-            "H",
-            "<Cmd>BufferLineCyclePrev<CR>",
-            mode = "n",
-            desc = "前のバッファを表示",
-          },
-          {
-            "<Leader>h",
-            "<Cmd>BufferLineMovePrev<CR>",
-            mode = "n",
-            desc = "バッファを左に移動",
-          },
-          {
-            "<Leader>l",
-            "<Cmd>BufferLineMoveNext<CR>",
-            mode = "n",
-            desc = "バッファを右に移動",
-          },
-          -- {
-          --   "<C-H>",
-          --   "<Cmd>BufferLineCloseLeft<CR>",
-          --   mode = "n",
-          --   desc = "左のバッファを閉じる",
-          -- },
-          -- {
-          --   "<C-L>",
-          --   "<Cmd>BufferLineCloseRight<CR>",
-          --   mode = "n",
-          --   desc = "右のバッファを閉じる",
-          -- },
-          {
-            "<M-c>",
-            "<Cmd>BufferLinePickClose<CR>",
-            mode = "n",
-            desc = "選択したバッファを閉じる",
-          },
-          -- disable keybind because CopilotChat use this keybind
-          -- {"<leader>c", ":bd<CR>", mode = "n", { silent = true }, desc = "Close Current Buffer"},
         })
       end,
     },

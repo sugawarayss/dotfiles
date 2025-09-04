@@ -4,13 +4,62 @@ if not vim.g.vscode then
     {
       "nvim-telescope/telescope.nvim",
       lazy = false,
+      init = function()
+        local wk = require("which-key")
+        -- キーマップを設定
+        wk.add({
+          -- search todo
+          {
+            "<leader>std",
+            "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",
+            mode = "n",
+            icon = "",
+            desc = "TODO 検索",
+          },
+          -- ブックマーク検索(Search Book Marks)
+          {
+            "<leader>sbm",
+            "<cmd>Telescope bookmarks list<CR>",
+            mode = "n",
+            icon = "󰂼",
+            desc = "ブックマークを検索",
+          },
+          {
+            "<M-d><M-c>",
+            "<cmd>Telescope docker containers theme=ivy<CR>",
+            mode = "n",
+            icon = "󰡨",
+            desc = "Docker コンテナを検索",
+          },
+          {
+            "<M-d><M-i>",
+            "<cmd>Telescope docker images theme=ivy<CR>",
+            mode = "n",
+            icon = "󰡨",
+            desc = "Docker イメージを検索",
+          },
+          {
+            "<M-d><M-p>",
+            "<cmd>Telescope docker compose theme=ivy<CR>",
+            mode = "n",
+            icon = "󰡨",
+            desc = "Docker Compose を曖昧検索",
+          },
+          {
+            "<M-d><M-l>",
+            "<cmd>Telescope docker files theme=ivy<CR>",
+            mode = "n",
+            icon = "󰡨",
+            desc = "Dockerfileを曖昧検索",
+          },
+        })
+      end,
       config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
         local action_layout = require("telescope.actions.layout")
         local open_with_trouble = require("trouble.sources.telescope").open
         -- local add_to_trouble = require("trouble.sources.telescope").add
-        local wk = require("which-key")
         telescope.setup({
           defaults = {
             vimgrep_arguments = {
@@ -102,52 +151,6 @@ if not vim.g.vscode then
         telescope.load_extension("bookmarks")
         telescope.load_extension("rest")
         -- キーマップを設定
-        wk.add({
-          -- search todo
-          {
-            "<leader>std",
-            "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",
-            mode = "n",
-            icon = "",
-            desc = "TODO 検索",
-          },
-          -- ブックマーク検索(Search Book Marks)
-          {
-            "<leader>sbm",
-            "<cmd>Telescope bookmarks list<CR>",
-            mode = "n",
-            icon = "󰂼",
-            desc = "ブックマークを検索",
-          },
-          {
-            "<M-d><M-c>",
-            "<cmd>Telescope docker containers theme=ivy<CR>",
-            mode = "n",
-            icon = "󰡨",
-            desc = "Docker コンテナを検索",
-          },
-          {
-            "<M-d><M-i>",
-            "<cmd>Telescope docker images theme=ivy<CR>",
-            mode = "n",
-            icon = "󰡨",
-            desc = "Docker イメージを検索",
-          },
-          {
-            "<M-d><M-p>",
-            "<cmd>Telescope docker compose theme=ivy<CR>",
-            mode = "n",
-            icon = "󰡨",
-            desc = "Docker Compose を曖昧検索",
-          },
-          {
-            "<M-d><M-l>",
-            "<cmd>Telescope docker files theme=ivy<CR>",
-            mode = "n",
-            icon = "󰡨",
-            desc = "Dockerfileを曖昧検索",
-          },
-        })
       end,
     },
     { "nvim-lua/plenary.nvim" },

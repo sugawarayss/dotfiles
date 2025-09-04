@@ -4,7 +4,7 @@ return {
   cmd = {
     "Rest",
   },
-  config = function()
+  init = function()
     local wk = require("which-key")
     wk.add({
       { "<Leader>ro", "<cmd>hor Rest open<CR>", mode = "n", icon = "󰖟", desc = "結果ペインを開く" },

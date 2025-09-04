@@ -4,7 +4,7 @@ return {
   lazy = true,
   event = "VeryLazy",
   dependencies = "nvim-lua/plenary.nvim",
-  config = function()
+  init = function()
     local wk = require("which-key")
     wk.add({
       {
@@ -26,6 +26,8 @@ return {
         desc = "前の TODO コメントにジャンプ",
       },
     })
+  end,
+  config = function()
     require("todo-comments").setup({
       signs = true, -- show icons in the signs column
       sign_priority = 8, -- sign priority

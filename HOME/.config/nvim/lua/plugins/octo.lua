@@ -4,10 +4,14 @@ if not vim.g.vscode then
     {
       "pwntester/octo.nvim",
       enabled = true,
-      -- dependencies = {
-      -- { "nvim-telescope/telescope.nvim" },
-      -- { "nvim-tree/nvim-web-devicons" },
-      -- },
+      event = { "VeryLazy" },
+      init = function()
+        local wk = require("which-key")
+        wk.add({
+          { "<Leader>sgi", "<cmd>Octo issue search<CR>", mode = { "n" }, icon = "", desc = "GitHub Issueを探す" },
+          { "<Leader>sgp", "<cmd>Octo pr search<CR>", mode = { "n" }, icon = "", desc = "GitHub Pull Requestを探す" },
+        })
+      end,
       config = function()
         require("octo").setup({
           suppress_missing_scope = {

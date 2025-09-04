@@ -7,7 +7,7 @@ else
       -- 動かなくなってしまったので一旦無効化
       enabled = false,
       lazy = false,
-      config = function()
+      init = function()
         local wk = require("which-key")
         wk.add({
           "<Leader>ai",

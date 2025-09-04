@@ -42,25 +42,7 @@ return {
   -- 遅延読み込みする
   lazy = true,
   event = "VeryLazy",
-  keys = {
-    {
-      "zr",
-      function()
-        require("ufo").openAllFolds()
-      end,
-      mode = "n",
-      desc = "すべての折り畳みを展開",
-    },
-    {
-      "zm",
-      function()
-        require("ufo").closeAllFolds()
-      end,
-      mode = "n",
-      desc = "すべてを折り畳み",
-    },
-  },
-  config = function()
+  init = function()
     local wk = require("which-key")
     wk.add({
       {
@@ -82,6 +64,8 @@ return {
         desc = "すべてを折り畳み",
       },
     })
+  end,
+  config = function()
     vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])
     vim.api.nvim_set_option("foldcolumn", "1")
     vim.api.nvim_set_option("foldlevel", 99)
