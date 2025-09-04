@@ -118,6 +118,7 @@ return {
         },
       },
     })
+    vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
     require("dap-python").setup("uv")
 
     table.insert(require("dap").configurations.python, {

@@ -25,15 +25,6 @@ return {
         desc = "ブックマークの注釈を追加/編集",
       },
       {
-        ";ml",
-        function()
-          require("bookmarks").bookmark_list()
-        end,
-        mode = { "n" },
-        icon = "󰸕",
-        desc = "QuickFix にブックマーク一覧を表示",
-      },
-      {
         ";mj",
         function()
           require("bookmarks").bookmark_next()
@@ -76,11 +67,15 @@ return {
   config = function()
     require("bookmarks").setup({
       save_file = vim.fn.stdpath("data") .. "/nvim-bookmarks",
+      signs = {
+        add = { hl = "BookMarksAdd", text = "🔖", numhl = "BookMarksAddNr", linehl = "BookMarksAddLn" },
+        ann = { hl = "BookMarksAnn", text = "🏷️", numhl = "BookMarksAnnNr", linehl = "BookMarksAnnLn" },
+      },
       keywords = {
-        ["@t"] = " ", -- mark annotation startswith @t ,signs this icon as `Todo`
-        ["@w"] = " ", -- mark annotation startswith @w ,signs this icon as `Warn`
-        ["@f"] = "󰢷 ", -- mark annotation startswith @f ,signs this icon as `Fix`
-        ["@n"] = " ", -- mark annotation startswith @n ,signs this icon as `Note`
+        ["@t"] = "☑️", -- mark annotation startswith @t ,signs this icon as `Todo`
+        ["@w"] = "⚠️", -- mark annotation startswith @w ,signs this icon as `Warn`
+        ["@f"] = "🛠️", -- mark annotation startswith @f ,signs this icon as `Fix`
+        ["@n"] = "📝", -- mark annotation startswith @n ,signs this icon as `Note`
       },
     })
   end,
