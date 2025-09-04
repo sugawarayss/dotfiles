@@ -133,7 +133,8 @@
         "read_multiple_files",
         "write_file",
         "move_item",
-        "edit_file"
+        "edit_file",
+        "execute_lua"
       ],
       "disabled_prompts": [
         "parrot"
