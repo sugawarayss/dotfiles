@@ -371,6 +371,8 @@ return {
         { "gr", "<cmd>Lspsaga finder<CR>", mode = { "n" }, desc = "参照先の表示" },
         -- 型定義へジャンプ
         { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = { "n" }, desc = "型定義にジャンプ" },
+        -- カーソル位置の対象をリネーム
+        { "gn", "<cmd>Lspsaga rename<CR>", mode = { "n" }, desc = "カーソル位置の対象をリネーム" },
         -- コードアクションを表示
         { "ga", "<cmd>Lspsaga code_action<CR>", mode = { "n" }, desc = "コードアクションを表示" },
         -- 次の診断へジャンプ
