@@ -11,9 +11,9 @@ font-size = 13.5
 theme = Duotone Dark
 
 # ウィンドウの左右の余白
-window-padding-x = 4,2
+window-padding-x = 10
 # ウィンドウの背景透過度
-background-opacity = 0.75
+background-opacity = 0.9
 # 背景のぼかし度合い
 background-blur-radius = 15
 # カーソルのスタイル
