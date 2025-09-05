@@ -5,99 +5,123 @@ return {
   dependencies = {
     "kyazdani42/nvim-web-devicons",
   },
-  keys = {
-    {
-      "<leader>xx",
-      function()
-        require("trouble").toggle()
-      end,
-      mode = "n",
-      desc = "Toggle Trouble",
-    },
-    {
-      "<leader>xw",
-      function()
-        require("trouble").toggle("workspace_diagnostics")
-      end,
-      mode = "n",
-      desc = "Toggle Trouble WS diagnostics",
-    },
-    {
-      "<leader>xd",
-      function()
-        require("trouble").toggle("document_diagnostics")
-      end,
-      mode = "n",
-      desc = "Toggle Trouble Doc diagnostics",
-    },
-    {
-      "<leader>xq",
-      function()
-        require("trouble").toggle("quickfix")
-      end,
-      mode = "n",
-      desc = "エラーや警告をクイックフィックスで表示",
-    },
-    {
-      "<leader>xl",
-      function()
-        require("trouble").toggle("loclist")
-      end,
-      mode = "n",
-      desc = "エラーや警告をロケーションリストで表示",
-    },
-  },
+  init = function()
+    local wk = require("which-key")
+    wk.add({
+      {
+        "<Leader>xx",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
+        mode = "n",
+        desc = "バッファ内の診断結果を表示",
+      },
+      {
+        "<leader>xa",
+        "<cmd>Trouble diagnostics toggle<CR>",
+        mode = "n",
+        desc = "全ての診断結果を表示",
+      },
+      {
+        "<leader>xq",
+        "<cmd>Trouble qflist toggle<CR>",
+        mode = "n",
+        desc = "エラーや警告をクイックフィックスで表示",
+      },
+      {
+        "<leader>xl",
+        "<cmd>Trouble loclist toggle<CR>",
+        mode = "n",
+        desc = "エラーや警告をロケーションリストで表示",
+      },
+    })
+  end,
   opts = {
-    position = "bottom", -- position of the list can be: bottom, top, left, right_align
-    height = 30, -- height of the trouble list when position is top or bottom
-    width = 50, -- width of the list when position is left or right
-    icons = true, -- use devicons for filenames
-    mode = "workspace_diagnostics", -- "workspace_diagnostics" or "lsp_document_diagnostics"
-    severity = nil,
-    fold_open = "", -- icon used for open folds
-    fold_closed = "", -- icon used for closed folds
-    group = true, -- group results by file
-    padding = true, -- add an extra new line on top of the list
-    cycle_results = true, -- cycle through previous results in the list
-    action_keys = {
-      close = "q", -- close the list
-      cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-      refresh = "r", -- manually refresh
-      jump = { "<cr>", "<tab>", "<2-leftmouse>" }, -- jump to the diagnostic or open / close folds
-      open_split = { "<c-x>" }, -- open buffer in new split
-      open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
-      open_tab = { "<c-t>" }, -- open buffer in new tab
-      jump_close = { "o" }, -- jump to the diagnostic and close the list
-      toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-      switch_severity = "s", -- switch "diagnostics" severity filter level to HINT / INFO / WARN / ERROR
-      toggle_preview = "P", -- toggle auto_preview
-      hover = "K", -- opens a small popup with the full multiline message
-      preview = "p", -- preview the diagnostic location
-      open_code_href = "c", -- if present, open a URI with more information about the diagnostic error
-      close_folds = { "zM", "zm" }, -- close all folds
-      open_folds = { "zR", "zr" }, -- open all folds
-      toggle_fold = { "zA", "za" }, -- toggle fold of current file
-      previous = "k", -- previous item
-      next = "j", -- next item
-      help = "?", -- help menu
-    },
+    auto_close = false, -- auto close when there are no items
+    auto_open = false, -- auto open when there are items
+    auto_preview = true, -- automatically open preview when on an item
+    auto_refresh = true, -- auto refresh when open
+    auto_jump = false, -- auto jump to the item when there's only one
+    focus = false, -- Focus the window when opened
+    restore = true, -- restores the last location in the list when opening
+    follow = true, -- Follow the current item
+    indent_guides = true, -- show indent guides
+    max_items = 200, -- limit number of items that can be displayed per section
     multiline = true, -- render multi-line messages
-    indent_lines = true, -- add an indent guide below the fold icons
-    win_config = {}, -- window configuration for floating windows. See |nvim_open_win()|.
-    auto_open = false, -- automatically open the list when you have diagnostics
-    auto_close = false, -- automatically close the list when you have no diagnostics
-    auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
-    auto_fold = false, -- automatically fold a file trouble list at creation
-    auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
-    include_declaration = { "lsp_references", "lsp_implementations", "lsp_definitions" }, -- for the given modes, include the declaration of the current symbol in the results
-    signs = {
-      -- icons / text used for a diagnostic
-      error = "🔥",
-      warning = "🚧",
-      hint = "💡",
-      information = "ℹ️",
-      other = "🃏",
+    pinned = false, -- When pinned, the opened trouble window will be bound to the current buffer
+    warn_no_results = true, -- show a warning when there are no results
+    open_no_results = false, -- open the trouble window when there are no results
+    -- window options for the results window. Can be a split or a floating window.
+    win = {},
+    -- Window options for the preview window. Can be a split, floating window,
+    -- or `main` to show the preview in the main editor window.
+    preview = {
+      type = "float",
+      title = "Diagnostics Preview",
+      title_pos = "center",
+      relative = "cursor",
+      border = "single",
+      position = { 1, 1 },
+      size = { width = 0.3, height = 0.3 },
+      -- when a buffer is not yet loaded, the preview window will be created
+      -- in a scratch buffer with only syntax highlighting enabled.
+      -- Set to false, if you want the preview to always be a real loaded buffer.
+      scratch = true,
     },
-    use_diagnostic_signs = true, -- enabling this will use the signs defined in your lsp client
+    throttle = {
+      refresh = 20, -- fetches new data when needed
+      update = 10, -- updates the window
+      render = 10, -- renders the window
+      follow = 100, -- follows the current item
+      preview = { ms = 100, debounce = true }, -- shows the preview for the current item
+    },
+    modes = {
+      -- sources define their own modes, which you can use directly,
+      -- or override like in the example below
+      lsp_references = {
+        -- some modes are configurable, see the source code for more details
+        params = {
+          include_declaration = true,
+        },
+      },
+      -- The LSP base mode for:
+      -- * lsp_definitions, lsp_references, lsp_implementations
+      -- * lsp_type_definitions, lsp_declarations, lsp_command
+      lsp_base = {
+        params = {
+          -- don't include the current location in the results
+          include_current = false,
+        },
+      },
+      -- more advanced example that extends the lsp_document_symbols
+      symbols = {
+        desc = "document symbols",
+        mode = "lsp_document_symbols",
+        focus = false,
+        win = { position = "right" },
+        filter = {
+          -- remove Package since luals uses it for control flow structures
+          ["not"] = { ft = "lua", kind = "Package" },
+          any = {
+            -- all symbol kinds for help / markdown files
+            ft = { "help", "markdown" },
+            -- default set of symbol kinds
+            kind = {
+              "Class",
+              "Constructor",
+              "Enum",
+              "Field",
+              "Function",
+              "Interface",
+              "Method",
+              "Module",
+              "Namespace",
+              "Package",
+              "Property",
+              "Struct",
+              "Trait",
+            },
+          },
+        },
+      },
+    },
   },
 }
