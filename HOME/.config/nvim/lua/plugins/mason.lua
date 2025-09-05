@@ -373,6 +373,8 @@ return {
         { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = { "n" }, desc = "型定義にジャンプ" },
         -- カーソル位置の対象をリネーム
         { "gn", "<cmd>Lspsaga rename<CR>", mode = { "n" }, desc = "カーソル位置の対象をリネーム" },
+        -- プロジェクト全体でシンボルを置換
+        -- NOTE: `Lspsaga project_replace <old_name> <new_name>`
         -- コードアクションを表示
         { "ga", "<cmd>Lspsaga code_action<CR>", mode = { "n" }, desc = "コードアクションを表示" },
         -- 次の診断へジャンプ
@@ -537,6 +539,22 @@ return {
             toggle_or_req = "u",
             -- 閉じる
             close = "<ESC>",
+          },
+        },
+        -- シンボルリネームの設定
+        rename = {
+          -- 元の名前が選択状態にしない
+          in_select = false,
+          -- リネーム後に自動保存
+          auto_save = false,
+          -- project_replaceモードのfloat windowのサイズ
+          project_max_width = 0.5,
+          project_max_height = 0.5,
+          keys = {
+            quite = "q",
+            exec = "<CR>",
+            -- project_replaceモードで置換対象の選択状態をトグルする
+            select = "x",
           },
         },
       })
