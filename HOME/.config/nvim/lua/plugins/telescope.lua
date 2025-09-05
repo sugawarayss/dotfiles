@@ -9,13 +9,13 @@ if not vim.g.vscode then
         -- キーマップを設定
         wk.add({
           -- search todo
-          {
-            "<leader>std",
-            "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",
-            mode = "n",
-            icon = "",
-            desc = "TODO 検索",
-          },
+          -- {
+          --   "<leader>std",
+          --   "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",
+          --   mode = "n",
+          --   icon = "",
+          --   desc = "TODO 検索",
+          -- },
           -- ブックマーク検索(Search Book Marks)
           {
             "<leader>sbm",

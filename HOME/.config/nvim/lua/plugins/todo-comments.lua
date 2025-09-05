@@ -8,7 +8,7 @@ return {
     local wk = require("which-key")
     wk.add({
       {
-        "<Leader>tj",
+        ";tj",
         function()
           require("todo-comments").jump_next()
         end,
@@ -17,7 +17,7 @@ return {
         desc = "次の TODO コメントにジャンプ",
       },
       {
-        "<Leader>tk",
+        ";tk",
         function()
           require("todo-comments").jump_prev()
         end,

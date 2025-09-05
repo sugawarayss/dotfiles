@@ -9,28 +9,22 @@ return {
     local wk = require("which-key")
     wk.add({
       {
-        "<Leader>xx",
+        ";std",
+        "<cmd>Trouble todo win = {size = {height=0.4}} filter = {tag = {TODO,FIX,FIXME,BUG,WARN}}<CR>",
+        mode = "n",
+        desc = "TODO コメント一覧を検索",
+      },
+      {
+        ";xx",
         "<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
         mode = "n",
         desc = "バッファ内の診断結果を表示",
       },
       {
-        "<leader>xa",
+        ";xa",
         "<cmd>Trouble diagnostics toggle<CR>",
         mode = "n",
         desc = "全ての診断結果を表示",
-      },
-      {
-        "<leader>xq",
-        "<cmd>Trouble qflist toggle<CR>",
-        mode = "n",
-        desc = "エラーや警告をクイックフィックスで表示",
-      },
-      {
-        "<leader>xl",
-        "<cmd>Trouble loclist toggle<CR>",
-        mode = "n",
-        desc = "エラーや警告をロケーションリストで表示",
       },
     })
   end,
@@ -40,7 +34,7 @@ return {
     auto_preview = true, -- automatically open preview when on an item
     auto_refresh = true, -- auto refresh when open
     auto_jump = false, -- auto jump to the item when there's only one
-    focus = false, -- Focus the window when opened
+    focus = true, -- Focus the window when opened
     restore = true, -- restores the last location in the list when opening
     follow = true, -- Follow the current item
     indent_guides = true, -- show indent guides
@@ -55,12 +49,12 @@ return {
     -- or `main` to show the preview in the main editor window.
     preview = {
       type = "float",
-      title = "Diagnostics Preview",
+      title = "Trouble Preview",
       title_pos = "center",
       relative = "cursor",
       border = "single",
       position = { 1, 1 },
-      size = { width = 0.3, height = 0.3 },
+      size = { width = 0.4, height = 0.3 },
       -- when a buffer is not yet loaded, the preview window will be created
       -- in a scratch buffer with only syntax highlighting enabled.
       -- Set to false, if you want the preview to always be a real loaded buffer.
