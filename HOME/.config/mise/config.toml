@@ -1,12 +1,16 @@
 [tools]
-deno = "latest"
-go = "latest"
-node = "latest"
-pnpm = "latest"
 python = "3.12"
+deno = "latest"
+node = "latest"
+go = "latest"
+yarn = "latest"
+pnpm = "latest"
 terraform = "latest"
 usage = "latest"
-yarn = "latest"
+# GitHub Actions用linter
+actionlint = "latest"
+zizmor = "latest"
+
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
