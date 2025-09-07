@@ -8,7 +8,14 @@ return {
     -- mypy の設定
     local project_root = require("utils").find_project_root({ "pyproject.toml" })
     local venv_dir = project_root .. "/.venv"
-    nvim_lint.linters.mypy.cmd = venv_dir .. "/bin/mypy"
+    local project_mypy = venv_dir .. "/bin/mypy"
+
+    local get_mypy_cmd_path = function()
+      local mason_mypy = vim.fn.stdpath("data") .. "/mason/packages/mypy/venv/bin/mypy"
+      return require("utils").is_path_exists(project_mypy, "file") and project_mypy or mason_mypy
+    end
+
+    nvim_lint.linters.mypy.cmd = get_mypy_cmd_path()
     nvim_lint.linters.mypy.args = {
       "--install-types",
       "--non-interactive",
