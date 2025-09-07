@@ -4,58 +4,73 @@
     "body": [
       "[${1:label}](${2:url})"
     ],
-    "description": "Markdown Link"
+    "description": "マークダウンリンク"
   },
-  "image": {
+  "image-link": {
     "prefix": ".image",
     "body": [
       "![${1:label}](${2:url})"
     ],
-    "description": "Markdown Image"
+    "description": "マークダウン画像リンク"
   },
-  "table-header": {
-    "prefix": ".t-header",
+  "table-basic": {
+    "prefix": ".table",
     "body": [
-      "| ${1} | ${2} | ${3} |",
-      "| --- | --- | --- |"
+      "| ${1:col} |",
+      "| --- |",
+      "| ${2: value} |"
     ],
-    "description": "Table Header"
+    "description": "テーブル基本形"
   },
-  "table-row": {
-    "prefix": ".t-row",
+  "table-ext": {
+    "prefix": ".table-ext-col",
     "body": [
-      "| ${1} | ${2} | ${3} |"
+      " ${1:col} |"
     ],
-    "description": "Table Row"
+    "description": "テーブル追加列(add Header row)"
+  },
+  "table-ext-sep": {
+    "prefix": ".table-ext-sep",
+    "body": [
+      " --- |"
+    ],
+    "description": "テーブル追加(add separater row)"
+  },
+  "table-ext-cel": {
+    "prefix": ".table-ext-cel",
+    "body": [
+      " ${1:val} |"
+    ],
+    "description": "テーブルセル追加(append cell)"
   },
   "details": {
     "prefix": ".details",
     "body": [
       "<details>",
-      "<summary>${1}</summary>",
+      "<summary>${1:title}</summary>",
       "",
-      "$2",
+      "${2:content}",
       "",
       "</details>"
     ],
-    "description": "Summary"
+    "description": "折りたたみ要素"
   },
   "warning-call-out": {
     "prefix": ".callout-warning",
     "body": [
       "> [!WARNING]",
       "> ",
-      "> ${1}"
+      "> ${1:content}"
     ],
-    "description": "Call-out Warning"
+    "description": "コールアウト(Warning)"
   },
   "note-call-out": {
     "prefix": ".callout-note",
     "body": [
       "> [!NOTE]",
       "> ",
-      "> ${1}"
+      "> ${1:content}"
     ],
-    "description": "Call-out Note"
+    "description": "コールアウト(Note)"
   }
 }
