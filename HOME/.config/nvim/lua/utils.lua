@@ -156,7 +156,7 @@ end
 -- Python の venv を自動検出するための関数
 utils.find_python_venv = function(root_markers)
   local root_dir = require("utils").find_project_root(root_markers)
-  vim.notify("Project root: " .. root_dir, vim.log.levels.INFO)
+  -- vim.notify("Project root: " .. root_dir, vim.log.levels.INFO)
 
   -- 仮想環境のパスパターン
   local venv_paths = {
@@ -169,14 +169,20 @@ utils.find_python_venv = function(root_markers)
     local executable = vim.fn.executable(path) == 1
 
     if executable then
-      vim.notify("Found Python venv: " .. path)
+      -- vim.notify("Found Python venv: " .. path)
       return path
     end
   end
   -- 見つからない場合はシステムのpython
   local system_python = vim.fn.exepath("python3") or vim.fn.exepath("python")
-  vim.notify("venv not found.Using system Python: " .. system_python, vim.log.levels.WARNING)
+  vim.notify("VENV NOT FOUND. Using system Python: ", vim.log.levels.WARNING)
   return system_python
+end
+
+-- 指定のパスが存在してタイプが一致するかを返す
+utils.is_path_exists = function(path, type)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == type
 end
 
 return utils

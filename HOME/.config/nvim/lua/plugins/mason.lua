@@ -11,8 +11,10 @@ local lsp_servers = {
   -- python
   "pyright",
   "ruff",
+  -- fish
+  "fish_lsp",
   -- sphinx
-  "esbonio",
+  -- "esbonio",
   -- rust
   "rust_analyzer",
   -- go
@@ -22,7 +24,8 @@ local lsp_servers = {
   -- lua
   "lua_ls",
   -- deno
-  "denols",
+  -- FIXME: ts_lsとの共存方法を考える
+  -- "denols",
   -- php
   "intelephense",
   -- kotlin
@@ -64,6 +67,7 @@ local formatters = {
 local diagnostics = {
   -- python
   "mypy",
+  "ty",
   -- TypeScript
   "biome",
   -- lua
@@ -95,170 +99,6 @@ local dap_adapters = {
   "debugpy",
   -- go
   "delve",
-}
-
-local my_on_attach = function(client, bufnr)
-  local is_node_dir = function()
-    -- 親ディレクトリに package.json が存在する場合はtrue
-    local in_parents_dirs = require("lspconfig").util.root_pattern("package.json")(vim.fn.getcwd())
-    -- 配下に package.jsonが存在する場合はtrue
-    local in_child_dirs = vim.fn.findfile("package.json", vim.fn.getcwd() .. "/**") ~= ""
-    return in_parents_dirs or in_child_dirs
-  end
-  for _, value in pairs(lsp_servers) do
-    if client == value then
-      -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-      -- 宣言へジャンプ
-      vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "gD",
-        "<cmd>lua vim.lsp.buf.declaration()<CR>",
-        { noremap = true, silent = false, desc = "宣言へジャンプ" }
-      )
-      -- 実装へジャンプ
-      vim.api.nvim_buf_set_keymap(
-        bufnr,
-        "n",
-        "gi",
-        "<cmd>lua vim.lsp.buf.implementation()<CR>",
-        { noremap = true, silent = false, desc = "実装へジャンプ" }
-      )
-    end
-  end
-  if client ~= "ruff" then
-    -- インラインヒント
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-  end
-  if is_node_dir() then
-    if client.name == "denols" then
-      vim.notify("[LSP] ts_ls: ACTIVE")
-      client.stop(true)
-    end
-  else
-    if client.name == "ts_ls" then
-      vim.notify("[LSP] denols: ACTIVE")
-      client.stop(true)
-    end
-  end
-end
-
-local pyproject_path = require("utils").find_project_root({ "pyproject.toml", "requirements.txt" })
--- 各:withLSPサーバの設定
-local lsp_server_settings = {
-  pyright = {
-    python = {
-      venvPath = pyproject_path,
-      pythonPath = require("utils").find_python_venv({ "pyproject.toml", "requirements.txt" }),
-      -- import 文の sort は ruffに任せる
-      disableOrganizeImports = true,
-      -- チェック周りも ruff に任せる
-      analysis = { ignore = { "*" } },
-    },
-  },
-  ruff = {
-    filetypes = { "python" },
-    init_options = {
-      settings = {
-        configuration = pyproject_path .. "/pyproject.toml",
-        -- ワークスペース内に存在する設定ファイル(ruff.toml/pyproject.toml)を以下の設定より優先する
-        configurationPreference = "filesystemFirst",
-        -- リンティングとフォーマットから除外するファイルパターンリスト
-        exclude = { "**/tests/**" },
-        -- lint/format 時の1行の長さ
-        lineLength = 150,
-        -- import 文のソートをコードアクションに追加
-        organizeImports = true,
-        -- 構文エラー診断を表示する
-        showSyntaxErrors = true,
-        codeAction = {
-          -- `noqa` でルールを無視するクイックフィックスアクションを表示する
-          disableRuleComment = { enable = true },
-          -- 違反を自動修正するためのクイック修正アクションを表示する
-          fixViolation = { enable = true },
-        },
-        -- リンティング設定
-        lint = {
-          enable = true,
-          -- 不安定なルールは適用しない
-          preview = false,
-          -- 有効にするルール
-          select = {},
-          -- 追加で有効にするルール
-          extendSelect = { "I" },
-          -- 無効にするルール
-          ignore = {},
-        },
-        format = {
-          -- 不安定なルールは適用しない
-          preview = false,
-        },
-      },
-    },
-  },
-  ty = {
-    disableLanguageServices = false,
-    diagnosticMode = "openFilesOnly",
-    inlayHints = {
-      variableTypes = false,
-      callArgumentNamdes = false,
-    },
-  },
-  lua_ls = {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { "vim" },
-        },
-      },
-    },
-  },
-  gopls = {
-    filetypes = { "go" },
-    analyses = {
-      nilness = true,
-      unusedparams = true,
-      unusedwrite = true,
-      useany = true,
-    },
-    experimentalPostfixCompletions = true,
-    staticcheck = true,
-    usePlaceholders = true,
-  },
-  terraformls = {
-    filetypes = { "tf", "tfstate" },
-  },
-  dockerls = {
-    filetypes = { "dockerfile" },
-  },
-  marksman = {
-    filetypes = { "markdown" },
-  },
-  yamlls = {
-    filetypes = { "yaml" },
-  },
-  jsonls = {
-    filetypes = { "json" },
-  },
-  taplo = {
-    filetypes = { "toml" },
-  },
-  bashls = {
-    filetypes = { "sh", "zsh" },
-  },
-  gh_actions_ls = {
-    cmd = { "gh-actions-language-server", "--stdio" },
-    filetypes = { "yaml_github" },
-    -- root_dir = require("lspconfig").util.root_pattern(".github"),
-    single_file_support = true,
-    capabilities = {
-      workspace = {
-        didChangeWorkspaceFolders = {
-          dynamicRegistration = true,
-        },
-      },
-    },
-  },
 }
 
 return {
@@ -296,10 +136,6 @@ return {
           scope = "line",
           border = "double",
           format = function(diagnostic)
-            -- diagnostic.source と diagnositc.code が nil でない場合のみカスタマイズする
-            -- if diagnostic.code ~= nil then
-            --   return string.format("[%s] %s", diagnostic.code, diagnostic.message)
-            -- end
             return string.format("%s", diagnostic.message)
           end,
         },
@@ -331,27 +167,21 @@ return {
         ensure_installed = vim.tbl_flatten({ formatters, diagnostics, dap_adapters }),
       })
 
-      -- NOTE: LSP共通設定
-      vim.lsp.config("*", {
-        -- 共通設定
-        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      vim.filetype.add({
+        pattern = {
+          [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
+        },
       })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
-        if "gh_actions_ls" == server then
-          vim.filetype.add({
-            pattern = {
-              [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
-            },
-          })
-        end
-        require("lspconfig")[server].setup({
-          on_attach = my_on_attach,
-          settings = lsp_server_settings[server],
-          filetypes = (lsp_server_settings[server] or {}).filetypes,
+        local server_settings = require("lsp." .. server)
+        vim.lsp.config(server, {
+          settings = server_settings.settings,
+          filetypes = server_settings.filetypes,
         })
+        -- end
+        vim.lsp.enable(server)
       end
-      vim.lsp.enable(require("mason-lspconfig").get_installed_servers())
     end,
   },
   {
