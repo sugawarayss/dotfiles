@@ -8,17 +8,9 @@ if not vim.g.vscode then
         local wk = require("which-key")
         -- キーマップを設定
         wk.add({
-          -- search todo
-          -- {
-          --   "<leader>std",
-          --   "<cmd>TodoTelescope keywords=TODO,FIXME,WARN<CR>",
-          --   mode = "n",
-          --   icon = "",
-          --   desc = "TODO 検索",
-          -- },
           -- ブックマーク検索(Search Book Marks)
           {
-            "<leader>sbm",
+            ";sbm",
             "<cmd>Telescope bookmarks list<CR>",
             mode = "n",
             icon = "󰂼",
