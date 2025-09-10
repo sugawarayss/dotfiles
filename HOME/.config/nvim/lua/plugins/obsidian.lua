@@ -38,7 +38,7 @@ return {
       desc = "Obsidianノートを検索",
     },
     {
-      "<Leader>on",
+      "<Leader>nn",
       "<Cmd>ObsidianNewFromTemplate<CR>",
       mode = "n",
       { noremap = true, silent = true },

@@ -6,10 +6,10 @@ return {
     local wk = require("which-key")
     wk.add({
       -- フォーカス移動系
-      { "<M-h>", require("smart-splits").move_cursor_left, mode = "n", desc = "左バッファにカーソル移動" },
-      { "<M-j>", require("smart-splits").move_cursor_down, mode = "n", desc = "下バッファにカーソル移動" },
-      { "<M-k>", require("smart-splits").move_cursor_up, mode = "n", desc = "上バッファにカーソル移動" },
-      { "<M-l>", require("smart-splits").move_cursor_right, mode = "n", desc = "右バッファにカーソル移動" },
+      { "<Leader>h", require("smart-splits").move_cursor_left, mode = "n", desc = "左バッファにカーソル移動" },
+      { "<Leader>j", require("smart-splits").move_cursor_down, mode = "n", desc = "下バッファにカーソル移動" },
+      { "<Leader>k", require("smart-splits").move_cursor_up, mode = "n", desc = "上バッファにカーソル移動" },
+      { "<Leader>l", require("smart-splits").move_cursor_right, mode = "n", desc = "右バッファにカーソル移動" },
       -- リサイズ系
       { "<C-M-h>", require("smart-splits").resize_left, mode = "n", desc = "左方向にリサイズ" },
       { "<C-M-j>", require("smart-splits").resize_down, mode = "n", desc = "下方向にリサイズ" },

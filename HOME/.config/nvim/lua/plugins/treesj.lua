@@ -6,7 +6,7 @@ return {
   config = function()
     local wk = require("which-key")
     require("treesj").setup({
-      use_default_keymaps = true,
+      use_default_keymaps = false,
       check_syntax_error = true,
       max_join_length = 120,
       cursor_behavior = "hold",
@@ -15,7 +15,13 @@ return {
       on_error = nil,
     })
     wk.add({
-      { "<leader>m", "<cmd>TSJToggle<CR>", mode = "n", icon = "󰙅", desc = "配列やオブジェクトを分割/結合する" },
+      {
+        "<leader>m",
+        "<cmd>TSJToggle<CR>",
+        mode = "n",
+        icon = "󰙅",
+        desc = "配列やオブジェクトを分割/結合する",
+      },
     })
   end,
 }

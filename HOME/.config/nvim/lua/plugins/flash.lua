@@ -269,20 +269,6 @@ return {
         desc = "カーソル位置のtreesitterノードを選択",
       },
       {
-        "<Leader>j",
-        mode = "n",
-        function()
-          require("flash").jump({
-            search = {
-              mode = function(str)
-                return "\\<" .. str
-              end,
-            },
-          })
-        end,
-        desc = "マッチする箇所の行頭にジャンプ",
-      },
-      {
         "r",
         mode = "o", -- operator pending mode
         function()
@@ -331,14 +317,6 @@ return {
         end,
         mode = "n",
         desc = "単語単位で末尾にジャンプ",
-      },
-      {
-        "<Leader>k",
-        function()
-          require("hop").hint_lines_skip_whitespace()
-        end,
-        mode = "n",
-        desc = "行頭を指定してジャンプ",
       },
     },
     config = function()
