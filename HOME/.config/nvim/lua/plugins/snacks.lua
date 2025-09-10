@@ -676,7 +676,21 @@ if not vim.g.vscode then
         function()
           Snacks.lazygit()
         end,
-        desc = "Lazygitを起動",
+        desc = "Lazygit()を起動",
+      },
+      {
+        "<leader>gq",
+        function()
+          Snacks.terminal({ "lazysql" })
+        end,
+        desc = "Lazysql(SQLクライアント)を起動",
+      },
+      {
+        "<leader>gs",
+        function()
+          Snacks.terminal({ "slumber" })
+        end,
+        desc = "Slumber(HTTPクライアント)を起動",
       },
       {
         "<leader>un",
