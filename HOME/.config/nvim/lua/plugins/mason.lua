@@ -174,12 +174,24 @@ return {
       })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
-        local server_settings = require("lsp." .. server)
-        vim.lsp.config(server, {
-          settings = server_settings.settings,
-          filetypes = server_settings.filetypes,
-        })
-        -- end
+        -- FIXME: tyだけvim.lsp.configが効かない？
+        if server == "ty" then
+          vim.lsp.config(server, {
+            settings = {
+              ty = {
+                disableLanguageServices = false,
+                diagnosticMode = "openFilesOnly",
+                inlayHints = {
+                  variableTypes = true,
+                  callArgumentNames = true,
+                },
+              },
+            },
+          })
+        else
+          local target_config = require("lsp." .. server)
+          vim.lsp.config(server, target_config)
+        end
         vim.lsp.enable(server)
       end
     end,
