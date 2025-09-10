@@ -11,7 +11,9 @@ claude:
   @test -d ~/.claude || mkdir -p ~/.claude
   @test -L ~/.claude/CLAUDE.md || ln -s {{pwd}}/HOME/claude/CLAUDE.md ~/.claude/CLAUDE.md
   @test -L ~/.claude/settings.json || ln -s {{pwd}}/HOME/claude/settings.json ~/.claude/settings.json
-  @claude mcp add-json {{pwd}}/HOME/claude/mcp_config.json
+  @test -L ~/.claude/mcp_config.json || ln -s {{pwd}}/HOME/claude/mcp_config.json ~/.claude/mcp_config.json
+  @test -L ~/.claude/commands || ln -s {{pwd}}/HOME/claude/commands ~/.claude/commands
+  @text -L ~/.claude/prompts || ln -s {{pwd}}/HOME/claude/prompts ~/.claude/prompts
 
 # 定義済タスクリスト表示
 _list:
