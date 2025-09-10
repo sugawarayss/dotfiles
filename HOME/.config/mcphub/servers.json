@@ -56,6 +56,9 @@
         "-y",
         "@modelcontextprotocol/server-sequential-thinking"
       ],
+      "autoApprove": [
+        "sequentialthinking"
+      ],
       "command": "npx"
     },
     "serena": {
@@ -78,7 +81,14 @@
         "activate_project",
         "onboarding",
         "search_for_pattern",
-        "think_about_task_adherence"
+        "think_about_task_adherence",
+        "delete_memory",
+        "find_referencing_symbols",
+        "get_symbols_overview",
+        "insert_after_symbol",
+        "insert_before_symbol",
+        "replace_symbol_body",
+        "think_about_whether_you_are_done"
       ],
       "command": "uvx"
     },
