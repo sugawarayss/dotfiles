@@ -1,0 +1,18 @@
+layout {
+    pane size=2 split_direction="vertical" {
+      pane size="70%" borderless=true {
+        plugin location="zellij:tab-bar"
+      }
+      pane size="30%" borderless=true {
+        plugin location="file:~/.config/zellij/plugins/zellij-what-time.wasm" {
+          date_format "%Y-%m-%d %a"
+          time_format "%H:%M:%S"
+          interval_update "1.0"
+        }
+      }
+    }
+    pane
+    pane size=1 borderless=true {
+        plugin location="status-bar"
+    }
+}
