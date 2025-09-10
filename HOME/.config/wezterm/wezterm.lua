@@ -20,8 +20,8 @@ config.enable_scroll_bar = true
 -- Leaderキーを設定
 config.leader = { key = ",", mods = "SUPER", timeout_milliseconds = 2000 }
 -- Option Key を Alt Key ではなく そのまま Option Key として扱う
-config.send_composed_key_when_left_alt_is_pressed = true
-config.send_composed_key_when_right_alt_is_pressed = true
+-- config.send_composed_key_when_left_alt_is_pressed = true
+-- config.send_composed_key_when_right_alt_is_pressed = true
 
 -- 1つのタブしかない場合はタブバーを非表示
 config.hide_tab_bar_if_only_one_tab = false
