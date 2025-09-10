@@ -193,6 +193,10 @@ ghostty:
   # ghostty 設定ファイルを展開
   @test -L ~/.config/ghostty || ln -s {{pwd}}/HOME/.config/ghostty ~/.config/ghostty
 
+# zellij 用設定ファイルを展開
+zellij:
+  @test -d ~/.config/zellij || ln -s {{pwd}}/HOME/.config/zellij ~/.config/zellij
+
 # zed 用設定ファイルを展開
 zed:
   # zed 設定ファイルを展開
