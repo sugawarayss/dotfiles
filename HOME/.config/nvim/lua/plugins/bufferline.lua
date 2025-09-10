@@ -21,24 +21,6 @@ if not vim.g.vscode then
             mode = "n",
             desc = "前のバッファを表示",
           },
-          {
-            "<Leader>h",
-            "<Cmd>BufferLineMovePrev<CR>",
-            mode = "n",
-            desc = "バッファを左に移動",
-          },
-          {
-            "<Leader>l",
-            "<Cmd>BufferLineMoveNext<CR>",
-            mode = "n",
-            desc = "バッファを右に移動",
-          },
-          {
-            "<M-c>",
-            "<Cmd>BufferLinePickClose<CR>",
-            mode = "n",
-            desc = "選択したバッファを閉じる",
-          },
         })
       end,
       config = function()

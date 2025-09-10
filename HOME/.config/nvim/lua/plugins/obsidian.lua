@@ -8,23 +8,23 @@ return {
   ft = "markdown",
   cmd = {
     "ObsidianOpen", -- Obsidianアプリでノートを開く
-    "ObsidianNew", -- 新しいノートを作成する
-    "ObsidianQuickSwitch", -- pickerでノートの名前で検索してバッファとして開く
-    "ObsidianFollowLink", -- カーソル位置のノートへのリンクを画面分割で開く
-    "ObsidianBacklink", -- 現在のバッファへの参照をpicker で開く
-    "ObsidianTags", -- 入力したタグ名を含むノートをpickerで開く
+    -- "ObsidianNew", -- 新しいノートを作成する
+    -- "ObsidianQuickSwitch", -- pickerでノートの名前で検索してバッファとして開く
+    -- "ObsidianFollowLink", -- カーソル位置のノートへのリンクを画面分割で開く
+    -- "ObsidianBacklink", -- 現在のバッファへの参照をpicker で開く
+    -- "ObsidianTags", -- 入力したタグ名を含むノートをpickerで開く
     "ObsidianToday", -- 今日分のデイリーノートを開く
-    "ObsidianTomorrow", -- 次の平日のデイリーノートを開く(週末を考慮する)
-    "ObsidianDailies", -- デイリーノート一覧をpickerで開く
+    -- "ObsidianTomorrow", -- 次の平日のデイリーノートを開く(週末を考慮する)
+    -- "ObsidianDailies", -- デイリーノート一覧をpickerで開く
     "ObsidianTemplate", -- テンプレートを選択してノートを作成する
-    "ObsidianSearch", -- pickerを使ってノートを検索 (または作成) する
-    "ObsidianLink", -- 選択したテキストをノートへのリンクに変換する
-    "ObsidianLinkNew", -- 新しいノートを作成して、選択したテキストがあれば、そのノートへのリンクに変換する
-    "ObsidianLinks", -- 現在のバッファにあるノートへのリンクをpickerで開く
-    "ObsidianExtractNote", -- 選択したテキストをノートに抽出して、それにリンクする
-    "ObsidianWorkspace", -- 別のワークスペースに切り替える
-    "ObsidianPasteImg", -- クリップボードから画像を保存して、Markdown画像リンクとして追加する
-    "ObsidianRename", -- カーソル位置のノート名を変更する(全体のリンクも変更される)
+    -- "ObsidianSearch", -- pickerを使ってノートを検索 (または作成) する
+    -- "ObsidianLink", -- 選択したテキストをノートへのリンクに変換する
+    -- "ObsidianLinkNew", -- 新しいノートを作成して、選択したテキストがあれば、そのノートへのリンクに変換する
+    -- "ObsidianLinks", -- 現在のバッファにあるノートへのリンクをpickerで開く
+    -- "ObsidianExtractNote", -- 選択したテキストをノートに抽出して、それにリンクする
+    -- "ObsidianWorkspace", -- 別のワークスペースに切り替える
+    -- "ObsidianPasteImg", -- クリップボードから画像を保存して、Markdown画像リンクとして追加する
+    -- "ObsidianRename", -- カーソル位置のノート名を変更する(全体のリンクも変更される)
     "ObsidianToggleCheckbox", -- チェックボックスをトグルする
     "ObsidianNewFromTemplate", -- テンプレートフォルダ内のテンプレートから新しいノートを作成する
     "ObsidianTOC", -- 現在のノートの目次をpicker list に読み込む
@@ -45,25 +45,11 @@ return {
       desc = "Obsidianノートを開く(作成)",
     },
     {
-      "<Leader>od",
+      "<Leader>dn",
       "<Cmd>ObsidianToday<CR>",
       mode = "n",
       { noremap = true, silent = true },
-      desc = "デイリーノートを開く(作成)",
-    },
-    {
-      "<Leader>oc",
-      "<Cmd>ObsidianTOC<CR>",
-      mode = "n",
-      { noremap = true, silent = true },
-      desc = "現在のノートの目次を表示",
-    },
-    {
-      "<Leader>otc",
-      "<Cmd>ObsidianToggleCheckbox<CR>",
-      mode = "n",
-      { noremap = true, silent = true },
-      desc = "チェックボックスをトグル",
+      desc = "Obsidianデイリーノートを開く(作成)",
     },
   },
   dependencies = {

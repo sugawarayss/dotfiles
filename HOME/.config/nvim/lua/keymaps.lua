@@ -19,6 +19,21 @@ vim.g.maplocalleader = " "
 --   command_mode = "c",
 
 -----------------------------
+--- ジャンプリスト系 --------
+-----------------------------
+
+u.keymap("n", "<Leader>o", "<C-o>", { desc = "ジャンプリストを戻る" })
+u.keymap("n", "<Leader>i", "<C-i>", { desc = "ジャンプリストを進る" })
+-- ジャンプ履歴に残さずジャンプ
+u.keymap("n", "<C-d>", "<Cmd>keepjumps normal! <C-d><CR>", { desc = "下にスクロール" })
+u.keymap("v", "<C-d>", "<Cmd>keepjumps normal! <C-d><CR>", { desc = "下にスクロール" })
+u.keymap("n", "<C-u>", "<Cmd>keepjumps normal! <C-u><CR>", { desc = "上にスクロール" })
+u.keymap("v", "<C-u>", "<Cmd>keepjumps normal! <C-u><CR>", { desc = "上にスクロール" })
+u.keymap("n", "}", "<Cmd>keepjumps normal! }<CR>", { desc = "次の空行にジャンプ" })
+u.keymap("v", "}", "<Cmd>keepjumps normal! }<CR>", { desc = "次の空行にジャンプ" })
+u.keymap("n", "{", "<Cmd>keepjumps normal! {<CR>", { desc = "前の空行にジャンプ" })
+u.keymap("v", "{", "<Cmd>keepjumps normal! {<CR>", { desc = "前の空行にジャンプ" })
+-----------------------------
 ----  Window/Tab 操作系  ----
 -----------------------------
 -- ウィンドウを水平分割(上下)

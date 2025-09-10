@@ -497,13 +497,13 @@ if not vim.g.vscode then
         desc = "直近開いたファイルリストを表示",
       },
       -- git
-      {
-        "<leader>gb",
-        function()
-          Snacks.picker.git_branches()
-        end,
-        desc = "Gitブランチリストを表示",
-      },
+      -- {
+      --   "<leader>gb",
+      --   function()
+      --     Snacks.picker.git_branches()
+      --   end,
+      --   desc = "Gitブランチリストを表示",
+      -- },
       {
         "<leader>gl",
         function()
@@ -582,7 +582,7 @@ if not vim.g.vscode then
         function()
           Snacks.picker.jumps()
         end,
-        desc = "Jumps",
+        desc = "ジャンプリストを検索",
       },
       {
         "<leader>skm",
