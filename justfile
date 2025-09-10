@@ -196,6 +196,9 @@ ghostty:
 # zellij 用設定ファイルを展開
 zellij:
   @test -d ~/.config/zellij || ln -s {{pwd}}/HOME/.config/zellij ~/.config/zellij
+  @test -d ~/.config/zellij/plugins/ || mkdir {{pwd}}/HOME/.config/zellij/plugins
+  # zellij-what-time.wasmのインストール
+  @curl -L "https://github.com/pirafrank/zellij-what-time/releases/latest/download/zellij-what-time.wasm" -o {{pwd}}/HOME/.config/zellij/plugins/zellij-what-time.wasm
 
 # zed 用設定ファイルを展開
 zed:
