@@ -61,11 +61,6 @@ else
         {
           "<Leader>crv",
           function()
-            local diff = vim.fn.system("git diff --merge-base develop")
-            if diff == "" then
-              vim.notify("差分がないため、コードレビューを行えません。", vim.log.levels.WARN)
-              return
-            end
             require("codecompanion").prompt("review_local_diff")
           end,
           mode = "n",
@@ -148,7 +143,7 @@ else
           prompt_library = {
             ["Review Local Diff"] = {
               strategy = "chat",
-              description = "Perform a Code Review",
+              description = "Git Diff 結果をReview",
               opts = {
                 short_name = "review_local_diff",
                 is_slash_cmd = true,
@@ -160,18 +155,24 @@ else
                   role = "user",
                   content = function()
                     local target_branch = vim.fn.input("差分を取得するベースブランチ名を選択 (default: main): ", "develop")
-                    return string.format(
+                    local diff = vim.fn.system("git diff --merge-base " .. target_branch .. " HEAD")
+                    local prompt = string.format(
                       [[あなたはコードレビューを行う上級ソフトウェアエンジニアです。以下のコード変更を分析してください。
-                      潜在的なバグ、パフォーマンスの問題、セキュリティ上の脆弱性、そして可読性や保守性を向上させるためにリファクタリングできる領域を特定してください。
-                      その理由を明確に説明し、具体的な改善提案を行ってください。
-                      エッジケース、エラー処理、ベストプラクティスとコーディング標準の遵守を考慮してください。
-                      コード変更は以下のとおりです。
-                     ```
-                      %s
-                     ```
-                    ]],
-                      vim.fn.system("git diff --merge-base " .. target_branch .. " HEAD")
+潜在的なバグ、パフォーマンスの問題、セキュリティ上の脆弱性、そして可読性や保守性を向上させるためにリファクタリングできる領域を特定してください。
+その理由を明確に説明し、具体的な改善提案を行ってください。
+エッジケース、エラー処理、ベストプラクティスとコーディング標準の遵守を考慮してください。
+
+ベースブランチ: %s
+
+コード差分:
+```
+%s
+```
+]],
+                      target_branch,
+                      diff
                     )
+                    return prompt
                   end,
                 },
               },
