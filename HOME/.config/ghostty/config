@@ -5,10 +5,12 @@ font-family = "Hack Nerd Font Mono"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
 # フォントサイズ
-font-size = 13.5
+font-size = 16
+# 行の高さの調整
+adjust-cell-height = "-20%"
 
 # カラーテーマ
-theme = Duotone Dark
+theme = Everforest Dark - Hard
 
 # ウィンドウの左右の余白
 window-padding-x = 10
