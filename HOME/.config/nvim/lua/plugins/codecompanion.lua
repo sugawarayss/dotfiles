@@ -2,18 +2,13 @@ if vim.g.vscode then
   return {}
 else
   vim.cmd([[cab cc CodeCompanion]])
+  vim.cmd([[cab ccc CodeCompanionChat]])
   vim.cmd([[cab cca CodeCompanionActions]])
   return {
     {
       "olimorris/codecompanion.nvim",
       cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
       keys = {
-        {
-          "<Leader>ca",
-          "<Cmd>CodeCompanionActions<CR>",
-          mode = { "n", "v" },
-          desc = "LLMアクションリストを表示",
-        },
         {
           "<D-C-i>", -- Coomand+Ctrl+i
           "<Cmd>CodeCompanionChat Toggle<CR>",

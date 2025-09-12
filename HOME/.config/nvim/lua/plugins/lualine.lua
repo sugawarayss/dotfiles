@@ -6,14 +6,14 @@ if not vim.g.vscode then
       version = "*",
       event = { "BufReadPre" },
       config = function()
-        local color_palette = require("tokyonight.colors").setup()
+        local color_palette = require("onedark.colors")
         -- Linter実行の進捗を表示
         local lint_progress = function()
           local linters = require("lint").get_running()
           if #linters == 0 then
-            return "󰦕"
+            return "󱔢 -"
           end
-          return "󱉶 " .. table.concat(linters, ", ")
+          return "󰦖 " .. table.concat(linters, ", ")
         end
         -- Snacks Terminal 表示時の設定
         local snacks_terminal = {
@@ -28,21 +28,11 @@ if not vim.g.vscode then
           end
           return ""
         end
-        -- trouble.nvim統合
-        local trouble = require("trouble")
-        local symbols = trouble.statusline({
-          mode = "lsp_document_symbols",
-          groups = {},
-          title = false,
-          filter = { range = true },
-          format = "{kind_icon}{symbol.name:Normal}",
-          hl_group = "lualine_c_normal",
-        })
         require("lualine").setup({
           options = {
             icons_enabled = true,
-            theme = "tokyonight",
-            component_separators = { left = "", right = "" },
+            theme = "onedark",
+            component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = {
               statusline = { "sagaoutline", "dbui" },
@@ -60,61 +50,60 @@ if not vim.g.vscode then
           },
           sections = {
             lualine_a = { "mode" },
-            lualine_b = { { "filename", path = 1 } },
-            lualine_c = { "branch", { symbols.get, cond = symbols.has } },
+            lualine_b = { { "filename", path = 1 }, "diagnostics" },
+            lualine_c = { "location" },
             -- CodeCompanion の進捗を lualine で表示する場合
             lualine_x = {
               -- マクロの記録中の表示
               {
                 macro_recording,
-                color = { fg = color_palette.magenta2 }, -- #ff007c
+                color = { fg = color_palette.orange }, -- #c99a6e
               },
-              -- Copilotの進捗状況の表示
-              -- {
-              --   require("plugins.spinners.cc-compontnt"),
-              --   color = { fg = color_palette.orange }, -- #ff966c
-              -- },
-
+              "branch",
+            },
+            lualine_y = {
+              -- Linter実行の進捗を表示
+              lint_progress,
+              -- Language Server の起動状況
+              "lsp-status",
               -- MCPサーバの起動状況
               {
                 function()
                   if not vim.g.loaded_mcphub then
-                    return "󰐻 -"
+                    return " (-)"
                   end
                   local count = vim.g.mcphub_servers_count or 0
                   local status = vim.g.mcphub_status or "stopped"
                   local executing = vim.g.mcphub_executing
                   -- Show "-" when stopped
                   if status == "stopped" then
-                    return "󰐻 -"
+                    return " (-)"
                   end
                   -- Show spinner when executing, starting, or restarting
                   if executing or status == "starting" or status == "restarting" then
-                    local frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+                    -- local frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+                    local frames = { "", "", "", "", "", "" }
                     local frame = math.floor(vim.loop.now() / 100) % #frames + 1
-                    return "󰐻 " .. frames[frame]
+                    return " (" .. frames[frame] .. ")"
                   end
-                  return "󰐻 " .. count
+                  return " (" .. count .. ")"
                 end,
                 color = function()
                   if not vim.g.loaded_mcphub then
-                    return { fg = color_palette.comment } -- Gray for not loaded
+                    return { fg = color_palette.fg } -- #a7aab0
                   end
 
                   local status = vim.g.mcphub_status or "stopped"
                   if status == "ready" or status == "restarted" then
-                    return { fg = color_palette.green } -- Green for connected
+                    return { fg = color_palette.green } -- #99bc80
                   elseif status == "starting" or status == "restarting" then
-                    return { fg = color_palette.yellow } -- Orange for connecting
+                    return { fg = color_palette.yellow } -- #dfbe81
                   else
-                    return { fg = color_palette.red } -- Red for error/stopped
+                    return { fg = color_palette.red } -- #e16d77
                   end
                 end,
               },
-              -- Language Server の起動状況
-              "lsp-status",
             },
-            lualine_y = { lint_progress },
             lualine_z = {
               "encoding",
               "fileformat",
@@ -141,7 +130,19 @@ if not vim.g.vscode then
       end,
     },
     { "nvim-tree/nvim-web-devicons", lazy = true },
-    { "pnx/lualine-lsp-status", lazy = true },
+    {
+      "pnx/lualine-lsp-status",
+      lazy = true,
+      opts = {
+        show_count = true,
+        colored = true,
+        disabled_filetypes = {},
+        icons = {
+          active = "",
+          inactive = "",
+        },
+      },
+    },
   }
 else
   return {}

@@ -32,7 +32,7 @@ if not vim.g.vscode then
         end
 
         require("noice").setup({
-          theme = "tokyonight",
+          theme = "onedark",
           cmdline = {
             enabled = true,
             view = "cmdline_popup",

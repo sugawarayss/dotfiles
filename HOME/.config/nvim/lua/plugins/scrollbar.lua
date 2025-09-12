@@ -5,7 +5,7 @@ return {
     lazy = true,
     event = { "BufReadPre" },
     config = function()
-      local color_palette = require("tokyonight.colors").setup()
+      local color_palette = require("onedark.colors")
       require("scrollbar").setup({
         show = true,
         show_in_active_only = false,
@@ -15,15 +15,15 @@ return {
         hide_if_all_visible = false,
         throttle_ms = 100,
         handle = {
-          color = color_palette.bg_dark, -- "#1f2335
+          color = color_palette.diff_text, -- #32526c
         },
         marks = {
-          Search = { color = color_palette.cyan }, -- #7dcfff
-          Error = { color = color_palette.red }, -- #f7768e
-          Warn = { color = color_palette.yellow }, -- #e0af68
-          Info = { color = color_palette.green }, -- #9ece6a
-          Hint = { color = color_palette.blue }, -- #7aa2f7
-          Misc = { color = color_palette.magenta }, -- #bb9af7
+          Search = { color = color_palette.cyan }, -- #5fafb9
+          Error = { color = color_palette.red }, -- #e16d77
+          Warn = { color = color_palette.yellow }, -- #dfbe81
+          Info = { color = color_palette.green }, -- #99bc80
+          Hint = { color = color_palette.blue }, -- #68aee8
+          Misc = { color = color_palette.purple }, -- #c27fd7
         },
         handlers = {
           cursor = true,

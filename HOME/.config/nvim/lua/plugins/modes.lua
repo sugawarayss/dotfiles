@@ -4,14 +4,14 @@ return {
   event = { "VimEnter" },
   tag = "v0.2.1",
   config = function()
-    local color_palette = require("tokyonight.colors").setup()
+    local color_palette = require("onedark.colors")
     require("modes").setup({
       colors = {
-        bg = color_palette.bg,
-        copy = color_palette.cyan,
-        delete = color_palette.red1,
-        insert = color_palette.green2,
-        visual = color_palette.orange,
+        bg = color_palette.bg1, -- #35373b
+        copy = color_palette.dark_purple, -- #854897
+        delete = color_palette.dark_red, -- #914141
+        insert = color_palette.dark_cyan, -- #316171
+        visual = color_palette.dark_yellow, -- #8c6724
       },
       -- Set opacity for cursorline and number background
       line_opacity = 0.4,

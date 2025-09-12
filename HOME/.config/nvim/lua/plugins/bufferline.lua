@@ -24,13 +24,13 @@ if not vim.g.vscode then
         })
       end,
       config = function()
-        local color_palette = require("tokyonight.colors").setup()
+        local color_palette = require("onedark.colors")
         require("bufferline").setup({
           highlights = {
-            error_selected = { fg = color_palette.red }, -- #f7768e
-            warning_diagnostic_selected = { fg = color_palette.orange }, -- #ff9e64
-            error_diagnostic_selected = { fg = color_palette.red }, -- #f7768e
-            close_button_selected = { fg = color_palette.yellow }, -- #e0af68
+            error_selected = { fg = color_palette.red }, -- #e16d77
+            warning_diagnostic_selected = { fg = color_palette.orange }, -- #c99a6e
+            error_diagnostic_selected = { fg = color_palette.red }, -- #e16d77
+            close_button_selected = { fg = color_palette.yellow }, -- #dfbe81
           },
           options = {
             themable = true,

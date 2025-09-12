@@ -3,7 +3,7 @@ return {
   "shellRaining/hlchunk.nvim",
   event = { "UIEnter" },
   config = function()
-    local color_palette = require("tokyonight.colors").setup()
+    local color_palette = require("onedark.colors")
     require("hlchunk").setup({
       chunk = {
         enable = true,
@@ -17,8 +17,8 @@ return {
           right_arrow = ">",
         },
         style = {
-          { fg = color_palette.blue1 }, -- #2ac3de
-          { fg = color_palette.red1 }, -- #db4b4b
+          { fg = color_palette.blue }, -- #68aee8
+          { fg = color_palette.red }, -- #e16d77
         },
         textobject = "",
         max_file_size = 1024 * 1024,
@@ -32,26 +32,20 @@ return {
         use_treesitter = true,
         chars = { "│" },
         style = {
-          -- { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") },
-          { fg = color_palette.fg_gutter },
-          -- { bg = color_palette.bg_dark },
-          -- { bg = color_palette.bg_dark1 },
+          { fg = color_palette.diff_change }, -- #203444
         },
       },
       line_num = {
         enable = true,
         use_treesitter = true,
-        style = color_palette.magenta, -- #bb9af7
+        style = color_palette.cyan, -- #51a8b3
       },
       -- FIXME: blank が正しく機能しないのはプラグインバグらしい。https://github.com/shellRaining/hlchunk.nvim/issues/123
       blank = {
         enable = true,
         chars = { "․" },
         style = {
-          -- vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
-          { fg = color_palette.fg_gutter },
-          -- { bg = color_palette.bg_dark },
-          -- { bg = color_palette.bg_dark1 },
+          { fg = color_palette.diff_text }, -- #32526c
         },
       },
     })
