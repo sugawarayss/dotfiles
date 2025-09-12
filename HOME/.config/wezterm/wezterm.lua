@@ -19,9 +19,6 @@ config.default_cursor_style = "BlinkingBlock"
 config.enable_scroll_bar = true
 -- Leaderキーを設定
 config.leader = { key = ",", mods = "SUPER", timeout_milliseconds = 2000 }
--- Option Key を Alt Key ではなく そのまま Option Key として扱う
--- config.send_composed_key_when_left_alt_is_pressed = true
--- config.send_composed_key_when_right_alt_is_pressed = true
 
 -- 1つのタブしかない場合はタブバーを非表示
 config.hide_tab_bar_if_only_one_tab = false
@@ -34,9 +31,9 @@ config.use_fancy_tab_bar = true
 
 -- カラーテーマ
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "Duotone Dark"
+config.color_scheme = "Everforest Dark (Gogh)"
 -- 背景の透過度
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.95
 -- 背景のぼかし
 config.macos_window_background_blur = 8
 -- フォント
