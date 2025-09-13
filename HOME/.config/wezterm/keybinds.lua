@@ -17,6 +17,8 @@ return {
 		{ key = "p", mods = "SHIFT|SUPER", action = act.ActivateCommandPalette },
 		-- コピーモードを開始
 		{ key = "F2", mods = "SHIFT", action = act.ActivateCopyMode },
+		-- サーチモードを開始
+		{ key = "F3", mods = "SHIFT", action = act.Search("CurrentSelectionOrEmptyString") },
 		-- デバッグ情報を表示
 		-- { key = 'F12', mods = 'NONE', action = act.ShowDebugOverlay },
 
