@@ -111,6 +111,8 @@ raycast:
 _git-config:
   # gitの設定ファイル
   @test -L ~/.gitconfig || ln -s {{pwd}}/HOME/.config/git/.gitconfig ~/.gitconfig
+  # git-delta用のtheme設定
+  @test -L ~/.config/git/themes.gitconfig || ln -s {{pwd}}/HOME/.config/git/themes.gitconfig ~/.config/git/themes.gitconfig
   # gitignore
   @test -L ~/.config/git/ignore || ln -s {{pwd}}/HOME/.config/git/ignore ~/.config/git/ignore
   # コミットテンプレート

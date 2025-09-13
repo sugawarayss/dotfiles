@@ -29,10 +29,13 @@
   current = branch --show-current
   lg = !"git log --oneline --graph --decorate $(git cb)"
 
+[include]
+  path = ~/.config/git/themes.gitconfig
+
 [delta]
+    features = colibri
     line-numbers  = true
     side-by-side  = true
-    syntax-theme  = Monokai Extended
     navigate      = true
 
 [interractive]
