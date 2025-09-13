@@ -96,7 +96,7 @@ return {
         -- map("n",          "<leader>td", gs.toggle_deleted,               { desc = "削除されたファイルのdiff表示をトグル" })
 
         -- Text object
-        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "HunkをTextObjectとして選択" })
       end,
     })
     require("scrollbar.handlers.gitsigns").setup()

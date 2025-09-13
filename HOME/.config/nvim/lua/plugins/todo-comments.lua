@@ -38,10 +38,10 @@ return {
         TODO = { icon = "🪧", color = "info" },
         HACK = { icon = "🌦️", color = "warning" },
         WARN = { icon = "⛈️", color = "warning", alt = { "WARNING", "XXX" } },
-        PERF = { icon = "⏳", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-        NOTE = { icon = "📖", color = "hint", alt = { "INFO", "HINT" } },
+        NOTE = { icon = "📖", color = "hint", alt = { "INFO", "HINT", "FYI" } },
+        DOCS = { icon = "📚", color = "default", alt = { "DOC" } },
         TEST = { icon = "🧪", color = "test", alt = { "TESTING", "PASSED" } },
-        DOCS = { icon = "📚", alt = { "FYI", "DOC" } },
+        PERF = { icon = "⏳", color = "perf", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
       },
       gui_style = {
         fg = "NONE", -- The gui style to use for the fg highlight group.
@@ -67,12 +67,13 @@ return {
       -- list of named colors where we try to extract the guifg from the
       -- list of highlight groups or use the hex color if hl not found as a fallback
       colors = {
-        error = { "DiagnosticError", "ErrorMsg", color_palette.red }, -- #de5d68
-        warning = { "DiagnosticWarn", "WarningMsg", color_palette.orange },
-        info = { "DiagnosticInfo", color_palette.blue },
-        hint = { "DiagnosticHint", color_palette.green },
-        default = { "Identifier", color_palette.purple },
-        test = { "Identifier", color_palette.yellow },
+        error = { color_palette.red }, -- #de5d68
+        warning = { color_palette.orange }, -- #c49060
+        info = { color_palette.blue }, -- #57a5e5
+        hint = { color_palette.green }, -- #8fb573
+        default = { color_palette.dark_cyan }, -- #2b5d63
+        test = { color_palette.dark_yellow }, -- #7c5c20
+        perf = { color_palette.dark_purple }, -- #79428a
       },
       search = {
         command = "rg",
