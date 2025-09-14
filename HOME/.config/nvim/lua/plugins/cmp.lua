@@ -9,7 +9,9 @@ return {
       { "hrsh7th/cmp-buffer" }, -- バッファ補完
       { "hrsh7th/cmp-path" }, -- パス補完
       { "hrsh7th/cmp-cmdline" }, -- コマンドライン入力の補完ソース
-      -- { "hrsh7th/vim-vsnip" },  -- スニペット補完
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+      -- LSPのtextDocument/documentSymbolから補完
+      { "hrsh7th/cmp-nvim-lsp-document-symbol" },
       {
         "L3MON4D3/LuaSnip",
         version = "v2.*",
@@ -23,6 +25,8 @@ return {
       }, -- スニペットエンジン
       { "saadparwaiz1/cmp_luasnip" }, -- cmp と luasnip の連携
       { "onsails/lspkind.nvim" },
+      -- treesitterから補完
+      { "ray-x/cmp-treesitter" },
     },
     keys = {
       -- { "<C-s><C-s>", require("luasnip.loaders").edit_snippet_files, mode = "n", desc = "スニペットを編集" },
@@ -49,6 +53,7 @@ return {
               Copilot = "[Copilot]",
               path = "[Path]",
               cmdline = "[Cmdline]",
+              treesitter = "[TS]",
             },
           }),
         },
@@ -108,10 +113,8 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          -- { name = "vsnip" }, -- For vsnip users.
           { name = "luasnip", priority_weight = 20 }, -- For luasnip users.
-          -- { name = "ultisnips" }, -- For ultisnips users.
-          -- { name = "snippy" }, -- For snippy users.
+          { name = "nvim_lsp_document_symbol" },
         }, {
           { name = "buffer" },
           { name = "path" },
@@ -126,7 +129,8 @@ return {
               preselect_correct_word = true,
             },
           },
-          { name = "copilot" },
+          { name = "treesitter" },
+          { name = "nvim_lsp_signature_help" },
         }),
         experimental = {
           ghost_text = true,
