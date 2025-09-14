@@ -9,6 +9,8 @@ return {
       -- 対応するキーワードや記号にジャンプできる
       { "andymass/vim-matchup" },
       { "RRethy/nvim-treesitter-textsubjects" },
+      -- ip() や　ap()のような独自のテキストオブジェクトマッピングを追加する
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
     },
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -42,6 +44,7 @@ return {
           "java",
           "javascript",
           "julia",
+          "kdl",
           "kotlin",
           "lua",
           "markdown",
@@ -133,7 +136,6 @@ return {
           "jsonc",
           "jsonnet",
           "kconfig",
-          "kdl",
           "lalrpop",
           "latex",
           "ledger",
@@ -258,6 +260,30 @@ return {
             },
             [";"] = { "textsubjects-container-outer", desc = "クラス, 構造体, 関数を外側から選択" },
             ["i;"] = { "textsubjects-container-inner", desc = "クラス, 構造体, 関数の内部を選択" },
+          },
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              -- 関数全体を選択
+              ["af"] = { query = "@function.outer", desc = "関数全体を選択" },
+              -- 関数内部を選択
+              ["if"] = { query = "@function.inner", desc = "関数内部を選択" },
+              -- クラス全体を選択
+              ["ac"] = { query = "@class.outer", desc = "クラス全体を選択" },
+              -- クラス内部を選択
+              ["ic"] = { query = "@class.inner", desc = "クラス内部を選択" },
+              -- スコープ全体を選択
+              ["as"] = { query = "@local.scope", query_group = "locals", desc = "スコープ全体を選択" },
+            },
+            selection_modes = {
+              ["@parameter.outer"] = "v", -- charwise
+              ["@function.outer"] = "V", -- linewise
+              ["@class.outer"] = "<c-v>", -- blockwise
+            },
+            include_surrounding_whitespace = true,
           },
         },
       })

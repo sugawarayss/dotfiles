@@ -43,5 +43,13 @@ return {
       end
     end,
   },
-  { "joosepAlviste/nvim-ts-context-commentstring", lazy = true },
+  -- コメントアウトをtreesitterで構文の考慮できるようにする
+  {
+    "joosepAlviste/nvim-ts-context-commentstring",
+    lazy = true,
+    event = "BufRead",
+    opts = function()
+      require("ts_context_commentstring").setup()
+    end,
+  },
 }
