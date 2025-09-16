@@ -8,63 +8,71 @@ else
     {
       "olimorris/codecompanion.nvim",
       cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
-      keys = {
-        {
-          "<D-C-i>", -- Coomand+Ctrl+i
-          "<Cmd>CodeCompanionChat Toggle<CR>",
-          mode = { "n", "v" },
-          desc = "LLMとのChatをトグル",
-        },
-        {
-          "<Leader>cf",
-          function()
-            require("codecompanion").prompt("fix")
-          end,
-          mode = "v",
-          desc = "LLMで選択範囲を修正する",
-        },
-        {
-          "<Leader>ce",
-          function()
-            require("codecompanion").prompt("explain")
-          end,
-          mode = "v",
-          desc = "LLMで選択範囲を実装内容を説明する",
-        },
-        {
-          "<Leader>cl",
-          function()
-            require("codecompanion").prompt("lsp")
-          end,
-          mode = "v",
-          desc = "LLMで選択範囲をLSPの診断結果を表示する",
-        },
-        {
-          "<Leader>cm",
-          function()
-            -- 差分がなければメッセージ表示して終了する
-            local diff = vim.fn.system("git diff --no-ext-diff --staged")
-            if diff == "" then
-              vim.notify("ステージ済みの差分がないため、コミットメッセージを生成できません。", vim.log.levels.WARN)
-              return
-            end
-            require("codecompanion").prompt("semantic_commit")
-          end,
-          mode = "n",
-          desc = "LLM でコミットメッセージを生成する",
-        },
-        {
-          "<Leader>crv",
-          function()
-            require("codecompanion").prompt("review_local_diff")
-          end,
-          mode = "n",
-          desc = "LLM でコードレビューを行う",
-        },
-      },
-      -- CodeCompanion の進捗をfidget で表示する場合
       init = function()
+        -- CodeCompanion の進捗をfidget で表示する場合
         require("plugins.spinners.fidget-cc-spinner"):init()
+        --
+        local wk = require("which-key")
+        wk.add({
+          {
+            "<Leader>cc", -- Coomand+Ctrl+i
+            "<Cmd>CodeCompanionChat Toggle<CR>",
+            mode = { "n", "v" },
+            icon = "",
+            desc = "LLMとのChatをトグル",
+          },
+          {
+            "<Leader>cf",
+            function()
+              require("codecompanion").prompt("fix")
+            end,
+            mode = "v",
+            icon = "",
+            desc = "LLMで選択範囲を修正する",
+          },
+          {
+            "<Leader>ce",
+            function()
+              require("codecompanion").prompt("explain")
+            end,
+            mode = "v",
+            icon = "",
+            desc = "LLMで選択範囲を実装内容を説明する",
+          },
+          {
+            "<Leader>cl",
+            function()
+              require("codecompanion").prompt("lsp")
+            end,
+            mode = "v",
+            icon = "",
+            desc = "LLMで選択範囲をLSPの診断結果を表示する",
+          },
+          {
+            "<Leader>cm",
+            function()
+              -- 差分がなければメッセージ表示して終了する
+              local diff = vim.fn.system("git diff --no-ext-diff --staged")
+              if diff == "" then
+                vim.notify("ステージ済みの差分がないため、コミットメッセージを生成できません。", vim.log.levels.WARN)
+                return
+              end
+              require("codecompanion").prompt("semantic_commit")
+            end,
+            mode = "n",
+            icon = "",
+            desc = "LLM でコミットメッセージを生成する",
+          },
+          {
+            "<Leader>crv",
+            function()
+              require("codecompanion").prompt("review_local_diff")
+            end,
+            mode = "n",
+            icon = "",
+            desc = "LLM でコードレビューを行う",
+          },
+        })
       end,
       config = function()
         -- mcphub.nvim 用の設定
