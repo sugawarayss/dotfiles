@@ -189,7 +189,11 @@ neovim:
 # skkの辞書ファイルを展開
 skk:
   # グローバル辞書ファイルを展開(macSKKはシンボリックリンクはNGなのでコピー)
-  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L || cp {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.L ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L || cp -f {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.L ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JOSYO.geo || cp -f {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.geo ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.geo
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JOSYO.junmei || cp -f {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.jinmei ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.jinmei
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JOSYO.propernoun || cp -f {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.propernoun ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.propernoun
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JOSYO.station || cp -f {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.station ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.station
   # ユーザ辞書ファイルを展開(macSKKはシンボリックリンクはNGなのでコピー)
   @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary || cp -f {{pwd}}/HOME/skkeleton/my_dictionary ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/skk-jisyo.utf8
 
