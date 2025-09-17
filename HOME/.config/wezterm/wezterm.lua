@@ -47,6 +47,8 @@ config.font_size = 15.5
 config.adjust_window_size_when_changing_font_size = true
 -- IME を有効にする
 config.use_ime = true
+-- (macSKK用)キーの押下がIME経由でルーティングされるようになる修飾キー
+config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
 -- デフォルトのキーバインディングを無効化
 config.disable_default_key_bindings = true
 -- キーバインディングを外部ファイルから読み込む
