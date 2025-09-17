@@ -10,6 +10,7 @@ usage = "latest"
 # GitHub Actions用linter
 actionlint = "latest"
 zizmor = "latest"
+yazi = "latest"
 
 
 [settings]
