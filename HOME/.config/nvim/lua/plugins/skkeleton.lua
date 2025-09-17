@@ -12,7 +12,7 @@ return {
     end,
     config = function()
       local dictionaries = {}
-      local handle = io.popen("ls $HOME/.skk/*")
+      local handle = io.popen("ls ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L")
       if handle then
         for file in handle:lines() do
           table.insert(dictionaries, { file, "euc-jp" })
@@ -29,6 +29,7 @@ return {
             registerConvertResult = true, -- カタカナ変換結果を辞書に登録する
             globalDictionaries = dictionaries, -- グローバル辞書を指定
             showCandidatesCount = 3, -- 候補表示数
+            userDictionary = "~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/skk-jisyo.utf8",
           })
         end,
       })

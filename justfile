@@ -183,12 +183,20 @@ ideavim:
 neovim:
   # Neovim 設定ファイルを展開
   @test -L ~/.config/nvim || ln -s {{pwd}}/HOME/.config/nvim ~/.config/nvim
-  # skk 用グローバル辞書ファイルを展開
-  @test -L ~/.skk || ln -s {{pwd}}/HOME/skkeleton/dictionary ~/.skk
-  # skk 用 ユーザ辞書ファイルを展開
-  @test -L ~/.skkeleton || ln -s {{pwd}}/HOME/skkeleton/my_dictionary ~/.skkeleton
   # mcphub 用のMCP設定ディレクトリを展開
   @test -L ~/.config/mcphub || ln -s {{pwd}}/HOME/.config/mcphub ~/.config/mcphub
+
+# skkの辞書ファイルを展開
+skk:
+  # グローバル辞書ファイルを展開(macSKKはシンボリックリンクはNGなのでコピー)
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L || cp {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.L ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L
+  # ユーザ辞書ファイルを展開(macSKKはシンボリックリンクはNGなのでコピー)
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary || cp -f {{pwd}}/HOME/skkeleton/my_dictionary ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/skk-jisyo.utf8
+
+# skk 辞書ファイルのユーザ辞書をdumpする
+skk-dump:
+  # 上書きする
+  @cp -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/skk-jisyo.utf8 {{pwd}}/HOME/skkeleton/my_dictionary
 
 # ghostty 用設定ファイルを展開
 ghostty:
