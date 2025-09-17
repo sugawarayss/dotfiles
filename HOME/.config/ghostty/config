@@ -10,7 +10,7 @@ font-size = 16
 adjust-cell-height = "-20%"
 
 # カラーテーマ
-theme = OneHalfDark
+theme = One Half Dark
 
 # ウィンドウの左右の余白
 window-padding-x = 10
