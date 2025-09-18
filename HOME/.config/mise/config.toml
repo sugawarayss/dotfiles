@@ -11,6 +11,12 @@ usage = "latest"
 actionlint = "latest"
 zizmor = "latest"
 yazi = "latest"
+ripgrep = "latest"
+ripgrep-all = "latest"
+fzf = "latest"
+fd = "latest"
+ffmpeg = "latest"
+zoxide = "latest"
 
 
 [settings]
