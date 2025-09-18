@@ -1,7 +1,7 @@
 -- Neovimのイベント時にimeを操作するプラグイン
 return {
   "keaising/im-select.nvim",
-  lazy=false,
+  lazy = false,
   config = function()
     require("im_select").setup({
       -- NOTE:
@@ -10,7 +10,10 @@ return {
       --   `brew install im-select`
       default_command = "im-select",
       -- デフォルトのime は英数
-      default_im_select = "com.apple.keylayout.ABC",
+      -- default_im_select = "com.apple.keylayout.ABC",
+      -- NOTE: 識別子は `macism` コマンドで確認することができる
+      -- macSKK の 英数
+      default_im_select = "net.mtgto.inputmethod.macSKK.ascii",
       -- デフォルトのIMEに変更するイベント
       set_default_events = {
         "VimEnter", -- Vim起動時
