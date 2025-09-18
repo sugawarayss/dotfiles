@@ -93,6 +93,9 @@ set -gx EDITOR nvim
 # setup mise
 /opt/homebrew/bin/mise activate fish | source
 
+if type "zoxide" > /dev/null 2>&1;
+  zoxide init fish | source
+end
 #########
 # alias #
 #########
