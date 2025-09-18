@@ -195,7 +195,7 @@ skk:
   @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JOSYO.propernoun || cp -f {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.propernoun ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.propernoun
   @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JOSYO.station || cp -f {{pwd}}/HOME/skkeleton/dictionary/SKK-JISYO.station ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.station
   # ユーザ辞書ファイルを展開(macSKKはシンボリックリンクはNGなのでコピー)
-  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary || cp -f {{pwd}}/HOME/skkeleton/my_dictionary ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/skk-jisyo.utf8
+  @test -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary || cp -f {{pwd}}/HOME/skkeleton/my_dictionary ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary
 
 # skk 辞書ファイルのユーザ辞書をdumpする
 skk-dump:
