@@ -15,6 +15,12 @@ config.show_update_window = true
 config.automatically_reload_config = true
 -- カーソルのスタイルは明滅するブロック
 config.default_cursor_style = "BlinkingBlock"
+-- カーソルの点滅間隔(ミリ秒)
+config.cursor_blink_rate = 480
+-- 点滅時のフェードインのしかたを一定にする
+config.cursor_blink_ease_in = "Constant"
+-- 点滅時のフェードアウトのしかたを一定にする
+config.cursor_blink_ease_out = "Constant"
 -- スクロールバーを表示
 config.enable_scroll_bar = true
 -- Leaderキーを設定
