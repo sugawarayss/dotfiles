@@ -29,7 +29,7 @@ return {
             registerConvertResult = true, -- カタカナ変換結果を辞書に登録する
             globalDictionaries = dictionaries, -- グローバル辞書を指定
             showCandidatesCount = 3, -- 候補表示数
-            userDictionary = "~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/skk-jisyo.utf8",
+            userDictionary = "~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary",
           })
         end,
       })
