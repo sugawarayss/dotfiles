@@ -197,7 +197,7 @@ skk:
 # skk 辞書ファイルのユーザ辞書をdumpする
 skk-dump:
   # 上書きする
-  @cp -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/skk-jisyo.utf8 {{pwd}}/HOME/skkeleton/my_dictionary
+  @cp -f ~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary {{pwd}}/HOME/skkeleton/my_dictionary
 
 # ghostty 用設定ファイルを展開
 ghostty:
