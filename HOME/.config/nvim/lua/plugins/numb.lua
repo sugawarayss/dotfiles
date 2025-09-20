@@ -1,7 +1,8 @@
 -- cmdline から行番号でその業をチラ見したりジャンプできるプラグイン
 return {
   "nacro90/numb.nvim",
-  lazy = false,
+  -- lazy = false,
+  event = { "BufReadPost" },
   config = function()
     require("numb").setup({
       show_numbers = true,
