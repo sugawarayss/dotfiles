@@ -39,7 +39,7 @@ return {
     "kevinhwang91/nvim-hlslens",
     enabled = true,
     lazy = true,
-    event = { "BufReadPre" },
+    event = { "BufReadPost" },
     config = function()
       require("hlslens").setup({
         -- 検索結果に対してvirtual text (例[▼ 1/5] )を表示する設定
