@@ -1,7 +1,7 @@
 -- インデントガイドを表示するプラグイン
 return {
   "shellRaining/hlchunk.nvim",
-  event = { "UIEnter" },
+  event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   config = function()
     local color_palette = require("onedark.colors")
     require("hlchunk").setup({
