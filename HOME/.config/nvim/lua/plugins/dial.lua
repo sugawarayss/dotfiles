@@ -6,8 +6,20 @@ return {
     init = function()
       local wk = require("which-key")
       wk.add({
-        { "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" }, desc = "インクリメント" },
-        { "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "v" }, desc = "デクリメント" },
+        {
+          "<C-a>",
+          "<Plug>(dial-increment)",
+          mode = { "n", "v" },
+          icon = "󰐕",
+          desc = "インクリメント",
+        },
+        {
+          "<C-x>",
+          "<Plug>(dial-decrement)",
+          mode = { "n", "v" },
+          icon = "󰍴",
+          desc = "デクリメント",
+        },
       })
     end,
     config = function()
