@@ -4,16 +4,17 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      { "f3fora/cmp-spell" }, -- 英語入力時のスペル補完ソース
-      { "hrsh7th/cmp-nvim-lsp" }, -- LSP補完
-      { "hrsh7th/cmp-buffer" }, -- バッファ補完
-      { "hrsh7th/cmp-path" }, -- パス補完
-      { "hrsh7th/cmp-cmdline" }, -- コマンドライン入力の補完ソース
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+      { "f3fora/cmp-spell", lazy = true }, -- 英語入力時のスペル補完ソース
+      { "hrsh7th/cmp-nvim-lsp", lazy = true }, -- LSP補完
+      { "hrsh7th/cmp-buffer", lazy = true }, -- バッファ補完
+      { "hrsh7th/cmp-path", lazy = true }, -- パス補完
+      { "hrsh7th/cmp-cmdline", lazy = true }, -- コマンドライン入力の補完ソース
+      { "hrsh7th/cmp-nvim-lsp-signature-help", lazy = true },
       -- LSPのtextDocument/documentSymbolから補完
-      { "hrsh7th/cmp-nvim-lsp-document-symbol" },
+      { "hrsh7th/cmp-nvim-lsp-document-symbol", lazy = true },
       {
         "L3MON4D3/LuaSnip",
+        lazy = true,
         version = "v2.*",
         build = "make install_jsregexp",
         config = function()
@@ -23,10 +24,10 @@ return {
           require("luasnip.loaders/from_vscode").lazy_load({ paths = { "./snippets" } })
         end,
       }, -- スニペットエンジン
-      { "saadparwaiz1/cmp_luasnip" }, -- cmp と luasnip の連携
-      { "onsails/lspkind.nvim" },
+      { "saadparwaiz1/cmp_luasnip", lazy = true }, -- cmp と luasnip の連携
+      { "onsails/lspkind.nvim", lazy = true },
       -- treesitterから補完
-      { "ray-x/cmp-treesitter" },
+      { "ray-x/cmp-treesitter", lazy = true },
     },
     keys = {
       -- { "<C-s><C-s>", require("luasnip.loaders").edit_snippet_files, mode = "n", desc = "スニペットを編集" },
