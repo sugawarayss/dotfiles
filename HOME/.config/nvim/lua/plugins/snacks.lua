@@ -557,7 +557,7 @@ if not vim.g.vscode then
         desc = "コマンド履歴を表示",
       },
       {
-        "<leader>n",
+        "<leader>nl",
         function()
           Snacks.picker.notifications()
         end,
@@ -617,7 +617,7 @@ if not vim.g.vscode then
       --   desc = "Gitブランチリストを表示",
       -- },
       {
-        "<leader>gl",
+        ";sgl",
         function()
           Snacks.picker.git_log()
         end,
@@ -629,30 +629,33 @@ if not vim.g.vscode then
         function()
           Snacks.picker.grep_word()
         end,
-        desc = "Visual selection or word",
+        desc = "Visualで選択したワードを検索",
         mode = { "n", "x" },
       },
       -- search
       {
-        "<leader>sr",
+        ";srg",
         function()
           Snacks.picker.registers()
         end,
         desc = "レジスタを検索",
+        mode = { "n" },
       },
       {
-        "<leader>s/",
+        ";s/",
         function()
           Snacks.picker.search_history()
         end,
         desc = "検索履歴を検索",
+        mode = { "n" },
       },
       {
-        "<leader>sa",
+        ";sac",
         function()
           Snacks.picker.autocmds()
         end,
-        desc = "Autocmds",
+        desc = "Autocmd一覧を検索",
+        mode = { "n" },
       },
       {
         "Q",
@@ -660,83 +663,95 @@ if not vim.g.vscode then
           Snacks.picker.commands()
         end,
         desc = "Commandを検索",
+        mode = { "n" },
       },
       {
-        "<leader>sd",
+        ";sld",
         function()
           Snacks.picker.diagnostics()
         end,
         desc = "LSP診断を検索",
+        mode = { "n" },
       },
       {
-        "<leader>sD",
+        ";slD",
         function()
           Snacks.picker.diagnostics_buffer()
         end,
         desc = "バッファ内のLSP診断を検索",
+        mode = { "n" },
       },
       {
-        "<leader>sh",
+        ";sh",
         function()
           Snacks.picker.help()
         end,
         desc = "ヘルプページを検索",
+        mode = { "n" },
       },
       {
-        "<leader>si",
+        ";si",
         function()
           Snacks.picker.icons()
         end,
         desc = "Iconを検索",
+        mode = { "n" },
       },
       {
-        "<leader>sj",
+        ";sj",
         function()
           Snacks.picker.jumps()
         end,
         desc = "ジャンプリストを検索",
+        mode = { "n" },
       },
       {
-        "<leader>skm",
+        ";skm",
         function()
           Snacks.picker.keymaps()
         end,
         desc = "Keymapリストを検索",
+        mode = { "n" },
       },
       {
-        "<leader>sl",
+        ";sll",
         function()
           Snacks.picker.loclist()
         end,
-        desc = "Location List",
+        desc = "Location Listを検索",
+        mode = { "n" },
       },
       {
-        "<leader>sM",
+        ";sM",
         function()
           Snacks.picker.man()
         end,
         desc = "Man ページを検索",
+        mode = { "n" },
       },
       {
-        "<leader>sp",
+        ";spl",
         function()
           Snacks.picker.lazy()
         end,
         desc = "Neovimプラグイン設定を検索",
+        mode = { "n" },
       },
       {
-        "<leader>sq",
+        ";sqf",
         function()
           Snacks.picker.qflist()
         end,
         desc = "Quickfix リストを検索",
+        mode = { "n" },
       },
       {
-        "<leader>su",
+        ";sud",
         function()
           Snacks.picker.undo()
         end,
         desc = "Undo 履歴を検索",
+        mode = { "n" },
       },
       -- LSP
       {
@@ -760,13 +775,15 @@ if not vim.g.vscode then
           Snacks.zen()
         end,
         desc = "Zen モードをトグル",
+        mode = { "n" },
       },
       {
-        "<leader>n",
+        ";snl",
         function()
-          Snacks.notifier.show_history()
+          Snacks.picker("notifications")
         end,
         desc = "通知履歴を表示",
+        mode = { "n" },
       },
       {
         "<leader>dd",
@@ -788,7 +805,8 @@ if not vim.g.vscode then
         function()
           Snacks.lazygit()
         end,
-        desc = "Lazygit()を起動",
+        desc = "Lazygit(Gitクライアント)を起動",
+        mode = { "n" },
       },
       {
         "<leader>gq",
@@ -796,6 +814,7 @@ if not vim.g.vscode then
           Snacks.terminal({ "lazysql" })
         end,
         desc = "Lazysql(SQLクライアント)を起動",
+        mode = { "n" },
       },
       {
         "<leader>gs",
@@ -803,13 +822,7 @@ if not vim.g.vscode then
           Snacks.terminal({ "slumber" })
         end,
         desc = "Slumber(HTTPクライアント)を起動",
-      },
-      {
-        "<leader>un",
-        function()
-          Snacks.notifier.hide()
-        end,
-        desc = "全ての通知を却下する",
+        mode = { "n" },
       },
       {
         "<c-_>",
