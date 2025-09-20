@@ -13,12 +13,14 @@ if not vim.g.vscode then
             "L",
             "<Cmd>BufferLineCycleNext<CR>",
             mode = "n",
+            icon = "",
             desc = "次のバッファを表示",
           },
           {
             "H",
             "<Cmd>BufferLineCyclePrev<CR>",
             mode = "n",
+            icon = "",
             desc = "前のバッファを表示",
           },
         })
