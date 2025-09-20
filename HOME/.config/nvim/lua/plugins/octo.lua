@@ -8,8 +8,8 @@ if not vim.g.vscode then
       init = function()
         local wk = require("which-key")
         wk.add({
-          { "<Leader>sgi", "<cmd>Octo issue search<CR>", mode = { "n" }, icon = "", desc = "GitHub Issueを探す" },
-          { "<Leader>sgp", "<cmd>Octo pr search<CR>", mode = { "n" }, icon = "", desc = "GitHub Pull Requestを探す" },
+          { ";sgi", "<cmd>Octo issue search<CR>", mode = { "n" }, icon = "", desc = "GitHub Issueを探す" },
+          { ";sgp", "<cmd>Octo pr search<CR>", mode = { "n" }, icon = "", desc = "GitHub Pull Requestを探す" },
         })
       end,
       config = function()
