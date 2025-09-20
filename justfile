@@ -163,11 +163,8 @@ starship:
 yazi:
   # yazi の設定ファイル
   @test -L ~/.config/yazi || ln -s {{pwd}}/HOME/.config/yazi ~/.config/yazi
-  # yazi のプラグインとカラーテーマのインストール
-  @ya pack -a yazi-rs/flavors:catppuccin-mocha
-  @ya pack -a h-hg/yamb
-  @ya pack -a yazi-rs/plugins:full-border
-  @ya pack -a Rolv-Apneseth/starship
+  # yazi/package.toml からプラグインをinstall
+  @ya pkg install
 
 # wezterm 用設定ファイルを展開
 wezterm:

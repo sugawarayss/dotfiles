@@ -1,12 +1,12 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "2bf70d8"
-hash = "9dce00232a0e0e2502565c7aa2b0ed4e"
+rev = "d1c8baa"
+hash = "3996fc74044bc44144b323686f887e1"
 
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"
-rev = "6c639b4"
-hash = "5614c46d5de76623c283d415bfac8025"
+rev = "a63550b"
+hash = "c2021386289a0cbb3e152a052f67c177"
 
 [[plugin.deps]]
 use = "h-hg/yamb"
@@ -15,10 +15,10 @@ hash = "7cc42012a7c2099f80064d228feb8d44"
 
 [[flavor.deps]]
 use = "kmlupreti/ayu-dark"
-rev = "5412a78"
-hash = "60690920e8c0f9f81ff02009de5d156f"
+rev = "648a178"
+hash = "1a8af82f6246942bd700316a16c4e14a"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "b929df6"
-hash = "2ac87e1b3a61f5887472899e86535d29"
+rev = "4296a38"
+hash = "deff42490f77b222e9d3a84dc16a76c5"
