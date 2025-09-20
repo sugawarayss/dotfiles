@@ -4,20 +4,20 @@ if not vim.g.vscode then
     {
       "folke/noice.nvim",
       event = { "VeryLazy" },
-      init = function()
-        local wk = require("which-key")
-        wk.add({
-          {
-            "<leader>nl",
-            function()
-              require("noice").cmd("last")
-            end,
-            mode = { "n" },
-            icon = "",
-            desc = "直近の通知を表示",
-          },
-        })
-      end,
+      -- init = function()
+      --   local wk = require("which-key")
+      --   wk.add({
+      --     {
+      --       "<leader>nl",
+      --       function()
+      --         require("noice").cmd("last")
+      --       end,
+      --       mode = { "n" },
+      --       icon = "",
+      --       desc = "直近の通知を表示",
+      --     },
+      --   })
+      -- end,
       config = function()
         vim.opt.cmdheight = 0
         local ok, extui = pcall(require, "vim._extui")
