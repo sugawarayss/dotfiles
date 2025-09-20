@@ -2,7 +2,7 @@
 return {
   {
     "numToStr/Comment.nvim",
-    lazy = false,
+    lazy = true,
     event = { "BufReadPre" },
     opts = {
       padding = true,
