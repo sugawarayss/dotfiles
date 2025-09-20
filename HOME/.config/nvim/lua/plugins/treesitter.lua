@@ -7,10 +7,10 @@ return {
     priority = 1001,
     dependencies = {
       -- 対応するキーワードや記号にジャンプできる
-      { "andymass/vim-matchup" },
-      { "RRethy/nvim-treesitter-textsubjects" },
+      { "andymass/vim-matchup", lazy = true },
+      { "RRethy/nvim-treesitter-textsubjects", lazy = true },
       -- ip() や　ap()のような独自のテキストオブジェクトマッピングを追加する
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/nvim-treesitter-textobjects", lazy = true },
     },
     config = function()
       require("nvim-treesitter.configs").setup({
