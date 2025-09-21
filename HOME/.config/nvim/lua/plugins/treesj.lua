@@ -1,7 +1,7 @@
 -- コードを分割したり結合したりできるようにするプラグイン
 return {
   "Wansmer/treesj",
-  event = "VeryLazy",
+  event = { "BufReadPost", "BufNewFile" },
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   config = function()
     local wk = require("which-key")
