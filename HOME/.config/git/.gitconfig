@@ -38,7 +38,7 @@
     side-by-side  = true
     navigate      = true
 
-[interractive]
+[interactive]
     diffFilter    = delta --color-only
 
 [user]
