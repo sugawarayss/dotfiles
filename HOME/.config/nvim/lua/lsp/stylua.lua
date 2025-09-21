@@ -1,0 +1,22 @@
+return {
+  filetypes = { "lua" },
+  settings = {
+    syntax = "Lua51",
+    -- 1行の文字数上限
+    column_width = 150,
+    -- 改行文字 "Unix"(LF) or "Windows"(CRLF)
+    line_endings = "Unix",
+    -- インデントタイプ "Tabs" or ""Spaces""
+    indent_type = "Spaces",
+    -- インデント幅
+    indent_width = 2,
+    -- クォートスタイル
+    quote_style = "AutoPreferDouble",
+    -- 単一の引数を持つ関数呼出に括弧を適用するか
+    call_parentheses = "Always",
+    -- 関数名と括弧の間にスペースを入れるか
+    space_after_function_names = "Never",
+    -- 単純な文を折りたたむか
+    collapse_simple_statement = "Never",
+  },
+}
