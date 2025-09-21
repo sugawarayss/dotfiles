@@ -141,7 +141,7 @@ if not vim.g.vscode then
         })
         telescope.load_extension("docker")
         telescope.load_extension("bookmarks")
-        telescope.load_extension("rest")
+        -- telescope.load_extension("rest")
         -- キーマップを設定
       end,
     },
