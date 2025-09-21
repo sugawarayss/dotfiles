@@ -17,17 +17,17 @@ if not vim.g.vscode then
             Snacks.debug.backtrace()
           end
           vim.print = _G.dd -- Override print to use snacks for `:=` command
-          -- スペルチェックの有効/無効のトグル
-          Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us", { desc = "スペルチェックの有効/無効のトグル" })
-          -- 行番号の相対表示の有効/無効のトグル
-          Snacks.toggle
-            .option("relativenumber", { name = "Relative Number" })
-            :map("<leader>ul", { desc = "行番号の相対表示の有効/無効のトグル" })
-          -- 診断の有効/無効のトグル
-          Snacks.toggle.diagnostics():map("<leader>ud", { desc = "診断の有効/無効のトグル" })
-          -- インレイヒントの有効/無効のトグル
-          Snacks.toggle.inlay_hints():map("<leader>uh", { desc = "インレイヒントの有効/無効のトグル" })
           -- INFO: 今後使うかもしれないのでコメントアウトして残す
+          -- スペルチェックの有効/無効のトグル
+          --Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us", { desc = "スペルチェックの有効/無効のトグル" })
+          -- 行番号の相対表示の有効/無効のトグル
+          --Snacks.toggle
+          --      .option("relativenumber", { name = "Relative Number" })
+          --      :map("<leader>ul", { desc = "行番号の相対表示の有効/無効のトグル" })
+          -- 診断の有効/無効のトグル
+          --Snacks.toggle.diagnostics():map("<leader>ud", { desc = "診断の有効/無効のトグル" })
+          -- インレイヒントの有効/無効のトグル
+          --Snacks.toggle.inlay_hints():map("<leader>uh", { desc = "インレイヒントの有効/無効のトグル" })
           -- 折り返しのトグル
           -- Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
           -- 行番号表示のトグル
@@ -281,121 +281,11 @@ if not vim.g.vscode then
         win = {
           input = {
             keys = {
-              ["/"] = "toggle_focus",
-              ["<C-Down>"] = { "history_forward", mode = { "i", "n" } },
-              ["<C-Up>"] = { "history_back", mode = { "i", "n" } },
-              ["<C-c>"] = { "cancel", mode = "i" },
-              ["<C-w>"] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "delete word" },
-              ["<CR>"] = { "confirm", mode = { "n", "i" } },
-              ["<Down>"] = { "list_down", mode = { "i", "n" } },
-              ["<Esc>"] = "cancel",
-              ["<S-CR>"] = { { "pick_win", "jump" }, mode = { "n", "i" } },
-              ["<S-Tab>"] = { "select_and_prev", mode = { "i", "n" } },
-              ["<Tab>"] = { "select_and_next", mode = { "i", "n" } },
-              ["<Up>"] = { "list_up", mode = { "i", "n" } },
-              ["<a-d>"] = { "inspect", mode = { "n", "i" } },
-              ["<a-f>"] = { "toggle_follow", mode = { "i", "n" } },
-              ["<a-h>"] = { "toggle_hidden", mode = { "i", "n" } },
-              ["<a-i>"] = { "toggle_ignored", mode = { "i", "n" } },
-              ["<a-m>"] = { "toggle_maximize", mode = { "i", "n" } },
-              ["<a-p>"] = { "toggle_preview", mode = { "i", "n" } },
               -- プレビューへフォーカスを移動
               ["<a-;>"] = { "cycle_win", mode = { "i", "n" } },
-              ["<a-w>"] = nil,
-              ["<c-a>"] = { "select_all", mode = { "n", "i" } },
-              ["<c-b>"] = { "preview_scroll_up", mode = { "i", "n" } },
-              ["<c-d>"] = { "list_scroll_down", mode = { "i", "n" } },
-              ["<c-f>"] = { "preview_scroll_down", mode = { "i", "n" } },
-              ["<c-g>"] = { "toggle_live", mode = { "i", "n" } },
-              ["<c-j>"] = { "list_down", mode = { "i", "n" } },
-              ["<c-k>"] = { "list_up", mode = { "i", "n" } },
-              ["<c-n>"] = { "list_down", mode = { "i", "n" } },
-              ["<c-p>"] = { "list_up", mode = { "i", "n" } },
-              ["<c-q>"] = { "qflist", mode = { "i", "n" } },
-              ["<c-s>"] = { "edit_split", mode = { "i", "n" } },
-              ["<c-t>"] = { "tab", mode = { "n", "i" } },
-              ["<c-t>"] = { "trouble_open", mode = { "n", "i" } },
-              ["<c-u>"] = { "list_scroll_up", mode = { "i", "n" } },
-              ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" } },
-              ["<c-r>#"] = { "insert_alt", mode = "i" },
-              ["<c-r>%"] = { "insert_filename", mode = "i" },
-              ["<c-r><c-a>"] = { "insert_cWORD", mode = "i" },
-              ["<c-r><c-f>"] = { "insert_file", mode = "i" },
-              ["<c-r><c-l>"] = { "insert_line", mode = "i" },
-              ["<c-r><c-p>"] = { "insert_file_full", mode = "i" },
-              ["<c-r><c-w>"] = { "insert_cword", mode = "i" },
-              ["<c-w>H"] = "layout_left",
-              ["<c-w>J"] = "layout_bottom",
-              ["<c-w>K"] = "layout_top",
-              ["<c-w>L"] = "layout_right",
-              ["?"] = "toggle_help_input",
-              ["G"] = "list_bottom",
-              ["gg"] = "list_top",
-              ["j"] = "list_down",
-              ["k"] = "list_up",
-              ["q"] = "close",
               ["<a-s>"] = { "flash", mode = { "n", "i" } },
               ["s"] = { "flash" },
             },
-          },
-        },
-        -- result list window keymap
-        list = {
-          keys = {
-            ["/"] = "toggle_focus",
-            ["<2-LeftMouse>"] = "confirm",
-            ["<CR>"] = "confirm",
-            ["<Down>"] = "list_down",
-            ["<Esc>"] = "cancel",
-            ["<S-CR>"] = { { "pick_win", "jump" } },
-            ["<S-Tab>"] = { "select_and_prev", mode = { "n", "x" } },
-            ["<Tab>"] = { "select_and_next", mode = { "n", "x" } },
-            ["<Up>"] = "list_up",
-            ["<a-d>"] = "inspect",
-            ["<a-f>"] = "toggle_follow",
-            ["<a-h>"] = "toggle_hidden",
-            ["<a-i>"] = "toggle_ignored",
-            ["<a-m>"] = "toggle_maximize",
-            ["<a-p>"] = "toggle_preview",
-            ["<a-;>"] = "cycle_win",
-            ["<a-w>"] = nil,
-            ["<c-a>"] = "select_all",
-            ["<c-b>"] = "preview_scroll_up",
-            ["<c-d>"] = "list_scroll_down",
-            ["<c-f>"] = "preview_scroll_down",
-            ["<c-j>"] = "list_down",
-            ["<c-k>"] = "list_up",
-            ["<c-n>"] = "list_down",
-            ["<c-p>"] = "list_up",
-            ["<c-q>"] = "qflist",
-            ["<c-s>"] = "edit_split",
-            ["<c-t>"] = "tab",
-            ["<c-u>"] = "list_scroll_up",
-            ["<c-v>"] = "edit_vsplit",
-            ["<c-w>H"] = "layout_left",
-            ["<c-w>J"] = "layout_bottom",
-            ["<c-w>K"] = "layout_top",
-            ["<c-w>L"] = "layout_right",
-            ["?"] = "toggle_help_list",
-            ["G"] = "list_bottom",
-            ["gg"] = "list_top",
-            ["i"] = "focus_input",
-            ["j"] = "list_down",
-            ["k"] = "list_up",
-            ["q"] = "close",
-            ["zb"] = "list_scroll_bottom",
-            ["zt"] = "list_scroll_top",
-            ["zz"] = "list_scroll_center",
-          },
-        },
-        -- preview window keymap
-        preview = {
-          keys = {
-            ["<a-;>"] = "cycle_win",
-            ["<a-w>"] = nil,
-            ["<Esc>"] = "cancel",
-            ["q"] = "close",
-            ["i"] = "focus_input",
           },
         },
         actions = {
@@ -536,30 +426,51 @@ if not vim.g.vscode then
         desc = "スマートファイル検索から表示",
       },
       {
-        "<leader>s,",
-        function()
-          Snacks.picker.buffers()
-        end,
-        desc = "バッファリストを表示",
-      },
-      {
         "<F5>",
         function()
           Snacks.picker.grep()
         end,
-        desc = "ファイル内容から表示",
+        desc = "Grep検索を表示",
       },
       {
-        "<leader>s:",
+        "<leader>ff",
+        function()
+          Snacks.picker.files()
+        end,
+        desc = "ファイル名リストを検索",
+      },
+      {
+        "<leader>fr",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "直近開いたファイルリストを表示",
+      },
+      {
+        ";sbuf",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "バッファリストを検索",
+      },
+      {
+        ";sch",
         function()
           Snacks.picker.command_history()
         end,
         desc = "コマンド履歴を表示",
       },
       {
-        "<leader>nl",
+        ";nl",
         function()
           Snacks.picker.notifications()
+        end,
+        desc = "通知履歴リストを検索",
+      },
+      {
+        ";nh",
+        function()
+          Snacks.notifier.show_history()
         end,
         desc = "通知履歴を表示",
       },
@@ -586,36 +497,8 @@ if not vim.g.vscode then
         mode = { "t" },
       },
       -- find
-      {
-        "<leader>fb",
-        function()
-          Snacks.picker.buffers()
-        end,
-        desc = "バッファリストを表示",
-      },
       -- { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Neovim設定ファイルリストを表示" },
-      {
-        "<leader>ff",
-        function()
-          Snacks.picker.files()
-        end,
-        desc = "ファイル名リストを表示",
-      },
-      {
-        "<leader>fr",
-        function()
-          Snacks.picker.recent()
-        end,
-        desc = "直近開いたファイルリストを表示",
-      },
       -- git
-      -- {
-      --   "<leader>gb",
-      --   function()
-      --     Snacks.picker.git_branches()
-      --   end,
-      --   desc = "Gitブランチリストを表示",
-      -- },
       {
         ";sgl",
         function()
@@ -629,8 +512,8 @@ if not vim.g.vscode then
         function()
           Snacks.picker.grep_word()
         end,
-        desc = "Visualで選択したワードを検索",
         mode = { "n", "x" },
+        desc = "Visual Mode で選択した単語でGrep検索",
       },
       -- search
       {
@@ -639,7 +522,6 @@ if not vim.g.vscode then
           Snacks.picker.registers()
         end,
         desc = "レジスタを検索",
-        mode = { "n" },
       },
       {
         ";s/",
@@ -647,63 +529,56 @@ if not vim.g.vscode then
           Snacks.picker.search_history()
         end,
         desc = "検索履歴を検索",
-        mode = { "n" },
       },
       {
         ";sac",
         function()
           Snacks.picker.autocmds()
         end,
-        desc = "Autocmd一覧を検索",
-        mode = { "n" },
+        desc = "Autocmd リストを検索",
       },
       {
         "Q",
         function()
           Snacks.picker.commands()
         end,
-        desc = "Commandを検索",
         mode = { "n" },
+        desc = "Commandを検索",
       },
       {
-        ";sld",
+        ";sd",
         function()
           Snacks.picker.diagnostics()
         end,
         desc = "LSP診断を検索",
-        mode = { "n" },
       },
       {
-        ";slD",
+        ";sD",
         function()
           Snacks.picker.diagnostics_buffer()
         end,
         desc = "バッファ内のLSP診断を検索",
-        mode = { "n" },
       },
       {
-        ";sh",
+        ";shelp",
         function()
           Snacks.picker.help()
         end,
         desc = "ヘルプページを検索",
-        mode = { "n" },
       },
       {
-        ";si",
+        ";sic",
         function()
           Snacks.picker.icons()
         end,
         desc = "Iconを検索",
-        mode = { "n" },
       },
       {
-        ";sj",
+        ";sjl",
         function()
           Snacks.picker.jumps()
         end,
         desc = "ジャンプリストを検索",
-        mode = { "n" },
       },
       {
         ";skm",
@@ -711,15 +586,13 @@ if not vim.g.vscode then
           Snacks.picker.keymaps()
         end,
         desc = "Keymapリストを検索",
-        mode = { "n" },
       },
       {
-        ";sll",
+        ";sl",
         function()
           Snacks.picker.loclist()
         end,
-        desc = "Location Listを検索",
-        mode = { "n" },
+        desc = "Location リストを検索",
       },
       {
         ";sM",
@@ -727,7 +600,6 @@ if not vim.g.vscode then
           Snacks.picker.man()
         end,
         desc = "Man ページを検索",
-        mode = { "n" },
       },
       {
         ";spl",
@@ -735,7 +607,6 @@ if not vim.g.vscode then
           Snacks.picker.lazy()
         end,
         desc = "Neovimプラグイン設定を検索",
-        mode = { "n" },
       },
       {
         ";sqf",
@@ -743,7 +614,6 @@ if not vim.g.vscode then
           Snacks.picker.qflist()
         end,
         desc = "Quickfix リストを検索",
-        mode = { "n" },
       },
       {
         ";sud",
@@ -751,7 +621,6 @@ if not vim.g.vscode then
           Snacks.picker.undo()
         end,
         desc = "Undo 履歴を検索",
-        mode = { "n" },
       },
       -- LSP
       {
@@ -759,32 +628,23 @@ if not vim.g.vscode then
         function()
           Snacks.picker.lsp_symbols()
         end,
-        desc = "LSP Symbols",
+        desc = "バッファ内の LSP シンボルを検索",
       },
       {
         "<leader>sS",
         function()
           Snacks.picker.lsp_workspace_symbols()
         end,
-        desc = "LSP Workspace Symbols",
+        desc = "ワークスペース内の LSP シンボルを検索",
       },
       -- Other
-      {
-        "<leader>z",
-        function()
-          Snacks.zen()
-        end,
-        desc = "Zen モードをトグル",
-        mode = { "n" },
-      },
-      {
-        ";snl",
-        function()
-          Snacks.picker("notifications")
-        end,
-        desc = "通知履歴を表示",
-        mode = { "n" },
-      },
+      --{
+      --  "<leader>z",
+      --  function()
+      --    Snacks.zen()
+      --  end,
+      --  desc = "Zen モードをトグル",
+      --},
       {
         "<leader>dd",
         function()
@@ -806,7 +666,6 @@ if not vim.g.vscode then
           Snacks.lazygit()
         end,
         desc = "Lazygit(Gitクライアント)を起動",
-        mode = { "n" },
       },
       {
         "<leader>gq",
@@ -814,7 +673,6 @@ if not vim.g.vscode then
           Snacks.terminal({ "lazysql" })
         end,
         desc = "Lazysql(SQLクライアント)を起動",
-        mode = { "n" },
       },
       {
         "<leader>gs",
@@ -822,31 +680,23 @@ if not vim.g.vscode then
           Snacks.terminal({ "slumber" })
         end,
         desc = "Slumber(HTTPクライアント)を起動",
-        mode = { "n" },
       },
-      {
-        "<c-_>",
-        function()
-          Snacks.terminal()
-        end,
-        desc = "which_key_ignore",
-      },
-      {
-        "]]",
-        function()
-          Snacks.words.jump(vim.v.count1)
-        end,
-        desc = "Next Reference",
-        mode = { "n", "t" },
-      },
-      {
-        "[[",
-        function()
-          Snacks.words.jump(-vim.v.count1)
-        end,
-        desc = "Prev Reference",
-        mode = { "n", "t" },
-      },
+      --{
+      --  "]]",
+      --  function()
+      --    Snacks.words.jump(vim.v.count1)
+      --  end,
+      --  desc = "Next Reference",
+      --  mode = { "n", "t" },
+      --},
+      --{
+      --  "[[",
+      --  function()
+      --    Snacks.words.jump(-vim.v.count1)
+      --  end,
+      --  desc = "Prev Reference",
+      --  mode = { "n", "t" },
+      --},
     },
   }
 else
