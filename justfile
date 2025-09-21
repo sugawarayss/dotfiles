@@ -211,6 +211,11 @@ zellij:
   # zellij-what-time.wasmのインストール
   @curl -L "https://github.com/pirafrank/zellij-what-time/releases/latest/download/zellij-what-time.wasm" -o {{pwd}}/HOME/.config/zellij/plugins/zellij-what-time.wasm
 
+# borders 用設定ファイルを展開
+borders:
+  @test -d ~/.config/borders || ln -s {{pwd}}/HOME/.config/borders ~/.config/borders
+  # @brew services restart borders
+
 # zed 用設定ファイルを展開
 zed:
   # zed 設定ファイルを展開
