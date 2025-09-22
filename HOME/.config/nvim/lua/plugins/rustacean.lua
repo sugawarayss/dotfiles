@@ -9,7 +9,8 @@ return {
       test_executor = "neotest",
       enable_clippy = true,
       hover_actions = {
-        replace_builtin_hover = true,
+        -- Lspsaga と内容が重複して表示されてしまうので、こっちでは無効にする
+        replace_builtin_hover = false,
       },
       float_win_config = {
         auto_focus = true,
