@@ -69,7 +69,7 @@ return {
       -- Override highlight groups
       highlights = {
         -- 対応する括弧のハイライト
-        MatchParen = { bg = "#37383d" },
+        MatchParen = { bg = "#2c2d31" },
         -- Flashによるジャンプや置換対象のハイライト
         Substitute = { fg = "#232326", bg = "#8fb573", fmt = "bold" },
         -- hop.nvimのラベル色
