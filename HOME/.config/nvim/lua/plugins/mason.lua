@@ -24,8 +24,7 @@ local lsp_servers = {
   -- lua
   "lua_ls",
   -- deno
-  -- FIXME: ts_lsとの共存方法を考える
-  -- "denols",
+  "denols",
   -- php
   "intelephense",
   -- kotlin
@@ -172,9 +171,28 @@ return {
           [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
         },
       })
+      -- ts_ls と denols は package.jsonの有無で 起動しわける
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("LspStartNodeOrDeno", { clear = true }),
+        callback = function(ctx)
+          if
+            not vim.tbl_contains({ "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }, ctx.match)
+          then
+            return
+          end
+          -- node
+          if vim.fn.findfile("package.json", ".;") ~= "" then
+            vim.lsp.config("ts_ls", require("lsp.ts_ls"))
+            vim.lsp.enable("ts_ls")
+            return
+          end
+          -- deno
+          vim.lsp.config("denols", require("lsp.denols"))
+          vim.lsp.enable("denols")
+        end,
+      })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
-        -- FIXME: tyだけvim.lsp.configが効かない？
         if server == "ty" then
           vim.lsp.config(server, {
             settings = {
@@ -192,7 +210,9 @@ return {
           local target_config = require("lsp." .. server)
           vim.lsp.config(server, target_config)
         end
-        vim.lsp.enable(server)
+        if not server == "ts_ls" and not server == "denols" then
+          vim.lsp.enable(server)
+        end
       end
     end,
   },
