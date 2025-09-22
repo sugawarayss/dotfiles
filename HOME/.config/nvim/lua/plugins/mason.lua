@@ -184,11 +184,13 @@ return {
           if vim.fn.findfile("package.json", ".;") ~= "" then
             vim.lsp.config("ts_ls", require("lsp.ts_ls"))
             vim.lsp.enable("ts_ls")
+            vim.notify("LSP: ts_ls enabled!")
             return
           end
           -- deno
           vim.lsp.config("denols", require("lsp.denols"))
           vim.lsp.enable("denols")
+          vim.notify("LSP: denols enabled!")
         end,
       })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
@@ -211,7 +213,6 @@ return {
           vim.lsp.config(server, target_config)
         end
         if server ~= "ts_ls" and server ~= "denols" then
-          vim.notify(server .. " Enable!")
           vim.lsp.enable(server)
         end
       end
