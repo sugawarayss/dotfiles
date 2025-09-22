@@ -210,7 +210,8 @@ return {
           local target_config = require("lsp." .. server)
           vim.lsp.config(server, target_config)
         end
-        if not server == "ts_ls" and not server == "denols" then
+        if server ~= "ts_ls" and server ~= "denols" then
+          vim.notify(server .. " Enable!")
           vim.lsp.enable(server)
         end
       end
