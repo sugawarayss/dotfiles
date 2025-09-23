@@ -48,7 +48,7 @@ if not vim.g.vscode then
     opts = {
       -- アニメーションライブラリ
       animate = {
-        enabled = true,
+        enabled = false,
         duration = 20,
         easing = "linear",
         fps = 60,
@@ -74,8 +74,11 @@ if not vim.g.vscode then
           header = tool_logo.random_logo(),
         },
         sections = {
+          -- ヘッダ
           { section = "header" },
+          -- ファイルアクセス
           { section = "keys", gap = 1, padding = 1 },
+          -- GitHubをBrowserで開く
           {
             pane = 2,
             icon = " ",
@@ -88,7 +91,16 @@ if not vim.g.vscode then
           },
           function()
             local in_git = Snacks.git.get_root() ~= nil
+            -- gh コマンドの存在確認
+            local gh_available = vim.fn.executable("gh") == 1
+            if not gh_available then
+              return {}
+            end
+            -- ネットワーク接続チェック（オプション）
+            -- local is_online = vim.fn.system("ping -c 1 github.com 2>/dev/null"):find("1 received") ~= nil
+
             local cmds = {
+              -- GitHubアカウントの最新5件の通知を表示
               {
                 title = "Notifications",
                 cmd = "gh notify -s -a -n5",
@@ -98,8 +110,9 @@ if not vim.g.vscode then
                 key = "N",
                 icon = " ",
                 height = 5,
-                enabled = true,
+                enabled = in_git and gh_available,
               },
+              -- リポジトリの最新3件のIssueを表示
               {
                 title = "Open Issues",
                 cmd = "gh issue list -L 3",
@@ -109,7 +122,9 @@ if not vim.g.vscode then
                 end,
                 icon = " ",
                 height = 7,
+                enabled = in_git and gh_available,
               },
+              -- リポジトリの最新3件のPullRequestを表示
               {
                 icon = " ",
                 title = "Open PRs",
@@ -119,26 +134,29 @@ if not vim.g.vscode then
                   vim.fn.jobstart("gh pr list --web", { detach = true })
                 end,
                 height = 7,
+                enabled = in_git and gh_available,
               },
+              -- ローカルリポジトリの差分状況を表示
               {
                 icon = " ",
                 title = "Git Status",
                 cmd = "git --no-pager diff --stat -B -M -C",
                 height = 10,
+                enabled = in_git and gh_available,
               },
             }
             return vim.tbl_map(function(cmd)
               return vim.tbl_extend("force", {
                 pane = 2,
                 section = "terminal",
-                enabled = in_git,
+                enabled = cmd.enabled or false,
                 padding = 1,
                 ttl = 5 * 60,
                 indent = 3,
               }, cmd)
             end, cmds)
           end,
-          { section = "startup" },
+          -- { section = "startup" },
         },
       },
       -- カーソルのあるスコープ以外を暗く表示する
