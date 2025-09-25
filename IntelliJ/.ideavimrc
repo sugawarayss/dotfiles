@@ -182,30 +182,33 @@ noremap RC :action ChooseRunConfiguration<CR>
 
 " easymotion plugin
 "Plug easymotion/vim-easymotion
-"set easymotion
+set easymotion
 " デフォルトのキーマップを無効化
-"let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_do_mapping = 0
 " 大文字小文字を区別しない
-"let g:EasyMotion_smartcase = 1
+let g:EasyMotion_smartcase = 1
 
 " カーソル以降の単語の先頭にジャンプ
-"nmap <Leader>w <Plug>(easymotion-wl)
+nmap <Leader>w <Plug>(easymotion-w)
 " カーソル以前の単語の先頭にジャンプ
-"nmap <Leader>b <Plug>(easymotion-bl)
+nmap <Leader>b <Plug>(easymotion-b)
 " カーソル以降の単語の末尾にジャンプ
-"nmap <Leader>e <Plug>(easymotion-el)
+nmap <Leader>e <Plug>(easymotion-e)
 " カーソル以前の単語の末尾にジャンプ
-"nmap <Leader>ge <Plug>(easymotion-ge)
+nmap <Leader>ge <Plug>(easymotion-ge)
 " カーソル以降の行の先頭にジャンプ
-"nmap <Leader>j <Plug>(easymotion-j)
+nmap <Leader>j <Plug>(easymotion-j)
 " カーソル以前の行の先頭にジャンプ
-"nmap <Leader>k <Plug>(easymotion-k)
+nmap <Leader>k <Plug>(easymotion-k)
 
 " vim-flash plugin
 " NOTE: require install 'vim-flash' plugin by plugin marketplace
-set vim-flash
-nmap s <Action>(flash.search)
-xmap s <Action>(flash.search)
+" nmap s <Action>(flash.search)
+" set vim-flash
+" nmap s <Action>(flash.search)
+" xmap s <Action>(flash.search)
+nmap S <Action>(flash.treesitter)
+xmap S <Action>(flash.treesitter)
 " enhance vim f (find for char in characters to the right of the current cursor)
 nmap f <Action>(flash.find)
 xmap f <Action>(flash.find)
