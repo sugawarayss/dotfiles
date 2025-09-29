@@ -68,7 +68,7 @@ if not vim.g.vscode then
         enabled = true,
         -- need install colorscript
         -- https://gitlab.com/dwt1/shell-color-scripts
-        width = 117,
+        width = 130,
         preset = {
           --ランダムなロゴを表示する
           header = tool_logo.random_logo(),

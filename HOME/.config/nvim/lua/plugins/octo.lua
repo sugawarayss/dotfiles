@@ -14,6 +14,7 @@ if not vim.g.vscode then
       end,
       config = function()
         require("octo").setup({
+          picker = "snacks", -- "telescope" or "fzf-lua"
           suppress_missing_scope = {
             projects_v2 = true,
           },

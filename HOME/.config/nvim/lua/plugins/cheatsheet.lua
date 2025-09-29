@@ -2,6 +2,7 @@
 return {
   {
     "sudormrfbin/cheatsheet.nvim",
+    enabled = false,
     lazy = true,
     -- キーが押された時にロードする
     keys = {

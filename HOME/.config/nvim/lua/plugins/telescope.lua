@@ -3,6 +3,7 @@ if not vim.g.vscode then
   return {
     {
       "nvim-telescope/telescope.nvim",
+      enabled = false,
       lazy = false,
       init = function()
         local wk = require("which-key")
