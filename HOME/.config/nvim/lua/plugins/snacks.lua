@@ -556,7 +556,7 @@ if not vim.g.vscode then
         desc = "Autocmd リストを検索",
       },
       {
-        "Q",
+        ";scm",
         function()
           Snacks.picker.commands()
         end,
