@@ -4,7 +4,7 @@ if not vim.g.vscode then
     {
       "pwntester/octo.nvim",
       enabled = true,
-      event = { "VeryLazy" },
+      cmd = { "Octo" },
       init = function()
         local wk = require("which-key")
         wk.add({
