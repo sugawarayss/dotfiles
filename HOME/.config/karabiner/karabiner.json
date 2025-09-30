@@ -33,16 +33,19 @@
             ]
           },
           {
-            "description": "[JetBrainsIDE]escキーを押したときに、英数キーも送信する（vim用）",
+            "description": "escキーを押したときに、入力モードを英語(macSKK)にする",
             "manipulators": [
               {
                 "conditions": [
                   {
-                    "bundle_identifiers": [
-                      "^com\\.jetbrains\\.pycharm$",
-                      "^com\\.jetbrains\\.intellij$"
+                    "input_sources": [
+                      {
+                        "input_mode_id": "net.mtgto.inputmethod.macSKK.hiragana",
+                        "input_source_id": "net.mtgto.inputmethod.macSKK.hiragana",
+                        "language": "ja"
+                      }
                     ],
-                    "type": "frontmost_application_if"
+                    "type": "input_source_if"
                   }
                 ],
                 "from": {
@@ -53,7 +56,10 @@
                     "key_code": "escape"
                   },
                   {
-                    "key_code": "japanese_eisuu"
+                    "select_input_source": {
+                      "input_source_id": "com.apple.keylayout.ABC",
+                      "language": "en"
+                    }
                   }
                 ],
                 "type": "basic"
