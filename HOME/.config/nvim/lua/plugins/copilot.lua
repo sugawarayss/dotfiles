@@ -1,6 +1,7 @@
 -- Github copilot
 return {
   "zbirenbaum/copilot.lua",
+  enabled = false,
   event = { "InsertEnter" },
   config = function()
     require("copilot").setup({
