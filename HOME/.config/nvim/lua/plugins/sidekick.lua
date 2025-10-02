@@ -6,6 +6,29 @@ return {
       backend = "zellij",
       enabled = true,
     },
+    prompts = {
+      explain = "コードの解説",
+      diagnostics = {
+        msg = "このファイルの診断はどう対処すべき?",
+        diagnostics = true,
+      },
+      diagnostics_all = {
+        msg = "これらの診断結果の対応を補助してください",
+        diagnostics = { all = true },
+      },
+      fix = {
+        msg = "このコードの問題を修正してください",
+        diagnostics = true,
+      },
+      review = {
+        msg = "このコードをよくレビューして、問題点や改善点を挙げてください",
+        diagnostics = true,
+      },
+      optimize = "このコードをoptimizeしてください",
+      tests = "このコードのテストを実装してください",
+      file = { location = { row = false, col = false } },
+      position = {},
+    },
   },
   keys = {
     {
