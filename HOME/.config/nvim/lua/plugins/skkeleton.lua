@@ -34,18 +34,19 @@ return {
         end,
       })
 
+      local color_palette = require("onedark.colors")
       -- 英字モードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg = "#ebcb8b", bg = "#2e3440" })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg = color_palette.yellow, bg = color_palette.bg_d })
       -- ひらがなモードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg = "#88c0d0", bg = "#2e3440" })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg = color_palette.blue, bg = color_palette.bg_d })
       -- カタカナモードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg = "#2e3440", bg = "#ebcb8b" })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg = color_palette.green, bg = color_palette.bg_d })
       -- 半角カタカナモードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankata", { fg = "#2e3440", bg = "#b48ead" })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankata", { fg = color_palette.purple, bg = color_palette.bg_d })
       -- 全角モードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg = "#2e3440", bg = "#88c0d0" })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg = color_palette.cyan, bg = color_palette.bg_d })
       -- 全角英字モードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorAbbrev", { fg = "#e5e9f0", bg = "#bf616a" })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorAbbrev", { fg = color_palette.red, bg = color_palette.bg_d })
 
       require("skkeleton_indicator").setup({
         -- 英字モードのハイライトグループを指定
