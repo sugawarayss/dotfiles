@@ -264,6 +264,10 @@ apps:
   @duti -s dev.zed.Zed .yaml all
   @duti -s dev.zed.Zed .fish all
 
+# glide browserの設定
+glide:
+  @test -L ~/.config/glide || ln -s {{pwd}}/HOME/.config/glide ~/.config/glide
+
 # OSの設定、ツールのインストール
 initial: system-preferences brew-restore 
 
