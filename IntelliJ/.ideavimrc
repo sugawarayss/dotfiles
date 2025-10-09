@@ -52,11 +52,11 @@ set hlsearch
 " Escの2回押しでハイライト消去
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 " ファイルの構造をポップアップ画面で表示する
-nnoremap <Leader>aa :action FileStructurePopup<CR>
+"nnoremap <Leader>aa :action FileStructurePopup<CR>
 " 最近開いたファイル一覧ポップアップを表示する
-nnoremap ,r :action RecentFiles<CR>
+"nnoremap ,r :action RecentFiles<CR>
 " 呼び出し階層一覧viewを表示
-nnoremap ,c :action CallHierarchy<CR>
+"nnoremap ,c :action CallHierarchy<CR>
 
 " ProjectWindowを表示
 nnoremap <C-t><C-t> :action ActivateProjectToolWindow<CR>
@@ -146,10 +146,10 @@ nnoremap <C-l> :action MoveTabRight<CR>
 " 垂直分割(左)
 nnoremap <C-h> :action MoveTabLeft<CR>
 " フォーカス移動
-nnoremap <M-l> <C-w>l
-nnoremap <M-k> <C-w>k
-nnoremap <M-j> <C-w>j
-nnoremap <M-h> <C-w>h
+nnoremap <Leader>l <C-w>l
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>h <C-w>h
 
 " フォーカスを持つエディタタブを他のタブ分割グループに移動
 noremap <C-M>o :action MoveEditorToOppositeTabGroup<CR>
@@ -197,9 +197,9 @@ nmap <Leader>e <Plug>(easymotion-e)
 " カーソル以前の単語の末尾にジャンプ
 nmap <Leader>ge <Plug>(easymotion-ge)
 " カーソル以降の行の先頭にジャンプ
-nmap <Leader>j <Plug>(easymotion-j)
+"nmap <Leader>j <Plug>(easymotion-j)
 " カーソル以前の行の先頭にジャンプ
-nmap <Leader>k <Plug>(easymotion-k)
+"nmap <Leader>k <Plug>(easymotion-k)
 
 " vim-flash plugin
 " NOTE: require install 'vim-flash' plugin by plugin marketplace
