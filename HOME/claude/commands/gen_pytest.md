@@ -27,11 +27,11 @@ pytest を用いたユニットテストを実装する。
     - 想定の範囲外である値の組み合わせパターンで、エラーが発生することを確認するテストケース群とする。
     - テスト関数にはdocstringに`異常系:`から始まるテスト内容を端的に表すコメントを記載すること
 - データベースや、外部のAPIを呼出し等 を行う実装は必ずモックを使用すること。
-  - モックには `pytest-mock`のみを利用すること。
+  - モックには [`pytest-mock`](https://pytest-mock.readthedocs.io/en/latest/usage.html)のみを利用すること。
   - httpリクエストのモックには `pytest-httpserver` を利用すること。
-- 日付を固定する必要がある場合は `pytest-freezer` のみを利用すること。
-  - `freezer` fixtureを引数に受け取り、`freezer.move_to()` で日時を固定する
-  - 文字列形式の日時指定も可能（"YYYY-MM-DD" または "YYYY-MM-DD HH:MM:SS"）
+- 日付を固定する必要がある場合は `freezegun` のみを利用すること。
+  - freezegunの[ドキュメント](https://github.com/spulec/freezegun/blob/master/README.rst)を参考にする
+  - freezegun.freeze_time("2012-01-14")` のように使用して日時を固定する
 - 引数の値の範囲が複数考えられる場合は、上限または下限等の境界値近辺の値をテストすること。
   - `@pytest.mark.parametrize` を利用して、1つのテスト関数で複数ケースを表現すること。
 
