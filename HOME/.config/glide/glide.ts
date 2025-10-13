@@ -16,3 +16,9 @@
 //
 // Try typing `glide.` and see what you can do!
 
+glide.keymaps.set("normal", "<space>cr", "config_reload");
+// Shift + Command + c で URL コピー
+glide.keymaps.set("normal", "<S-D-c>", "url_yank");
+// Shift + h, Shift + l でタブ移動
+glide.keymaps.set("normal", "<S-h>", "tab_next");
+glide.keymaps.set("normal", "<S-l>", "tab_prev");
