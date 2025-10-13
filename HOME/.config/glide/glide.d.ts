@@ -1,5 +1,5 @@
 /* ======================================================
-                Glide version: 0.1.51a
+                Glide version: 0.1.52a
    ====================================================== */
 
 declare const GLIDE_EXCOMMANDS: [
@@ -722,6 +722,12 @@ declare global {
 			 * but returns the first tab instead of an Array.
 			 */
 			get_first(query: Browser.Tabs.QueryQueryInfoType): Promise<Browser.Tabs.Tab | undefined>;
+			/**
+			 * Gets all tabs that have the specified properties, or all tabs if no properties are specified.
+			 *
+			 * This is the same API as [browser.tabs.get](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/query),
+			 */
+			query(query: Browser.Tabs.QueryQueryInfoType): Promise<Browser.Tabs.Tab[]>;
 		};
 		excmds: {
 			/**
@@ -10479,7 +10485,7 @@ declare global {
 				 * first tab in the array instead.
 				 * @param options Optional.
 				 */
-				moveInSuccession(tabIds: number[], tabId?: number, options?: MoveInSuccessionOptionsType): void;
+				moveInSuccession(tabIds: number[], tabId?: number, options?: MoveInSuccessionOptionsType): Promise<void>;
 				/**
 				 * Navigate to next page in tab's history, if available
 				 *
@@ -10501,7 +10507,7 @@ declare global {
 				 *
 				 * @param tabIds The tab ID or list of tab IDs to remove from their respective groups.
 				 */
-				ungroup(tabIds: number | number[]): void;
+				ungroup(tabIds: number | number[]): Promise<void>;
 				/**
 				 * Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired,
 				 * but you can listen to onUpdated events to be notified when a URL is set.
