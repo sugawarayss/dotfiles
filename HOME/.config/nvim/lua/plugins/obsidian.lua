@@ -4,8 +4,11 @@ return {
   "obsidian-nvim/obsidian.nvim",
   version = "*",
   lazy = true,
-  ft = "markdown",
   cmd = { "Obsidian" },
+  event = {
+    "BufReadPre " .. vim.fn.expand("~") .. "/PROJECTS/sugawarayss/obsidian_notes/*.md",
+    "BufNewFile " .. vim.fn.expand("~") .. "/PROJECTS/sugawarayss/obsidian_notes/*.md",
+  },
   keys = {
     {
       ";son",
