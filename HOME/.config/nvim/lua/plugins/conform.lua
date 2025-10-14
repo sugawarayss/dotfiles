@@ -8,6 +8,7 @@ return {
       pattern = "*",
       callback = function(args)
         require("conform").format({ bufnr = args.buf })
+        vim.notify("Conform.nvim run Format!")
       end,
     })
     require("conform").setup({
@@ -30,6 +31,25 @@ return {
         lsp_format = "fallback",
       },
     })
+    -- require("conform").formatters.ruff_fix = {
+    --   append_args = {
+    --     "--config",
+    --     "pyproject.toml",
+    --   },
+    -- }
+    -- require("conform").formatters.ruff_format = {
+    --   append_args = {
+    --     "--config",
+    --     "pyproject.toml",
+    --   },
+    -- }
+    -- require("conform").formatters.ruff_organize_imports = {
+    --   append_args = {
+    --     "--config",
+    --     "pyproject.toml",
+    --   },
+    -- }
+
     -- require("conform").formatters.stylua = {
     --   prepend_args = {
     --     "--config-path",
