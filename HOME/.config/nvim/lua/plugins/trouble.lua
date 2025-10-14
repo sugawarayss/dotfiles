@@ -5,6 +5,7 @@ return {
   dependencies = {
     "kyazdani42/nvim-web-devicons",
   },
+  cmd = "Trouble",
   init = function()
     local wk = require("which-key")
     wk.add({
