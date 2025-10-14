@@ -10,7 +10,7 @@ return {
         -- ワークスペース内に存在する設定ファイル(ruff.toml/pyproject.toml)を以下の設定より優先する
         configurationPreference = "filesystemFirst",
         -- リンティングとフォーマットから除外するファイルパターンリスト
-        exclude = { "**/tests/**", "**/migrations/**" },
+        exclude = { "**/migrations/**" },
         -- lint/format 時の1行の長さ
         lineLength = 150,
         -- import 文のソートをコードアクションに追加
