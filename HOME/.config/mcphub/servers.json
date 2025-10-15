@@ -1,26 +1,17 @@
 {
   "mcpServers": {
-    "aws-documentation-mcp-server": {
+    "aws-knowledge-mcp-server": {
       "args": [
-        "awslabs.aws-documentation-mcp-server@latest"
+        "fastmcp",
+        "run",
+        "https://knowledge-mcp.global.api.aws"
       ],
       "autoApprove": [
-        "read_documentation",
-        "search_documentation",
-        "recommend"
-      ],
-      "command": "uvx",
-      "disabled": true,
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      }
-    },
-    "fetch": {
-      "args": [
-        "mcp-server-fetch"
-      ],
-      "autoApprove": [
-        "fetch"
+        "aws___search_documentation",
+        "aws___recommend",
+        "aws___read_documentation",
+        "aws___get_regional_availability",
+        "aws___list_regions"
       ],
       "command": "uvx"
     },
@@ -88,7 +79,9 @@
         "insert_after_symbol",
         "insert_before_symbol",
         "replace_symbol_body",
-        "think_about_whether_you_are_done"
+        "think_about_whether_you_are_done",
+        "check_onboarding_performed",
+        "get_current_config"
       ],
       "command": "uvx"
     },
@@ -100,28 +93,12 @@
       "autoApprove": [
         "tavily-search",
         "tavily-map",
-        "tavily-extract"
+        "tavily-extract",
+        "tavily-crawl"
       ],
       "command": "npx",
       "env": {
         "TAVILY_API_KEY": ""
-      }
-    },
-    "terraform-mcp-server": {
-      "args": [
-        "awslabs.terraform-mcp-server@latest"
-      ],
-      "autoApprove": [
-        "SearchUserProvidedModule",
-        "SearchSpecificAwsIaModules",
-        "SearchAwsccProviderDocs",
-        "SearchAwsProviderDocs"
-      ],
-      "command": "uvx",
-      "disabled": true,
-      "disabled_resources": [],
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
       }
     }
   },
