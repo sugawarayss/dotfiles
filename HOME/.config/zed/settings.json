@@ -7,6 +7,89 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "context_servers": {
+    "terraform-mcp-server": {
+      "source": "custom",
+      "enabled": true,
+      "command": "uvx",
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "aws-knowledge-mcp-server": {
+      "args": [
+        "fastmcp",
+        "run",
+        "https://knowledge-mcp.global.api.aws"
+      ],
+      "autoApprove": [
+        "aws___search_documentation",
+        "aws___recommend",
+        "aws___read_documentation",
+        "aws___get_regional_availability",
+        "aws___list_regions"
+      ],
+      "command": "uvx"
+    },
+    "tavily": {
+      "source": "custom",
+      "enabled": true,
+      "command": "npx",
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ],
+      "env": {
+        "TAVILY_API_KEY": ""
+      }
+    },
+    "serena": {
+      "source": "custom",
+      "enabled": true,
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ]
+    },
+    "sequentialthinking": {
+      "source": "custom",
+      "enabled": true,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "filesystem": {
+      "source": "custom",
+      "enabled": true,
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${ALLOWED_DIRECTORY}"
+      ],
+      "env": {
+        "ALLOWED_DIRECTORY": "~/PROJECTS/"
+      }
+    },
+    "fetch": {
+      "source": "custom",
+      "enabled": true,
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    },
+  },
   "agent": {
     "default_model": {
       "provider": "copilot_chat",
@@ -36,7 +119,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Mocha - No Italics"
+    "dark": "One Dark Pro"
   },
   // アイコンテーマ(extension のインストールが必要)
   "icon_theme": {
