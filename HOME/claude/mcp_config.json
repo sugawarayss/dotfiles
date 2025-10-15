@@ -81,6 +81,22 @@
         "onboarding",
         "search_for_pattern"
       ]
+    },
+    "tavily": {
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ],
+      "autoApprove": [
+        "tavily-search",
+        "tavily-map",
+        "tavily-extract",
+        "tavily-crawl"
+      ],
+      "command": "npx",
+      "env": {
+        "TAVILY_API_KEY": ""
+      }
     }
   }
 }
