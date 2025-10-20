@@ -2,7 +2,7 @@ return {
   -- w/bモーションでの移動をスマートにする
   {
     "kana/vim-smartword",
-    lazy = true,
+    lazy = false,
     event = { "BufReadPre" },
     keys = {
       { "w", "<Plug>(smartword-w)", mode = "n", desc = "前方の単語の先頭に移動" },
