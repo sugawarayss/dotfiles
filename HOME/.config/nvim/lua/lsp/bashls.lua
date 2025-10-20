@@ -1,4 +1,4 @@
 return {
-  filetypes = { "sh", "zsh" },
+  filetypes = { "sh", "zsh", "bash" },
   settings = {},
 }
