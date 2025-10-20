@@ -31,7 +31,9 @@ local lsp_servers = {
   -- kotlin
   "kotlin_language_server",
   -- dockerfile
-  "dockerls",
+  -- "dockerls",
+  -- docker-compose
+  "docker_language_server",
   -- yaml
   "yamlls",
   -- json
@@ -167,11 +169,14 @@ return {
         ensure_installed = vim.tbl_flatten({ formatters, diagnostics, dap_adapters }),
       })
 
-      vim.filetype.add({
-        pattern = {
-          [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
-        },
-      })
+      -- vim.filetype.add({
+      --   pattern = {
+      --     ["compose.*%ya?ml"] = "yaml.docker-compose",
+      --     ["dockier%-compose.*%.ya?ml"] = "yaml.docker-compose",
+      --     [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
+      --     ["%.env.*"] = "sh.env",
+      --   },
+      -- })
       -- ts_ls と denols は package.jsonの有無で 起動しわける
       vim.api.nvim_create_autocmd("FileType", {
         group = vim.api.nvim_create_augroup("LspStartNodeOrDeno", { clear = true }),

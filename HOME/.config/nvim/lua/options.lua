@@ -54,6 +54,15 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+--
+vim.filetype.add({
+  pattern = {
+    ["compose.*%.ya?ml"] = "yaml.docker-compose",
+    ["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
+    [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
+    ["%.env.*"] = "sh.env",
+  },
+})
 -- vim.diagnostic.config({
 --   float = {
 --     scope = "line",
