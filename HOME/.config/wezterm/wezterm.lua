@@ -37,7 +37,7 @@ config.use_fancy_tab_bar = true
 
 -- カラーテーマ
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "One Dark (Gogh)"
+config.color_scheme = "One Half Black (Gogh)"
 -- 背景の透過度
 config.window_background_opacity = 0.9
 -- 背景のぼかし
