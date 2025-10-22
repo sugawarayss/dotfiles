@@ -54,7 +54,7 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
---
+-- 独自のfiletypeを定義する
 vim.filetype.add({
   pattern = {
     ["compose.*%.ya?ml"] = "yaml.docker-compose",
@@ -63,22 +63,6 @@ vim.filetype.add({
     ["%.env.*"] = "sh.env",
   },
 })
--- vim.diagnostic.config({
---   float = {
---     scope = "line",
---     border = "double",
---     format = function(diagnostic)
---       -- diagnostic.source と diagnositc.code が nil でない場合のみカスタマイズする
---       if diagnostic.source ~= nil then
---         if diagnostic.code ~= nil then
---           return string.format("[%s] (%s) %s", diagnostic.source, diagnostic.code, diagnostic.message)
---         end
---         return string.format("[%s] %s", diagnostic.source, diagnostic.message)
---       end
---       return string.format(base_format, diagnostic.source, diagnostic.code, diagnostic.message)
---     end,
---   },
--- })
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
