@@ -1,6 +1,7 @@
 return {
   "nekowasabi/hellshake-yano.vim",
-  enabled = true,
+  enabled = false,
+  dependencies = { "vim-denops/denops.vim" },
   event = { "VimEnter" },
   config = function()
     local color_palette = require("onedark.colors")
@@ -37,8 +38,14 @@ return {
       -- ハイライトを有効にする
       enableHighlight = true,
       -- 現在のヒントマーカーのハイライト
-      highlightHintMarker = { bg = color_palette.black, fg = "#57FD14" },
-      highlightHintMarkerCurrent = { bg = color_palette.dark_red, fg = "White" },
+      highlightHintMarker = {
+        bg = color_palette.red,
+        fg = color_palette.black,
+      },
+      highlightHintMarkerCurrent = {
+        bg = color_palette.dark_red,
+        fg = color_palette.diff_text,
+      },
       -- 高速キーリピート中のヒントを非表示にする
       suppressOnKeyRepeat = true,
       -- キーリピート検出閾値(ミリ秒)
@@ -49,7 +56,7 @@ return {
       perKeyMotionCount = {
         w = 5,
         b = 5,
-        e = f,
+        e = 5,
         h = 3,
         j = 3,
         k = 3,
