@@ -28,26 +28,61 @@ glide.keymaps.set("normal", "<leader>r", "reload", {
 glide.keymaps.set("normal", "<leader>R", "reload_hard", {
   description: "スーパーリロード",
 });
+glide.keymaps.set("normal", "<leader><leader>", "commandline_show tab", {
+  description: "タブリストをコマンドラインで表示",
+});
+glide.keymaps.set("normal", "<leader>d", "tab_close", {
+  description: "タブを閉じる",
+});
+glide.keymaps.set("normal", "gg", "scroll_top", {
+  description: "下にスクロール",
+});
+glide.keymaps.set("normal", "G", "scroll_bottom", {
+  description: "最下部にスクロール",
+});
+glide.keymaps.set(["normal", "insert"], "<C-d>", "scroll_page_down", {
+  description: "ページを下にスクロール",
+});
+glide.keymaps.set(["normal", "insert"], "<C-u>", "scroll_page_up", {
+  description: "ページを下にスクロール",
+});
 glide.keymaps.set("normal", "<leader>f", "hint --location=browser-ui", {
   description: "ブラウザUIにヒントを表示",
 });
 glide.keymaps.set("normal", "f", "hint", { description: "画面内ヒントを表示" });
-glide.keymaps.set("normal", "<C-o>", "jumplist_back", {
+glide.keymaps.set(["normal", "insert"], "<C-h>", "back", {
+  description: "戻る",
+});
+glide.keymaps.set(["normal", "insert"], "<C-l>", "forward", {
+  description: "進む",
+});
+glide.keymaps.set(["normal", "insert"], "<C-o>", "jumplist_back", {
   description: "ジャンプリストを戻る",
 });
-glide.keymaps.set("normal", "<C-i>", "jumplist_forward", {
+glide.keymaps.set(["normal", "insert"], "<C-i>", "jumplist_forward", {
   description: "ジャンプリストを進む",
 });
-
 glide.keymaps.set("normal", "yy", "url_yank", {
   description: "現在のページURLをコピーする",
 });
-glide.keymaps.set("normal", "<S-D-c>", "url_yank", {
-  description: "現在のページURLをコピーする",
-});
-glide.keymaps.set("normal", "<S-h>", "tab_next", {
+glide.keymaps.set(["normal", "insert"], "<C-j>", "tab_next", {
   description: "次のタブを表示",
 });
-glide.keymaps.set("normal", "<S-l>", "tab_prev", {
+glide.keymaps.set(["normal", "insert"], "<C-k>", "tab_prev", {
   description: "前のタブを表示",
 });
+glide.keymaps.set("normal", "i", "mode_change insert --automove=left", {
+  description: "インサートモード",
+});
+glide.keymaps.set("normal", "a", "mode_change insert", {
+  description: "カーソルの直後にインサートモード",
+});
+glide.keymaps.set("normal", "A", "mode_change insert --automove=endline", {
+  description: "行末にジャンプしてインサートモード",
+});
+glide.keymaps.set("normal", "u", "undo", { description: "アンドゥ" });
+
+glide.keymaps.set("normal", ":", "commandline_show", {
+  description: "コマンドラインモード",
+});
+glide.keymaps.set("normal", ".", "repeat", { description: "リピート" });
