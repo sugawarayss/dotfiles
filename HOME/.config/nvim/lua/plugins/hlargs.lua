@@ -3,8 +3,9 @@ return {
   "m-demare/hlargs.nvim",
   event = { "BufReadPost" },
   opts = function()
+    local color_palette = require("onedark.colors")
     require("hlargs").setup({
-      color = "#ef9062",
+      color = color_palette.orange,
       highlight = {},
       excluded_filetypes = {},
       -- disable = function(lang, bufnr) -- If changed, `excluded_filetypes` will be ignored
