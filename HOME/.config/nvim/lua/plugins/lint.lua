@@ -1,7 +1,15 @@
 -- 非同期リンタープラグイン
 return {
   "mfussenegger/nvim-lint",
-  event = { "BufReadPre", "BufNewFile" },
+  ft = {
+    "python",
+    "fish",
+    "markdown",
+    "lua",
+    "yaml",
+    "yaml_github",
+    "dockerfile",
+  },
   config = function()
     local nvim_lint = require("lint")
 
@@ -71,31 +79,6 @@ return {
       yaml_github = { "actionlint", "zizmor" },
       dockerfile = { "hadolint" },
     }
-
-    -- local function get_linters_for_file()
-    --   local result = {}
-    --   local buf_name = vim.api.nvim_buf_get_name(0)
-    --   local ft = vim.bo.filetype
-    --
-    --   -- デフォルトのlinter を取得
-    --   local linters = nvim_lint.linters_by_ft[ft] or {}
-    --   -- テーブルをコピー
-    --   for _, linter in ipairs(linters) do
-    --     table.insert(result, linter)
-    --   end
-    --   -- Github Actions Workflow ファイルの場合は `actionlint` `ghalint` `zizmor` でチェック
-    --   if ft == "yaml" and buf_name:match("%.github/workflows/.*%.ya?ml$") then
-    --     vim.notify("GitHub Actions Workflow File is lint by `acrtionlint` `ghalint` `zizmor`")
-    --     -- GitHub Actions用の特別なlinterを追加
-    --     table.insert(result, "actionlint")
-    --     -- table.insert(result, "ghalint")
-    --     table.insert(result, "zizmor")
-    --   end
-    --   if #result == 0 then
-    --     return nil
-    --   end
-    --   return result
-    -- end
 
     vim.api.nvim_create_autocmd("BufWritePost", {
       callback = function()
