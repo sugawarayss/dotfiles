@@ -2,9 +2,7 @@
 return {
   {
     "rgroli/other.nvim",
-    -- TODO: カスタムパターンが上手く動作しないので、一旦無効化
-    enabled = false,
-    lazy = true,
+    enabled = true,
     cmd = {
       "Other",
       "OtherTabNew",
@@ -14,15 +12,15 @@ return {
     config = function()
       require("other-nvim").setup({
         mappings = {
-          "livewire",
-          "angular",
           "laravel",
-          "rails",
           "golang",
-          {
-            pattern = "(.*).py$",
-            target = "tests/test_%1.py",
-          },
+          "react",
+          "rust",
+          "python",
+          -- {
+          --   pattern = "(.*)/.*.py$",
+          --   target = "tests/**/test_%1.py",
+          -- },
         },
         style = {
           border = "rounded",
