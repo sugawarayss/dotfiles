@@ -42,6 +42,43 @@
       "      - uvx ruff format --config ./pyproject.toml"
     ]
   },
+  "pre-commit-settings": {
+    "prefix": "pre-commit-config",
+    "body": [
+      "# See https://pre-commit.com for more information",
+      "# See https://pre-commit.com/hooks.html for more hooks",
+      "repos:",
+      "  - repo: https://github.com/astral-sh/ruff-pre-commit",
+      "    # TODO: ruffバージョンに合わせる",
+      "    rev: v0.8.1",
+      "    hooks:",
+      "      # ruff によるリンティング",
+      "      - id: ruff",
+      "        entry: ruff check --force-exclude",
+      "        language: python",
+      "        types_or: [python, pyi]",
+      "        args: [--config=pyproject.toml, --extend-select=I, --fix]",
+      "      # ruff によるコードフォーマト",
+      "      - id: ruff-format",
+      "        entry: ruff format --force-exclude",
+      "        language: python",
+      "        types_or: [python, pyi]",
+      "        args: [--config=pyproject.toml]",
+      "",
+      "  - repo: https://github.com/pre-commit/mirrors-mypy",
+      "    # TODO: mypyバージョンに合わせる",
+      "    rev: v1.13.0",
+      "    hooks:",
+      "      # mypy による静的型チェック",
+      "      - id: mypy",
+      "        entry: mypy",
+      "        language: python",
+      "        args: [--install-types, --non-interactive, --config-file=pyproject.toml]",
+      "        # TODO: pydantic や sqlmodel のバージョンに合わせる",
+      "        additional_dependencies: [\"pydantic>=2.10.3\", \"sqlmodel>=0.5.1\"]",
+      "        exclude: \"^tests/\""
+    ]
+  },
   "pytest-settings": {
     "prefix": ".pytest-pyproject",
     "body": [
