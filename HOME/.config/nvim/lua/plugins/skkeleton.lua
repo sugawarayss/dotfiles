@@ -28,7 +28,7 @@ return {
             eggLikeNewline = true, -- 変換モードで改行キーを押した際に確定のみを行う
             registerConvertResult = true, -- カタカナ変換結果を辞書に登録する
             globalDictionaries = dictionaries, -- グローバル辞書を指定
-            showCandidatesCount = 3, -- 候補表示数
+            showCandidatesCount = 999, -- 候補表示数
             userDictionary = "~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary",
           })
         end,
