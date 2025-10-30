@@ -30,9 +30,11 @@ return {
       },
     })
     wk.add({
-      { "<S-M-CR>", "<cmd>WindowsMaximize<CR>", mode = "n", desc = "" },
-      { { "<S-M-k>", "<S-M-j>" }, "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "" },
-      { { "<S-M-h>", "<S-M-l>" }, "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "" },
+      { "<S-M-CR>", "<cmd>WindowsMaximize<CR>", mode = "n", desc = "サイズ調整" },
+      { "<S-M-k>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "縦方向でサイズ調整" },
+      { "<S-M-j>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "縦方向でサイズ調整" },
+      { "<S-M-h>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "横方向でサイズ調整" },
+      { "<S-M-l>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "横方向でサイズ調整" },
     })
   end,
 }
