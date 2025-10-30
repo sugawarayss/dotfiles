@@ -1,5 +1,5 @@
 /* ======================================================
-                Glide version: 0.1.52a
+                Glide version: 0.1.53a
    ====================================================== */
 
 declare const GLIDE_EXCOMMANDS: [
@@ -667,6 +667,20 @@ declare global {
 			create<const Event extends "WindowLoaded">(event: Event, callback: (args: glide.AutocmdArgs[Event]) => void): void;
 			create<const Event extends glide.AutocmdEvent>(event: Event, pattern: glide.AutocmdPatterns[Event] extends never ? (args: glide.AutocmdArgs[Event]) => void : glide.AutocmdPatterns[Event], callback?: (args: glide.AutocmdArgs[Event]) => void): void;
 		};
+		styles: {
+			/**
+			 * Add custom CSS styles to the browser UI.
+			 *
+			 * ```typescript
+			 * glide.styles.add(css`
+			 *   #TabsToolbar {
+			 *     visibility: collapse !important;
+			 *   }
+			 * `);
+			 * ```
+			 */
+			add(styles: string): void;
+		};
 		prefs: {
 			/**
 			 * Set a preference. This is an alternative to `prefs.js` / [`about:config`](https://support.mozilla.org/en-US/kb/about-config-editor-firefox) so
@@ -890,6 +904,27 @@ declare global {
 				 */
 				del(modes: GlideMode | GlideMode[], lhs: string, opts?: Omit<glide.KeymapDeleteOpts, "buffer"> | undefined): void;
 			};
+		};
+		addons: {
+			/**
+			 * Installs an addon from the given XPI URL if that addon has *not* already been installed.
+			 *
+			 * If you want to ensure the addon is reinstalled, pass `{ force: true }`.
+			 *
+			 * You can obtain an XPI URL from [addons.mozilla.org](https://addons.mozilla.org) by finding
+			 * the extension you'd like to install, right clicking on "Add to Firefox" and selecting "Copy link".
+			 */
+			install(xpi_url: string, opts?: glide.AddonInstallOptions): Promise<glide.AddonInstall>;
+			/**
+			 * List all installed addons.
+			 *
+			 * The returned addons can be filtered by type, for example to only return extensions:
+			 *
+			 * ```typescript
+			 * await glide.addons.list('extension');
+			 * ```
+			 */
+			list(types?: glide.AddonType | glide.AddonType[]): Promise<glide.Addon[]>;
 		};
 		keys: {
 			/**
@@ -1255,6 +1290,12 @@ declare global {
 			 * @default "11px"
 			 */
 			hint_size: string;
+			/**
+			 * The characters to include in hint labels.
+			 *
+			 * @default "hjklasdfgyuiopqwertnmzxcvb"
+			 */
+			hint_chars: string;
 		};
 		export type SpawnOptions = {
 			cwd?: string;
@@ -1323,6 +1364,28 @@ declare global {
 		export type TabWithID = Omit<Browser.Tabs.Tab, "id"> & {
 			id: number;
 		};
+		export type AddonInstallOptions = {
+			/**
+			 * If `true`, always install the given addon, even if it is already installed.
+			 *
+			 * @default false
+			 */
+			force?: boolean;
+		};
+		export type Addon = {
+			readonly id: string;
+			readonly name: string;
+			readonly description: string;
+			readonly version: string;
+			readonly active: boolean;
+			readonly source_uri: URL | null;
+			uninstall(): Promise<void>;
+		};
+		export type AddonInstall = glide.Addon & {
+			cached: boolean;
+		};
+		// @docs-expand-type-body
+		export type AddonType = "extension" | "theme" | "locale" | "dictionary" | "sitepermission";
 		export type KeyEvent = KeyboardEvent & {
 			/**
 			 * The vim notation of the KeyEvent, e.g.
