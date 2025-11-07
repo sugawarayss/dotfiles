@@ -16,11 +16,19 @@ return {
         winwidth = 5,
         filetype = {
           help = 2,
+          snacks_picker_list = 2,
+          sagaoutline = 2,
         },
       },
       ignore = {
         buftype = { "quickfix" },
-        filetype = { "snacks_picker_list", "undotree", "gundo" },
+        filetype = {
+          "snacks_picker_list",
+          "snacks_terminal",
+          "sagaoutline",
+          "undotree",
+          "gundo",
+        },
       },
       animation = {
         enable = true,
@@ -30,11 +38,11 @@ return {
       },
     })
     wk.add({
-      { "<S-M-CR>", "<cmd>WindowsMaximize<CR>", mode = "n", desc = "サイズ調整" },
-      { "<S-M-k>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "縦方向でサイズ調整" },
-      { "<S-M-j>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "縦方向でサイズ調整" },
-      { "<S-M-h>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "横方向でサイズ調整" },
-      { "<S-M-l>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "横方向でサイズ調整" },
+      { "<S-M-CR>", "<cmd>WindowsMaximize<CR>", mode = "n", desc = "カーソルがあるウィンドウを最大化する" },
+      { "<S-M-k>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "カーソルがあるウィンドウの幅を最大化する" },
+      { "<S-M-j>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "カーソルがあるウィンドウの幅を最大化する" },
+      { "<S-M-h>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "カーソルがあるウィンドウの高さを最大化する" },
+      { "<S-M-l>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "カーソルがあるウィンドウの高さを最大化する" },
     })
   end,
 }
