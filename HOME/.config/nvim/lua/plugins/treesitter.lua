@@ -267,15 +267,15 @@ return {
             enable = true,
             lookahead = true,
             keymaps = {
-              -- 関数全体を選択
+              -- `vaf`で関数全体を選択
               ["af"] = { query = "@function.outer", desc = "関数全体を選択" },
-              -- 関数内部を選択
+              -- `vif`で関数内部を選択
               ["if"] = { query = "@function.inner", desc = "関数内部を選択" },
-              -- クラス全体を選択
+              -- `vac`でクラス全体を選択
               ["ac"] = { query = "@class.outer", desc = "クラス全体を選択" },
-              -- クラス内部を選択
+              -- `vic`でクラス内部を選択
               ["ic"] = { query = "@class.inner", desc = "クラス内部を選択" },
-              -- スコープ全体を選択
+              -- `vas`でスコープ全体を選択
               ["as"] = { query = "@local.scope", query_group = "locals", desc = "スコープ全体を選択" },
             },
             selection_modes = {
