@@ -11,10 +11,10 @@ return {
       { "<Leader>k", require("smart-splits").move_cursor_up, mode = "n", desc = "上バッファにカーソル移動" },
       { "<Leader>l", require("smart-splits").move_cursor_right, mode = "n", desc = "右バッファにカーソル移動" },
       -- リサイズ系
-      { "<C-M-h>", require("smart-splits").resize_left, mode = "n", desc = "左方向にリサイズ" },
-      { "<C-M-j>", require("smart-splits").resize_down, mode = "n", desc = "下方向にリサイズ" },
-      { "<C-M-k>", require("smart-splits").resize_up, mode = "n", desc = "上方向にリサイズ" },
-      { "<C-M-l>", require("smart-splits").resize_right, mode = "n", desc = "右方向にリサイズ" },
+      { "<M-8>", require("smart-splits").resize_up, mode = "n", desc = "上方向にリサイズ" },
+      { "<M-7>", require("smart-splits").resize_down, mode = "n", desc = "下方向にリサイズ" },
+      { "<M-6>", require("smart-splits").resize_left, mode = "n", desc = "左方向にリサイズ" },
+      { "<M-9>", require("smart-splits").resize_right, mode = "n", desc = "右方向にリサイズ" },
       -- バッファ入替系
       { "<C-S-s>h", require("smart-splits").swap_buf_left, mode = "n", desc = "左バッファと入れ替え" },
       { "<C-S-s>j", require("smart-splits").swap_buf_down, mode = "n", desc = "下バッファを入れ替え" },
