@@ -2,7 +2,7 @@ return {
   "yuki-yano/cmt.nvim",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "JooseAlviste/nvim-ts-context-commentstring",
+    "JoosepAlviste/nvim-ts-context-commentstring",
   },
   keys = {
     { "gc", "<Plug>(cmt:line:toggle)", mode = { "n", "x" }, desc = "行コメントをトグル(オペレータ)" },
