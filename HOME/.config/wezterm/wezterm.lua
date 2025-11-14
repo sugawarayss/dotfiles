@@ -44,8 +44,7 @@ config.window_background_opacity = 0.9
 config.macos_window_background_blur = 9
 -- フォント
 config.font = wezterm.font_with_fallback({
-	{ family = "Hack Nerd Font Mono", weight = "Regular" },
-	{ family = "HackGen Console NF", weight = "Regular" },
+  { family = "Cascadia Code NF", weight = "Regular" },
 })
 -- フォントサイズ
 config.font_size = 15.5
