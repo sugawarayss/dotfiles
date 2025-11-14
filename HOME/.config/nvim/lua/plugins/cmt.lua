@@ -22,6 +22,7 @@ return {
     -- filetype毎のフォールバック設定
     vim.g.cmt_block_fallback = {
       tsx = { line = "// %s", block = { "{/*,", "*/}" } },
+      python = { line = "# %s", block = { "\"\"\"", "\"\"\"" } },
     }
     -- cmt.nvimをバイパスするfiletype
     vim.g.cmt_disabled_filetypes = {
