@@ -3,6 +3,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
+    branch = "master",
     build = ":TSUpdate",
     priority = 1001,
     dependencies = {
@@ -232,6 +233,7 @@ return {
         },
         highlight = {
           enable = true,
+          additional_vim_regex_highlighting = true,
           disable = function(_, buf)
             local max_filesize = 100 * 1024 -- 100 KB
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -290,6 +292,12 @@ return {
       vim.treesitter.language.register("yaml", "yaml_github")
       local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
       ts_update()
+      vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+        pattern = { "*" },
+        callback = function()
+          vim.cmd("TSBufToggle highlight")
+        end,
+      })
     end,
   },
   -- 画面に収まりきらない関数名を上部に表示するプラグイン
