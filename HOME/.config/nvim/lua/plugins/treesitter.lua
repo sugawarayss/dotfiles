@@ -60,6 +60,84 @@ local parsers = {
   "yaml",
   "zig",
 }
+local file_patterns = {
+  "*.sh", -- bash
+  "*.c", -- c
+  "*.cs", -- c_sharp
+  "*.cpp", -- cpp
+  "*.cc",
+  "*.cxx",
+  "*.css", -- css
+  "*.csv", -- csv
+  "*.dart", -- dart
+  "*.diff", -- diff
+  "*.patch",
+  "Dockerfile", -- dockerfile
+  "*.dockerfile",
+  "*.dot", -- dot
+  "*.ex", -- elixir
+  "*.exs",
+  "*.elm", -- elm
+  "*.erl", -- erlang
+  "*.hrl",
+  ".gitconfig", -- git_config
+  "git-rebase-todo", -- git_rebase
+  "COMMIT_EDITMSG", -- gitcommit
+  ".gitignore", -- gitignore
+  "*.go", -- go
+  "go.mod", -- gomod
+  "go.sum", -- gosum
+  "*.graphql", -- graphql
+  "*.gql",
+  "*.hs", -- haskell
+  "*.html", -- html
+  "*.htm",
+  "*.django", -- htmldjango
+  "*.http", -- http
+  "*.ini", -- ini
+  "*.java", -- java
+  "*.js", -- javascript
+  "*.mjs",
+  "*.jl", -- julia
+  "*.kdl", -- kdl
+  "*.kt", -- kotlin
+  "*.kts",
+  "*.lua", -- lua
+  "*.md", -- markdown
+  "*.markdown",
+  "*.mermaid", -- mermaid
+  "*.ml", -- ocaml
+  "*.mli",
+  "*.pl", -- perl
+  "*.pm",
+  "*.php", -- php
+  "*.py", -- python
+  "*.pyi",
+  "*.pyw",
+  "requirements.txt", -- requirements
+  "*.rst", -- rst
+  "*.rb", -- ruby
+  "*.rs", -- rust
+  "*.scala", -- scala
+  "*.sc",
+  "*.scm", -- scheme
+  "*.ss",
+  "*.sql", -- sql
+  "*.svelte", -- svelte
+  "*.swift", -- swift
+  "*.tf", -- terraform
+  "*.tfvars",
+  "*.tsx", -- tsx
+  "*.toml", -- toml
+  "*.ts", -- typescript
+  "*.vim", -- vim
+  "*.txt", -- vimdoc (help files)
+  "*.vue", -- vue
+  "*.xml", -- xml
+  "*.yml", -- yaml
+  "*.yaml",
+  "*.zig", -- zig
+}
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -81,7 +159,7 @@ return {
     },
     config = function()
       require("nvim-treesitter").setup({
-        -- ~/.local/share/nvim/site
+        -- ~/.local/share/nvim/treesitter
         install_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "treesitter"),
       })
       require("nvim-treesitter").install(parsers, {
@@ -92,16 +170,26 @@ return {
       })
       vim.treesitter.language.register("yaml", "yaml_github")
       -- 自動ハイライトの有効化
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        group = vim.api.nvim_create_augroup("vim-treesitter-start", {}),
+      vim.api.nvim_create_autocmd("FileType", {
         -- pattern = parsers,
+        pattern = file_patterns, -- FileType用
         callback = function(ctx)
           pcall(vim.treesitter.start)
-          -- vim.treesitter.start()
-          -- インデントの有効化
           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
       })
+      -- HACK: copilotの提案する方法
+      -- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+      --   pattern = "*",
+      --   callback = function(ctx)
+      --     -- パーサーが存在する場合のみ実行
+      --     local ft = vim.bo.filetype
+      --     if vim.tbl_contains(parsers, ft) then
+      --       pcall(vim.treesitter.start)
+      --       vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      --     end
+      --   end,
+      -- })
     end,
   },
   -- 画面に収まりきらない関数名を上部に表示するプラグイン
