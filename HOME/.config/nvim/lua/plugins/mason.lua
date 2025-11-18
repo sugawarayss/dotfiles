@@ -8,7 +8,8 @@ end
 
 -- 自動インストールするLSPサーバ
 local lsp_servers = {
-  "copilot",
+  -- BUG: 上手く設定できなかったのでcopilot.luaに戻す
+  -- "copilot",
   -- python
   "pyright",
   "ruff",
@@ -241,13 +242,10 @@ return {
               },
             },
           })
-        elseif server == "copilot" then
           vim.lsp.enable(server)
         else
           local target_config = require("lsp." .. server)
           vim.lsp.config(server, target_config)
-        end
-        if server ~= "ts_ls" and server ~= "denols" then
           vim.lsp.enable(server)
         end
       end
