@@ -26,7 +26,7 @@ local lsp_servers = {
   -- lua
   "lua_ls",
   -- deno
-  "denols",
+  -- "denols",
   -- php
   "intelephense",
   -- kotlin
