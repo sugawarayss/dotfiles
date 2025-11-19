@@ -1,4 +1,5 @@
 -- 構文解析プラグイン
+local augroup = vim.api.nvim_create_augroup("nvim-treesitter-auto", { clear = true })
 -- ~/.local/share/nvim/treesitter
 local treesitter_path = vim.fs.joinpath(vim.fn.stdpath("data"), "treesitter")
 return {
@@ -65,12 +66,12 @@ return {
       vim.treesitter.language.register("bash", "sh")
       vim.treesitter.language.register("yaml", "yaml_github")
       -- custom highlights
-      local function hi()
-        vim.api.nvim_set_hl(0, "@illuminate", { link = "LspReferenceTarget" })
-      end
+      -- local function hi()
+      --   vim.api.nvim_set_hl(0, "@illuminate", { link = "LspReferenceTarget" })
+      -- end
 
-      hi()
-      vim.api.nvim_create_autocmd("ColorScheme", { group = vim.api.nvim_create_augroup("nvim-treesitter-customize", {}), callback = hi })
+      -- hi()
+      -- vim.api.nvim_create_autocmd("ColorScheme", { group = vim.api.nvim_create_augroup("nvim-treesitter-customize", {}), callback = hi })
     end,
   },
   -- 画面に収まりきらない関数名を上部に表示するプラグイン
