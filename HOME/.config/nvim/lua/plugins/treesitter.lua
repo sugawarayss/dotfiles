@@ -100,6 +100,7 @@ return {
   {
     "andymass/vim-matchup",
     lazy = true,
+    event = { "BufReadPost" },
     init = function()
       vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
       vim.g.matchup_treesitter_enable_quotes = true
