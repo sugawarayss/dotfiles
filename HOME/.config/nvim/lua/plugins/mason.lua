@@ -205,28 +205,28 @@ return {
         automatic_enable = true,
       })
       -- 診断の表示設定
-      vim.diagnostic.config({
-        float = {
-          scope = "line",
-          border = "double",
-          format = function(diagnostic)
-            return string.format("%s", diagnostic.message)
-          end,
-        },
-      })
+      -- vim.diagnostic.config({
+      --   float = {
+      --     scope = "line",
+      --     border = "double",
+      --     format = function(diagnostic)
+      --       return string.format("%s", diagnostic.message)
+      --     end,
+      --   },
+      -- })
       -- カーソル位置の診断を自動で表示
-      vim.api.nvim_create_autocmd("CursorHold", {
-        callback = function()
-          local opts = {
-            focusable = false,
-            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-            border = "double",
-            source = "always",
-            scope = "cursor",
-          }
-          vim.diagnostic.open_float(nil, opts)
-        end,
-      })
+      -- vim.api.nvim_create_autocmd("CursorHold", {
+      --   callback = function()
+      --     local opts = {
+      --       focusable = false,
+      --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      --       border = "double",
+      --       source = "always",
+      --       scope = "cursor",
+      --     }
+      --     vim.diagnostic.open_float(nil, opts)
+      --   end,
+      -- })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
         if server == "ty" then
