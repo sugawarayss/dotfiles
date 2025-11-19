@@ -68,7 +68,9 @@ return {
       colors = {},
       -- Override highlight groups
       highlights = {
-        -- 対応する括弧のハイライト
+        -- カーソル位置の単語ハイライト
+        IlluminatedWordRead = { bg = "#2c485f" },
+        -- 対応する括弧ハイライト
         MatchParen = { bg = "#2c2d31" },
         -- Flashによるジャンプや置換対象のハイライト
         Substitute = { fg = "#232326", bg = "#8fb573", fmt = "bold" },
