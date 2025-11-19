@@ -2,7 +2,7 @@
 return {
   "RRethy/vim-illuminate",
   lazy = true,
-  event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
+  event = { "CursorHold" },
   config = function()
     require("illuminate").configure({
       -- providers: provider used to get references in the buffer, ordered by priority
