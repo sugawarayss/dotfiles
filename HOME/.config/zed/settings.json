@@ -20,6 +20,7 @@
       }
     },
     "aws-knowledge-mcp-server": {
+      "source": "custom",
       "args": [
         "fastmcp",
         "run",
@@ -93,8 +94,9 @@
   "agent": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4"
-    }
+      "model": "claude-sonnet-4.5"
+    },
+    "model_parameters": []
   },
   "features": {
     "edit_prediction_provider": "copilot"
@@ -107,12 +109,12 @@
   //"confirm_quit": true, // 終了時の確認
   // UI のフォント設定
   "ui_font_size": 15,
-  "ui_font_family": "Hack Nerd Font Mono",
+  "ui_font_family": "Cascadia Mono NF",
   "ui_font_fallbacks": ["HackGen Console NF"],
   // エディタのフォント設定
   "buffer_font_size": 15,
   // フォント設定
-  "buffer_font_family": "Hack Nerd Font Mono",
+  "buffer_font_family": "Cascadia Code NF",
   "buffer_font_fallbacks": ["HackGen Console NF"],
   "buffer_line_height": "standard",
   // カラーテーマ
@@ -230,12 +232,10 @@
       "format_on_save": "on",
       "formatter": [
         {
-          "code_actions": {
-            // Fix all auto-fixable lint violations
-            "source.fixAll.ruff": true,
-            // Organiza imports
-            "source.organizaImports.ruff": true
-          }
+          "code_action": "source.fixAll.ruff"
+        },
+        {
+          "code_action": "source.organizaImports.ruff"
         },
         {
           "language_server": {
