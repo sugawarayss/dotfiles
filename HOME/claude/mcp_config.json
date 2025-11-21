@@ -16,6 +16,25 @@
       ],
       "command": "uvx"
     },
+    "aws-terraform-mcp-server": {
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "autoApprove": [
+        "ExecuteTerraformCommand",
+        "SearchAwsProviderDocs",
+        "SearchAwsccProviderDocs",
+        "SearchSpecificAwsIaModules",
+        "SearchUserProvidedModule",
+        "RunCheckovScan"
+      ],
+      "command": "uvx",
+      "disabled": false,
+      "disabled_tools": [],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
     "sequentialthinking": {
       "args": [
         "-y",
