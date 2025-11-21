@@ -7,8 +7,15 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "relative_line_numbers": "wrapped",
+  "git": {
+    "inline_blame": {
+      "show_commit_summary": true
+    }
+  },
+  "buffer_font_weight": 400.0,
   "context_servers": {
-    "terraform-mcp-server": {
+    "aws-terraform-mcp-server": {
       "source": "custom",
       "enabled": true,
       "command": "uvx",
