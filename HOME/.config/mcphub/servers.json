@@ -7,13 +7,32 @@
         "https://knowledge-mcp.global.api.aws"
       ],
       "autoApprove": [
-        "aws___search_documentation",
-        "aws___recommend",
-        "aws___read_documentation",
         "aws___get_regional_availability",
-        "aws___list_regions"
+        "aws___list_regions",
+        "aws___read_documentation",
+        "aws___recommend",
+        "aws___search_documentation"
       ],
       "command": "uvx"
+    },
+    "aws-terraform-mcp-server": {
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "autoApprove": [
+        "ExecuteTerraformCommand",
+        "SearchAwsProviderDocs",
+        "SearchAwsccProviderDocs",
+        "SearchSpecificAwsIaModules",
+        "SearchUserProvidedModule",
+        "RunCheckovScan"
+      ],
+      "command": "uvx",
+      "disabled": false,
+      "disabled_tools": [],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
     },
     "filesystem": {
       "args": [
