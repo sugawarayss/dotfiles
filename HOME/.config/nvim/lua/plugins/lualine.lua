@@ -13,9 +13,9 @@ return {
       local lint_progress = function()
         local linters = require("lint").get_running()
         if #linters == 0 then
-          return "󱔢 -"
+          return "󰫹󰫶󰫻󰬁 -"
         end
-        return "󰦖 " .. table.concat(linters, ", ")
+        return "󰫹󰫶󰫻󰬁 " .. table.concat(linters, ", ")
       end
       -- Snacks Terminal 表示時の設定
       local snacks_terminal = {
@@ -43,7 +43,7 @@ return {
           ignore_focus = {},
           always_divide_middle = true,
           -- :set laststatus=3 の状態(グローバルステータス)にするか
-          globalstatus = false,
+          globalstatus = true,
           refresh = {
             statusline = 100,
             tabline = 1000,
@@ -64,31 +64,30 @@ return {
             "branch",
           },
           lualine_y = {
-            -- Linter実行の進捗を表示
-            lint_progress,
             -- Language Server の起動状況
-            "lsp-status",
+            { "lsp-status", icons = { active = "󰫹󰬀󰫽", inactive = "󰫹󰬀󰫽" } },
             -- MCPサーバの起動状況
             {
               function()
+                local prefix = "󰚥"
                 if not vim.g.loaded_mcphub then
-                  return " (-)"
+                  return prefix .. "(-)"
                 end
                 local count = vim.g.mcphub_servers_count or 0
                 local status = vim.g.mcphub_status or "stopped"
                 local executing = vim.g.mcphub_executing
                 -- Show "-" when stopped
                 if status == "stopped" then
-                  return " (-)"
+                  return prefix .. "(-)"
                 end
                 -- Show spinner when executing, starting, or restarting
                 if executing or status == "starting" or status == "restarting" then
                   local frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
                   -- local frames = { "", "", "", "", "", "" }
                   local frame = math.floor(vim.loop.now() / 100) % #frames + 1
-                  return " (" .. frames[frame] .. ")"
+                  return prefix .. "(" .. frames[frame] .. ")"
                 end
-                return " (" .. count .. ")"
+                return prefix .. "(" .. count .. ")"
               end,
               color = function()
                 if not vim.g.loaded_mcphub then
@@ -105,6 +104,8 @@ return {
                 end
               end,
             },
+            -- Linter実行の進捗を表示
+            lint_progress,
           },
           lualine_z = {
             "encoding",
@@ -132,17 +133,5 @@ return {
     end,
   },
   { "nvim-tree/nvim-web-devicons", lazy = true },
-  {
-    "pnx/lualine-lsp-status",
-    lazy = true,
-    opts = {
-      show_count = true,
-      colored = true,
-      disabled_filetypes = {},
-      icons = {
-        active = "",
-        inactive = "",
-      },
-    },
-  },
+  { "pnx/lualine-lsp-status", lazy = true },
 }
