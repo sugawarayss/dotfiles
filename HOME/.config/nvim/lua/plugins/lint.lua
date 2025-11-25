@@ -71,13 +71,20 @@ return {
     nvim_lint.linters.luacheck.args = { "--config", "~/.config/nvim/.luarc.json" }
 
     nvim_lint.linters_by_ft = {
+      bash = { "bash" },
       python = { "mypy" },
       fish = { "fish" },
       markdown = { "markdownlint" },
       lua = { "luacheck" },
       yaml = { "yamllint" },
-      yaml_github = { "actionlint", "zizmor", "ghalint" },
+      yaml_github = { "actionlint", "zizmor" }, --, "ghalint" },
       dockerfile = { "hadolint" },
+      perl = { "perlcritic", "perlinports" },
+      php = { "php", "phpstan" },
+      ruby = { "ruby", "rubocop" },
+      toml = { "tombi" },
+      ["sh.env"] = { "dotenv_linter" },
+      zsh = { "zsh" },
     }
 
     vim.api.nvim_create_autocmd("BufWritePost", {
