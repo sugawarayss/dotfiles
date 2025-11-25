@@ -3,6 +3,13 @@ return {
   "walkersumida/fusen.nvim",
   version = "*",
   event = "VimEnter",
+  init = function()
+    local wk = require("which-key")
+    -- local has_snacks, snacks_picker = pcall(require, "snacks.picker")
+    wk.add({
+      { ";sbm", ":FusenList<CR>", mode = "n", desc = "Fusenのリストをqflistで表示" },
+    })
+  end,
   opts = {
     -- ~/.local/share/nvim/fusen_marks.json
     save_file = vim.fn.stdpath("data") .. "/fusen_marks.json",
