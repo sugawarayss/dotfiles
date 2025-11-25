@@ -76,7 +76,7 @@ return {
       markdown = { "markdownlint" },
       lua = { "luacheck" },
       yaml = { "yamllint" },
-      yaml_github = { "actionlint", "zizmor" },
+      yaml_github = { "actionlint", "zizmor", "ghalint" },
       dockerfile = { "hadolint" },
     }
 
