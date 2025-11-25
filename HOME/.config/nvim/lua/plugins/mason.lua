@@ -29,6 +29,7 @@ local lsp_servers = {
   -- "denols",
   -- php
   "intelephense",
+  "laravel_ls",
   -- kotlin
   "kotlin_language_server",
   -- dockerfile
