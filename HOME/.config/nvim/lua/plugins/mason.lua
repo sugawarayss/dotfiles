@@ -41,7 +41,8 @@ local lsp_servers = {
   -- json
   "jsonls",
   -- toml
-  "taplo",
+  -- "taplo",
+  "tombi",
   -- markdown
   "marksman",
   -- bash(zsh)
