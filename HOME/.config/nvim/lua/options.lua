@@ -61,6 +61,7 @@ vim.filetype.add({
     ["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
     [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
     ["%.env.*"] = "sh.env",
+    ["*.log"] = "log"
   },
 })
 
