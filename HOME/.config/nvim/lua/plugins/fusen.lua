@@ -57,7 +57,7 @@ return {
     save_file = vim.fn.stdpath("data") .. "/fusen_marks.json",
     -- Mark Appearance
     mark = {
-      icon = "📝",
+      icon = "󰎞",
       hl_group = "FusenMarkCustom",
     },
     -- Key mappings
