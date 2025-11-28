@@ -28,6 +28,8 @@ return {
       { "onsails/lspkind.nvim", lazy = true },
       -- treesitterから補完
       { "ray-x/cmp-treesitter", lazy = true },
+      -- dotenvから補完
+      { "SergioRibera/cmp-dotenv" },
     },
     keys = {
       -- { "<C-s><C-s>", require("luasnip.loaders").edit_snippet_files, mode = "n", desc = "スニペットを編集" },
@@ -55,6 +57,7 @@ return {
               path = "[Path]",
               cmdline = "[Cmdline]",
               treesitter = "[TS]",
+              dotenv = "[Dotenv]",
             },
           }),
         },
@@ -117,6 +120,22 @@ return {
           { name = "luasnip", priority_weight = 20 }, -- For luasnip users.
           { name = "nvim_lsp_document_symbol" },
         }, {
+          {
+            name = "dotenv",
+            option = {
+              path = ".",
+              load_shell = true,
+              eval_on_confirm = false,
+              show_documentation = true,
+              show_content_on_docs = true,
+              documentation_kind = "markdown",
+              dotenv_environment = ".*",
+              file_priority = function(a, b)
+                -- Prioritizing local files
+                return a:upper() < b:upper()
+              end,
+            },
+          },
           { name = "buffer" },
           { name = "path" },
           -- { name = "cmdline"},
