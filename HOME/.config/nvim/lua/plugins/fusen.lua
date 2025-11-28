@@ -7,7 +7,44 @@ return {
     local wk = require("which-key")
     -- local has_snacks, snacks_picker = pcall(require, "snacks.picker")
     wk.add({
-      { ";sbm", ":FusenList<CR>", mode = "n", desc = "Fusenのリストをqflistで表示" },
+      {
+        ";sbm",
+        function()
+          local fusen_marks = require("fusen.marks")
+          local all_marks = fusen_marks.get_marks()
+          local qf_items = {}
+          for _, mark in ipairs(all_marks) do
+            local text = ""
+            if mark.annotation ~= "" then
+              text = mark.annotation
+            end
+
+            if text == "" then
+              text = "Mark at line " .. mark.line
+            end
+
+            table.insert(qf_items, {
+              filename = mark.file,
+              lnum = mark.line,
+              col = 1,
+              text = text,
+              type = "I",
+            })
+          end
+          table.sort(qf_items, function(a, b)
+            if a.filename == b.filename then
+              return a.lnum < b.lnum
+            end
+            return a.filename < b.filename
+          end)
+          vim.fn.setqflist(qf_items, "r")
+          vim.fn.setqflist({}, "a", { title = "Fusen Marks" })
+          -- Snacks Pickerで啓
+          Snacks.picker.qflist()
+        end,
+        mode = "n",
+        desc = "Fusenのリストをqflistで表示(Snacks Picker)",
+      },
     })
   end,
   opts = {
