@@ -7,6 +7,7 @@ return {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
       "mfussenegger/nvim-dap-python",
+      "ravsii/nvim-dap-envfile",
     },
     -- pythonファイルを開いた時にloadする
     ft = { "python" },
