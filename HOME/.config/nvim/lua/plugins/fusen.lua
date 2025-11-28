@@ -5,11 +5,16 @@ return {
   event = "VimEnter",
   init = function()
     local wk = require("which-key")
-    -- local has_snacks, snacks_picker = pcall(require, "snacks.picker")
     wk.add({
       {
         ";sbm",
         function()
+          local fusen = require("fusen")
+          local has_snacks, _ = pcall(require, "snacks.picker")
+          if not has_snacks then
+            fusen.list_marks()
+            return
+          end
           local fusen_marks = require("fusen.marks")
           local all_marks = fusen_marks.get_marks()
           local qf_items = {}
@@ -39,7 +44,7 @@ return {
           end)
           vim.fn.setqflist(qf_items, "r")
           vim.fn.setqflist({}, "a", { title = "Fusen Marks" })
-          -- Snacks Pickerで啓
+          -- Snacks Pickerで開く
           Snacks.picker.qflist()
         end,
         mode = "n",
