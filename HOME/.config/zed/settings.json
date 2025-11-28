@@ -88,15 +88,7 @@
       "env": {
         "ALLOWED_DIRECTORY": "~/PROJECTS/"
       }
-    },
-    "fetch": {
-      "source": "custom",
-      "enabled": true,
-      "command": "uvx",
-      "args": [
-        "mcp-server-fetch"
-      ]
-    },
+    }
   },
   "agent": {
     "default_model": {
@@ -115,11 +107,11 @@
   },
   //"confirm_quit": true, // 終了時の確認
   // UI のフォント設定
-  "ui_font_size": 15,
+  "ui_font_size": 13.0,
   "ui_font_family": "Cascadia Mono NF",
   "ui_font_fallbacks": ["HackGen Console NF"],
   // エディタのフォント設定
-  "buffer_font_size": 15,
+  "buffer_font_size": 13.0,
   // フォント設定
   "buffer_font_family": "Cascadia Code NF",
   "buffer_font_fallbacks": ["HackGen Console NF"],
@@ -188,8 +180,11 @@
     "scroll_debounce_ms": 50 // ヒントのスクロールまでの待機時間
   },
   "terminal": {
-    "font_size": 13,
-    "font_family": "Hack Nerd Font Mono",
+    "toolbar": {
+      "breadcrumbs": false
+    },
+    "font_size": 12.0,
+    "font_family": "Cascadia Mono NF",
     "font_fallbacks": ["HackGen Console NF"],
     "line_height": {
       "custom": 1.2
