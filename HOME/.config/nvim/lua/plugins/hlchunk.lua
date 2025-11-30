@@ -9,6 +9,9 @@ return {
         enable = true,
         notify = true,
         use_treesitter = true,
+        exclude_filetypes = {
+          log = false,
+        },
         chars = {
           horizontal_line = "─",
           vertical_line = "│",
