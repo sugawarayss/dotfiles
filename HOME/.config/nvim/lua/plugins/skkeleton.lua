@@ -94,6 +94,16 @@ return {
       })
     end,
   },
+  {
+    "urugus/skkeleton-snacks",
+    event = "BufReadPre",
+    config = function()
+      require("skkeleton_snacks").setup({
+        toggle_key = "<C-j>",
+        debug = false,
+      })
+    end,
+  },
   { "vim-denops/denops.vim" },
   { "Shougo/ddc.vim" },
   {
