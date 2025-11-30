@@ -10,14 +10,14 @@ return {
           "<C-a>",
           "<Plug>(dial-increment)",
           mode = { "n", "v" },
-          icon = "󰐕",
+          icon = "󰐖",
           desc = "インクリメント",
         },
         {
           "<C-x>",
           "<Plug>(dial-decrement)",
           mode = { "n", "v" },
-          icon = "󰍴",
+          icon = "󰍵",
           desc = "デクリメント",
         },
       })
