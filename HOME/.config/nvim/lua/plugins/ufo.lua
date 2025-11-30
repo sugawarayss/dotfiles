@@ -36,64 +36,66 @@ end
 
 -- 折りたたみ
 return {
-  "kevinhwang91/nvim-ufo",
-  enabled = true,
-  dependencies = { "kevinhwang91/promise-async" },
-  -- 遅延読み込みする
-  lazy = true,
-  event = "VeryLazy",
-  init = function()
-    local wk = require("which-key")
-    wk.add({
-      {
-        "zr",
-        function()
-          require("ufo").openAllFolds()
-        end,
-        mode = { "n" },
-        icon = "",
-        desc = "すべての折り畳みを展開",
-      },
-      {
-        "zm",
-        function()
-          require("ufo").closeAllFolds()
-        end,
-        mode = { "n" },
-        icon = "",
-        desc = "すべてを折り畳み",
-      },
-    })
-  end,
-  config = function()
-    vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])
-    vim.api.nvim_set_option("foldcolumn", "1")
-    vim.api.nvim_set_option("foldlevel", 99)
-    vim.api.nvim_set_option("foldlevelstart", 99)
-    vim.api.nvim_set_option("foldenable", true)
-    require("ufo").setup({
-      open_fold_hl_timeout = 150,
-      close_fold_kinds_for_ft = {
-        default = { "imports", "comment" },
-        json = { "array" },
-      },
-      preview = {
-        win_config = {
-          border = { "", "-", "", "", "", "-", "", "" },
-          winhighlight = "Normal:Folded",
-          winblend = 0,
+  {
+    "kevinhwang91/nvim-ufo",
+    enabled = true,
+    -- 遅延読み込みする
+    lazy = true,
+    event = "VeryLazy",
+    init = function()
+      local wk = require("which-key")
+      wk.add({
+        {
+          "zr",
+          function()
+            require("ufo").openAllFolds()
+          end,
+          mode = { "n" },
+          icon = "",
+          desc = "すべての折り畳みを展開",
         },
-        mappings = {
-          scrolU = "<C-u>",
-          scrolD = "<C-d>",
-          jumpTop = "[",
-          jumpBot = "]",
+        {
+          "zm",
+          function()
+            require("ufo").closeAllFolds()
+          end,
+          mode = { "n" },
+          icon = "",
+          desc = "すべてを折り畳み",
         },
-      },
-      fold_virt_text_handler = handler,
-      provider_selector = function(_, filetype, _)
-        return ftMap[filetype] or { "treesitter", "indent" }
-      end,
-    })
-  end,
+      })
+    end,
+    config = function()
+      vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])
+      vim.api.nvim_set_option("foldcolumn", "1")
+      vim.api.nvim_set_option("foldlevel", 99)
+      vim.api.nvim_set_option("foldlevelstart", 99)
+      vim.api.nvim_set_option("foldenable", true)
+      require("ufo").setup({
+        open_fold_hl_timeout = 150,
+        close_fold_kinds_for_ft = {
+          default = { "imports", "comment" },
+          json = { "array" },
+        },
+        preview = {
+          win_config = {
+            border = { "", "-", "", "", "", "-", "", "" },
+            winhighlight = "Normal:Folded",
+            winblend = 0,
+          },
+          mappings = {
+            scrolU = "<C-u>",
+            scrolD = "<C-d>",
+            jumpTop = "[",
+            jumpBot = "]",
+          },
+        },
+        fold_virt_text_handler = handler,
+        provider_selector = function(_, filetype, _)
+          return ftMap[filetype] or { "treesitter", "indent" }
+        end,
+      })
+    end,
+  },
+  { "kevinhwang91/promise-async" },
 }
