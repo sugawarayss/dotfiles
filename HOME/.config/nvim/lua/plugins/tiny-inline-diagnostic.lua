@@ -2,10 +2,10 @@ return {
   "rachartier/tiny-inline-diagnostic.nvim",
   event = "VeryLazy",
   priority = 1000,
-  opts = function()
+  config = function()
     require("tiny-inline-diagnostic").setup({
       -- diagnostic appearance one of modern|classic|minimal|powerline|ghost|simple|nonerdfont
-      preset = "modern",
+      preset = "ghost",
       -- Make diagnostic background transparent
       transparent_bg = false,
       -- Make cursorline background transparent for diagnostics
