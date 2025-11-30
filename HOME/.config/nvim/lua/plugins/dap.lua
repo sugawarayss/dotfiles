@@ -1,14 +1,12 @@
 -- debugger
 return {
+  { "mfussenegger/nvim-dap" },
+  { "nvim-neotest/nvim-nio" },
+  { "mfussenegger/nvim-dap-python" },
+  { "ravsii/nvim-dap-envfile" },
   {
     "rcarriga/nvim-dap-ui",
     lazy = true,
-    dependencies = {
-      "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
-      "mfussenegger/nvim-dap-python",
-      "ravsii/nvim-dap-envfile",
-    },
     -- pythonファイルを開いた時にloadする
     ft = { "python" },
     init = function()
@@ -120,6 +118,7 @@ return {
         cwd = require("utils").find_project_root({ "pyproject.toml" }),
         env = { PYTHONPATH = "." },
         python = require("utils").find_python_venv({ "pyproject.toml" }),
+        envFile = "${workspaceFolder}/.env",
       })
     end,
   },
