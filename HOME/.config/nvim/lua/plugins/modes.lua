@@ -12,7 +12,7 @@ return {
         delete = color_palette.red,
         -- change = color_palette.orange,
         -- format = color_palette.cyan,
-        insert = color_palette.diff_text,
+        insert = color_palette.black,
         replace = color_palette.purple,
         -- select = color_palette.dark_purple,
         visual = color_palette.orange,
