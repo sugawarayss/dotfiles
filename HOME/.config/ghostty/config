@@ -1,7 +1,7 @@
 # shell 統合
 shell-integration = fish
 # メインフォント
-font-family = "Cascadia Code NF"
+font-family = "Hack Nerd Font Mono"
 # font-family = "Hack Nerd Font Mono"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
