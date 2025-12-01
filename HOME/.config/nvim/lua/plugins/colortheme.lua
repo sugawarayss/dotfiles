@@ -68,16 +68,17 @@ return {
       colors = {},
       -- Override highlight groups
       highlights = {
-        -- カーソル位置の単語ハイライト
-        IlluminatedWordRead = { bg = "#2c485f" },
-        -- 対応する括弧ハイライト
-        MatchParen = { bg = "#79428a" },
+        -- 対応する括弧のハイライト
+        MatchParen = { bg = "#2c2d31" },
         -- Flashによるジャンプや置換対象のハイライト
         Substitute = { fg = "#232326", bg = "#8fb573", fmt = "bold" },
         -- hop.nvimのラベル色
         HopNextKey = { fg = "#de5d68", fmt = "bold" },
         HopNextKey1 = { fg = "#57a5e5", fmt = "bold" },
         HopNextKey2 = { fg = "#51a8b3", fmt = "bold" },
+        -- Copilot サジェスト
+        CopilotSuggestion = { fg = "#1a2a37" },
+        CopilotAnnotation = { fg = "#2c485f", fmt = "italic" },
       },
 
       -- Plugins Config --
