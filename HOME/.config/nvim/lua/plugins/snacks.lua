@@ -46,6 +46,12 @@ return {
         -- Snacks.toggle.dim():map("<leader>uD")
       end,
     })
+    vim.api.nvim_create_user_command("Highlights", function()
+      Snacks.picker.highlights()
+    end, { desc = "ハイライトの定義をpickerで表示" })
+    vim.api.nvim_create_user_command("Autocommands", function()
+      Snacks.picker.autocmds()
+    end, { desc = "Autocommandリストをpickerで表示" })
   end,
   opts = {
     -- アニメーションライブラリ
@@ -440,7 +446,22 @@ return {
       "<leader><leader>",
       function()
         Snacks.picker.smart({
-          multi = { "files", "recent", "buffers" },
+          multi = {
+            "files",
+            "buffers",
+            -- "recent",
+          },
+          -- user `file` format for all sources
+          format = "file",
+          matcher = {
+            -- boost cwd matches
+            cwd_bounus = true,
+            -- use frecency boosting
+            frecency = false,
+            -- sort even when the filter is empty
+            sort_empty = true,
+          },
+          transform = "unique_file",
         })
       end,
       desc = "スマートファイル検索から表示",
@@ -448,24 +469,41 @@ return {
     {
       "<F5>",
       function()
-        Snacks.picker.grep()
+        Snacks.picker.grep({
+          -- 隠しファイルも検索対象に含める
+          hidden = true,
+          -- 無視ファイルも検索対象に含める
+          ignored = true,
+          -- 検索するディレクトリを指定
+          -- dirs = { "" },
+          -- シンボリックリンクをたどる
+          follow = true,
+          -- 検索対象のファイル名パターンを指定
+          -- glob = { "^hoge.*.*$" },
+          -- 正規表現で検索可能にする
+          regex = true,
+          -- 開いているバッファ内も検索対象に含める
+          buffers = true,
+          format = "file",
+          show_empty = true,
+        })
       end,
       desc = "Grep検索を表示",
     },
-    {
-      "<leader>ff",
-      function()
-        Snacks.picker.files()
-      end,
-      desc = "ファイル名リストを検索",
-    },
-    {
-      "<leader>fr",
-      function()
-        Snacks.picker.recent()
-      end,
-      desc = "直近開いたファイルリストを表示",
-    },
+    -- {
+    --   "<leader>ff",
+    --   function()
+    --     Snacks.picker.files()
+    --   end,
+    --   desc = "ファイル名リストを検索",
+    -- },
+    -- {
+    --   "<leader>fr",
+    --   function()
+    --     Snacks.picker.recent()
+    --   end,
+    --   desc = "直近開いたファイルリストを表示",
+    -- },
     {
       ";sbuf",
       function()
@@ -549,13 +587,6 @@ return {
         Snacks.picker.search_history()
       end,
       desc = "検索履歴を検索",
-    },
-    {
-      ";sac",
-      function()
-        Snacks.picker.autocmds()
-      end,
-      desc = "Autocmd リストを検索",
     },
     {
       ";scm",
