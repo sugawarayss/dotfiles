@@ -26,11 +26,11 @@ return {
 		-- タブ操作   --
 		----------------
 		-- タブを複製
-		{ key = "t", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
+		-- { key = "t", mods = "SUPER", action = act.SpawnTab("CurrentPaneDomain") },
 		-- 右のタブをアクティブにする
-		{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
+		-- { key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
 		-- 左のタブをアクティブにする
-		{ key = "Tab", mods = "SHIFT|CTRL", action = act.ActivateTabRelative(-1) },
+		-- { key = "Tab", mods = "SHIFT|CTRL", action = act.ActivateTabRelative(-1) },
 
 		----------------
 		-- ペイン操作 --
