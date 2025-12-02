@@ -13,7 +13,7 @@ return {
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
       },
-      snnipets = { preset = "luasnip" },
+      snippets = { preset = "luasnip" },
       -- キーマップ
       keymap = {
         -- prese: "enter" のキーマップ
