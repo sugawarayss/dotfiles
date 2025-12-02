@@ -77,8 +77,8 @@ return {
         HopNextKey1 = { fg = "#57a5e5", fmt = "bold" },
         HopNextKey2 = { fg = "#51a8b3", fmt = "bold" },
         -- Copilot サジェスト
-        CopilotSuggestion = { fg = "#1a2a37" },
-        CopilotAnnotation = { fg = "#2c485f", fmt = "italic" },
+        CopilotSuggestion = { fg = "#2b5d63" },
+        CopilotAnnotation = { fg = "#2b5d63", fmt = "italic" },
       },
 
       -- Plugins Config --
