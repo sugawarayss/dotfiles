@@ -449,7 +449,7 @@ return {
           multi = {
             "files",
             "buffers",
-            -- "recent",
+            "recent",
           },
           -- user `file` format for all sources
           format = "file",
@@ -461,6 +461,7 @@ return {
             -- sort even when the filter is empty
             sort_empty = true,
           },
+          filter = { cwd = true },
           transform = "unique_file",
         })
       end,
