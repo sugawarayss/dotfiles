@@ -2,6 +2,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    enabled = false,
     event = "InsertEnter",
     dependencies = {
       { "f3fora/cmp-spell", lazy = true }, -- 英語入力時のスペル補完ソース
