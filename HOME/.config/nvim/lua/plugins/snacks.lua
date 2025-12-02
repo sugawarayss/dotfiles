@@ -470,24 +470,7 @@ return {
     {
       "<F5>",
       function()
-        Snacks.picker.grep({
-          -- 隠しファイルも検索対象に含める
-          hidden = true,
-          -- 無視ファイルも検索対象に含める
-          ignored = true,
-          -- 検索するディレクトリを指定
-          -- dirs = { "" },
-          -- シンボリックリンクをたどる
-          follow = true,
-          -- 検索対象のファイル名パターンを指定
-          -- glob = { "^hoge.*.*$" },
-          -- 正規表現で検索可能にする
-          regex = true,
-          -- 開いているバッファ内も検索対象に含める
-          buffers = true,
-          format = "file",
-          show_empty = true,
-        })
+        Snacks.picker.grep()
       end,
       desc = "Grep検索を表示",
     },
