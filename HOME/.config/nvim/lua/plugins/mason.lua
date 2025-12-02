@@ -241,8 +241,8 @@ return {
         -- 呼び出し階層を表示
         { "go", "<cmd>Lspsaga outgoing_calls<CR>", mode = { "n" }, desc = "呼び出し階層を表示" },
         -- 定義へジャンプ
-        { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
-        { "gD", "<cmd>Lspsaga peek_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
+        -- { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
+        -- { "gD", "<cmd>Lspsaga peek_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
         -- 呼出階層を表示
         { "gr", "<cmd>Lspsaga finder<CR>", mode = { "n" }, desc = "参照先の表示" },
         -- 型定義へジャンプ
