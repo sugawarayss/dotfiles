@@ -3,7 +3,6 @@ return {
   "sontungexpt/stcursorword",
   event = "VeryLazy",
   config = function()
-    local color_palette = require("onedark.colors")
     require("stcursorword").setup({
       max_word_length = 100,
       min_word_length = 2,
@@ -19,10 +18,10 @@ return {
         patterns = {},
       },
       highlight = {
-        underline = false,
+        underline = true,
         bold = true,
         fg = nil,
-        bg = color_palette.diff_text,
+        bg = nil,
       },
     })
   end,
