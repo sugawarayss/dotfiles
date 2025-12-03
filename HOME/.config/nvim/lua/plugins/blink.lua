@@ -4,6 +4,7 @@ return {
     "saghen/blink.cmp",
     version = "1.*",
     event = "InsertEnter",
+
     init = function()
       -- 補完ウィンドウの枠
       vim.opt.winborder = "rounded"
@@ -12,6 +13,17 @@ return {
       -- 補完ソース
       sources = {
         default = { "lsp", "path", "snippets", "buffer" },
+        providers = {
+          cmdline = {
+            -- コマンドラインへの入力が3文字未満の場合は補完を無効にする
+            min_keyword_length = function(ctx)
+              if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
+                return 3
+              end
+              return 0
+            end,
+          },
+        },
       },
       snippets = { preset = "luasnip" },
       -- キーマップ
@@ -56,6 +68,31 @@ return {
               { "source_name" },
             },
             components = {
+              -- 各補完候補の種類アイコン
+              kind_icon = {
+                text = function(ctx)
+                  local icon = ctx.kind_icon
+                  if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                    local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                    if dev_icon then
+                      icon = dev_icon
+                    end
+                  else
+                    icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
+                  end
+                  return icon .. ctx.icon_gap
+                end,
+                highlight = function(ctx)
+                  local hl = ctx.kind_hl
+                  if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                    local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                    if dev_icon then
+                      hl = dev_hl
+                    end
+                  end
+                  return hl
+                end,
+              },
               source_name = {
                 text = function(ctx)
                   return "[" .. ctx.source_name .. "]"
@@ -64,11 +101,27 @@ return {
             },
           },
         },
+        ghost_text = {
+          -- 補完候補のゴーストテキスト表示
+          enabled = false,
+        },
       },
       signature = { enabled = true },
       fuzzy = {
         -- versionを指定してないとバイナリが特定できずLuaにfallbackするwarningが表示される
         implementation = "prefer_rust_with_warning",
+      },
+      -- command lineでの補完
+      cmdline = {
+        completion = {
+          menu = { auto_show = true },
+          ghost_text = { enabled = true },
+        },
+        keymap = {
+          ["<Tab>"] = { "accept" },
+          ["<Down>"] = { "select_next", "fallback" },
+          ["<Up>"] = { "select_prev", "fallback" },
+        },
       },
       -- terminalでの補完
       term = {
@@ -79,6 +132,7 @@ return {
     opts_extend = { "sources.default" },
   },
   -- { "Kaiser-Yang/blink-cmp-dictionary" },
+  { "onsails/lspkind.nvim", lazy = true },
   {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
