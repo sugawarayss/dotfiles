@@ -126,7 +126,7 @@ return {
       -- terminalでの補完
       term = {
         -- INFO: nvim 0.11+ required
-        enabled = true,
+        enabled = false,
       },
     },
     opts_extend = { "sources.default" },
