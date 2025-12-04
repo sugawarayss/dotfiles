@@ -41,7 +41,7 @@ return {
         },
         popupmenu = {
           enabled = true,
-          backend = "cmp",
+          backend = "nui",
           kind_icons = {},
         },
         redirect = {
@@ -189,7 +189,6 @@ return {
     end,
   },
   { "nvim-treesitter/nvim-treesitter" },
-  { "hrsh7th/nvim-cmp" },
   { "rcarriga/nvim-notify" },
   { "MunifTanjim/nui.nvim" },
 }
