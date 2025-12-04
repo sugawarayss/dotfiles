@@ -4,7 +4,6 @@ return {
     "saghen/blink.cmp",
     version = "1.*",
     event = "InsertEnter",
-
     init = function()
       -- 補完ウィンドウの枠
       vim.opt.winborder = "rounded"
@@ -12,7 +11,7 @@ return {
     opts = {
       -- 補完ソース
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path", "snippets", "buffer", "copilot" },
         providers = {
           cmdline = {
             -- コマンドラインへの入力が3文字未満の場合は補完を無効にする
@@ -21,6 +20,21 @@ return {
                 return 3
               end
               return 0
+            end,
+          },
+          copilot = {
+            name = "Copilot",
+            module = "blink-cmp-copilot",
+            score_offset = 100,
+            async = true,
+            transform_items = function(_, items)
+              local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+              local kind_idx = #CompletionItemKind + 1
+              CompletionItemKind[kind_idx] = "Copilot"
+              for _, item in ipairs(items) do
+                item.kind = kind_idx
+              end
+              return items
             end,
           },
         },
@@ -54,6 +68,9 @@ return {
       -- 外観のカスタマイズ
       appearance = {
         nerd_font_variant = "mono",
+        kind_icons = {
+          Copilot = "",
+        },
       },
       -- 動作のカスタマイズ
       completion = {
@@ -106,7 +123,7 @@ return {
           enabled = false,
         },
       },
-      signature = { enabled = true },
+      signature = { enabled = false },
       fuzzy = {
         -- versionを指定してないとバイナリが特定できずLuaにfallbackするwarningが表示される
         implementation = "prefer_rust_with_warning",
@@ -131,7 +148,7 @@ return {
     },
     opts_extend = { "sources.default" },
   },
-  -- { "Kaiser-Yang/blink-cmp-dictionary" },
+  { "giuxtaposition/blink-cmp-copilot" },
   { "onsails/lspkind.nvim", lazy = true },
   {
     "L3MON4D3/LuaSnip",
