@@ -1,11 +1,4 @@
 {
-  "check-box": {
-    "prefix": ".check",
-    "body": [
-      "- [  ]"
-    ],
-    "description": "チェックボックス"
-  },
   "properties": {
     "prefix": ".properties",
     "body": [
