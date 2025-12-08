@@ -72,7 +72,7 @@ return {
     -- markdownlint の設定ファイルの指
     nvim_lint.linters.markdownlint.args = {
       "--config",
-      "~/.markdownlintrc"
+      "~/.markdownlintrc",
     }
 
     nvim_lint.linters_by_ft = {
