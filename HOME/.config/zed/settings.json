@@ -113,7 +113,7 @@
   // エディタのフォント設定
   "buffer_font_size": 13.0,
   // フォント設定
-  "buffer_font_family": "Cascadia Code NF",
+  "buffer_font_family": "Hack Nerd Font Mono",
   "buffer_font_fallbacks": ["HackGen Console NF"],
   "buffer_line_height": "standard",
   // カラーテーマ
