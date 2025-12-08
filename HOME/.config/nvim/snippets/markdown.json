@@ -72,5 +72,12 @@
       "> ${1:content}"
     ],
     "description": "コールアウト(Note)"
+  },
+  "check-box": {
+    "prefix": ".check",
+    "body": [
+      "- [  ]"
+    ],
+    "description": "チェックボックス"
   }
 }

@@ -10,9 +10,23 @@
       },
       {
         "language": [
-          "markdown"
+          "markdown",
+          "obsidian_markdown"
         ],
         "path": "./markdown.json"
+      },
+      {
+        "language": [
+          "obsidian_markdown"
+        ],
+        "path": "./obsidian_markdown.json"
+      },
+      {
+        "language": [
+          "markdown",
+          "obsidian_markdown"
+        ],
+        "path": "./mermaid.json"
       },
       {
         "language": [

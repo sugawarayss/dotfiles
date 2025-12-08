@@ -1,0 +1,102 @@
+{
+  "flowchart-LR": {
+    "prefix": ".flowchart:left-right",
+    "body": [
+      "flowchart LR",
+      "  Alice->>Jogn: Hello"
+    ],
+    "description": "フローチャート（左から右）"
+  },
+  "flowchart-TD": {
+    "prefix": ".flowchart:top-down",
+    "body": [
+      "flowchart TD",
+      "  Alice->>Jogn: Hello"
+    ],
+    "description": "フローチャート（上から下）"
+  },
+  "sequenceDiagram": {
+    "prefix": ".sequence",
+    "body": [
+      "sequenceDiagram",
+      "  Alice->>Jogn: Hello"
+    ],
+    "description": "シーケンス図"
+  },
+  "stateDiagram": {
+    "prefix": ".state",
+    "body": [
+      "stateDiagram-v2",
+      "  [Start] --> Hoge",
+      "  Hoge --> [End]"
+    ],
+    "description": "ステート図"
+  },
+  "erDiagram": {
+    "prefix": ".er",
+    "body": [
+      "erDiagram",
+      "  CUSTOMER ||--o{ ORDER : places"
+    ],
+    "description": "ER図"
+  },
+  "journey": {
+    "prefix": ".user-journey",
+    "body": [
+      "journey",
+      "  title Hoge",
+      "  section Fuga",
+      "    Foo:  5: Me"
+    ],
+    "description": "ユーザージャーニーマップ"
+  },
+  "gantt": {
+    "prefix": ".gantt",
+    "body": [
+      "gantt",
+      "  title A Gantt Diagram",
+      "  dateFormat  YYYY-MM-DD",
+      "  section Section",
+      "    A task           :a1, 2024-01-01, 30d"
+    ],
+    "description": "ガントチャート"
+  },
+  "classDiagram": {
+    "prefix": ".class",
+    "body": [
+      "classDiagram",
+      "  Class01 <|-- Class02"
+    ],
+    "description": "クラス図"
+  },
+  "pieChart": {
+    "prefix": ".piechart",
+    "body": [
+      "pie title Hoge",
+      " \"Fuga\" : 100"
+    ],
+    "description": "円グラフ"
+  },
+  "quadrantChart": {
+    "prefix": ".quadrantchart",
+    "body": [
+      "quadrantChart",
+      "  title Hogefuga",
+      "  x-axis \"Low\" \"High\"",
+      "  y-axis \"Low\" \"High\"",
+      "  \"Item1\" : [2,3]",
+      "  \"Item2\" : [4,1]"
+    ],
+    "description": "クアドラントチャート"
+  },
+  "gitGraph": {
+    "prefix": ".gitgraph",
+    "body": [
+      "gitGraph",
+      "  commit",
+      "  branch develop",
+      "  checkout develop"
+    ],
+    "description": "Gitグラフ"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "check-box": {
+    "prefix": ".check",
+    "body": [
+      "- [  ]"
+    ],
+    "description": "チェックボックス"
+  },
+  "properties": {
+    "prefix": ".properties",
+    "body": [
+      "---",
+      "tags:",
+      "  - ",
+      "---"
+    ],
+    "description": "[Obsidian]プロパティ"
+  },
+  "image-emmbed": {
+    "prefix": ".image",
+    "body": [
+      "![](${1:url})"
+    ],
+    "description": "[Obsidian]埋め込み(md|png|jpg|gif|pdf|mp3)"
+  },
+  "internal-link": {
+    "prefix": ".inter",
+    "body": [
+      "[[${1:page-name}]]"
+    ],
+    "description": "[Obsidian]内部リンク"
+  }
+}
