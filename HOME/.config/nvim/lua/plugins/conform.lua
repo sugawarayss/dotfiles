@@ -20,6 +20,7 @@ return {
         css = { "prettier" },
         json = { "jq" },
         markdown = { "markdownlint" },
+        obsidian_markdown = { "markdownlint" },
         toml = { "taplo" },
         terraform = { "terraform_fmt" },
         typescript = { "biome" },

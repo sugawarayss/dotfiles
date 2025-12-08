@@ -65,6 +65,7 @@ return {
       vim.treesitter.language.register("bash", "zsh")
       vim.treesitter.language.register("bash", "sh")
       vim.treesitter.language.register("yaml", "yaml_github")
+      vim.treesitter.language.register("markdown", "obsidian_markdown")
       -- custom highlights
       -- local function hi()
       --   vim.api.nvim_set_hl(0, "@illuminate", { link = "LspReferenceTarget" })

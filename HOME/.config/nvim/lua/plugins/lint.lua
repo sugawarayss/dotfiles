@@ -69,6 +69,11 @@ return {
 
     -- luacheck の設定ファイルの指定
     nvim_lint.linters.luacheck.args = { "--config", "~/.config/nvim/.luarc.json" }
+    -- markdownlint の設定ファイルの指
+    nvim_lint.linters.markdownlint.args = {
+      "--config",
+      "~/.markdownlintrc"
+    }
 
     nvim_lint.linters_by_ft = {
       bash = { "bash" },

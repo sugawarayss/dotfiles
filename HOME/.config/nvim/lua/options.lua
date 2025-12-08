@@ -39,7 +39,7 @@ local options = {
   background = "dark", -- 暗い背景色を使用
   scrolloff = 8, -- スクロール時に上下に余分に表示するサイズ
   sidescrolloff = 8, -- 横スクロール時に左右に余分に表示するサイズ
-  guifont = "Cascadia_Code_NF",  -- フォント指定
+  guifont = "Cascadia_Code_NF", -- フォント指定
   splitbelow = false, -- オンのとき、ウィンドウを横分割すると新しいウィンドウはカレントウィンドウの下に開かれる
   splitright = false, -- オンのとき、ウィンドウを縦分割すると新しいウィンドウはカレントウィンドウの右に開かれる
   pumblend = 10, -- pop upメニュー(補完時のポップアップ)を半透明にする
@@ -61,7 +61,8 @@ vim.filetype.add({
     ["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
     [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
     ["%.env.*"] = "sh.env",
-    ["*.log"] = "log"
+    ["*.log"] = "log",
+    [".*/obsidian_notes/.*%.md"] = "obsidian_markdown",
   },
 })
 
