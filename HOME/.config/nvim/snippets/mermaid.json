@@ -3,7 +3,8 @@
     "prefix": ".flowchart:left-right",
     "body": [
       "flowchart LR",
-      "  Alice->>Jogn: Hello"
+      "  Alice->>Jogn: Hello",
+      "  $0"
     ],
     "description": "フローチャート（左から右）"
   },
@@ -11,7 +12,8 @@
     "prefix": ".flowchart:top-down",
     "body": [
       "flowchart TD",
-      "  Alice->>Jogn: Hello"
+      "  Alice->>Jogn: Hello",
+      "  $0"
     ],
     "description": "フローチャート（上から下）"
   },
@@ -19,7 +21,8 @@
     "prefix": ".sequence",
     "body": [
       "sequenceDiagram",
-      "  Alice->>Jogn: Hello"
+      "  Alice->>Jogn: Hello",
+      "  $0"
     ],
     "description": "シーケンス図"
   },
@@ -28,7 +31,8 @@
     "body": [
       "stateDiagram-v2",
       "  [Start] --> Hoge",
-      "  Hoge --> [End]"
+      "  Hoge --> [End]",
+      "  $0"
     ],
     "description": "ステート図"
   },
@@ -36,7 +40,8 @@
     "prefix": ".er",
     "body": [
       "erDiagram",
-      "  CUSTOMER ||--o{ ORDER : places"
+      "  CUSTOMER ||--o{ ORDER : places",
+      "  $0"
     ],
     "description": "ER図"
   },
@@ -46,7 +51,8 @@
       "journey",
       "  title Hoge",
       "  section Fuga",
-      "    Foo:  5: Me"
+      "    Foo:  5: Me",
+      "  $0"
     ],
     "description": "ユーザージャーニーマップ"
   },
@@ -95,7 +101,8 @@
       "gitGraph",
       "  commit",
       "  branch develop",
-      "  checkout develop"
+      "  checkout develop",
+      "  $0"
     ],
     "description": "Gitグラフ"
   }

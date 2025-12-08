@@ -4,22 +4,15 @@
     "body": [
       "---",
       "tags:",
-      "  - ",
+      "  - $0",
       "---"
     ],
     "description": "[Obsidian]プロパティ"
   },
-  "image-emmbed": {
-    "prefix": ".image",
-    "body": [
-      "![](${1:url})"
-    ],
-    "description": "[Obsidian]埋め込み(md|png|jpg|gif|pdf|mp3)"
-  },
   "internal-link": {
-    "prefix": ".inter",
+    "prefix": ".inter-link",
     "body": [
-      "[[${1:page-name}]]"
+      "[[$0]]"
     ],
     "description": "[Obsidian]内部リンク"
   }

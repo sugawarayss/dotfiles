@@ -3,7 +3,7 @@
     "prefix": ".main",
     "body": [
       "def main():",
-      "    $1"
+      "    $0"
     ],
     "description": "Python main function"
   },
@@ -11,7 +11,7 @@
     "prefix": ".entrypoint",
     "body": [
       "if __name__ == \"__main__\":",
-      "    $1"
+      "    $0"
     ],
     "description": "Python entry point"
   },

@@ -2,30 +2,38 @@
   "link": {
     "prefix": ".link",
     "body": [
-      "[${1:label}](${2:url})"
+      "[${1}](${2})"
     ],
     "description": "マークダウンリンク"
+  },
+  "code-block": {
+    "prefix": ".codeblock",
+    "body": [
+      "```${0}",
+      "```"
+    ],
+    "description": "コードブロック"
   },
   "image-link": {
     "prefix": ".image",
     "body": [
-      "![${1:label}](${2:url})"
+      "![${1}](${2})"
     ],
     "description": "マークダウン画像リンク"
   },
   "table-basic": {
     "prefix": ".table",
     "body": [
-      "| ${1:col} |",
+      "| ${1} |",
       "| --- |",
-      "| ${2: value} |"
+      "| ${2} |"
     ],
     "description": "テーブル基本形"
   },
   "table-ext": {
     "prefix": ".table-ext-col",
     "body": [
-      " ${1:col} |"
+      " ${1} |"
     ],
     "description": "テーブル追加列(add Header row)"
   },
@@ -39,7 +47,7 @@
   "table-ext-cel": {
     "prefix": ".table-ext-cel",
     "body": [
-      " ${1:val} |"
+      " $0 |"
     ],
     "description": "テーブルセル追加(append cell)"
   },
@@ -47,9 +55,9 @@
     "prefix": ".details",
     "body": [
       "<details>",
-      "<summary>${1:title}</summary>",
+      "<summary>${1}</summary>",
       "",
-      "${2:content}",
+      "${2}",
       "",
       "</details>"
     ],
@@ -60,7 +68,7 @@
     "body": [
       "> [!WARNING]",
       "> ",
-      "> ${1:content}"
+      "> $0"
     ],
     "description": "コールアウト(Warning)"
   },
@@ -69,14 +77,14 @@
     "body": [
       "> [!NOTE]",
       "> ",
-      "> ${1:content}"
+      "> $0"
     ],
     "description": "コールアウト(Note)"
   },
   "check-box": {
     "prefix": ".check",
     "body": [
-      "- [  ]"
+      "- [  ] $0"
     ],
     "description": "チェックボックス"
   }
