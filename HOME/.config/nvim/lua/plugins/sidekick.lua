@@ -3,6 +3,45 @@ return {
   enabled = true,
   event = { "BufReadPost" },
   opts = {
+    jump = {
+      jumplist = true,
+    },
+    signs = {
+      enabled = true, -- enable signs by default
+      icon = " ",
+    },
+    nes = {
+      enabled = false,
+      debounce = 100,
+      trigger = {
+        events = { "ModeChanged i:n", "TextChanged", "User SidekickNesDone" },
+      },
+      clear = {
+        events = { "TextChangedI", "InsertEnter" },
+        esc = true,
+      },
+      diff = {
+        inline = "words",
+      },
+    },
+    cli = {
+      watch = true,
+      win = {
+        -- config = function(terminal) end,
+        wo = {},
+        bo = {},
+        layout = "right",
+        float = {
+          width = 0.9,
+          height = 0.9,
+        },
+        split = {
+          width = 80,
+          height = 20,
+        },
+        nav = nil,
+      },
+    },
     mux = {
       backend = "zellij",
       enabled = true,
