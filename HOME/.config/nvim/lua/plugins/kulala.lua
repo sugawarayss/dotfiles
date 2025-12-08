@@ -73,7 +73,7 @@ return {
 
     scripts = {
       -- Resolves "NODE_PATH" environment variable for node scripts. Defaults to the first "node_modules" directory found upwards from "script_file_dir".
-      node_path_resolver = nil, ---@type fun(http_file_dir: string, script_file_dir: string, script_data: ScriptData): string|nil
+      node_path_resolver = nil,
     },
 
     ui = {
@@ -82,9 +82,9 @@ return {
       -- split direction: possible values: "vertical", "horizontal"
       split_direction = "vertical",
       -- window options to override win_config: width/height/split/vertical.., buffer/window options
-      win_opts = { bo = {}, wo = {} }, ---@type kulala.ui.win_config
+      win_opts = { bo = {}, wo = {} },
       -- default view: "body" or "headers" or "headers_body" or "verbose" or fun(response: Response)
-      default_view = "body", ---@type "body"|"headers"|"headers_body"|"verbose"|fun(response: Response)
+      default_view = "body",
       -- enable winbar
       winbar = true,
       -- Specify the panes to be displayed by default
@@ -107,7 +107,6 @@ return {
         textHighlight = "WarningMsg", -- highlight group for request elapsed time
       },
       -- highlight groups for http syntax highlighting
-      ---@type table<string, string|vim.api.keyset.highlight>
       syntax_hl = {
         ["@punctuation.bracket.kulala_http"] = "Number",
         ["@character.special.kulala_http"] = "Special",
