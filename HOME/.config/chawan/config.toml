@@ -1,0 +1,196 @@
+[start]
+# Chawan が `-V` オプションで実行され、URLが引数で渡されていない場合に開かれるページ
+visual-home = "about:chawan"
+# Chawanの起動時に実行されるJavascriptコード
+startup-script = ""
+# `true` または `"dump"` にすると、ブラウザは入力を受け取らなくなる。パイプなどで他コマンドと組み合わせる場合
+# true | false | "dump"
+headless = false
+# Chawanが非ヘッドレスモードでコンソールバッファーを開くかどうか
+console-buffer = true
+
+[buffer]
+# スタイルシートの有効/無効
+stylng = true
+# すべてのバッファでのJavascriptQの有効/無効
+# true | false | "app"
+scripting = false
+# インライン画像の有効/無効
+images = false
+# サイトのCookieの有効/無効
+# true | false | "save"
+cookie = false
+# `Referer`ヘッダの有効/無効
+referer-from = false
+# バッファが読み込まれた後、"autofocus"属性を持つ要素に自動的にフォーカスするか
+autofocus = false
+# メタタグを尊重するかどうか
+# "never" | "always" | "ask"
+meta-refresh = "ask"
+# 閲覧履歴をディスクに保存するかどうか
+history = true
+# リンクの前に数値マーカーを追加するかどうか
+mark-links = false
+# すべてのバッファに適用されるユーザースタイルシート
+# user-style = ""
+
+[search]
+# ページ内検索をドキュメント内で折り返すかどうか
+wrap = true
+# 検索時に大文字と小文字を区別するかどうか
+# "auto" | true | false
+ignore-case = "auto"
+
+[encoding]
+# DOMを読み込むときの文字コード
+document-charset = [
+  "utf-8",
+  "sjis",
+  "euc-jp",
+  "latin2"
+]
+# キーボード入力に使用する文字コード
+display-charset = "auto"
+
+[external]
+# 一時ファイルを保持するディレクトリ
+# tmpdir = 
+# 外部エディタ(デフォルト: $EDITOR)
+# editor = 
+# mailcapファイルの検索パス
+# mailcap = 
+# mime.typesファイルの検索パス
+# mime-types = 
+# 自動的に実行されるエントリのMailcapファイル
+# auto-mailcap = 
+# ローカルCGIスクリプトの検索パス
+# cgi-dir = 
+# urimethodmapファイルの検索パス
+# urimethodmap = 
+# w3mとのローカルCGI互換性を有効にするか
+w3m-cgi-compat = false
+# 保存先パス
+download-dir = "~/Downloads"
+# "about:downloades"をダウンロード開始時に表示するか
+show-download-panel = true
+# クリップボードにコピーに使用するコマンド
+copy-cmd = "xsel -bi"
+# クリップボードから貼付に使用するコマンド
+paste-cmd = "xsel -bo"
+# ブックマークの保存ファイル
+bookmark = "bookmark.md"
+# 履歴ファイルのパス
+history-file = "history.uri"
+# 履歴ファイルの最大長
+history-size = 100
+
+[input]
+# コマンドへの `vi` スタイルの数値接頭辞を受け入れるかどうか
+vi-numeric-prefix = true
+# マウスクリックをインターセプトできるかどうか
+use-mouse = true
+# クリップボードにコピーする時に、OSC 52エスケープシーケンスを使用するかどうか
+# true | false | "auto"
+osc52-copy = "auto"
+# 括弧付きのペーストを求めるべきかどうか
+bracketed-paste = true
+# マウスホイールでスクロールする行数
+wheel-scroll = 5
+# マウスのサイドホイールでスクロールする列数
+side-sheel-scroll = 5
+# `toggleLinkHints` で使用するヒント文字列
+link-hint-chars = "abcdefghijklmnoprstuvxyz"
+
+[network]
+# リダイレクトの最大数
+max-redirect = 10
+# 1つのバッファに許可される同時ネットワーク接続の最大数
+max-net-connections = 12
+# 補完するスキーム
+prepend-scheme = "https://"
+# すべてのネットワークリクエストのプロキシ
+# proxy =
+# すべてのHTTP(S)ネットワークリクエストのデフォルトヘッダーのリスト
+# default-headers = 
+# セキュリティリスクがあるのでtrueにしないべき
+allow-http-form-file = false
+
+[display]
+# カラーモード
+# "monochrome" | "asi" | "eight-bit" | "true-color" | "auto"
+color-mode = "auto"
+# 出力フォーマットモード
+# "auto" | "bold" | "italic" | "underline" | "reverse" | "strike" | "overline" | "blink"
+format-mode = "auto"
+# 無効にするフォーマットモード
+# "auto" | "bold" | "italic" | "underline" | "reverse" | "strike" | "overline" | "blink"
+no-format-mode = "overline"
+# 画像出力モード
+# "auto" | "none" | "sixel" | "kitty"
+image-mode = "auto"
+# sixel カラーレジスタの数が上書きされる(image-mode="sixel"の場合のみ有効)
+sixel-colors = "auto"
+# 代替画像を有効にするか
+alt-screen = "auto"
+# インクリメンタル検索とマークのハイライトカラーを指定
+# Hexカラーコード | CSS色名
+highlight-color = "cyan"
+# マークの強調表示を有効にするか
+highlight-marks = true
+# 曖昧カテゴリの文字を全角文字として表示するか
+double-width-ambiguous = false
+# 背景と前景の輝度コントラストの最小値
+minimum-contrast = 100
+# 画面が再描画されるたびに強制的に画面をクリアするか
+force-clear = false
+# ターミナルエミュレータのウィンドウタイトルに現在のページのタイトルを設定する
+set-title = true
+# ターミナルの背景色を上書きする
+default-background-color = "auto"
+# ターミナルの前景色を上書きする
+default-foreground-color = "auto"
+
+[status]
+# 現在の行番号を表示するかどうか
+show-cursor-position = true
+# カーソルがあるリンクを表示するかどうか
+show-hover-link = true
+
+[omnirule]
+# 入力文字列を照合するために使用される正規表現
+# match =  
+# substitute-url = 
+
+# サイト別の設定
+[siteconf]
+# 設定対象のサイト判別用URLパターン
+# url = 
+# 設定対象サイトのホスト判別用パターン
+# host =  
+# rewrite-url =  
+# cookie = 
+# share-cookir-jar = 
+# referer-from = 
+# scripting = 
+# styling = 
+# images = 
+# document-charset = 
+# proxy = 
+# default-headers =
+# insecure-ssl-no-verify = 
+# autofocus = 
+# meta-refresh = 
+# history = 
+# mark-links = 
+# user-style = 
+
+[page]
+# ブラウザを終了する
+"q" = "quit"
+# ブラウザを一時停止する
+"C-z" = "suspend"
+# URLバーで現在のアドレスを開きます
+"C-l" = "load"
+# カーソル位置のリンク(または画像)を開く
+"M-l" =  "loadCursor"
+

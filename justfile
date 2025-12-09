@@ -268,6 +268,12 @@ apps:
 glide:
   @test -L ~/.config/glide || ln -s {{pwd}}/HOME/.config/glide ~/.config/glide
 
+# chawan(TUIブラウザ)の設定ファイル
+chawan:
+  # ~/.config/chawan/config.toml
+  @test -d ~/.config/chawan || mkdir ~/.config/chawan
+  @test -L ~/.config/chawan/config.toml || ln -s {{pwd}}/HOME/.config/chawan/config.toml ~/.config/chawan/config.toml
+
 # OSの設定、ツールのインストール
 initial: system-preferences brew-restore 
 
