@@ -3,7 +3,6 @@
     "prefix": ".flowchart:left-right",
     "body": [
       "flowchart LR",
-      "  Alice->>Jogn: Hello",
       "  $0"
     ],
     "description": "フローチャート（左から右）"
@@ -12,10 +11,156 @@
     "prefix": ".flowchart:top-down",
     "body": [
       "flowchart TD",
-      "  Alice->>Jogn: Hello",
       "  $0"
     ],
     "description": "フローチャート（上から下）"
+  },
+  "link-arrow": {
+    "prefix": ".arrow-link",
+    "body": [
+      " --> "
+    ],
+    "description": "リンク矢印"
+  },
+  "link-open": {
+    "prefix": ".open-link",
+    "body": [
+      " ---  "
+    ],
+    "description": "オープンリンク"
+  },
+  "link-text": {
+    "prefix": ".text-on-link",
+    "body": [
+      " |$0| "
+    ],
+    "description": "リンク上のテキスト"
+  },
+  "link-dotted": {
+    "prefix": ".dotted-link",
+    "body": [
+      " -.-> "
+    ],
+    "description": "点線リンク"
+  },
+  "link-thick": {
+    "prefix": ".thick-link",
+    "body": [
+      " ==> "
+    ],
+    "description": "太いリンク"
+  },
+  "link-circle-edge": {
+    "prefix": ".circle-edge-link",
+    "body": [
+      "  --o "
+    ],
+    "description": "丸エッジリンク"
+  },
+  "link-cross-edge": {
+    "prefix": ".cross-edge-link",
+    "body": [
+      "  --x "
+    ],
+    "description": "バツエッジリンク"
+  },
+  "node-round-edge": {
+    "prefix": ".round-edge-node",
+    "body": [
+      "$1($0)"
+    ],
+    "description": "丸エッジノード"
+  },
+  "node-square-edge": {
+    "prefix": ".square-edge-node",
+    "body": [
+      "$1[$0]"
+    ],
+    "description": "四角エッジノード"
+  },
+  "node-diamond-edge": {
+    "prefix": ".diamond-edge-node",
+    "body": [
+      "$1{$0}"
+    ],
+    "description": "ひし形エッジノード"
+  },
+  "node-circle-edge": {
+    "prefix": ".circle-edge-node",
+    "body": [
+      "$1(($0)) "
+    ],
+    "description": "丸エッジノード"
+  },
+  "node-subroutine-edge": {
+    "prefix": ".subroutine-edge-node",
+    "body": [
+      "$1[[$0]]"
+    ],
+    "description": "サブルーチンエッジノード"
+  },
+  "node-stadium-edge": {
+    "prefix": ".stadium-edge-node",
+    "body": [
+      "$1([$0])"
+    ],
+    "description": "スタジアムエッジノード"
+  },
+  "node-cylinder-edge": {
+    "prefix": ".cylinder-edge-node",
+    "body": [
+      "$1[($0)]"
+    ],
+    "description": "DBシリンダーエッジノード"
+  },
+  "node-asymmetric-edge": {
+    "prefix": ".asymmetric-edge-node",
+    "body": [
+      "$1>$0]"
+    ],
+    "description": "非対称エッジノード"
+  },
+  "node-parallelogram-edge": {
+    "prefix": ".parallelogram-edge-node",
+    "body": [
+      "$1[/$0/]"
+    ],
+    "description": "平行四辺形エッジノード"
+  },
+  "node-parallelogram-alt": {
+    "prefix": ".parallelogram-alt-edge-node",
+    "body": [
+      "$1[\\$0\\]"
+    ],
+    "description": "平行四辺形エッジノード（逆向き）"
+  },
+  "node-hexagon-edge": {
+    "prefix": ".hexagon-edge-node",
+    "body": [
+      "$1{{$0}}"
+    ],
+    "description": "六角形エッジノード"
+  },
+  "node-trapezoid-edge": {
+    "prefix": ".trapezoid-edge-node",
+    "body": [
+      "$1[/$0\\]"
+    ],
+    "description": "台形エッジノード"
+  },
+  "node-inverted-trapezoid-edge": {
+    "prefix": ".inverted-trapezoid-edge-node",
+    "body": [
+      "$1[\\$0/]"
+    ],
+    "description": "逆台形エッジノード"
+  },
+  "node-double-circle": {
+    "prefix": ".double-circle-node",
+    "body": [
+      "$1((($0)))"
+    ],
+    "description": "二重丸エッジノード"
   },
   "sequenceDiagram": {
     "prefix": ".sequence",
@@ -78,8 +223,9 @@
   "pieChart": {
     "prefix": ".piechart",
     "body": [
-      "pie title Hoge",
-      " \"Fuga\" : 100"
+      "pie title $0",
+      "  Hoge --> [End]",
+      "  $1"
     ],
     "description": "円グラフ"
   },
