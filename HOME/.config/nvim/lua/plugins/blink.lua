@@ -14,10 +14,10 @@ return {
         default = { "lsp", "path", "snippets", "buffer", "copilot" },
         providers = {
           cmdline = {
-            -- コマンドラインへの入力が3文字未満の場合は補完を無効にする
+            -- コマンドラインへの入力が2文字未満の場合は補完を無効にする
             min_keyword_length = function(ctx)
               if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
-                return 3
+                return 2
               end
               return 0
             end,
@@ -52,8 +52,8 @@ return {
         ["<C-e>"] = { "hide", "fallback" },
         -- 補完の確定
         ["<CR>"] = { "accept", "fallback" },
-        ["<Tab>"] = { "fallback" },
-        ["<S-Tab>"] = { "fallback" },
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
         -- 補完候補の選択
         ["<Up>"] = { "select_prev", "fallback" },
         ["<Down>"] = { "select_next", "fallback" },
