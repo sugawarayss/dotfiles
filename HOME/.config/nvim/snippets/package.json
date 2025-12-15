@@ -39,6 +39,48 @@
           "toml"
         ],
         "path": "./toml.json"
+      },
+      {
+        "language": [
+          "go"
+        ],
+        "path": "./go.json"
+      },
+      {
+        "language": [
+          "html"
+        ],
+        "path": "./html.json"
+      },
+      {
+        "language": [
+          "sql"
+        ],
+        "path": "./sql.json"
+      },
+      {
+        "language": [
+          "javascript"
+        ],
+        "path": "./javascript.json"
+      },
+      {
+        "language": [
+          "typescript"
+        ],
+        "path": "./typescript.json"
+      },
+      {
+        "language": [
+          "java"
+        ],
+        "path": "./java.json"
+      },
+      {
+        "language": [
+          "rust"
+        ],
+        "path": "./rust.json"
       }
     ]
   }

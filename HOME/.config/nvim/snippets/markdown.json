@@ -2,14 +2,15 @@
   "link": {
     "prefix": ".link",
     "body": [
-      "[${1}](${2})"
+      "[${1:label}](${2:url})"
     ],
     "description": "マークダウンリンク"
   },
   "code-block": {
     "prefix": ".codeblock",
     "body": [
-      "```${0}",
+      "```${1:language}",
+      "$0",
       "```"
     ],
     "description": "コードブロック"
@@ -55,9 +56,9 @@
     "prefix": ".details",
     "body": [
       "<details>",
-      "<summary>${1}</summary>",
+      "<summary>${1:title}</summary>",
       "",
-      "${2}",
+      "$0",
       "",
       "</details>"
     ],

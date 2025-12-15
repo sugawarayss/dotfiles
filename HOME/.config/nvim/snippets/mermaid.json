@@ -15,6 +15,13 @@
     ],
     "description": "フローチャート（上から下）"
   },
+  "participant": {
+    "prefix": ".participant",
+    "body": [
+      "  participant $0"
+    ],
+    "description": "シーケンス図の参加者"
+  },
   "link-arrow": {
     "prefix": ".arrow-link",
     "body": [

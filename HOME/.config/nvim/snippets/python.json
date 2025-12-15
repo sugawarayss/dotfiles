@@ -1,19 +1,67 @@
 {
   "main": {
-    "prefix": ".main",
+    "prefix": "def ",
     "body": [
-      "def main():",
+      "def ${1:main}(${2}) -> ${3:None}:",
       "    $0"
     ],
-    "description": "Python main function"
+    "description": "Define Function"
   },
-  "entrypoint": {
-    "prefix": ".entrypoint",
+  "if": {
+    "prefix": "if ",
     "body": [
-      "if __name__ == \"__main__\":",
-      "    $0"
+      "if ${1:condition}:",
+      "    ${2:pass}"
     ],
-    "description": "Python entry point"
+    "description": "If 文"
+  },
+  "elif": {
+    "prefix": "elif",
+    "body": [
+      "elif ${1:condition}:",
+      "    ${2:pass}"
+    ],
+    "description": "Elif 句"
+  },
+  "else": {
+    "prefix": "else",
+    "body": [
+      "else:",
+      "    ${1:pass}"
+    ],
+    "description": "Else 句"
+  },
+  "match_case": {
+    "prefix": "match",
+    "body": [
+      "match ${1:variable}:",
+      "    case ${2:pattern_1}:",
+      "        ${3:pass}",
+      "    case _:",
+      "        ${6:pass}"
+    ],
+    "description": "Match 文"
+  },
+  "__main__": {
+    "prefix": "__n",
+    "body": [
+      " __name__ == \"__main__\""
+    ],
+    "description": "Entry Point"
+  },
+  "import": {
+    "prefix": "imp",
+    "body": [
+      "import ${1:module}"
+    ],
+    "description": "Import 文"
+  },
+  "from_import": {
+    "prefix": "from ",
+    "body": [
+      "from ${1:module} import ${2:item}"
+    ],
+    "description": "From Import 文"
   },
   "time_measure": {
     "prefix": ".time",

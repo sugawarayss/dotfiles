@@ -1,4 +1,39 @@
 {
+  "date-iso": {
+    "prefix": "date-iso",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+    ],
+    "description": "ISO 8601形式の日付と時刻"
+  },
+  "date": {
+    "prefix": "date",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"
+    ],
+    "description": "日付(YYYY-MM-DD)"
+  },
+  "time": {
+    "prefix": "time",
+    "body": [
+      "${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+    ],
+    "description": "時刻(HH:MM:SS)"
+  },
+  "datetime": {
+    "prefix": "datetime",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+    ],
+    "description": "日付と時刻(YYYY-MM-DD HH:MM:SS)"
+  },
+  "uuid": {
+    "prefix": "uuid",
+    "body": [
+      "${UUID}"
+    ],
+    "description": "UUIDv4"
+  },
   "taskfile": {
     "prefix": "taskfile",
     "body": [

@@ -1,0 +1,26 @@
+{
+  "require": {
+    "prefix": "req",
+    "body": [
+      "require(${1:module})"
+    ],
+    "description": "Lua require statement"
+  },
+  "if": {
+    "prefix": "if ",
+    "body": [
+      "if ${1:true}  then",
+      "  $0",
+      "end"
+    ],
+    "description": "Lua if statement"
+  },
+  "elseif": {
+    "prefix": "elseif ",
+    "body": [
+      "elseif ${1:true} then",
+      "  $0"
+    ],
+    "description": "Lua elseif statement"
+  }
+}
