@@ -11,7 +11,8 @@ local lsp_servers = {
   -- BUG: 上手く設定できなかったのでcopilot.luaに戻す
   -- "copilot",
   -- python
-  "pyright",
+  -- "pyright",
+  "basedpyright",
   "ruff",
   -- fish
   "fish_lsp",
