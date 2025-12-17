@@ -11,6 +11,9 @@ return {
           variableTypes = true,
           callArgumentNames = true,
         },
+        completions = {
+          autoImport = true,
+        },
       },
     },
   },
