@@ -91,7 +91,7 @@ local diagnostics = {
   -- shell script
   "shellcheck",
   -- code security
-  "semgrep",
+  -- "semgrep",
   -- code security
   "gitleaks",
   -- dockerfile
