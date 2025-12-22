@@ -145,7 +145,7 @@ return {
           strategy = "chat",
           description = "Git Diff 結果をReview",
           opts = {
-            short_name = "review_local_diff",
+            alias = "review_local_diff",
             is_slash_cmd = true,
             auto_submit = true,
             user_prompt = false,
@@ -183,7 +183,7 @@ return {
           opts = {
             index = 9,
             is_slash_cmd = true,
-            short_name = "semantic_commit",
+            alias = "semantic_commit",
             auto_submit = true,
           },
           prompts = {
@@ -223,7 +223,7 @@ return {
           },
         },
       },
-      strategies = {
+      interactions = {
         chat = {
           adapter = "copilot",
           roles = {
