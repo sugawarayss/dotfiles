@@ -21,6 +21,8 @@ config.cursor_blink_rate = 480
 config.cursor_blink_ease_in = "Constant"
 -- 点滅時のフェードアウトのしかたを一定にする
 config.cursor_blink_ease_out = "Constant"
+-- カーソルを表示する太さを2pxに設定
+config.cursor_thickness = 2
 -- スクロールバーを表示
 config.enable_scroll_bar = true
 -- Leaderキーを設定
@@ -48,7 +50,7 @@ config.font = wezterm.font_with_fallback({
 	{ family = "HackGen Console NF", weight = "Regular" },
 })
 -- フォントサイズ
-config.font_size = 15.5
+config.font_size = 14.0
 -- フォントサイズ変更時にウィンドウサイズを調整
 config.adjust_window_size_when_changing_font_size = true
 -- IME を有効にする
