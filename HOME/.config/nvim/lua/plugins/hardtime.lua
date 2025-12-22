@@ -3,7 +3,7 @@ return {
   {
     "m4xshen/hardtime.nvim",
     lazy = false,
-    enabled = false,
+    enabled = true,
     opts = {},
     config = function()
       require("hardtime").setup({
@@ -14,7 +14,7 @@ return {
         hint = true,
         notification = true,
         allow_different_key = true,
-        enabled = false,
+        enabled = true,
         force_exit_insert_mode = false,
         max_insert_idle_ms = 5000,
       })
