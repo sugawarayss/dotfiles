@@ -8,7 +8,7 @@ font-family = "HackGen Console NF"
 # フォントサイズ
 font-size = 16
 # 行の高さの調整
-adjust-cell-height = "-20%"
+adjust-cell-height = "-15%"
 
 # カラーテーマ
 theme = One Half Dark
