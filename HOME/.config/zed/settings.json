@@ -10,52 +10,24 @@
   "relative_line_numbers": "wrapped",
   "git": {
     "inline_blame": {
-      "show_commit_summary": true
-    }
+      "show_commit_summary": true,
+    },
   },
   "buffer_font_weight": 400.0,
   "context_servers": {
     "aws-terraform-mcp-server": {
-      "source": "custom",
       "enabled": true,
       "command": "uvx",
-      "args": [
-        "awslabs.terraform-mcp-server@latest"
-      ],
+      "args": ["awslabs.terraform-mcp-server@latest"],
       "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      }
+        "FASTMCP_LOG_LEVEL": "ERROR",
+      },
     },
     "aws-knowledge-mcp-server": {
-      "source": "custom",
-      "args": [
-        "fastmcp",
-        "run",
-        "https://knowledge-mcp.global.api.aws"
-      ],
-      "autoApprove": [
-        "aws___search_documentation",
-        "aws___recommend",
-        "aws___read_documentation",
-        "aws___get_regional_availability",
-        "aws___list_regions"
-      ],
-      "command": "uvx"
-    },
-    "tavily": {
-      "source": "custom",
-      "enabled": true,
-      "command": "npx",
-      "args": [
-        "-y",
-        "tavily-mcp@latest"
-      ],
-      "env": {
-        "TAVILY_API_KEY": ""
-      }
+      "args": ["fastmcp", "run", "https://knowledge-mcp.global.api.aws"],
+      "command": "uvx",
     },
     "serena": {
-      "source": "custom",
       "enabled": true,
       "command": "uvx",
       "args": [
@@ -64,51 +36,47 @@
         "serena",
         "start-mcp-server",
         "--context",
-        "ide-assistant"
-      ]
+        "ide-assistant",
+      ],
     },
     "sequentialthinking": {
-      "source": "custom",
       "enabled": true,
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
     },
     "filesystem": {
-      "source": "custom",
       "enabled": true,
       "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "${ALLOWED_DIRECTORY}"
+        "${ALLOWED_DIRECTORY}",
       ],
       "env": {
-        "ALLOWED_DIRECTORY": "~/PROJECTS/"
-      }
-    }
+        "ALLOWED_DIRECTORY": "~/PROJECTS/",
+      },
+    },
   },
   "agent": {
+    "default_profile": "ask",
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
+      "model": "claude-haiku-4.5",
     },
-    "model_parameters": []
+    "model_parameters": [],
   },
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "base_keymap": "JetBrains",
   "telemetry": {
     "metrics": false, // メトリクスの送信
-    "diagnostics": false // ダイアグノスティックの送信
+    "diagnostics": false, // ダイアグノスティックの送信
   },
   //"confirm_quit": true, // 終了時の確認
   // UI のフォント設定
   "ui_font_size": 13.0,
-  "ui_font_family": "Cascadia Mono NF",
+  "ui_font_family": "Hack Nerd Font Mono",
   "ui_font_fallbacks": ["HackGen Console NF"],
   // エディタのフォント設定
   "buffer_font_size": 13.0,
@@ -120,20 +88,20 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "One Dark Pro"
+    "dark": "One Dark Pro",
   },
   // アイコンテーマ(extension のインストールが必要)
   "icon_theme": {
     "mode": "system",
     "light": "Zed (Default)",
-    "dark": "Material Icon Theme"
+    "dark": "Material Icon Theme",
   },
   "tabs": {
     "git_status": true,
-    "file_icons": true
+    "file_icons": true,
   },
   "file_finder": {
-    "modal_max_width": "large"
+    "modal_max_width": "large",
   },
   "scrollbar": {
     // スクロールバーの設定
@@ -146,14 +114,14 @@
     "diagnostics": "all", // 診断結果の表示
     "axes": {
       "horizontal": true,
-      "vertical": true
-    }
+      "vertical": true,
+    },
   },
   "vim_mode": true, // Vim モードの有効化
   "vim": {
     "use_system_clipboard": "always", // システムクリップボードの使用
     "use_smartcase_find": true, // 検索時に大文字小文字を区別しない
-    "toggle_relative_line_numbers": true // 相対行数と絶対行数の切り替え
+    "toggle_relative_line_numbers": true, // 相対行数と絶対行数の切り替え
   },
   "show_whitespaces": "boundary", // 空白文字の表示
   "current_line_highlight": "all", // 現在行のハイライト
@@ -165,7 +133,7 @@
     "line_width": 1, // インデントガイドの幅
     "active_line_width": 2, // アクティブな行のインデントガイドの幅
     "coloring": "indent_aware", // インデントガイドの色
-    "background_coloring": "disabled" // インデントガイドの背景色
+    "background_coloring": "disabled", // インデントガイドの背景色
   },
   "use_smartcase_search": true,
 
@@ -177,23 +145,23 @@
     "show_other_hints": true, // その他のヒントの表示
     "show_background": true, // ヒントの背景色の表示
     "edit_debounce_ms": 700, // ヒントの表示までの待機時間
-    "scroll_debounce_ms": 50 // ヒントのスクロールまでの待機時間
+    "scroll_debounce_ms": 50, // ヒントのスクロールまでの待機時間
   },
   "terminal": {
     "toolbar": {
-      "breadcrumbs": false
+      "breadcrumbs": false,
     },
     "font_size": 12.0,
-    "font_family": "Cascadia Mono NF",
+    "font_family": "Hack Nerd Font Mono",
     "font_fallbacks": ["HackGen Console NF"],
     "line_height": {
-      "custom": 1.2
+      "custom": 1.2,
     },
     "working_directory": "current_project_directory", // ターミナルの作業ディレクトリ
     "env": {
       "LANG": "ja_JP.UTF-8",
-      "LC_ALL": "ja_JP.UTF-8"
-    }
+      "LC_ALL": "ja_JP.UTF-8",
+    },
   },
   "diagnostics": {
     "include_warnings": true,
@@ -202,8 +170,8 @@
       "update_debounce_ms": 150,
       "padding": 4,
       "min_column": 0,
-      "max_severity": null
-    }
+      "max_severity": null,
+    },
   },
   "auto_install_extensions": {
     "fish": true,
@@ -219,7 +187,7 @@
     "env": true,
     "rainbow csv": true,
     "catppuccin": true,
-    "material icon theme": true
+    "material icon theme": true,
   },
   "languages": {
     "Python": {
@@ -234,17 +202,17 @@
       "format_on_save": "on",
       "formatter": [
         {
-          "code_action": "source.fixAll.ruff"
+          "code_action": "source.fixAll.ruff",
         },
         {
-          "code_action": "source.organizaImports.ruff"
+          "code_action": "source.organizaImports.ruff",
         },
         {
           "language_server": {
-            "name": "ruff"
-          }
-        }
-      ]
+            "name": "ruff",
+          },
+        },
+      ],
     },
     "Lua": {
       "format_on_save": "on",
@@ -254,25 +222,25 @@
         "show_type_hints": true,
         "show_parameter_hints": true,
         "show_other_hints": true,
-        "show_value_hints": true
-      }
+        "show_value_hints": true,
+      },
     },
     "Markdown": {
       "format_on_save": "on",
-      "remove_trailing_whitespace_on_save": true
+      "remove_trailing_whitespace_on_save": true,
     },
     "JSON": {
       "format_on_save": "on",
-      "formatter": "language_server"
+      "formatter": "language_server",
     },
     "TOML": {
       "format_on_save": "on",
-      "formatter": "language_server"
+      "formatter": "language_server",
     },
     "YAML": {
       "format_on_save": "on",
-      "formatter": "language_server"
-    }
+      "formatter": "language_server",
+    },
   },
   "lsp": {
     "rust-analyzer": {
@@ -281,13 +249,13 @@
           "maxLength": null,
           "lifetimeElisionHints": {
             "enable": "skip_trivial",
-            "useParameterNames": true
+            "useParameterNames": true,
           },
           "closureReturnTypeHints": {
-            "enable": "always"
-          }
-        }
-      }
+            "enable": "always",
+          },
+        },
+      },
     },
     "pyright": {
       "settings": {
@@ -297,10 +265,10 @@
           "analysis": {
             "diagnosticMode": "openFilesOnly",
             "typeCheckingMode": "basic",
-            "autoImportCompletions": true
-          }
-        }
-      }
+            "autoImportCompletions": true,
+          },
+        },
+      },
     },
     "ruff": {
       "initialization_options": {
@@ -314,13 +282,13 @@
             // "extendSelect": ["I"],
             // "ignore": [],
             "showSyntaxErrors": true,
-            "args": ["--config", "./pyproject.toml", "{buffer_path}"]
+            "args": ["--config", "./pyproject.toml", "{buffer_path}"],
           },
           "format": {
-            "enable": true
-          }
-        }
-      }
+            "enable": true,
+          },
+        },
+      },
     },
     "json-language-server": {
       "settings": {
@@ -328,30 +296,30 @@
           "schemas": [
             {
               "fileMatch": ["*/*.luarc.json"],
-              "url": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json"
-            }
-          ]
-        }
-      }
+              "url": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+            },
+          ],
+        },
+      },
     },
     "taplo": {
       "settings": {
-        "array_auto_collapse": false
-      }
+        "array_auto_collapse": false,
+      },
     },
     "yaml-language-server": {
       "settings": {
         "yaml": {
           "keyOrdering": true,
           "format": {
-            "singleQuote": true
+            "singleQuote": true,
           },
           "schemas": {
             "http://json.schemastore.org/composer": ["/*"],
-            "../relative/path/schema.json": ["/config*.yaml"]
-          }
-        }
-      }
-    }
-  }
+            "../relative/path/schema.json": ["/config*.yaml"],
+          },
+        },
+      },
+    },
+  },
 }
