@@ -14,7 +14,7 @@ return {
         hint = true,
         notification = true,
         allow_different_key = true,
-        enabled = true,
+        enabled = false,
         force_exit_insert_mode = false,
         max_insert_idle_ms = 5000,
       })
