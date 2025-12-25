@@ -19,7 +19,7 @@ return {
     require("rip-substitute").setup({
       popupWin = {
         title = " Substitute by Ripgrep",
-        border = getBorder(), -- `vim.o.winborder` on nvim 0.11, otherwise "rounded"
+        border = "double", -- `vim.o.winborder` on nvim 0.11, otherwise "rounded"
         matchCountHlGroup = "Keyword",
         noMatchHlGroup = "ErrorMsg",
         position = "bottom", ---@type "top"|"bottom"
