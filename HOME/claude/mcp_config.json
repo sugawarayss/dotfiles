@@ -45,15 +45,6 @@
       ],
       "command": "npx"
     },
-    "fetch": {
-      "args": [
-        "mcp-server-fetch"
-      ],
-      "autoApprove": [
-        "fetch"
-      ],
-      "command": "uvx"
-    },
     "filesystem": {
       "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
       "args": [
@@ -86,7 +77,7 @@
         "serena",
         "start-mcp-server",
         "--context",
-        "ide-assistant"
+        "ide"
       ],
       "autoApprove": [
         "find_file",
@@ -100,6 +91,34 @@
         "onboarding",
         "search_for_pattern"
       ]
+    },
+    "markitdown": {
+      "args": [
+        "markitdown-mcp==0.0.1a4"
+      ],
+      "autoApprove": [
+        "convert_to_markdown"
+      ],
+      "command": "uvx",
+      "type": "stdio"
+    },
+    "playwright": {
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "autoApprove": [
+        "browser_click",
+        "browser_wait_for",
+        "browser_type",
+        "browser_take_screenshot",
+        "browser_press_key",
+        "browser_hover",
+        "browser_evaluate",
+        "browser_drag",
+        "browser_console_messages",
+        "browser_close"
+      ],
+      "command": "npx"
     }
   }
 }
