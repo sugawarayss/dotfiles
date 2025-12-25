@@ -22,6 +22,7 @@ return {
           filetype = {
             "snacks_picker_list",
             "snacks_terminal",
+            "snacks_layout_box",
             "sagaoutline",
             "undotree",
             "gundo",
@@ -36,10 +37,8 @@ return {
       })
       wk.add({
         { "<S-M-CR>", "<cmd>WindowsToggleAutowidth<CR>", mode = "n", desc = "カーソルがあるウィンドウを最大化する" },
-        { "<S-M-k>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "カーソルがあるウィンドウの幅を最大化する" },
-        { "<S-M-j>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "カーソルがあるウィンドウの幅を最大化する" },
+        { "<S-M-v>", "<cmd>WindowsMaximizeVertically<CR>", mode = "n", desc = "カーソルがあるウィンドウの幅を最大化する" },
         { "<S-M-h>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "カーソルがあるウィンドウの高さを最大化する" },
-        { "<S-M-l>", "<cmd>WindowsMaximizeHorizontally<CR>", mode = "n", desc = "カーソルがあるウィンドウの高さを最大化する" },
       })
     end,
   },
