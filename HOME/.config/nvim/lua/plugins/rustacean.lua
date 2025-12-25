@@ -3,6 +3,7 @@ return {
   "mrcjkb/rustaceanvim",
   version = "^5",
   lazy = false,
+  ft = { "rust" },
   opts = {
     tools = {
       executor = "snacks_terminal",
@@ -56,7 +57,7 @@ return {
       },
     },
     dap = {
-      --
+      -- TODO:rust debug config here
     },
   },
   config = function() end,
