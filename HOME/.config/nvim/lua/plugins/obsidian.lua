@@ -81,13 +81,13 @@ return {
   -- Obsidian markdownをレンダリング
   {
     "OXY2DEV/markview.nvim",
-    ft = { "obsidian_markdown" },
+    ft = { "obsidian_markdown", "codecompanion" },
     cond = function()
       return not vim.g.vscode
     end,
     opts = {
       preview = {
-        filetypes = { "obsidian_markdown" },
+        filetypes = { "obsidian_markdown", "codecompanion" },
         ignore_buftypes = {},
       },
     },
