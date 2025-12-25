@@ -1,7 +1,7 @@
 return {
   {
     "yousefhadder/markdown-plus.nvim",
-    ft = { "markdown", "codecompanion" },
+    ft = { "markdown" },
     cond = function()
       return not vim.g.vscode
     end,
