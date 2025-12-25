@@ -9,6 +9,9 @@ return {
     lazy = true,
     -- pythonファイルを開いた時にloadする
     ft = { "python" },
+    cond = function()
+      return not vim.g.vscode
+    end,
     init = function()
       local wk = require("which-key")
       wk.add({

@@ -2,6 +2,9 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  cond = function()
+    return not vim.g.vscode
+  end,
   opts = {
     -- false | "classic" | "modern" | "helix"
     preset = "helix",

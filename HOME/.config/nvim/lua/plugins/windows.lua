@@ -2,6 +2,9 @@ return {
   {
     "anuvyklack/windows.nvim",
     event = { "VimEnter" },
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = function()
       vim.o.winwidth = 10
       vim.o.winminwidth = 10

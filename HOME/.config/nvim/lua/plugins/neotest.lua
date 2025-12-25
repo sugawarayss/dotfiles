@@ -2,6 +2,9 @@
 return {
   {
     "nvim-neotest/neotest",
+    cond = function()
+      return not vim.g.vscode
+    end,
     keys = {
       {
         "<M-r><M-t>r",

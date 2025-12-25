@@ -2,6 +2,9 @@
 return {
   "mrjones2014/smart-splits.nvim",
   event = { "BufReadPre" },
+  cond = function()
+    return not vim.g.vscode
+  end,
   init = function()
     local wk = require("which-key")
     wk.add({

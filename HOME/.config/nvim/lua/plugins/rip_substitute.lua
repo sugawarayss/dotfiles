@@ -2,6 +2,9 @@
 return {
   "chrisgrieser/nvim-rip-substitute",
   cmd = "RipSubstitute",
+  cond = function()
+    return not vim.g.vscode
+  end,
   init = function()
     local wk = require("which-key")
     wk.add({

@@ -3,6 +3,9 @@ return {
   "walkersumida/fusen.nvim",
   version = "*",
   event = "VimEnter",
+  cond = function()
+    return not vim.g.vscode
+  end,
   init = function()
     local wk = require("which-key")
     wk.add({

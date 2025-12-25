@@ -3,6 +3,9 @@ return {
   "petertriho/nvim-scrollbar",
   lazy = true,
   event = { "BufReadPre" },
+  cond = function()
+    return not vim.g.vscode
+  end,
   config = function()
     local color_palette = require("onedark.colors")
     require("scrollbar").setup({

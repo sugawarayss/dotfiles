@@ -10,6 +10,9 @@ return {
       "BufReadPre " .. vim.fn.expand("~") .. "/PROJECTS/sugawarayss/obsidian_notes/*.md",
       "BufNewFile " .. vim.fn.expand("~") .. "/PROJECTS/sugawarayss/obsidian_notes/*.md",
     },
+    cond = function()
+      return not vim.g.vscode
+    end,
     keys = {
       {
         ";son",

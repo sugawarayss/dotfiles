@@ -1,6 +1,9 @@
 return {
   "b0o/incline.nvim",
   event = "BufReadPre",
+  cond = function()
+    return not vim.g.vscode
+  end,
   config = function()
     require("incline").setup({
       debounce_threshold = {

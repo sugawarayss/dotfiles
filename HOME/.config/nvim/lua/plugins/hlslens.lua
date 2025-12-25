@@ -4,6 +4,9 @@ return {
   enabled = true,
   lazy = true,
   event = { "BufReadPost" },
+  cond = function()
+    return not vim.g.vscode
+  end,
   config = function()
     require("hlslens").setup({
       -- 検索結果に対してvirtual text (例[▼ 1/5] )を表示する設定
