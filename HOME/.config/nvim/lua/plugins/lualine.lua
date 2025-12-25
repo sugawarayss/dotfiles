@@ -69,7 +69,7 @@ return {
             -- MCPサーバの起動状況
             {
               function()
-                local prefix = "󰚥"
+                local prefix = "📚"
                 if not vim.g.loaded_mcphub then
                   return prefix .. "(-)"
                 end
