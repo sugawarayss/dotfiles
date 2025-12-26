@@ -32,8 +32,6 @@ set -q XDG_CACHE_HOME || set -gx XDG_CACHE_HOME $HOME/.cache
 set -g FISH_CONFIG_DIR $XDG_CONFIG_HOME/fish
 set -g FISH_CONFIG $FISH_CONFIG_DIR/config.fish
 set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
-# Github MCPの認証に必要(Commitに注意)
-set -g GITHUB_PERSONAL_ACCESS_TOKEN=""
 
 # android sdk
 # set -Ux ANDROID_HOME $HOME/Library/Android/sdk
