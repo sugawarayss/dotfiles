@@ -11,7 +11,7 @@ return {
     opts = {
       -- 補完ソース
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "copilot" },
+        default = { "lsp", "path", "snippets", "buffer", "copilot", "yank", "ripgrep" },
         providers = {
           cmdline = {
             -- コマンドラインへの入力が2文字未満の場合は補完を無効にする
@@ -22,6 +22,7 @@ return {
               return 0
             end,
           },
+          -- GitHub Copilotからの補完
           copilot = {
             name = "Copilot",
             module = "blink-cmp-copilot",
@@ -36,6 +37,50 @@ return {
               end
               return items
             end,
+          },
+          -- プロジェクト全体から単語を補完
+          ripgrep = {
+            module = "blink-ripgrep",
+            name = "Ripgrep",
+            opts = {
+              prefx_min_len = 3,
+              project_root_marker = ".git",
+              fallback_to_regix_highlighting = true,
+              toggles = {
+                on_of = nil,
+                debug = nil,
+              },
+              backend = {
+                use = "ripgrep",
+                customize_icon_highlight = true,
+                ripgrep = {
+                  context_size = 5,
+                  max_filesize = "1M",
+                  project_root_fallback = true,
+                  search_casing = "--ignore-case",
+                  additional_rg_options = {},
+                  ignore_paths = {},
+                  additional_paths = {},
+                },
+              },
+              gitgrep = {
+                additional_gitgrep_options = {},
+              },
+            },
+          },
+          ecolog = {
+            name = "ecolog",
+            module = "ecolog.integrations.cmp.blink_cmp",
+          },
+          yank = {
+            name = "yank",
+            module = "blink-yanky",
+            opts = {
+              minLength = 5,
+              onlyCurrentFiletype = true,
+              trigger_characters = { '"' },
+              kind_icon = "󰅍",
+            },
           },
         },
       },
@@ -149,6 +194,8 @@ return {
     opts_extend = { "sources.default" },
   },
   { "giuxtaposition/blink-cmp-copilot" },
+  { "mikavilpas/blink-ripgrep.nvim", version = "*" },
+  { "marcoSven/blink-cmp-yanky" },
   { "onsails/lspkind.nvim", lazy = true },
   {
     "L3MON4D3/LuaSnip",
