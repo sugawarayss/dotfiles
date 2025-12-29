@@ -34,14 +34,14 @@ return {
         sign_priority = 8, -- sign priority
         -- keywords recognized as todo comments
         keywords = {
-          FIX = { icon = "󰻷", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED" } },
-          TODO = { icon = "󰄲", color = "info" },
-          HACK = { icon = "󰭻", color = "warning" },
-          WARN = { icon = "󰂚", color = "warning", alt = { "WARNING", "XXX" } },
-          NOTE = { icon = "󰗚", color = "hint", alt = { "INFO", "HINT", "FYI" } },
-          DOCS = { icon = "󰈙", color = "default", alt = { "DOC" } },
-          TEST = { icon = "", color = "test", alt = { "TESTING", "PASSED" } },
-          PERF = { icon = "󰔟", color = "perf", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+          FIX = { icon = "🚨", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED" } },
+          TODO = { icon = "☑️", color = "info" },
+          HACK = { icon = "💬", color = "warning" },
+          WARN = { icon = "🚧", color = "warning", alt = { "WARNING", "XXX" } },
+          NOTE = { icon = "📝", color = "hint", alt = { "INFO", "HINT", "FYI" } },
+          DOCS = { icon = "📖", color = "default", alt = { "DOC" } },
+          TEST = { icon = "🧪", color = "test", alt = { "TESTING", "PASSED" } },
+          PERF = { icon = "⏳", color = "perf", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
         },
         gui_style = {
           fg = "NONE", -- The gui style to use for the fg highlight group.
