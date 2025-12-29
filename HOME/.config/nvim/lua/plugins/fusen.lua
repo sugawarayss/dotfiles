@@ -50,6 +50,7 @@ return {
           -- Snacks Pickerで開く
           Snacks.picker.qflist()
         end,
+        icon = "🪧",
         mode = "n",
         desc = "Fusenのリストをqflistで表示(Snacks Picker)",
       },
