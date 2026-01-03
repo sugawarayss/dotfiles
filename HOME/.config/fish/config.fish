@@ -5,6 +5,8 @@
 # Homebrew
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
+# uv
+fish_add_path "/Users/sugawarayss/.local/bin"
 # RUST
 fish_add_path $HOME/.cargo/bin
 # psql
@@ -241,8 +243,5 @@ set -U FZF_LEGACY_KEYBINDINGS 0
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
-
-# uv
-fish_add_path "/Users/sugawarayss/.local/bin"
 
 # string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
