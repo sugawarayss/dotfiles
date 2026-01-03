@@ -136,22 +136,15 @@ else
   abbr -a ld tree -d
 end
 
-# if type "fd" > /dev/null 2>&1;
-#   alias oldfind="/usr/bin/find"
-#   alias find='fd'
-# end
+# ディスク使用量を表示する
+if type "dust" > /dev/null 2>&1;
+  abbr -a disk dust
+end
 
-# sedをsdで上書き
-# if type "sd" > /dev/null 2>&1;
-#   alias oldsed="/usr/bin/sed"
-#   alias sed="sd"
-# end
-
-# grepをrgで上書き
-# if type "rg" > /dev/null 2>&1;
-#   alias oldgrep="/usr/bin/grep"
-#   alias grep="rg"
-# end
+#  ハイパーリンク切れをチェックする
+if type "lychee" > /dev/null 2>&1;
+  abbr -a hlink lychee
+end
 
 # diffをcolordiffで上書き
 if type "colordiff" > /dev/null 2>&1;
