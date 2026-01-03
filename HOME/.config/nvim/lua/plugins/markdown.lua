@@ -57,5 +57,4 @@ return {
     end,
   },
   { "nvim-treesitter/nvim-treesitter", lazy = true },
-  { "nvim-tree/nvim-web-devicons", lazy = true },
 }

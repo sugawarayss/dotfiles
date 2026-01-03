@@ -132,6 +132,5 @@ return {
       })
     end,
   },
-  -- { "nvim-tree/nvim-web-devicons", lazy = true },
   { "pnx/lualine-lsp-status", lazy = true },
 }

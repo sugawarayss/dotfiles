@@ -116,6 +116,4 @@ return {
       })
     end,
   },
-  -- bufferline.nvim の依存プラグイン
-  { "nvim-tree/nvim-web-devicons", lazy = true },
 }
