@@ -15,7 +15,7 @@ return {
       })
     end,
     config = function()
-      local palette = require("onedark.colors")
+      local palette = require("onedarkpro.helpers").get_colors()
       require("octo").setup({
         picker = "snacks", -- "telescope" or "fzf-lua"
         suppress_missing_scope = {
@@ -26,11 +26,11 @@ return {
           grey = palette.grey,
           black = palette.black,
           red = palette.red,
-          dark_red = palette.dark_red,
+          dark_red = palette.git_hunk_delete_inline,
           green = palette.green,
-          dark_green = palette.dark_cyan,
+          dark_green = palette.diff_add,
           yellow = palette.yellow,
-          dark_yellow = palette.dark_yellow,
+          dark_yellow = palette.git_change,
           blue = palette.blue,
           dark_blue = palette.diff_text,
           purple = palette.purple,
