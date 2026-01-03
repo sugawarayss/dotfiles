@@ -7,7 +7,7 @@ return {
     return not vim.g.vscode
   end,
   config = function()
-    local color_palette = require("onedark.colors")
+    local color_palette = require("onedarkpro.helpers").get_colors()
     require("scrollbar").setup({
       show = true,
       show_in_active_only = false,
@@ -20,12 +20,11 @@ return {
         color = color_palette.diff_text, -- #32526c
       },
       marks = {
-        Search = { color = color_palette.cyan }, -- #5fafb9
-        Error = { color = color_palette.red }, -- #e16d77
-        Warn = { color = color_palette.yellow }, -- #dfbe81
-        Info = { color = color_palette.green }, -- #99bc80
-        Hint = { color = color_palette.blue }, -- #68aee8
-        Misc = { color = color_palette.purple }, -- #c27fd7
+        Search = { color = color_palette.cyan },
+        Warn = { color = color_palette.yellow },
+        Info = { color = color_palette.green },
+        Hint = { color = color_palette.blue },
+        Misc = { color = color_palette.purple },
       },
       handlers = {
         cursor = true,

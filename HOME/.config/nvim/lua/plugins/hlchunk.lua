@@ -3,7 +3,7 @@ return {
   "shellRaining/hlchunk.nvim",
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   config = function()
-    local color_palette = require("onedark.colors")
+    local color_palette = require("onedarkpro.helpers").get_colors()
     require("hlchunk").setup({
       chunk = {
         enable = true,
@@ -20,8 +20,8 @@ return {
           right_arrow = ">",
         },
         style = {
-          { fg = color_palette.blue }, -- #68aee8
-          { fg = color_palette.red }, -- #e16d77
+          { fg = color_palette.blue }, -- #61afef
+          { fg = color_palette.red }, -- #ef596f
         },
         textobject = "",
         max_file_size = 1024 * 1024,
@@ -35,20 +35,20 @@ return {
         use_treesitter = true,
         chars = { "│" },
         style = {
-          { fg = color_palette.diff_change }, -- #203444
+          { fg = color_palette.selection }, -- #212121
         },
       },
       line_num = {
         enable = true,
         use_treesitter = true,
-        style = color_palette.cyan, -- #51a8b3
+        style = color_palette.cyan, -- #2bbac5
       },
       -- FIXME: blank が正しく機能しないのはプラグインバグらしい。https://github.com/shellRaining/hlchunk.nvim/issues/123
       blank = {
         enable = true,
         chars = { "․" },
         style = {
-          { fg = color_palette.diff_text }, -- #32526c
+          { fg = color_palette.diff_text }, -- #005869
         },
       },
     })

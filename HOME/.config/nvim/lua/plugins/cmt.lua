@@ -12,7 +12,7 @@ return {
     { "gcO", "<Plug>(cmt:open-above-comment)", mode = "n", desc = "コメント行を上に追加" },
   },
   config = function()
-    local color_palette = require("onedark.colors")
+    local color_palette = require("onedarkpro.helpers").get_colors()
     vim.g.cmt_mixed_mode_policy = {
       typescriptreact = "first-line",
       javascriptreact = "first-line",
@@ -29,8 +29,8 @@ return {
     }
 
     -- コメントアウト/アンコメント時のハイライト設定
-    vim.api.nvim_set_hl(0, "CmtToggleCommented", { bg = color_palette.dark_cyan })
-    vim.api.nvim_set_hl(0, "CmtToggleUncommented", { bg = color_palette.diff_text })
+    vim.api.nvim_set_hl(0, "CmtToggleCommented", { bg = color_palette.diff_add })
+    vim.api.nvim_set_hl(0, "CmtToggleUncommented", { bg = color_palette.git_change })
     vim.g.cmt_toggle_highlight = {
       enabeld = true,
       duration = 200,

@@ -1,96 +1,161 @@
 -- カラーテーマ
 return {
-  "navarasu/onedark.nvim",
+  "olimorris/onedarkpro.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    require("onedark").setup({
-      -- Default theme style. ["dark", "darker", "cool", "deep", "warm", "warmer", "light"]
-      style = "warmer",
-      -- black = "#101012",
-      -- bg0 = "#232326",
-      -- bg1 = "#2c2d31",
-      -- bg2 = "#35363b",
-      -- bg3 = "#37383d",
-      -- bg_d = "#1b1c1e",
-      -- bg_blue = "#68aee8",
-      -- bg_yellow = "#e2c792",
-      -- fg = "#a7aab0",
-      -- purple = "#bb70d2",
-      -- green = "#8fb573",
-      -- orange = "#c49060",
-      -- blue = "#57a5e5",
-      -- yellow = "#dbb671",
-      -- cyan = "#51a8b3",
-      -- red = "#de5d68",
-      -- grey = "#5a5b5e",
-      -- light_grey = "#818387",
-      -- dark_cyan = "#2b5d63",
-      -- dark_red = "#833b3b",
-      -- dark_yellow = "#7c5c20",
-      -- dark_purple = "#79428a",
-      -- diff_add = "#282b26",
-      -- diff_delete = "#2a2626",
-      -- diff_change = "#1a2a37",
-      -- diff_text = "#2c485f",
-      -- Show/hide background
-      transparent = true,
-      -- Change terminal color as per the selected theme style
-      term_colors = true,
-      -- Show the end-of-buffer tildes.
-      ending_tildes = false,
-      -- reverse item kind highlights in cmp menu
-      cmp_itemkind_reverse = true,
-
-      -- Toggle theme style --
-      -- keybind to toggle theme style, Leave it nil to disable it
-      toggle_style_key = nil,
-      toggle_style_list = { "dark", "darker", "cool", "deep", "warm", "warmer", "light" },
-      -- Change code style --
-      -- Options are itaclic, bold, unserline, none
-      -- You can configure multiple style with comma separated
-      code_style = {
-        comments = "none",
-        keywords = "none",
-        functions = "none",
-        strings = "none",
-        variables = "none",
-      },
-
-      -- Lualine options --
-      lualine = {
-        -- lualine cneter bar transparency
-        transparent = true,
-      },
-
-      -- Custom Highlights --
-      -- Override default colors
+    require("onedarkpro").setup({
+      -- Override default colors or create your own
       colors = {},
-      -- Override highlight groups
-      highlights = {
-        -- 対応する括弧のハイライト
-        MatchParen = { bg = "#2c2d31" },
-        -- Flashによるジャンプや置換対象のハイライト
-        Substitute = { fg = "#232326", bg = "#8fb573", fmt = "bold" },
-        -- hop.nvimのラベル色
-        HopNextKey = { fg = "#de5d68", fmt = "bold" },
-        HopNextKey1 = { fg = "#57a5e5", fmt = "bold" },
-        HopNextKey2 = { fg = "#51a8b3", fmt = "bold" },
-        -- Copilot サジェスト
-        CopilotSuggestion = { fg = "#2b5d63" },
-        CopilotAnnotation = { fg = "#2b5d63", fmt = "italic" },
+      -- Override default highlight  groups or create your own
+      highlights = {},
+      styles = {
+        types = "NONE",
+        methods = "NONE",
+        numbers = "NONE",
+        strings = "NONE",
+        comments = "NONE",
+        keywords = "NONE",
+        constants = "NONE",
+        functions = "NONE",
+        operators = "NONE",
+        variables = "NONE",
+        parameters = "NONE",
+        conditionals = "NONE",
+        virtual_text = "NONE",
       },
-
-      -- Plugins Config --
-      diagnostics = {
-        -- darker colors for diagnostic
-        darker = true,
-        -- use undercurl instead of underline for diagnostics
-        undercurl = true,
-        -- use background color or virtual text
-        background = true,
+      -- Override which filetype highlight groups are loaded
+      filetypes = {
+        c = true,
+        comment = true,
+        go = true,
+        html = true,
+        java = true,
+        javascript = true,
+        json = true,
+        latex = true,
+        lua = true,
+        markdown = true,
+        php = true,
+        python = true,
+        ruby = true,
+        rust = true,
+        scss = true,
+        toml = true,
+        typescript = true,
+        typescriptreact = true,
+        vue = true,
+        xml = true,
+        yaml = true,
+      },
+      -- Override which plugin highlight groups are loaded
+      plugins = {
+        aerial = true,
+        barbar = true,
+        blink_cmp = true,
+        blink_indent = true,
+        blink_pairs = true,
+        codecompanion = true,
+        copilot = true,
+        csvview = true,
+        dashboard = true,
+        flash_nvim = true,
+        gitgraph_nvim = true,
+        gitsigns = true,
+        hop = true,
+        indentline = true,
+        leap = true,
+        lsp_saga = true,
+        lsp_semantic_tokens = true,
+        marks = true,
+        mason = true,
+        mini_diff = true,
+        mini_icons = true,
+        mini_indentscope = true,
+        mini_test = true,
+        neotest = true,
+        neo_tree = true,
+        nvim_cmp = true,
+        nvim_bqf = true,
+        nvim_dap = true,
+        nvim_dap_ui = true,
+        nvim_hlslens = true,
+        nvim_lsp = true,
+        nvim_navic = true,
+        nvim_notify = true,
+        nvim_tree = true,
+        nvim_ts_rainbow = true,
+        nvim_ts_rainbow2 = true,
+        op_nvim = true,
+        packer = true,
+        persisted = true,
+        polygot = true,
+        rainbow_delimiters = true,
+        render_markdown = true,
+        snacks = true,
+        startify = true,
+        telescope = false,
+        toggleterm = false,
+        treesitter = true,
+        trouble = true,
+        vim_ultest = true,
+        which_key = true,
+        vim_dadbod_ui = true,
+      },
+      options = {
+        -- Use cursorline highlighting
+        cursorline = false,
+        -- Use a trransparent background?
+        transparency = true,
+        -- Use the  theme's colors for Neovim's :terminal?
+        terminal_colors = true,
+        -- Center bar transparency?
+        lualine_transparency = false,
+        -- When the window is out of focus, change the normal background
+        highlight_inactive_windows = true,
       },
     })
-    require("onedark").load()
+    vim.cmd("colorscheme onedark_dark")
+    -- virtual_text_error       = "#f38495"
+    -- red                      = "#ef596f"
+    -- git_delete               = "#9a353d"
+    -- git_hunk_delete_inline   = "#6f2e2d"
+    -- DIFF_DELETE              = "#501B20"
+    -- git_hunk_delete          = "#502d30"
+    -- virtual_text_warning     = "#edd2a1"
+    -- yellow                   = "#e5c07b"
+    -- highlight                = "#e2be7d"
+    -- orange                   = "#d19a66"
+    -- git_change               = "#948B60"
+    -- green                    = "#89ca78"
+    -- virtual_text_hint        = "#4fcfd8"
+    -- cyan                     = "#2bbac5"
+    -- git_add                  = "#109868"
+    -- diff_text                = "#005869"
+    -- diff_add                 = "#003e4a"
+    -- diff_change              = "#1f4662"
+    -- git_hunk_add_inline      = "#3f534f"
+    -- git_hunk_add             = "#43554d"
+    -- virtual_text_information = "#90c7f4"
+    -- blue                     = "#61afef"
+    -- purple                   = "#d55fde"
+    -- white                    = "#abb2bf"
+    -- fg                       = "#abb2bf"
+    -- fg_gutter_inactive       = "#abb2bf"
+    -- comment                  = "#7f848e"
+    -- line_number              = "#495162"
+    -- gray                     = "#434852"
+    -- inlay_hint               = "#33373e"
+    -- git_hunk_change_inline   = "#41483d"
+    -- selection                = "#212121"
+    -- fg_gutter                = "#181818"
+    -- indentline               = "#1f1f1f"
+    -- color_column             = "#161616"
+    -- cursorline               = "#171717"
+    -- bg_statusline            = "#0e0e0e"
+    -- fold                     = "#121212"
+    -- bg                       = "#000000"
+    -- black                    = "#000000"
+    -- float_bg                 = "#000000"
   end,
 }

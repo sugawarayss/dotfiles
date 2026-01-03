@@ -8,7 +8,7 @@ return {
       return not vim.g.vscode
     end,
     config = function()
-      local color_palette = require("onedark.colors")
+      local color_palette = require("onedarkpro.helpers").get_colors()
       -- Linter実行の進捗を表示
       local lint_progress = function()
         local linters = require("lint").get_running()
@@ -59,7 +59,7 @@ return {
             -- マクロの記録中の表示
             {
               macro_recording,
-              color = { fg = color_palette.orange }, -- #c99a6e
+              color = { fg = color_palette.red }, -- #ef596f
             },
             "branch",
           },
@@ -91,16 +91,16 @@ return {
               end,
               color = function()
                 if not vim.g.loaded_mcphub then
-                  return { fg = color_palette.fg } -- #a7aab0
+                  return { fg = color_palette.fg } -- #abb2bf
                 end
 
                 local status = vim.g.mcphub_status or "stopped"
                 if status == "ready" or status == "restarted" then
-                  return { fg = color_palette.green } -- #99bc80
+                  return { fg = color_palette.green } -- #89ca78
                 elseif status == "starting" or status == "restarting" then
-                  return { fg = color_palette.yellow } -- #dfbe81
+                  return { fg = color_palette.yellow } -- #e5c07b
                 else
-                  return { fg = color_palette.red } -- #e16d77
+                  return { fg = color_palette.red } -- #ef596f
                 end
               end,
             },
@@ -132,6 +132,6 @@ return {
       })
     end,
   },
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  -- { "nvim-tree/nvim-web-devicons", lazy = true },
   { "pnx/lualine-lsp-status", lazy = true },
 }

@@ -28,13 +28,13 @@ return {
       })
     end,
     config = function()
-      local color_palette = require("onedark.colors")
+      local color_palette = require("onedarkpro.helpers").get_colors()
       require("bufferline").setup({
         highlights = {
-          error_selected = { fg = color_palette.red }, -- #e16d77
-          warning_diagnostic_selected = { fg = color_palette.orange }, -- #c99a6e
-          error_diagnostic_selected = { fg = color_palette.red }, -- #e16d77
-          close_button_selected = { fg = color_palette.yellow }, -- #dfbe81
+          error_selected = { fg = color_palette.red },
+          warning_diagnostic_selected = { fg = color_palette.orange },
+          error_diagnostic_selected = { fg = color_palette.red },
+          close_button_selected = { fg = color_palette.yellow },
         },
         options = {
           themable = true,

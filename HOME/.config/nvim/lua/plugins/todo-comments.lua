@@ -28,7 +28,7 @@ return {
       })
     end,
     config = function()
-      local color_palette = require("onedark.colors")
+      local color_palette = require("onedarkpro.helpers").get_colors()
       require("todo-comments").setup({
         signs = true, -- show icons in the signs column
         sign_priority = 8, -- sign priority
@@ -67,13 +67,13 @@ return {
         -- list of named colors where we try to extract the guifg from the
         -- list of highlight groups or use the hex color if hl not found as a fallback
         colors = {
-          error = { color_palette.red }, -- #de5d68
-          warning = { color_palette.orange }, -- #c49060
-          info = { color_palette.blue }, -- #57a5e5
-          hint = { color_palette.green }, -- #8fb573
-          default = { color_palette.dark_cyan }, -- #2b5d63
-          test = { color_palette.dark_yellow }, -- #7c5c20
-          perf = { color_palette.dark_purple }, -- #79428a
+          error = { color_palette.red },
+          warning = { color_palette.orange },
+          info = { color_palette.blue },
+          hint = { color_palette.green },
+          default = { color_palette.cyan },
+          test = { color_palette.yellow },
+          perf = { color_palette.purple },
         },
         search = {
           command = "rg",

@@ -4,12 +4,12 @@ return {
   event = { "VimEnter" },
   tag = "v0.2.1",
   config = function()
-    local color_palette = require("onedark.colors")
+    local color_palette = require("onedarkpro.helpers").get_colors()
     require("modes").setup({
       colors = {
         bg = "",
         -- copy = color_palette.bg_yellow,
-        delete = color_palette.red,
+        delete = color_palette.git_delete,
         -- change = color_palette.orange,
         -- format = color_palette.cyan,
         insert = color_palette.black,

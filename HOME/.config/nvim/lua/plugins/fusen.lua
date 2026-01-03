@@ -98,10 +98,10 @@ return {
     enabled = true,
   },
   config = function(_, opts)
-    local color_palette = require("onedark.colors")
+    local color_palette = require("onedarkpro.helpers").get_colors()
     require("fusen").setup(opts)
     vim.api.nvim_set_hl(0, "FusenMarkCustom", {
-      fg = color_palette.bg_yellow,
+      fg = color_palette.purple,
       bold = false,
     })
   end,
