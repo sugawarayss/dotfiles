@@ -40,52 +40,55 @@ set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
 # set PATH $ANDROID_HOME/platform-tools $PATH
 # fish_add_path $ANDROID_HOME/platform-tools
 
-# カラーテーマ
-# set -g theme_color_scheme dark  # dark | solarized-dark | gruvbox | dracula | nord | catpuccin-mocha
-# vi モードのインジケータを常に表示する
-set -g theme_display_vi yes
+# tideのプロンプト設定
+set --global tide_left_prompt_frame_enabled true
+set --global tide_left_prompt_items "vi_mode" "pwd" "git" "newline" "character"
+set --global tide_right_prompt_frame_enabled false
+set --global tide_right_prompt_items "os" "status" "cmd_duration" "context" "jobs" "direnv" "bun" "node" "python" "rustc" "java" "php" "ruby" "go" "gcloud" "kubectl" "terraform" "aws" "elixir" "zig" "time"
+set --global tide_prompt_add_newline_before true
+set --global tide_prompt_icon_connection "·"
+set --global tide_vi_mode_icon_default "N"
 
-# NerdFontを使用する
-set -g theme_nerd_fonts yes
-
-# ユーザ名とホスト名を常に表示する
-set -g theme_display_user yes
-set -g theme_display_hostname yes
-
-# 日付の表示書式を変更する
-set -g theme_date_format "+[%Y-%m-%d %H:%M:%S]"
-set -g theme_date_timezone "Asia/Tokyo"
-# コマンド実行時間を右側に表示する
-set -g theme_display_cmd_duration yes
-
-# プロンプトから入力欄の前に改行をする
-set -g theme_newline_cursor yes
-
-# 改行後入力欄の前に表示する文字を設定する
-set -g theme_newline_prompt "\e[92m\e[m "
-# 直前のコマンド実行結果に応じてプロンプトの色を変える
-function __update_detailed_prompt_status --on-event fish_prompt
-  switch $status
-    case 0
-      # 成功（緑）
-      set -g theme_newline_prompt "\e[92m\e[m "
-    case 1
-      # 一般的なエラー（赤）
-      set -g theme_newline_prompt "\e[91m\e[m "
-    case 126
-      # コマンドが実行可能でない（オレンジ）
-      set -g theme_newline_prompt "\e[38;5;208m\e[m "
-    case 127
-      # コマンドが見つからない（紫）
-      set -g theme_newline_prompt "\e[95m\e[m "
-    case 130
-      # Ctrl+Cで中断（シアン）
-      set -g theme_newline_prompt "\e[96m\e[m "
-    case '*'
-      # その他のエラー（黄）
-      set -g theme_newline_prompt "\e[93m\e[m "
-  end
-end
+# theme_bobthefish(fish plugin)のプロンプト設定
+## vi モードのインジケータを常に表示する
+# set -g theme_display_vi yes
+## NerdFontを使用する
+# set -g theme_nerd_fonts yes
+## ユーザ名とホスト名を常に表示する
+# set -g theme_display_user yes
+# set -g theme_display_hostname yes
+## 日付の表示書式を変更する
+# set -g theme_date_format "+[%Y-%m-%d %H:%M:%S]"
+# set -g theme_date_timezone "Asia/Tokyo"
+## コマンド実行時間を右側に表示する
+# set -g theme_display_cmd_duration yes
+## プロンプトから入力欄の前に改行をする
+# set -g theme_newline_cursor yes
+## 改行後入力欄の前に表示する文字を設定する
+# set -g theme_newline_prompt "\e[92m\e[m "
+## 直前のコマンド実行結果に応じてプロンプトの色を変える
+# function __update_detailed_prompt_status --on-event fish_prompt
+#   switch $status
+#     case 0
+#       # 成功（緑）
+#       set -g theme_newline_prompt "\e[92m\e[m "
+#     case 1
+#       # 一般的なエラー（赤）
+#       set -g theme_newline_prompt "\e[91m\e[m "
+#     case 126
+#       # コマンドが実行可能でない（オレンジ）
+#       set -g theme_newline_prompt "\e[38;5;208m\e[m "
+#     case 127
+#       # コマンドが見つからない（紫）
+#       set -g theme_newline_prompt "\e[95m\e[m "
+#     case 130
+#       # Ctrl+Cで中断（シアン）
+#       set -g theme_newline_prompt "\e[96m\e[m "
+#     case '*'
+#       # その他のエラー（黄）
+#       set -g theme_newline_prompt "\e[93m\e[m "
+#   end
+# end
 
 
 # neovim
