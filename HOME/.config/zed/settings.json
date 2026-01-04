@@ -7,6 +7,21 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "preview_tabs": {
+    "enable_preview_from_file_finder": true,
+    "enable_preview_multibuffer_from_code_navigation": true
+  },
+  "title_bar": {
+    "show_branch_icon": true
+  },
+  "status_bar": {
+    "cursor_position_button": true
+  },
+  "close_on_file_delete": false,
+  "search": {
+    "center_on_match": true,
+    "include_ignored": true
+  },
   "relative_line_numbers": "wrapped",
   "git": {
     "inline_blame": {
@@ -58,6 +73,7 @@
     },
   },
   "agent": {
+    "play_sound_when_agent_done": true,
     "default_profile": "ask",
     "default_model": {
       "provider": "copilot_chat",
@@ -149,7 +165,7 @@
   },
   "terminal": {
     "toolbar": {
-      "breadcrumbs": false,
+      "breadcrumbs": true,
     },
     "font_size": 12.0,
     "font_family": "Hack Nerd Font Mono",
@@ -190,6 +206,9 @@
     "material icon theme": true,
   },
   "languages": {
+    "Fish": {
+      "colorize_brackets": true
+    },
     "Python": {
       // Pythonタブサイズは4スペース
       "tab_size": 4,
