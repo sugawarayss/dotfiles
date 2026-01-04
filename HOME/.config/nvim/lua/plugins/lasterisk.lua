@@ -1,4 +1,5 @@
 -- * コマンドを便利にするプラグイン
+local ok, hlslens = pcall(require, "hlslens")
 return {
   {
     "rapan931/lasterisk.nvim",
@@ -10,7 +11,10 @@ return {
           "*",
           function()
             require("lasterisk").search({ silent = true })
-            require("hlslens").start()
+            if ok then
+              -- vscodeの場合、hlslensを無効にしているので、有効時のみstartを呼び出す
+              hlslens.start()
+            end
           end,
           mode = "n",
           desc = "カーソル位置の単語を検索してハイライト",
@@ -19,7 +23,10 @@ return {
           "g*",
           function()
             require("lasterisk").search({ is_whole = false, silent = true })
-            require("hlslens").start()
+            if ok then
+              -- vscodeの場合、hlslensを無効にしているので、有効時のみstartを呼び出す
+              hlslens.start()
+            end
           end,
           mode = { "n", "x" },
           desc = "単語区切りせずにカーソル位置の単語を検索してハイライト",
