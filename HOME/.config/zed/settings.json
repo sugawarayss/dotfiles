@@ -102,13 +102,13 @@
   "buffer_line_height": "standard",
   // カラーテーマ
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
     "dark": "One Dark Pro",
   },
   // アイコンテーマ(extension のインストールが必要)
   "icon_theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "Zed (Default)",
     "dark": "Material Icon Theme",
   },
