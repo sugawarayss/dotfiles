@@ -4,6 +4,9 @@ return {
     "saghen/blink.cmp",
     version = "1.*",
     event = "InsertEnter",
+    cond = function()
+      return not vim.g.vscode
+    end,
     init = function()
       -- 補完ウィンドウの枠
       vim.opt.winborder = "rounded"
