@@ -449,9 +449,9 @@ return {
       function()
         Snacks.picker.smart({
           multi = {
-            "files",
             "buffers",
             "recent",
+            "files",
           },
           -- user `file` format for all sources
           format = "file",
