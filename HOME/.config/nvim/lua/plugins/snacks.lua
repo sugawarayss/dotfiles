@@ -472,7 +472,16 @@ return {
     {
       "<F5>",
       function()
-        Snacks.picker.grep()
+        Snacks.picker.grep({
+          -- NOTE: <M-h> でトグルできる
+          -- 隠しファイルも検索対象に含める
+          hidden = true,
+          -- NOTE: <M-i> でトグルできる
+          -- 無視ファイルも検索対象に含める
+          ignored = true,
+          -- シンボリックリンクをたどる
+          follow = true,
+        })
       end,
       desc = "Grep検索を表示",
     },
