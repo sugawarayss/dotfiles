@@ -197,6 +197,8 @@ return {
     -- アクティブファイルのリポジトリを開く
     gitbrowse = { enabled = false },
     -- 画像ファイルを表示する
+    -- NOTE: pngの表示に`ImageMagick`, mermaidの表示に`mmdc`, pdfの操作に`ghostscript`のインストールが必要
+    -- `brew install imagemagick mermaid-cli ghostscript` を実行してください
     image = {
       enabled = true,
       formats = {
