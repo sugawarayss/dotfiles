@@ -22,7 +22,7 @@ config.cursor_blink_ease_in = "Constant"
 -- 点滅時のフェードアウトのしかたを一定にする
 config.cursor_blink_ease_out = "Constant"
 -- カーソルを表示する太さを2pxに設定
-config.cursor_thickness = 2
+config.cursor_thickness = 1
 -- スクロールバーを表示
 config.enable_scroll_bar = true
 -- Leaderキーを設定
