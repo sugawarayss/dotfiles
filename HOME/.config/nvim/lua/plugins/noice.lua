@@ -89,6 +89,7 @@ return {
           },
         },
         notify = {
+          -- 通知はSnacks.nvimに任せる
           enabled = false,
           view = "notify",
         },
