@@ -120,30 +120,6 @@ return {
               height = 5,
               enabled = in_git and gh_available,
             },
-            -- リポジトリの最新3件のIssueを表示
-            {
-              title = "Open Issues",
-              cmd = "gh issue list -L 3",
-              key = "I",
-              action = function()
-                vim.fn.jobstart("gh issue list --web", { detach = true })
-              end,
-              icon = " ",
-              height = 7,
-              enabled = in_git and gh_available,
-            },
-            -- リポジトリの最新3件のPullRequestを表示
-            {
-              icon = " ",
-              title = "Open PRs",
-              cmd = "gh pr list -L 3",
-              key = "P",
-              action = function()
-                vim.fn.jobstart("gh pr list --web", { detach = true })
-              end,
-              height = 7,
-              enabled = in_git and gh_available,
-            },
             -- ローカルリポジトリの差分状況を表示
             {
               icon = " ",
@@ -194,6 +170,8 @@ return {
         },
       },
     },
+    -- gh  (GitHub CLI)
+    gh = { enabled = true },
     -- アクティブファイルのリポジトリを開く
     gitbrowse = { enabled = false },
     -- 画像ファイルを表示する
@@ -440,6 +418,18 @@ return {
         },
         b = { completion = true },
       },
+      notification = {
+        border = true,
+        zindex = 100,
+        ft = "markdown",
+        wo = {
+          winblend = 5,
+          wrap = true,
+          conceallevel = 2,
+          colorcolumn = "",
+        },
+        bo = { filetype = "snacks_notif" },
+      },
     },
   },
   keys = {
@@ -558,6 +548,20 @@ return {
         Snacks.picker.git_log()
       end,
       desc = "Git Logを表示",
+    },
+    {
+      ";sgi",
+      function()
+        Snacks.gh.issue()
+      end,
+      desc = "GitHub Issueを検索",
+    },
+    {
+      ";sgr",
+      function()
+        Snacks.gh.pr()
+      end,
+      desc = "GitHub Pull Requestを検索",
     },
     -- Grep
     {

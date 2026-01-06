@@ -7,13 +7,13 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
-    init = function()
-      local wk = require("which-key")
-      wk.add({
-        { ";sgi", "<cmd>Octo issue search<CR>", mode = { "n" }, icon = "", desc = "GitHub Issueを探す" },
-        { ";sgp", "<cmd>Octo pr search<CR>", mode = { "n" }, icon = "", desc = "GitHub Pull Requestを探す" },
-      })
-    end,
+    -- init = function()
+    --   local wk = require("which-key")
+    --   wk.add({
+    --     { ";sgi", "<cmd>Octo issue search<CR>", mode = { "n" }, icon = "", desc = "GitHub Issueを探す" },
+    --     { ";sgp", "<cmd>Octo pr search<CR>", mode = { "n" }, icon = "", desc = "GitHub Pull Requestを探す" },
+    --   })
+    -- end,
     config = function()
       local palette = require("onedarkpro.helpers").get_colors()
       require("octo").setup({
