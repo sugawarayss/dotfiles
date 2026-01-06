@@ -1,5 +1,6 @@
 -- 構文解析プラグイン
 local augroup = vim.api.nvim_create_augroup("nvim-treesitter-auto", { clear = true })
+
 -- ~/.local/share/nvim/treesitter
 local treesitter_path = vim.fs.joinpath(vim.fn.stdpath("data"), "treesitter")
 return {
@@ -24,8 +25,21 @@ return {
       end
     end,
     init = function()
+      -- install済のパーサーリスト
+      local ts_installs = require("nvim-treesitter").get_installed()
+      -- パーサーに対応するfiletypeリスト
+      local ts_filetypes = vim
+        .iter(ts_installs)
+        :map(function(lang)
+          return vim.treesitter.language.get_filetypes(lang)
+        end)
+        :flatten()
+        :totable()
+
       -- 自動ハイライトの有効化
       vim.api.nvim_create_autocmd("FileType", {
+        desc = "Setup treesitter for a buffer",
+        pattern = ts_filetypes,
         group = augroup,
         callback = function(ctx)
           local filetype = ctx.match
@@ -39,7 +53,7 @@ return {
             return
           end
 
-          require("nvim-treesitter")
+          -- require("nvim-treesitter")
           local ok = pcall(vim.treesitter.start, ctx.buf)
           if ok then
             return
@@ -47,6 +61,7 @@ return {
 
           -- on fail, retry after installing the parser
           local lang = vim.treesitter.language.get_lang(filetype)
+
           require("nvim-treesitter").install({ lang }):await(function(err)
             if err then
               vim.notify(err, vim.log.levels.ERROR, { title = "nvim-treesitter" })
