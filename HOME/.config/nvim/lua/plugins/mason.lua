@@ -312,7 +312,7 @@ return {
         -- アウトライン表示
         outline = {
           win_position = "right",
-          win_width = 30,
+          win_width = 60,
           auto_preview = true,
           detail = true,
           auto_close = true,
