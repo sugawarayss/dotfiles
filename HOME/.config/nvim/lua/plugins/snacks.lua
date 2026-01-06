@@ -276,7 +276,7 @@ return {
       expand = true,
     },
     -- レイアウト
-    layout = { enabled = true },
+    layout = { enabled = false },
     -- lazygit の表示
     lazygit = { enabled = false },
     -- 通知
