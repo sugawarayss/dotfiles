@@ -280,7 +280,21 @@ return {
     -- lazygit の表示
     lazygit = { enabled = false },
     -- 通知
-    notifier = { enabled = true },
+    notifier = {
+      enabled = true,
+      timeout = 3000,
+      width = { min = 40, max = 0.5 },
+      height = { min = 1, max = 0.6 },
+      margin = { top = 0, right = 1, bottom = 0 },
+      padding = true,
+      gap = 0,
+      sort = { "level", "added" },
+      level = vim.log.levels.TRACE,
+      -- compact | minimal | fancy
+      style = "compact",
+      top_down = true,
+      date_format = "%H:%M:%S",
+    },
     -- ファジーファインダー
     picker = {
       enabled = true,
