@@ -180,7 +180,7 @@ return {
       { "neovim/nvim-lspconfig" },
     },
     opts = {
-      ensure_installed = vim.tbl_flatten({ lsp_servers, formatters, diagnostics, dap_adapters }),
+      ensure_installed = vim.iter({ lsp_servers, formatters, diagnostics, dap_adapters }):flatten():totable(),
     },
     config = function()
       require("mason-lspconfig").setup({
