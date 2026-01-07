@@ -8,7 +8,7 @@ return {
   config = function()
     require("marp").setup({
       -- homebrew でインストールした場合
-      marp_command = "/opt/homebrew/opt/node/bin/node /opt/homebrew/bin/marp",
+      marp_command = "marp",
       -- 未インストールの場合(npxで実行)
       -- marp_command = "npx @marp-team/marp-cli@latest",
 
