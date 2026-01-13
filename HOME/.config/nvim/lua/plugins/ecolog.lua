@@ -1,3 +1,4 @@
+-- .envファイルを自動ロードするプラグイン
 return {
   "ph1losof/ecolog.nvim",
   lazy = false,
