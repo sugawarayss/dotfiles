@@ -9,18 +9,18 @@ return {
       colors = {
         bg = "",
         -- copy = color_palette.bg_yellow,
-        delete = color_palette.git_delete,
+        -- delete = color_palette.git_delete,
         -- change = color_palette.orange,
         -- format = color_palette.cyan,
         insert = color_palette.black,
-        replace = color_palette.purple,
+        -- replace = color_palette.purple,
         -- select = color_palette.dark_purple,
-        visual = color_palette.orange,
+        visual = color_palette.purple,
       },
       -- Set opacity for cursorline and number background
       line_opacity = 0.3,
       -- Enable cursor highlights
-      set_cursor = true,
+      set_cursor = false,
       -- Enable cursorline initially, and disable cursorline for inactive windows
       -- or ignored filetypes
       set_cursorline = false,
