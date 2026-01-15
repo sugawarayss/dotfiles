@@ -71,10 +71,10 @@ return {
               },
             },
           },
-          ecolog = {
-            name = "ecolog",
-            module = "ecolog.integrations.cmp.blink_cmp",
-          },
+          -- ecolog = {
+          --   name = "ecolog",
+          --   module = "ecolog.integrations.cmp.blink_cmp",
+          -- },
           yank = {
             name = "yank",
             module = "blink-yanky",

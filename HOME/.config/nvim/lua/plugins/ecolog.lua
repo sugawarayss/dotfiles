@@ -1,6 +1,8 @@
 -- .envファイルを自動ロードするプラグイン
 return {
   "ph1losof/ecolog.nvim",
+  -- NOTE: バージョンアップで破壊的変更が入ったので無効に
+  enabled = false,
   lazy = false,
   init = function()
     local wk = require("which-key")
