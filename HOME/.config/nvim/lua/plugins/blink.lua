@@ -76,7 +76,7 @@ return {
           --   module = "ecolog.integrations.cmp.blink_cmp",
           -- },
           yank = {
-            name = "yank",
+            name = "Yank",
             module = "blink-yanky",
             opts = {
               minLength = 5,
@@ -143,7 +143,8 @@ return {
                       icon = dev_icon
                     end
                   else
-                    icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
+                    -- icon = require("lspkind").symbolic(ctx.kind, { mode = "symbol" })
+                    icon = require("lspkind").symbol_map[ctx.kind] or "❓"
                   end
                   return icon .. ctx.icon_gap
                 end,
@@ -199,7 +200,22 @@ return {
   { "giuxtaposition/blink-cmp-copilot" },
   { "mikavilpas/blink-ripgrep.nvim", version = "*" },
   { "marcoSven/blink-cmp-yanky" },
-  { "onsails/lspkind.nvim", lazy = true },
+  {
+    "onsails/lspkind.nvim",
+    lazy = true,
+    config = function()
+      require("lspkind").init({
+        symbol_map = {
+          Text = "✏️",
+          Folder = "📁",
+          Color = "🎨",
+          Copilot = "🤖",
+          Ripgrep = "🔍",
+          Yank = "📋",
+        },
+      })
+    end,
+  },
   {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
