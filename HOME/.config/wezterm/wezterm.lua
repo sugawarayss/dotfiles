@@ -43,7 +43,7 @@ config.color_scheme = "One Half Black (Gogh)"
 -- 背景の透過度
 config.window_background_opacity = 0.9
 -- 背景のぼかし
-config.macos_window_background_blur = 9
+config.macos_window_background_blur = 5
 -- フォント
 config.font = wezterm.font_with_fallback({
 	{ family = "Hack Nerd Font Mono", weight = "Regular" },
