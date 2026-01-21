@@ -522,7 +522,7 @@ return {
         Snacks.picker.grep({
           -- NOTE: <M-h> でトグルできる
           -- 隠しファイルも検索対象に含める
-          hidden = false,
+          hidden = true,
           -- NOTE: <M-i> でトグルできる
           -- 無視ファイルも検索対象に含める
           ignored = false,
