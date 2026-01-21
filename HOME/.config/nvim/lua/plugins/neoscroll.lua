@@ -1,6 +1,8 @@
 -- スクロールを滑らかにするプラグイン
 return {
   "karb94/neoscroll.nvim",
+  -- snacks.nvimでできるので無効にする
+  enabled = false,
   event = { "BufReadPre" },
   config = function()
     require("neoscroll").setup({

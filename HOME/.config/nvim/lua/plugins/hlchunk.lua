@@ -1,6 +1,8 @@
 -- インデントガイドを表示するプラグイン
 return {
   "shellRaining/hlchunk.nvim",
+  -- snacks.nvimでできるので無効にする
+  enabled = false,
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   config = function()
     local color_palette = require("onedarkpro.helpers").get_colors()

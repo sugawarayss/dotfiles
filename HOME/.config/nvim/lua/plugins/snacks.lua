@@ -56,10 +56,21 @@ return {
   opts = {
     -- アニメーションライブラリ
     animate = {
-      enabled = false,
-      duration = 20,
+      enabled = vim.fn.has("nvim-0.10") == 1,
+      style = "out",
       easing = "linear",
-      fps = 60,
+      duration = {
+        step = 20, -- ms per step
+        total = 1000, -- maximum duration
+      },
+    },
+    animate_repeat = {
+      delay = 100,
+      duration = {
+        step = 20,
+        total = 1000,
+        easing = "linear",
+      },
     },
     -- 指定のサイズより大きいファイルを開いたときにattach されるfiletypeを追加する。
     -- LSP や treesitter がバッファにattachされるのが自動的に防止される。
@@ -264,7 +275,14 @@ return {
       },
     },
     -- インデントガイドの表示
-    indent = { enabled = false },
+    indent = {
+      priority = 1,
+      enabled = true,
+      char = "│",
+      only_scope = false,
+      only_current = false,
+      hl = "SnacksIndent",
+    },
     -- インプットモードの表示
     input = {
       enabled = true,
@@ -345,10 +363,35 @@ return {
     -- プラグインをロードする前に内容をレンダリングする
     quickfile = { enabled = true },
     -- スコープ検出
-    scope = { enabled = true },
+    scope = {
+      enabled = true,
+      priority = 200,
+      char = "│",
+      underline = false,
+      only_current = false,
+      hl = "SnacksIndentScope",
+    },
+    chunk = {
+      -- when enabled, scopes will be rendered as chunks, except for the
+      -- top-level scope which will be rendered as a scope.
+      enabled = false,
+      -- only show chunk scopes in the current window
+      only_current = false,
+      priority = 200,
+      hl = "SnacksIndentChunk", ---@type string|string[] hl group for chunk scopes
+      char = {
+        -- corner_top = "┌",
+        -- corner_bottom = "└",
+        corner_top = "╭",
+        corner_bottom = "╰",
+        horizontal = "─",
+        vertical = "│",
+        arrow = ">",
+      },
+    },
     scratch = { enabled = false },
     -- スムーズなスクロール
-    scroll = { enabled = false },
+    scroll = { enabled = true },
     statuscolumn = { enabled = false },
     -- トグルキーマップ
     toggle = {
