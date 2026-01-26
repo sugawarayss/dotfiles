@@ -8,7 +8,7 @@ command_timeout   = 1000
 # 左プロンプト
 format            = """
 [┌───────────────────](bold green) $username$hostmane$localip
-[│](bold green)[$directory](bold green) $singularity$container$docker_context$kubernetes$package
+[│](bold green)[$directory](bold green) $mise $singularity$container$docker_context$kubernetes$package
 [│](bold green)$git_state$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
 
