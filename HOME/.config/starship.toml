@@ -7,13 +7,13 @@ command_timeout   = 1000
 
 # 左プロンプト
 format            = """
-[┌───────────────────](bold green) [$memory_usage]() $time $cmd_duration
-[│](bold green)$username$hostname$localip$singularity$container$docker_context$kubernetes$package
+[┌───────────────────](bold green) $username$hostmane$localip
+[│](bold green)[$directory](bold green) $singularity$container$docker_context$kubernetes$package
 [│](bold green)$git_state$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
 
 # 右プロンプト
-right_format      = '\[$jobs[$directory](bold green)\]'
+right_format      = '$cmd_duration \[$time\]'
 
 [character]
 # コマンド成功時
@@ -118,16 +118,16 @@ cherry_pick       = "[ ](red)"
 
 [git_status]
 # Gitのステータス表示アイコン
-conflicted        = "[ ${count} ](bright-red) "
-ahead             = "[ ${count} ](green)"
-behind            = "[ ${count} ](blue)"
-diverged          = "[ ${count} ](bright-purple)"
-untracked         = "[ ${count} ](bright-blue)"
-stashed           = "[ ${count} ](purple)"
-modified          = "[ ${count} ](bright-cyan)"
-staged            = "[ ${count} ](bright-yellow)"
-renamed           = "[ ${count} ](yellow) "
-deleted           = "[ ${count} ](red)"
+conflicted        = "[☠️ ${count} ](bright-red) "
+ahead             = "[⤴️ ${count} ](green)"
+behind            = "[⤵️ ${count} ](blue)"
+diverged          = "[↔️${ahead_count} ${behind_count} ](bright-purple)"
+untracked         = "[🌚 ${count} ](bright-blue)"
+stashed           = "[📦 ${count} ](purple)"
+modified          = "[📝 ${count} ](bright-cyan)"
+staged            = "[🌝 ${count} ](bright-yellow)"
+renamed           = "[🏷️ ${count} ](yellow) "
+deleted           = "[🗑️ ${count} ](red)"
 
 [git_branch]
 # Gitブランチの表示アイコン
