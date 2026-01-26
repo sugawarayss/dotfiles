@@ -122,7 +122,7 @@ return {
       })
       wk.add({
         {
-          "<leader>m",
+          "<leader>mm",
           "<cmd>TSJToggle<CR>",
           mode = "n",
           icon = "󰙅",

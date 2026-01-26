@@ -1,6 +1,7 @@
 -- Git Branch ごとにメモを残せる Neovim プラグイン
 return {
   "walkersumida/fusen.nvim",
+  enabled = false,
   version = "*",
   event = "VimEnter",
   cond = function()
