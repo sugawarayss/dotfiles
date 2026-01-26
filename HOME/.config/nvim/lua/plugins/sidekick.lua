@@ -80,7 +80,7 @@ return {
         end
       end,
       expr = true,
-      desc = "Goto/Apply Next Edit Suggestion",
+      desc = "Sidekick - Goto/Apply Next Edit Suggestion",
     },
     {
       "<c-.>",
@@ -88,14 +88,14 @@ return {
         require("sidekick.cli").focus()
       end,
       mode = { "n", "x", "i", "t" },
-      desc = "Sidekick Switch Focus",
+      desc = "Sidekick - Sidekick Switch Focus",
     },
     {
       "<leader>aa",
       function()
         require("sidekick.cli").toggle({ focus = true })
       end,
-      desc = "Sidekick Toggle CLI",
+      desc = "Sidekick - Sidekick Toggle CLI",
       mode = { "n", "v" },
     },
     {
@@ -103,7 +103,7 @@ return {
       function()
         require("sidekick.cli").toggle({ name = "claude", focus = true })
       end,
-      desc = "Sidekick Claude Toggle",
+      desc = "Sidekick - Sidekick Claude Toggle",
       mode = { "n", "v" },
     },
     {
@@ -111,7 +111,7 @@ return {
       function()
         require("sidekick.cli").close()
       end,
-      desc = "Detach a CLI Session",
+      desc = "Sidekick - Detach a CLI Session",
     },
     {
       "<leader>at",
@@ -119,14 +119,14 @@ return {
         require("sidekick.cli").send({ msg = "{this}" })
       end,
       mode = { "x", "n" },
-      desc = "Send This",
+      desc = "Sidekick - Send This",
     },
     {
       "<leader>af",
       function()
         require("sidekick.cli").send({ msg = "{file}" })
       end,
-      desc = "Send File",
+      desc = "Sidekick - Send File",
     },
     {
       "<leader>av",
@@ -134,14 +134,14 @@ return {
         require("sidekick.cli").send({ msg = "{selection}" })
       end,
       mode = { "x" },
-      desc = "Send Visual Selection",
+      desc = "Sidekick - Send Visual Selection",
     },
     {
       "<leader>ag",
       function()
         require("sidekick.cli").toggle({ name = "gemini", focus = true })
       end,
-      desc = "Sidekick Gemini Toggle",
+      desc = "Sidekick - Sidekick Gemini Toggle",
       mode = { "n", "v" },
     },
     {
@@ -149,7 +149,7 @@ return {
       function()
         require("sidekick.cli").select_prompt()
       end,
-      desc = "Sidekick Ask Prompt",
+      desc = "Sidekick - Sidekick Ask Prompt",
       mode = { "n", "v" },
     },
   },

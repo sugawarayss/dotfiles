@@ -18,8 +18,17 @@ return {
     "lambdalisue/kensaku-search.vim",
     enabled = true,
     lazy = false,
-    config = function()
-      vim.keymap.set("c", "<CR>", "<Plug>(kensaku-search-replace)<CR>", { noremap = true, silent = true })
+    init = function()
+      local wk = require("which-key")
+      wk.add({
+        {
+          "<CR>",
+          "<Plug>(kensaku-search-replace)<CR>",
+          mode = "c",
+          icon = "󰗊",
+          desc = "Kensaku - ローマ字で検索",
+        },
+      })
     end,
   },
 }

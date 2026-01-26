@@ -514,7 +514,7 @@ return {
           transform = "unique_file",
         })
       end,
-      desc = "スマートファイル検索から表示",
+      desc = "Snacks - スマートファイル検索から表示",
     },
     {
       "<F5>",
@@ -530,70 +530,70 @@ return {
           follow = false,
         })
       end,
-      desc = "Grep検索を表示",
+      desc = "Snacks - Grep検索を表示",
     },
     -- {
     --   "<leader>ff",
     --   function()
     --     Snacks.picker.files()
     --   end,
-    --   desc = "ファイル名リストを検索",
+    --   desc = "Snacks - ファイル名リストを検索",
     -- },
     -- {
     --   "<leader>fr",
     --   function()
     --     Snacks.picker.recent()
     --   end,
-    --   desc = "直近開いたファイルリストを表示",
+    --   desc = "Snacks - 直近開いたファイルリストを表示",
     -- },
     {
       ";sbuf",
       function()
         Snacks.picker.buffers()
       end,
-      desc = "バッファリストを検索",
+      desc = "Snacks - バッファリストを検索",
     },
     {
       ";sch",
       function()
         Snacks.picker.command_history()
       end,
-      desc = "コマンド履歴を表示",
+      desc = "Snacks - コマンド履歴を表示",
     },
     {
       ";nl",
       function()
         Snacks.picker.notifications()
       end,
-      desc = "通知履歴リストを検索",
+      desc = "Snacks - 通知履歴リストを検索",
     },
     {
       ";nh",
       function()
         Snacks.notifier.show_history()
       end,
-      desc = "通知履歴を表示",
+      desc = "Snacks - 通知履歴を表示",
     },
     {
       "<leader>fe",
       function()
         Snacks.picker.explorer()
       end,
-      desc = "ファイルエクスプローラを表示",
+      desc = "Snacks - ファイルエクスプローラを表示",
     },
     {
       "<F3>",
       function()
         Snacks.terminal.toggle()
       end,
-      desc = "ターミナルを開く",
+      desc = "Snacks - ターミナルを開く",
     },
     {
       "<F3>",
       function()
         Snacks.terminal.toggle()
       end,
-      desc = "ターミナルを閉じる",
+      desc = "Snacks - ターミナルを閉じる",
       mode = { "t" },
     },
     -- find
@@ -604,21 +604,21 @@ return {
       function()
         Snacks.picker.git_log()
       end,
-      desc = "Git Logを表示",
+      desc = "Snacks - Git Logを表示",
     },
     {
       ";sgi",
       function()
         Snacks.gh.issue()
       end,
-      desc = "GitHub Issueを検索",
+      desc = "Snacks - GitHub Issueを検索",
     },
     {
       ";sgr",
       function()
         Snacks.gh.pr()
       end,
-      desc = "GitHub Pull Requestを検索",
+      desc = "Snacks - GitHub Pull Requestを検索",
     },
     -- Grep
     {
@@ -627,7 +627,7 @@ return {
         Snacks.picker.grep_word()
       end,
       mode = { "n", "x" },
-      desc = "Visual Mode で選択した単語でGrep検索",
+      desc = "Snacks - Visual Mode で選択した単語でGrep検索",
     },
     -- search
     {
@@ -635,14 +635,14 @@ return {
       function()
         Snacks.picker.registers()
       end,
-      desc = "レジスタを検索",
+      desc = "Snacks - レジスタを検索",
     },
     {
       ";s/",
       function()
         Snacks.picker.search_history()
       end,
-      desc = "検索履歴を検索",
+      desc = "Snacks - 検索履歴を検索",
     },
     {
       ";scm",
@@ -650,84 +650,84 @@ return {
         Snacks.picker.commands()
       end,
       mode = { "n" },
-      desc = "Commandを検索",
+      desc = "Snacks - Commandを検索",
     },
     {
       ";sd",
       function()
         Snacks.picker.diagnostics()
       end,
-      desc = "LSP診断を検索",
+      desc = "Snacks - LSP診断を検索",
     },
     {
       ";sD",
       function()
         Snacks.picker.diagnostics_buffer()
       end,
-      desc = "バッファ内のLSP診断を検索",
+      desc = "Snacks - バッファ内のLSP診断を検索",
     },
     {
       ";shelp",
       function()
         Snacks.picker.help()
       end,
-      desc = "ヘルプページを検索",
+      desc = "Snacks - ヘルプページを検索",
     },
     {
       ";sic",
       function()
         Snacks.picker.icons()
       end,
-      desc = "Iconを検索",
+      desc = "Snacks - Iconを検索",
     },
     {
       ";sjl",
       function()
         Snacks.picker.jumps()
       end,
-      desc = "ジャンプリストを検索",
+      desc = "Snacks - ジャンプリストを検索",
     },
     {
       ";skm",
       function()
         Snacks.picker.keymaps()
       end,
-      desc = "Keymapリストを検索",
+      desc = "Snacks - Keymapリストを検索",
     },
     {
       ";sl",
       function()
         Snacks.picker.loclist()
       end,
-      desc = "Location リストを検索",
+      desc = "Snacks - Location リストを検索",
     },
     {
       ";sM",
       function()
         Snacks.picker.man()
       end,
-      desc = "Man ページを検索",
+      desc = "Snacks - Man ページを検索",
     },
     {
       ";spl",
       function()
         Snacks.picker.lazy()
       end,
-      desc = "Neovimプラグイン設定を検索",
+      desc = "Snacks - Neovimプラグイン設定を検索",
     },
     {
       ";sqf",
       function()
         Snacks.picker.qflist()
       end,
-      desc = "Quickfix リストを検索",
+      desc = "Snacks - Quickfix リストを検索",
     },
     {
       ";sud",
       function()
         Snacks.picker.undo()
       end,
-      desc = "Undo 履歴を検索",
+      desc = "Snacks - Undo 履歴を検索",
     },
     -- LSP
     {
@@ -735,14 +735,14 @@ return {
       function()
         Snacks.picker.lsp_symbols()
       end,
-      desc = "バッファ内の LSP シンボルを検索",
+      desc = "Snacks - バッファ内の LSP シンボルを検索",
     },
     {
       "<leader>sS",
       function()
         Snacks.picker.lsp_workspace_symbols()
       end,
-      desc = "ワークスペース内の LSP シンボルを検索",
+      desc = "Snacks - ワークスペース内の LSP シンボルを検索",
     },
     -- Other
     --{
@@ -750,21 +750,21 @@ return {
     --  function()
     --    Snacks.zen()
     --  end,
-    --  desc = "Zen モードをトグル",
+    --  desc = "Snacks - Zen モードをトグル",
     --},
     {
       "<leader>dd",
       function()
         Snacks.bufdelete()
       end,
-      desc = "バッファを閉じる",
+      desc = "Snacks - バッファを閉じる",
     },
     {
       "<leader>gB",
       function()
         Snacks.gitbrowse()
       end,
-      desc = "リポジトリをGitHubで開く",
+      desc = "Snacks - リポジトリをGitHubで開く",
       mode = { "n", "v" },
     },
     {
@@ -772,28 +772,28 @@ return {
       function()
         Snacks.lazygit()
       end,
-      desc = "Lazygit(Gitクライアント)を起動",
+      desc = "Snacks - Lazygitを起動",
     },
     {
       "<leader>gq",
       function()
         Snacks.terminal({ "lazysql" })
       end,
-      desc = "Lazysql(SQLクライアント)を起動",
+      desc = "Snacks - Lazysqlを起動",
     },
     {
       "<leader>gs",
       function()
         Snacks.terminal({ "slumber" })
       end,
-      desc = "Slumber(HTTPクライアント)を起動",
+      desc = "Snacks - Slumber(HTTPクライアント)を起動",
     },
     --{
     --  "]]",
     --  function()
     --    Snacks.words.jump(vim.v.count1)
     --  end,
-    --  desc = "Next Reference",
+    --  desc = "Snacks - Next Reference",
     --  mode = { "n", "t" },
     --},
     --{
@@ -801,7 +801,7 @@ return {
     --  function()
     --    Snacks.words.jump(-vim.v.count1)
     --  end,
-    --  desc = "Prev Reference",
+    --  desc = "Snacks - Prev Reference",
     --  mode = { "n", "t" },
     --},
   },

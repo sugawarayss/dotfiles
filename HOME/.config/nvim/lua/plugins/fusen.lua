@@ -53,7 +53,7 @@ return {
         end,
         icon = "🪧",
         mode = "n",
-        desc = "Fusenのリストをqflistで表示(Snacks Picker)",
+        desc = "Fusen - リストをqflistで表示(Snacks Picker)",
       },
     })
   end,

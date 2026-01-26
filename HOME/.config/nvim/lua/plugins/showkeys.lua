@@ -3,7 +3,7 @@ return {
   "nvzone/showkeys",
   cmd = "ShowkeysToggle",
   keys = {
-    { "<M-s>k", ":ShowkeysToggle<CR>", mode = "n", desc = "キー押下履歴を右上に表示する" },
+    { "<M-s>k", ":ShowkeysToggle<CR>", mode = "n", desc = "ShowKeys - キー押下履歴を右上に表示する" },
   },
   opts = {
     winopts = {

@@ -52,7 +52,7 @@ return {
           end,
           mode = { "n" },
           icon = "",
-          desc = "すべての折り畳みを展開",
+          desc = "Ufo - すべての折り畳みを展開",
         },
         {
           "zm",
@@ -61,7 +61,7 @@ return {
           end,
           mode = { "n" },
           icon = "",
-          desc = "すべてを折り畳み",
+          desc = "Ufo - すべてを折り畳み",
         },
       })
     end,

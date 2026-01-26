@@ -29,7 +29,7 @@ return {
           haunt.annotate()
         end,
         mode = "n",
-        icon = "󱙝",
+        icon = "👻",
         desc = "Haunt - Bookmarkを追加",
       },
       {
@@ -46,7 +46,7 @@ return {
       --     haunt.toggle_all_lines()
       --   end,
       --   mode = "n",
-      --   icon = "󱙝",
+      --   icon = "👻",
       --   desc = "Haunt - Toggle all annotations",
       -- },
       {
@@ -55,8 +55,8 @@ return {
           haunt.delete()
         end,
         mode = "n",
-        icon = "󱙝",
-        desc = "Haunt - ブックマークを削除",
+        icon = "👻",
+        desc = "Haunt - Bookmarkを削除",
       },
       -- {
       --   prefix .. "C",
@@ -64,8 +64,8 @@ return {
       --     haunt.clear_all()
       --   end,
       --   mode = "n",
-      --   icon = "󱙝",
-      --   desc = "Haunt - Delete all bookmarks",
+      --   icon = "👻",
+      --   desc = "Haunt - Delete all Bookmarks",
       -- },
       {
         prefix .. "p",
@@ -73,8 +73,8 @@ return {
           haunt.prev()
         end,
         mode = "n",
-        icon = "󱙝",
-        desc = "Haunt - 前のブックマークに移動",
+        icon = "👻",
+        desc = "Haunt - 前のBookmarkに移動",
       },
       {
         prefix .. "n",
@@ -82,8 +82,8 @@ return {
           haunt.next()
         end,
         mode = "n",
-        icon = "󱙝",
-        desc = "Haunt - 次のブックマークに移動",
+        icon = "👻",
+        desc = "Haunt - 次のBookmarkに移動",
       },
       {
         prefix .. "l",
@@ -91,8 +91,8 @@ return {
           haunt_picker.show()
         end,
         mode = "n",
-        icon = "󱙝",
-        desc = "Haunt - ブックマークリストを表示(Snacks)",
+        icon = "👻",
+        desc = "Haunt - Bookmarkリストを表示(Snacks)",
       },
       -- {
       --   prefix .. "q",
@@ -100,8 +100,8 @@ return {
       --     haunt.to_quickfix()
       --   end,
       --   mode = "n",
-      --   icon = "󱙝",
-      --   desc = "Haunt - ",
+      --   icon = "👻",
+      --   desc = "Haunt - Bookmarkをquickfixで表示",
       -- },
       -- {
       --   prefix .. "Q",
@@ -109,8 +109,8 @@ return {
       --     haunt.to_quickfix({ current_buffer = true })
       --   end,
       --   mode = "n",
-      --   icon = "󱙝",
-      --   desc = "Haunt - Show Picker",
+      --   icon = "👻",
+      --   desc = "Haunt - 現在のバッファのBookmarkをquickfixで表示",
       -- },
       -- {
       --   prefix .. "y",
@@ -118,7 +118,7 @@ return {
       --     haunt.yank_locations({ current_buffer = true })
       --   end,
       --   mode = "n",
-      --   icon = "󱙝",
+      --   icon = "👻",
       --   desc = "Haunt - Show Picker",
       -- },
       -- {
@@ -127,7 +127,7 @@ return {
       --     haunt.yank_locations()
       --   end,
       --   mode = "n",
-      --   icon = "󱙝",
+      --   icon = "👻",
       --   desc = "Haunt - Show Picker",
       -- },
     })

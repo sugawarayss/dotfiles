@@ -125,8 +125,8 @@ return {
           "<leader>mm",
           "<cmd>TSJToggle<CR>",
           mode = "n",
-          icon = "󰙅",
-          desc = "配列やオブジェクトを分割/結合する",
+          icon = "🌳",
+          desc = "Treesj - 配列やオブジェクトを分割/結合する",
         },
       })
     end,

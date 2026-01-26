@@ -220,28 +220,28 @@ return {
       local wk = require("which-key")
       wk.add({
         -- カーソル下の情報を表示
-        { "K", "<cmd>Lspsaga hover_doc<CR>", mode = { "n" }, icon = "", desc = "カーソル下の情報を表示" },
+        { "K", "<cmd>Lspsaga hover_doc<CR>", mode = { "n" }, icon = "", desc = "Lspsaga - カーソル下の情報を表示" },
         -- 呼び出し階層を表示
-        { "go", "<cmd>Lspsaga outgoing_calls<CR>", mode = { "n" }, desc = "呼び出し階層を表示" },
+        { "go", "<cmd>Lspsaga outgoing_calls<CR>", mode = { "n" }, desc = "Lspsaga - 呼び出し階層を表示" },
         -- 定義へジャンプ
-        -- { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
-        -- { "gD", "<cmd>Lspsaga peek_definition<CR>", mode = { "n" }, desc = "定義にジャンプ" },
+        -- { "gd", "<cmd>Lspsaga goto_definition<CR>", mode = { "n" }, desc = "Lspsaga - 定義にジャンプ" },
+        -- { "gD", "<cmd>Lspsaga peek_definition<CR>", mode = { "n" }, desc = "Lspsaga - 定義にジャンプ" },
         -- 呼出階層を表示
-        { "gr", "<cmd>Lspsaga finder<CR>", mode = { "n" }, desc = "参照先の表示" },
+        { "gr", "<cmd>Lspsaga finder<CR>", mode = { "n" }, desc = "Lspsaga - 参照先の表示" },
         -- 型定義へジャンプ
-        { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = { "n" }, desc = "型定義にジャンプ" },
+        { "gt", "<cmd>Lspsaga goto_type_definition<CR>", mode = { "n" }, desc = "Lspsaga - 型定義にジャンプ" },
         -- カーソル位置の対象をリネーム
-        { "gn", "<cmd>Lspsaga rename<CR>", mode = { "n" }, desc = "カーソル位置の対象をリネーム" },
+        { "gn", "<cmd>Lspsaga rename<CR>", mode = { "n" }, desc = "Lspsaga - カーソル位置の対象をリネーム" },
         -- プロジェクト全体でシンボルを置換
         -- NOTE: `Lspsaga project_replace <old_name> <new_name>`
         -- コードアクションを表示
-        { "ga", "<cmd>Lspsaga code_action<CR>", mode = { "n" }, desc = "コードアクションを表示" },
+        { "ga", "<cmd>Lspsaga code_action<CR>", mode = { "n" }, desc = "Lspsaga - コードアクションを表示" },
         -- 次の診断へジャンプ
-        { "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = { "n" }, desc = "次の診断へジャンプ" },
+        { "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = { "n" }, desc = "Lspsaga - 次の診断へジャンプ" },
         -- 前の診断へジャンプ
-        { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = { "n" }, desc = "前の診断へジャンプ" },
+        { "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = { "n" }, desc = "Lspsaga - 前の診断へジャンプ" },
         -- アウトライン表示
-        { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = { "n" }, icon = "󰭸", desc = "アウトライン表示(Lspsaga)" },
+        { "<Leader>ol", "<cmd>Lspsaga outline<CR>", mode = { "n" }, icon = "󰭸", desc = "Lspsaga - アウトライン表示" },
       })
     end,
     config = function()

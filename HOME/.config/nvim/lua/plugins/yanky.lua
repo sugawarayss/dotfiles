@@ -8,7 +8,7 @@ return {
         Snacks.picker.yanky()
       end,
       mode = { "n", "x" },
-      desc = "ヤンク履歴を表示",
+      desc = "Yanky - ヤンク履歴を表示",
     },
   },
   opts = {

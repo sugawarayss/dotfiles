@@ -14,7 +14,7 @@ return {
           require("rip-substitute").sub()
         end,
         mode = { "n", "x" },
-        desc = "RipGrepで置換",
+        desc = "RipSubstitute - RipGrepで置換",
       },
     })
   end,

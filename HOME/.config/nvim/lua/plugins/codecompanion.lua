@@ -16,8 +16,8 @@ return {
           "<Leader>cc", -- Coomand+Ctrl+i
           "<Cmd>CodeCompanionChat Toggle<CR>",
           mode = { "n", "v" },
-          icon = "",
-          desc = "LLMとのChatをトグル",
+          icon = "🤖",
+          desc = "CodeCompanion - LLMとのChatをトグル",
         },
         {
           "<Leader>cf",
@@ -25,8 +25,8 @@ return {
             require("codecompanion").prompt("fix")
           end,
           mode = "v",
-          icon = "",
-          desc = "LLMで選択範囲を修正する",
+          icon = "🤖",
+          desc = "CodeCompanion - LLMで選択範囲を修正する",
         },
         {
           "<Leader>ce",
@@ -34,8 +34,8 @@ return {
             require("codecompanion").prompt("explain")
           end,
           mode = "v",
-          icon = "",
-          desc = "LLMで選択範囲を実装内容を説明する",
+          icon = "🤖",
+          desc = "CodeCompanion - LLMで選択範囲を実装内容を説明する",
         },
         {
           "<Leader>cl",
@@ -43,8 +43,8 @@ return {
             require("codecompanion").prompt("lsp")
           end,
           mode = "v",
-          icon = "",
-          desc = "LLMで選択範囲をLSPの診断結果を表示する",
+          icon = "🤖",
+          desc = "CodeCompanion - LLMで選択範囲をLSPの診断結果を表示する",
         },
         {
           "<Leader>crv",
@@ -52,8 +52,8 @@ return {
             require("codecompanion").prompt("review")
           end,
           mode = "n",
-          icon = "",
-          desc = "LLM でコードレビューを行う",
+          icon = "🤖",
+          desc = "CodeCompanion - LLM でコードレビューを行う",
         },
       })
     end,

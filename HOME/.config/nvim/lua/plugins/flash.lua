@@ -265,7 +265,7 @@ return {
       function()
         require("flash").treesitter()
       end,
-      desc = "カーソル位置のtreesitterノードを選択",
+      desc = "Flash - カーソル位置のtreesitterノードを選択",
     },
     {
       "r",
@@ -273,7 +273,7 @@ return {
       function()
         require("flash").remote()
       end,
-      desc = "Remote Flash",
+      desc = "Falsh - Remote Flash",
     },
     {
       "R",
@@ -281,7 +281,7 @@ return {
       function()
         require("flash").treesitter_search()
       end,
-      desc = "Treesitter Search",
+      desc = "Falsh - Treesitter Search",
     },
     {
       "<c-s>",
@@ -289,7 +289,7 @@ return {
       function()
         require("flash").toggle()
       end,
-      desc = "Toggle Flash Search",
+      desc = "Falsh - Toggle Flash Search",
     },
   },
 }

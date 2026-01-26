@@ -53,57 +53,62 @@ return {
         row = 0,
         col = 1,
       },
-      on_attach = function(bufnr)
+      on_attach = function(_)
         local gs = require("gitsigns")
-
-        local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
-        end
-
-        -- Navigation
-        map("n", "<leader>gj", function()
-          if vim.wo.diff then
-            return ""
-          end
-          vim.schedule(function()
-            gs.next_hunk()
-          end)
-          return "<Ignore>"
-        end, { expr = true, desc = "次のHunkに移動" })
-
-        map("n", "<leader>gk", function()
-          if vim.wo.diff then
-            return ""
-          end
-          vim.schedule(function()
-            gs.prev_hunk()
-          end)
-          return "<Ignore>"
-        end, { expr = true, desc = "前のHunkに移動" })
-
-        -- Actions
-        -- map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>",      { desc = "カーソル位置の変更をステージする" })
-        -- map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>",      { desc = "カーソル位置の変更をリセットする" })
-        -- map("n",          "<leader>hS", gs.stage_buffer,                 { desc = "バッファのすべての変更をステージする" })
-        -- map("n",          "<leader>hu", gs.undo_stage_hunk,              { desc = "直近の変更ステージを取り消す" })
-        -- map("n",          "<leader>hR", gs.reset_buffer,                 { desc = "バッファのすべての変更をリセットする" })
-        map("n", "<leader>gl", ":Gitsigns setloclist<CR>", { desc = "変更箇所をロケーションリストで表示する" })
-        map(
-          "n",
-          "<leader>gp",
-          ":Gitsigns preview_hunk_inline<CR>",
-          { desc = "カーソル位置の変更内容を(インラインで)プレビューする" }
-        )
-        -- map("n", "<leader>gd", gs.diffthis, { desc = "diff表示をトグル" })
-        map("n", "<leader>gh", function()
-          gs.diffthis("~")
-        end, { desc = "HEADとのdiff表示をトグル" })
-        -- map("n",          "<leader>td", gs.toggle_deleted,               { desc = "削除されたファイルのdiff表示をトグル" })
-
-        -- Text object
-        -- map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "HunkをTextObjectとして選択" })
+        local wk = require("which-key")
+        wk.add({
+          {
+            "<leader>gj",
+            function()
+              if vim.wo.diff then
+                return ""
+              end
+              vim.schedule(function()
+                gs.next_hunk()
+              end)
+              return "<Ignore>"
+            end,
+            mode = "n",
+            icon = "",
+            desc = "Gitsings - 次のHunkに移動",
+          },
+          {
+            "<leader>gk",
+            function()
+              if vim.wo.diff then
+                return ""
+              end
+              vim.schedule(function()
+                gs.prev_hunk()
+              end)
+              return "<Ignore>"
+            end,
+            mode = "n",
+            icon = "",
+            desc = "Gitsings - 前のHunkに移動",
+          },
+          {
+            "<leader>gl",
+            ":Gitsigns setloclist<CR>",
+            mode = "n",
+            icon = "",
+            desc = "Gitsings - 変更箇所をロケーションリストで表示する",
+          },
+          {
+            "<leader>gp",
+            "Gitsigns preview_hunk_inline<CR>",
+            mode = "n",
+            icon = "",
+            desc = "Gitsings - カーソル位置の変更内容を(インラインで)プレビューする",
+          },
+          {
+            "<leader>gh",
+            ":<C-U>Gitsigns select_hunk<CR>",
+            mode = "n",
+            icon = "",
+            desc = "Gitsings - HEADとのdiff表示をトグル",
+          },
+        })
       end,
     })
     require("scrollbar.handlers.gitsigns").setup()

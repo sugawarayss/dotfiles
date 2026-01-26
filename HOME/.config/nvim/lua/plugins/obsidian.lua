@@ -13,29 +13,32 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
-    keys = {
-      {
-        ";son",
-        "<Cmd>Obsidian quick_switch<CR>",
-        mode = "n",
-        { noremap = true, silent = true },
-        desc = "Obsidianノートを検索",
-      },
-      {
-        "<Leader>nn",
-        "<Cmd>Obsidian new_from_template<CR>",
-        mode = "n",
-        { noremap = true, silent = true },
-        desc = "Obsidianノートを開く(作成)",
-      },
-      {
-        "<Leader>dn",
-        "<Cmd>Obsidian today<CR>",
-        mode = "n",
-        { noremap = true, silent = true },
-        desc = "Obsidianデイリーノートを開く(作成)",
-      },
-    },
+    init = function()
+      local wk = require("which-key")
+      wk.add({
+        {
+          ";son",
+          "<Cmd>Obsidian quick_switch<CR>",
+          mode = "n",
+          icon = "💎",
+          desc = "Obsidian - ノートを検索",
+        },
+        {
+          "<Leader>nn",
+          "<Cmd>Obsidian new_from_template<CR>",
+          mode = "n",
+          icon = "💎",
+          desc = "Obsidian - ノートを開く(作成)",
+        },
+        {
+          "<Leader>dn",
+          "<Cmd>Obsidian today<CR>",
+          mode = "n",
+          icon = "💎",
+          desc = "Obsidian - デイリーノートを開く(作成)",
+        },
+      })
+    end,
     dependencies = {
       { "nvim-lua/plenary.nvim", lazy = true },
     },

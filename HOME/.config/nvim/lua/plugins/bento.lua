@@ -12,7 +12,8 @@ return {
         "<Leader>;",
         "<cmd>BentoToggle<CR>",
         mode = "n",
-        desc = " バッファ管理メニュー表示",
+        icon = "🍱",
+        desc = " Bento - バッファ管理メニュー表示",
       },
       {
         "<Leader>bl",
@@ -20,7 +21,8 @@ return {
           require("bento").toggle_lock()
         end,
         mode = "n",
-        desc = " バッファロック/アンロック",
+        icon = "🍱",
+        desc = " Bento - バッファロック/アンロック",
       },
     })
   end,
