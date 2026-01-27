@@ -17,19 +17,19 @@ return {
         "<M-r><M-t>f",
         ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>",
         mode = "n",
-        desc = "現在のファイルのテストを実行する",
+        desc = "Noetest - 現在のファイルのテストを実行する",
       },
       {
         "<M-r><M-t>v",
         ":lua require('neotest').output.open()<CR>",
         mode = "n",
-        desc = "テストの結果を表示する(float window)",
+        desc = "Noetest - テストの結果を表示する(float window)",
       },
       {
         "<M-r><M-t>o",
         ":lua require('neotest').output_panel.open()<CR>",
         mode = "n",
-        desc = "テストの結果をパネル表示する",
+        desc = "Noetest - テストの結果をパネル表示する",
       },
     },
     config = function()
