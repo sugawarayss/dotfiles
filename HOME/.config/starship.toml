@@ -24,13 +24,13 @@ error_symbol      = "[](bold red)"
 vimcmd_symbol     = "[](bold green)"
 
 [cmd_duration]
-format            = "took 󱫡 [$duration]($style) "
+format            = "took ⏲️ [$duration]($style) "
 style             = "bold yellow"
 
 [directory]
 format            = '[ ](208) [$path]($style)[$read_only]($read_only_style)'
 style             = 'bold cyan'
-truncation_length = 5
+truncation_length = 20
 truncate_to_repo  = false
 truncation_symbol = "…/"
 
@@ -42,7 +42,7 @@ format            = '$symbol [${ram}( ${ram_pct})]($style) '
 
 [time]
 disabled          = false
-format            = '󱑆 [$time](blue) '
+format            = '🕰️ [$time](blue)'
 utc_time_offset   = '9'
 time_format       = '%Y-%m-%d %T %Z (%A) '
 
@@ -68,7 +68,7 @@ format            = '[$symbol]($style)$subscription '
 [gcloud]
 # GCPの表示は無効化
 disabled          = true
-symbol            = "󱇶"
+symbol            = "☁️"
 style             = "bold green"
 format            = '[$symbol]($style)$project '
 
@@ -114,7 +114,7 @@ symbol            = ""
 format            = "$symbol(yellow) [$version](yellow) "
 
 [git_state]
-cherry_pick       = "[ ](red)"
+cherry_pick       = "[🍒 ](red)"
 
 [git_status]
 # Gitのステータス表示アイコン
