@@ -15,7 +15,7 @@ fish_add_path /opt/homebrew/opt/libpq/bin
 fish_add_path /opt/homebrew/opt/mysql-client/bin
 
 # starship
-starship init fish | source
+# starship init fish | source
 
 #########################
 # ENVIRONMENT VARIABLES #
