@@ -1,7 +1,7 @@
 -- 単語単位でジャンプできるようにするプラグイン
 return {
   "smoka7/hop.nvim",
-  enabled = true,
+  enabled = false,
   version = "*",
   event = "VeryLazy",
   init = function()
