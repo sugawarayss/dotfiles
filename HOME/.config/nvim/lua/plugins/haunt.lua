@@ -38,6 +38,7 @@ return {
           haunt.toggle_annotation()
         end,
         mode = "n",
+        icon = "👻",
         desc = "Haunt - Bookmarkの注釈をGhostText表示をトグル",
       },
       -- {
