@@ -63,7 +63,7 @@ return {
         chat = {
           adapter = {
             name = "copilot",
-            model = "claude-haiku-4.5",
+            model = "claude-opus-4.5",
           },
           roles = {
             llm = function(adapter)
@@ -79,7 +79,7 @@ return {
         inline = {
           adapter = {
             name = "copilot",
-            model = "claude-haiku-4.5",
+            model = "claude-opus-4.5",
           },
           -- インラインアシスタントが新しいバッファを作成する際にバッファ分割の方向
           layout = "vertical",
