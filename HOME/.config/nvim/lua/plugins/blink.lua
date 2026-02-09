@@ -14,7 +14,7 @@ return {
     opts = {
       -- 補完ソース
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "copilot", "yank", "ripgrep" },
+        default = { "lsp", "path", "snippets", "buffer", "copilot", "ripgrep" },
         providers = {
           cmdline = {
             -- コマンドラインへの入力が2文字未満の場合は補完を無効にする
