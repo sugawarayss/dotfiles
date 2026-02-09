@@ -6,7 +6,7 @@ font-family = "Hack Nerd Font Mono"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
 # フォントサイズ
-font-size = 16
+font-size = 13
 # 行の高さの調整
 adjust-cell-height = "-15%"
 
