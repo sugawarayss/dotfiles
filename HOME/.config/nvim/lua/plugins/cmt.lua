@@ -5,11 +5,11 @@ return {
   },
   keys = {
     { "gc", "<Plug>(cmt:line:toggle)", mode = { "n", "x" }, desc = "行コメントをトグル(オペレータ)" },
-    { "gcc", "<Plug>(cmt:line:toggle:current)", mode = "n", desc = "行コメントをトグル(カーソル行)" },
+    { "gcc", "<Plug>(cmt:line:toggle:current)", mode = { "n" }, desc = "行コメントをトグル(カーソル行)" },
+    { "gCC", "<Plug>(cmt:line:toggle:with-blank:current)", mode = { "n" }, desc = "空行を含んでコメントをトグル" },
     { "gw", "<Plug>(cmt:block:toggle)", mode = { "n", "x" }, desc = "ブロックコメントをトグル(オペレータ)" },
     { "gww", "<Plug>(cmt:block:toggle:current)", mode = "n", desc = "ブロックコメントをトグル(カーソル行)" },
-    { "gco", "<Plug>(cmt:open-below-comment)", mode = "n", desc = "コメント行を下に追加" },
-    { "gcO", "<Plug>(cmt:open-above-comment)", mode = "n", desc = "コメント行を上に追加" },
+    { "gWW", "<Plug>(cmt:block:toggle:current)", mode = "n", desc = "空行を含んでブロックコメントをトグル" },
   },
   config = function()
     local color_palette = require("onedarkpro.helpers").get_colors()
