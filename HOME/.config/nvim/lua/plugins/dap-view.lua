@@ -26,11 +26,20 @@ return {
   end,
   opts = {
     winbar = {
-      sections = { "scopes", "watches", "console", "exceptions", "breakpoints", "threads", "repl" },
+      sections = { "scopes", "watches", "exceptions", "breakpoints", "threads", "repl" },
       default_section = "scopes",
       controls = {
         enabled = true,
         position = "right",
+      },
+    },
+    windows = {
+      size = 0.25,
+      position = "below",
+      terminal = {
+        size = 0.5,
+        position = "left",
+        hide = {},
       },
     },
     -- Auto open when a session is started and auto close when all sessions finish
