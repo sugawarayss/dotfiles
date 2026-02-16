@@ -1,7 +1,7 @@
 -- 単語単位でジャンプできるようにするプラグイン
 return {
   "smoka7/hop.nvim",
-  enabled = false,
+  enabled = true,
   version = "*",
   event = "VeryLazy",
   init = function()
@@ -56,6 +56,23 @@ return {
     })
   end,
   config = function()
-    require("hop").setup({})
+    require("hop").setup({
+      -- ヒントの表示に使う文字
+      keys = "asdghklqwertyuiopzxcvbnmfj",
+      -- ヒントモードを中止するキー
+      quit_key = "<Esc>",
+      -- ヒントが一箇所のみならすぐにジャンプする
+      jump_on_sole_occurrence = true,
+      -- 大文字/小文字を区別するかどうか
+      cae_insensitive = false,
+      -- 自動のハイライトをするかどうか
+      create_hl_autocmd = false,
+      -- ヒントラベルを大文字で表示するかどうか
+      uppercase_labels = false,
+      -- 現在行のみモードにするかどうか
+      current_line_only = false,
+      -- ウィンドウを飛び越えてジャンプできるようにするか
+      multi_windows = false,
+    })
   end,
 }

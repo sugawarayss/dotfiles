@@ -1,6 +1,6 @@
 return {
   "FluxxField/smart-motion.nvim",
-  enabled = true,
+  enabled = false,
   event = { "BufReadPre" },
   opts = {
     -- Use background highlighting instead of character replacement
@@ -24,7 +24,7 @@ return {
       words = true, -- w, b, e, ge
       lines = false, -- j, k
       search = false, -- s, f, F, t, T, ;, ,, gs
-      delete = true, -- d, dt, dT, rdw, rdl
+      delete = false, -- d, dt, dT, rdw, rdl
       yank = true, -- y, yt, yT, ryw, ryl
       change = false, -- c, ct, cT
       paste = false, -- p, P
