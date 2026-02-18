@@ -58,7 +58,10 @@ localhost*pem
 .VSCodeCounter/
 
 # mise
-.mise.toml
+# プロジェクトで採用していない場合はコメントアウトを解除する
+#.mise.toml
+# ローカル設定用、公式がコミットしないでと言っている
+mise.local.toml
 
 .env.azure
 
