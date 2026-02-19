@@ -1,5 +1,19 @@
+# environment
+.env
+
+# AWS/GCP/Azure
+credentials.csv
+google-service-account.json
+aws_access_key_id
+
+# ssh keys
+id_rsa
+*.pem
+
 # MacOS
 .DS_Store
+# Windows
+Thumbs.db
 
 # vscode
 .vscode/
@@ -7,18 +21,18 @@
 # JetBrains IDE
 .idea/
 
-# fleet(JetBrains editor)
-.fleet/
-
 # Python virtual environment
 .venv/
 venv/
 
-.tool-versions
-
 # Node.js
 node_modules/
 
+# build results
+dist/
+build/
+
+# Py
 *.py[cod]
 *$py.class
 
