@@ -9,13 +9,13 @@ return {
       colors = {
         bg = "",
         -- copy = color_palette.bg_yellow,
-        -- delete = color_palette.git_delete,
+        delete = color_palette.git_hunk_delete,
         -- change = color_palette.orange,
         -- format = color_palette.cyan,
         insert = color_palette.black,
         -- replace = color_palette.purple,
         -- select = color_palette.dark_purple,
-        visual = color_palette.purple,
+        visual = color_palette.orange,
       },
       -- Set opacity for cursorline and number background
       line_opacity = 0.3,
