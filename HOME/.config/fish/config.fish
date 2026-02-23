@@ -45,50 +45,32 @@ set --global tide_left_prompt_items "vi_mode" "pwd" "git" "newline" "character"
 set --global tide_right_prompt_frame_enabled false
 set --global tide_right_prompt_items "os" "status" "cmd_duration" "context" "jobs" "direnv" "bun" "node" "python" "rustc" "java" "php" "ruby" "go" "gcloud" "kubectl" "terraform" "aws" "elixir" "zig" "time"
 set --global tide_prompt_add_newline_before true
-set --global tide_prompt_icon_connection "·"
-set --global tide_vi_mode_icon_default "N"
 
-# theme_bobthefish(fish plugin)のプロンプト設定
-## vi モードのインジケータを常に表示する
-# set -g theme_display_vi yes
-## NerdFontを使用する
-# set -g theme_nerd_fonts yes
-## ユーザ名とホスト名を常に表示する
-# set -g theme_display_user yes
-# set -g theme_display_hostname yes
-## 日付の表示書式を変更する
-# set -g theme_date_format "+[%Y-%m-%d %H:%M:%S]"
-# set -g theme_date_timezone "Asia/Tokyo"
-## コマンド実行時間を右側に表示する
-# set -g theme_display_cmd_duration yes
-## プロンプトから入力欄の前に改行をする
-# set -g theme_newline_cursor yes
-## 改行後入力欄の前に表示する文字を設定する
-# set -g theme_newline_prompt "\e[92m\e[m "
-## 直前のコマンド実行結果に応じてプロンプトの色を変える
-# function __update_detailed_prompt_status --on-event fish_prompt
-#   switch $status
-#     case 0
-#       # 成功（緑）
-#       set -g theme_newline_prompt "\e[92m\e[m "
-#     case 1
-#       # 一般的なエラー（赤）
-#       set -g theme_newline_prompt "\e[91m\e[m "
-#     case 126
-#       # コマンドが実行可能でない（オレンジ）
-#       set -g theme_newline_prompt "\e[38;5;208m\e[m "
-#     case 127
-#       # コマンドが見つからない（紫）
-#       set -g theme_newline_prompt "\e[95m\e[m "
-#     case 130
-#       # Ctrl+Cで中断（シアン）
-#       set -g theme_newline_prompt "\e[96m\e[m "
-#     case '*'
-#       # その他のエラー（黄）
-#       set -g theme_newline_prompt "\e[93m\e[m "
-#   end
-# end
+set --global tide_prompt_icon_connection "󰇘"
+set --global tide_pwd_bg_color "33373e"
 
+set --global tide_vi_mode_icon_default "NORMAL"
+set --global tide_character_vi_icon_default "󰅁"
+set --global tide_vi_mode_bg_color_default "89ca78"
+
+set --global tide_vi_mode_icon_insert "INSERT"
+set --global tide_character_icon "󰅂"
+set --global tide_vi_mode_bg_color_insert "61afef"
+
+set --global tide_vi_mode_icon_visual "VISUAL"
+set --global tide_character_vi_icon_visual "󰅂"
+set --global tide_vi_mode_bg_color_visual "d19a66"
+
+set --global tide_vi_mode_icon_replace "REPLACE"
+set --global tide_character_vi_icon_replace "󰅂"
+set --global tide_vi_mode_bg_color_replace "d55fde"
+
+set --global tide_git_icon ""
+set --global tide_git_bg_color_unstable "d19a66"
+set --global tide_git_color_staged "005869"
+set --global tide_git_color_untracked "6f2e2d"
+
+set --global tide_time_format "%Y/%m/%d %T"
 
 # neovim
 set -gx EDITOR nvim
