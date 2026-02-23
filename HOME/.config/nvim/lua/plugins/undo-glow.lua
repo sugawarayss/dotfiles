@@ -6,8 +6,8 @@ return {
   opts = {
     animation = {
       enabled = true,
-      duration = 300,
-      animation_type = "zoom",
+      duration = 500,
+      animation_type = "fade",
       window_scoped = true,
     },
     highlights = {
@@ -18,19 +18,19 @@ return {
         hl_color = { bg = color_palette.virtual_text_error },
       },
       yank = {
-        hl_color = { bg = color_palette.diff_text },
+        hl_color = { bg = color_palette.virtual_text_hint },
       },
       paste = {
-        hl_color = { bg = color_palette.git_hunk_add },
+        hl_color = { bg = color_palette.cyan },
       },
       search = {
-        hl_color = { bg = color_palette.orange },
+        hl_color = { bg = color_palette.git_change },
       },
       comment = {
-        hl_color = { bg = color_palette.inlay_hint },
+        hl_color = { bg = color_palette.cursorline },
       },
       cursor = {
-        hl_color = { bg = color_palette.virtual_text_information },
+        hl_color = { bg = color_palette.blue },
       },
     },
     priority = 2048 * 3,
@@ -69,84 +69,6 @@ return {
         end,
         mode = "n",
         desc = "UndoGlow - Paste above with highlight",
-      },
-      {
-        "n",
-        function()
-          require("undo-glow").search_next({
-            animation = {
-              animation_type = "strobe",
-            },
-          })
-        end,
-        mode = "n",
-        desc = "UndoGlow - Search next with highlight",
-      },
-      {
-        "N",
-        function()
-          require("undo-glow").search_prev({
-            animation = {
-              animation_type = "strobe",
-            },
-          })
-        end,
-        mode = "n",
-        desc = "UndoGlow - Search prev with highlight",
-      },
-      {
-        "*",
-        function()
-          require("undo-glow").search_star({
-            animation = {
-              animation_type = "strobe",
-            },
-          })
-        end,
-        mode = "n",
-        desc = "UndoGlow - Search star with highlight",
-      },
-      {
-        "#",
-        function()
-          require("undo-glow").search_hash({
-            animation = {
-              animation_type = "strobe",
-            },
-          })
-        end,
-        mode = "n",
-        desc = "UndoGlow - Search hash with highlight",
-      },
-      {
-        "gc",
-        function()
-          -- This is an implementation to preserve the cursor position
-          local pos = vim.fn.getpos(".")
-          vim.schedule(function()
-            vim.fn.setpos(".", pos)
-          end)
-          return require("undo-glow").comment()
-        end,
-        mode = { "n", "x" },
-        desc = "UndoGlow - Toggle comment with highlight",
-      },
-      {
-        "gc",
-        function()
-          require("undo-glow").comment_textobject()
-        end,
-        mode = "o",
-        desc = "UndoGlow - Comment textobject with highlight",
-      },
-      {
-        "gcc",
-        function()
-          return require("undo-glow").comment_line()
-        end,
-        mode = "n",
-        desc = "Toggle comment line with highlight",
-        expr = true,
       },
     })
     vim.api.nvim_create_autocmd("TextYankPost", {
