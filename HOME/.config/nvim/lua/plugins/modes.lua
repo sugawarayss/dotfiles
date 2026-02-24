@@ -30,7 +30,14 @@ return {
       set_signcolumn = false,
       -- Disable modes highlights in specified filetypes
       -- Please PR commonly ignored filetypes
-      ignore_filetypes = { "NvimTree", "TelescopePrompt" },
+      ignore_filetypes = {
+        "NvimTree",
+        "TelescopePrompt",
+        "snacks_picker_list",
+        "snacks_dashboard",
+        "snacks_terminal",
+        "sagaoutline",
+      },
     })
   end,
 }
