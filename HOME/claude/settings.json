@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "Bash(rg:*)",
@@ -13,10 +14,12 @@
       "Bash(bat:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr diff:*)",
+      "Bash(git checkout:*)",
       "Bash(docker compose:*)",
       "Bash(docker compose exec:*)",
       "Bash(docker compose logs:*)",
       "Bash(task:*)",
+      "Bash(mise run:*)",
       "Bash(uv run:*)",
       "Bash(say:*)"
     ],
@@ -35,8 +38,9 @@
       "Read(id_ed25519)"
     ]
   },
+  "language": "japanese",
   "env": {
-    "CLAUDE_CODE_USE_BEDROCK": 1,
+    "CLAUDE_CODE_USE_BEDROCK": "1",
     "AWS_PROFILE": "inap-zoo",
     "AWS_REGION": "ap-northeast-1",
     "ANTHROPIC_MODEL": "apac.anthropic.claude-sonnet-4-20250514-v1:0",
