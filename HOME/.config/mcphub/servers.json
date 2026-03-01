@@ -40,6 +40,10 @@
         "-y",
         "@upstash/context7-mcp"
       ],
+      "autoApprove": [
+        "query-docs",
+        "resolve-library-id"
+      ],
       "command": "npx",
       "env": {
         "DEFAULT_MINIMUM_TOKENS": "128000"
@@ -61,7 +65,6 @@
         "read_multiple_files",
         "read_text_file",
         "search_files",
-        "edit_file",
         "directory_tree",
         "create_directory",
         "write_file"
@@ -96,16 +99,6 @@
         "browser_drag",
         "browser_console_messages",
         "browser_close"
-      ],
-      "command": "npx"
-    },
-    "sequentialthinking": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ],
-      "autoApprove": [
-        "sequentialthinking"
       ],
       "command": "npx"
     },
