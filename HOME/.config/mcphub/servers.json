@@ -35,6 +35,16 @@
         "FASTMCP_LOG_LEVEL": "ERROR"
       }
     },
+    "context7": {
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "command": "npx",
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "128000"
+      }
+    },
     "filesystem": {
       "args": [
         "-y",
@@ -134,6 +144,28 @@
         "initial_instructions"
       ],
       "command": "uvx"
+    },
+    "serverless": {
+      "args": [
+        "mcp"
+      ],
+      "autoApprove": [
+        "docs",
+        "aws-lambda-info",
+        "aws-iam-info",
+        "aws-cloudwatch-alarms",
+        "aws-rest-api-gateway-info",
+        "list-projects",
+        "service-summary",
+        "list-resources",
+        "deployment-history",
+        "aws-logs-tail",
+        "aws-logs-search",
+        "aws-errors-info"
+      ],
+      "command": "serverless",
+      "disabled": false,
+      "disabled_tools": []
     }
   },
   "nativeMCPServers": {
