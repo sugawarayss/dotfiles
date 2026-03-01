@@ -12,9 +12,9 @@
       "Bash(colordiff:*)",
       "Bash(mkdir:*)",
       "Bash(bat:*)",
+      "Bash(gh pr checkout:*)",
       "Bash(gh pr view:*)",
       "Bash(gh pr diff:*)",
-      "Bash(git checkout:*)",
       "Bash(docker compose:*)",
       "Bash(docker compose exec:*)",
       "Bash(docker compose logs:*)",
@@ -45,5 +45,87 @@
     "AWS_REGION": "ap-northeast-1",
     "ANTHROPIC_MODEL": "apac.anthropic.claude-sonnet-4-20250514-v1:0",
     "ANTHROPIC_SMALL_FAST_MODEL": "apac.anthropic.claude-3-5-sonnet-20241022-v2:0"
+  },
+  "mcpServers": {
+    "aws-knowledge": {
+      "args": [
+        "fastmcp",
+        "run",
+        "https://knowledge-mcp.global.api.aws"
+      ],
+      "autoApprove": [
+        "aws___search_documentation",
+        "aws___recommend",
+        "aws___read_documentation",
+        "aws___get_regional_availability",
+        "aws___list_regions"
+      ],
+      "command": "uvx"
+    },
+    "aws-terraform": {
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "autoApprove": [
+        "ExecuteTerraformCommand",
+        "SearchAwsProviderDocs",
+        "SearchAwsccProviderDocs",
+        "SearchSpecificAwsIaModules",
+        "SearchUserProvidedModule",
+        "RunCheckovScan"
+      ],
+      "command": "uvx",
+      "disabled": false,
+      "disabled_tools": [],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "context7": {
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "command": "npx",
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "128000"
+      }
+    },
+    "serena": {
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide"
+      ],
+      "autoApprove": [
+        "list_dir",
+        "find_file",
+        "search_for_pattern",
+        "get_symbols_overview",
+        "find_symbol",
+        "find_referencing_symbols",
+        "replace_symbol_body",
+        "insert_after_symbol",
+        "insert_before_symbol",
+        "rename_symbol",
+        "write_memory",
+        "read_memory",
+        "list_memories",
+        "delete_memory",
+        "edit_memory",
+        "activate_project",
+        "get_current_config",
+        "check_onboarding_performed",
+        "onboarding",
+        "think_about_collected_information",
+        "think_about_task_adherence",
+        "think_about_whether_you_are_done",
+        "initial_instructions"
+      ],
+      "command": "uvx"
+    }
   }
 }

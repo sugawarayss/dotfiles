@@ -1,7 +1,7 @@
 {
   "globalShortcut": "Alt+Ctrl+Tab",
   "mcpServers": {
-    "aws-knowledge-mcp-server": {
+    "aws-knowledge": {
       "args": [
         "fastmcp",
         "run",
@@ -16,7 +16,7 @@
       ],
       "command": "uvx"
     },
-    "aws-terraform-mcp-server": {
+    "aws-terraform": {
       "args": [
         "awslabs.terraform-mcp-server@latest"
       ],
@@ -35,15 +35,15 @@
         "FASTMCP_LOG_LEVEL": "ERROR"
       }
     },
-    "sequentialthinking": {
+    "context7": {
       "args": [
         "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
+        "@upstash/context7-mcp"
       ],
-      "autoApprove": [
-        "sequentialthinking"
-      ],
-      "command": "npx"
+      "command": "npx",
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "128000"
+      }
     },
     "filesystem": {
       "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
