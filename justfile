@@ -13,7 +13,7 @@ claude:
   @test -L ~/.claude/settings.json || ln -s {{pwd}}/HOME/claude/settings.json ~/.claude/settings.json
   @test -L ~/.claude/mcp_config.json || ln -s {{pwd}}/HOME/claude/mcp_config.json ~/.claude/mcp_config.json
   @test -L ~/.claude/commands || ln -s {{pwd}}/HOME/claude/commands ~/.claude/commands
-  @text -L ~/.claude/prompts || ln -s {{pwd}}/HOME/claude/prompts ~/.claude/prompts
+  @test -L ~/.claude/skills || ln -s {{pwd}}/HOME/claude/skills ~/.claude/skills
 
 # 定義済タスクリスト表示
 _list:
