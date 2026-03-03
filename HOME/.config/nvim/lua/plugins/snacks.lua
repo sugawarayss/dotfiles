@@ -277,7 +277,7 @@ return {
     -- インデントガイドの表示
     indent = {
       priority = 1,
-      enabled = true,
+      enabled = false,
       char = "│",
       only_scope = false,
       only_current = false,
@@ -364,7 +364,7 @@ return {
     quickfile = { enabled = true },
     -- スコープ検出
     scope = {
-      enabled = true,
+      enabled = false,
       priority = 200,
       char = "│",
       underline = false,
