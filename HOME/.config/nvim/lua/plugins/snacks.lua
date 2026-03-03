@@ -391,7 +391,7 @@ return {
     },
     scratch = { enabled = false },
     -- スムーズなスクロール
-    scroll = { enabled = true },
+    scroll = { enabled = false },
     statuscolumn = { enabled = false },
     -- トグルキーマップ
     toggle = {

@@ -2,7 +2,7 @@
 return {
   "karb94/neoscroll.nvim",
   -- snacks.nvimでできるので無効にする
-  enabled = false,
+  enabled = true,
   event = { "BufReadPre" },
   config = function()
     require("neoscroll").setup({
