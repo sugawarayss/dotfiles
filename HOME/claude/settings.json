@@ -134,6 +134,50 @@
     "ANTHROPIC_MODEL": "apac.anthropic.claude-sonnet-4-20250514-v1:0",
     "ANTHROPIC_SMALL_FAST_MODEL": "apac.anthropic.claude-3-5-sonnet-20241022-v2:0"
   },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "say \"$(basename \"$PWD\") の作業が完了しました\""
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "say \"$(basename \"$PWD\") の作業について質問があります\""
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "say \"権限承認してほしいです。\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "say \"MCPサーバーを使用します\""
+          }
+        ]
+      }
+    ]
+  },
   "mcpServers": {
     "aws-knowledge": {
       "args": [
