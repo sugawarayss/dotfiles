@@ -1,8 +1,9 @@
 ---
-allowed-tools: Bash(ls:*), Bash(cat:*), Bash(mkdir:*), Base(touch:*) Read(*.py)
+name: generage-doc
 description: "ソースコード全体を参照しドキュメントをmarkdownファイルとして生成します。"
+allowed-tools: Bash(ls:*), Bash(cat:*), Bash(mkdir:*), Base(touch:*) Read(*.py)
+user-invocable: true
 ---
-
 あなたは経験豊富なベテランシニアエンジニアです。
 ソースコード全体を読んで、ドキュメントを生成してください。
 

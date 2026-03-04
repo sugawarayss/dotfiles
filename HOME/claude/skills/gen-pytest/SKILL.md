@@ -1,5 +1,8 @@
 ---
+name: gen-pytest
+argument-hint: "[テスト対象ファイルパス]"
 description: "pytestを使用したユニットテストコードを実装します。"
+user-invocable: true
 ---
 
 ## タスク

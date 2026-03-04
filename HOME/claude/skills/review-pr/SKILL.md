@@ -3,6 +3,7 @@ name: review-pr
 description: プルリクエストのコードレビューを支援する。PRの品質・セキュリティ・パフォーマンス・テスト・ドキュメントの観点から分析し、構造化されたレビューコメントを生成する。技術スタック不問。
 argument-hint: "[PR番号 or PRのURL（省略時はカレントブランチのPR）]"
 allowed-tools: Bash(gh *), Read, Grep, Glob
+user-invocable: true
 ---
 
 # PRレビュー
