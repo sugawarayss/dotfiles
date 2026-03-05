@@ -59,7 +59,7 @@ semgrep = "latest"
 starship = "latest"
 task = "latest"
 terraform = "latest"
-tokei = "latest"
+tokei = { version="latest", backend = "cargo" }
 tombi = "latest"
 usage = "latest"
 uv = "latest"
