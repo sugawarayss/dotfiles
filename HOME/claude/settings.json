@@ -140,7 +140,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say \"$(basename \"$PWD\") の作業が完了しました\""
+            "command": "say -v Kyoko \"作業が完了したんだっピ\""
           }
         ]
       }
@@ -151,7 +151,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say \"$(basename \"$PWD\") の作業について質問があります\""
+            "command": "say -v Kyoko \"作業について聞きたいことがあるんだッピ\""
           }
         ]
       }
@@ -161,7 +161,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say \"権限承認してほしいです。\""
+            "command": "say -v Kyoko \"承認してほしいッピ\""
           }
         ]
       }
@@ -172,7 +172,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say \"MCPサーバーを使用します\""
+            "command": "say -v Kyoko \"MCPサーバーを使うッピ\""
           }
         ]
       }
