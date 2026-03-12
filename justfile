@@ -14,6 +14,12 @@ claude:
   @test -L ~/.claude/mcp_config.json || ln -s {{pwd}}/HOME/claude/mcp_config.json ~/.claude/mcp_config.json
   @test -L ~/.claude/commands || ln -s {{pwd}}/HOME/claude/commands ~/.claude/commands
   @test -L ~/.claude/skills || ln -s {{pwd}}/HOME/claude/skills ~/.claude/skills
+  # mcpを追加
+  claude mcp add aws-knowledge --transport stdio --scope user -- uvx fastmcp run https://knowledge-mcp.global.api.aws
+  claude mcp add aws-terraform --transport stdio --scope user -- uvx awslabs.terraform-mcp-server@latest
+  claude mcp add context7 --transport stdio --scope user -- npx -y @upstash/context7-mcp
+  claude mcp add serena --transport stdio --scope user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide
+  claude mcp add markitdown --transport stdio --scope user -- uvx markitdown-mcp==1.1.0
 
 # 定義済タスクリスト表示
 _list:
