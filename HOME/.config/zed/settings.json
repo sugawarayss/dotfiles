@@ -7,20 +7,23 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "provider": "copilot",
+  },
   "preview_tabs": {
     "enable_preview_from_file_finder": true,
-    "enable_preview_multibuffer_from_code_navigation": true
+    "enable_preview_multibuffer_from_code_navigation": true,
   },
   "title_bar": {
-    "show_branch_icon": true
+    "show_branch_icon": true,
   },
   "status_bar": {
-    "cursor_position_button": true
+    "cursor_position_button": true,
   },
   "close_on_file_delete": false,
   "search": {
     "center_on_match": true,
-    "include_ignored": true
+    "include_ignored": true,
   },
   "relative_line_numbers": "wrapped",
   "git": {
@@ -80,9 +83,6 @@
       "model": "claude-haiku-4.5",
     },
     "model_parameters": [],
-  },
-  "features": {
-    "edit_prediction_provider": "copilot",
   },
   "base_keymap": "JetBrains",
   "telemetry": {
@@ -207,7 +207,7 @@
   },
   "languages": {
     "Fish": {
-      "colorize_brackets": true
+      "colorize_brackets": true,
     },
     "Python": {
       // Pythonタブサイズは4スペース
