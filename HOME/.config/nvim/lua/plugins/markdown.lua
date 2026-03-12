@@ -5,10 +5,45 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
+    init = function()
+      local wk = require("which-key")
+      -- see `:help markdown-plus-plug-mappings`
+      wk.add({
+        {
+          "<localleader>mtc",
+          "<Plug>(MarkdownPlusTableCreate)",
+          icon = "📑",
+          mode = "n",
+          desc = "MD+ - MDテーブルを新規作成",
+        },
+        {
+          "<localleader>mir",
+          "<Plug>(MarkdownPlusTableInsertRowBelow)",
+          icon = "📑",
+          mode = "n",
+          desc = "MD+ - MDテーブルに行追加",
+        },
+        {
+          "<localleader>mic",
+          "<Plug>(MarkdownPlusTableInsertColumnRight)",
+          icon = "📑",
+          mode = "n",
+          desc = "MD+ - MDテーブルに列追加",
+        },
+        {
+          "<localleader>mlt",
+          "<Plug>(MarkdownPlusToggleCheckbox)",
+          icon = "📑",
+          mode = "n",
+          desc = "MD+ - チェックボックスをトグル",
+        },
+      })
+    end,
     config = function()
       require("markdown-plus").setup({
         -- Global enable/disable
         enabled = true, -- default: true
+
         -- Feature toggles (all default: true)
         features = {
           list_management = true, -- default: true (list auto-continue / indent / renumber / checkboxes)
@@ -22,14 +57,35 @@ return {
           table = true, -- default: true (table creation & editing)
           footnotes = true, -- default: true (footnote insertion/navigation/listing)
         },
+        -- Filetypes configuration
+        filetypes = { "markdown", "codecompanion" }, -- default: { "markdown" }
+
+        -- Global keymap configuration
+        keymaps = {
+          enabled = false, -- default: true  set false to disable ALL default maps (use <Plug>)
+        },
+
         -- TOC window configuration
         toc = {
           initial_depth = 2, -- default: 2 (range 1-6) depth shown in :Toc window and generated TOC
         },
+
+        -- Thematic_break configuration
+        thematic_break = {
+          style = "---",
+        },
+
         -- Callouts configuration
         callouts = {
           default_type = "NOTE", -- default: "NOTE"  default callout type when inserting
-          custom_types = { "WARNING", "DANGER" }, -- default: {}  add custom types (e.g., { "DANGER", "SUCCESS" })
+          custom_types = { "INFO", "WARNING", "DANGER" }, -- default: {}  add custom types (e.g., { "DANGER", "SUCCESS" })
+        },
+
+        -- CodeBlock configuration
+        code_block = {
+          enabled = true,
+          fence_style = "backtick", -- "backtick"|"tilde"
+          languages = { "lua", "python", "javascript", "typescript", "bash", "json", "yaml", "toml", "markdown", "go", "rust" },
         },
         -- Table configuration
         table = {
@@ -38,7 +94,7 @@ return {
           confirm_destructive = true, -- default: true  confirm before transpose/sort operations
           keymaps = { -- Table-specific keymaps (prefix based)
             enabled = true, -- default: true  provide table keymaps
-            prefix = "<leader>t", -- default: "<leader>t"  prefix for table ops
+            prefix = "<localleader>t", -- default: "<leader>t"  prefix for table ops
             insert_mode_navigation = true, -- default: true  Alt+hjkl cell navigation
           },
         },
@@ -47,12 +103,24 @@ return {
           section_header = "Footnotes", -- default: "Footnotes"  header for footnotes section
           confirm_delete = true, -- default: true  confirm before deleting footnotes
         },
-        -- Global keymap configuration
-        keymaps = {
-          enabled = true, -- default: true  set false to disable ALL default maps (use <Plug>)
+        -- Lists configuration
+        list = {
+          smart_outdent = true,
+          checkbox_completion = {
+            enabled = true,
+            format = "emoji", -- "emoji"|"comment"|"dataview"|"parentheical"
+            date_format = "%Y-%m-%d",
+            remove_on_uncheck = true,
+            update_existing = true,
+          },
         },
-        -- Filetypes configuration
-        filetypes = { "markdown", "codecompanion" }, -- default: { "markdown" }
+        -- Link configuration
+        links = {
+          smart_paste = {
+            enabled = true,
+            timeout = 5, -- 1..30
+          },
+        },
       })
     end,
   },
