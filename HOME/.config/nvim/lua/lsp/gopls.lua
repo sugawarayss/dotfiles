@@ -1,5 +1,5 @@
 return {
-  filetypes = { "go" },
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
   settings = {
     analyses = {
       nilness = true,

@@ -1,4 +1,5 @@
 return {
-  filetypes = { "tf", "tfstate" },
+  firletypes = { "terraform", "terraform-vars" },
+  root_markers = { ".terraform", ".git" },
   settings = {},
 }

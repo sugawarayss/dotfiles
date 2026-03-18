@@ -2,6 +2,7 @@
 
 return {
   filetypes = { "python" },
+  root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
   -- LSPの設定
   settings = {
     init_options = {

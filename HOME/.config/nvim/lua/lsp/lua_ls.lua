@@ -1,17 +1,19 @@
 return {
   filetypes = { "lua" },
+  root_markers = {
+    { ".emmyrc.json", ".luarc.json", ".luarc.jsonc" },
+    { ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml" },
+    { ".git" },
+  },
   -- LSPの設定
   settings = {
-    {
-      settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
-          },
-          diagnostics = {
-            globals = { "vim" },
-          },
-        },
+    Lua = {
+      codeLens = {
+        enable = true,
+      },
+      hint = {
+        enable = true,
+        semicolon = "Disable",
       },
     },
   },

@@ -1,4 +1,11 @@
 return {
   filetypes = { "php" },
-  settings = {},
+  root_markers = { ".git", "composer.json" },
+  settings = {
+    intelephense = {
+      telemetry = {
+        enabled = false,
+      },
+    },
+  },
 }

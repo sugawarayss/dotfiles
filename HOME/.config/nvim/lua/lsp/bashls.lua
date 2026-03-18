@@ -1,4 +1,9 @@
 return {
   filetypes = { "sh", "zsh", "bash" },
-  settings = {},
+  root_markers = { ".git" },
+  settings = {
+    bashIde = {
+      globPattern = "*@(.sh|.inc|.bash|.command)",
+    },
+  },
 }

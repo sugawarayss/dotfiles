@@ -1,5 +1,6 @@
 return {
   filetypes = { "lua" },
+  root_markers = { ".stylua.toml", "stylua.toml", ".editorconfig" },
   settings = {
     syntax = "Lua51",
     -- 1行の文字数上限
