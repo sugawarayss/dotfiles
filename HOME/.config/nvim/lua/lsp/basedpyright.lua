@@ -3,6 +3,7 @@ return {
   settings = {
     basedpyright = {
       diagnosticMode = "openFilesOnly",
+      typeCheckingMode = "standard",
       inlayHints = {
         variableTypes = true,
         callArgumentNames = true,
