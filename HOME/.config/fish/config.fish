@@ -32,6 +32,9 @@ set -g FISH_CONFIG_DIR $XDG_CONFIG_HOME/fish
 set -g FISH_CONFIG $FISH_CONFIG_DIR/config.fish
 set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
 
+# Claude Code
+set -g CLAUDE_CONFIG_DIR $HOME/.claude
+
 # android sdk
 # set -Ux ANDROID_HOME $HOME/Library/Android/sdk
 # set PATH $ANDROID_HOME/tools $PATH
