@@ -6,14 +6,18 @@ default: _list
 
 # claude code 用設定ファイル
 claude:
-  @type -q npm || mise install node@latest
-  @type -q claude || npm install -g @anthropic-ai/claude-code
+  # @type -q npm || mise install node@latest
+  # @type -q claude || npm install -g @anthropic-ai/claude-code
   @test -d ~/.claude || mkdir -p ~/.claude
   @test -L ~/.claude/CLAUDE.md || ln -s {{pwd}}/HOME/claude/CLAUDE.md ~/.claude/CLAUDE.md
   @test -L ~/.claude/settings.json || ln -s {{pwd}}/HOME/claude/settings.json ~/.claude/settings.json
   @test -L ~/.claude/mcp_config.json || ln -s {{pwd}}/HOME/claude/mcp_config.json ~/.claude/mcp_config.json
   @test -L ~/.claude/commands || ln -s {{pwd}}/HOME/claude/commands ~/.claude/commands
   @test -L ~/.claude/skills || ln -s {{pwd}}/HOME/claude/skills ~/.claude/skills
+  @test -L ~/.claude/statusline.sh || ln -s  {{pwd}}/HOME/claude/statusline.sh ~/.claude/statusline.sh
+
+# claude code のmcp追加
+claude-mcp:
   # mcpを追加
   claude mcp add aws-knowledge --transport stdio --scope user -- uvx fastmcp run https://knowledge-mcp.global.api.aws
   claude mcp add context7 --transport stdio --scope user -- npx -y @upstash/context7-mcp
