@@ -8,12 +8,10 @@ end
 
 -- 自動インストールするLSPサーバ
 local lsp_servers = {
-  -- BUG: 上手く設定できなかったのでcopilot.luaに戻す
-  -- "copilot",
-  -- python
-  -- "pyright",
+  -- Python
   "basedpyright",
   "ruff",
+  "ty",
   -- fish
   "fish_lsp",
   -- sphinx
@@ -24,6 +22,7 @@ local lsp_servers = {
   "gopls",
   -- typescript
   "ts_ls",
+  "biome",
   -- lua
   "lua_ls",
   -- deno
@@ -33,16 +32,13 @@ local lsp_servers = {
   "laravel_ls",
   -- kotlin
   "kotlin_language_server",
-  -- dockerfile
-  -- "dockerls",
-  -- docker-compose
+  -- dockerfile | docker-compose
   "docker_language_server",
   -- yaml
   "yamlls",
   -- json
   "jsonls",
   -- toml
-  -- "taplo",
   "tombi",
   -- markdown
   "marksman",
@@ -71,9 +67,6 @@ local formatters = {
 }
 -- 自動インストールするlinter
 local diagnostics = {
-  -- python
-  "mypy",
-  "ty",
   -- TypeScript
   "biome",
   -- lua
@@ -90,8 +83,6 @@ local diagnostics = {
   "yamllint",
   -- shell script
   "shellcheck",
-  -- code security
-  -- "semgrep",
   -- code security
   "gitleaks",
   -- dockerfile
@@ -179,12 +170,10 @@ return {
     dependencies = {
       { "neovim/nvim-lspconfig" },
     },
-    opts = {
-      ensure_installed = vim.iter({ lsp_servers, formatters, diagnostics, dap_adapters }):flatten():totable(),
-    },
     config = function()
       require("mason-lspconfig").setup({
         automatic_enable = true,
+        ensure_installed = vim.iter({ lsp_servers }):flatten():totable(),
       })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
