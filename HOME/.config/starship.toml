@@ -8,12 +8,12 @@ command_timeout   = 1000
 # 左プロンプト
 format            = """
 [┌───────────────────](bold green) $time 
-[│](bold green) $username$hostmane$localip $mise $singularity $container $docker_context $kubernetes $package
+[│](bold green) $username$hostmane$localip $directory $mise $singularity $container $docker_context $kubernetes $package
 [│](bold green) $git_state$git_branch$git_commit$git_status$python$ruby$nodejs$deno$dart$rust$golang$kotlin$java$dotnet$c$php$perl$swift$julia$haskell$erlang$elixir$scala$rlang$lua$ocaml$nim$elm$crystal$aws$gcloud$azure
 [└─](bold green)$character"""
 
 # 右プロンプト
-right_format      = '\[$directory\]'
+right_format      = '\[$shell $battery $memory_usage\]'
 
 [character]
 # コマンド成功時
@@ -45,6 +45,17 @@ threshold         = 1
 symbol            = ""
 format            = '$symbol [${ram}( ${ram_pct})]($style) '
 
+[battery]
+disabled           = false
+full_symbol        = '🔋 '
+charging_symbol    = '⚡️ '
+discharging_symbol = '🪫 '
+format             = "[$symbol$percentage]($style)" 
+
+[[battery.display]]
+threshold = 100
+style = "yellow" 
+
 [time]
 disabled          = false
 format            = '🕰️  [$time](blue)'
@@ -53,7 +64,14 @@ time_format       = '%Y-%m-%d %T %Z (%A) '
 
 [localip]
 ssh_only          = false
-format            = '@ [$localipv4](bold yellow) '
+format            = '@[$localipv4](bold yellow) '
+disabled          = false
+
+[shell]
+bash_indicator    = "󰆍 bash"
+fish_indicator    = "🐟 fish"
+zsh_indicator     = "󰆍 zsh"
+format            = "[$indicator]($style)"
 disabled          = false
 
 [aws]
@@ -153,6 +171,6 @@ always_show_remote = true
 [username]
 style_user        = "#ffffff bold"
 style_root        = "black bold"
-format            = "[$user]($style) "
+format            = "[$user]($style)"
 disabled          = false
 show_always       = true
