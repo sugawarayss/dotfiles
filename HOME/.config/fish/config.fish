@@ -79,6 +79,7 @@ set --global tide_time_format "%Y/%m/%d %T"
 set -gx EDITOR nvim
 # setup mise
 /opt/homebrew/bin/mise activate fish | source
+set --g MISE_GITHUB_TOKEN "replace you Personal Access Token"
 
 if type "zoxide" > /dev/null 2>&1;
   zoxide init fish | source
