@@ -3,7 +3,7 @@
   "enableAllProjectMcpServers": false,
   "statusLine": {
     "type": "command",
-    "command": "CLAUDE_CONFIG_DIR/statusline.sh"
+    "command": "~/.claude/statusline.sh"
   },
   "permissions": {
     "disableBypassPermissionsMode": "disable",
