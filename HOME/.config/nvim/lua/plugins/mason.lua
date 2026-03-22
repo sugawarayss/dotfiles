@@ -48,6 +48,8 @@ local lsp_servers = {
   "terraformls",
   -- github actions
   "gh_actions_ls",
+  -- zig
+  "zls",
 }
 -- 自動インストールするformatter
 local formatters = {
