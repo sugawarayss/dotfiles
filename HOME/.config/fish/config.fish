@@ -201,13 +201,6 @@ complete -c aws -f -a '(
   end
 )'
 
-###################
-# function の定義 #
-###################
-function notify
-  echo "command execution is finished" | say -v Ava
-end
-
 #################
 # Plugin の設定 #
 #################
@@ -220,4 +213,3 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-# string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
