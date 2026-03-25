@@ -1,7 +1,7 @@
 -- Git Branch ごとにメモを残せる Neovim プラグイン
 return {
   "walkersumida/fusen.nvim",
-  enabled = false,
+  enabled = true,
   version = "*",
   event = "VimEnter",
   cond = function()
@@ -62,7 +62,7 @@ return {
     save_file = vim.fn.stdpath("data") .. "/fusen_marks.json",
     -- Mark Appearance
     mark = {
-      icon = "󰎞",
+      icon = "🔖",
       hl_group = "FusenMarkCustom",
     },
     -- Key mappings
