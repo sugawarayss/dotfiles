@@ -51,9 +51,27 @@ return {
           -- Snacks Pickerで開く
           Snacks.picker.qflist()
         end,
-        icon = "🪧",
+        icon = "🔖",
         mode = "n",
         desc = "Fusen - リストをqflistで表示(Snacks Picker)",
+      },
+      {
+        "<Leader>ma",
+        function()
+          require("fusen").add_mark()
+        end,
+        mode = "n",
+        icon = "🔖",
+        desc = "Fusen - ブックマークを追加(注釈付き)",
+      },
+      {
+        "<Leader>md",
+        function()
+          require("fusen").clear_mark()
+        end,
+        mode = "n",
+        icon = "🔖",
+        desc = "Fusen - 現在行のブックマークを削除",
       },
     })
   end,
@@ -81,9 +99,9 @@ return {
     -- Annotation Display Settings
     annotation_display = {
       -- "eol" | "float" | "both" | "none"
-      mode = "float",
+      mode = "eol",
       -- Number of Spaces Before Annotation in eol mode
-      spacing = 2,
+      spacing = 20,
       -- Float Window Settings
       float = {
         delay = 100,
@@ -102,8 +120,8 @@ return {
     local color_palette = require("onedarkpro.helpers").get_colors()
     require("fusen").setup(opts)
     vim.api.nvim_set_hl(0, "FusenMarkCustom", {
-      fg = color_palette.purple,
-      bold = false,
+      fg = color_palette.virtual_text_information,
+      bold = true,
     })
   end,
 }
