@@ -143,6 +143,8 @@ _gh-extensions:
   @gh extension install meiji163/gh-notify
   # gh-copilot 拡張のインストール
   @gh extension install github/gh-copilot
+  # gh-prism 拡張(PR review)のインストール
+  @gh extension install kawarimidoll/gh-prism
 
 # git 関連の設定を展開
 git: _git-config _gh-config _gh-extensions

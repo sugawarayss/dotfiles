@@ -140,6 +140,13 @@ if type "colordiff" > /dev/null 2>&1;
   abbr -a diff colordiff
 end
 
+if type "gh" > /dev/null 2>&1;
+  function review
+    # カレントディレクトリのリポジトリのPRを選択して、prismで開いてpr reviewする
+    gh prism "$(gh pr list | fzf --preview 'gh pr view {1}' | awk '{print $1}')"
+  end
+end
+
 if type "ghq" > /dev/null 2>&1;
   # ローカルにあるgitリポジトリを選択してpathに移動
   function repo
