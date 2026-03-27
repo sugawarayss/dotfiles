@@ -1,4 +1,5 @@
-local karabiner_cli = "/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli"
+-- local karabiner_cli = "/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli"
+local karabiner_cli = "/opt/homebrew/bin/karabiner_cli"
 -- karabiner-cliでKarabinerの変数"on_neovim"を更新
 function _G.set_karabiner(val)
   require("plenary.job")
