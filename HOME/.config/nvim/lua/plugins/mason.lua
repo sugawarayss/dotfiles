@@ -9,7 +9,7 @@ end
 -- 自動インストールするLSPサーバ
 local lsp_servers = {
   -- Python
-  "basedpyright",
+  -- "basedpyright",
   "ruff",
   "ty",
   -- fish
