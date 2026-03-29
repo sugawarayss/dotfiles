@@ -21,16 +21,25 @@ return {
         json = { "jq" },
         markdown = { "markdownlint" },
         obsidian_markdown = { "markdownlint" },
-        toml = { "taplo" },
+        toml = { "tombi" },
         terraform = { "terraform_fmt" },
         typescript = { "biome" },
         yaml = { "yamlfmt" },
         yaml_github = { "yamlfmt" },
+        ["*"] = { "codespell" },
+        ["_"] = { "trim_whitespace" },
       },
       format_on_save = {
         timeout_ms = 500,
         lsp_format = "fallback",
       },
+      format_after_save = {
+        lsp_format = "fallback",
+      },
+      -- Formatがエラー時に通知する
+      notify_on_error = true,
+      -- 利用可能なフォーマッターを通知する
+      notify_no_formatters = true,
     })
     -- require("conform").formatters.ruff_fix = {
     --   append_args = {
