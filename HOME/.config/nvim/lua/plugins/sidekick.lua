@@ -1,6 +1,6 @@
 return {
   "folke/sidekick.nvim",
-  enabled = true,
+  enabled = false,
   event = { "BufReadPost" },
   opts = {
     jump = {
