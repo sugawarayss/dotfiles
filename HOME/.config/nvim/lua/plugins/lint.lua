@@ -2,13 +2,20 @@
 return {
   "mfussenegger/nvim-lint",
   ft = {
+    "bash",
     "python",
+    "json",
     "fish",
     "markdown",
     "lua",
     "yaml",
     "yaml_github",
     "dockerfile",
+    "php",
+    "perl",
+    "ruby",
+    "toml",
+    "zsh",
   },
   config = function()
     local nvim_lint = require("lint")
@@ -81,6 +88,7 @@ return {
       fish = { "fish" },
       markdown = { "markdownlint" },
       lua = { "luacheck" },
+      json = { "jsonlint" },
       yaml = { "yamllint" },
       yaml_github = { "actionlint", "zizmor" }, --, "ghalint" },
       dockerfile = { "hadolint" },
