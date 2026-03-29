@@ -78,7 +78,7 @@ local diagnostics = {
   -- Go
   "staticcheck",
   -- markdown
-  "markdownlint",
+  "markdownlint-cli2",
   -- php
   "phpstan",
   -- yaml
@@ -89,6 +89,7 @@ local diagnostics = {
   "gitleaks",
   -- dockerfile
   "hadolint",
+  "codespell",
 }
 -- dap adapters
 local dap_adapters = {
