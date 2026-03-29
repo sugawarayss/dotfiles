@@ -79,7 +79,6 @@ set --global tide_time_format "%Y/%m/%d %T"
 set -gx EDITOR nvim
 # setup mise
 /opt/homebrew/bin/mise activate fish | source
-set --g MISE_GITHUB_TOKEN "replace you Personal Access Token"
 
 if type "zoxide" > /dev/null 2>&1;
   zoxide init fish | source
@@ -141,6 +140,9 @@ if type "colordiff" > /dev/null 2>&1;
 end
 
 if type "gh" > /dev/null 2>&1;
+  # PATを使わないと、`mise outdated`等でrate limitにひっかかってしまう
+  set --g MISE_GITHUB_TOKEN (gh auth token)
+
   function review
     # カレントディレクトリのリポジトリのPRを選択して、prismで開いてpr reviewする
     gh prism "$(gh pr list | fzf --preview 'gh pr view {1}' | awk '{print $1}')"
