@@ -8,6 +8,15 @@ return {
   -- LSPの設定
   settings = {
     Lua = {
+      diagnostics = {
+        globals = { "vim" },
+        disable = { "inject-field", "undefined-field", "missing-fields" },
+      },
+      runtime = { version = "LuaJIT" },
+      workspace = {
+        library = { vim.env.VIMRUNTIME },
+        checkThirdParty = false,
+      },
       codeLens = {
         enable = true,
       },
@@ -15,6 +24,7 @@ return {
         enable = true,
         semicolon = "Disable",
       },
+      telemetry = { enable = false },
     },
   },
 }
