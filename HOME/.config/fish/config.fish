@@ -147,6 +147,11 @@ if type "gh" > /dev/null 2>&1;
     # カレントディレクトリのリポジトリのPRを選択して、prismで開いてpr reviewする
     gh prism "$(gh pr list | fzf --preview 'gh pr view {1}' | awk '{print $1}')"
   end
+
+  function remote
+    # カレントリポジトリをブラウザで開く
+    gh browse
+  end
 end
 
 if type "ghq" > /dev/null 2>&1;
@@ -160,16 +165,16 @@ if type "ghq" > /dev/null 2>&1;
 
 end
 
-if type "hub" > /dev/null 2>&1;
-  # 選択したリモートリポジトリをGithubで開く
-  function remote
-    set -l current_dir (basename (pwd))
-    set -l repo (ghq list | peco --query=$current_dir --prompt="SELECT REPOSITORY >")
-    if test -n "$repo"
-        hub browse $repo
-    end
-  end
-end
+# if type "hub" > /dev/null 2>&1;
+#   # 選択したリモートリポジトリをGithubで開く
+#   function remote
+#     set -l current_dir (basename (pwd))
+#     set -l repo (ghq list | peco --query=$current_dir --prompt="SELECT REPOSITORY >")
+#     if test -n "$repo"
+#         hub browse $repo
+#     end
+#   end
+# end
 
 # if type "git" > /dev/null 2>&1;
 # end
