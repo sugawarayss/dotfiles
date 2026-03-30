@@ -14,11 +14,12 @@ return {
     require("conform").setup({
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+        python = { "ruff_organize_imports", "ruff_fix", "ruff_format" },
         javascript = { "biome-check" },
         typescript = { "biome-check", "biome-organize-imports" },
         typescriptreact = { "biome-check", "biome-organize-imports" },
         html = { "biome-check" },
+        http = { "kulala-fmt" },
         css = { "biome-check" },
         json = { "jq" },
         markdown = { "markdownlint-cli2" },
@@ -27,6 +28,8 @@ return {
         terraform = { "terraform_fmt" },
         yaml = { "yamlfmt" },
         yaml_github = { "yamlfmt" },
+        dart = { "dcm_fix", "dcm_format" },
+        go = { "gofumpt", "goimports" },
         ["*"] = { "codespell" },
         ["_"] = { "trim_whitespace" },
       },
