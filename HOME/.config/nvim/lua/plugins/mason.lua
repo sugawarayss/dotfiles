@@ -66,6 +66,8 @@ local formatters = {
   "yamlfmt",
   -- shell
   "shfmt",
+  -- http
+  "kulala-fmt",
 }
 -- 自動インストールするlinter
 local diagnostics = {
