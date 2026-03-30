@@ -30,6 +30,11 @@ return {
         ["*"] = { "codespell" },
         ["_"] = { "trim_whitespace" },
       },
+      formatters = {
+        ["markdownlint-cli2"] = {
+          append_args = { "--config", "HOME/.config/markdownlint/.markdownlint-cli2.jsonc" },
+        },
+      },
       format_on_save = {
         timeout_ms = 500,
         lsp_format = "fallback",

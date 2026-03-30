@@ -242,7 +242,7 @@ linters:
   # yamllint 設定ファイルを展開
   @test -L ~/.config/yamllint || ln -s {{pwd}}/HOME/.config/yamllint ~/.config/yamllint
   # markdownlint 設定ファイルを展開
-  @test -L ~/.markdownlintrc || ln -s {{pwd}}/HOME/.config/markdownlint/.markdownlintrc ~/.markdownlintrc
+  @test -d ~/.config/markdownlint || ln -s {{pwd}}/HOME/.config/markdownlint ~/.config/markdownlint
 
 # ファイルの関連付け設定
 apps:
@@ -287,7 +287,7 @@ chawan:
   @test -L ~/.config/chawan/config.toml || ln -s {{pwd}}/HOME/.config/chawan/config.toml ~/.config/chawan/config.toml
 
 # OSの設定、ツールのインストール
-initial: system-preferences brew-restore 
+initial: system-preferences brew-restore
 
 # 各種ツールの設定ファイルを展開
 setup: initial zsh starship git lazygit yazi wezterm ideavim neovim ghostty zed linters

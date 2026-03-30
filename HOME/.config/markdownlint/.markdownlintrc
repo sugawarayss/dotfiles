@@ -1,3 +1,4 @@
+# markdownlint用の設定ファイル
 MD007=false # 番号なしリストのインデント
 MD013=false # 行の長さ
 MD022=false # 見出しの前の空行

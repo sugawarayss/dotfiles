@@ -1,0 +1,13 @@
+// settings for markdownlint-cli2
+{
+"MD003":{ "style": "atx" }, // Headerのスタイル
+"MD007":{ "indent": 2 }, // 番号なしリストのインデント
+"MD013":false, // 行の長さ
+"MD022":false, // 見出しの前の空行
+"MD024":false, // 同じレベルの見出し
+"MD025":false, // 見出しの連続
+"MD031":false, // リストの前後の空行
+"MD032":false, // リストアイテムの前後の空行
+"MD033":false, // インラインHTML
+"MD046":false // コードブロックのスタイル(<detail>で囲うと誤検知してしまう)
+}

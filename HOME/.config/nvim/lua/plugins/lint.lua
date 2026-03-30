@@ -79,14 +79,19 @@ return {
     -- markdownlint の設定ファイルの指
     nvim_lint.linters.markdownlint.args = {
       "--config",
-      "~/.markdownlintrc",
+      "~/.config/markdownlint/.markdownlintrc",
+    }
+    -- markdownlint-cli2 の設定ファイルの指定
+    nvim_lint.linters["markdownlint-cli2"].args = {
+      "--config",
+      "~/.config/markdownlint/.markdownlint-cli2.jsonc",
     }
 
     nvim_lint.linters_by_ft = {
       bash = { "bash" },
       -- python = { "mypy" },
       fish = { "fish" },
-      markdown = { "markdownlint" },
+      markdown = { "markdownlint-cli2" },
       lua = { "luacheck" },
       json = { "jsonlint" },
       yaml = { "yamllint" },
