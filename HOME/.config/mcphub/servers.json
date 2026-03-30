@@ -15,26 +15,6 @@
       ],
       "command": "uvx"
     },
-    "aws-terraform-mcp-server": {
-      "args": [
-        "awslabs.terraform-mcp-server@latest"
-      ],
-      "autoApprove": [
-        "ExecuteTerraformCommand",
-        "SearchAwsProviderDocs",
-        "SearchAwsccProviderDocs",
-        "SearchSpecificAwsIaModules",
-        "SearchUserProvidedModule",
-        "RunCheckovScan",
-        "ExecuteTerragruntCommand"
-      ],
-      "command": "uvx",
-      "disabled": false,
-      "disabled_tools": [],
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      }
-    },
     "context7": {
       "args": [
         "-y",
@@ -159,6 +139,27 @@
       "command": "serverless",
       "disabled": false,
       "disabled_tools": []
+    },
+    "terraform": {
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ],
+      "autoApprove": [
+        "get_latest_module_version",
+        "get_latest_provider_version",
+        "get_module_details",
+        "get_policy_details",
+        "get_provider_details",
+        "search_modules",
+        "search_policies",
+        "search_providers"
+      ],
+      "command": "docker",
+      "disabled_resourceTemplates": [],
+      "type": "stdio"
     }
   },
   "nativeMCPServers": {
