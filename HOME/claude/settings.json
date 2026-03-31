@@ -132,7 +132,6 @@
     ],
     "disableBypassPermissionsMode": "disable"
   },
-  "model": "opus[1m]",
   "enableAllProjectMcpServers": false,
   "hooks": {
     "Stop": [
