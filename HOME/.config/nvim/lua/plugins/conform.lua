@@ -22,8 +22,8 @@ return {
         http = { "kulala-fmt" },
         css = { "biome-check" },
         json = { "jq" },
-        markdown = { "markdownlint-cli2" },
-        obsidian_markdown = { "markdownlint-cli2" },
+        markdown = { "markdownlint" },
+        obsidian_markdown = { "markdownlint" },
         toml = { "tombi" },
         terraform = { "terraform_fmt" },
         yaml = { "yamlfmt" },
@@ -34,8 +34,11 @@ return {
         ["_"] = { "trim_whitespace" },
       },
       formatters = {
-        ["markdownlint-cli2"] = {
-          append_args = { "--config", "HOME/.config/markdownlint/.markdownlint-cli2.jsonc" },
+        ["markdownlint"] = {
+          append_args = {
+            "--config",
+            "~/.config/markdownlint/.markdownlint.jsonc",
+          },
         },
       },
       format_on_save = {

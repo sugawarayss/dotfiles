@@ -80,7 +80,8 @@ local diagnostics = {
   -- Go
   "staticcheck",
   -- markdown
-  "markdownlint-cli2",
+  "markdownlint",
+  -- "markdownlint-cli2",
   -- php
   "phpstan",
   -- yaml
