@@ -9,7 +9,7 @@ return {
       -- Characters used for hint labels
       keys = "fjdksleirughtynm",
       -- Use background highlighting instead of character replacement
-      use_background_highlights = false,
+      use_background_highlights = true,
       -- Highlight groups (string = existing group, table = custom definition)
       highlight = {
         hint = "SmartMotionHint", -- { fg = "#FF2FD0" }
@@ -24,14 +24,14 @@ return {
       -- Enable/disable preset groups
       presets = {
         words = true, -- w, b, e, ge
-        lines = true, -- j, k
-        search = true, -- s, f, F, t, T, ;, ,, gs
+        lines = false, -- j, k
+        search = false, -- s, f, F, t, T, ;, ,, gs
         delete = false, -- d, dt, dT, rdw, rdl
         yank = false, -- y, yt, yT, ryw, ryl
         change = false, -- c, ct, cT
         paste = false, -- p, P
-        treesitter = true, -- ]], [[, ]c, [c, ]b, [b, daa, caa, yaa, dfn, cfn, yfn, saa
-        diagnostics = true, -- ]d, [d, ]e, [e
+        treesitter = false, -- ]], [[, ]c, [c, ]b, [b, data, caa, yaa, dfn, cfn, yfn, saa
+        diagnostics = false, -- ]d, [d, ]e, [e
         git = false, -- ]g, [g
         quickfix = false, -- ]q, [q, ]l, [l
         marks = false, -- g', gm
@@ -48,7 +48,7 @@ return {
       native_search = true,
       -- How count prefix interacts with motions (j/k): "target" or "native"
       count_behavior = "target",
-      -- presistent history entries
+      -- persistent history entries
       history_max_size = 20,
       -- open folds at target position
       open_folds_on_jump = true,
