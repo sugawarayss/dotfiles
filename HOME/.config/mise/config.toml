@@ -74,3 +74,5 @@ zoxide = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
+# サプライチェーン攻撃リスクを低減するため、パッケージ公開から7日以上経過しているもののみインストールする
+install_before = "7d"
