@@ -79,8 +79,8 @@ return {
       before = false, ---@type boolean|number[]
       -- position of the label extmark
       style = "overlay", ---@type "eol" | "overlay" | "right_align" | "inline"
-      -- flash tries to re-use labels that were already assigned to a position,
-      -- when typing more characters. By default only lower-case labels are re-used.
+      -- flash tries to reuse labels that were already assigned to a position,
+      -- when typing more characters. By default only lower-case labels are reused.
       reuse = "lowercase", ---@type "lowercase" | "all" | "none"
       -- for the current window, label targets closer to the cursor first
       distance = true,
@@ -247,23 +247,42 @@ return {
     },
   },
   keys = {
-    -- {
-    --   "s",
-    --   mode = {
-    --     "n", -- normal mode
-    --     "x", -- visual mode only
-    --     --"o", -- operator pending mode (d/c/y などの範囲指定の待機中)
-    --   },
-    --   function()
-    --     require("flash").jump()
-    --   end,
-    --   desc = "入力にマッチするラベルにジャンプ",
-    -- },
+    {
+      "<Leader>w",
+      mode = {
+        "n", -- normal mode
+        "x", -- visual mode only
+        "o", -- operator pending mode (d/c/y などの範囲指定の待機中)
+      },
+      function()
+        require("flash").jump({
+         pattern = vim.fn.expand("<cword>"),
+        })
+      end,
+      desc = "Flash - カーソル位置の単語を検索",
+    },
+    {
+      "s",
+      mode = {
+        "n", -- normal mode
+        "x", -- visual mode only
+        "o", -- operator pending mode (d/c/y などの範囲指定の待機中)
+      },
+      function()
+        require("flash").jump()
+      end,
+      desc = "入力にマッチするラベルにジャンプ",
+    },
     {
       "S",
       mode = { "n", "x", "o" },
       function()
-        require("flash").treesitter()
+        require("flash").treesitter({
+          actions = {
+            ["<c-space>"] = "next",
+            ["<BS>"] = "prev",
+          },
+        })
       end,
       desc = "Flash - カーソル位置のtreesitterノードを選択",
     },
