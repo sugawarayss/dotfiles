@@ -25,6 +25,10 @@ claude-mcp:
   claude mcp add playwright --transport stdio --scope user -- npx @playwright/mcp@latest
 
 
+node:
+  # npmの設定ファイルを展開
+  @test -L ~/.npmrc || ln -s {{pwd}}/HOME/.npmrc ~/.npmrc
+
 # 定義済タスクリスト表示
 _list:
   @just --list
@@ -108,6 +112,7 @@ system-preferences: _macos-general-settings _macos-dock-settings _macos-finder-s
 karabiner:
   @test -d ~/.config/karabiner || mkdir -p ~/.config/karabiner
   @test -L ~/.config/karabiner/karabiner.json || ln -s {{pwd}}/HOME/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
+
 # raycastの設定変更
 raycast:
   # 起動キーを<Option-Space> に変更
