@@ -23,7 +23,7 @@ azure = "latest"
 bat = "latest"
 biome = "latest"
 bottom = "latest"
-claude-code = "latest"
+claude = "latest"
 claude-powerline = "latest"
 cocoapods = "latest"
 delta = "latest"
@@ -63,7 +63,7 @@ semgrep = "latest"
 starship = "latest"
 task = "latest"
 terraform = "latest"
-tokei = { version="latest", backend = "cargo" }
+tokei = { version = "latest", backend = "cargo" }
 tombi = "latest"
 usage = "latest"
 uv = "latest"
@@ -72,7 +72,6 @@ yarn = "latest"
 yazi = "latest"
 yq = "latest"
 zoxide = "latest"
-
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
