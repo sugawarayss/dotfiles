@@ -39,11 +39,11 @@ config.use_fancy_tab_bar = true
 
 -- カラーテーマ
 -- NOTE: see all themes https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "One Half Black (Gogh)"
+config.color_scheme = "Kanagawa (Gogh)"
 -- 背景の透過度
 config.window_background_opacity = 0.9
 -- 背景のぼかし
-config.macos_window_background_blur = 5
+config.macos_window_background_blur = 9
 -- フォント
 config.font = wezterm.font_with_fallback({
 	{ family = "Hack Nerd Font Mono", weight = "Regular" },
