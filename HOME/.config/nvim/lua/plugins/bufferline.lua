@@ -28,13 +28,13 @@ return {
       })
     end,
     config = function()
-      local color_palette = require("onedarkpro.helpers").get_colors()
+      local palette = require("kanagawa.colors").setup().theme
       require("bufferline").setup({
         highlights = {
-          error_selected = { fg = color_palette.red },
-          warning_diagnostic_selected = { fg = color_palette.orange },
-          error_diagnostic_selected = { fg = color_palette.red },
-          close_button_selected = { fg = color_palette.yellow },
+          error_selected = { fg = palette.diag.error },
+          warning_diagnostic_selected = { fg = palette.diag.warning },
+          error_diagnostic_selected = { fg = palette.syn.error },
+          close_button_selected = { fg = palette.syn.info },
         },
         options = {
           themable = true,

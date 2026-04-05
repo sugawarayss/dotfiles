@@ -8,7 +8,7 @@ return {
       return not vim.g.vscode
     end,
     config = function()
-      local color_palette = require("onedarkpro.helpers").get_colors()
+      local palette = require("kanagawa.colors").setup().theme
       -- Linter実行の進捗を表示
       local lint_progress = function()
         local linters = require("lint").get_running()
@@ -33,7 +33,7 @@ return {
       require("lualine").setup({
         options = {
           icons_enabled = true,
-          theme = "onedark",
+          theme = "kanagawa",
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           disabled_filetypes = {
@@ -59,7 +59,7 @@ return {
             -- マクロの記録中の表示
             {
               macro_recording,
-              color = { fg = color_palette.red }, -- #ef596f
+              color = { fg = palette.diag.error },
             },
             "branch",
           },
@@ -91,16 +91,16 @@ return {
               end,
               color = function()
                 if not vim.g.loaded_mcphub then
-                  return { fg = color_palette.fg } -- #abb2bf
+                  return { fg = palette.fg } -- #abb2bf
                 end
 
                 local status = vim.g.mcphub_status or "stopped"
                 if status == "ready" or status == "restarted" then
-                  return { fg = color_palette.green } -- #89ca78
+                  return { fg = palette.syn.string } -- #89ca78
                 elseif status == "starting" or status == "restarting" then
-                  return { fg = color_palette.yellow } -- #e5c07b
+                  return { fg = palette.syn.identifier } -- #e5c07b
                 else
-                  return { fg = color_palette.red } -- #ef596f
+                  return { fg = palette.syn.special3 } -- #ef596f
                 end
               end,
             },

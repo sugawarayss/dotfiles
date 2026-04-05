@@ -28,7 +28,7 @@ return {
       })
     end,
     config = function()
-      local color_palette = require("onedarkpro.helpers").get_colors()
+      local palette = require("kanagawa.colors").setup().theme
       require("todo-comments").setup({
         signs = true, -- show icons in the signs column
         sign_priority = 8, -- sign priority
@@ -67,13 +67,13 @@ return {
         -- list of named colors where we try to extract the guifg from the
         -- list of highlight groups or use the hex color if hl not found as a fallback
         colors = {
-          error = { color_palette.red },
-          warning = { color_palette.orange },
-          info = { color_palette.blue },
-          hint = { color_palette.green },
-          default = { color_palette.cyan },
-          test = { color_palette.yellow },
-          perf = { color_palette.purple },
+          error = { palette.diag.error },
+          warning = { palette.diag.warning },
+          info = { palette.diag.hint },
+          hint = { palette.diag.ok },
+          default = { palette.diag.ok },
+          test = { palette.diag.warning },
+          perf = { palette.syn.keyword },
         },
         search = {
           command = "rg",

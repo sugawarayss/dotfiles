@@ -117,10 +117,10 @@ return {
     enabled = true,
   },
   config = function(_, opts)
-    local color_palette = require("onedarkpro.helpers").get_colors()
+    local palette = require("kanagawa.colors").setup().theme
     require("fusen").setup(opts)
     vim.api.nvim_set_hl(0, "FusenMarkCustom", {
-      fg = color_palette.virtual_text_information,
+      fg = palette.diag.info,
       bold = true,
     })
   end,

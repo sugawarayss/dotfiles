@@ -4,18 +4,18 @@ return {
   event = { "VimEnter" },
   tag = "v0.2.1",
   config = function()
-    local color_palette = require("onedarkpro.helpers").get_colors()
+    local palette = require("kanagawa.colors").setup().theme
     require("modes").setup({
       colors = {
         bg = "",
-        -- copy = color_palette.bg_yellow,
-        delete = color_palette.git_hunk_delete,
-        -- change = color_palette.orange,
-        -- format = color_palette.cyan,
-        insert = color_palette.black,
-        -- replace = color_palette.purple,
-        -- select = color_palette.dark_purple,
-        visual = color_palette.orange,
+        -- copy = palette.bg_yellow,
+        delete = palette.syn.special3,
+        -- change = palette.orange,
+        -- format = palette.cyan,
+        insert = palette.ui.bg_m1,
+        -- replace = palette.purple,
+        -- select = palette.dark_purple,
+        visual = palette.ui.bg_visual,
       },
       -- Set opacity for cursorline and number background
       line_opacity = 0.3,

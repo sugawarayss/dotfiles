@@ -1,161 +1,219 @@
 -- カラーテーマ
 return {
-  "olimorris/onedarkpro.nvim",
+  "rebelot/kanagawa.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    require("onedarkpro").setup({
-      -- Override default colors or create your own
-      colors = {},
-      -- Override default highlight  groups or create your own
-      highlights = {},
-      styles = {
-        types = "NONE",
-        methods = "NONE",
-        numbers = "NONE",
-        strings = "NONE",
-        comments = "NONE",
-        keywords = "NONE",
-        constants = "NONE",
-        functions = "NONE",
-        operators = "NONE",
-        variables = "NONE",
-        parameters = "NONE",
-        conditionals = "NONE",
-        virtual_text = "NONE",
+    local kanagawa = require("kanagawa")
+    kanagawa.setup({
+      compile = false,
+      undercurl = true,
+      commentStyle = { italic = false },
+      functionStyle = {},
+      keywordStyle = { italic = true },
+      statementStyle = { bold = true },
+      typeStyle = {},
+      transparent = true,
+      dimInactive = true,
+      terminalColors = true,
+      colors = {
+        palette = {},
+        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
       },
-      -- Override which filetype highlight groups are loaded
-      filetypes = {
-        c = true,
-        comment = true,
-        go = true,
-        html = true,
-        java = true,
-        javascript = true,
-        json = true,
-        latex = true,
-        lua = true,
-        markdown = true,
-        php = true,
-        python = true,
-        ruby = true,
-        rust = true,
-        scss = true,
-        toml = true,
-        typescript = true,
-        typescriptreact = true,
-        vue = true,
-        xml = true,
-        yaml = true,
-      },
-      -- Override which plugin highlight groups are loaded
-      plugins = {
-        aerial = true,
-        barbar = true,
-        blink_cmp = true,
-        blink_indent = true,
-        blink_pairs = true,
-        codecompanion = true,
-        copilot = true,
-        csvview = true,
-        dashboard = true,
-        flash_nvim = true,
-        gitgraph_nvim = true,
-        gitsigns = true,
-        hop = true,
-        indentline = true,
-        leap = true,
-        lsp_saga = true,
-        lsp_semantic_tokens = true,
-        marks = true,
-        mason = true,
-        mini_diff = true,
-        mini_icons = true,
-        mini_indentscope = true,
-        mini_test = true,
-        neotest = true,
-        neo_tree = true,
-        nvim_cmp = true,
-        nvim_bqf = true,
-        nvim_dap = true,
-        nvim_dap_ui = true,
-        nvim_hlslens = true,
-        nvim_lsp = true,
-        nvim_navic = true,
-        nvim_notify = true,
-        nvim_tree = true,
-        nvim_ts_rainbow = true,
-        nvim_ts_rainbow2 = true,
-        op_nvim = true,
-        packer = true,
-        persisted = true,
-        polygot = true,
-        rainbow_delimiters = true,
-        render_markdown = true,
-        snacks = true,
-        startify = true,
-        telescope = false,
-        toggleterm = false,
-        treesitter = true,
-        trouble = true,
-        vim_ultest = true,
-        which_key = true,
-        vim_dadbod_ui = true,
-      },
-      options = {
-        -- Use cursorline highlighting
-        cursorline = false,
-        -- Use a trransparent background?
-        transparency = true,
-        -- Use the  theme's colors for Neovim's :terminal?
-        terminal_colors = true,
-        -- Center bar transparency?
-        lualine_transparency = false,
-        -- When the window is out of focus, change the normal background
-        highlight_inactive_windows = true,
+      theme = "wave",
+      -- overrides = {},
+      background = {
+        dark = "wave",
+        light = "lotus",
       },
     })
-    vim.cmd("colorscheme onedark_dark")
-    -- virtual_text_error       = "#f38495"
-    -- red                      = "#ef596f"
-    -- git_delete               = "#9a353d"
-    -- git_hunk_delete_inline   = "#6f2e2d"
-    -- DIFF_DELETE              = "#501B20"
-    -- git_hunk_delete          = "#502d30"
-    -- virtual_text_warning     = "#edd2a1"
-    -- yellow                   = "#e5c07b"
-    -- highlight                = "#e2be7d"
-    -- orange                   = "#d19a66"
-    -- git_change               = "#948B60"
-    -- green                    = "#89ca78"
-    -- virtual_text_hint        = "#4fcfd8"
-    -- cyan                     = "#2bbac5"
-    -- git_add                  = "#109868"
-    -- diff_text                = "#005869"
-    -- diff_add                 = "#003e4a"
-    -- diff_change              = "#1f4662"
-    -- git_hunk_add_inline      = "#3f534f"
-    -- git_hunk_add             = "#43554d"
-    -- virtual_text_information = "#90c7f4"
-    -- blue                     = "#61afef"
-    -- purple                   = "#d55fde"
-    -- white                    = "#abb2bf"
-    -- fg                       = "#abb2bf"
-    -- fg_gutter_inactive       = "#abb2bf"
-    -- comment                  = "#7f848e"
-    -- line_number              = "#495162"
-    -- gray                     = "#434852"
-    -- inlay_hint               = "#33373e"
-    -- git_hunk_change_inline   = "#41483d"
-    -- selection                = "#212121"
-    -- fg_gutter                = "#181818"
-    -- indentline               = "#1f1f1f"
-    -- color_column             = "#161616"
-    -- cursorline               = "#171717"
-    -- bg_statusline            = "#0e0e0e"
-    -- fold                     = "#121212"
-    -- bg                       = "#000000"
-    -- black                    = "#000000"
-    -- float_bg                 = "#000000"
+    -- vim.cmd("colorscheme kanagawa")
+    kanagawa.load("wave") -- wave | dragon | lotus
   end,
 }
+--------------------
+-- kanagawa theme wave
+-- require("kanagawa.colors").setup().theme
+--------------------
+-- {
+--   diag = {
+--     error = "#E82424",
+--     hint = "#6A9589",
+--     info = "#658594",
+--     ok = "#98BB6C",
+--     warning = "#FF9E3B"
+--   },
+--   diff = {
+--     add = "#2B3328",
+--     change = "#252535",
+--     delete = "#43242B",
+--     text = "#49443C"
+--   },
+--   syn = {
+--     comment = "#727169",
+--     constant = "#FFA066",
+--     deprecated = "#717C7C",
+--     fun = "#7E9CD8",
+--     identifier = "#E6C384",
+--     keyword = "#957FB8",
+--     number = "#D27E99",
+--     operator = "#C0A36E",
+--     parameter = "#b8b4d0",
+--     preproc = "#E46876",
+--     punct = "#9CABCA",
+--     regex = "#C0A36E",
+--     special1 = "#7FB4CA",
+--     special2 = "#E46876",
+--     special3 = "#FF5D62",
+--     statement = "#957FB8",
+--     string = "#98BB6C",
+--     type = "#7AA89F",
+--     variable = "none"
+--   },
+--   term = { "#16161D", "#C34043", "#76946A", "#C0A36E", "#7E9CD8", "#957FB8", "#6A9589", "#C8C093", "#727169", "#E82424", "#98BB6C", "#E6C384", "#7FB4CA", "#938AA9", "#7AA89F", "#DCD7BA", "#FFA066", "#FF5D62" },
+--   ui = {
+--     bg = "#1F1F28",
+--     bg_dim = "#181820",
+--     bg_gutter = "#2A2A37",
+--     bg_m1 = "#1a1a22",
+--     bg_m2 = "#181820",
+--     bg_m3 = "#16161D",
+--     bg_p1 = "#2A2A37",
+--     bg_p2 = "#363646",
+--     bg_search = "#2D4F67",
+--     bg_visual = "#223249",
+--     fg = "#DCD7BA",
+--     fg_dim = "#C8C093",
+--     fg_reverse = "#223249",
+--     float = {
+--       bg = "#16161D",
+--       bg_border = "#16161D",
+--       fg = "#C8C093",
+--       fg_border = "#54546D"
+--     },
+--     nontext = "#54546D",
+--     pmenu = {
+--       bg = "#223249",
+--       bg_sbar = "#223249",
+--       bg_sel = "#2D4F67",
+--       bg_thumb = "#2D4F67",
+--       fg = "#DCD7BA",
+--       fg_sel = "none"
+--     },
+--     special = "#938AA9",
+--     whitespace = "#54546D"
+--   },
+--   vcs = {
+--     added = "#76946A",
+--     changed = "#DCA561",
+--     removed = "#C34043"
+--   }
+-- }
+
+--------------------
+-- kanagawa palette
+-- require("kanagawa.colors").setup().palette
+--------------------
+-- autumnGreen = "#76946A",
+-- autumnRed   = "#C34043",
+-- autumnYellow = "#DCA561",
+-- boatYellow1 = "#938056",
+-- boatYellow2 = "#C0A36E",
+-- carpYellow = "#E6C384",
+-- crystalBlue = "#7E9CD8",
+-- dragonAqua = "#8ea4a2",
+-- dragonAsh = "#737c73",
+-- dragonBlack0 = "#0d0c0c",
+-- dragonBlack1 = "#12120f",
+-- dragonBlack2 = "#1D1C19",
+-- dragonBlack3 = "#181616",
+-- dragonBlack4 = "#282727",
+-- dragonBlack5 = "#393836",
+-- dragonBlack6 = "#625e5a",
+-- dragonBlue = "#658594",
+-- dragonBlue2 = "#8ba4b0",
+-- dragonGray = "#a6a69c",
+-- dragonGray2 = "#9e9b93",
+-- dragonGray3 = "#7a8382",
+-- dragonGreen = "#87a987",
+-- dragonGreen2 = "#8a9a7b",
+-- dragonOrange = "#b6927b",
+-- dragonOrange2 = "#b98d7b",
+-- dragonPink = "#a292a3",
+-- dragonRed = "#c4746e",
+-- dragonTeal = "#949fb5",
+-- dragonViolet = "#8992a7",
+-- dragonWhite = "#c5c9c5",
+-- dragonYellow = "#c4b28a",
+-- fujiGray = "#727169",
+-- fujiWhite = "#DCD7BA",
+-- katanaGray = "#717C7C",
+-- lightBlue = "#A3D4D5",
+-- lotusAqua = "#597b75",
+-- lotusAqua2 = "#5e857a",
+-- lotusBlue1 = "#c7d7e0",
+-- lotusBlue2 = "#b5cbd2",
+-- lotusBlue3 = "#9fb5c9",
+-- lotusBlue4 = "#4d699b",
+-- lotusBlue5 = "#5d57a3",
+-- lotusCyan = "#d7e3d8",
+-- lotusGray = "#dcd7ba",
+-- lotusGray2 = "#716e61",
+-- lotusGray3 = "#8a8980",
+-- lotusGreen = "#6f894e",
+-- lotusGreen2 = "#6e915f",
+-- lotusGreen3 = "#b7d0ae",
+-- lotusInk1 = "#545464",
+-- lotusInk2 = "#43436c",
+-- lotusOrange = "#cc6d00",
+-- lotusOrange2 = "#e98a00",
+-- lotusPink = "#b35b79",
+-- lotusRed = "#c84053",
+-- lotusRed2 = "#d7474b",
+-- lotusRed3 = "#e82424",
+-- lotusRed4 = "#d9a594",
+-- lotusTeal1 = "#4e8ca2",
+-- lotusTeal2 = "#6693bf",
+-- lotusTeal3 = "#5a7785",
+-- lotusViolet1 = "#a09cac",
+-- lotusViolet2 = "#766b90",
+-- lotusViolet3 = "#c9cbd1",
+-- lotusViolet4 = "#624c83",
+-- lotusWhite0 = "#d5cea3",
+-- lotusWhite1 = "#dcd5ac",
+-- lotusWhite2 = "#e5ddb0",
+-- lotusWhite3 = "#f2ecbc",
+-- lotusWhite4 = "#e7dba0",
+-- lotusWhite5 = "#e4d794",
+-- lotusYellow = "#77713f",
+-- lotusYellow2 = "#836f4a",
+-- lotusYellow3 = "#de9800",
+-- lotusYellow4 = "#f9d791",
+-- oldWhite = "#C8C093",
+-- oniViolet = "#957FB8",
+-- oniViolet2 = "#b8b4d0",
+-- peachRed = "#FF5D62",
+-- roninYellow = "#FF9E3B",
+-- sakuraPink = "#D27E99",
+-- samuraiRed = "#E82424",
+-- springBlue = "#7FB4CA",
+-- springGreen = "#98BB6C",
+-- springViolet1 = "#938AA9",
+-- springViolet2 = "#9CABCA",
+-- sumiInk0 = "#16161D",
+-- sumiInk1 = "#181820",
+-- sumiInk2 = "#1a1a22",
+-- sumiInk3 = "#1F1F28",
+-- sumiInk4 = "#2A2A37",
+-- sumiInk5 = "#363646",
+-- sumiInk6 = "#54546D",
+-- surimiOrange = "#FFA066",
+-- waveAqua1 = "#6A9589",
+-- waveAqua2 = "#7AA89F",
+-- waveBlue1 = "#223249",
+-- waveBlue2 = "#2D4F67",
+-- waveRed = "#E46876",
+-- winterBlue = "#252535",
+-- winterGreen = "#2B3328",
+-- winterRed = "#43242B",
+-- WINTERYELLOW = "#49443C"

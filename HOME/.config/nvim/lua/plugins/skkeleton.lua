@@ -65,19 +65,19 @@ return {
         end,
       })
 
-      local color_palette = require("onedarkpro.helpers").get_colors()
+      local palette = require("kanagawa.colors").setup().theme
       -- 英字モードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg = color_palette.yellow, bg = color_palette.bg })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg = palette.syn.constant, bg = palette.ui.bg })
       -- ひらがなモードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg = color_palette.blue, bg = color_palette.bg })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg = palette.syn.fun, bg = palette.ui.bg })
       -- カタカナモードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg = color_palette.green, bg = color_palette.bg })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg = palette.syn.identifier, bg = palette.ui.bg })
       -- 半角カタカナモードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankata", { fg = color_palette.purple, bg = color_palette.bg })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankata", { fg = palette.syn.regex, bg = palette.ui.bg })
       -- 全角モードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg = color_palette.cyan, bg = color_palette.bg })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg = palette.syn.string, bg = palette.ui.bg })
       -- 全角英字モードのハイライトカラー定義
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorAbbrev", { fg = color_palette.red, bg = color_palette.bg })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorAbbrev", { fg = palette.syn.number, bg = palette.ui.bg })
 
       require("skkeleton_indicator").setup({
         -- 英字モードのハイライトグループを指定

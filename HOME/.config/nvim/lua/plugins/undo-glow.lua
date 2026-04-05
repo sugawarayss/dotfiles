@@ -1,40 +1,7 @@
 -- ヤンクやUndo箇所をハイライトするプラグイン
-local color_palette = require("onedarkpro.helpers").get_colors()
 return {
   "y3owk1n/undo-glow.nvim",
   event = { "VeryLazy" },
-  opts = {
-    animation = {
-      enabled = true,
-      duration = 500,
-      animation_type = "fade",
-      window_scoped = true,
-    },
-    highlights = {
-      undo = {
-        hl_color = { bg = color_palette.git_hunk_delete },
-      },
-      redo = {
-        hl_color = { bg = color_palette.virtual_text_error },
-      },
-      yank = {
-        hl_color = { bg = color_palette.virtual_text_hint },
-      },
-      paste = {
-        hl_color = { bg = color_palette.cyan },
-      },
-      search = {
-        hl_color = { bg = color_palette.git_change },
-      },
-      comment = {
-        hl_color = { bg = color_palette.cursorline },
-      },
-      cursor = {
-        hl_color = { bg = color_palette.blue },
-      },
-    },
-    priority = 2048 * 3,
-  },
   init = function()
     local wk = require("which-key")
     wk.add({
@@ -122,6 +89,41 @@ return {
           },
         })
       end,
+    })
+  end,
+  config = function()
+    local palette = require("kanagawa.colors").setup().theme
+    require("undo-glow").setup({
+      animation = {
+        enabled = true,
+        duration = 500,
+        animation_type = "fade",
+        window_scoped = true,
+      },
+      highlights = {
+        undo = {
+          hl_color = { bg = palette.syn.keyword },
+        },
+        redo = {
+          hl_color = { bg = palette.syn.number },
+        },
+        yank = {
+          hl_color = { bg = palette.syn.fun },
+        },
+        paste = {
+          hl_color = { bg = palette.syn.type },
+        },
+        search = {
+          hl_color = { bg = palette.syn.constant },
+        },
+        comment = {
+          hl_color = { bg = palette.syn.parameter },
+        },
+        cursor = {
+          hl_color = { bg = palette.syn.special1 },
+        },
+      },
+      priority = 2048 * 3,
     })
   end,
 }

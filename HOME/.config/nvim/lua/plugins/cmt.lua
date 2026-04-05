@@ -1,3 +1,4 @@
+-- コメント制御プラグイン
 return {
   "yuki-yano/cmt.nvim",
   dependencies = {
@@ -12,7 +13,7 @@ return {
     { "gWW", "<Plug>(cmt:block:toggle:current)", mode = "n", desc = "空行を含んでブロックコメントをトグル" },
   },
   config = function()
-    local color_palette = require("onedarkpro.helpers").get_colors()
+    local palette = require("kanagawa.colors").setup().theme
     vim.g.cmt_mixed_mode_policy = {
       typescriptreact = "first-line",
       javascriptreact = "first-line",
@@ -29,10 +30,10 @@ return {
     }
 
     -- コメントアウト/アンコメント時のハイライト設定
-    vim.api.nvim_set_hl(0, "CmtToggleCommented", { bg = color_palette.diff_add })
-    vim.api.nvim_set_hl(0, "CmtToggleUncommented", { bg = color_palette.git_change })
+    vim.api.nvim_set_hl(0, "CmtToggleCommented", { bg = palette.ui.bg_p2 })
+    vim.api.nvim_set_hl(0, "CmtToggleUncommented", { bg = palette.ui.bg_p1 })
     vim.g.cmt_toggle_highlight = {
-      enabeld = true,
+      enabled = true,
       duration = 200,
     }
   end,

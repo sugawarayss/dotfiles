@@ -4,7 +4,7 @@ return {
   enabled = true,
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   config = function()
-    local color_palette = require("onedarkpro.helpers").get_colors()
+    local palette = require("kanagawa.colors").setup().theme
     require("hlchunk").setup({
       chunk = {
         enable = true,
@@ -21,8 +21,8 @@ return {
           right_arrow = ">",
         },
         style = {
-          { fg = color_palette.blue }, -- #61afef
-          { fg = color_palette.red }, -- #ef596f
+          { fg = palette.syn.fun },
+          { fg = palette.syn.preproc },
         },
         textobject = "",
         max_file_size = 1024 * 1024,
@@ -36,20 +36,20 @@ return {
         use_treesitter = true,
         chars = { "│" },
         style = {
-          { fg = color_palette.selection }, -- #212121
+          { fg = palette.ui.bg_dim },
         },
       },
       line_num = {
         enable = true,
         use_treesitter = true,
-        style = color_palette.cyan, -- #2bbac5
+        style = palette.syn.fun,
       },
       -- FIXME: blank が正しく機能しないのはプラグインバグらしい。https://github.com/shellRaining/hlchunk.nvim/issues/123
       blank = {
         enable = true,
         chars = { "․" },
         style = {
-          { fg = color_palette.diff_text }, -- #005869
+          { fg = palette.ui.bg_gutter },
         },
       },
     })

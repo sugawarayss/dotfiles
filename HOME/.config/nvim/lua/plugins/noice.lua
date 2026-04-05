@@ -20,7 +20,7 @@ return {
       end
 
       require("noice").setup({
-        theme = "onedark",
+        theme = "kanagawa",
         cmdline = {
           enabled = true,
           view = "cmdline_popup",
