@@ -19,36 +19,6 @@ return {
   },
   config = function()
     local nvim_lint = require("lint")
-
-    -- local project_root = require("utils").find_project_root({ "pyproject.toml" })
-    -- if project_root then
-    --   -- pyproject.toml が存在する場合のみmypyを設定
-    --   local venv_dir = project_root .. "/.venv"
-    --   local project_mypy = venv_dir .. "/bin/mypy"
-    --   local get_mypy_cmd_path = function()
-    --     local mason_mypy = vim.fn.stdpath("data") .. "/mason/packages/mypy/venv/bin/mypy"
-    --     return require("utils").is_path_exists(project_mypy, "file") and project_mypy or mason_mypy
-    --   end
-    --   nvim_lint.linters.mypy.cmd = get_mypy_cmd_path()
-    --   local pyproject_path = project_root .. "/pyproject.toml"
-    --   if require("utils").is_path_exists(pyproject_path, "file") then
-    --     nvim_lint.linters.mypy.args = {
-    --       "--install-types",
-    --       "--non-interactive",
-    --       "--config-file",
-    --       project_root .. "/pyproject.toml",
-    --       "--python-executable",
-    --       venv_dir .. "/bin/python",
-    --     }
-    --   end
-    -- else
-    --   -- pyproject.tomlが無い(pythonプロジェクトじゃない)場合はデフォルト設定
-    --   nvim_lint.linters.mypy.args = {
-    --     "--install-types",
-    --     "--non-interactive",
-    --   }
-    -- end
-
     -- github actions の設定
     nvim_lint.linters.ghalint = {
       cmd = "ghalint",
