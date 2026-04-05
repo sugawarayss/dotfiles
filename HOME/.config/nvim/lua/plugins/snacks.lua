@@ -525,7 +525,7 @@ return {
           hidden = true,
           -- NOTE: <M-i> でトグルできる
           -- 無視ファイルも検索対象に含める
-          ignored = false,
+          ignored = true,
           -- シンボリックリンクをたどる
           follow = false,
         })
