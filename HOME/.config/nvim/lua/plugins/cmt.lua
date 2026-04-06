@@ -13,7 +13,7 @@ return {
     { "gWW", "<Plug>(cmt:block:toggle:current)", mode = "n", desc = "空行を含んでブロックコメントをトグル" },
   },
   config = function()
-    local palette = require("kanagawa.colors").setup().theme
+    -- local palette = require("kanagawa.colors").setup().theme
     vim.g.cmt_mixed_mode_policy = {
       typescriptreact = "first-line",
       javascriptreact = "first-line",
@@ -30,11 +30,11 @@ return {
     }
 
     -- コメントアウト/アンコメント時のハイライト設定
-    vim.api.nvim_set_hl(0, "CmtToggleCommented", { bg = palette.ui.bg_p2 })
-    vim.api.nvim_set_hl(0, "CmtToggleUncommented", { bg = palette.ui.bg_p1 })
-    vim.g.cmt_toggle_highlight = {
-      enabled = true,
-      duration = 200,
-    }
+    -- vim.api.nvim_set_hl(0, "CmtToggleCommented", { bg = palette.ui.bg_p2 })
+    -- vim.api.nvim_set_hl(0, "CmtToggleUncommented", { bg = palette.ui.bg_p1 })
+    -- vim.g.cmt_toggle_highlight = {
+    --   enabled = true,
+    --   duration = 200,
+    -- }
   end,
 }
