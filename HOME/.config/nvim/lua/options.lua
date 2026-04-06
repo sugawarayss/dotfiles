@@ -28,7 +28,7 @@ local options = {
   expandtab = true, -- 挿入モード時に<TAB>で空白を使用する
   shiftwidth = 2, -- インデントに使用する空白の数
   tabstop = 4, -- ファイル内の<TAB>に対応する空白の数
-  cursorline = true, -- カーソル行を強調表示
+  cursorline = false, -- カーソル行を強調表示
   number = true, -- 行番号を表示
   relativenumber = true, -- 相対行番号で表示する
   numberwidth = 4, -- 行番号部の幅
@@ -70,3 +70,26 @@ vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 -- vim.cmd([[set spelllang=en,cjk]]) -- 日本語はスペルチェックしない
 -- vim.cmd([[set spell]]) -- スペルチェックを有効にする
+
+-- Neovim終了時に特殊ウィンドウのみが開かれている場合、すべて閉じてNeovimを終了する
+vim.api.nvim_create_autocmd("QuitPre", {
+  callback = function()
+    -- 現在のウィンドウ番号を取得
+    local current_wim = vim.api.nvim_get_current_win()
+    -- すべてのウィンドウをループして調べる
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      -- カレント以外を調査
+      if win ~= current_wim then
+        local buf = vim.api.nvim_win_get_buf(win)
+        -- buftypeが空文字(通常のバッファ)があればループ終了
+        if vim.bo[buf].buftype == "" then
+          return
+        end
+      end
+    end
+    -- ここまで到達したら、カレント以外がすべて特殊ウィンドウなのでカレント以外をすべて閉じる
+    vim.cmd.only({ bang = true })
+    -- これ以降、ウィンドウ1つの状態でquitが実行されるので、vimが終了する
+  end,
+  desc = "Close all Special buffers and quit Neovim",
+})
