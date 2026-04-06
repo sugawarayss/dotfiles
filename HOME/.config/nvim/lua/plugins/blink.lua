@@ -75,16 +75,6 @@ return {
           --   name = "ecolog",
           --   module = "ecolog.integrations.cmp.blink_cmp",
           -- },
-          yank = {
-            name = "Yank",
-            module = "blink-yanky",
-            opts = {
-              minLength = 5,
-              onlyCurrentFiletype = true,
-              trigger_characters = { '"' },
-              kind_icon = "󰅍",
-            },
-          },
         },
       },
       snippets = { preset = "luasnip" },
@@ -199,7 +189,6 @@ return {
   },
   { "giuxtaposition/blink-cmp-copilot" },
   { "mikavilpas/blink-ripgrep.nvim", version = "*" },
-  { "marcoSven/blink-cmp-yanky" },
   {
     "onsails/lspkind.nvim",
     lazy = true,
@@ -211,7 +200,6 @@ return {
           Color = "🎨",
           Copilot = "🤖",
           Ripgrep = "🔍",
-          Yank = "📋",
         },
       })
     end,
