@@ -21,7 +21,16 @@ return {
         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
       },
       theme = "wave",
-      -- overrides = {},
+      overrides = function(colors)
+        return {
+          -- Cmdline popup border
+          NoiceCmdlinePopupBorder = { bg = colors.theme.ui.bg },
+          -- Cmdline popup border
+          NoiceCmdlinePopupTitle = { bg = colors.theme.ui.bg },
+          -- Cmdline popup border for search
+          NoiceCmdlinePopupBorderSearch = { bg = colors.theme.ui.bg },
+        }
+      end,
       background = {
         dark = "wave",
         light = "lotus",
