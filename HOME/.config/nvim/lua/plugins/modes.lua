@@ -2,7 +2,7 @@
 return {
   "mvllow/modes.nvim",
   event = { "VimEnter" },
-  tag = "v0.2.1",
+  tag = "v0.3.0",
   config = function()
     local palette = require("kanagawa.colors").setup().theme
     require("modes").setup({
@@ -18,7 +18,7 @@ return {
         visual = palette.ui.bg_visual,
       },
       -- Set opacity for cursorline and number background
-      line_opacity = 0.3,
+      line_opacity = 0.8,
       -- Enable cursor highlights
       set_cursor = false,
       -- Enable cursorline initially, and disable cursorline for inactive windows
