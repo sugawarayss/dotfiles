@@ -3,6 +3,7 @@ return {
   "sontungexpt/stcursorword",
   event = "VeryLazy",
   config = function()
+    local palette = require("kanagawa.colors").setup().theme
     require("stcursorword").setup({
       max_word_length = 100,
       min_word_length = 2,
@@ -21,7 +22,7 @@ return {
         underline = true,
         bold = true,
         fg = nil,
-        bg = nil,
+        bg = palette.diff.text,
       },
     })
   end,
