@@ -247,20 +247,29 @@ return {
     },
   },
   keys = {
-    {
-      "<Leader>w",
-      mode = {
-        "n", -- normal mode
-        "x", -- visual mode only
-        "o", -- operator pending mode (d/c/y などの範囲指定の待機中)
-      },
-      function()
-        require("flash").jump({
-         pattern = vim.fn.expand("<cword>"),
-        })
-      end,
-      desc = "Flash - カーソル位置の単語を検索",
-    },
+    -- {
+    --   "<Leader>/",
+    --   mode = {
+    --     "n", -- normal mode
+    --     "x", -- visual mode only
+    --     "o", -- operator pending mode (d/c/y などの範囲指定の待機中)
+    --   },
+    --   function()
+    --     require("flash").jump({
+    --       pattern = ".",
+    --       search = {
+    --         mode = function(pattern)
+    --           if pattern:sub(1, 1) == "." then
+    --             pattern = pattern:sub(2)
+    --           end
+    --           return ([[\<%s\w*\>]]):format(pattern), ([[\<%s]]):format(pattern)
+    --         end,
+    --       },
+    --       jump = { pos = "range" },
+    --     })
+    --   end,
+    --   desc = "Flash - カーソル位置の単語を検索",
+    -- },
     {
       "s",
       mode = {
