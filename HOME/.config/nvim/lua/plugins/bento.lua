@@ -9,7 +9,7 @@ return {
     local wk = require("which-key")
     wk.add({
       {
-        "<Leader>;",
+        "<Leader>,",
         "<cmd>BentoToggle<CR>",
         mode = "n",
         icon = "🍱",
@@ -48,6 +48,7 @@ return {
           position = "middle-right", -- メニュー表示位置(top-left|top-right|middle-left|middle-right|bottom-left|bottom-right)
           offset_x = 0, -- 表示位置 横方向オフセット
           offset_y = 0, -- 表示位置 縦方向オフセット
+          border = "single",
           dash_char = "─", -- 折り畳み境界を表示する文字
           label_padding = 1, -- ラベルの左右パディング量
           minimal_menu = "full", -- 折畳みメニューのスタイル(nil: 非表示, "dashed": 破線, "filename": 名前のみ, "full": 名前+ラベル)
