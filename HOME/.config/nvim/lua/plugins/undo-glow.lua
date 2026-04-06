@@ -8,7 +8,11 @@ return {
       {
         "u",
         function()
-          require("undo-glow").undo()
+          require("undo-glow").undo({
+            animation = {
+              animation_type = "fade",
+            },
+          })
         end,
         mode = "n",
         desc = "UndoGlow - Undo with highlight",
@@ -16,7 +20,11 @@ return {
       {
         "U",
         function()
-          require("undo-glow").redo()
+          require("undo-glow").redo({
+            animation = {
+              animation_type = "fade_reverse",
+            },
+          })
         end,
         mode = "n",
         desc = "UndoGlow - Redo with highlight",
@@ -41,7 +49,11 @@ return {
     vim.api.nvim_create_autocmd("TextYankPost", {
       desc = "Highlight when yanking (copying) text",
       callback = function()
-        require("undo-glow").yank()
+        require("undo-glow").yank({
+          animation = {
+            animation_type = "spring",
+          },
+        })
       end,
     })
 
@@ -102,25 +114,25 @@ return {
       },
       highlights = {
         undo = {
-          hl_color = { bg = palette.syn.keyword },
+          hl_color = { bg = palette.ui.fg_dim },
         },
         redo = {
-          hl_color = { bg = palette.syn.number },
+          hl_color = { bg = palette.ui.fg_reverse },
         },
         yank = {
-          hl_color = { bg = palette.syn.fun },
+          hl_color = { bg = palette.ui.special },
         },
         paste = {
           hl_color = { bg = palette.syn.type },
         },
         search = {
-          hl_color = { bg = palette.syn.constant },
+          hl_color = { bg = palette.syn.identifier },
         },
         comment = {
           hl_color = { bg = palette.syn.parameter },
         },
         cursor = {
-          hl_color = { bg = palette.syn.special1 },
+          hl_color = { bg = palette.syn.fun },
         },
       },
       priority = 2048 * 3,
