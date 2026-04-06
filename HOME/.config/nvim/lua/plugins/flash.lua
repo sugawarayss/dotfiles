@@ -29,6 +29,7 @@ return {
         "cmp_menu",
         "noice",
         "flash_prompt",
+        "snacks_terminal",
         function(win)
           -- exclude non-focusable windows
           return not vim.api.nvim_win_get_config(win).focusable
