@@ -1,3 +1,4 @@
+-- バッファのサイズ調整するプラグイン
 return {
   {
     "anuvyklack/windows.nvim",
@@ -12,7 +13,7 @@ return {
       local wk = require("which-key")
       require("windows").setup({
         autowidth = {
-          enable = false,
+          enable = true,
           winwidth = 5,
           filetype = {
             help = 2,
