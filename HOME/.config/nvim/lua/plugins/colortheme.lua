@@ -24,7 +24,7 @@ return {
       overrides = function(colors)
         return {
           -- foldopen/foldclose/foldsep
-          FoldColumn = { fg = colors.theme.syn.identifier },
+          FoldColumn = { fg = colors.theme.syn.constant },
           -- Cmdline popup border
           NoiceCmdlinePopupBorder = { bg = colors.theme.ui.bg },
           -- Cmdline popup border
