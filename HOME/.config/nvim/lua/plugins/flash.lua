@@ -248,29 +248,6 @@ return {
     },
   },
   keys = {
-    -- {
-    --   "<Leader>/",
-    --   mode = {
-    --     "n", -- normal mode
-    --     "x", -- visual mode only
-    --     "o", -- operator pending mode (d/c/y などの範囲指定の待機中)
-    --   },
-    --   function()
-    --     require("flash").jump({
-    --       pattern = ".",
-    --       search = {
-    --         mode = function(pattern)
-    --           if pattern:sub(1, 1) == "." then
-    --             pattern = pattern:sub(2)
-    --           end
-    --           return ([[\<%s\w*\>]]):format(pattern), ([[\<%s]]):format(pattern)
-    --         end,
-    --       },
-    --       jump = { pos = "range" },
-    --     })
-    --   end,
-    --   desc = "Flash - カーソル位置の単語を検索",
-    -- },
     {
       "s",
       mode = {
@@ -281,7 +258,7 @@ return {
       function()
         require("flash").jump()
       end,
-      desc = "入力にマッチするラベルにジャンプ",
+      desc = "Flash - 入力にマッチするラベルにジャンプ",
     },
     {
       "S",
@@ -296,29 +273,29 @@ return {
       end,
       desc = "Flash - カーソル位置のtreesitterノードを選択",
     },
-    {
-      "r",
-      mode = "o", -- operator pending mode
-      function()
-        require("flash").remote()
-      end,
-      desc = "Falsh - Remote Flash",
-    },
-    {
-      "R",
-      mode = { "o", "x" },
-      function()
-        require("flash").treesitter_search()
-      end,
-      desc = "Falsh - Treesitter Search",
-    },
+    -- {
+    --   "r",
+    --   mode = "o", -- operator pending mode
+    --   function()
+    --     require("flash").remote()
+    --   end,
+    --   desc = "Flash - Remote Flash",
+    -- },
+    -- {
+    --   "R",
+    --   mode = { "o", "x" },
+    --   function()
+    --     require("flash").treesitter_search()
+    --   end,
+    --   desc = "Flash - Treesitter Search",
+    -- },
     {
       "<c-s>",
       mode = { "c" }, -- Command Line Mode
       function()
         require("flash").toggle()
       end,
-      desc = "Falsh - Toggle Flash Search",
+      desc = "Flash - Toggle Flash Search",
     },
   },
 }
