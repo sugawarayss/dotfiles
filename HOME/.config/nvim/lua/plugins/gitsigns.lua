@@ -94,13 +94,13 @@ return {
             icon = "",
             desc = "Gitsings - 変更箇所をロケーションリストで表示する",
           },
-          {
-            "<leader>gp",
-            "Gitsigns preview_hunk_inline<CR>",
-            mode = "n",
-            icon = "",
-            desc = "Gitsings - カーソル位置の変更内容を(インラインで)プレビューする",
-          },
+          -- {
+          --   "<leader>gp",
+          --   "Gitsigns preview_hunk_inline<CR>",
+          --   mode = "n",
+          --   icon = "",
+          --   desc = "Gitsings - カーソル位置の変更内容を(インラインで)プレビューする",
+          -- },
           {
             "<leader>gh",
             ":<C-U>Gitsigns select_hunk<CR>",
