@@ -13,7 +13,7 @@ return {
       local wk = require("which-key")
       wk.add({
         {
-          "<Leader>cc", -- Coomand+Ctrl+i
+          "<Leader>cc", -- Command+Ctrl+i
           "<Cmd>CodeCompanionChat Toggle<CR>",
           mode = { "n", "v" },
           icon = "🤖",
@@ -74,6 +74,8 @@ return {
           opts = {
             system_prompt = require("prompts.system_prompt"),
           },
+          -- チャットバッファで使用するキーマップ
+          keymaps = {},
         },
         -- インラインアシスタント設定
         inline = {
@@ -83,7 +85,7 @@ return {
           },
           -- インラインアシスタントが新しいバッファを作成する際にバッファ分割の方向
           layout = "vertical",
-          -- 変更を承認/拒否するためのキーマップ
+          -- インラインアシスタントで使用するキーマップ
           keymaps = {
             accept_change = {
               modes = { n = "ga" },
@@ -94,6 +96,10 @@ return {
               description = "提案された変更を拒否",
             },
           },
+        },
+        shared = {
+          --
+          keymaps = {},
         },
       },
       -- 独自プロンプトの定義
@@ -131,7 +137,7 @@ return {
             watched_buffer = "👀 ",
           },
           window = {
-            -- List the chat bufffer in the buffer list
+            -- List the chat buffer in the buffer list
             buflisted = false,
             -- Chat buffer remains open when switching tabs
             sticky = true,
@@ -150,6 +156,15 @@ return {
               linebreak = true,
               wrap = true,
             },
+          },
+        },
+        -- 差分表示設定
+        diff = {
+          enabled = true,
+          threshold_for_chat = 6,
+          word_highlights = {
+            additions = true,
+            deletions = true,
           },
         },
       },
