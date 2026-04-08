@@ -7,7 +7,7 @@ return {
     require("gitsigns").setup({
       signs = {
         add = { text = "┃" },
-        change = { text = "" },
+        change = { text = "┃" },
         delete = { text = "_" },
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
@@ -15,7 +15,7 @@ return {
       },
       signs_staged = {
         add = { text = "┃" },
-        change = { text = "" },
+        change = { text = "┃" },
         delete = { text = "_" },
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
