@@ -67,12 +67,12 @@ return {
         -- list of named colors where we try to extract the guifg from the
         -- list of highlight groups or use the hex color if hl not found as a fallback
         colors = {
-          error = { palette.diag.error },
+          error = { palette.syn.special2 },
           warning = { palette.diag.warning },
-          info = { palette.diag.hint },
+          info = { palette.syn.fun },
           hint = { palette.diag.ok },
-          default = { palette.diag.ok },
-          test = { palette.diag.warning },
+          default = { palette.syn.special1 },
+          test = { palette.syn.regex },
           perf = { palette.syn.keyword },
         },
         search = {
