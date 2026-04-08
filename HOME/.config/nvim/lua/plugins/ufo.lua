@@ -66,16 +66,38 @@ return {
       })
     end,
     config = function()
-      vim.api.nvim_set_option("fillchars", [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]])
-      vim.api.nvim_set_option("foldcolumn", "1")
-      vim.api.nvim_set_option("foldlevel", 99)
-      vim.api.nvim_set_option("foldlevelstart", 99)
-      vim.api.nvim_set_option("foldenable", true)
+      vim.opt.fillchars = {
+        -- ファイルの終わりを示す表示文字
+        eob = " ",
+        -- 折り畳み表示用の文字
+        foldclose = "",
+        -- 展開表示用の文字
+        foldopen = "",
+        -- 折り畳み範囲の区切り文字
+        foldsep = " ",
+        -- INFO: Neovim 0.12以降
+        -- 折り畳み範囲のネスト深度を示す表示文字
+        foldinner = " ",
+      }
+      -- 折り畳み表示用のカラム幅
+      vim.opt.foldcolumn = "1"
+      -- すべての折り畳みを展開
+      vim.opt.foldlevel = 99
+      -- 新しいバッファでの折り畳みレベルの初期値
+      vim.opt.foldlevelstart = 99
+      -- 折り畳みを有効にする
+      vim.opt.foldenable = true
       require("ufo").setup({
-        open_fold_hl_timeout = 150,
+        -- 折り畳みを開いた時の範囲のハイライト秒数(ミリ秒)
+        open_fold_hl_timeout = 400,
+        -- A function as a selector for providers.
+        provider_selector = function(_, filetype, _)
+          return ftMap[filetype] or { "treesitter", "indent" }
+        end,
+        -- バッファを開いた時に自動で閉じておくファイルタイプ別の折り畳みの種類
         close_fold_kinds_for_ft = {
-          default = { "imports", "comment" },
-          json = { "array" },
+          default = { "imports" },
+          -- json = { "array" },
         },
         preview = {
           win_config = {
@@ -91,9 +113,6 @@ return {
           },
         },
         fold_virt_text_handler = handler,
-        provider_selector = function(_, filetype, _)
-          return ftMap[filetype] or { "treesitter", "indent" }
-        end,
       })
     end,
   },
