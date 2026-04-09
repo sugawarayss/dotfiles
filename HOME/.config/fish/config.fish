@@ -23,7 +23,7 @@ fish_add_path /opt/homebrew/opt/mysql-client/bin
 set -Ux LANG ja_JP.UTF-8
 set -Ux KCODE u
 set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
-# XDG PATHs 
+# XDG PATHs
 set -q XDG_CONFIG_HOME || set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_DATA_HOME || set -gx XDG_DATA_HOME $HOME/.local/share
 set -q XDG_CACHE_HOME || set -gx XDG_CACHE_HOME $HOME/.cache
@@ -116,7 +116,7 @@ if type "lsd" > /dev/null 2>&1;
   abbr -a oldls /bin/ls
   alias ls='lsd --git'
   alias la='lsd --all --git '
-  alias ll="lsd --long --git" 
+  alias ll="lsd --long --git"
   alias lla="lsd --long --all --git"
   alias lt="lsd --tree --all --icon never"
   alias ld="lsd --directory-only --tree --icon never"
