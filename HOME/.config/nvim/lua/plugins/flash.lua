@@ -249,7 +249,7 @@ return {
   },
   keys = {
     {
-      "s",
+      "m",
       mode = {
         "n", -- normal mode
         "x", -- visual mode only
