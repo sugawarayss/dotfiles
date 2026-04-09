@@ -40,18 +40,17 @@ return {
         },
       })
       wk.add({
-        { "<S-M-CR>", "<cmd>WindowsToggleAutowidth<CR>", mode = "n", desc = "Windows - カーソルがあるウィンドウを最大化する" },
         {
-          "<S-M-v>",
-          "<cmd>WindowsMaximizeVertically<CR>",
+          "<S-M-CR>",
+          "<cmd>WindowsMaximize<CR>",
           mode = "n",
-          desc = "Windows - カーソルがあるウィンドウの幅を最大化する",
+          desc = "Windows - カーソルがあるウィンドウを最大化する",
         },
         {
-          "<S-M-h>",
-          "<cmd>WindowsMaximizeHorizontally<CR>",
+          "<S-M-e>",
+          "<cmd>WindowsEqualize<CR>",
           mode = "n",
-          desc = "Windows - カーソルがあるウィンドウの高さを最大化する",
+          desc = "Windows - カーソルがあるウィンドウの幅を最大化する",
         },
       })
     end,
