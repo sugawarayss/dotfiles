@@ -83,6 +83,12 @@ set -gx EDITOR nvim
 if type "zoxide" > /dev/null 2>&1;
   zoxide init fish | source
 end
+
+# fzf
+if type "fzf" > /dev/null 2>&1
+  set fzf_directory_opts --bind "ctrl-o:execute($EDITOR {} &> /dev/tty)"
+end
+
 #########
 # alias #
 #########
@@ -195,10 +201,6 @@ function fish_user_key_bindings
     # yy で クリップボードにコピー
     bind yy fish_clipboard_copy
     bind p fish_clipboard_paste
-    # コマンド履歴を見る
-    bind \cr peco_select_history
-    # プロセスをキルする(要ps/procs対応)
-    bind \cx\ck peco_kill
 
     # fzf
     bind \cx\cf '__fzf_find_file' # (要sd/sed対応)
