@@ -55,15 +55,7 @@ return {
   end,
   opts = {
     -- アニメーションライブラリ
-    animate = {
-      enabled = vim.fn.has("nvim-0.10") == 1,
-      style = "out",
-      easing = "linear",
-      duration = {
-        step = 20, -- ms per step
-        total = 1000, -- maximum duration
-      },
-    },
+    animate = { enabled = false },
     animate_repeat = {
       delay = 100,
       duration = {
@@ -182,7 +174,35 @@ return {
       },
     },
     -- gh  (GitHub CLI)
-    gh = { enabled = true },
+    gh = {
+      enabled = true,
+      keys = {
+        select = { "<cr>", "gh_actions", desc = "アクションを選択" },
+        edit = { "i", "gh_edit", desc = "編集" },
+        comment = { "a", "gh_comment", desc = "コメント追加" },
+        close = { "c", "gh_close", desc = "閉じる" },
+        reopen = { "o", "gh_reopen", desc = "再開" },
+      },
+      wo = {
+        breakindent = true,
+        wrap = true,
+        showbreak = "",
+        linebreak = true,
+        number = false,
+        relativenumber = false,
+        foldexpr = "v:lua.vim.treesitter.foldexpr()",
+        foldmethod = "expr",
+        concealcursor = "n",
+        conceallevel = 2,
+        list = false,
+      },
+      bo = {},
+      diff = {
+        min = 4,
+        wrap = 80,
+      },
+      scratch = { height = 15 },
+    },
     -- アクティブファイルのリポジトリを開く
     gitbrowse = { enabled = false },
     -- 画像ファイルを表示する
@@ -190,24 +210,7 @@ return {
     -- `brew install imagemagick ghostscript` と `npm install -g @mermaid-js/mermaid-cli`を実行してください
     image = {
       enabled = true,
-      formats = {
-        "png",
-        "jpg",
-        "jpeg",
-        "gif",
-        "bmp",
-        "webp",
-        "tiff",
-        "heic",
-        "avif",
-        "mp4",
-        "mov",
-        "mov",
-        "avi",
-        "mkv",
-        "webm",
-        "pdf",
-      },
+      formats = { "png", "jpg", "jpeg", "gif", "bmp", "webp", "tiff", "heic", "avif", "mp4", "mov", "mov", "avi", "mkv", "webm", "pdf" },
       force = false,
       doc = {
         enabled = true,
@@ -275,14 +278,7 @@ return {
       },
     },
     -- インデントガイドの表示
-    indent = {
-      priority = 1,
-      enabled = false,
-      char = "│",
-      only_scope = false,
-      only_current = false,
-      hl = "SnacksIndent",
-    },
+    indent = { enabled = false },
     -- インプットモードの表示
     input = {
       enabled = true,
@@ -356,6 +352,8 @@ return {
             },
           },
         },
+        gh_issue = {},
+        gh_pr = {},
       },
     },
     -- Luaプロファイラ
@@ -363,32 +361,8 @@ return {
     -- プラグインをロードする前に内容をレンダリングする
     quickfile = { enabled = true },
     -- スコープ検出
-    scope = {
-      enabled = false,
-      priority = 200,
-      char = "│",
-      underline = false,
-      only_current = false,
-      hl = "SnacksIndentScope",
-    },
-    chunk = {
-      -- when enabled, scopes will be rendered as chunks, except for the
-      -- top-level scope which will be rendered as a scope.
-      enabled = false,
-      -- only show chunk scopes in the current window
-      only_current = false,
-      priority = 200,
-      hl = "SnacksIndentChunk", ---@type string|string[] hl group for chunk scopes
-      char = {
-        -- corner_top = "┌",
-        -- corner_bottom = "└",
-        corner_top = "╭",
-        corner_bottom = "╰",
-        horizontal = "─",
-        vertical = "│",
-        arrow = ">",
-      },
-    },
+    scope = { enabled = false },
+    chunk = { enabled = false },
     scratch = { enabled = false },
     -- スムーズなスクロール
     scroll = { enabled = false },
@@ -413,52 +387,9 @@ return {
         disabled = "Enable ",
       },
     },
-    terminal = {
-      bo = { filetype = "snacks_terminal" },
-      wo = {},
-      keys = {
-        q = "hide",
-        gf = function(self)
-          local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
-          if f == "" then
-            Snacks.notify.warn("No file under cursor")
-          else
-            self:hide()
-            vim.schedule(function()
-              vim.cmd("e " .. f)
-            end)
-          end
-        end,
-        term_normal = {
-          "<esc>",
-          function(self)
-            self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
-            if self.esc_timer:is_active() then
-              self.esc_timer:stop()
-              vim.cmd("stopinsert")
-            else
-              self.esc_timer:start(200, 0, function() end)
-              return "<esc>"
-            end
-          end,
-          mode = "t",
-          expr = true,
-          desc = "Double escape to normal mode",
-        },
-      },
-    },
-    words = {
-      enabled = false,
-      debounce = 200,
-      notify_jump = false,
-      notify_end = true,
-      foldopen = true,
-      jumplist = true,
-      modes = { "n", "i", "c" },
-      filter = function(buf)
-        return vim.g.snacks_words ~= false and vim.b[buf].snacks_words ~= false
-      end,
-    },
+    terminal = { win = { style = "terminal" } },
+    -- LSP参照を自動表示して切り替える
+    words = { enabled = false },
     styles = {
       input = {
         backdrop = false,
@@ -486,6 +417,41 @@ return {
           colorcolumn = "",
         },
         bo = { filetype = "snacks_notif" },
+      },
+      terminal = {
+        bo = { filetype = "snacks_terminal" },
+        wo = {},
+        stack = true,
+        keys = {
+          q = "hide",
+          gf = function(self)
+            local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
+            if f == "" then
+              Snacks.notify.warn("No file under cursor")
+            else
+              self:hide()
+              vim.schedule(function()
+                vim.cmd("e " .. f)
+              end)
+            end
+          end,
+          term_normal = {
+            "<esc>",
+            function(self)
+              self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+              if self.esc_timer:is_active() then
+                self.esc_timer:stop()
+                vim.cmd("stopinsert")
+              else
+                self.esc_timer:start(200, 0, function() end)
+                return "<esc>"
+              end
+            end,
+            mode = "t",
+            expr = true,
+            desc = "<ESC>ダブルタップでノーマルモード",
+          },
+        },
       },
     },
   },
@@ -532,20 +498,6 @@ return {
       end,
       desc = "Snacks - Grep検索を表示",
     },
-    -- {
-    --   "<leader>ff",
-    --   function()
-    --     Snacks.picker.files()
-    --   end,
-    --   desc = "Snacks - ファイル名リストを検索",
-    -- },
-    -- {
-    --   "<leader>fr",
-    --   function()
-    --     Snacks.picker.recent()
-    --   end,
-    --   desc = "Snacks - 直近開いたファイルリストを表示",
-    -- },
     {
       ";sbuf",
       function()
@@ -594,6 +546,14 @@ return {
         Snacks.terminal.toggle()
       end,
       desc = "Snacks - ターミナルを閉じる",
+      mode = { "t" },
+    },
+    {
+      "<F4>",
+      function()
+        Snacks.terminal.open()
+      end,
+      desc = "Snacks - 新しいターミナルを開く",
       mode = { "t" },
     },
     -- find
@@ -759,14 +719,14 @@ return {
       end,
       desc = "Snacks - バッファを閉じる",
     },
-    {
-      "<leader>gB",
-      function()
-        Snacks.gitbrowse()
-      end,
-      desc = "Snacks - リポジトリをGitHubで開く",
-      mode = { "n", "v" },
-    },
+    -- {
+    --   "<leader>gB",
+    --   function()
+    --     Snacks.gitbrowse()
+    --   end,
+    --   desc = "Snacks - リポジトリをGitHubで開く",
+    --   mode = { "n", "v" },
+    -- },
     {
       "<leader>gg",
       function()
