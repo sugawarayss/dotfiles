@@ -46,8 +46,14 @@ config.window_background_opacity = 0.9
 config.macos_window_background_blur = 9
 -- フォント
 config.font = wezterm.font_with_fallback({
-	{ family = "Hack Nerd Font Mono", weight = "Regular" },
-	{ family = "HackGen Console NF", weight = "Regular" },
+	{
+		family = "Hack Nerd Font Mono",
+		weight = "Regular",
+	},
+	{
+		family = "HackGen Console NF",
+		weight = "Regular",
+	},
 })
 -- フォントサイズ
 config.font_size = 13.0
@@ -68,7 +74,7 @@ local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabl
 tabline.setup({
 	options = {
 		icons_enabled = true,
-		theme = "One Dark (Gogh)",
+		theme = "Kanagawa (Gogh)",
 		tabs_enabled = true,
 		theme_overrides = {},
 		section_separators = {
@@ -90,84 +96,44 @@ tabline.setup({
 			icons_enabled = true,
 			icons_only = true,
 		} },
-		tabline_b = { { "datetime", style = "%Y-%m-%d %H:%M" } },
+		tabline_b = { {
+			"datetime",
+			style = "%Y-%m-%d %H:%M",
+		} },
 		tabline_c = { " " },
 		tab_active = {
 			"index",
-			{ "parent", padding = 0 },
+			{
+				"parent",
+				padding = 0,
+			},
 			"/",
-			{ "cwd", padding = { left = 0, right = 1 } },
+			{
+				"cwd",
+				padding = {
+					left = 0,
+					right = 1,
+				},
+			},
 			-- { "zoomed", padding = 0 },
 		},
-		tab_inactive = { "index", "cwd" },
-		tabline_x = { "ram", "cpu" },
+		tab_inactive = {
+			"index",
+			"cwd",
+		},
+		tabline_x = {
+			"ram",
+			"cpu",
+		},
 		tabline_y = {
 			"battery",
 		},
-		tabline_z = { "domain" },
+		tabline_z = {
+			"domain",
+		},
 	},
 	extensions = {},
 })
 tabline.apply_to_config(config)
-
--- tabline.apply_to_config(config)
--- local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
--- bar.apply_to_config(config, {
--- 	position = "bottom",
--- 	separator = {
--- 		space = 1,
--- 		left_icon = wezterm.nerdfonts.md_menu_right,
--- 		right_icon = wezterm.nerdfonts.md_menu_left,
--- 		field_icon = wezterm.nerdfonts.indent_line,
--- 	},
--- 	modules = {
--- 		tabs = {
--- 			active_tab_fg = 5,
--- 			inactive_tab_fg = 2,
--- 		},
--- 		workspace = {
--- 			enabled = false,
--- 			icon = wezterm.nerdfonts.cod_window,
--- 			color = 8,
--- 		},
--- 		leader = {
--- 			enabled = true,
--- 			icon = wezterm.nerdfonts.oct_rocket,
--- 			color = 2,
--- 		},
--- 		pane = {
--- 			enabled = true,
--- 			icon = wezterm.nerdfonts.cod_multiple_windows,
--- 			color = 7,
--- 		},
--- 		username = {
--- 			enabled = true,
--- 			icon = wezterm.nerdfonts.fa_user,
--- 			color = 6,
--- 		},
--- 		hostname = {
--- 			enabled = true,
--- 			icon = wezterm.nerdfonts.md_monitor,
--- 			color = 8,
--- 		},
--- 		clock = {
--- 			enabled = true,
--- 			icon = wezterm.nerdfonts.fa_clock_o,
--- 			color = 5,
--- 		},
--- 		cwd = {
--- 			enabled = true,
--- 			icon = wezterm.nerdfonts.oct_file_directory,
--- 			color = 7,
--- 		},
--- 		spotify = {
--- 			enabled = false,
--- 			icon = wezterm.nerdfonts.fa_spotify,
--- 			color = 3,
--- 			max_width = 64,
--- 			throttle = 15,
--- 		},
--- 	},
--- })
 
 return config
