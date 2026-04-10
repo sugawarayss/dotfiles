@@ -86,7 +86,7 @@ end
 
 # fzf
 if type "fzf" > /dev/null 2>&1
-  set fzf_directory_opts --bind "ctrl-o:execute($EDITOR {} &> /dev/tty)"
+  set -gx FZF_DEFAULT_OPTS_FILE $XDG_CONFIG_HOME/fzf/fzfrc
 end
 
 #########
@@ -163,24 +163,13 @@ end
 if type "ghq" > /dev/null 2>&1;
   # ローカルにあるgitリポジトリを選択してpathに移動
   function repo
-    set -l selected_repo (ghq list -p | peco --prompt="SELECT REPOSITORY >")
-    if test -n "$selected_repo"
-        cd $selected_repo
-    end
+    # set -l selected_repo (ghq list -p | fzf --input-label 'Repo Name')
+    # if test -n "$selected_repo"
+        cd (ghq list -p | fzf --input-label 'Repo Name')
+    # end
   end
-
 end
 
-# if type "hub" > /dev/null 2>&1;
-#   # 選択したリモートリポジトリをGithubで開く
-#   function remote
-#     set -l current_dir (basename (pwd))
-#     set -l repo (ghq list | peco --query=$current_dir --prompt="SELECT REPOSITORY >")
-#     if test -n "$repo"
-#         hub browse $repo
-#     end
-#   end
-# end
 
 # if type "git" > /dev/null 2>&1;
 # end
@@ -201,11 +190,6 @@ function fish_user_key_bindings
     # yy で クリップボードにコピー
     bind yy fish_clipboard_copy
     bind p fish_clipboard_paste
-
-    # fzf
-    bind \cx\cf '__fzf_find_file' # (要sd/sed対応)
-    bind \ctr '__fzf_reverse_isearch'
-    bind \ed '__fzf_cd' # (要sd/sed 対応)
 end
 
 # aws cli の補完

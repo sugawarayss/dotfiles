@@ -59,6 +59,10 @@ fisher:
   @type -q fisher || curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
   fisher update
 
+# fzfコマンドのデフォルトオプション
+fzf:
+  @test -L ~/.config/fzf || ln -s {{pwd}}/HOME/.config/fzf ~/.config/fzf
+
 #  Brewfile からパッケージをインストール
 brew-restore:
   # Brewfile から全てのパッケージをインストール

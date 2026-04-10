@@ -1,0 +1,14 @@
+--style full
+--layout reverse
+--border
+--border-label ' Fuzzy Find'
+--input-label ' Input '
+--header-label ' Description'
+--preview 'fzf-preview.sh {}'
+--bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}'
+--bind 'focus:+transform-header:file --brief {} || echo "No selected"'
+--color 'border:#aaaaaa,label:#cccccc'
+--color 'preview-border:#9999cc,preview-label:#ccccff'
+--color 'list-border:#669966,list-label:#99cc99'
+--color 'input-border:#996666,input-label:#ffcccc'
+--color 'header-border:#6699cc,header-label:#99ccff'
