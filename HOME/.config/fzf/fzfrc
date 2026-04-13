@@ -1,12 +1,12 @@
 --style full
 --layout reverse
 --border
+--padding 1,2
 --border-label ' Fuzzy Find'
---input-label ' Input '
---header-label ' Description'
+--input-label ' Filter Input '
+--list-label 'List'
+--preview-label ' Preview '
 --preview 'fzf-preview.sh {}'
---bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}'
---bind 'focus:+transform-header:file --brief {} || echo "No selected"'
 --color 'border:#aaaaaa,label:#cccccc'
 --color 'preview-border:#9999cc,preview-label:#ccccff'
 --color 'list-border:#669966,list-label:#99cc99'
