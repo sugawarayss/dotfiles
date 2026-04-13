@@ -118,7 +118,8 @@ if type "lsd" > /dev/null 2>&1;
   alias la='lsd --all --git '
   alias ll="lsd --long --git"
   alias lla="lsd --long --all --git"
-  alias lt="lsd --tree --all --icon never"
+  alias lt="lsd --tree --icon never"
+  alias lta="lsd --tree --all --icon never"
   alias ld="lsd --directory-only --tree --icon never"
 else
   abbr -a ls ls -Gh
@@ -151,7 +152,7 @@ if type "gh" > /dev/null 2>&1;
 
   function review
     # カレントディレクトリのリポジトリのPRを選択して、prismで開いてpr reviewする
-    gh prism "$(gh pr list | fzf --preview 'gh pr view {1}' | awk '{print $1}')"
+    gh prism "$(gh pr list | fzf --list-label 'Pull Requests' --preview-label 'PR Description' --preview 'gh pr view {1}' | awk '{print $1}')"
   end
 
   function remote
@@ -163,10 +164,7 @@ end
 if type "ghq" > /dev/null 2>&1;
   # ローカルにあるgitリポジトリを選択してpathに移動
   function repo
-    # set -l selected_repo (ghq list -p | fzf --input-label 'Repo Name')
-    # if test -n "$selected_repo"
-        cd (ghq list -p | fzf --input-label 'Repo Name')
-    # end
+    cd (ghq list -p | fzf --height "50%" --border-label 'Change Directory' --list-label 'Ripositries of ghq' --preview-label 'Directory Structure' --preview 'lsd --tree --depth 2 --icon always {}' --prompt 'Repositry Name> ')
   end
 end
 
