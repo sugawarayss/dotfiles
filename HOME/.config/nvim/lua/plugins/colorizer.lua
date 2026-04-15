@@ -1,15 +1,32 @@
--- カラーコードを色付け と カラーピッカーを表示するプラグイン
+-- カラーコードを色付けするプラグイン
 return {
-  "uga-rosa/ccc.nvim",
+  "norcalli/nvim-colorizer.lua",
   event = { "BufReadPre" },
   config = function()
-    vim.opt.termguicolors = true
-    local ccc = require("ccc")
-    ccc.setup({
-      highlighter = {
-        auto_enable = true,
-        lsp = true,
-      },
+    local colorizer = require("colorizer")
+    colorizer.setup({
+      "*", -- highlight all files
+      css = { rgb_fn = true },
+      html = { names = false },
+    }, {
+      -- RGB hex codes
+      RGB = true,
+      -- RRGGBB hex codes
+      RRGGBB = true,
+      -- Name codes (like "Blue")
+      names = true,
+      -- RRGGBBAA hex codes
+      RRGGBBAA = false,
+      -- css rgb() and rgba() functions
+      rgb_fn = false,
+      -- css hsl() and hsla() functions
+      hsl_fn = false,
+      -- enable all css features
+      css = false,
+      -- enable all css functions
+      css_fn = false,
+      -- display mode (foreground | background)
+      mose = "background",
     })
   end,
 }
