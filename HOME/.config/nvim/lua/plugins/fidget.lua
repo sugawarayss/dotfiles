@@ -1,4 +1,43 @@
 -- Language Serverの進捗を右下に表示する
+
+-- 長すぎるfidgetメッセージを整形するヘルパー関数
+-- 文字列がパスかどうか判定します
+local function isPath(inputString)
+  return string.find(inputString, "[/\\]")
+end
+
+-- 文字列をスペースで分割します
+local function splitString(inputString)
+  local splittedStrings = {}
+  for word in string.gmatch(inputString, "%S+") do
+    table.insert(splittedStrings, word)
+  end
+  return splittedStrings
+end
+
+-- 文字列からパスを取り除きます
+local function removePathFromString(inputString)
+  local splittedStrings = splitString(inputString)
+
+  local processedStrings = {}
+  for _, word in ipairs(splittedStrings) do
+    if not isPath(word) then
+      table.insert(processedStrings, word)
+    end
+  end
+
+  local processedString = ""
+  for i, word in ipairs(processedStrings) do
+    if i == #processedStrings then
+      processedString = processedString .. word
+    else
+      processedString = processedString .. word .. " "
+    end
+  end
+
+  return processedString
+end
+
 return {
   "j-hui/fidget.nvim",
   enabled = true,
@@ -25,15 +64,15 @@ return {
       ignore = {},
       -- Options related to how LSP progress messages are displayed as notifications
       display = {
-        -- How many LSP messsages to show at once
+        -- How many LSP messages to show at once
         render_limit = 16,
-        -- How log a message should presist  after completion
+        -- How log a message should persist  after completion
         done_ttl = 3,
-        -- Icon shown when all LSP pregress tasks are complete
+        -- Icon shown when all LSP progress tasks are complete
         done_icon = "",
         -- Highlight group for in-progress LSP tasks
         done_style = "Constant",
-        -- How long a message should presist when in progress
+        -- How long a message should persist when in progress
         progress_ttl = math.huge,
         -- Icon shown when LSP progress tasks are in progress
         progress_icon = { pattern = "clock", period = 2 },
@@ -47,6 +86,18 @@ return {
         priority = 30,
         -- Whether progress notifications should be omitted from history
         skip_history = true,
+        format_message = function(msg)
+          local message = ""
+          if not msg.message then
+            message = msg.done and "Completed" or "In Progress..."
+          else
+            message = removePathFromString(msg.message)
+          end
+          if msg.percentage ~= nil then
+            message = string.format("%s (%.0f%%)", message, msg.percentage)
+          end
+          return message
+        end,
         -- How to format a progress message
         format_annote = function(msg)
           return msg.title
