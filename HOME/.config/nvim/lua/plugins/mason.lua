@@ -27,6 +27,8 @@ local lsp_servers = {
   "lua_ls",
   -- deno
   -- "denols",
+  -- dart
+  "dcmls",
   -- php
   "intelephense",
   "laravel_ls",
@@ -50,6 +52,20 @@ local lsp_servers = {
   "gh_actions_ls",
   -- zig
   "zls",
+  -- julia
+  "julials",
+  -- just
+  "just",
+  -- sql
+  "sqls",
+  -- elixir
+  "elixirls",
+  -- elm
+  "elmls",
+  -- vimscript
+  "vimls",
+  -- graphql
+  "graphql",
 }
 -- 自動インストールするformatter
 local formatters = {
