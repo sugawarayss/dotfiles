@@ -152,7 +152,11 @@ if type "gh" > /dev/null 2>&1;
 
   function review
     # カレントディレクトリのリポジトリのPRを選択して、prismで開いてpr reviewする
-    gh prism "$(gh pr list | fzf --list-label 'Pull Requests' --preview-label 'PR Description' --preview 'gh pr view {1}' | awk '{print $1}')"
+    gh prism "$(gh pr list \
+      | fzf \
+        --list-label 'Pull Requests' \
+        --preview-label 'PR Description' \
+        --preview 'gh pr view {1}' | awk '{print $1}')"
   end
 
   function remote
@@ -164,10 +168,72 @@ end
 if type "ghq" > /dev/null 2>&1;
   # ローカルにあるgitリポジトリを選択してpathに移動
   function repo
-    cd (ghq list -p | fzf --height "50%" --border-label 'Change Directory' --list-label 'Ripositries of ghq' --preview-label 'Directory Structure' --preview 'lsd --tree --depth 2 --icon always {}' --prompt 'Repositry Name> ')
+    set -l repo_path (ghq list -p \
+      | fzf \
+        --height "50%" \
+        --border-label 'Change Directory' \
+        --list-label 'Ripositries of ghq' \
+        --preview-label 'Directory Structure' \
+        --preview 'lsd --tree --depth 2 --icon always {}' \
+        --prompt 'Repositry Name> ')
+    if test -z "$repo_path"
+      # リポジトリが選択されなければ、何もせず終了
+      return
+    end
+    cd "$repo_path"
   end
 end
 
+
+if type "mise" > /dev/null 2>&1;
+  # miseで管理するToolを追加する
+  function tool -d "miseで管理するToolを追加する"
+    argparse 'g/global' -- $argv
+    or return
+
+    # -g or --global オプションが指定された場合は、グローバルにtoolを追加する
+    if set -q _flag_global
+      set -l global_option "--global"
+    else
+      set -l global_option ""
+    end
+
+    # 1. mise tool の選択
+    set -l toolname (mise search --no-header \
+      | fzf \
+        --prompt 'Tool Name> ' \
+        --height "50%" \
+        --with-nth 1 \
+        --border-label 'Search Mise Registory' \
+        --list-label 'Tool Names' \
+        --preview-label 'Tool Info' \
+        --preview-window  'wrap,90' \
+        --preview 'echo {2..} && echo "---------------------------------------------------" && mise tool {1}' )
+
+    if test -z "$toolname"
+      # tool が選択されなかった場合は、何もしないで終了
+      return
+    end
+
+    # 2. toolのversionを選択
+    set -l choiceversion (mise ls-remote $toolname \
+      | sort -rV \
+      | fzf \
+        --height "50%" \
+        --prompt "Filter $toolname Versions" \
+        --border-label "Select Version" \
+        --list-label 'Avairable Versions' \
+        --no-preview \
+        --exact)
+
+    if test -z "$choiceversion"
+      # version が選択されなかった場合は、何もしないで終了
+      return
+    end
+    # echo "$toolname"@"$choiceversion"
+    mise use "$global_option" "$toolname"@"$choiceversion"
+  end
+end
 
 # if type "git" > /dev/null 2>&1;
 # end
