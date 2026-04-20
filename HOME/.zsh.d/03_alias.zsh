@@ -90,19 +90,15 @@ if type "docker" >/dev/null 2>&1; then
 	alias dvrm='docker volume rm $(docker volume ls | peco --prompt="Choose Delete Volume" | cut -d " " -f 6)'
 fi
 
-# Git/Github系のalias
-if type "git" >/dev/null 2>&1; then
-	# g(it)b(ranch)d(delete): 選択したブランチを削除する
-	alias gdb='git delete $(git branch -l | peco --prompt="SELECT BRANCH >" | sd "^\*\s*" "")'
-fi
 if type "ghq" >/dev/null 2>&1; then
 	# ローカルにあるgitリポジトリを選択してpathに移動
-	alias repo='cd $(ghq list -p | peco --prompt="SELECT REPOSITORY >")'
+	alias repo='cd $(ghq list -p | fzf --height "50%" --border-label "Change Directory" --list-label "Ripositries of ghq" --preview-label "Directory Structure" --preview "lsd --tree --depth 2 --icon always {}" --prompt "Repository Name> ")'
 fi
 
-if type "hub" >/dev/null 2>&1; then
-	# 選択したリモートリポジトリをGithubで開く
-	alias remote='$(hub browse $(ghq list | peco --query=$(basename $(pwd)) --prompt="SELECT REPOSITORY >"))'
+if type "gh" > /dev/null 2>&1; then
+  alias review='$(gh pr list | fzf --list-label "Pull Requests" --preview-label "PR Description" --preview "gh pr view {1}" | awk "{print $1}")'
+  # 選択したリモートリポジトリをGithubで開く
+  alias remote='gh browse'
 fi
 
 # AWS CLI系のalias

@@ -143,3 +143,9 @@ export EDITOR=nvim
 # mysql cli #
 #############
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+##########
+# fzf    #
+##########
+export FZF_DEFAULT_OPTS_FILE="$XDG_CONFIG_HOME/fzf/fzfrc"
+
