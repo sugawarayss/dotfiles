@@ -19,7 +19,7 @@ return {
       end
       -- Snacks Terminal 表示時の設定
       local snacks_terminal = {
-        sections = { lualine_a = { "mode" }, lualine_z = { { "datetime", style = "%Y/%m/%d %H:%M:%S" } } },
+        sections = { lualine_a = { "mode" }, lualine_y = { "filetype" }, lualine_z = { { "datetime", style = "%Y/%m/%d %H:%M:%S" } } },
         filetypes = { "snacks_terminal" },
       }
       -- マクロ記録中の表示内容の定義
