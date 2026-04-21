@@ -19,6 +19,9 @@ actionlint = "latest"
 ghalint = "latest"
 zizmor = "latest"
 # CLI tools
+act = "latest"
+aws-cli = { version = "latest", symlink_bins = "true" }
+aws-vault = "latest"
 azure = "latest"
 bat = "latest"
 biome = "latest"
