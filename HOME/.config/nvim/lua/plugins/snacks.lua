@@ -421,7 +421,7 @@ return {
       terminal = {
         bo = { filetype = "snacks_terminal" },
         wo = {},
-        stack = true,
+        stack = false,
         keys = {
           q = "hide",
           gf = function(self)
