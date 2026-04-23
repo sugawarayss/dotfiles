@@ -230,13 +230,58 @@ if type "mise" > /dev/null 2>&1;
       # version が選択されなかった場合は、何もしないで終了
       return
     end
-    # echo "$toolname"@"$choiceversion"
     mise use "$global_option" "$toolname"@"$choiceversion"
   end
 end
 
-# if type "git" > /dev/null 2>&1;
-# end
+if type "aws-vault" > /dev/null 2>&1;
+  # 選択したAWS Profile をBrowserでコンソールを開く
+  function aws-browse
+    aws-vault login (aws-vault list --profiles | fzf \
+      --height "50%" \
+      --prompt "Filter Profile Name > " \
+      --border-label "Select Profile" \
+      --list-label "Avairable Profile" \
+      --no-preview \
+      --exact
+      )
+  end
+end
+
+if type "git" > /dev/null 2>&1;
+  # Gitのブランチを選択して切り替える関数
+  function branch
+    # 現在のブランチ名を取得
+    set current_branch (git rev-parse --abbrev-ref HEAD)
+
+    # ブランチ一覧
+    set branches (git branch --all | sed 's/^[* ]*//')
+
+    # (create from "current-branch")オプションを追加してfzfで選択
+    set selected (begin; printf '%s\n' $branches; echo "[CREATE FROM \"$current_branch\"]"; end | fzf --height 80% --layout=reverse \
+      --preview "test -n '{}' && ! string match -q '*CREATE FROM*' '{}' && git show-graph --color=always '{}' 2>/dev/null || echo \"Create new branch from $current_branch\"" \
+      --preview-window=right:60% \
+      --ansi)
+
+    # キャンセルされた場合は終了
+    test -z "$selected"; and return 1
+
+    if string match -q "*CREATE FROM*" -- "$selected"
+        # 新規ブランチ名の入力
+        read -P "Input new branch name: " new_branch
+
+        # 入力がない場合は終了
+        test -z "$new_branch"; and return 1
+
+        # 新規ブランチを作成してチェックアウト
+        git switch -c "$new_branch"
+    else
+        # 選択したブランチから印と追加情報を削除して切り替え
+        set branch_name (echo "$selected" | sed -E 's/^[* ]//' | sed -E 's/^[  ]//' | sed -E 's|remotes/origin/||')
+        git switch "$branch_name"
+    end
+  end
+end
 
 #################
 # KeyBindings   #
