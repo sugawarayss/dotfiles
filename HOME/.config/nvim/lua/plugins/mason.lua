@@ -231,7 +231,7 @@ return {
       local wk = require("which-key")
       wk.add({
         -- カーソル下の情報を表示
-        { "K", "<cmd>Lspsaga hover_doc<CR>", mode = { "n" }, icon = "", desc = "Lspsaga - カーソル下の情報を表示" },
+        -- { "K", "<cmd>Lspsaga hover_doc<CR>", mode = { "n" }, icon = "", desc = "Lspsaga - カーソル下の情報を表示" },
         -- 呼び出し階層を表示
         { "go", "<cmd>Lspsaga outgoing_calls<CR>", mode = { "n" }, desc = "Lspsaga - 呼び出し階層を表示" },
         -- 定義へジャンプ
