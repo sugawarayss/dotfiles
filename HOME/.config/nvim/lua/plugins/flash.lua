@@ -29,6 +29,7 @@ return {
         "cmp_menu",
         "noice",
         "flash_prompt",
+        "snacks_picker_list",
         "snacks_terminal",
         function(win)
           -- exclude non-focusable windows
@@ -249,7 +250,7 @@ return {
   },
   keys = {
     {
-      "m",
+      "<M-m>",
       mode = {
         "n", -- normal mode
         "x", -- visual mode only
@@ -281,21 +282,21 @@ return {
     --   end,
     --   desc = "Flash - Remote Flash",
     -- },
-    -- {
-    --   "R",
-    --   mode = { "o", "x" },
-    --   function()
-    --     require("flash").treesitter_search()
-    --   end,
-    --   desc = "Flash - Treesitter Search",
-    -- },
     {
-      "<c-s>",
-      mode = { "c" }, -- Command Line Mode
+      "<M-s>",
+      mode = { "o", "x" },
       function()
-        require("flash").toggle()
+        require("flash").treesitter_search()
       end,
-      desc = "Flash - Toggle Flash Search",
+      desc = "Flash - Treesitter Search",
     },
+    -- {
+    --   "<c-s>",
+    --   mode = { "c" }, -- Command Line Mode
+    --   function()
+    --     require("flash").toggle()
+    --   end,
+    --   desc = "Flash - Toggle Flash Search",
+    -- },
   },
 }
