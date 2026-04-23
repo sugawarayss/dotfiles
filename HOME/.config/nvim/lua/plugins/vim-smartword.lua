@@ -16,6 +16,16 @@ return {
         { "e", "<Plug>(smartword-e)", mode = "v", desc = "SmartWord - 前方の単語の末尾まで選択" },
         { "ge", "<Plug>(smartword-ge)", mode = "v", desc = "SmartWord - 後方の単語の末尾まで選択" },
       })
+      -- Terminal バッファでは無効化する
+      vim.api.nvim_create_autocmd("TermOpen", {
+        callback = function()
+          local opts = { buffer = true }
+          vim.keymap.set("n", "w", "w", opts)
+          vim.keymap.set("n", "b", "b", opts)
+          vim.keymap.set("n", "e", "e", opts)
+          vim.keymap.set("n", "ge", "ge", opts)
+        end
+      })
     end,
   },
   -- google/budox で日本語の単語区切りで移動できるように
