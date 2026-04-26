@@ -257,6 +257,9 @@ return {
         "o", -- operator pending mode (d/c/y などの範囲指定の待機中)
       },
       function()
+        if vim.bo.buftype == "terminal" then
+          return
+        end
         require("flash").jump()
       end,
       desc = "Flash - 入力にマッチするラベルにジャンプ",
@@ -274,14 +277,6 @@ return {
       end,
       desc = "Flash - カーソル位置のtreesitterノードを選択",
     },
-    -- {
-    --   "r",
-    --   mode = "o", -- operator pending mode
-    --   function()
-    --     require("flash").remote()
-    --   end,
-    --   desc = "Flash - Remote Flash",
-    -- },
     {
       "<M-s>",
       mode = { "o", "x" },
@@ -290,13 +285,5 @@ return {
       end,
       desc = "Flash - Treesitter Search",
     },
-    -- {
-    --   "<c-s>",
-    --   mode = { "c" }, -- Command Line Mode
-    --   function()
-    --     require("flash").toggle()
-    --   end,
-    --   desc = "Flash - Toggle Flash Search",
-    -- },
   },
 }
