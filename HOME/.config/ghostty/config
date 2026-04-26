@@ -1,17 +1,17 @@
 # shell 統合
 shell-integration = fish
 # メインフォント
+# font-family = "Cascadia Code NF"
 font-family = "Hack Nerd Font Mono"
-# font-family = "Hack Nerd Font Mono"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
 # フォントサイズ
-font-size = 13
+font-size = 14
 # 行の高さの調整
-adjust-cell-height = "-15%"
+adjust-cell-height = "-20%"
 
 # カラーテーマ
-theme = One Half Dark
+theme = Kanagawa Dragon
 
 # ウィンドウの左右の余白
 window-padding-x = 10
