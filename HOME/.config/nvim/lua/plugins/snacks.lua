@@ -451,6 +451,12 @@ return {
             expr = true,
             desc = "<ESC>ダブルタップでノーマルモード",
           },
+          no_highlight = {
+            "<ESC><ESC>",
+            "<nop>",
+            mode = "n",
+            desc = "ターミナル内では<ESC><ESC>を無効化する",
+          },
         },
       },
     },
