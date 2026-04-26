@@ -28,7 +28,7 @@ local lsp_servers = {
   -- deno
   -- "denols",
   -- dart
-  "dcmls",
+  "dcm",
   -- php
   "intelephense",
   "laravel_ls",
