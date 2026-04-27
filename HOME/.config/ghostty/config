@@ -1,5 +1,9 @@
+# 自動更新
+auto-update = "download"
+auto-update-channel = "stable"
+
 # shell 統合
-shell-integration = fish
+shell-integration = "fish"
 # メインフォント
 # font-family = "Cascadia Code NF"
 font-family = "Hack Nerd Font Mono"
@@ -11,7 +15,7 @@ font-size = 14
 adjust-cell-height = "-20%"
 
 # カラーテーマ
-theme = Kanagawa Dragon
+theme = "Kanagawa Dragon"
 
 # ウィンドウの左右の余白
 window-padding-x = 10
@@ -23,6 +27,14 @@ background-blur-radius = 15
 cursor-style = block
 # カーソルの点滅
 cursor-style-blink = true
+
+# クリップボード読み取り
+clipboard-read = "allow"
+# クリップボード書き込み
+clipboard-write = "allow"
+# コピー時に末尾の空白をトリム
+clipboard-trim-trailing-spaces = true
+
 
 ############
 # KeyBinds #
