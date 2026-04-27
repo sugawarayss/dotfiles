@@ -424,6 +424,8 @@ return {
         stack = false,
         keys = {
           q = "hide",
+          u = false,
+          U = false,
           gf = function(self)
             local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
             if f == "" then
