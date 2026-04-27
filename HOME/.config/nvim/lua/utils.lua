@@ -8,10 +8,6 @@ utils.keymap = function(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-utils.exec = function(command)
-  vim.api.nvim_exec(command, false)
-end
-
 utils.t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
