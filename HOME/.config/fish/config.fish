@@ -235,6 +235,16 @@ if type "mise" > /dev/null 2>&1;
 end
 
 if type "aws-vault" > /dev/null 2>&1;
+  function vault
+    aws-vault exec (aws-vault list --profiles | fzf \
+      --height "50%" \
+      --prompt "Filter Profile Name > " \
+      --border-label "Select Profile" \
+      --list-label "Avairable Profile" \
+      --no-preview \
+      --exact
+      ) -- fish
+  end
   # 選択したAWS Profile をBrowserでコンソールを開く
   function aws-browse
     aws-vault login (aws-vault list --profiles | fzf \
