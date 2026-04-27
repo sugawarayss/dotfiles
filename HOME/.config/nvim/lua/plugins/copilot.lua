@@ -65,7 +65,7 @@ return {
       -- NOTE: NEED node.js version must be > 20
       copilot_node_command = "node",
       workspace_folders = {},
-      copilot_model = "gpt-41-copilot",
+      -- copilot_model = "gpt-41-copilot",
       server_opts_overrides = {},
     })
   end,
