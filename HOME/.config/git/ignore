@@ -83,7 +83,7 @@ mise.local.toml
 .clinerules/
 
 # プロジェクト全体で共有する設定(アーキテクチャ設計、コーディング標準、共通ワークフローなど)
-CLAUDE.md
+# CLAUDE.md
 # プロジェクト固有の個人設定
 CLAUDE.local.md
 
