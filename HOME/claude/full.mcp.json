@@ -1,5 +1,4 @@
 {
-  "globalShortcut": "Alt+Ctrl+Tab",
   "mcpServers": {
     "aws-knowledge": {
       "args": [
@@ -16,25 +15,6 @@
       ],
       "command": "uvx"
     },
-    "aws-terraform": {
-      "args": [
-        "awslabs.terraform-mcp-server@latest"
-      ],
-      "autoApprove": [
-        "ExecuteTerraformCommand",
-        "SearchAwsProviderDocs",
-        "SearchAwsccProviderDocs",
-        "SearchSpecificAwsIaModules",
-        "SearchUserProvidedModule",
-        "RunCheckovScan"
-      ],
-      "command": "uvx",
-      "disabled": false,
-      "disabled_tools": [],
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      }
-    },
     "context7": {
       "args": [
         "-y",
@@ -44,30 +24,6 @@
       "env": {
         "DEFAULT_MINIMUM_TOKENS": "128000"
       }
-    },
-    "filesystem": {
-      "command": "/Users/sugawarayss/.local/share/mise/shims/npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/Users/sugawarayss/PROJECTS/"
-      ],
-      "autoApprove": [
-        "read_file",
-        "read_multiple_files",
-        "list_directory",
-        "search_files",
-        "get_file_info",
-        "list_allowed_directories",
-        "directory_tree",
-        "move_file",
-        "write_file",
-        "create_directory",
-        "edit_file",
-        "list_directory_with_sizes",
-        "read_media_file",
-        "read_text_file"
-      ]
     },
     "serena": {
       "command": "uvx",
