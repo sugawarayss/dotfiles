@@ -1,6 +1,6 @@
 -- カラーコードを色付けするプラグイン
 return {
-  "norcalli/nvim-colorizer.lua",
+  "catgoose/nvim-colorizer.lua",
   event = { "BufReadPre" },
   config = function()
     local colorizer = require("colorizer")
