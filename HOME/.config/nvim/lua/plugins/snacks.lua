@@ -54,29 +54,11 @@ return {
     end, { desc = "Autocommandリストをpickerで表示" })
   end,
   opts = {
-    -- アニメーションライブラリ
-    animate = { enabled = false },
-    animate_repeat = {
-      delay = 100,
-      duration = {
-        step = 20,
-        total = 1000,
-        easing = "linear",
-      },
-    },
     -- 指定のサイズより大きいファイルを開いたときにattach されるfiletypeを追加する。
     -- LSP や treesitter がバッファにattachされるのが自動的に防止される。
-    bigfile = {
-      enabled = true,
-      notify = true,
-      size = 1.5 * 1024 * 1024, -- 1.5MB
-      line_length = 1000,
-    },
-    -- debug用の設定
-    debug = { enabled = false },
+    bigfile = { enabled = true },
     -- ダッシュボード
     dashboard = {
-      enabled = true,
       -- need install colorscript
       -- https://gitlab.com/dwt1/shell-color-scripts
       width = 130,
@@ -146,36 +128,15 @@ return {
         -- { section = "startup" },
       },
     },
-    -- カーソルのあるスコープ以外を暗く表示する
-    dim = { enabled = false },
     -- ファイルエクスプローラ
     explorer = {
-      enabled = true,
-      actions = {
-        safe_delete = function(picker)
-          local selected = picker:selected({ fallback = true })
-          local has_root = vim.iter(selected):any(function(s)
-            return not s.parent
-          end)
-          if has_root then
-            vim.print("Cannot delete root directory")
-            return
-          end
-          picker:action("explorer_del")
-        end,
-      },
-      win = {
-        list = {
-          keys = {
-            ["<c-t>"] = nil,
-            ["d"] = "safe_delete",
-          },
-        },
-      },
+      -- replace netrw with the snacks explorer
+      replace_netrw = true,
+      -- Use the system trash when deleting files
+      trash = true,
     },
     -- gh  (GitHub CLI)
     gh = {
-      enabled = true,
       keys = {
         select = { "<cr>", "gh_actions", desc = "アクションを選択" },
         edit = { "i", "gh_edit", desc = "編集" },
@@ -183,119 +144,15 @@ return {
         close = { "c", "gh_close", desc = "閉じる" },
         reopen = { "o", "gh_reopen", desc = "再開" },
       },
-      wo = {
-        breakindent = true,
-        wrap = true,
-        showbreak = "",
-        linebreak = true,
-        number = false,
-        relativenumber = false,
-        foldexpr = "v:lua.vim.treesitter.foldexpr()",
-        foldmethod = "expr",
-        concealcursor = "n",
-        conceallevel = 2,
-        list = false,
-      },
-      bo = {},
-      diff = {
-        min = 4,
-        wrap = 80,
-      },
-      scratch = { height = 15 },
     },
-    -- アクティブファイルのリポジトリを開く
-    gitbrowse = { enabled = false },
     -- 画像ファイルを表示する
     -- NOTE: pngの表示に`ImageMagick`, mermaidの表示に`mmdc`, pdfの操作に`ghostscript`のインストールが必要
     -- `brew install imagemagick ghostscript` と `npm install -g @mermaid-js/mermaid-cli`を実行してください
-    image = {
-      enabled = true,
-      formats = { "png", "jpg", "jpeg", "gif", "bmp", "webp", "tiff", "heic", "avif", "mp4", "mov", "mov", "avi", "mkv", "webm", "pdf" },
-      force = false,
-      doc = {
-        enabled = true,
-        inline = true,
-        float = true,
-        max_width = 80,
-        max_height = 40,
-        conceal = false,
-      },
-      img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments" },
-      wo = {
-        wrap = false,
-        number = false,
-        relativenumber = false,
-        cursorcolumn = false,
-        signcolumn = "no",
-        foldcolumn = "0",
-        list = false,
-        spell = false,
-        statuscolumn = "",
-      },
-      cache = vim.fn.stdpath("cache") .. "/snacks/image",
-      debug = {
-        request = false,
-        convert = false,
-        placement = false,
-      },
-      env = {},
-      convert = {
-        notify = true, -- show a notification on error
-        mermaid = function()
-          local theme = vim.o.background == "light" and "neutral" or "dark"
-          return { "-i", "{src}", "-o", "{file}", "-b", "transparent", "-t", theme, "-s", "{scale}" }
-        end,
-        magick = {
-          default = { "{src}[0]", "-scale", "1920x1080>" }, -- default for raster images
-          vector = { "-density", 192, "{src}[0]" }, -- used by vector images like svg
-          math = { "-density", 192, "{src}[0]", "-trim" },
-          pdf = { "-density", 192, "{src}[0]", "-background", "white", "-alpha", "remove", "-trim" },
-        },
-      },
-      math = {
-        enabled = true, -- enable math expression rendering
-        typst = {
-          tpl = [[
-              #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
-              #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
-              #set text(size: 12pt, fill: rgb("${color}"))
-              ${header}
-              ${content}]],
-        },
-        latex = {
-          font_size = "Large", -- see https://www.sascha-frank.com/latex-font-size.html
-          packages = { "amsmath", "amssymb", "amsfonts", "amscd", "mathtools" },
-          tpl = [[
-              \documentclass[preview,border=2pt,varwidth,12pt]{standalone}
-              \usepackage{${packages}}
-              \begin{document}
-              ${header}
-              { \${font_size} \selectfont
-                \color[HTML]{${color}}
-              ${content}}
-              \end{document}]],
-        },
-      },
-    },
-    -- インデントガイドの表示
-    indent = { enabled = false },
+    image = { enabled = true },
     -- インプットモードの表示
-    input = {
-      enabled = true,
-      icon = " ",
-      icon_hl = "SnacksInputIcon",
-      icon_pos = "left",
-      prompt_pos = "title",
-      win = { style = "input" },
-      expand = true,
-    },
-    -- レイアウト
-    layout = { enabled = false },
-    -- lazygit の表示
-    lazygit = { enabled = false },
+    input = { enabled = true },
     -- 通知
     notifier = {
-      enabled = true,
       timeout = 3000,
       width = { min = 40, max = 0.5 },
       height = { min = 1, max = 0.6 },
@@ -311,7 +168,7 @@ return {
     },
     -- ファジーファインダー
     picker = {
-      enabled = true,
+      -- enabled = true,
       win = {
         input = {
           keys = {
@@ -322,32 +179,12 @@ return {
           },
         },
       },
-      actions = {
-        flash = function(picker)
-          require("flash").jump({
-            pattern = "^",
-            label = { after = { 0, 0 } },
-            search = {
-              mode = "search",
-              exclude = {
-                function(win)
-                  return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
-                end,
-              },
-            },
-            action = function(match)
-              local idx = picker.list:row2idx(match.pos[1])
-              picker.list:_move(idx, true, true)
-            end,
-          })
-        end,
-      },
       sources = {
         explorer = {
           win = {
             list = {
               keys = {
-                ["<c-t>"] = nil,
+                -- ["<c-t>"] = nil,
               },
             },
           },
@@ -356,40 +193,11 @@ return {
         gh_pr = {},
       },
     },
-    -- Luaプロファイラ
-    profiler = { enabled = true },
     -- プラグインをロードする前に内容をレンダリングする
     quickfile = { enabled = true },
-    -- スコープ検出
-    scope = { enabled = false },
-    chunk = { enabled = false },
-    scratch = { enabled = false },
-    -- スムーズなスクロール
-    scroll = { enabled = false },
-    statuscolumn = { enabled = false },
     -- トグルキーマップ
-    toggle = {
-      enabled = true,
-      map = vim.keymap.set,
-      which_key = true,
-      notify = true,
-      icon = {
-        enabled = " ",
-        disabled = " ",
-      },
-      -- colors for enabled/disabled states
-      color = {
-        enabled = "green",
-        disabled = "yellow",
-      },
-      wk_desc = {
-        enabled = "Disable ",
-        disabled = "Enable ",
-      },
-    },
+    toggle = { enabled = true },
     terminal = { win = { style = "terminal" } },
-    -- LSP参照を自動表示して切り替える
-    words = { enabled = false },
     styles = {
       input = {
         backdrop = false,
@@ -417,49 +225,6 @@ return {
           colorcolumn = "",
         },
         bo = { filetype = "snacks_notif" },
-      },
-      terminal = {
-        bo = { filetype = "snacks_terminal" },
-        wo = {},
-        stack = false,
-        keys = {
-          q = "hide",
-          u = false,
-          U = false,
-          gf = function(self)
-            local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
-            if f == "" then
-              Snacks.notify.warn("No file under cursor")
-            else
-              self:hide()
-              vim.schedule(function()
-                vim.cmd("e " .. f)
-              end)
-            end
-          end,
-          term_normal = {
-            "<esc>",
-            function(self)
-              self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
-              if self.esc_timer:is_active() then
-                self.esc_timer:stop()
-                vim.cmd("stopinsert")
-              else
-                self.esc_timer:start(200, 0, function() end)
-                return "<esc>"
-              end
-            end,
-            mode = "t",
-            expr = true,
-            desc = "<ESC>ダブルタップでノーマルモード",
-          },
-          no_highlight = {
-            "<ESC><ESC>",
-            "<nop>",
-            mode = "n",
-            desc = "ターミナル内では<ESC><ESC>を無効化する",
-          },
-        },
       },
     },
   },
