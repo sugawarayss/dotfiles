@@ -14,14 +14,6 @@ autocmd("BufEnter", {
   command = "set fo-=c fo-=r fo-=o",
 })
 
--- ファイルを開いた時に、前回のカーソル位置に移動する
-autocmd({ "BufReadPost" }, {
-  pattern = { "*" },
-  callback = function()
-    vim.api.nvim_exec('silent! normal! g`"zv', false)
-  end,
-})
-
 -- 外部からファイルを変更されたら反映する
 autocmd({ "WinEnter", "FocusGained", "BufEnter" }, {
   pattern = "*",
