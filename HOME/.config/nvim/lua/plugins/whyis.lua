@@ -17,7 +17,7 @@ return {
   },
   {
     "takeshid/whyis.nvim",
-    event = "VeryLazy",
+    filetype = { "python", "rust", "typescript", "javascript" },
     keys = {
       { "<leader>wf", "<cmd>Whyis float<cr>", desc = "Whyis floating window" },
       { "<leader>wl", "<cmd>Whyis right<cr>", desc = "Whyis right side" },
