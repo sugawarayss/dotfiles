@@ -29,7 +29,7 @@ local options = {
   shiftwidth = 2, -- インデントに使用する空白の数
   tabstop = 4, -- ファイル内の<TAB>に対応する空白の数
   cursorline = false, -- カーソル行を強調表示
-  number = true, -- 行番号を表示
+  number = true, -- 行番号を表示(グローバル設定)
   relativenumber = true, -- 相対行番号で表示する
   numberwidth = 4, -- 行番号部の幅
   signcolumn = "yes", -- 目印桁は常に表示する
@@ -45,13 +45,16 @@ local options = {
   winblend = 0, -- 任意のfloating windowを半透明にする
 }
 
-vim.opt.shortmess:append("c")
-vim.scriptencoding = "utf-8"
-vim.wo.number = true
-
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+
+-- インサートモードでの補完表示を文字列として表示
+vim.opt.shortmess:append("c")
+-- vimscript ファイルのエンコーディングをUTF-8で統一
+vim.scriptencoding = "utf-8"
+-- 行番号を表示(ウィンドウ限定)
+-- vim.wo.number = true
 
 -- 独自のfiletypeを定義する
 vim.filetype.add({
@@ -65,9 +68,19 @@ vim.filetype.add({
   },
 })
 
-vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.cmd([[set iskeyword+=-]])
-vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
+-- 行の端で移動キーを入力した時に自動で前後の行へ移動する
+vim.opt.whichwrap:append({
+  ["<"] = true,
+  [">"] = true,
+  ["["] = true,
+  ["]"] = true,
+  h = true,
+  l = true,
+})
+
+-- ハイフンを単語の一部として扱う
+vim.opt.iskeyword:append("-")
+
 -- vim.cmd([[set spelllang=en,cjk]]) -- 日本語はスペルチェックしない
 -- vim.cmd([[set spell]]) -- スペルチェックを有効にする
 
@@ -93,3 +106,46 @@ vim.api.nvim_create_autocmd("QuitPre", {
   end,
   desc = "Close all Special buffers and quit Neovim",
 })
+
+-- 新しい行で自動コメントを無効にする
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  -- formatoptions から c, r, o を無効にする
+  --   c: 折り返した行でコメントを継続するか
+  --   r: InsertモードでEnterを押したときに自動でコメントアウトするか
+  --   o: NormalモードでoまたはOを押したときに自動でコメントアウトするか
+  command = "set fo-=c fo-=r fo-=o",
+})
+
+-- 外部からファイルを変更されたら反映する
+vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained", "BufEnter" }, {
+  pattern = "*",
+  command = "checktime",
+})
+
+-- セッションを保存してNeovimを再起動する
+vim.api.nvim_create_user_command("Restart", function()
+  -- 通常バッファ以外を削除
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[bufnr].buftype ~= "" then
+      vim.api.nvim_buf_delete(bufnr, { force = true })
+    end
+  end
+  -- 既存のセッションの有無を確認
+  local has_session = vim.v.this_session ~= nil and vim.v.this_session ~= ""
+
+  -- Sessionがある場合はそれを使用し、ない場合は一時セッションファイルを作成
+  local session = has_session and vim.v.this_session or vim.fs.joinpath(tostring(vim.fn.stdpath("state")), "restart_session.vim")
+  vim.fn.mkdir(vim.fs.dirname(session), "p")
+  -- セッションを保存 bangがあるのですでにファイルが存在するなら上書き
+  vim.cmd.mksession({ args = { session }, bang = true })
+
+  -- 一時セッションの場合のみ削除
+  -- 既存セッションを使う場合はthis_sessionをクリアする必要はない
+  if not has_session then
+    local session_x = string.gsub(session, "%.vim", "x.vim")
+    vim.fn.writefile({ 'let v:this_session "' }, session_x)
+  end
+  -- 保存したセッションを読み込みつつrestart
+  vim.cmd.restart({ args = { "source", session } })
+end, { desc = "Restart current Neovim session" })
