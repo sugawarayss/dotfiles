@@ -12,6 +12,7 @@ node = "latest"
 perl = "latest"
 python = "latest"
 ruby = "latest"
+rust = "latest"
 scala = "latest"
 zig = "latest"
 # GitHub Actions用linter
@@ -80,3 +81,4 @@ zoxide = "latest"
 idiomatic_version_file_enable_tools = ["python"]
 # サプライチェーン攻撃リスクを低減するため、パッケージ公開から7日以上経過しているもののみインストールする
 install_before = "7d"
+experimental = true
