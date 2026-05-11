@@ -5,10 +5,10 @@ return {
   config = function()
     require("im_select").setup({
       -- NOTE:
-      --   im-select のインストールが必要
-      --   `brew tap daipeihust/tap`
-      --   `brew install im-select`
-      default_command = "im-select",
+      -- MacOSの場合はmacismを install しておく必要がある
+      -- brew tap laishulu/homebrew
+      -- brew install macism
+      default_command = "macism",
       -- デフォルトのime は英数
       default_im_select = "com.apple.keylayout.ABC",
       -- NOTE: 識別子は `macism` コマンドで確認することができる
