@@ -1,37 +1,38 @@
 -- local karabiner_cli = "/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli"
 local karabiner_cli = "/opt/homebrew/bin/karabiner_cli"
 -- karabiner-cliでKarabinerの変数"on_neovim"を更新
-function _G.set_karabiner(val)
-  require("plenary.job")
-    :new({
-      command = karabiner_cli,
-      args = {
-        "--set-variables",
-        ('{"on_neovim":%d}'):format(val),
-      },
-    })
-    :start()
-end
+-- function _G.set_karabiner(val)
+--   require("plenary.job")
+--     :new({
+--       command = karabiner_cli,
+--       args = {
+--         "--set-variables",
+--         ('{"on_neovim":%d}'):format(val),
+--       },
+--     })
+--     :start()
+-- end
 
-function _G.set_karabiner_if_in_insert_mode()
-  local val = vim.fn.mode():match("[icrR]") and 1 or 0
-  _G.set_karabiner(val)
-end
+-- function _G.set_karabiner_if_in_insert_mode()
+--   local val = vim.fn.mode():match("[icrR]") and 1 or 0
+--   _G.set_karabiner(val)
+-- end
 
--- インサートモードのIN/OUT時に、KarabinerによるIMEキーの差し替えを行う
-vim.cmd([[
-augroup skkeleton_karabiner
-  autocmd!
-  autocmd InsertEnter,CmdlineEnter * call v:lua.set_karabiner(1)
-  autocmd InsertLeave,CmdlineLeave,FocusLost * call v:lua.set_karabiner(0)
-  autocmd FocusGained * call v:lua.set_karabiner_if_in_insert_mode()
-augroup END
-]])
+-- -- インサートモードのIN/OUT時に、KarabinerによるIMEキーの差し替えを行う
+-- vim.cmd([[
+-- " augroup skkeleton_karabiner
+-- "   autocmd!
+-- "   autocmd InsertEnter,CmdlineEnter * call v:lua.set_karabiner(1)
+-- "   autocmd InsertLeave,CmdlineLeave,FocusLost * call v:lua.set_karabiner(0)
+-- "   autocmd FocusGained * call v:lua.set_karabiner_if_in_insert_mode()
+-- " augroup END
+-- " ]])
 
 -- 日本語IME
 return {
   {
     "vim-skk/skkeleton",
+    enabled = false,
     lazy = false,
     event = "BufReadPre",
     init = function()
@@ -127,6 +128,7 @@ return {
   },
   {
     "urugus/skkeleton-snacks",
+    enabled = false,
     event = "BufReadPre",
     config = function()
       require("skkeleton_snacks").setup({
@@ -139,7 +141,7 @@ return {
   { "Shougo/ddc.vim" },
   {
     "delphinus/skkeleton_indicator.nvim",
-    enabled = true,
+    enabled = false,
     event = "BufReadPre",
     version = "v2",
     opts = {},
