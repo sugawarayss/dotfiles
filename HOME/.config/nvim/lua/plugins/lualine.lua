@@ -52,8 +52,8 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { { "filename", path = 1 }, "diagnostics" },
-          lualine_c = { "location" },
+          lualine_b = { "branch", { "filename", path = 1 } },
+          lualine_c = { "location", "diagnostics" },
           -- CodeCompanion の進捗を lualine で表示する場合
           lualine_x = {
             -- マクロの記録中の表示
@@ -61,7 +61,6 @@ return {
               macro_recording,
               color = { fg = palette.diag.error },
             },
-            "branch",
           },
           lualine_y = {
             -- Language Server の起動状況
