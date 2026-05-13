@@ -43,11 +43,16 @@
   // },
   // lazygit task
   {
-    "label": "lazygit",
+    "label": "LazyGit",
     "command": "lazygit -p $ZED_WORKTREE_ROOT",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal_target": "center",
     "hide": "on_success",
-    "use_new_terminal": false,
-    "reveal": "always"
+    "reveal": "always",
+    "show_summary": false,
+    "show_command": false,
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true,
   },
   {
     "label": "yazi",
@@ -55,6 +60,6 @@
     "cwd": "$ZED_WORKTREE_ROOT",
     "hide": "on_success",
     "use_new_terminal": false,
-    "reveal": "always"
-  }
+    "reveal": "always",
+  },
 ]
