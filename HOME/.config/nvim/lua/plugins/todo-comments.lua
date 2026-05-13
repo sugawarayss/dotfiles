@@ -35,7 +35,7 @@ return {
         -- keywords recognized as todo comments
         keywords = {
           FIX = { icon = "🚨", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED" } },
-          TODO = { icon = "☑️", color = "info" },
+          TODO = { icon = "✅", color = "info", alt = { "WIP" } },
           HACK = { icon = "💬", color = "warning" },
           WARN = { icon = "🚧", color = "warning", alt = { "WARNING", "XXX" } },
           NOTE = { icon = "📝", color = "hint", alt = { "INFO", "HINT", "FYI" } },
