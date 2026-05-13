@@ -22,8 +22,8 @@
       // タブスイッチャーのトグル
       "ctrl-tab": "tab_switcher::Toggle",
       // アウトラインの表示
-      "space o l": "outline::Toggle"
-    }
+      "space o l": "outline::Toggle",
+    },
   },
   {
     // spaceをLeader キーとして使うため 空白入力と衝突回避
@@ -32,8 +32,8 @@
       // 左側のDockをトグル
       "space f e": "workspace::ToggleLeftDock",
       // 右側k(AI Chat用)のDockをトグル
-      "space c c": "workspace::ToggleRightDock"
-    }
+      "space c c": "workspace::ToggleRightDock",
+    },
   },
   {
     "context": "ProjectPanel && not_editing",
@@ -47,11 +47,11 @@
       // 左側のDockをトグル
       "space f e": "workspace::ToggleLeftDock",
       // ペインの分割 直接分割はなさそう。。。
-      "ctrl-k": "project_panel::Open"
+      "ctrl-k": "project_panel::Open",
       // "ctrl-j": "pane::SplitDown",
       // "ctrl-l": "pane::SplitRight",
       // "ctrl-h": "pane::SplitLeft"
-    }
+    },
   },
   {
     "context": "FileFinder && !menu_open",
@@ -60,16 +60,16 @@
       "ctrl-j": "pane::SplitDown",
       "ctrl-k": "pane::SplitUp",
       "ctrl-h": "pane::SplitLeft",
-      "ctrl-l": "pane::SplitRight"
-    }
+      "ctrl-l": "pane::SplitRight",
+    },
   },
   {
     "context": "Editor",
     "bindings": {
       "ctrl-m": null,
       "alt-cmd-[": null,
-      "alt-cmd-]": null
-    }
+      "alt-cmd-]": null,
+    },
   },
   {
     "context": "Editor && mode == full",
@@ -77,8 +77,8 @@
       // 検索モードのトグル
       "cmd-f": "buffer_search::Deploy",
       // 置換モードのトグル
-      "cmd-alt-f": ["buffer_search::Deploy", { "replace_enabled": true }]
-    }
+      "cmd-alt-f": ["buffer_search::Deploy", { "replace_enabled": true }],
+    },
   },
   {
     "context": "Editor && (vim_mode == normal) && !menu",
@@ -88,8 +88,8 @@
       // 左側のDockをトグル
       "space f e": "workspace::ToggleLeftDock",
       // 右側k(AI Chat用)のDockをトグル
-      "space c c": "workspace::ToggleRightDock"
-    }
+      "space c c": "workspace::ToggleRightDock",
+    },
   },
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !menu",
@@ -112,14 +112,11 @@
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePreviousItem",
       // lazygitを起動
-      "space g g": [
-        "task::Spawn",
-        { "task_name": "lazygit", "reveal_target": "center" }
-      ],
+      "space g g": ["task::Spawn", { "task_name": "LazyGit" }],
       "ctrl-t ctrl-t": [
         "task::Spawn",
-        { "task_name": "yazi", "reveal_target": "center" }
-      ]
-    }
-  }
+        { "task_name": "yazi", "reveal_target": "center" },
+      ],
+    },
+  },
 ]
