@@ -9,7 +9,7 @@ return {
       wk.add({
         {
           ";std",
-          "<cmd>Trouble todo win = {size = {height=0.4}} filter = {tag = {TODO,FIX,FIXME,BUG,WARN}}<CR>",
+          "<cmd>Trouble todo win = {size = {height=0.4}} filter = {tag = {TODO,WIP,FIXME,BUG,WARN}}<CR>",
           mode = "n",
           icon = "",
           desc = "Trouble - TODO コメント一覧を検索",
