@@ -30,6 +30,17 @@ return {
         end
         return ""
       end
+      -- カーソル位置の文字コード表示
+      local function char_code()
+        -- カーソル位置の文字を取得
+        local char = vim.fn.strcharpart(vim.fn.getline("."), vim.fn.charcol(".") - 1, 1)
+        if char == "" then
+          return ""
+        end
+        -- Unicodeコードポイント化
+        local nr = vim.fn.char2nr(char)
+        return string.format(char .. ": U+%04X", nr)
+      end
       require("lualine").setup({
         options = {
           icons_enabled = true,
@@ -66,6 +77,8 @@ return {
               macro_recording,
               color = { fg = palette.diag.error },
             },
+            -- カーソル位置の文字コード表示
+            char_code,
             -- MCPサーバの起動状況
             {
               function()
