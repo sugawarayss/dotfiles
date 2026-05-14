@@ -10,13 +10,13 @@ return {
     config = function()
       local palette = require("kanagawa.colors").setup().theme
       -- Linter実行の進捗を表示
-      local lint_progress = function()
-        local linters = require("lint").get_running()
-        if #linters == 0 then
-          return "󰫹󰫶󰫻󰬁 -"
-        end
-        return "󰫹󰫶󰫻󰬁 " .. table.concat(linters, ", ")
-      end
+      -- local lint_progress = function()
+      --   local linters = require("lint").get_running()
+      --   if #linters == 0 then
+      --     return "󰫹󰫶󰫻󰬁 -"
+      --   end
+      --   return "󰫹󰫶󰫻󰬁 " .. table.concat(linters, ", ")
+      -- end
       -- Snacks Terminal 表示時の設定
       local snacks_terminal = {
         sections = { lualine_a = { "mode" }, lualine_y = { "filetype" }, lualine_z = { { "datetime", style = "%Y/%m/%d %H:%M:%S" } } },
@@ -52,8 +52,13 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { "branch", { "filename", path = 1 } },
-          lualine_c = { "location", "diagnostics" },
+          lualine_b = {
+            "branch",
+            -- Language Server の起動状況
+            { "lsp-status", icons = { active = "󰫹󰬀󰫽", inactive = "󰫹󰬀󰫽" } },
+            "diagnostics",
+          },
+          lualine_c = { { "filename", path = 1 }, "location" },
           -- CodeCompanion の進捗を lualine で表示する場合
           lualine_x = {
             -- マクロの記録中の表示
@@ -61,10 +66,6 @@ return {
               macro_recording,
               color = { fg = palette.diag.error },
             },
-          },
-          lualine_y = {
-            -- Language Server の起動状況
-            { "lsp-status", icons = { active = "󰫹󰬀󰫽", inactive = "󰫹󰬀󰫽" } },
             -- MCPサーバの起動状況
             {
               function()
@@ -103,13 +104,18 @@ return {
                 end
               end,
             },
-            -- Linter実行の進捗を表示
-            lint_progress,
           },
-          lualine_z = {
+          lualine_y = {
+            -- Linter実行の進捗を表示
+            -- lint_progress,
+            -- ファイルのエンコード(utf-8)を表示
             "encoding",
+            -- ファイルのフォーマット(linux/windows...)を表示
             "fileformat",
             "filetype",
+          },
+          lualine_z = {
+            "os.date('%Y-%m-%d %H:%M:%S (%a)')",
           },
         },
         inactive_sections = {
