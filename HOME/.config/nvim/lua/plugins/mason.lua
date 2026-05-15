@@ -27,8 +27,6 @@ local lsp_servers = {
   "lua_ls",
   -- deno
   -- "denols",
-  -- dart
-  "dcm",
   -- php
   "intelephense",
   "laravel_ls",
@@ -222,6 +220,26 @@ return {
           vim.lsp.enable(server)
         end
       end
+      -- dart
+      -- require("lspconfig").dartls.setup({
+      vim.lsp.config("dartls", {
+        cmd = { "dart", "language-server", "--protocol=lsp" },
+        filetypes = { "dart" },
+        init_options = {
+          closingLabels = true,
+          flutterOutline = true,
+          onlyAnalyzeProjectsWithOpenFiles = true,
+          outline = true,
+          suggestFromUnimportedLibraries = true,
+        },
+        settings = {
+          dart = {
+            completeFunctionCalls = true,
+            showTodos = true,
+          },
+        },
+      })
+      vim.lsp.enable("dartls")
     end,
   },
   {
