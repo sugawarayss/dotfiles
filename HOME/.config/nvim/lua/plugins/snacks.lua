@@ -94,17 +94,17 @@ return {
 
           local cmds = {
             -- GitHubアカウントの最新5件の通知を表示
-            {
-              title = "Notifications",
-              cmd = "gh notify -s -a -n5",
-              action = function()
-                vim.ui.open("https://github.com/notifications")
-              end,
-              key = "N",
-              icon = " ",
-              height = 5,
-              enabled = in_git and gh_available,
-            },
+            -- {
+            --   title = "Notifications",
+            --   cmd = "gh notify -s -a -n5",
+            --   action = function()
+            --     vim.ui.open("https://github.com/notifications")
+            --   end,
+            --   key = "N",
+            --   icon = " ",
+            --   height = 5,
+            --   enabled = in_git and gh_available,
+            -- },
             -- ローカルリポジトリの差分状況を表示
             {
               icon = " ",
