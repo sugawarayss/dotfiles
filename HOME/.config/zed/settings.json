@@ -334,11 +334,6 @@
         },
       },
     },
-    "taplo": {
-      "settings": {
-        "array_auto_collapse": false,
-      },
-    },
     "yaml-language-server": {
       "settings": {
         "yaml": {
@@ -351,6 +346,11 @@
             "../relative/path/schema.json": ["/config*.yaml"],
           },
         },
+      },
+    },
+    "dart": {
+      "binary": {
+        "arguments": ["dart", "language-server", "protocol=lsp"],
       },
     },
   },
