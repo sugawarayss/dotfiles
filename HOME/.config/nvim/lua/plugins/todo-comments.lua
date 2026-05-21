@@ -4,29 +4,29 @@ return {
     "folke/todo-comments.nvim",
     lazy = true,
     event = "VeryLazy",
-    init = function()
-      local wk = require("which-key")
-      wk.add({
-        {
-          ";tj",
-          function()
-            require("todo-comments").jump_next()
-          end,
-          mode = "n",
-          icon = "󰜮",
-          desc = "TodoComments - 次の TODO コメントにジャンプ",
-        },
-        {
-          ";tk",
-          function()
-            require("todo-comments").jump_prev()
-          end,
-          mode = "n",
-          icon = "󰜷",
-          desc = "TodoComments - 前の TODO コメントにジャンプ",
-        },
-      })
-    end,
+    -- init = function()
+    --   local wk = require("which-key")
+    -- wk.add({
+    --   {
+    --     ";tj",
+    --     function()
+    --       require("todo-comments").jump_next()
+    --     end,
+    --     mode = "n",
+    --     icon = "󰜮",
+    --     desc = "TodoComments - 次の TODO コメントにジャンプ",
+    --   },
+    --   {
+    --     ";tk",
+    --     function()
+    --       require("todo-comments").jump_prev()
+    --     end,
+    --     mode = "n",
+    --     icon = "󰜷",
+    --     desc = "TodoComments - 前の TODO コメントにジャンプ",
+    --   },
+    -- })
+    -- end,
     config = function()
       local palette = require("kanagawa.colors").setup().theme
       require("todo-comments").setup({
