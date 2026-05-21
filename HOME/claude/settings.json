@@ -175,5 +175,8 @@
     "command": "claude-powerline --style powerline --theme tokyo-night"
   },
   "language": "japanese",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  }
 }
