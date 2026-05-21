@@ -271,13 +271,13 @@ return {
       end,
       desc = "Snacks - Grep検索を表示",
     },
-    {
-      ";sbuf",
-      function()
-        Snacks.picker.buffers()
-      end,
-      desc = "Snacks - バッファリストを検索",
-    },
+    -- {
+    --   ";sbuf",
+    --   function()
+    --     Snacks.picker.buffers()
+    --   end,
+    --   desc = "Snacks - バッファリストを検索",
+    -- },
     {
       ";sch",
       function()
@@ -370,13 +370,13 @@ return {
       end,
       desc = "Snacks - レジスタを検索",
     },
-    {
-      ";s/",
-      function()
-        Snacks.picker.search_history()
-      end,
-      desc = "Snacks - 検索履歴を検索",
-    },
+    -- {
+    --   ";s/",
+    --   function()
+    --     Snacks.picker.search_history()
+    --   end,
+    --   desc = "Snacks - 検索履歴を検索",
+    -- },
     {
       ";scm",
       function()
@@ -385,20 +385,20 @@ return {
       mode = { "n" },
       desc = "Snacks - Commandを検索",
     },
-    {
-      ";sd",
-      function()
-        Snacks.picker.diagnostics()
-      end,
-      desc = "Snacks - LSP診断を検索",
-    },
-    {
-      ";sD",
-      function()
-        Snacks.picker.diagnostics_buffer()
-      end,
-      desc = "Snacks - バッファ内のLSP診断を検索",
-    },
+    -- {
+    --   ";sd",
+    --   function()
+    --     Snacks.picker.diagnostics()
+    --   end,
+    --   desc = "Snacks - LSP診断を検索",
+    -- },
+    -- {
+    --   ";sD",
+    --   function()
+    --     Snacks.picker.diagnostics_buffer()
+    --   end,
+    --   desc = "Snacks - バッファ内のLSP診断を検索",
+    -- },
     {
       ";shelp",
       function()
@@ -455,28 +455,28 @@ return {
       end,
       desc = "Snacks - Quickfix リストを検索",
     },
-    {
-      ";sud",
-      function()
-        Snacks.picker.undo()
-      end,
-      desc = "Snacks - Undo 履歴を検索",
-    },
+    -- {
+    --   ";sud",
+    --   function()
+    --     Snacks.picker.undo()
+    --   end,
+    --   desc = "Snacks - Undo 履歴を検索",
+    -- },
     -- LSP
-    {
-      "<leader>ss",
-      function()
-        Snacks.picker.lsp_symbols()
-      end,
-      desc = "Snacks - バッファ内の LSP シンボルを検索",
-    },
-    {
-      "<leader>sS",
-      function()
-        Snacks.picker.lsp_workspace_symbols()
-      end,
-      desc = "Snacks - ワークスペース内の LSP シンボルを検索",
-    },
+    -- {
+    --   "<leader>ss",
+    --   function()
+    --     Snacks.picker.lsp_symbols()
+    --   end,
+    --   desc = "Snacks - バッファ内の LSP シンボルを検索",
+    -- },
+    -- {
+    --   "<leader>sS",
+    --   function()
+    --     Snacks.picker.lsp_workspace_symbols()
+    --   end,
+    --   desc = "Snacks - ワークスペース内の LSP シンボルを検索",
+    -- },
     -- Other
     --{
     --  "<leader>z",
