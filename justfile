@@ -158,6 +158,10 @@ _gh-extensions:
 # git 関連の設定を展開
 git: _git-config _gh-config _gh-extensions
 
+# pinactコマンド用の設定ファイルを展開
+pinact:
+  @test -L ~/.config/pinact || ln -s {{pwd}}/HOME/.coonfig/pinact ~/.config/pinact
+
 # lsd (ls 代替コマンド)の設定ファイル
 lsd:
   @test -d ~/.config/lsd || mkdir ~/.config/lsd
