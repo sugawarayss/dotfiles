@@ -9,7 +9,7 @@ return {
     opts = {
       preview = {
         filetypes = { "markdown", "obsidian_markdown", "codecompanion" },
-        ignore_buftypes = {},
+        ignore_buftypes = { "blink-cmp-documentation" },
       },
     },
   },
