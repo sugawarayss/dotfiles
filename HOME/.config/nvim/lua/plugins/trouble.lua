@@ -9,7 +9,7 @@ return {
       wk.add({
         {
           ";std",
-          "<cmd>Trouble todo win = {size = {height=0.4}} filter = {tag = {TODO,WIP,FIXME,BUG,WARN}}<CR>",
+          "<cmd>Trouble todo win = {size = {height=0.2}} filter = {tag = {TODO,FIX,WARN,HACK,PREF,TEST}}<CR>",
           mode = "n",
           icon = "",
           desc = "Trouble - TODO コメント一覧を検索",
@@ -28,6 +28,12 @@ return {
         },
       })
     end,
+    -- FIXME:
+    -- TODO:
+    -- HACK:
+    -- PREF:
+    -- TEST:
+    -- WARN:
     opts = {
       auto_close = false, -- auto close when there are no items
       auto_open = false, -- auto open when there are items
