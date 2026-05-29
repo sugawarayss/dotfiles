@@ -1,6 +1,7 @@
 -- TODOコメントを強調表示するプラグイン
 return {
   {
+    -- HOGE:
     "folke/todo-comments.nvim",
     lazy = true,
     event = "VeryLazy",
@@ -34,7 +35,7 @@ return {
         sign_priority = 8, -- sign priority
         -- keywords recognized as todo comments
         keywords = {
-          FIX = { icon = "🚨", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED" } },
+          FIX = { icon = "🚨", color = "error", alt = { "FIXME", "BUG", "FAILED" } },
           TODO = { icon = "✅", color = "info", alt = { "WIP" } },
           HACK = { icon = "💬", color = "warning" },
           WARN = { icon = "🚧", color = "warning", alt = { "WARNING", "XXX" } },
