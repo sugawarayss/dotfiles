@@ -2,20 +2,11 @@
 ############
 # set PATH #
 ############
-# Homebrew
-fish_add_path /opt/homebrew/bin
-fish_add_path /opt/homebrew/sbin
 # uv
-fish_add_path "/Users/sugawarayss/.local/bin"
+fish_add_path $HOME/.local/bin
 # RUST
 fish_add_path $HOME/.cargo/bin
-# psql
-fish_add_path /opt/homebrew/opt/libpq/bin
-# mysql
-fish_add_path /opt/homebrew/opt/mysql-client/bin
 
-# starship
-# starship init fish | source
 
 #########################
 # ENVIRONMENT VARIABLES #
@@ -77,10 +68,35 @@ set --global tide_time_format "%Y/%m/%d %T"
 
 # neovim
 set -gx EDITOR nvim
-# setup mise
-/opt/homebrew/bin/mise activate fish | source
 
-if type "zoxide" > /dev/null 2>&1;
+#  homebrew
+if type "brew" > /dev/null 2>&1
+  # add PATH
+  fish_add_path (brew --prefix)/bin
+  fish_add_path (brew --prefix)/sbin
+
+  # psql
+  if type "psql" > /dev/null 2>&1;
+    fish_add_path (brew --prefix)/libpq/bin
+  end
+  # mysql
+  if type "mysql" > /dev/null 2>&1;
+    fish_add_path (brew --prefix)/opt/mysql-client/bin
+  end
+end
+
+# starship
+# if type "starship" > /dev/null 2>&1
+#   starship init fish | source
+# end
+
+# mise
+if type "mise" > /dev/null 2>&1
+  mise activate fish | source
+end
+
+# zoxide
+if type "zoxide" > /dev/null 2>&1
   zoxide init fish | source
 end
 
@@ -89,12 +105,18 @@ if type "fzf" > /dev/null 2>&1
   set -gx FZF_DEFAULT_OPTS_FILE $XDG_CONFIG_HOME/fzf/fzfrc
 end
 
+# pnpm
+set -gx PNPM_HOME $HOME/.local/share/pnpm
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+
 #########
 # alias #
 #########
 abbr -a paths "echo \$PATH | tr ' ' '\n'"
 # sc で ~/.config/fish/config.fish を再読み込み
-abbr -a sc source ~/.config/fish/config.fish
+abbr -a sc source $HOME/.config/fish/config.fish
 # c で clear
 abbr -a c 'clear && ll'
 # pbc で pbcopy
@@ -336,12 +358,3 @@ if status is-interactive
 end
 
 
-# Added by Antigravity
-fish_add_path /Users/sugawarayss/.antigravity/antigravity/bin
-
-# pnpm
-set -gx PNPM_HOME "/Users/sugawarayss/.local/share/pnpm"
-if not string match -q -- "$PNPM_HOME/bin" $PATH
-  set -gx PATH "$PNPM_HOME/bin" $PATH
-end
-# pnpm end
