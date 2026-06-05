@@ -64,6 +64,8 @@ local lsp_servers = {
   "vimls",
   -- graphql
   "graphql",
+  -- svelte
+  "svelte",
 }
 -- 自動インストールするformatter
 local formatters = {
