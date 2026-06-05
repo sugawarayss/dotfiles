@@ -14,7 +14,8 @@
       // プロジェクトパネル(ファイルエクスプローラへのフォーカスをトグル)
       // "ctrl-t ctrl-": "project_panel::ToggleFocus",
       // ファイルファインダーのトグル
-      "shift shift": "file_finder::Toggle",
+      "space f e": "file_finder::Toggle",
+      "shift shift": null,
       // アシスタントパネルのトグル
       // "space c c": "assistant::Toggle",
       // 下側(Terminal用)のDockをトグル
@@ -56,7 +57,6 @@
   {
     "context": "FileFinder && !menu_open",
     "bindings": {
-      "shift shift": "file_finder::Toggle",
       "ctrl-j": "pane::SplitDown",
       "ctrl-k": "pane::SplitUp",
       "ctrl-h": "pane::SplitLeft",
