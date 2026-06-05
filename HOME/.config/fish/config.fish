@@ -310,6 +310,8 @@ function fish_user_key_bindings
     # yy で クリップボードにコピー
     bind yy fish_clipboard_copy
     bind p fish_clipboard_paste
+    # Normalモードで <Space>gg で lazygit を起動
+    bind -M default " gg" 'lazygit; commandline -f repaint'
 end
 
 # aws cli の補完
