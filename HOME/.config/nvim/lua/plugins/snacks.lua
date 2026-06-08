@@ -231,7 +231,7 @@ return {
   keys = {
     -- Top Pickers & Explorer
     {
-      "<leader><leader>",
+      "<leader>ff", -- File Find
       function()
         Snacks.picker.smart({
           multi = {
@@ -256,7 +256,7 @@ return {
       desc = "Snacks - スマートファイル検索から表示",
     },
     {
-      "<F5>",
+      "<leader>fg", -- File Grep
       function()
         Snacks.picker.grep({
           -- NOTE: <M-h> でトグルできる
@@ -279,28 +279,28 @@ return {
     --   desc = "Snacks - バッファリストを検索",
     -- },
     {
-      ";sch",
+      ";sch", -- Search Command History
       function()
         Snacks.picker.command_history()
       end,
       desc = "Snacks - コマンド履歴を表示",
     },
     {
-      ";nl",
+      ";nl", -- Notifications List
       function()
         Snacks.picker.notifications()
       end,
       desc = "Snacks - 通知履歴リストを検索",
     },
     {
-      ";nh",
+      ";nh", -- Notifications History
       function()
         Snacks.notifier.show_history()
       end,
       desc = "Snacks - 通知履歴を表示",
     },
     {
-      "<leader>fe",
+      "<leader>fe", -- File Explorer
       function()
         Snacks.picker.explorer()
       end,
@@ -333,21 +333,21 @@ return {
     -- { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Neovim設定ファイルリストを表示" },
     -- git
     {
-      ";sgl",
+      ";sgl", -- Search Git Log
       function()
         Snacks.picker.git_log()
       end,
       desc = "Snacks - Git Logを表示",
     },
     {
-      ";sgi",
+      ";sgi", -- Search Git Issues
       function()
         Snacks.gh.issue()
       end,
       desc = "Snacks - GitHub Issueを検索",
     },
     {
-      ";sgr",
+      ";sgr", -- Search Git pull Request
       function()
         Snacks.gh.pr()
       end,
@@ -355,7 +355,7 @@ return {
     },
     -- Grep
     {
-      "<leader>sw",
+      "<leader>sw", -- Search Word
       function()
         Snacks.picker.grep_word()
       end,
@@ -364,7 +364,7 @@ return {
     },
     -- search
     {
-      ";srg",
+      ";srg", -- Search Register
       function()
         Snacks.picker.registers()
       end,
@@ -378,7 +378,7 @@ return {
     --   desc = "Snacks - 検索履歴を検索",
     -- },
     {
-      ";scm",
+      ";scm", -- Search Command
       function()
         Snacks.picker.commands()
       end,
@@ -400,35 +400,35 @@ return {
     --   desc = "Snacks - バッファ内のLSP診断を検索",
     -- },
     {
-      ";shelp",
+      ";shelp", -- Search HELP
       function()
         Snacks.picker.help()
       end,
       desc = "Snacks - ヘルプページを検索",
     },
     {
-      ";sic",
+      ";sic", -- Search ICon
       function()
         Snacks.picker.icons()
       end,
       desc = "Snacks - Iconを検索",
     },
     {
-      ";sjl",
+      ";sjl", -- Search Jump List
       function()
         Snacks.picker.jumps()
       end,
       desc = "Snacks - ジャンプリストを検索",
     },
     {
-      ";skm",
+      ";skm", -- Search KeyMap
       function()
         Snacks.picker.keymaps()
       end,
       desc = "Snacks - Keymapリストを検索",
     },
     {
-      ";sl",
+      ";sl", -- Search Location List
       function()
         Snacks.picker.loclist()
       end,
