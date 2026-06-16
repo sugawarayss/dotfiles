@@ -24,23 +24,23 @@ return {
       },
     })
   end,
-  opts = {
-    winbar = {
-      sections = { "repl", "scopes", "watches", "exceptions", "breakpoints", "threads" },
-      default_section = "scopes",
-      controls = {
-        enabled = true,
-        position = "left",
+  config = function()
+    require("dap-view").setup({
+      winbar = {
+        -- 表示するセクションの順番と内容を指定
+        sections = { "scopes", "repl", "watches", "console", "exceptions", "breakpoints", "threads" },
+        -- デフォルトで表示するセクションを指定
+        default_section = "scopes",
+        -- デバッガーのコントロールをwinbarに表示するかどうかと、その位置を指定
+        controls = {
+          enabled = true,
+          position = "left",
+        },
       },
-    },
-    -- Auto open when a session is started and auto close when all sessions finish
-    -- Alternatively, can be a string:
-    -- - "keep_terminal": as above, but keeps the terminal when the session finishes
-    -- - "open_term": open the terminal when starting a new session, nothing else
-    auto_toggle = "open_term",
-    -- Reopen dapview when switching to a different tab
-    -- Can also be a function to dynamically choose when to follow, by returning a boolean
-    -- If a function, receives the name of the adapter for the current session as an argument
-    follow_tab = true,
-  },
+      -- セッション開始時に自動でterminalを開く
+      auto_toggle = "open_term",
+      -- 別のタブに切り替えたときにdapviewを再度開く
+      follow_tab = true,
+    })
+  end,
 }
