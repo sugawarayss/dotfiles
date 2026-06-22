@@ -78,6 +78,8 @@ yq = "latest"
 zoxide = "latest"
 
 [settings]
+# .python-versionファイルを使用してPythonのバージョンを管理する場合、miseもそれに従う
+# ./mise.toml -> ./.python-version → $HOME/.config/mise/config.toml の優先順位
 idiomatic_version_file_enable_tools = ["python"]
 # サプライチェーン攻撃リスクを低減するため、パッケージ公開から7日以上経過しているもののみインストールする
 minimum_release_age = "7d"
