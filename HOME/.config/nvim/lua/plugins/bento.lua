@@ -9,7 +9,7 @@ return {
     local wk = require("which-key")
     wk.add({
       {
-        "<Leader>,",
+        ";;",
         "<cmd>BentoToggle<CR>",
         mode = "n",
         icon = "🍱",
