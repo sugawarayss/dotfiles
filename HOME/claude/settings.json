@@ -2,49 +2,47 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "Bash(awk *)",
+      "Bash(awk:*)",
       "Bash(bat:*)",
       "Bash(colordiff:*)",
-      "Bash(cut *)",
-      "Bash(diff *)",
+      "Bash(cut:*)",
+      "Bash(diff:*)",
+      "Bash(docker ps:*)",
       "Bash(docker compose exec:*)",
       "Bash(docker compose logs:*)",
-      "Bash(docker compose:*)",
-      "Bash(echo *)",
+      "Bash(echo:*)",
       "Bash(fd:*)",
-      "Bash(find *)",
       "Bash(find:*)",
-      "Bash(gh api *)",
-      "Bash(gh issue *)",
+      "Bash(gh api:*)",
+      "Bash(gh issue:*)",
       "Bash(gh pr checkout:*)",
       "Bash(gh pr checks *)",
       "Bash(gh pr diff:*)",
-      "Bash(gh pr list *)",
-      "Bash(gh pr view *)",
+      "Bash(gh pr list:*)",
       "Bash(gh pr view:*)",
       "Bash(git --version)",
-      "Bash(git add *)",
-      "Bash(git branch *)",
-      "Bash(git commit *)",
-      "Bash(git diff *)",
-      "Bash(git fetch *)",
-      "Bash(git log *)",
-      "Bash(git merge-base *)",
-      "Bash(git pull *)",
+      "Bash(git add:*)",
+      "Bash(git branch:*)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(git merge-base:*)",
+      "Bash(git pull:*)",
       "Bash(git rev-parse *)",
-      "Bash(git show *)",
-      "Bash(git stash *)",
+      "Bash(git show:*)",
+      "Bash(git stash:*)",
       "Bash(git status)",
       "Bash(git switch *)",
-      "Bash(grep *)",
       "Bash(grep:*)",
-      "Bash(jq *)",
-      "Bash(ls *)",
+      "Bash(jq:*)",
+      "Bash(ls:*)",
       "Bash(lsd:*)",
       "Bash(mise run:*)",
       "Bash(mkdir:*)",
       "Bash(node --version)",
-      "Bash(pnpm *)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm install:*)",
       "Bash(pnpm --version)",
       "Bash(python3 --version)",
       "Bash(rg:*)",
@@ -52,16 +50,17 @@
       "Bash(sd:*)",
       "Bash(sed *)",
       "Bash(sed:*)",
-      "Bash(sort *)",
+      "Bash(sort:*)",
       "Bash(task:*)",
-      "Bash(tee *)",
-      "Bash(tr *)",
+      "Bash(tee:*)",
+      "Bash(tr:*)",
       "Bash(uniq *)",
       "Bash(uv run:*)",
-      "Bash(wc *)",
-      "Bash(which *)",
-      "Bash(xargs *)",
-      "Read",
+      "Bash(uv pip list:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(xargs:*)",
+      "Read(~/**)",
       "Write(/tmp/**)"
     ],
     "deny": [
@@ -74,23 +73,23 @@
       "Bash(* ~/.ssh/*)",
       "Bash(curl *)",
       "Bash(find * -delete*)",
-      "Bash(git push *)",
-      "Bash(git push --force *)",
-      "Bash(git rebase: *)",
-      "Bash(git reset *)",
+      "Bash(git push:*)",
+      "Bash(git push --force:*)",
+      "Bash(git rebase:*)",
+      "Bash(git reset:*)",
       "Bash(git reset --hard *)",
       "Bash(nc *)",
       "Bash(ncat *)",
-      "Bash(npm remove *)",
-      "Bash(npm uninstall: *)",
+      "Bash(npm remove:*)",
+      "Bash(npm uninstall:*)",
       "Bash(open *)",
       "Bash(osascript *)",
       "Bash(pbcopy *)",
       "Bash(pbpaste *)",
-      "Bash(rm *)",
-      "Bash(rm -fr *)",
+      "Bash(rm:*)",
+      "Bash(rm -fr:*)",
       "Bash(rm -r:*)",
-      "Bash(rm -rf *)",
+      "Bash(rm -rf:*)",
       "Bash(rmdir *)",
       "Bash(rsync * --delete*)",
       "Bash(scp *)",
@@ -133,7 +132,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say -v Kyoko \"作業について聞きたいことがあります\""
+            "command": "bash -c 'read -r j; txt=\"クロードコードが呼んでるよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+          }
+        ]
+      }
+    ],
+    "InstructionsLoaded": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'read -r j; txt=\"クロードエムディーを読み込んだよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
           }
         ]
       }
@@ -143,7 +152,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say -v Kyoko \"承認してほしいです\""
+            "command": "bash -c 'read -r j; txt=\"承認してほしいことがあるよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
           }
         ]
       }
@@ -154,7 +163,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say -v Kyoko \"MCPサーバーを使いますね\""
+            "command": "bash -c 'read -r j; txt=\"エムシーピーサーバーを使うよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'read -r j; txt=\"サブエージェントを召喚するよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
           }
         ]
       }
@@ -164,7 +183,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say -v Kyoko \"作業が完了しました\""
+            "command": "bash -c 'read -r j; txt=\"すべてのタスクが終了したよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
           }
         ]
       }
