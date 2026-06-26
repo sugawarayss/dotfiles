@@ -25,6 +25,7 @@ aws-cli = { version = "latest", symlink_bins = "true" }
 aws-vault = "latest"
 azure = "latest"
 bat = "latest"
+betterleaks = "latest"
 biome = "latest"
 bottom = "latest"
 claude = "latest"
