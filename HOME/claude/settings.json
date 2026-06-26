@@ -132,7 +132,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'read -r j; txt=\"クロードコードが呼んでるよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+            "command": "afplay ~/.claude/hook_voices/001_Notification.wav"
           }
         ]
       }
@@ -142,7 +142,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'read -r j; txt=\"クロードエムディーを読み込んだよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+            "command": "afplay ~/.claude/hook_voices/002_InstructionsLoaded.wav"
           }
         ]
       }
@@ -152,7 +152,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'read -r j; txt=\"承認してほしいことがあるよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+            "command": "afplay ~/.claude/hook_voices/003_PermissionRequest.wav"
           }
         ]
       }
@@ -163,7 +163,36 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'read -r j; txt=\"エムシーピーサーバーを使うよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+            "command": "afplay ~/.claude/hook_voices/004_PreToolUse_mcp.wav"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/005_PreToolUse_Bash.wav"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/006_PostToolUse_Read.wav"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/007_PostToolUse_Write.wav"
           }
         ]
       }
@@ -173,7 +202,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'read -r j; txt=\"サブエージェントを召喚するよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+            "command": "afplay ~/.claude/hook_voices/008_SubagentStart.wav"
           }
         ]
       }
@@ -183,7 +212,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'read -r j; txt=\"すべてのタスクが終了したよ。\"; f=$(mktemp /tmp/vv_XXXXXX.wav); curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=1\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=1\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+            "command": "afplay ~/.claude/hook_voices/009_Stop.wav"
           }
         ]
       }
@@ -197,5 +226,6 @@
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "language": "japanese",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "tui": "fullscreen"
 }
