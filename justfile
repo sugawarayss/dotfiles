@@ -15,6 +15,7 @@ claude:
   # @test -L ~/.claude/commands || ln -s {{pwd}}/HOME/claude/commands ~/.claude/commands
   @test -L ~/.claude/skills || ln -s {{pwd}}/HOME/claude/skills ~/.claude/skills
   @test -L ~/.claude/statusline.sh || ln -s  {{pwd}}/HOME/claude/statusline.sh ~/.claude/statusline.sh
+  @test -L ~/.claude/hook_voices || ln -s {{pwd}}/HOME/claude/hook_voices ~/.claude/hook_voices/
 
 
 claude-mcp:
