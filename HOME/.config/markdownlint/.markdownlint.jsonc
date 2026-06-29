@@ -2,174 +2,216 @@
 // TODO: https://github.com/DavidAnson/markdownlint?tab=readme-ov-file#rules--aliases
 { // -*- jsonc -*-
   "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json",
-  // MD001 - Heading levels should only increment by one level at a time
+  // MD001 - 見出しレベルは一度に1レベルずつしか上げられない。
   "heading-increment": true,
-  // MD003 - Heading style
+  // MD003 - 見出しのスタイル
   "heading-style": {
-    // consistent | atx | atx_closed | setext | setext_with_atx | setext_with_atx_closed
+    // スタイル(string, default: consistent, values: atx | atx_closed | consistent | setext | setext_with_atx)
     "style": "atx"
   },
-  // MD004 - Unordered list style
+  // MD004 - 順序なしリストのスタイル
   "ul-style": {
-    // consistent(default) | asterisk | dash | plus | sublist
+    // スタイル(string, default: consistent, values: asterisk | consistent | dash | plus | sublist)
     "style": "dash"
   },
-  // MD005 - Inconsistent indentation for list items at the same level
+  // MD005 - 同じレベルと見做されるリストのインデントが不均一
   "list-indent": false,
-  // MD007 - Unordered list indentation
+  // MD007 - 順序なしリストのインデント設定
   "ul-indent":  {
-    // Spaces for indent
+    // インデントのスペース数(integer, default: 2)
     "indent":  2,
     // Spaces for first level indent
+    // 第一レベルのインデントのスペース数。start_indentedが設定されている場合(integer, default: 2)
     "start_indent": 2,
-    // Whether to indent the first level of the list
+    // リストの最初のレベルをインデントするかどうか(boolean, default: false)
     "start_indented": false
   },
-  // MD009 - Trailing spaces
+  // MD009 - 末尾のスペース設定
   "no-trailing-spaces": {
-    // Spaces for line break
+    // 改行のためのスペース数(integer, default: 2)
     "br_spaces": 2,
-    // include code blocks
+    // コードブロックを含めるか(boolean, default: false)
     "code_blocks":  false,
-    // Allow spaces for empty lines in list items
+    // リスト項目内の空行にスペースを許可するか(boolean, default: false)
     "list_item_empty_lines": false,
-    // include unnecessary breaks
+    // 不要な改行を含めるか(boolean, default: flase)
     "strict": false
   },
-  // MD010 - Hard tabs
+  // MD010 - ハードタブ設定
   "no-hard-tabs": {
+    // コードブロックを含めるか(boolean, default: true)
     "code_blocks": true,
+    // 無視するフェンス付きコード言語名称(string[], default: [])
     "ignore_code_languages": [],
+    // 各ハードタブのスペース数(integer, default: 1)
     "spaces_per_tab": 1
   },
-  // MD011 - Reversed link synntax
+  // MD011 - 逆リンク構文を検知する
   "no-reversed-links": true,
-  // MD012 - Multiple consecutive blank lines
+  // MD012 - 連続する複数の空白行の設定
   "no-multiple-blanks": {
+    // 最大連続空白行数(integer, default: 1)
     "maximum": 1
   },
-  // MD013 - Line length
+  // MD013 - 行の長さの設定
   "line-length": {
+    // コードブロックの最大文字数(integer, default: 80)
     "code_block_line_length": 150,
+    // コードブロックを含めるか(boolean, default: true)
     "code_blocks": true,
+    // 見出しの最大文字数(integer, default: 80)
     "heading_line_length": 150,
+    // 見出しを含めるか(boolean, default: true)
     "headings": true,
+    // 1行の最大文字数(integer, default: 80)
     "line_length": 150,
+    // 連続した文字列を違反にしない(boolean, default: false)
     "stern": false,
+    // 例外を許さず文字数を厳密にチェックする(boolean, default: false)
     "strict": false,
+    // テーブルを含めるか(boolean, default: true)
     "tables": true
   },
-  // MD014 - Dollar signs used before commands without showing output
+  // MD014 - コードブロックでコマンドの前に$の使用を許可するか
   "commands-show-output": false,
-  // MD018 - No space after hash on atx style heading
+  // MD018 - ATXスタイルの見出しで#(ハッシュ)の後にスペースを必須にするか
   "no-missing-space-atx": false,
-  // MD019 - Multiple spaces after hash on atx style heading
+  // MD019 - ATXスタイルの見出しで#(ハッシュ)の後に複数のスペースを許容するか
   "no-multiple-space-atx": true,
-  // MD020 - No space inside hashes on closed atx style heading
+  // MD020 - 閉じたATXスタイルの見出しで#(ハッシュ)の間にスペースを必須にするか
   "no-missing-space-closed-atx": true,
-  // MD021 - Multiple spaces inside hashes on closed atx style heading
+  // MD021 - 閉じたATXスタイルの見出しで#(ハッシュ)の間に複数のスペースを許容するか
   "no-multiple-space-closed-atx": true,
-  // MD022 - Headings should be surrounded by blank lines
+  // MD022 - 見出し行前後の空白行についての設定
   "blanks-around-headings": {
+    // フロントマターも対象にするか(boolean, default: false)
+    "include_front_matter":  false,
+    // 見出し行の上の空白行数(integer|integer[], default: 1)
     "lines_above": 1,
+    // 見出し行の下の空白行数(integer|integer[], default: 1)
     "lines_below": 1
   },
-  // MD023 - Headings must start at the beginning of the line
+  // MD023 - 見出し行は行頭から始めることを必須にするか
   "heading-start-left": false,
-  // MD024 - Multiple headings with the same content
+  // MD024 - 同じ内容の見出し行を複数行
   "no-duplicate-heading": {
+    // 異なる親見出しを持つ見出しの重複を許可するか(boolean, default: false)
     "siblings_only": true
   },
-  // MD025 - Multiple top-level headings in the same document
+  // MD025 - 最上位レベルの見出しが同一文書内に複数する場合の設定
   "single-h1": {
+    // フトントマッターのタイトルに一致させる正規表現パターン(string, default: '^\s*title\s*[:=]')
     "front_matter_title": "^\\s*title\\s*[:=]",
+    // 見出しレベル(integer, default: 1)
     "level": 1
   },
-  // MD026 - Trailing punctuation in heading
+  // MD026 - 見出し行末尾の句読点の許容
   "no-trailing-unctuation": {
+    // 句読点として解釈する文字
     "punctuation": ".,;:!。，；：！"
   },
-  // MD027 - Multiple spaces after blockquote symbol
+  // MD027 - 引用ブロックの後に複数のスペースがあることを許さない
   "no-multiple-space-blockquote": {
+    // リスト項目を含めるか(boolean, default: true)
     "list_items":  true
   },
-  // MD028 - Blank line inside blockquote
+  // MD028 - 1つの引用ブロックに空白行を含めることを許さない
   "no-blanks-blockquote": false,
-  // MD029 - Ordered list item prefix
+  // MD029 - 順序付きリストの接頭辞
   "ol-prefix": {
+    // リストのスタイル(string, default: one_or_ordered, values: one|one_or_ordered|ordered|zero)
     "style": "ordered"
   },
-  // MD030 - Spaces after list markers
+  // MD030 - リスト接頭辞の後のスペース設定
   "list-marker-space": {
+    // 複数行の順序付きリスト項目の後のスペース数(integer, default: 1)
     "ol_multi": 1,
+    // 単一行の順序付きリスト項目の後のスペース数(integer, default: 1)
     "ol_single": 1,
+    // 複数行の順序なしリスト項目の後のスペース数(integer, default: 1)
     "ul_multi": 1,
+    // 単一行の順序なしリスト項目の後のスペース数(integer, default: 1)
     "ul_single": 1
   },
-  // MD031 - Fenced code blocks should be surrounded by blank lines
+  // MD031 - コードブロックの前後は空白行で囲む
   "blanks-around-fences": {
+    // リスト項目を含める(boolean, default: true)
     "list_items": true
   },
-  // MD032 - Lists should be surrounded by blank lines
+  // MD032 - リストの前後は空白行で囲む
   "blanks-around-lists": true,
   "extended-ascii": {
     "ascii-only": true
   },
-  // MD033 - Inline HTML
+  // MD033 - インラインHTMLの設定
   "no-inline-html": {
+    // 許可するHTML要素(string[], default: [])
     "allowed_elements": ["details", "summary"],
-    "table_allowed_elements": ["details", "summary"]
+    // テーブル内で許可するHTML要素(string[], default: [])
+    "table_allowed_elements": ["details", "summary", "br"]
   },
-  // MD034 - Bare URL used
-  "no-bare-urls": true,
-  // MD035 - Horizontal rule style
+  // MD034 - 生のURLの使用を許可しない(山括弧で囲まれたURLは許可する)
+  "no-bare-urls": false,
+  // MD035 - 水平線のスタイル
   "hr-style": {
     "style": "---"
   },
-  // MD036 - Emphasis used instead of a heading
+  // MD036 - セクションの区切りに強調表示を使用している場合は見出しの使用を強制
   "no-emphasis-as-heading": {
+    //  句読点文字(string, default: ".,;:!。，；：！")
     "punctuation": ".,;:!。，；：！"
   },
-  // MD037 - Spaces inside emphasis markers
+  // MD037 - 強調表示内にスペースを含めることを許さない
   "no-space-in-emphasis": false,
-  // MD038 - Spaces inside code span elements
+  // MD038 - コードスパン(``)にスペースを含めることを許さない
   "no-space-in-code": false,
-  // MD039 - Spaces inside link text
+  // MD039 - リンクテキスト内にスペースを含めることを許さない
   "no-space-in-links": true,
-  // MD040 - Fenced code blocks should have a language specified
+  // MD040 - フェンス付きコードブロックには言語を指定することを必須にするか
   "fenced-code-language": {
+    // 指定可能な言語名リスト(string[], default: [])
     "allowed_languages": [
       "bash",
+      "dart",
       "html",
       "javascript",
       "json",
+      "kotlin",
       "markdown",
       "text",
       "python",
-      "markdown",
       "yaml",
       "toml",
       "typescript"
     ],
+    // 言語指定を必須にするか(boolean, default: false)
     "language_only": true
   },
-  // MD041 - First line in a file should be a top-level heading
+  // MD041 - ファイルの最初の行はH1見出しであることを必須にするか
   "first-line-h1": {
+    // 最初の見出しの前にコンテンツを許可する(boolean, default: false)
     "allow_preamble": false,
+    // フロントマッターのタイトルに一致する正規表現パターン(string, default: '^\s*title\s*[:=]')
     "front_matter_title": "^\\s*title\\s*[:=]",
+    // 見出しレベル(integer, default: 1)
     "level": 1
   },
-  // MD042 - No empty links
+  // MD042 - 空のリンクテキストを使用させない
   "no-empty-links": true,
-  // MD043 - Required heading structure
+  // MD043 - 必須の見出し構造
   "required-headings": {
+    // 見出しのリスト(string[], default: [])
     "headings": [],
+    // 見出しの大文字小文字を区別するか(boolean, default: false)
     "match_case": false
   },
-  // MD044 - Proper names should have the correct capitalization
+  // MD044 - 固有名刺は正しい大文字小文字で表記することを必須にする
   "proper-names": {
+    // コードブロックを含めるか(boolean, default: true)
     "code_blocks": false,
+    // HTML要素を含めるか(boolean, default: true)
     "html_elements": false,
+    // 固有名詞のリスト(string[], default: [])
     "names": [
       "Cake.Markdownlint",
       "CommonMark",
@@ -180,69 +222,82 @@
       "Node.js"
     ]
   },
-  // MD045 - Images should have alternate text
+  // MD045 - 画像にaltテキストを必須にするか
   "no-alt-text": true,
-  // MD046 - Code block style
+  // MD046 - コードブロックのスタイルを統一
   "code-block-style": {
-    // consistent | fenced | indented
+    // コードブロックのスタイル(string, default: consistent, values: consistent|fenced|indented)
     "style": "consistent"
   },
-  // MD047 - Files should end with a single newline character
+  // MD047 - ファイルは改行文字1文字で終わることを必須にする
   "single-trailing-newline": false,
-  // MD048 - Code fence style
+  // MD048 - コードブロックのフェンススタイルを統一
   "code-fence-style": {
-    // consistent | fenced | indented
+    // コードブロックのフェンススタイル(string, default: consistent, values: backtick|consistent|tilde)
     "style": "backtick"
   },
-  // MD049 - Emphasis style
+  // MD049 - 強調表示のスタイルを統一
   "emphasis-style": {
-    // consistent | asterisk | underscore
+    // 強調表示のスタイル(string, default: consistent, values: asterisk|consistent|underscore)
     "style": "consistent"
   },
-  // MD050 - Strong style
+  // MD050 - 太字表記のスタイル
   "strong-style": {
+    // 太字表記のスタイル(string, default: consistent, values: asterisk|consistent|underscore)
     "style": "asterisk"
   },
-  // MD051 - Link fragments should be valid
+  // MD051 - ページ内リンクが有効であることを必須にする
   "link-fragments": {
+    // 大文字小文字を区別するか(boolean, default: false)
     "ignore_case": false,
+    // 追加のフラグメントを無視するためのパターン(string, defaule: "")
     "ignored_pattern": ""
   },
-  // MD052 - Reference links and images should use a label that is defined
+  // MD052 - 参照リンクと画像には、定義済みラベルを使用する必要がある
   "reference-links-mages": {
+    // 無視するラベル(string[], default: ["x"])
     "ignored_labels": ["x"],
+    // ショートカット構文を含める(boolean, default: false)
     "shortcut_syntax": false
   },
-  // MD053 - Link and image reference definitions should be needed
+  // MD053 - リンクと画像参照の定義を必須にする
   "link-image-reference-definitions": {
+    // 無視する定義(string[], default: ["//"])
     "ignored_definitions":  ["//"]
   },
-  // MD054 - Link and image style
+  // MD054 - リンクと画像のスタイル
   "link-image-style": {
+    // 自動リンクを許可するか(boolean, default: true)
     "autolink": true,
+    // 折り畳み可能な参照リンクと画像を許可するか(boolean, default: true)
     "collapsed": false,
+    // 完全な参照リンクと画像を許可するか(boolean, default: true)
     "full": true,
+    // インラインリンクと画像を許可するか(boolean, default: true)
     "inline": true,
+    // ショートカットリンクと画像を許可するか(boolean, default: true)
     "shortcut": false,
+    // URLをインラインリンクとして許可するか(boolean, default: true)
     "url_inline": false
   },
-  // MD055 - Table pipe style
+  // MD055 - テーブルパイプスタイル
   "table-pipe-style": {
-    // consistent | leading_ang_trailing | leading_only | no_leading_or_trailing | trailing_only
+    // テーブルパイプのスタイル(string, default: consistent, values: consistent|leading_and_trailing|leading_only|no_leading_or_trailing|trailing_only)
     "style": "consistent"
   },
-  // MD056 - Table column count
+  // MD056 - テーブルの列数がヘッダ数と一致することを必須とする
   "table-column-count": true,
-  // MD058 - Tables should be surrounded by blank linse
+  // MD058 - テーブルの前後は空白行で囲むことを必須にする。
   "blanks-around-tables": true,
-  // MD059 - Link text should be descriptive
+  // MD059 - リンクテキストは説明的な内容であることを必須にする
   "descriptive-link-text": {
-    "prohibited_texts": ["click here", "here", "link", "more"]
+    "prohibited_texts": ["click here", "here", "link", "more", "リンク"]
   },
-  // MD060 - Table column style
+  // MD060 - テーブルの列スタイル
   "table-column-style": {
+    // 整列された区切り文字列(boolean, default: false)
     "aligned_delimiter": false,
-    // any | aligned | compact | tight
+    // スタイル(string, default: any, values: aligned|any|compact|tight)
     "style": "any"
   },
   "reference-links-images": {
