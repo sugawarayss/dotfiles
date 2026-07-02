@@ -11,8 +11,6 @@
       "Bash(docker compose exec:*)",
       "Bash(docker compose logs:*)",
       "Bash(echo:*)",
-      "Bash(fd:*)",
-      "Bash(find:*)",
       "Bash(gh api:*)",
       "Bash(gh issue:*)",
       "Bash(gh pr checkout:*)",
@@ -34,7 +32,6 @@
       "Bash(git stash:*)",
       "Bash(git status)",
       "Bash(git switch *)",
-      "Bash(grep:*)",
       "Bash(jq:*)",
       "Bash(ls:*)",
       "Bash(lsd:*)",
@@ -45,8 +42,6 @@
       "Bash(pnpm install:*)",
       "Bash(pnpm --version)",
       "Bash(python3 --version)",
-      "Bash(rg:*)",
-      "Bash(say:*)",
       "Bash(sd:*)",
       "Bash(sed *)",
       "Bash(sed:*)",
@@ -64,6 +59,7 @@
       "Write(/tmp/**)"
     ],
     "deny": [
+      "NotebookEdit",
       "Bash(* .env*)",
       "Bash(* ~/.aws/*)",
       "Bash(* ~/.config/gh/*)",
@@ -72,7 +68,11 @@
       "Bash(* ~/.npmrc)",
       "Bash(* ~/.ssh/*)",
       "Bash(curl *)",
-      "Bash(find * -delete*)",
+      "Bash(cat *)",
+      "Bash(find *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wget *)",
       "Bash(git push:*)",
       "Bash(git push --force:*)",
       "Bash(git rebase:*)",
@@ -99,9 +99,9 @@
       "Bash(su *)",
       "Bash(sudo:*)",
       "Bash(telnet *)",
+      "Bash(terraform apply *)",
       "Bash(unlink *)",
       "Bash(uv remove *)",
-      "Bash(wget *)",
       "Edit(./.env)",
       "Edit(./.env.*)",
       "Edit(/secrets/**)",
@@ -109,7 +109,7 @@
       "Edit(~/.zshrc)",
       "Read(./.env)",
       "Read(./.env.*)",
-      "Read(/secrets/**)",
+      "Read(**/secrets/**)",
       "Read(id_ed25519)",
       "Read(id_rsa)",
       "Read(~/.aws/**)",
@@ -124,6 +124,7 @@
     ],
     "disableBypassPermissionsMode": "disable"
   },
+  "model": "sonnet",
   "enableAllProjectMcpServers": false,
   "hooks": {
     "Notification": [
@@ -164,15 +165,6 @@
           {
             "type": "command",
             "command": "afplay ~/.claude/hook_voices/004_PreToolUse_mcp.wav"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/005_PreToolUse_Bash.wav"
           }
         ]
       }
@@ -226,6 +218,6 @@
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "language": "japanese",
-  "editorMode": "vim",
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "editorMode": "vim"
 }
