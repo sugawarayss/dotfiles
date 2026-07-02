@@ -93,6 +93,10 @@ end
 # mise
 if type "mise" > /dev/null 2>&1
   mise activate fish | source
+
+  if mise which java >/dev/null 2>&1
+    set -gx JAVA_HOME (mise where java)
+  end
 end
 
 # zoxide
@@ -314,6 +318,10 @@ if type "git" > /dev/null 2>&1;
         git switch "$branch_name"
     end
   end
+end
+
+if type "tirith" > /dev/null 2>&1;
+  tirith init --shell fish | source
 end
 
 #################
