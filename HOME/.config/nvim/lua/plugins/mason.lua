@@ -66,6 +66,7 @@ local lsp_servers = {
   "graphql",
   -- svelte
   "svelte",
+  "kakehashi",
 }
 -- 自動インストールするformatter
 local formatters = {
