@@ -30,7 +30,7 @@ return {
         yaml_github = { "yamlfmt" },
         dart = { "dcm_fix", "dcm_format" },
         go = { "gofumpt", "goimports" },
-        ["*"] = { "codespell" },
+        -- ["*"] = { "codespell" },
         ["_"] = { "trim_whitespace" },
       },
       formatters = {
