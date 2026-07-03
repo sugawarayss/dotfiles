@@ -6,3 +6,5 @@ HOME/.config/lazygit/state.yml
 HOME/.config/yazi/flavors/*.yazi
 HOME/.config/yazi/plugins/*.yazi
 HOME/.config/lazysql/config.toml
+HOME/.config/herdr/*.log
+HOME/.config/herdr/*.json

@@ -1,0 +1,48 @@
+# 起動時に初回セットアップを表示するか
+onborarding = false
+
+[update]
+# 更新でインストールするチャンネル(stable|preview)
+channel = "stable"
+# 最新バージョンをバックグラウンドでチェック
+version_check = true
+# リモートエージェント検出マニフェストをバックグラウンドでチェック
+manifest_check = true
+
+[terminal]
+default_shell = "/opt/homebrew/bin/fish"
+# ログインシェルが起動しPATH等を自動で初期化する
+shell_mode = "auto"
+# デフォルトの動作を維持する(home|current|follow)
+new_cwd = "follow"
+
+[worktrees]
+# Gitワークツリーのチェックアウトのルートディレクトリ
+directory = "~/.herdr/worktrees"
+
+[remote]
+# 一時的なキープアライブのフォールバックを使用してSSHブリッジを管理する
+manage_ssh_config = true
+
+[keys]
+prefix = "ctrl+b"
+
+[theme]
+name = "tokyo-night"
+
+[ui]
+sidebar_width = 32
+sidebar_min_width = 18
+sidebar_max_width = 36
+mobile_width_threshold = 64
+mouse_capture = true
+right_click_passthrough_modifier = ""
+redraw_on_focus_gained = true
+mouse_scroll_lines = 3
+confirm_close = true
+prompt_new_tab_name = true
+pane_borders = true
+pane_gaps = true
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "spaces"
+accent = "cyan"

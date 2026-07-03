@@ -28,6 +28,8 @@ claude-mcp:
 crit:
   @test -L ~/.crit.config.json || ln -s {{pwd}}/HOME/crit/.crit.config.json ~/.crit.config.json
 
+herdr:
+  @test -L ~/.config/herdr || ln -s {{pwd}}/HOME/.config/herdr ~/.config/herdr
 
 node:
   # npmの設定ファイルを展開
