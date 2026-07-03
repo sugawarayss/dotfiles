@@ -1,5 +1,117 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "editorMode": "vim",
+  "enableAllProjectMcpServers": false,
+  "enabledPlugins": {
+    "crit@crit": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "crit": {
+      "source": {
+        "repo": "tomasz-tomczyk/crit",
+        "source": "github"
+      }
+    }
+  },
+  "hooks": {
+    "InstructionsLoaded": [
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/002_InstructionsLoaded.wav",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/001_Notification.wav",
+            "type": "command"
+          }
+        ],
+        "matcher": ""
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/003_PermissionRequest.wav",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/006_PostToolUse_Read.wav",
+            "type": "command"
+          }
+        ],
+        "matcher": "Read"
+      },
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/007_PostToolUse_Write.wav",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/004_PreToolUse_mcp.wav",
+            "type": "command"
+          }
+        ],
+        "matcher": "mcp__.*"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/sugawarayss/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/009_Stop.wav",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "afplay ~/.claude/hook_voices/008_SubagentStart.wav",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "language": "japanese",
+  "model": "sonnet",
   "permissions": {
     "allow": [
       "Bash(awk:*)",
@@ -124,100 +236,9 @@
     ],
     "disableBypassPermissionsMode": "disable"
   },
-  "model": "sonnet",
-  "enableAllProjectMcpServers": false,
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/001_Notification.wav"
-          }
-        ]
-      }
-    ],
-    "InstructionsLoaded": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/002_InstructionsLoaded.wav"
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/003_PermissionRequest.wav"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "mcp__.*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/004_PreToolUse_mcp.wav"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/006_PostToolUse_Read.wav"
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/007_PostToolUse_Write.wav"
-          }
-        ]
-      }
-    ],
-    "SubagentStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/008_SubagentStart.wav"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/009_Stop.wav"
-          }
-        ]
-      }
-    ]
-  },
   "statusLine": {
-    "type": "command",
-    "command": "claude-powerline --style powerline --theme tokyo-night"
+    "command": "claude-powerline --style powerline --theme tokyo-night",
+    "type": "command"
   },
-  "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true
-  },
-  "language": "japanese",
-  "tui": "fullscreen",
-  "editorMode": "vim"
+  "tui": "fullscreen"
 }
