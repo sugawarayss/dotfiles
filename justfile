@@ -25,6 +25,9 @@ claude-mcp:
   claude mcp add serena --transport stdio --scope user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --project-from-cwd
   claude mcp add playwright --transport stdio --scope user -- npx @playwright/mcp@latest
 
+crit:
+  @test -L ~/.crit.config.json || ln -s {{pwd}}/HOME/crit/.crit.config.json ~/.crit.config.json
+
 
 node:
   # npmの設定ファイルを展開
