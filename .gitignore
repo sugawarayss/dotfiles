@@ -1,5 +1,5 @@
 .idea/
-.DS_store
+.DS_Store
 HOME/.warp/themes
 HOME/.config/nvim/lazy-lock.json
 HOME/.config/lazygit/state.yml
