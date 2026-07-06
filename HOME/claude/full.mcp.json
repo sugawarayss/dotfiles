@@ -1,80 +1,52 @@
 {
   "mcpServers": {
     "aws-knowledge": {
+      "type": "stdio",
+      "command": "uvx",
       "args": [
         "fastmcp",
         "run",
         "https://knowledge-mcp.global.api.aws"
-      ],
-      "autoApprove": [
-        "aws___search_documentation",
-        "aws___recommend",
-        "aws___read_documentation",
-        "aws___get_regional_availability",
-        "aws___list_regions"
-      ],
-      "command": "uvx"
+      ]
     },
     "context7": {
+      "type": "stdio",
+      "command": "npx",
       "args": [
         "-y",
         "@upstash/context7-mcp"
       ],
-      "command": "npx",
       "env": {
         "DEFAULT_MINIMUM_TOKENS": "128000"
       }
     },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    },
     "serena": {
+      "type": "stdio",
       "command": "uvx",
       "args": [
         "--from",
         "git+https://github.com/oraios/serena",
         "serena",
         "start-mcp-server",
-        "--context",
-        "ide"
-      ],
-      "autoApprove": [
-        "find_file",
-        "find_symbol",
-        "list_dir",
-        "read_memory",
-        "write_memory",
-        "list_memories",
-        "think_about_collected_information",
-        "activate_project",
-        "onboarding",
-        "search_for_pattern"
+        "--project-from-cwd"
       ]
     },
-    "markitdown": {
+    "terraform": {
+      "type": "stdio",
+      "command": "docker",
       "args": [
-        "markitdown-mcp==0.0.1a4"
-      ],
-      "autoApprove": [
-        "convert_to_markdown"
-      ],
-      "command": "uvx",
-      "type": "stdio"
-    },
-    "playwright": {
-      "args": [
-        "@playwright/mcp@latest"
-      ],
-      "autoApprove": [
-        "browser_click",
-        "browser_wait_for",
-        "browser_type",
-        "browser_take_screenshot",
-        "browser_press_key",
-        "browser_hover",
-        "browser_evaluate",
-        "browser_drag",
-        "browser_console_messages",
-        "browser_close"
-      ],
-      "command": "npx"
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ]
     }
   }
 }
