@@ -27,6 +27,14 @@
         "@playwright/mcp@latest"
       ]
     },
+    "chrome-dev-tools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    },
     "serena": {
       "type": "stdio",
       "command": "uvx",
