@@ -1,117 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "editorMode": "vim",
-  "enableAllProjectMcpServers": false,
-  "enabledPlugins": {
-    "crit@crit": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "crit": {
-      "source": {
-        "repo": "tomasz-tomczyk/crit",
-        "source": "github"
-      }
-    }
-  },
-  "hooks": {
-    "InstructionsLoaded": [
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/002_InstructionsLoaded.wav",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/001_Notification.wav",
-            "type": "command"
-          }
-        ],
-        "matcher": ""
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/003_PermissionRequest.wav",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/006_PostToolUse_Read.wav",
-            "type": "command"
-          }
-        ],
-        "matcher": "Read"
-      },
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/007_PostToolUse_Write.wav",
-            "type": "command"
-          }
-        ],
-        "matcher": "Write"
-      }
-    ],
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/004_PreToolUse_mcp.wav",
-            "type": "command"
-          }
-        ],
-        "matcher": "mcp__.*"
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "bash '/Users/sugawarayss/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ],
-        "matcher": "*"
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/009_Stop.wav",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "SubagentStart": [
-      {
-        "hooks": [
-          {
-            "command": "afplay ~/.claude/hook_voices/008_SubagentStart.wav",
-            "type": "command"
-          }
-        ]
-      }
-    ]
-  },
-  "language": "japanese",
-  "model": "sonnet",
   "permissions": {
     "allow": [
       "Bash(awk:*)",
@@ -155,7 +43,6 @@
       "Bash(pnpm --version)",
       "Bash(python3 --version)",
       "Bash(sd:*)",
-      "Bash(sed *)",
       "Bash(sed:*)",
       "Bash(sort:*)",
       "Bash(task:*)",
@@ -167,6 +54,34 @@
       "Bash(wc:*)",
       "Bash(which:*)",
       "Bash(xargs:*)",
+      "mcp__aws-knowledge__aws___search_documentation",
+      "mcp__aws-knowledge__aws___recommend",
+      "mcp__aws-knowledge__aws___read_documentation",
+      "mcp__aws-knowledge__aws___get_regional_availability",
+      "mcp__aws-knowledge__aws___list_regions",
+      "mcp__serena__list_dir",
+      "mcp__serena__find_file",
+      "mcp__serena__search_for_pattern",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__find_symbol",
+      "mcp__serena__find_referencing_symbols",
+      "mcp__serena__replace_symbol_body",
+      "mcp__serena__insert_after_symbol",
+      "mcp__serena__insert_before_symbol",
+      "mcp__serena__rename_symbol",
+      "mcp__serena__write_memory",
+      "mcp__serena__read_memory",
+      "mcp__serena__list_memories",
+      "mcp__serena__delete_memory",
+      "mcp__serena__edit_memory",
+      "mcp__serena__activate_project",
+      "mcp__serena__get_current_config",
+      "mcp__serena__check_onboarding_performed",
+      "mcp__serena__onboarding",
+      "mcp__serena__think_about_collected_information",
+      "mcp__serena__think_about_task_adherence",
+      "mcp__serena__think_about_whether_you_are_done",
+      "mcp__serena__initial_instructions",
       "Read(~/**)",
       "Write(/tmp/**)"
     ],
@@ -186,10 +101,8 @@
       "Bash(tail *)",
       "Bash(wget *)",
       "Bash(git push:*)",
-      "Bash(git push --force:*)",
       "Bash(git rebase:*)",
       "Bash(git reset:*)",
-      "Bash(git reset --hard *)",
       "Bash(nc *)",
       "Bash(ncat *)",
       "Bash(npm remove:*)",
@@ -199,9 +112,6 @@
       "Bash(pbcopy *)",
       "Bash(pbpaste *)",
       "Bash(rm:*)",
-      "Bash(rm -fr:*)",
-      "Bash(rm -r:*)",
-      "Bash(rm -rf:*)",
       "Bash(rmdir *)",
       "Bash(rsync * --delete*)",
       "Bash(scp *)",
@@ -214,31 +124,153 @@
       "Bash(terraform apply *)",
       "Bash(unlink *)",
       "Bash(uv remove *)",
-      "Edit(./.env)",
-      "Edit(./.env.*)",
-      "Edit(/secrets/**)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Edit(**/secrets/**)",
       "Edit(~/.bashrc)",
       "Edit(~/.zshrc)",
-      "Read(./.env)",
-      "Read(./.env.*)",
+      "Edit(~/.config/fish/**)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
       "Read(**/secrets/**)",
-      "Read(id_ed25519)",
-      "Read(id_rsa)",
+      "Read(**/id_ed25519)",
+      "Read(**/id_rsa)",
       "Read(~/.aws/**)",
       "Read(~/.config/gh/**)",
       "Read(~/.npmrc)",
       "Read(~/.ssh/**)",
-      "Write(./.env)",
-      "Write(./.env.*)",
-      "Write(/secrets/**)",
+      "Write(**/.env)",
+      "Write(**/.env.*)",
+      "Write(**/secrets/**)",
       "Write(~/.bashrc)",
-      "Write(~/.zshrc)"
+      "Write(~/.zshrc)",
+      "Write(~/.config/fish/**)"
     ],
     "disableBypassPermissionsMode": "disable"
   },
-  "statusLine": {
-    "command": "claude-powerline --style powerline --theme tokyo-night",
-    "type": "command"
+  "enableAllProjectMcpServers": false,
+  "hooks": {
+    "InstructionsLoaded": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/002_InstructionLoaded.wav"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/001_Notification.wav"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/003_PermissionRequest.wav"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/006_PostToolUse_Read.wav"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/007_PostToolUse_Write.wav"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/004_PreToolUse_MCP.wav"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/005_PreToolUse_Bash.wav"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/sugawarayss/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/009_Stop.wav"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay ~/.claude/hook_voices/008_SubagentStart.wav"
+          }
+        ]
+      }
+    ]
   },
-  "tui": "fullscreen"
+  "statusLine": {
+    "type": "command",
+    "command": "claude-powerline --style powerline --theme tokyo-night"
+  },
+  "enabledPlugins": {
+    "crit@crit": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "crit": {
+      "source": {
+        "source": "github",
+        "repo": "tomasz-tomczyk/crit"
+      }
+    }
+  },
+  "language": "japanese",
+  "tui": "fullscreen",
+  "editorMode": "vim"
 }
