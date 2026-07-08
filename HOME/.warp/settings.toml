@@ -51,7 +51,7 @@ new_window = { custom_dir = "", mode = "previous_dir" }
 split_pane = { custom_dir = "", mode = "previous_dir" }
 
 [session.new_session_shell_override]
-executable = "/opt/homebrew/Cellar/zsh/5.9/bin/zsh"
+executable = "/opt/homebrew/Cellar/zsh/5.9.1/bin/zsh"
 
 [agents]
 cloud_conversation_storage_enabled = true
