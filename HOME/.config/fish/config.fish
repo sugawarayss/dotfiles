@@ -99,6 +99,11 @@ if type "mise" > /dev/null 2>&1
   end
 end
 
+# tirith
+if type "tirith" > /dev/null 2>&1
+  tirith init --shell fish | source
+end
+
 # zoxide
 if type "zoxide" > /dev/null 2>&1
   zoxide init fish | source
