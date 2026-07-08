@@ -17,14 +17,74 @@ paths: **/test_*.py
     - テスト関数にはdocstringに`異常系:`から始まるテスト内容を端的に表すコメントを記載すること
 - 引数の値の範囲が複数考えられる場合は、上限または下限等の境界値近辺の値をテストすること。
   - `@pytest.mark.parametrize` を利用して、1つのテスト関数で複数ケースを表現すること。
+  - 1つのテスト関数にした結果、可読性が損われる場合は関数を分割して構わない。
 - データベースや、外部のAPIを呼出し等 を行う実装は必ずモックを使用すること。
   - モックには [`pytest-mock`](https://pytest-mock.readthedocs.io/en/latest/usage.html)のみを利用すること。
   - httpリクエストのモックには `pytest-httpserver` を利用すること。
 - 日付を固定する必要がある場合は `time_machine` のみを利用すること。
-    - 通常の使用方法は [`time_machime usage`](https://time-machine.readthedocs.io/en/latest/usage.html) を参考にします。
-    - pytestプラグインとしての使用方法は [`time_machine pytest plugin`](https://time-machine.readthedocs.io/en/latest/pytest_plugin.html) を参考にします。
+  - 通常の使用方法は [`time_machime usage`](https://time-machine.readthedocs.io/en/latest/usage.html) を参考にします。
+  - pytestプラグインとしての使用方法は [`time_machine pytest plugin`](https://time-machine.readthedocs.io/en/latest/pytest_plugin.html) を参考にします。
+
+### ホワイトボックステスト
+
+テスト対象の全てのコードが実行されるようなテストケースを作成する。
+
+### ブラックボックステスト
+
+テスト対象の「仕様」に注目してテストケースを作成する。
+
+### 同値分割
+
+テストするべき値を、「同じように扱われる値のグループ」に分割し、各グループから代表値を1つ選んでテストケースとする手法。
+
+#### 同値分割の例
+
+テスト対象:
+
+```python
+def is_adult(age: int) -> bool:
+    """
+    20歳以上、100歳以下であるか判定する
+    :param age: 年齢
+    :return: bool
+    """
+    if age <= 19:
+        return False
+    if 20 <= age <= 100:
+        return True
+    return False
+```
+
+グループ分け:
+
+- 19歳以下 → False になる
+- 20歳以上、100歳以下 → True になる
+- 101歳以上 → False になる
+
+同値分割結果:
+
+- 10, 50, 120
+
+### 境界値分析
+
+仕様上、 境界となる値と、その前後を重点的にテストする手法
+
+下限の境界値:
+
+- 19歳
+- 20歳 (境界値)
+- 21歳
+
+上限の境界値
+
+- 99歳
+- 100歳 (境界値)
+- 101歳
 
 ## テストコード実装例
+
+ブラックボックステストを基本として、同値分割、境界値分析を用いて最小限となるようなテストケースを策定する。
+その上でカバーされないコードを、ホワイトボックステストで埋めるようにする。
 
 ```python
 
