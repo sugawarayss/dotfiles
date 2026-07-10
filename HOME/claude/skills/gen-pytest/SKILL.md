@@ -2,6 +2,7 @@
 name: gen-pytest
 argument-hint: "[テスト対象ファイルパス]"
 description: "pytestを使用したユニットテストコードを実装します。"
+allowed-tools: Read, Grep, Glob, Write, mcp__context7__*, mcp__*
 user-invocable: true
 ---
 
@@ -22,9 +23,9 @@ pytest を用いたユニットテストを実装する。
 - pytestの設定は `pyproject.toml`に記載しているので、設定は不要です。
 - プロジェクトルートに `uv.lock` というファイルが存在する場合は `uv` を使用しているので、pytest の実行は `uv run pytest` コマンドで行います。
 - pytestプラグインが利用可能な場合があるので、以下のコマンドを実行して、インストールされているpytestプラグインを確認する。
-    - 利用されうるpytest プラグインは [pytest公式ドキュメントのプラグインリスト](https://docs.pytest.org/en/stable/reference/plugin_list.html) で確認できます。
-    - `uv pip list | grep pytest`
-    - `uv pip list | grep time_machine`
+  - 利用されうるpytest プラグインは [pytest公式ドキュメントのプラグインリスト](https://docs.pytest.org/en/stable/reference/plugin_list.html) で確認できます。
+  - `uv pip list | grep pytest`
+  - `uv pip list | grep time_machine`
 
 ## テストコード実装のルール
 
