@@ -46,6 +46,10 @@
         "--project-from-cwd"
       ]
     },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp"
+    },
     "terraform": {
       "type": "stdio",
       "command": "docker",
@@ -54,6 +58,17 @@
         "-i",
         "--rm",
         "hashicorp/terraform-mcp-server"
+      ]
+    },
+    "drawio": {
+      "type": "http",
+      "url": "https://mcp.draw.io/mcp"
+    },
+    "figma": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "figma-mcp"
       ]
     }
   }
