@@ -1,5 +1,5 @@
 # 起動時に初回セットアップを表示するか
-onborarding = false
+onboarding = false
 
 [update]
 # 更新でインストールするチャンネル(stable|preview)
