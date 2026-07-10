@@ -210,15 +210,6 @@
             "command": "afplay ~/.claude/hook_voices/004_PreToolUse_MCP.wav"
           }
         ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/005_PreToolUse_Bash.wav"
-          }
-        ]
       }
     ],
     "SessionStart": [
@@ -260,13 +251,21 @@
   },
   "enabledPlugins": {
     "crit@crit": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "example-skills@anthropic-agent-skills": true,
+    "document-skills@anthropic-agent-skills": true
   },
   "extraKnownMarketplaces": {
     "crit": {
       "source": {
         "source": "github",
         "repo": "tomasz-tomczyk/crit"
+      }
+    },
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
       }
     }
   },
