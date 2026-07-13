@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "aws-knowledge-mcp-server": {
+    "aws-knowledge": {
       "args": [
         "fastmcp",
         "run",
@@ -29,31 +29,6 @@
         "DEFAULT_MINIMUM_TOKENS": "128000"
       }
     },
-    "filesystem": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "${ALLOWED_DIRECTORY}"
-      ],
-      "autoApprove": [
-        "get_file_info",
-        "list_directory",
-        "list_directory_with_sizes",
-        "list_allowed_directories",
-        "read_file",
-        "read_media_file",
-        "read_multiple_files",
-        "read_text_file",
-        "search_files",
-        "directory_tree",
-        "create_directory",
-        "write_file"
-      ],
-      "command": "npx",
-      "env": {
-        "ALLOWED_DIRECTORY": "~/PROJECTS/"
-      }
-    },
     "markitdown": {
       "args": [
         "markitdown-mcp==0.0.1a4"
@@ -63,6 +38,15 @@
       ],
       "command": "uvx",
       "type": "stdio"
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ]
     },
     "playwright": {
       "args": [
