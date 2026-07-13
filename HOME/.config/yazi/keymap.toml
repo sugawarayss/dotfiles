@@ -1,9 +1,8 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+#:schema https://yazi-rs.github.io/schemas/keymap.json
 
 [mgr]
-
 keymap = [
   { on = "<Esc>", run = "escape", desc = "Visual Modeを抜ける, 選択状態を解除 または検索中止" },
   { on = "<C-[>", run = "escape", desc = "Visual Modeを抜ける, 選択状態を解除 または検索中止" },
@@ -253,6 +252,52 @@ keymap = [
   { on = "<F1>", run = "help", desc = "ヘルプを表示" },
 ]
 
+[[mgr.prepend_keymap]]
+on = "<C-p>"
+run = 'shell -- qlmanage -p "$@"'
+desc = "MacOSのクイックルックでファイルを見る"
+
+# ブックマークプラグインのキーマップ
+[[mgr.prepend_keymap]]
+on = ["u", "a"]
+run = "plugin yamb save"
+desc = "ブックマークを追加"
+
+[[mgr.prepend_keymap]]
+on = ["u", "g"]
+run = "plugin yamb jump_by_key"
+desc = "キーからブックマークにジャンプ"
+
+[[mgr.prepend_keymap]]
+on = ["u", "G"]
+run = "plugin yamb jump_by_fzf"
+desc = "fzfでブックマークにジャンプ"
+
+[[mgr.prepend_keymap]]
+on = ["u", "d"]
+run = "plugin yamb delete_by_key"
+desc = "キーでブックマークを削除"
+
+[[mgr.prepend_keymap]]
+on = ["u", "D"]
+run = "plugin yamb delete_by_fzf"
+desc = "fzfでブックマークを削除"
+
+[[mgr.prepend_keymap]]
+on = ["u", "A"]
+run = "plugin yamb delete_all"
+desc = "すべてのブックマークを削除"
+
+[[mgr.prepend_keymap]]
+on = ["u", "r"]
+run = "plugin yamb rename_by_key"
+desc = "キーでブックマークをリネーム"
+
+[[mgr.prepend_keymap]]
+on = ["u", "R"]
+run = "plugin yamb rename_by_fzf"
+desc = "fzfでブックマークをリネーム"
+
 [tasks]
 # タスクマネージャのキーマップ
 keymap = [
@@ -276,7 +321,6 @@ keymap = [
 ]
 
 [spot]
-
 keymap = [
   { on = "<Esc>", run = "close", desc = "Close the spot" },
   { on = "<C-[>", run = "close", desc = "Close the spot" },
@@ -302,7 +346,6 @@ keymap = [
 ]
 
 [pick]
-
 keymap = [
   { on = "<Esc>", run = "close", desc = "Cancel pick" },
   { on = "<C-[>", run = "close", desc = "Cancel pick" },
@@ -478,49 +521,3 @@ keymap = [
   # Filtering
   { on = "/", run = "filter", desc = "フィルターを適用" },
 ]
-
-[[mgr.prepend_keymap]]
-on = "<C-p>"
-run = 'shell -- qlmanage -p "$@"'
-desc = "MacOSのクイックルックでファイルを見る"
-
-# ブックマークプラグインのキーマップ
-[[mgr.prepend_keymap]]
-on = ["u", "a"]
-run = "plugin yamb save"
-desc = "ブックマークを追加"
-
-[[mgr.prepend_keymap]]
-on = ["u", "g"]
-run = "plugin yamb jump_by_key"
-desc = "キーからブックマークにジャンプ"
-
-[[mgr.prepend_keymap]]
-on = ["u", "G"]
-run = "plugin yamb jump_by_fzf"
-desc = "fzfでブックマークにジャンプ"
-
-[[mgr.prepend_keymap]]
-on = ["u", "d"]
-run = "plugin yamb delete_by_key"
-desc = "キーでブックマークを削除"
-
-[[mgr.prepend_keymap]]
-on = ["u", "D"]
-run = "plugin yamb delete_by_fzf"
-desc = "fzfでブックマークを削除"
-
-[[mgr.prepend_keymap]]
-on = ["u", "A"]
-run = "plugin yamb delete_all"
-desc = "すべてのブックマークを削除"
-
-[[mgr.prepend_keymap]]
-on = ["u", "r"]
-run = "plugin yamb rename_by_key"
-desc = "キーでブックマークをリネーム"
-
-[[mgr.prepend_keymap]]
-on = ["u", "R"]
-run = "plugin yamb rename_by_fzf"
-desc = "fzfでブックマークをリネーム"
