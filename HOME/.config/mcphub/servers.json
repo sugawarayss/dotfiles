@@ -15,6 +15,46 @@
       ],
       "command": "uvx"
     },
+    "chrome-devtools": {
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ],
+      "autoApprove": [
+        "click",
+        "close_page",
+        "drag",
+        "emulate",
+        "evaluate_script",
+        "fill",
+        "fill_form",
+        "get_console_message",
+        "get_network_request",
+        "handle_dialog",
+        "hover",
+        "lighthouse_audit",
+        "list_console_messages",
+        "list_network_requests",
+        "list_pages",
+        "navigate_page",
+        "new_page",
+        "performance_analyze_insight",
+        "performance_start_trace",
+        "performance_stop_trace",
+        "press_key",
+        "resize_page",
+        "select_page",
+        "take_heapsnapshot",
+        "take_screenshot",
+        "take_snapshot",
+        "type_text",
+        "upload_file",
+        "wait_for"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    },
     "context7": {
       "args": [
         "-y",
@@ -39,30 +79,34 @@
       "command": "uvx",
       "type": "stdio"
     },
-    "chrome-devtools": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp@latest",
-        "--autoConnect"
-      ]
-    },
     "playwright": {
       "args": [
         "@playwright/mcp@latest"
       ],
       "autoApprove": [
-        "browser_click",
-        "browser_wait_for",
-        "browser_type",
-        "browser_take_screenshot",
-        "browser_press_key",
-        "browser_hover",
-        "browser_evaluate",
-        "browser_drag",
+        "browser_close",
+        "browser_resize",
         "browser_console_messages",
-        "browser_close"
+        "browser_handle_dialog",
+        "browser_evaluate",
+        "browser_file_upload",
+        "browser_drop",
+        "browser_fill_form",
+        "browser_press_key",
+        "browser_type",
+        "browser_navigate",
+        "browser_navigate_back",
+        "browser_network_requests",
+        "browser_network_request",
+        "browser_run_code_unsafe",
+        "browser_take_screenshot",
+        "browser_snapshot",
+        "browser_click",
+        "browser_drag",
+        "browser_hover",
+        "browser_select_option",
+        "browser_tabs",
+        "browser_wait_for"
       ],
       "command": "npx"
     },
@@ -76,28 +120,30 @@
         "ide"
       ],
       "autoApprove": [
-        "list_dir",
-        "find_file",
+        "replace_content",
+        "replace_in_files",
+        "replace_symbol_body",
+        "insert_after_symbol",
+        "insert_before_symbol",
         "search_for_pattern",
         "get_symbols_overview",
         "find_symbol",
         "find_referencing_symbols",
-        "replace_symbol_body",
-        "insert_after_symbol",
-        "insert_before_symbol",
+        "find_implementations",
+        "find_declaration",
+        "get_diagnostics_for_file",
         "rename_symbol",
+        "safe_delete_symbol",
         "write_memory",
         "read_memory",
         "list_memories",
         "delete_memory",
+        "rename_memory",
         "edit_memory",
+        "open_dashboard",
         "activate_project",
         "get_current_config",
-        "check_onboarding_performed",
         "onboarding",
-        "think_about_collected_information",
-        "think_about_task_adherence",
-        "think_about_whether_you_are_done",
         "initial_instructions"
       ],
       "command": "uvx"
