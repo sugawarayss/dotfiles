@@ -9,14 +9,14 @@ return {
     local wk = require("which-key")
     wk.add({
       {
-        ";;",
+        ";;;",
         "<cmd>BentoToggle<CR>",
         mode = "n",
         icon = "🍱",
         desc = " Bento - バッファ管理メニュー表示",
       },
       {
-        "<Leader>bl",
+        ";;l",
         function()
           require("bento").toggle_lock()
         end,
@@ -39,15 +39,24 @@ return {
       buffer_notify_on_delete = true, -- バッファが削除された時に通知するか
       ordering_metric = "access", -- バッファの順序(access: 最終アクセス時刻順, edit: 最終編集時刻順, nil: 任意)
       default_action = "open", -- メニューが展開されたときのデフォルトアクションモード
-
+      actions = {
+        git_stage = {
+          key = "g",
+          hl = "DiffAdd",
+          action = function(buf_id, buf_name)
+            vim.cmd("!git add " .. vim.fn.shellescape(buf_name))
+            vim.notify("Git stage: " .. buf_name, vim.log.levels.INFO)
+          end,
+        },
+      },
       -- メニュー表示UI設定
       ui = {
         mode = "floating", -- UIモード("floating"|"tabline")
         -- floatingモード設定
         floating = {
-          position = "middle-right", -- メニュー表示位置(top-left|top-right|middle-left|middle-right|bottom-left|bottom-right)
+          position = "top-right", -- メニュー表示位置(top-left|top-right|middle-left|middle-right|bottom-left|bottom-right)
           offset_x = 0, -- 表示位置 横方向オフセット
-          offset_y = 0, -- 表示位置 縦方向オフセット
+          offset_y = 5, -- 表示位置 縦方向オフセット
           border = "single",
           dash_char = "─", -- 折り畳み境界を表示する文字
           label_padding = 1, -- ラベルの左右パディング量
