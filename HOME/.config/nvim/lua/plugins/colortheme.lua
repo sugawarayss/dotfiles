@@ -31,6 +31,9 @@ return {
           NoiceCmdlinePopupTitle = { bg = colors.theme.ui.bg },
           -- Cmdline popup border for search
           NoiceCmdlinePopupBorderSearch = { bg = colors.theme.ui.bg },
+          HopNextKey = { fg = colors.theme.diag.warning, bold = true },
+          HopNextKey1 = { fg = colors.theme.diag.ok, bold = true },
+          HopNextKey2 = { fg = colors.theme.diag.hint },
         }
       end,
       background = {
@@ -120,4 +123,3 @@ return {
 --     removed = "#C34043"
 --   }
 -- }
-
