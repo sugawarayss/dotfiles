@@ -1,8 +1,14 @@
 -- debugger
 return {
+  { "mfussenegger/nvim-dap" },
   { "nvim-neotest/nvim-nio" },
+  { "mfussenegger/nvim-dap-python" },
+  { "ravsii/nvim-dap-envfile" },
   {
-    "mfussenegger/nvim-dap",
+    "rcarriga/nvim-dap-ui",
+    lazy = true,
+    -- pythonファイルを開いた時にloadする
+    ft = { "python" },
     cond = function()
       return not vim.g.vscode
     end,
@@ -72,28 +78,55 @@ return {
         --   icon = "🐞",
         --   desc = "テストクラスにジャンプ",
         -- },
+        {
+          "<leader>db",
+          ":lua require('dapui').toggle()<CR>",
+          mode = "n",
+          icon = "🐞",
+          desc = "Dap - デバッグUIをトグル(dap)",
+        },
       })
     end,
     config = function()
+      require("dapui").setup({
+        icons = { expanded = "", collapsed = "" },
+        layouts = {
+          {
+            elements = {
+              { id = "watches", size = 0.20 },
+              { id = "stacks", size = 0.20 },
+              { id = "breakpoints", size = 0.20 },
+              { id = "scopes", size = 0.40 },
+            },
+            size = 64,
+            position = "right",
+          },
+          {
+            elements = {
+              "repl",
+              "console",
+            },
+            size = 0.20,
+            position = "bottom",
+          },
+        },
+      })
       vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
       require("dap-python").setup("uv")
 
-      require("dap").configurations.python = {
-        {
-          type = "python",
-          request = "launch",
-          name = "現在開いているファイルを実行",
-          program = "${file}",
-          cwd = require("utils").find_project_root({ "pyproject.toml" }),
-          env = { PYTHONPATH = "." },
-          python = require("utils").find_python_venv({ "pyproject.toml" }),
-          envFile = "${workspaceFolder}/.env",
-        },
-      }
+      table.insert(require("dap").configurations.python, {
+        type = "python",
+        request = "launch",
+        name = "現在開いているファイルを実行",
+        program = "${file}",
+        cwd = require("utils").find_project_root({ "pyproject.toml" }),
+        env = { PYTHONPATH = "." },
+        python = require("utils").find_python_venv({ "pyproject.toml" }),
+        envFile = "${workspaceFolder}/.env",
+      })
     end,
   },
-  { "mfussenegger/nvim-dap-python" },
-  { "ravsii/nvim-dap-envfile" },
+
   {
     "theHamsta/nvim-dap-virtual-text",
     ft = { "python" },
