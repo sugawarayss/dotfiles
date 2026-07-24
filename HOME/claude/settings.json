@@ -82,8 +82,10 @@
       "mcp__serena__think_about_task_adherence",
       "mcp__serena__think_about_whether_you_are_done",
       "mcp__serena__initial_instructions",
+      "mcp__context7__query-docs",
+      "mcp__context7__resolve-library-id",
       "Read(~/**)",
-      "Write(/tmp/**)"
+      "Edit(/tmp/**)"
     ],
     "deny": [
       "NotebookEdit",
@@ -138,13 +140,7 @@
       "Read(~/.aws/**)",
       "Read(~/.config/gh/**)",
       "Read(~/.npmrc)",
-      "Read(~/.ssh/**)",
-      "Write(**/.env)",
-      "Write(**/.env.*)",
-      "Write(**/secrets/**)",
-      "Write(~/.bashrc)",
-      "Write(~/.zshrc)",
-      "Write(~/.config/fish/**)"
+      "Read(~/.ssh/**)"
     ],
     "disableBypassPermissionsMode": "disable"
   },
