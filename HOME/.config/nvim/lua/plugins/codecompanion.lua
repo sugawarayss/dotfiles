@@ -206,17 +206,68 @@ return {
         history = {
           enabled = true,
           opts = {
+            -- チャット履歴を開くためのキーマップ
             keymap = "gh",
+            -- チャット履歴を保存するためのキーマップ
             save_chat_keymap = "sc",
+            -- 自動保存するかどうか(falseの場合は ↑のキーマップでのみ保存)
             auto_save = true,
-            expiration_days = 0,
+            -- 履歴を保存する日数(0の場合は無期限)
+            expiration_days = 30,
+            -- 曖昧検索に利用するツール
             picker = "snacks",
             picker_keymaps = {
               rename = { n = "r", i = "<M-r>" },
               delete = { n = "d", i = "<M-d>" },
             },
+            -- 新しいチャット履歴を作成する際にタイトルを自動生成するかどうか
             auto_generate_title = true,
+            title_generation_opts = {
+              -- タイトルを生成に利用するAIプロバイダー
+              adapter = "copilot",
+              model = "claude-haiku-4.5",
+              --  タイトルを更新するチャット回数
+              refresh_every_n_prompts = 3,
+              -- タイトルを更新する最大回数
+              max_refreshes = 3,
+            },
+            -- neovimを再起動した際に前回のチャットを復元するかどうか
+            continue_last_chat = false,
+            delete_on_clearing_chat = false,
             dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
+            enable_logging = false,
+            --  チャット履歴の要約機能の設定
+            summary = {
+              -- 要約を作成するためのキーマップ
+              create_summary_keymap = "gcs",
+              -- 要約を閲覧するためのキーマップ
+              browse_summaries_keymap = "gbs",
+              generation_opts = {
+                -- 要約作成するAIプロバイダ
+                adapter = "copilot",
+                model = "claude-haiku-4.5",
+                -- コンテキストサイズ
+                context_size = 90000,
+                -- スラッシュコマンドの内容をコンテストに含めるか
+                include_references = true,
+                -- ツール実行結果をコンテキストに含めるか
+                include_tool_outputs = true,
+              },
+            },
+            memory = {
+              -- チャット履歴の要約を作成する際に、メモリを自動生成するかどうか
+              auto_create_memories_on_summary_generation = true,
+              -- VectorCodeの実行ファイルパス
+              vectorcode_exe = "vectorcode",
+              tool_opts = {
+                -- 取得するメモリの既定値
+                default_num = 10,
+              },
+              -- メモリを作成する際に通知するかどうか
+              notify = true,
+              -- 起動時に全てのメモリをIndexするか
+              index_on_startup = false,
+            },
           },
         },
       },
