@@ -2,43 +2,59 @@
 
 my dotfiles
 
-## include
+## Structure
 
-### Shell
-
-- fish
-- zsh
-
-### CLI tool
-
-- zellij
-- git
-- gh
-  - gh-dash
-- lazydocker
-- lazygit
-- lazysql
-- lsd
-- neovim
-  - skkeleton
-  - mcphub
-- mise
-- yazi
-- claudecode
-
-### Linter
-
-- markdownlint
-- yamllint
-
-### GUI tool
-
-- ghostty
-- wezterm
-- karabiner
-- zed
-- warp
-- IntelliJ
+```text
+.
+├── chrome_extensions/
+├── HOME/
+│   ├── .config/
+│   │   ├── fish/
+│   │   ├── fzf/
+│   │   ├── gh/
+│   │   ├── gh-dash/
+│   │   ├── ghostty/
+│   │   ├── git/
+│   │   ├── glide/
+│   │   ├── herdr/
+│   │   ├── karabiner/
+│   │   ├── lazydocker/
+│   │   ├── lazygit/
+│   │   ├── lazysql/
+│   │   ├── lsd/
+│   │   ├── markdownlint/
+│   │   ├── mcphub/
+│   │   ├── mise/
+│   │   ├── mise.toml
+│   │   ├── nvim
+│   │   │   ├── lua/
+│   │   │   │   ├── lsp/
+│   │   │   │   ├── plugins/
+│   │   │   │   └── prompts/
+│   │   │   └── snippets/
+│   │   ├── pinact/
+│   │   ├── starship.toml
+│   │   ├── wezterm/
+│   │   ├── yamllint/
+│   │   ├── yazi
+│   │   ├── zed
+│   │   └── zellij
+│   ├── .warp/
+│   ├── claude/
+│   ├── crit/
+│   └── skkeleton/
+├── homebrew
+│   └── Brewfile
+├── images/
+├── IntelliJ/
+│   ├── .ideavimrc
+│   ├── FileWatcher
+│   └── LogFormat
+├── justfile
+├── raycast/
+├── README.md
+└── setup.sh
+```
 
 ## SetUP
 
