@@ -18,6 +18,7 @@ return {
         javascript = { "biome-check" },
         typescript = { "biome-check", "biome-organize-imports" },
         typescriptreact = { "biome-check", "biome-organize-imports" },
+        svelte = { "biome-check", "biome-organize-imports" },
         html = { "biome-check" },
         http = { "kulala-fmt" },
         css = { "biome-check" },
