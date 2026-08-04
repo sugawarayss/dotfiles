@@ -18,6 +18,7 @@ user-invocable: true
 2. **ベストプラクティス確認**: 各技術スタックの推奨パターンをMCP経由で確認してからレビューする
 
 **プロジェクトのインフラストラクチャがAWSを利用している場合**
+
 1. **AWSのナレッジを取得**: `mcp__aws-*`の利用してプロジェクトに最適なナレッジを取得する。(リージョンは指定されない限り`ap-northeast-1`であると解釈する)
 
 ## ステップ1: レビュー対象のPRを特定
@@ -131,18 +132,16 @@ gh pr view <PR> --comments
 - [分かりづらい箇所1の説明(ファイルのパスも含めて)]
 - [分かりづらい箇所2の説明(ファイルのパスも含めて)]
 
-### PRのリンク
-
-[PRのリンク](PRのURL)
 ````
 
 その後、発見した問題ごとに以下の形式で指摘すること。問題が見つからなかった場合は「指摘事項なし」と記載する。
 
 ````markdown
-### [重大度: 高/中/低] [緊急度: 高/中/低]  問題の概要
+<コメント種別タグ>
+### [重要度: 高/中/低] [緊急度: 高/中/低]  問題の概要
 
 **ファイル:** path/to/file.tsx
-**行:** 該当行番号
+**行:** 作業ブランチでの該当行番号
 
 **問題:**
 具体的な問題の説明
@@ -150,3 +149,48 @@ gh pr view <PR> --comments
 **修正案:**
 修正後のコード例
 ````
+
+### コメント種別タグ
+
+指摘事項の冒頭に付与するタグ。
+レビュワーの意図をレビュイーに伝える目的で必ず付与する。
+
+- `![good-badge](https://img.shields.io/badge/review-Good_Point-blue.svg)` : 良い点を褒めるコメントであることを示す
+- `![question-badge](https://img.shields.io/badge/review-Question-yellowgreen.svg)` : 質問や疑問のコメントであることを示す
+- `![imo-badge](https://img.shields.io/badge/review-In_My_Opinion-orange.svg)` : 個人的な意見や主張のコメントであることを示す
+- `![fiy-badge](https://img.shields.io/badge/review-For_Your_Information-green.svg)` : 参考情報を提示するコメントであることを示す
+- `![nitpick-badge](https://img.shields.io/badge/review-Nitpick-orange.svg)` : 重箱の隅をつつくような、細かい点の指摘コメントであることを示す
+- `![norush-badge](https://img.shields.io/badge/review-No_Rush-purple.svg)` : 将来的には修正したいが、今でなくても良い内容のコメントであることを示す
+- `![suggest-badge](https://img.shields.io/badge/review-Suggest_Change-yellowgreen.svg)` : **提案**  修正した方が良い内容の指摘コメントであることを示す
+- `![should-badge](https://img.shields.io/badge/review-Should_Change-important.svg)` : **強い提案** 修正すべき内容の指摘コメントであることを示す
+- `![must-badge](https://img.shields.io/badge/review-Must-red.svg)` : 修正しなければ approve しないという意思が篭っている指摘コメントであることを示す
+
+### 重要度と緊急度
+
+レビュイーが指摘点のトリアージの目安として利用する指標
+
+#### 重要度
+
+指摘点が、機能や処理の根幹に関わる問題(バグ、セキュリティリスク)であるほど重要である
+
+#### 緊急度
+
+指摘点が、アプリケーションの利用上支障となるような発生頻度、回避する操作が存在しない問題であるほど緊急である
+
+## ステップ6: GitHubへコメント送信
+
+ステップ5で列挙した全てのコメントをコマンドに埋め込んでGitHubにも送信する。
+
+### 指摘事項が存在する場合
+
+```shell
+jq -n '{body: "<PR全体像コメント>",event: "REQUEST_CHANGES",comments: [{path: "<指摘するファイル名>",line: <該当行番号>,side: "RIGHT",body: "<タグを付与したコメント>"}]}' \
+| gh api repos/<organization>/<repo>/pulls/<PR>/reviews --method POST --input -
+```
+
+### 指摘事項が無く承認する場合
+
+```shell
+jq -n '{body: "LGTMです!🎉",event: "APPROVE"}' \
+| gh api repos/<organization>/<repo>/pulls/<PR>/reviews --method POST --a--input -
+```
