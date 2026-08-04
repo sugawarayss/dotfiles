@@ -9,7 +9,7 @@ claude:
   # @type -q npm || mise install node@latest
   # @type -q claude || npm install -g @anthropic-ai/claude-code
   @test -d ~/.claude || mkdir -p ~/.claude
-  # @test -L ~/.claude/CLAUDE.md || ln -s {{pwd}}/HOME/claude/CLAUDE.md ~/.claude/CLAUDE.md
+  @test -L ~/.claude/CLAUDE.md || ln -s {{pwd}}/HOME/claude/CLAUDE.md ~/.claude/CLAUDE.md
   @test -L ~/.claude/settings.json || ln -s {{pwd}}/HOME/claude/settings.json ~/.claude/settings.json
   # @test -L ~/.claude/commands || ln -s {{pwd}}/HOME/claude/commands ~/.claude/commands
   @test -L ~/.claude/skills || ln -s {{pwd}}/HOME/claude/skills ~/.claude/skills
