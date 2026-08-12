@@ -10,7 +10,7 @@ return {
       undercurl = true,
       commentStyle = { italic = false },
       functionStyle = {},
-      keywordStyle = { italic = true },
+      keywordStyle = { italic = false },
       statementStyle = { bold = true },
       typeStyle = {},
       transparent = false,

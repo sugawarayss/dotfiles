@@ -31,6 +31,7 @@ return {
       local palette = require("kanagawa.colors").setup().theme
       require("bufferline").setup({
         highlights = {
+          buffer_selected = { italic = false },
           error_selected = { fg = palette.diag.error },
           warning_diagnostic_selected = { fg = palette.diag.warning },
           error_diagnostic_selected = { fg = palette.syn.error },
