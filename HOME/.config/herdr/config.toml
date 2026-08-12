@@ -24,25 +24,161 @@ directory = "~/.herdr/worktrees"
 # 一時的なキープアライブのフォールバックを使用してSSHブリッジを管理する
 manage_ssh_config = true
 
+[experimental]
+# Herdrペイン内でherdrを起動できるようにするか
+allow_nested = false
+# Kittyのローカルグラフィックレンダリングを利用するか
+kitty_graphics = false
+# ペインの履歴をsession-history.jsonに保存する
+pane_history = false
+reveal_hidden_cursor_for_cjk_ime = false
+cjk_ime_agents = []
+# IME アンカーにレンダリングの カーソル形状("block"|"stedy_block"|"underline"|"steady_underline"|"bar"|"steady_bar")
+cjk_ime_cursor_shape = "steady_block"
+# IMEがONでも、プリフィックスモードではascii入力する
+switch_ascii_input_source_in_prefix = false
+
 [keys]
+# プレフィックスモードに入るためのプレフィックスキー（例: "ctrl+b", "f12", "esc"）。
 prefix = "ctrl+b"
 
 [theme]
-name = "tokyo-night"
+name = "gruvbox"
+# ホスト端末のライト/ダーク外観に追従し、テーマ名を切り替える。
+auto_switch = false
+# auto_switch が ダークモードを選択した場合のテーマ名
+# dark_name = ""
+# auto_switch が ライトモードを選択した場合のテーマ名
+# light_name = ""
+
+# [[theme.custom]]
+# accent = ""
+# panel_bg =  ""
+# surface0 = ""
+# surface1 = ""
+# surface_dim = ""
+# overlay0 = ""
+# overlay1 = ""
+# text = ""
+# subtext0 = ""
+# mauve = ""
+# green = ""
+# yellow = ""
+# red = ""
+# blue = ""
+# teal = ""
+# peach = ""
+
+[session]
+# Herdrセッションを復元する際にエージェントのペインの会話セッションを再開する
+resume_agents_on_restore = true
 
 [ui]
+# サイドバーの横幅
 sidebar_width = 32
+# サイドバーの最小横幅
 sidebar_min_width = 18
+# サイドバーの最大横幅
 sidebar_max_width = 36
+# 起動時にサイドバーを折り畳むか
+sidebar_start_collapsed = false
+# 折り畳んだサイドバーの表示("compact"|"hidden")
+sidebar_collapsed_mode = "compact"
+# 単一列レイアウトを使用するウィンドウ幅
 mobile_width_threshold = 64
+# マウス入力のサポート
 mouse_capture = true
+# 選択したテキストを自動でコピーする
+copy_on_select = true
+# ホストカーソルポリシー("auto"|"native"|"drawn")
+host_cursor = "auto"
+# 右クリックをペインアプリに渡すための修飾キー。空欄で無効("Ctrl,Alt,Cmd,Super,Meta,Hyperを+で区切った組み合わせ")
 right_click_passthrough_modifier = ""
+# フォーカスが戻った時に画面を強制的に再描画する
 redraw_on_focus_gained = true
+# スクロール幅(行)
 mouse_scroll_lines = 3
+# ワークスペースを閉じる時は確認する
 confirm_close = true
+# 新規タブの作成時に名前付けを求める
 prompt_new_tab_name = true
+# 対話型TUIを作成する際にワークスペースに名前付けを求める
+prompt_new_workspace_name = false
+# 分割されたペイン周辺に枠線を付ける
 pane_borders = true
+# ペインにスクロールバーを表示する
+pane_scrollbars = true
+# 分割したペイン間に隙間を表示する
 pane_gaps = true
-show_agent_labels_on_pane_borders = false
+# 手動でペインラベルが設定されいない場合、境界線にエージェントラベルを表示する
+show_agent_labels_on_pane_borders = true
+# ワークスペースにタブが1つのみの場合、タブ行を非表示にする
+hide_tab_bar_when_single_tab = false
+# タブバーの表示位置("top"|"bottom")
+tab_bar_position = "top"
+# エージェントサイドバーの順序付け("spaces"|"priority")
 agent_panel_sort = "spaces"
+# アクセントカラー
 accent = "cyan"
+
+[ui.sidebar.agents]
+# エジェントサイドバーエントリ間の空行数
+row_gap = 0
+# エジェントサイドバーのレイアウト
+rows = [["state_icon", "workspace", "tab"], ["agent"]]
+# エージェント別のレイアウトオーバーライド
+rows_by_agent = {}
+
+[ui.sidebar.spaces]
+# ワークツリーグループを無関係なものとの間の空行数
+row_gap = 0
+# 拡張スペースサイドバーのレイアウト
+rows = [["state_icon", "workspace"], ["branch", "git_status"]]
+
+[ui.toast]
+# ポップアップ通知("off"|"herdr"|"terminal"|"system")
+delivery = "terminal"
+# エージェント通知を送信するまでの待機秒数(0~3600)
+delay_seconds = 1
+
+[ui.toast.herdr]
+# アプリ内トーストの表示位置("top-left"|"top-right"|"bottom-left"|"bottom-right")
+position = "bottom-right"
+
+[ui.toast.clipboard]
+# マウスでコピー時に通知を表示
+enabled = true
+# クリップボードにコピーした内容を表示するポップアップ表示位置("top-left"|"top-center"|"top-right"|"bottom-left"|"bottom-center"|"bottom-right")
+position = "bottom-center"
+
+[ui.sound]
+# バックグラウンドワークスペースでエージェントの状態が変化したときに音を再生する
+enabled = true
+# 通知音mp3ファイルのパス
+# path = "./sounds/xxxx.mp3"
+# 「完了」通知音mp3ファイルのパス
+# done_path = "./sounds/xxxx.mp3"
+# 「リクエスト」通知音mp3ファイルのパス
+# request_path =  "./sounds/xxxx.mp3"
+
+[ui.sound.agents]
+# 検出した エージェント別 の対するサウンドオーバーライド("default"|"on"|"off")
+pi = "default"
+claude = "default"
+codex = "default"
+gemini = "default"
+cursor = "default"
+devin = "default"
+agy = "default"
+cline = "default"
+open_code = "default"
+github_copilot = "default"
+kimi = "default"
+kiro = "default"
+droid = "default"
+amp = "default"
+grok = "default"
+hermes = "default"
+kilo = "default"
+qodercli = "default"
+maki = "default"
