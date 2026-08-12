@@ -11,15 +11,15 @@ for arg in "$@"; do
   case "$arg" in
     -*) continue ;;
   esac
-  case "$arg" in
-    *..*)
-      echo "$script_name: refusing path containing '..': $arg" >&2
-      exit 1
-      ;;
-    /tmp/*|/private/tmp/*)
-      ;;
+
+  resolved=$(realpath "$arg" 2>/dev/null) || {
+    echo "$script_name: cannot resolve path: $arg" >&2
+    exit 1
+  }
+  case "$resolved" in
+    /tmp/*|/private/tmp/*) ;;
     *)
-      echo "$script_name: refusing to remove path outside /tmp: $arg" >&2
+      echo "$script_name: refusing to remove path outside /tmp (resolved: $resolved): $arg" >&2
       exit 1
       ;;
   esac
