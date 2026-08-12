@@ -1,12 +1,29 @@
-theme = "github-dark-default"
-mode = "auto"
+theme = "monokai"
+# 差分表示のレイアウト("auto"|"split"|"stack")
+mode = "split"
+# 現在行を強調表示する範囲("off"|"row"|"number")
+cursor_line = "row"
+# バージョン管理システム("git"|"hg"|"svn"|"none")
 vcs = "git"
+# 対象ファイルが変更された場合に再読み込み
 watch = false
+# 追跡されていないファイルを無視する
 exclude_untracked = false
+# 新旧の行番号を表示する
 line_numbers = true
+# 折り返し時のタブサイズ
 tab_width = 4
+# 長い差分で折り返さない
 wrap_lines = false
+# メタデータを表示する
 hunk_headers = true
+# アプリケーションメニューバーを表示
 menu_bar = true
-agent_notes = false
+# エージェントのメモを表示する
+agent_notes = true
+# コピー内容に差分記号と行番号を含めない
+copy_decorations = false
+# 背景を透明にする
 transparent_background = false
+# 移動行の色付けを有効にする
+color_moved = true

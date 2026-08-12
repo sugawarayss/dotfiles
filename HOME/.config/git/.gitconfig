@@ -1,9 +1,3 @@
-[pager]
-    diff          = delta
-    log           = delta
-    reflog        = delta
-    show          = delta
-
 [alias]
   # ブランチ一覧(local/remote)
   ba = branch -a
@@ -28,35 +22,47 @@
   # show git current branch
   current = branch --show-current
   lg = !"git log --oneline --graph --decorate $(git cb)"
+  hdiff = -c core.pager=\"hunk pager\" diff
+  hshow = -c core.pager=\"hunk pager\" show
   ; show-graph = log --graph --decorate --abbrev-commit --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset)%C(yellow)%d%C(reset)\n  %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
 
 
-[include]
-  path = ~/.config/git/themes.gitconfig
+; [include]
+;   path = ~/.config/git/themes.gitconfig
 
-[delta]
-    features = colibri
-    line-numbers  = true
-    side-by-side  = true
-    navigate      = true
+; [delta]
+;   features = colibri
+;   line-numbers  = true
+;   side-by-side  = true
+;   navigate      = true
 
-[interactive]
-    diffFilter    = delta --color-only
+; [interactive]
+;   diffFilter    = delta --color-only
 
 [user]
-    name          = sugawarayss
-    email         = sugawarayss@inap-vision.co.jp
+  name          = sugawarayss
+  email         = sugawarayss@inap-vision.co.jp
 
 [ghq]
-    root          = ~/PROJECTS
+  root          = ~/PROJECTS
 
 [commit]
-    template      = ~/.config/git/.commit_template
+  template      = ~/.config/git/.commit_template
 
 [core]
-    quotepath     = false
-    editor        = nvim
-	autocrlf      = input
+  quotepath     = false
+  editor        = nvim
+  autocrlf      = input
+  pager = hunk pager
 
 [init]
-    defaultBranch = main
+  defaultBranch = main
+
+[diff]
+  tool = hunk
+
+[difftool "hunk"]
+  cmd = hunk difftool \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+
+[difftool]
+  prompt = false
