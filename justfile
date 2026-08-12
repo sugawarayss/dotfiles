@@ -18,7 +18,7 @@ claude:
   @test -L ~/.claude/statusline.sh || ln -s  {{pwd}}/HOME/claude/statusline.sh ~/.claude/statusline.sh
   @test -L ~/.claude/hook_voices || ln -s {{pwd}}/HOME/claude/hook_voices ~/.claude/hook_voices
 
-
+# claude-mcp 用設定ファイル
 claude-mcp:
   # mcpを追加
   claude mcp add aws-knowledge --transport stdio --scope user -- uvx fastmcp run https://knowledge-mcp.global.api.aws
@@ -26,14 +26,17 @@ claude-mcp:
   claude mcp add serena --transport stdio --scope user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --project-from-cwd
   claude mcp add playwright --transport stdio --scope user -- npx @playwright/mcp@latest
   claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest --autoConnect
-  claude mcp add terraform --transport stdio --scope user -- docker run -i --rm hashicorp/terraform-mcp-server
+  # claude mcp add terraform --transport stdio --scope user -- docker run -i --rm hashicorp/terraform-mcp-server
 
+# crit コマンドの設定ファイルを展開
 crit:
   @test -L ~/.crit.config.json || ln -s {{pwd}}/HOME/crit/.crit.config.json ~/.crit.config.json
 
+# herdr の設定ファイルを展開
 herdr:
   @test -L ~/.config/herdr || ln -s {{pwd}}/HOME/.config/herdr ~/.config/herdr
 
+# npmの設定ファイルを展開
 node:
   # npmの設定ファイルを展開
   @test -L ~/.npmrc || ln -s {{pwd}}/HOME/.npmrc ~/.npmrc
@@ -81,16 +84,19 @@ brew-restore:
 brew-dump:
   @brew bundle dump --force --file {{pwd}}/homebrew/Brewfile
 
+# macOSのUI設定
 _macos-general-settings:
   # スクロールバーを常時表示
   @defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
+# macOSのDock設定
 _macos-dock-settings:
   # デフォルトアプリをDockから除去
   @defaults write com.apple.dock persistent-apps -array
   # 起動中のアプリのみをDockに表示
   @defaults write com.apple.dock static-only -bool true
 
+# macosのFinder設定
 _macos-finder-settings:
   # ステータスバーを表示
   @defaults write com.apple.finder ShowStatusBar -bool true
@@ -107,6 +113,7 @@ _macos-finder-settings:
   # Finderを再起動
   @killall Finder
 
+# macosのスクリーンショット設定
 _macos-screenshot-settings:
   # スクリーンショットの保存先
   @defaults write com.apple.screencapture location ~/SCREENSHOTS
@@ -140,7 +147,7 @@ _git-config:
   # gitの設定ファイル
   @test -L ~/.gitconfig || ln -s {{pwd}}/HOME/.config/git/.gitconfig ~/.gitconfig
   # git-delta用のtheme設定
-  @test -L ~/.config/git/themes.gitconfig || ln -s {{pwd}}/HOME/.config/git/themes.gitconfig ~/.config/git/themes.gitconfig
+  # @test -L ~/.config/git/themes.gitconfig || ln -s {{pwd}}/HOME/.config/git/themes.gitconfig ~/.config/git/themes.gitconfig
   # gitignore
   @test -L ~/.config/git/ignore || ln -s {{pwd}}/HOME/.config/git/ignore ~/.config/git/ignore
   # コミットテンプレート
@@ -161,17 +168,19 @@ _gh-extensions:
   @gh extension install dlvhdr/gh-dash
   # gh-notify 拡張のインストール
   @gh extension install meiji163/gh-notify
-  # gh-copilot 拡張のインストール
-  @gh extension install github/gh-copilot
   # gh-prism 拡張(PR review)のインストール
   @gh extension install kawarimidoll/gh-prism
 
 # git 関連の設定を展開
-git: _git-config _gh-config _gh-extensions
+git: _git-config _gh-config _gh-extensions hunk
+
+# hunk コマンドの設定ファイルを展開
+hunk:
+  @test -L ~/.config/hunk || ln -s {{pwd}}/HOME/.config/hunk ~/.config/hunk
 
 # pinactコマンド用の設定ファイルを展開
 pinact:
-  @test -L ~/.config/pinact || ln -s {{pwd}}/HOME/.coonfig/pinact ~/.config/pinact
+  @test -L ~/.config/pinact || ln -s {{pwd}}/HOME/.config/pinact ~/.config/pinact
 
 # lsd (ls 代替コマンド)の設定ファイル
 lsd:
