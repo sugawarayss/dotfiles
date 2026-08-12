@@ -45,6 +45,8 @@ echo '[
 ]' | crit comment --json --base-branch <base> --author 'review-local'
 ```
 
+投稿が終わったら `crit` を `run_in_background: true` で起動する。出力される `Started crit daemon at http://localhost:<port>` の URL をそのままユーザーに伝え、バックグラウンドタスクの完了（ユーザーによる `Finish Review`）を待つ。
+
 ### タグ
 
 - `BUG:` 明確なロジック誤り。実際に問題が発生するシナリオが想定できるもの。
@@ -54,12 +56,10 @@ echo '[
 - `INCONSISTENT:` 既存コードとの命名・パターンの不一致。
 - `TEST:` 変更されたロジックに対応するテストの欠如。
 
-投稿が終わったら、`crit` を `run_in_background: true` でバックグラウンド起動する。出力される `Started crit daemon at http://localhost:<port>` の URL をそのままユーザーに伝える。修正適用・返信ラウンドには入らないため、`crit` の完了（Finish Review）を待つ必要はない。
-
 ## スコア
 
 最後に `net: <N>件をcritにコメントとして投稿。` で締めくくる。
-指摘がない場合はコメントを投稿せず `crit`を起動し、 `LGTM` とだけコメントしてする。
+指摘がない場合はインラインコメントは投稿せず、 `crit`を起動し、 `LGTM` とだけコメント。
 
 ## 境界
 
