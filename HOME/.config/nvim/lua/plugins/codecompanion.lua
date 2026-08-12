@@ -2,7 +2,7 @@ return {
   {
     "olimorris/codecompanion.nvim",
     -- version = "^18.0.0",
-    cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
+    cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat", "CodeConpanionCLI" },
     cond = function()
       return not vim.g.vscode
     end,
@@ -13,14 +13,21 @@ return {
       local wk = require("which-key")
       wk.add({
         {
-          "<Leader>cc", -- Command+Ctrl+i
+          "<Leader>cch", -- Command+Ctrl+i
           "<Cmd>CodeCompanionChat Toggle<CR>",
           mode = { "n", "v" },
           icon = "🤖",
           desc = "CodeCompanion - LLMとのChatをトグル",
         },
         {
-          "<Leader>cf",
+          "<Leader>cli",
+          "<Cmd>CodeConpanionCLI<CR>",
+          mode = "n",
+          icon = "🤖",
+          desc = "CodeCompanion - CLI(Claude Code)を起動",
+        },
+        {
+          "<Leader>cfix",
           function()
             require("codecompanion").prompt("fix")
           end,
@@ -29,7 +36,7 @@ return {
           desc = "CodeCompanion - LLMで選択範囲を修正する",
         },
         {
-          "<Leader>ce",
+          "<Leader>cexp",
           function()
             require("codecompanion").prompt("explain")
           end,
@@ -38,7 +45,7 @@ return {
           desc = "CodeCompanion - LLMで選択範囲を実装内容を説明する",
         },
         {
-          "<Leader>cl",
+          "<Leader>clsp",
           function()
             require("codecompanion").prompt("lsp")
           end,
