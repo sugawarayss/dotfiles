@@ -12,7 +12,7 @@ return {
       },
       hide = {
         cursorline = "smart",
-        focused_win = false,
+        focused_win = true,
         only_win = false,
       },
       highlight = {
