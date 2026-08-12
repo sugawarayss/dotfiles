@@ -145,6 +145,8 @@ _git-config:
   @test -L ~/.config/git/ignore || ln -s {{pwd}}/HOME/.config/git/ignore ~/.config/git/ignore
   # コミットテンプレート
   @test -L ~/.config/git/.commit_template || ln -s {{pwd}}/HOME/.config/git/.commit_template ~/.config/git/.commit_template
+  # hunk用の設定ファイル
+  @test -L ~/.config/hunk || ln -s {{pwd}}/HOME/.config/hunk ~/.config/hunk
 
 # gh コマンドの設定ファイルを展開
 _gh-config:
