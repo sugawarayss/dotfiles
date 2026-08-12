@@ -6,7 +6,7 @@ auto-update-channel = "stable"
 shell-integration = "fish"
 # メインフォント
 # font-family = "Cascadia Code NF"
-font-family = "Hack Nerd Font Mono"
+font-family = "AnnotationM Nerd Font Mono"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
 # フォントサイズ

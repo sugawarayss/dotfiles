@@ -47,7 +47,7 @@ config.macos_window_background_blur = 9
 -- フォント
 config.font = wezterm.font_with_fallback({
 	{
-		family = "Hack Nerd Font Mono",
+		family = "AnnotationM Nerd Font Mono",
 		weight = "Regular",
 	},
 	{
