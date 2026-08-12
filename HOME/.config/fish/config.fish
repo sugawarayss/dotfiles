@@ -143,15 +143,16 @@ if type "procs" > /dev/null 2>&1;
   abbr -a ps procs
 end
 
-if type "lsd" > /dev/null 2>&1;
+if type "eza" > /dev/null 2>&1;
   abbr -a oldls /bin/ls
-  alias ls='lsd --git'
-  alias la='lsd --all --git '
-  alias ll="lsd --long --git"
-  alias lla="lsd --long --all --git"
-  alias lt="lsd --tree --icon never"
-  alias lta="lsd --tree --all --icon never"
-  alias ld="lsd --directory-only --tree --icon never"
+  alias ls='eza'
+  alias la='eza --all --icons=always'
+  alias ll='eza --long --header --git --icons=always --time-style="+%Y-%m-%d %H:%M:%S"'
+  alias lla='eza --long --all --header --git --icons=always --created --modified --time-style="+%Y-%m-%d %H:%M:%S"'
+  alias llf='eza --long --only-files --time-style="+%Y-%m-%d %H:%M:%S"'
+  alias lld='eza --long --only-dirs --time-style="+%Y-%m-%d %H:%M:%S"'
+  alias lt='eza -T'
+  alias ld='eza -T --only-dirs'
 else
   abbr -a ls ls -Gh
   abbr -a la ls -aGh
