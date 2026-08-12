@@ -31,6 +31,7 @@
       "Bash(git stash:*)",
       "Bash(git status)",
       "Bash(git switch *)",
+      "Bash(hunk:*)",
       "Bash(jq:*)",
       "Bash(ls:*)",
       "Bash(lsd:*)",
@@ -83,7 +84,8 @@
       "mcp__context7__query-docs",
       "mcp__context7__resolve-library-id",
       "Read(~/**)",
-      "Edit(/tmp/**)"
+      "Edit(/tmp/**)",
+      "Bash(/Users/sugawarayss/.claude/bin/rm-tmp:*)"
     ],
     "deny": [
       "NotebookEdit",

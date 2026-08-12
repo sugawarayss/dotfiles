@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# /tmp (and /private/tmp) 配下のパスに限定して rm を実行するラッパー。
+# settings.json の permissions.deny には Bash(rm:*) 等の広いルールがあり、
+# より具体的な allow ルールを追加しても deny が常に優先されるため無効。
+# そのため、対象を /tmp 配下に固定した専用コマンドとして allow する。
+set -euo pipefail
+
+script_name=$(basename "$0")
+
+for arg in "$@"; do
+  case "$arg" in
+    -*) continue ;;
+  esac
+  case "$arg" in
+    *..*)
+      echo "$script_name: refusing path containing '..': $arg" >&2
+      exit 1
+      ;;
+    /tmp/*|/private/tmp/*)
+      ;;
+    *)
+      echo "$script_name: refusing to remove path outside /tmp: $arg" >&2
+      exit 1
+      ;;
+  esac
+done
+
+exec rm "$@"
