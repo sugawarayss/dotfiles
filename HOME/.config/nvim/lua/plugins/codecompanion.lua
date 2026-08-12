@@ -2,7 +2,7 @@ return {
   {
     "olimorris/codecompanion.nvim",
     -- version = "^18.0.0",
-    cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat", "CodeConpanionCLI" },
+    cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat", "CodeCompanionCLI" },
     cond = function()
       return not vim.g.vscode
     end,
