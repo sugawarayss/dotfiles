@@ -42,46 +42,56 @@ return {
     dependencies = {
       { "nvim-lua/plenary.nvim", lazy = true },
     },
-    opts = {
-      legacy_commands = false,
-      open_notes_in = "vsplit",
-      workspaces = {
-        {
-          name = "work",
-          path = "~/PROJECTS/sugawarayss/obsidian_notes",
+    config = function()
+      require("obsidian").setup({
+        legacy_commands = false,
+        open_notes_in = "vsplit",
+        frontmatter = {
+          enabled = true,
+          func = function(note)
+            local out = { tags = note.tags }
+            if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+              for k, v in pairs(note.metadata) do
+                out[k] = v
+              end
+            end
+            return out
+          end,
+          sort = { "id", "aliases", "tags" },
         },
-      },
-      note_frontmatter_func = function(note)
-        -- This is equivalent to the default frontmatter function.
-        local out = { tags = note.tags }
-        -- `note.metadata` contains any manually added fields in the frontmatter.
-        -- So here we just make sure those fields are kept in the frontmatter.
-        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-          for k, v in pairs(note.metadata) do
-            out[k] = v
-          end
-        end
-        return out
-      end,
-      picker = {
-        name = "snacks.pick",
-      },
-      daily_notes = {
-        folder = "daily",
-        date_format = "%Y-%m-%d",
-        template = "daily.md",
-      },
-      completion = {
-        -- Set to false to disable completion
-        nvim_cmp = false,
-        -- Trigger completion at 2 characters
-        min_chars = 2,
-      },
-      templates = {
-        folder = "templates",
-        date_format = "%Y-%m-%d",
-        time_format = "%H:%M",
-      },
-    },
+        callbacks = {
+          enter_note = function(_)
+            vim.keymap.set("n", "<leader>ch", "<cmd>Obsidian toggle_checkbox<cr>", {
+              buffer = true,
+              desc = "Obsidian - Toggle checkbox",
+            })
+          end,
+        },
+        workspaces = {
+          {
+            name = "work",
+            path = "~/PROJECTS/sugawarayss/obsidian_notes",
+          },
+        },
+        picker = {
+          name = "snacks.picker",
+        },
+        daily_notes = {
+          folder = "DailyNotes",
+          date_format = "YYYY-MM-DD",
+          default_tags = { "daily" },
+          template = "daily.md",
+        },
+        completion = {
+          -- Trigger completion at 2 characters
+          min_chars = 2,
+        },
+        templates = {
+          folder = "Templates",
+          date_format = "YYYY-MM-DD",
+          time_format = "HH:mm",
+        },
+      })
+    end,
   },
 }
