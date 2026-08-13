@@ -19,7 +19,7 @@
 - Python: `uv` を使用（pip/venvの直接操作はしない）
 - Node: `pnpm` を使用（npm/yarnは使わない）
 - バージョン管理・タスク実行: `mise run`, `task`, `just`
-- ファイル閲覧・検索・差分: `bat`, `lsd`, `sd`, `colordiff`, `jq` を標準ツールより優先してよい
+- ファイル閲覧・検索・差分: `bat`, `eza`, `fd`, `sd`, `colordiff`, `jq` を標準ツールより優先してよい
 - GitHub操作: `gh` CLI
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
 - 作業の計画や、実装が完了した時は `crit`を使いユーザにreviewしてもらうこと
