@@ -25,7 +25,7 @@ return {
         },
         {
           "<Leader>nn",
-          "<Cmd>Obsidian new_from_template<CR>",
+          "<Cmd>Obsidian new_from_template note.md<CR>",
           mode = "n",
           icon = "💎",
           desc = "Obsidian - ノートを開く(作成)",
@@ -75,6 +75,40 @@ return {
         },
         picker = {
           name = "snacks.picker",
+        },
+        file = {
+          ignore_filters = {
+            "archive",
+            "private/**",
+            "*.bak.md",
+            "slides/present.md",
+          },
+        },
+        search = {
+          sort_by = "modified",
+          sort_reversed = true,
+          max_lines = 1000,
+        },
+        checkbox = {
+          enabled = true,
+          create_new = true,
+          order = { " ", "~", "!", ">", "x" },
+        },
+        link = {
+          style = "wiki",
+          format = "shortest",
+          auto_update = false,
+        },
+        note = {
+          template = "note.md",
+        },
+        attachments = {
+          folder = "Knowledge/AttachedFiles",
+          img_text_func = require("obsidian.builtin").img_text_func,
+          img_name_func = function()
+            return string.format("Pasted image %s", os.date("%Y%m%d%H%M%S"))
+          end,
+          confirm_img_paste = true,
         },
         daily_notes = {
           folder = "DailyNotes",
