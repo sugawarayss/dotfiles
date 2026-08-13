@@ -33,7 +33,7 @@ return {
         mode = "floating", -- UIモード("floating"|"tabline")
         -- floatingモード設定
         floating = {
-          position = "top-right", -- メニュー表示位置(top-left|top-right|middle-left|middle-right|bottom-left|bottom-right)
+          position = "middle-right", -- メニュー表示位置(top-left|top-right|middle-left|middle-right|bottom-left|bottom-right)
           offset_x = 0, -- 表示位置 横方向オフセット
           offset_y = 5, -- 表示位置 縦方向オフセット
           border = "single",
