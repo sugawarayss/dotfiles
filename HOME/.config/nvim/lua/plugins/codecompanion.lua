@@ -21,7 +21,7 @@ return {
         },
         {
           "<Leader>cli",
-          "<Cmd>CodeConpanionCLI<CR>",
+          "<Cmd>CodeCompanionCLI<CR>",
           mode = "n",
           icon = "🤖",
           desc = "CodeCompanion - CLI(Claude Code)を起動",
