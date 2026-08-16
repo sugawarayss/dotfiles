@@ -5,32 +5,30 @@ pwd := `pwd`
 default: _list
 
 # claude code 用設定ファイル
-claude:
-  # @type -q npm || mise install node@latest
-  # @type -q claude || npm install -g @anthropic-ai/claude-code
+# claude code 用設定ファイル
+claude-code:
   @test -d ~/.claude || mkdir -p ~/.claude
   @test -L ~/.claude/CLAUDE.md || ln -s {{pwd}}/HOME/claude/CLAUDE.md ~/.claude/CLAUDE.md
   @test -L ~/.claude/settings.json || ln -s {{pwd}}/HOME/claude/settings.json ~/.claude/settings.json
-  # @test -L ~/.claude/commands || ln -s {{pwd}}/HOME/claude/commands ~/.claude/commands
   @test -L ~/.claude/skills || ln -s {{pwd}}/HOME/claude/skills ~/.claude/skills
   @test -L ~/.claude/agents || ln -s {{pwd}}/HOME/claude/agents ~/.claude/agents
   @test -L ~/.claude/rules || ln -s {{pwd}}/HOME/claude/rules ~/.claude/rules
-  @test -L ~/.claude/statusline.sh || ln -s  {{pwd}}/HOME/claude/statusline.sh ~/.claude/statusline.sh
   @test -L ~/.claude/hook_voices || ln -s {{pwd}}/HOME/claude/hook_voices ~/.claude/hook_voices
 
-# claude-mcp 用設定ファイル
+# cluade用MCPサーバを設定
 claude-mcp:
   # mcpを追加
   claude mcp add aws-knowledge --transport stdio --scope user -- uvx fastmcp run https://knowledge-mcp.global.api.aws
   claude mcp add context7 --transport stdio --scope user --env DEFAULT_MINIMUM_TOKENS=128000 -- npx -y @upstash/context7-mcp
   claude mcp add serena --transport stdio --scope user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --project-from-cwd
   claude mcp add playwright --transport stdio --scope user -- npx @playwright/mcp@latest
-  claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest --autoConnect
-  # claude mcp add terraform --transport stdio --scope user -- docker run -i --rm hashicorp/terraform-mcp-server
+  claude mcp add chrome-devtools -- npx -y  chrome-devtools-mcp@latest --autoConnect
 
-# crit コマンドの設定ファイルを展開
+# claude用crit(レビュー)を設定
 crit:
   @test -L ~/.crit.config.json || ln -s {{pwd}}/HOME/crit/.crit.config.json ~/.crit.config.json
+  # critコマンドがインストール済みならclaude-code用の設定を適用
+  -@type -q crit && crit install claude-code
 
 # herdr の設定ファイルを展開
 herdr:
