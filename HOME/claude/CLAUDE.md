@@ -9,7 +9,9 @@
 
 - [design_principles.md](rules/design_principles.md) — KISS/DRY/YAGNI/SOLID/早期リターン/命名規則/PoLA。コード実装時の設計方針。
 - [cross_project_memory.md](rules/cross_project_memory.md) — Obsidian vault (`obsidian_notes/ClaudeCode/`) へのプロジェクト横断メモリの書き出し方針。
-- [pytest_coding.md](rules/pytest_coding.md) — `**/test_*.py` に対してのみ適用されるテストコード実装ルール（frontmatterの `paths` でスコープ指定）。
+- [python.md](rules/python.md) — `**/*.py`に対して適用されるPythonコード実装ルール（frontmatterの `paths` でスコープ指定）。
+- [pytest_coding.md](rules/pytest_coding.md) — `tests/**/test_*.py` に対してのみ適用されるテストコード実装ルール（frontmatterの `paths` でスコープ指定）。
+- [use_cli.md](rules/use_cli.md) — `bat`/`eza`/`fd`/`sd`/`ripgrep`/`pandoc`/`jq`/`yq` など、積極的に使ってよいCLIツール一覧。
 
 新しい横断ルールを追加する場合は、この一覧にも追記すること。
 
