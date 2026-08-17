@@ -379,9 +379,9 @@ complete -c aws -f -a '(
 # Plugin の設定 #
 #################
 # yuys13/fish-autols
-set -U autols_cmd ll
+set -g autols_cmd ll
 # fzf
-set -U FZF_LEGACY_KEYBINDINGS 0
+set -g FZF_LEGACY_KEYBINDINGS 0
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
