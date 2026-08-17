@@ -197,7 +197,7 @@ return {
     quickfile = { enabled = true },
     -- トグルキーマップ
     toggle = { enabled = true },
-    terminal = { win = { style = "terminal" } },
+    terminal = { enabled = false },
     styles = {
       input = {
         backdrop = false,
@@ -306,21 +306,21 @@ return {
       end,
       desc = "Snacks - ファイルエクスプローラを表示",
     },
-    {
-      "<F3>",
-      function()
-        Snacks.terminal.toggle()
-      end,
-      desc = "Snacks - ターミナルを開く",
-    },
-    {
-      "<F3>",
-      function()
-        Snacks.terminal.toggle()
-      end,
-      desc = "Snacks - ターミナルを閉じる",
-      mode = { "t" },
-    },
+    -- {
+    --   "<F3>",
+    --   function()
+    --     Snacks.terminal.toggle()
+    --   end,
+    --   desc = "Snacks - ターミナルを開く",
+    -- },
+    -- {
+    --   "<F3>",
+    --   function()
+    --     Snacks.terminal.toggle()
+    --   end,
+    --   desc = "Snacks - ターミナルを閉じる",
+    --   mode = { "t" },
+    -- },
     {
       "<F4>",
       function()
