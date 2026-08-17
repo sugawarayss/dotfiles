@@ -1,7 +1,7 @@
 ---
 name: improve-codebase-architecture
 description: コードベースをスキャンして改善の機会を探し出し、それらを視覚的なHTMLレポートとして提示し、その後、選択したレポートを徹底的に検証する。
-deisabel-model-invocation: true
+disable-model-invocation: true
 ---
 
 # Improve Codebase Architecture
