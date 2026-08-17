@@ -158,6 +158,7 @@ if type "procs" > /dev/null 2>&1;
   abbr -a ps procs
 end
 
+
 if type "eza" > /dev/null 2>&1;
   abbr -a oldls /bin/ls
   alias ls='eza'
