@@ -1,5 +1,5 @@
 ---
-paths: **/test_*.py
+paths: tests/**/test_*.py
 ---
 
 ## テストコード実装のルール
