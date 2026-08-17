@@ -1,7 +1,7 @@
 ---
-name: generage-doc
+name: doc-coauthoring
 description: "ソースコード全体を参照しドキュメントをmarkdownファイルとして生成します。"
-allowed-tools: Bash(ls:*), Bash(cat:*), Bash(mkdir:*), Base(touch:*) Read(*.py)
+allowed-tools: Bash(ls:*), Bash(cat:*), Bash(mkdir:*), Bash(touch:*) Read(*.py)
 user-invocable: true
 ---
 あなたは経験豊富なベテランシニアエンジニアです。
