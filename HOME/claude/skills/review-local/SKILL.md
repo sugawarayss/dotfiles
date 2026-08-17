@@ -3,7 +3,7 @@ name: review-local
 description: >
   ローカルブランチとベースブランチの diff を取得し、正確性・バグを中心にコードレビューを行います。
   ロジック誤り、エッジケースの考慮漏れ、エラーハンドリング不備、意図しない副作用、既存コードとの整合性、テスト不足などを検出します。
-  ユーザーが「ローカルの変更をレビューして」「この diff をチェックして」「マージ前にレビューして」「review-local-code」「/review-local-code」と入力した場合に使用します。
+  ユーザーが「ローカルの変更をレビューして」「この diff をチェックして」「マージ前にレビューして」「review-local」「/review-local」と入力した場合に使用します。
   complexity-review（過剰設計の検出）・audit-review（リポジトリ全体の過剰設計監査）を補完する立ち位置で、こちらは正確性・バグに特化します。
 allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git diff:*) Bash(crit:*) Read Grep mcp__context7__*
 ---
@@ -65,4 +65,4 @@ echo '[
 
 スコープは正確性・バグのみ。過剰設計や複雑性は complexity-review / audit-review の対象であり、ここでは扱わない。セキュリティ脆弱性は security-review の対象であり、ここでは扱わない（明確なバグに起因する場合を除く）。
 指摘はコメント投稿のみで、修正の適用・返信・解決（resolve）は行わない。1回限りの実行。
-「stop local-code-review」または「normal mode」と言われたら中断し、通常のレビュースタイルに戻る。
+「stop review-local」または「normal mode」と言われたら中断し、通常のレビュースタイルに戻る。
