@@ -11,9 +11,9 @@ fish_add_path $HOME/.cargo/bin
 #########################
 # ENVIRONMENT VARIABLES #
 #########################
-set -Ux LANG ja_JP.UTF-8
-set -Ux KCODE u
-set -Ux MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -g LANG ja_JP.UTF-8
+set -g KCODE u
+set -g MANPAGER "sh -c 'col -bx | bat -l man -p'"
 # XDG PATHs
 set -q XDG_CONFIG_HOME || set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_DATA_HOME || set -gx XDG_DATA_HOME $HOME/.local/share
