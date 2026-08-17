@@ -87,6 +87,9 @@ if type "brew" > /dev/null 2>&1
   fish_add_path (brew --prefix)/bin
   fish_add_path (brew --prefix)/sbin
 
+  # curl
+  fish_add_path (brew --prefix)/opt/curl/bin
+
   # psql
   if type "psql" > /dev/null 2>&1;
     fish_add_path (brew --prefix)/libpq/bin
