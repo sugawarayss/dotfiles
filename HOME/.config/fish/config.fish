@@ -223,7 +223,7 @@ if type "ghq" > /dev/null 2>&1;
         --border-label 'Change Directory' \
         --list-label 'Ripositries of ghq' \
         --preview-label 'Directory Structure' \
-        --preview 'lsd --tree --depth 2 --icon always {}' \
+        --preview 'eza -T --level 3 --only-dirs --all --git-ignore --icons=always {}' \
         --prompt 'Repositry Name> ')
     if test -z "$repo_path"
       # リポジトリが選択されなければ、何もせず終了
