@@ -66,6 +66,18 @@ set --global tide_git_color_untracked "6f2e2d"
 
 set --global tide_time_format "%Y/%m/%d %T"
 
+# カーソルの形状設定
+## NORMALモードではブロック点滅
+set -g fish_cursor_default block blink
+## VISUALモードではブロック点滅
+set -g fish_cursor_visual block blink
+## INSERTモードではライン点滅
+set -g fish_cursor_insert line blink
+## REPLACEモードではアンダーライン点滅
+set -g fish_cursor_replace_one underscore blink
+set -g fish_cursor_replace underscore blink
+set -g fish_cursor_external line blink
+
 # neovim
 set -gx EDITOR nvim
 
