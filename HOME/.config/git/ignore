@@ -105,3 +105,7 @@ CLAUDE.local.md
 # slumber コマンド(HTTPクライアントCLI)のprofile
 slumber.yml
 slumber.yaml
+
+# wtp - git worktree 管理ツール
+.wtp.yml
+.wtp.yaml
