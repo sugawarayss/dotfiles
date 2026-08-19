@@ -7,8 +7,9 @@
   "share_url": "https://crit.md",
   "proxy_auth": false,
   "quiet": false,
-  "output": "",
+  "output": "~/.crit",
   "author": "",
+  "forge": "auto",
   "base_branch": "",
   "ignore_patterns": [
     "*.lock",
@@ -17,11 +18,12 @@
     ".crit/"
   ],
   "auto_viewed_patterns": [],
-  "no_integration_check": false,
+  "cleanup_on_approve": true,
+  "notify_on_round_ready": true,
   "no_update_check": false,
+  "no_integration_check": false,
   "disable_stats": false,
   "agent_cmd": "claude --allowedTools Edit,Read,Bash,Write,Glob,Grep -p",
-  "cleanup_on_approve": true,
-  "vcs": "",
+  "vcs": "git",
   "prompts": {}
 }
