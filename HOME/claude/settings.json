@@ -252,7 +252,8 @@
     "crit@crit": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "example-skills@anthropic-agent-skills": true,
-    "document-skills@anthropic-agent-skills": true
+    "document-skills@anthropic-agent-skills": true,
+    "typescript-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "crit": {
