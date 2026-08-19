@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/sugawarayss/.docker/bin"
+# End of Docker Desktop section.
+
 export LANG=ja_JP.UTF-8
 export KCODE=u # KCODEにUTF-8を設定
 # manコマンドでbatを使って色付けページャーにする
