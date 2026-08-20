@@ -54,7 +54,7 @@ new_worktree = "prefix+shift+g"
 # 選択した ワークスペースから git worktreeを削除
 # remove_worktree = ""
 # 選択した ワークスペースの名前を変更
-rename_sorkspace = "prefix+shift+w"
+rename_workspace = "prefix+shift+w"
 # 選択した ワークスペースを閉じる
 close_workspace = "prefix+shift+d"
 # ワークスペース選択ナビゲーション画面を開く
@@ -91,7 +91,7 @@ remote_image_paste = "ctrl+v"
 new_tab = "prefix+c"
 rename_tab = "prefix+shift+t"
 previous_tab = "prefix+p"
-next_tab = "previx+n"
+next_tab = "prefix+n"
 # move_tab_previous = ""
 move_tab_next = ""
 switch_tab = "prefix+1..9"
