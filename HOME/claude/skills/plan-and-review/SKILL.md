@@ -1,12 +1,12 @@
 ---
-name: implement-and-pr
+name: plan-and-review
 description: >
   worktree内でissue/タスクの実装プランを検討し、Plan Modeのcrit連携（ExitPlanMode時に
   自動起動する crit plan-hook）でユーザーレビューを受け、承認されたら実装フェーズを
   `execute-plan-and-pr` スキルに引き継ぎます。
   `/start-worktree` からworktree作成後に自動的に呼び出されるほか、
   既存のworktree内で「実装してPRまで作って」「このissueの実装を進めて」
-  「implement-and-pr」「/implement-and-pr」と言われた場合にも使用します。
+  「plan-and-review」「/plan-and-review」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ]"
 allowed-tools: Agent Skill EnterPlanMode ExitPlanMode Bash(git status:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
 user-invocable: true

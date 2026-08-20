@@ -13,7 +13,7 @@ model: haiku
 ---
 
 GitHub issue または ClickUp タスクを起点に、wtp + herdr のworktreeワークフロー（Obsidian vault `ClaudeCode/Knowledge/wtp-herdr-worktree-workflow`）を開始します。
-このスキルの責務は **worktreeの作成とherdrワークスペースを開くところまで**。完了後は `implement-and-pr` スキルに引き継ぎ、実装プランの検討からPull Request作成までを担当してもらう。
+このスキルの責務は **worktreeの作成とherdrワークスペースを開くところまで**。完了後は `plan-and-review` スキルに引き継ぎ、実装プランの検討からPull Request作成までを担当してもらう。
 
 ## 前提条件の確認
 
@@ -81,11 +81,11 @@ wtp add -b <branch> <base>
 
 ## ステップ7: herdr経由での実装フロー起動
 
-worktreeの作成が完了したら、同一セッション内で `implement-and-pr` を呼ぶのではなく、herdrの新規ワークスペース内のペインでclaudeを新規起動し、そこに実装フローの開始を指示する。これにより、実装作業（ファイル編集・commit等）が確実にworktreeのディレクトリを起点に行われる（このセッション自身はcwdが元のリポジトリのままであり、cwdを移動する手段がないため）。
+worktreeの作成が完了したら、同一セッション内で `plan-and-review` を呼ぶのではなく、herdrの新規ワークスペース内のペインでclaudeを新規起動し、そこに実装フローの開始を指示する。これにより、実装作業（ファイル編集・commit等）が確実にworktreeのディレクトリを起点に行われる（このセッション自身はcwdが元のリポジトリのままであり、cwdを移動する手段がないため）。
 
 1. ステップ6の標準出力から `workspace_id` と `root_pane.pane_id` を取得する（`jq`で抽出できる場合はそれを使う。抽出できなければ `herdr workspace list` でステップ3のブランチ名と一致する `label` を探して `workspace_id` を特定し、`herdr pane list --workspace <workspace_id>` で `pane_id` を特定するフォールバックを使う）。
 2. `herdr agent start <name> --kind claude --pane <pane_id>` で対象ペインにclaudeを起動する。`<name>` はブランチ名の `/` を `-` に置き換えたものを使う。
-3. `herdr agent prompt <pane_id> "/implement-and-pr <issue/タスクのURL> <ブランチ名> <ベースブランチ>"` で実装フローの開始を指示する（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`implement-and-pr` 側でURLから再取得する）。`--wait` はタイムアウトすることがあるため付けない。
+3. `herdr agent prompt <pane_id> "/plan-and-review <issue/タスクのURL> <ブランチ名> <ベースブランチ>"` で実装フローの開始を指示する（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`plan-and-review` 側でURLから再取得する）。`--wait` はタイムアウトすることがあるため付けない。
 
 herdr未起動・フック未設定などでherdrワークスペースが開かなかった場合は、この手順は行わずステップ8の報告でその旨を伝えるにとどめる。
 
@@ -96,11 +96,11 @@ herdr未起動・フック未設定などでherdrワークスペースが開か�
 - 作成（または再利用）したworktreeのパスとブランチ名
 - issue/タスクのタイトルとURL
 - herdrワークスペースが開いたかどうか（フック未設定・herdr未起動などで開かなかった場合はその理由も伝える）
-- ステップ7を実行した場合は、新規ペインでclaudeを起動し `implement-and-pr` の開始を指示した旨
+- ステップ7を実行した場合は、新規ペインでclaudeを起動し `plan-and-review` の開始を指示した旨
 
 ## 境界
 
 - ClickUpタスクのステータスやアサインの自動更新は行わない。
 - `.wtp.yml` 自体の新規作成・herdr連携フックの追加は、前提条件の確認でユーザーの同意を得た場合のみ行う（無断で設定ファイルを書き換えない）。
-- 実際のコード実装・コミット・push・PR作成はこのスキル自身では行わない。ステップ7でherdrの新規ペイン上のclaudeセッションに `implement-and-pr` の開始を指示するのみ。
+- 実際のコード実装・コミット・push・PR作成はこのスキル自身では行わない。ステップ7でherdrの新規ペイン上のclaudeセッションに `plan-and-review` の開始を指示するのみ。
 - ステップ5で既存worktreeを再利用した場合はステップ7を行わない（既に作業中の可能性があるため、既存worktreeのherdrワークスペースを開いた報告のみで終了する）。

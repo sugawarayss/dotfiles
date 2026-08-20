@@ -1,11 +1,11 @@
 ---
 name: execute-plan-and-pr
 description: >
-  `implement-and-pr` で承認された実装プランに従ってコード変更を実施し、変更内容を
+  `plan-and-review` で承認された実装プランに従ってコード変更を実施し、変更内容を
   Hunk（`hunk-review` スキル）でレビューしてもらい、意味のある単位でcommitし、
   pushコマンドを提示したうえでPull Requestを作成し、
   ユーザーからPRがマージされた旨の報告を受けたら `cleanup-worktree` スキルで後片付けまで行います。
-  `implement-and-pr` でのプラン承認後に自動的に呼び出されるほか、
+  `plan-and-review` でのプラン承認後に自動的に呼び出されるほか、
   既存のworktreeで承認済みのプランファイルがある状態で
   「実装を進めて」「execute-plan-and-pr」「/execute-plan-and-pr」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [プランファイルのパス]"
@@ -14,9 +14,9 @@ user-invocable: true
 model: sonnet
 ---
 
-`implement-and-pr` で承認された実装プランを引き継ぎ、実装からPull Request作成・後片付けの呼び出しまでを行います。`implement-and-pr` と対になるスキルで、Plan Mode承認後に呼び出される想定ですが、承認済みプランファイルが既にある状態で単独に呼び出してもかまいません。
+`plan-and-review` で承認された実装プランを引き継ぎ、実装からPull Request作成・後片付けの呼び出しまでを行います。`plan-and-review` と対になるスキルで、Plan Mode承認後に呼び出される想定ですが、承認済みプランファイルが既にある状態で単独に呼び出してもかまいません。
 
-このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `implement-and-pr` の責務であり、ここでは扱わない。実装作業はコード変更の適用が中心のため、このスキルは `model: sonnet` で動作する。
+このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは扱わない。実装作業はコード変更の適用が中心のため、このスキルは `model: sonnet` で動作する。
 
 ## 前提条件の確認
 
@@ -74,5 +74,5 @@ worktree・ブランチの実削除前の確認は `cleanup-worktree` 側のス�
 
 - PRのマージ自体（`gh pr merge` 等）はこのスキルでは実行しない。マージされたかどうかはユーザーからの報告のみで判断し、能動的にCIやマージ状態を確認しにいくことはしない。
 - `git push --force` やコミット履歴の書き換え（rebase, amendなど）は行わない。
-- 実装プランの検討・レビュー・承認は `implement-and-pr` の責務であり、ここでは行わない。
+- 実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは行わない。
 - worktree自体の作成・削除、herdrワークスペースの管理は `start-worktree` / `cleanup-worktree` スキルの責務であり、実際の削除処理はステップ6で `cleanup-worktree` に委譲する。
