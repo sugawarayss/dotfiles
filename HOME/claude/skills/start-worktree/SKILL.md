@@ -9,6 +9,7 @@ description: >
 argument-hint: "[GitHub issue番号/URL または ClickUpタスクID/URL] [任意: ベースブランチ]"
 allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git branch:*) Bash(wtp *) Bash(herdr *) Bash(jq:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
 user-invocable: true
+model: haiku
 ---
 
 GitHub issue または ClickUp タスクを起点に、wtp + herdr のworktreeワークフロー（Obsidian vault `ClaudeCode/Knowledge/wtp-herdr-worktree-workflow`）を開始します。
