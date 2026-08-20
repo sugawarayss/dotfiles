@@ -1,0 +1,32 @@
+# ---herdr-hunk-diffの設定---
+[review]
+# 自動でhunkを開くか
+auto_open = true
+# 自動でhunkを開くエージェントの状態(idel|working|blocked|unknown)
+on_states = ["idle"]
+# 可能な場合、既存のペインを再利用するか
+reuse_pane = true
+# アクションが表示する内容(auto|working|staged|branch)
+default_target = "auto"
+# diffの対象が更新されたらhunkも更新
+watch = true
+# レビューペインを開く場所(overlay|split|tab|zoomed)
+placement = "split"
+# 追跡されていないファイルをdiffの対象から除外するか
+exclude_untracked = false
+
+[roundtrip]
+# 配信成功後、Hunkからコメントを削除するか
+clear_after_send = false
+# エージェントに送信されるプロンプト
+prompt_template = """ {worktree} でのあなたの変更に対する人間が作成したインラインレビューコメント:
+
+{comments}
+
+各コメントに対応し、変更内容を確認してください。コメントが不明瞭な場合や判断が必要な場合は、明確な質問をして確認し、変更のないコメントの処理を続けてください。その後、変更内容を要約し、実施しなかった事項について説明してください。"""
+
+[hunk]
+# hunkのパス
+bin = "auto"
+# hunkの実験的機能を利用するか
+experimental = true
