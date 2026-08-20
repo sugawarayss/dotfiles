@@ -21,11 +21,11 @@
 - Python: `uv` を使用（pip/venvの直接操作はしない）
 - Node: `pnpm` を使用（npm/yarnは使わない）
 - バージョン管理・タスク実行: `mise run`, `task`, `just`
-- ファイル閲覧・検索・差分: `bat`, `eza`, `fd`, `sd`, `colordiff`, `jq` を標準ツールより優先してよい
+- ファイル閲覧・検索・差分: `bat`, `eza`, `fd`, `sd`, `rg`, `jq`, `yq` を標準ツールより優先してよい
 - GitHub操作: `gh` CLI
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
-- プランレビュー: `crit`（詳細は obsidian ノート [[crit-usage-reference]] を参照）。
-- コード差分レビュー: `hunk`（`hunk-review` スキル経由。ユーザーがターミナルでセッションを起動している前提）。
+- プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）
+- コード差分レビュー: `hunk`（`hunk-review` スキル経由。ユーザーがターミナルでセッションを起動している前提）
 
 ### 破壊的操作の扱い
 
@@ -43,5 +43,5 @@
 
 - 簡潔・直接的な応答を優先する（[[design_principles]] のKISSと同じ考え方）。
 - 大きな変更や複数の選択肢がある設計判断は、実装前に方針を確認する。
-- 実装プランなど非コードの成果物をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
+- 実装プランなど **非コードの成果物** をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
 - コードの差分を変更・実装した後は、Hunk（`hunk-review` スキル）でレビューしてもらう。ライブセッションが無ければユーザーに起動を依頼してから進める。
