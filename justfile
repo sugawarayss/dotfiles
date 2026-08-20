@@ -34,6 +34,15 @@ crit:
 herdr:
   @test -L ~/.config/herdr || ln -s {{pwd}}/HOME/.config/herdr ~/.config/herdr
 
+# Herdr のプラグインをインストール
+herdr-plugins:
+  # herdr-hunk-diff
+  herdr plugin install jhochenbaum/herdr-hunk-diff
+  # herdr-nvim plugin
+  herdr plugin install ChmaraX/herdr-nvim
+  # terminal-browser がインストールされていなければインストール
+  @type -q terminal-browser || curl -fsSL https://terminal-browser.sh/install | bash
+
 # npmの設定ファイルを展開
 node:
   # npmの設定ファイルを展開

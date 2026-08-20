@@ -77,7 +77,7 @@ detach = "prefix+q"
 # 設定ファイルをリロード
 reload_config = "prefix+shift+r"
 # 表示されている通知対象にフォーカスする
-open_notification_target = "prefix+o"
+open_notification_target = ""
 # 前後のワークスペースを選択
 # previous_workspace = ""
 # next_workspace = ""
@@ -98,7 +98,7 @@ switch_tab = "prefix+1..9"
 # switch_workspace = ""
 close_tab = "prefix+shift+x"
 rename_pane = "prefix+shift+p"
-edit_scrollback = "prefix+e"
+edit_scrollback = ""
 copy_mode = "prefix+["
 # ---ペインフォーカス移動---
 focus_pane_left = "prefix+h"
@@ -132,6 +132,32 @@ toggle_sidebar = "prefix+b"
 # tabs = ""
 # workspaces = ""
 # agents =  ""
+
+[[keys.command]]
+key = "prefix+e"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.toggle"
+description = "neovim sidebar"
+
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "chmarax.herdr-nvim.pick-file"
+description = "open file from agent output"
+
+# BEGIN jhochenbaum.hunkdiff — managed by `setup-keys`; edit via the plugin, not by hand
+[[keys.command]]
+key = "prefix+shift+c"
+type = "plugin_action"
+command = "jhochenbaum.hunkdiff.review:commit"
+description = "hunk: review the last commit"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "plugin_action"
+command = "jhochenbaum.hunkdiff.review:staged"
+description = "hunk: review staged changes"
+# END jhochenbaum.hunkdiff
 
 [theme]
 name = "gruvbox"
@@ -273,3 +299,44 @@ hermes = "default"
 kilo = "default"
 qodercli = "default"
 maki = "default"
+
+[sidebar]
+nvim_bin = "nvim"
+position = "right"
+
+[picker]
+scan_lines = 300
+max_files = 20
+
+# ---herdr-hunk-diffの設定---
+[review]
+# 自動でhunkを開くか
+auto_open = true
+# 自動でhunkを開くエージェントの状態(idel|working|blocked|unknown)
+on_states = ["idle"]
+# 可能な場合、既存のペインを再利用するか
+reuse_pane = true
+# アクションが表示する内容(auto|working|staged|branch)
+default_target = "auto"
+# diffの対象が更新されたらhunkも更新
+watch = true
+# レビューペインを開く場所(overlay|split|tab|zoomed)
+placement = "split"
+# 追跡されていないファイルをdiffの対象から除外するか
+exclude_untracked = false
+
+[roundtrip]
+# 配信成功後、Hunkからコメントを削除するか
+clear_after_send = false
+# エージェントに送信されるプロンプト
+prompt_template = """ {worktree} でのあなたの変更に対する人間が作成したインラインレビューコメント:
+
+{comments}
+
+各コメントに対応し、変更内容を確認してください。コメントが不明瞭な場合や判断が必要な場合は、明確な質問をして確認し、変更のないコメントの処理を続けてください。その後、変更内容を要約し、実施しなかった事項について説明してください。"""
+
+[hunk]
+# hunkのパス
+bin = "auto"
+# hunkの実験的機能を利用するか
+experimental = true
