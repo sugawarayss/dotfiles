@@ -27,3 +27,106 @@ copy_decorations = false
 transparent_background = false
 # 移動行の色付けを有効にする
 color_moved = true
+
+[keybindings]
+# エージェントのスキルを発動
+"hunk.app.openAgentSkill" = false
+# 停止する
+"hunk.app.quit" = "q"
+# レビューを更新する
+"hunk.app.refresh" = "r"
+# ファイルとフィルター間でフォーカスを移動
+"hunk.app.toggleFocusArea" = false
+# ヘルプの表示をトグル
+"hunk.app.toggleHelp" = "?"
+
+# 現在行を可視範囲の上端に移動
+"hunk.review.alignCurrentLineTop" = "meta+t"
+# 現在行を可視範囲の中央に移動
+"hunk.review.alignCurrentLineCenter" = "ctrl+c"
+# 現在行を可視範囲の下端に移動
+"hunk.review.alignCurrentLineBottom" = "ctrl+b"
+
+# 選択 したファイルをエディタで開く
+"hunk.review.editSelectedFile" = "e"
+# ファイルフィルターにフォーカス
+"hunk.review.focusFilter" = "/"
+
+# 先頭行にジャンプ
+"hunk.review.jumpToTop" = ["g", "home"]
+# 最終行にジャンプ
+"hunk.review.jumpToBottom" = ["G", "end"]
+
+# 1ページ上にスクロール
+"hunk.review.pageUp" = ["pageup", "b", "shift+space"]
+# 1ページ下にスクロール
+"hunk.review.pageDown" = ["pagedown", "f", "space"]
+# 半ページ上にスクロール
+"hunk.review.halfPageUp" = "u"
+# 半ページ下にスクロール
+"hunk.review.halfPageDown" = "d"
+
+# 前のHunkに移動
+"hunk.review.previousHunk" = "["
+# 次のHunkに移動
+"hunk.review.nextHunk" = "]"
+# 前の注釈が付いたHunkに移動
+"hunk.review.previousAnnotatedHunk" = "{"
+# 次の注釈が付いたHunkに移動
+"hunk.review.nextAnnotatedHunk" = "}"
+
+# 前のファイルに移動
+"hunk.review.previousFile" = ","
+# 次のファイルに移動
+"hunk.review.nextFile" = "."
+# 前の注釈が付いたファイルに移動
+"hunk.review.previousAnnotatedFile" = false
+# 次の注釈が付いたファイルに移動
+"hunk.review.nextAnnotatedFile" = false
+
+# 右にスクロール
+"hunk.review.scrollCodeRight" = ["right", "shift+right"]
+# 左にスクロール
+"hunk.review.scrollCodeLeft" = ["left", "shift+left"]
+# レビューメモを追加する
+"hunk.review.startNote" = "i"
+# カーソルを上に移動
+"hunk.review.stepUp" = ["up", "k"]
+# カーソルを下に移動
+"hunk.review.stepDown" = ["down", "j"]
+# 折り畳みをトグル
+"hunk.review.toggleHunkGap" = "z"
+
+# 全ての一致するファイルに対して、現在のファイルの表示設定を適用
+"hunk.view.applyFilePresentationToAllMatching" = false
+
+# 現在行番号をマーク
+"hunk.view.cursorLineNumber" = false
+# 現在行のマーカーを非表示
+"hunk.view.cursorLineOff" = false
+# 現在行をハイライト
+"hunk.view.cursorLineRow" = false
+
+# --- 差分表示レイアウト ---
+# 自動レイアウト
+"hunk.view.layoutAuto" = "0"
+# スプリットレイアウトに変更
+"hunk.view.layoutSplit" = "1"
+# スタックレイアウトに変更
+"hunk.view.layoutStack" = "2"
+
+# --- 表示系 ----
+# テーマの選択
+"hunk.view.openThemeSelector" = "meta+t"
+# エージェントノートの表示をトグル
+"hunk.view.toggleAgentNotes" = "a"
+# ファイルペインの表示をトグル
+"hunk.view.toggleFilesPane" = "s"
+# Hunkヘッダーのトグル
+"hunk.view.toggleHunkHeaders" = "m"
+# 行番号の表示をトグル
+"hunk.view.toggleLineNumbers" = "l"
+# 折り返しの切り替え
+"hunk.view.toggleLineWrap" = "w"
+# メニューバーの表示をトグル
+"hunk.view.toggleMenuBar" = "M"
