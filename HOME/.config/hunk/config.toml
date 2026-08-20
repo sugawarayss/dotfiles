@@ -6,7 +6,7 @@ cursor_line = "row"
 # バージョン管理システム("git"|"hg"|"svn"|"none")
 vcs = "git"
 # 対象ファイルが変更された場合に再読み込み
-watch = false
+watch = true
 # 追跡されていないファイルを無視する
 exclude_untracked = false
 # 新旧の行番号を表示する
