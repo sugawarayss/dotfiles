@@ -184,7 +184,9 @@ GitHubへ直接投稿せず、`crit` を経由してPR全体像（レビュー�
 
 ### 6-1. crit をPRスコープで起動する（コメント投稿より先に）
 
-`crit --pr <PR>` を `run_in_background: true` で起動する（`<PR>` はステップ1で特定したPR番号）。まだこの時点ではURLをユーザーに伝えない。
+`crit --pr <PR> --scope full-stack` を `run_in_background: true` で起動する（`<PR>` はステップ1で特定したPR番号）。まだこの時点ではURLをユーザーに伝えない。
+
+**`--scope full-stack` を必ず付けること。** `--scope` を省略するとデフォルトの `layer` スコープで起動し、そのスコープで作られたコメントはステップ6-5の `crit push` で投稿できず `Posted 0 comments` になる（`crit push` は base...HEAD 全体の diff を前提にした経路で動くため）。
 
 ### 6-2. daemonの起動を確認する
 
