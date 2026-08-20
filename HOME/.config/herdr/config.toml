@@ -41,6 +41,97 @@ switch_ascii_input_source_in_prefix = false
 [keys]
 # プレフィックスモードに入るためのプレフィックスキー（例: "ctrl+b", "f12", "esc"）。
 prefix = "ctrl+b"
+# ヘルプを開く
+help = "prefix+?"
+# 設定を開く
+settings = "prefix+shift+s"
+# 新しいワークスペースを作成
+new_workspace = "prefix+shift+n"
+# 選択した ワークスペースから git worktreeを作成
+new_worktree = "prefix+shift+g"
+# 選択した ワークスペースから git worktreeを開く
+# open_worktree = ""
+# 選択した ワークスペースから git worktreeを削除
+# remove_worktree = ""
+# 選択した ワークスペースの名前を変更
+rename_sorkspace = "prefix+shift+w"
+# 選択した ワークスペースを閉じる
+close_workspace = "prefix+shift+d"
+# ワークスペース選択ナビゲーション画面を開く
+workspace_picker = "prefix+w"
+# セッションナビゲーターを開く
+goto = "prefix+g"
+# [ナビゲーションモード]ワークスペースの選択範囲を上下に移動
+navigate_workspace_up = "up"
+navigate_workspace_down = "down"
+# [ナビゲーションモード] 左ペインにフォーカス
+navigate_pane_left = "h"
+# [ナビゲーションモード] 下ペインにフォーカス
+navigate_pane_down = "j"
+# [ナビゲーションモード] 上ペインにフォーカス
+navigate_pane_up = "k"
+# [ナビゲーションモード] 右ペインにフォーカス
+navigate_pane_right = "l"
+# サーバ/クライアントモードからデタッチ
+detach = "prefix+q"
+# 設定ファイルをリロード
+reload_config = "prefix+shift+r"
+# 表示されている通知対象にフォーカスする
+open_notification_target = "prefix+o"
+# 前後のワークスペースを選択
+# previous_workspace = ""
+# next_workspace = ""
+# 次のエージェントにフォーカス
+# next_agent = ""
+# インデックス指定でエージェントにフォーカス
+# focus_agent = ""
+# クリップボードの画像をリモートHerdrセッションに送信
+remote_image_paste = "ctrl+v"
+# タブ操作
+new_tab = "prefix+c"
+rename_tab = "prefix+shift+t"
+previous_tab = "prefix+p"
+next_tab = "previx+n"
+# move_tab_previous = ""
+move_tab_next = ""
+switch_tab = "prefix+1..9"
+# switch_workspace = ""
+close_tab = "prefix+shift+x"
+rename_pane = "prefix+shift+p"
+edit_scrollback = "prefix+e"
+copy_mode = "prefix+["
+# ---ペインフォーカス移動---
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+# ---ペインの入れ替え---
+swap_pane_left = "prefix+shift+h"
+swap_pane_down = "prefix+shift+j"
+swap_pane_up = "prefix+shift+k"
+swap_pane_right = "prefix+shift+l"
+# ---前後のペインにフォーカス---
+cycle_pane_next = "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"
+# last_pane = ""
+# ---ペイン操作---
+split_vertical = "prefix+v"
+split_horizontal = "prefix+s"
+close_pane = "prefix+x"
+# ---ペインサイズ操作---
+zoom = "prefix+z"
+resize_mode = "prefix+r"
+resize_pane_left = ""
+resize_pane_down = ""
+resize_pane_up = ""
+resize_pane_right = ""
+# ---UIとサイドバー---
+toggle_sidebar = "prefix+b"
+
+# [keys.indexed]
+# tabs = ""
+# workspaces = ""
+# agents =  ""
 
 [theme]
 name = "gruvbox"
@@ -75,7 +166,7 @@ resume_agents_on_restore = true
 
 [ui]
 # サイドバーの横幅
-sidebar_width = 32
+sidebar_width = 26
 # サイドバーの最小横幅
 sidebar_min_width = 18
 # サイドバーの最大横幅
