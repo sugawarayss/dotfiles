@@ -9,7 +9,7 @@ description: >
   既存のworktreeで承認済みのプランファイルがある状態で
   「実装を進めて」「execute-plan-and-pr」「/execute-plan-and-pr」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [プランファイルのパス]"
-allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(hunk session:*)
+allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(hunk session:*) Bash(herdr:*)
 user-invocable: true
 model: sonnet
 ---
@@ -17,6 +17,7 @@ model: sonnet
 `plan-and-review` で承認された実装プランを引き継ぎ、実装からPull Request作成・後片付けの呼び出しまでを行います。`plan-and-review` と対になるスキルで、Plan Mode承認後に呼び出される想定ですが、承認済みプランファイルが既にある状態で単独に呼び出してもかまいません。
 
 このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは扱わない。実装作業はコード変更の適用が中心のため、このスキルは `model: sonnet` で動作する。
+`Agent(model="sonnet")` でモデルを切り替えてから実施します。
 
 ## 前提条件の確認
 
@@ -31,9 +32,25 @@ model: sonnet
 ## ステップ2: 変更内容のレビュー（Hunk）
 
 1. 実装が一区切りついたら、`Skill` ツールで `hunk-review` を呼び出し、その手順に従う。
-2. `hunk session list --repo <worktreeのパス>` でライブセッションの有無を確認する。セッションが無ければ、ユーザーに `hunk diff` をターミナルで起動してもらうよう依頼する（`hunk diff` 自体はTUIのため、エージェントが直接実行してはいけない）。
+2. `hunk session list --repo <worktreeのパス>` でライブセッションの有無を確認する。セッションがあればステップ3に進む。無ければ以下で起動する（`hunk diff` 自体はTUIのため、エージェントが直接実行してはいけない）。
+
+   ```bash
+   test "${HERDR_ENV:-}" = 1
+   ```
+
+   **Herdr環境の場合（終了コード0）**: ユーザーに確認や依頼をせず、右側に新規ペインを割いて自動的に起動する。
+
+   ```bash
+   herdr pane split --current --direction right --cwd "<worktreeのパス>" --no-focus
+   # → .result.pane.pane_id を取得
+   herdr pane run <pane_id> "hunk diff"
+   ```
+
+   セッションの永続化には少し時間がかかることがある。`hunk session list --repo <path>` が対象セッションを返さない間は1〜2秒待って再試行する（最大5回程度）。5回試しても現れない場合はエラーとしてユーザーに報告し中断する。
+
+   **Herdr環境でない場合**: ユーザーに `hunk diff` をターミナルで起動してもらうよう依頼し、起動完了の報告を待ってから次に進む。
 3. `hunk session reload --repo <path> -- diff` で作業ツリーの差分を最新状態に反映する。
-4. ユーザーに「Hunkでインラインコメントを付け終えたら教えてください」と伝える。crit と異なりHunkにはブロッキングで完了を待つ仕組みが無いため、ユーザーからの完了報告を待つ。
+4. ユーザーに「Hunkでインラインコメントを付け終えたら教えてください」と伝える。crit と異なりHunkにはブロッキングで完了を待つ仕組みが無いため、ユーザーからの完了報告を待つ。Herdr環境で自動的にペインを開いた場合は、そのペインで確認できる旨も伝える。
 5. 完了報告を受けたら `hunk session comment list --repo <path> --type user --json` で人間が付けたコメントを取得する。
 6. 各コメントについて、`hunk session navigate` で該当箇所を確認しつつ対応するファイルを修正する。対応内容は同じ箇所に `hunk session comment add` で短く記録する（crit の `--reply-to` に相当する返信機能はHunkに無いため、新規コメントで代替する）。
 7. 修正が終わったら `hunk session reload --repo <path> -- diff` で差分を更新し、再度ステップ4に戻ってユーザーにレビューを依頼する。
@@ -62,7 +79,7 @@ git push -u origin <branch>
 gh pr create --base <base-branch> --title "<title>" --body "<body>"
 ```
 
-3. 作成されたPRのURLをユーザーに報告する。
+1. 作成されたPRのURLをユーザーに報告する。
 
 ## ステップ6: マージ後の後片付け
 

@@ -14,6 +14,7 @@ model: haiku
 
 GitHub issue または ClickUp タスクを起点に、wtp + herdr のworktreeワークフロー（Obsidian vault `ClaudeCode/Knowledge/wtp-herdr-worktree-workflow`）を開始します。
 このスキルの責務は **worktreeの作成とherdrワークスペースを開くところまで**。完了後は `plan-and-review` スキルに引き継ぎ、実装プランの検討からPull Request作成までを担当してもらう。
+`Agent(model="haiku")` でモデルを切り替えてから実施します。
 
 ## 前提条件の確認
 

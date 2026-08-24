@@ -16,6 +16,7 @@ model: opus
 worktree内でissue/タスクの実装プランを検討し、ユーザーレビューを経て承認を得るところまでを行います。`start-worktree` スキルと対になるスキルで、worktree作成後に引き継がれる想定ですが、既存のworktreeで単独に呼び出してもかまいません。
 
 このスキルの責務は **実装プランの検討 → レビュー → 承認** まで。承認後の **実装 → レビュー → commit → push案内 → PR作成 → （マージ報告を受けての）後片付けの呼び出し** は `execute-plan-and-pr` スキルに引き継ぐ。プラン検討は方針判断の比重が大きいためこのスキルは `model: opus` で動作し、実装フェーズは `execute-plan-and-pr` 側で `model: sonnet` に切り替わる。worktree自体の作成・herdrワークスペースのオープンは `start-worktree` スキルの責務であり、ここでは扱わない。
+`Agent(model="opus")` でモデルを切り替えてから実施します。
 
 ## 前提条件の確認
 
