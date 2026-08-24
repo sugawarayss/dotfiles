@@ -212,8 +212,12 @@ if type "gh" > /dev/null 2>&1;
   end
 
   function remote
-    # カレントリポジトリをブラウザで開く
-    gh browse
+    if type -q terminal-browser
+      terminal-browser open "$(gh browse --no-browser)" --split right
+    else
+      # カレントリポジトリをブラウザで開く
+      gh browse
+    end
   end
 end
 
