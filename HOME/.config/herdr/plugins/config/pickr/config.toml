@@ -1,0 +1,39 @@
+[[backend]]
+key = "t"
+id = "tuicr"
+name = "tuicr — full review"
+run = "tuicr pr {url}"
+where = "pane"
+needs = ["tuicr"]
+platforms = ["github", "gitlab"]
+
+[[backend]]
+key = "h"
+id = "hunk"
+name = "hunk — diff viewer"
+run_github = "gh pr diff {url} --no-color | hunk patch -"
+where = "pane"
+needs = ["gh", "hunk"]
+platforms = ["github"]
+
+[[backend]]
+key = "d"
+id = "diff"
+name = "diff — plain read-only (bat)"
+run_github = "gh pr diff {url} | bat --paging=always -l diff"
+where = "pager"
+needs = ["gh", "bat"]
+platforms = ["github"]
+
+[[backend]]
+key = "o"
+id = "browser"
+name = "open in browser"
+run = "open {url}"
+where = "detach"
+needs = []
+platforms = ["github", "gitlab"]
+
+[pickr]
+auto = false
+default = "ask"
