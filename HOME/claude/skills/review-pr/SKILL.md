@@ -2,7 +2,7 @@
 name: review-pr
 description: プルリクエストのコードレビューを支援する。PRの品質・セキュリティ・パフォーマンス・テスト・ドキュメントの観点から分析し、構造化されたレビューコメントを生成する。技術スタック不問。
 argument-hint: "[PR番号 or PRのURL（省略時はカレントブランチのPR）]"
-allowed-tools: Agent, Bash(gh *), Bash(crit:*), Read, Grep, Glob, mcp__context7__*, mcp__*
+allowed-tools: Agent, Bash(gh *), Bash(tuicr:*), Bash(herdr:*), Read, Grep, Glob, mcp__context7__*, mcp__*
 user-invocable: true
 ---
 
@@ -115,9 +115,9 @@ PRの全体像（ステップ5冒頭部分）は、各agentの指摘を俯瞰し
 
 ````
 
-この全体像は、ステップ6で `crit` の**レビューレベルコメント**（ファイル・行に紐付かない全体コメント）として投稿し、個別の指摘（インラインコメント）と一緒にcrit上で確認できるようにする。チャットにも同じ内容を出力する。
+この全体像は、ステップ6で `tuicr` の**レビューコメント**（ファイル・行に紐付かない全体コメント）として投稿し、個別の指摘（インラインコメント）と一緒にtuicr上で確認できるようにする。チャットにも同じ内容を出力する。
 
-個別の指摘はチャットに列挙せず、ステップ6で `crit` にインラインコメントとして投稿する。コメント本文は以下の形式にする。
+個別の指摘はチャットに列挙せず、ステップ6で `tuicr` にインラインコメントとして投稿する。コメント本文は以下の形式にする。
 
 ````markdown
 <コメント種別タグ>
@@ -157,59 +157,71 @@ PRの全体像（ステップ5冒頭部分）は、各agentの指摘を俯瞰し
 
 指摘点が、アプリケーションの利用上支障となるような発生頻度、回避する操作が存在しない問題であるほど緊急である
 
-## ステップ6: critへ投稿 → ユーザーが精査 → Finish Reviewで両方をGitHubへ反映
+## ステップ6: tuicrへ投稿 → ユーザーが確認 → :submitでGitHubへ手動送信
 
-GitHubへ直接投稿せず、`crit` を経由してPR全体像（レビューレベルコメント）と個別の指摘（インラインコメント）の両方をユーザーに精査してもらい、ユーザーが `Finish Review` をクリックした時点の状態をまとめてGitHubへ送信する。
+GitHubへ直接投稿せず、`tuicr` を経由してPR全体像（レビューコメント）と個別の指摘（インラインコメント）の両方をユーザーに確認してもらう。crit方式と異なり、GitHubへの最終送信はユーザーがTUI内で `:submit` を実行する**手動操作**であり、Claudeはそれを待たずにこのステップで完了とする（tuicrにはヘッドレスな push コマンドが存在しないため）。
 
-**重要: 必ず「daemon起動 → 起動確認 → コメント投稿」の順で行うこと。** `crit comment` はcwdに実行中のdaemonセッションが無いと、そのdaemonとは無関係な別のレビューファイルを新規作成してしまう（`--pr` のPRスコープを引き継げない）。daemon起動前に `crit comment` を実行しないこと。
+**前提: 対象PRに対して `tuicr pr <PR>` のセッションが必要。** tuicrはヘッドレスにセッションを新規作成できない（TTY付きでTUIを実際に開いた時にだけセッションが永続化される）ため、下記6-1で起動経路を分岐する。
 
-### 6-1. crit をPRスコープで起動する（コメント投稿より先に）
-
-`crit --pr <PR> --scope full-stack` を `run_in_background: true` で起動する（`<PR>` はステップ1で特定したPR番号）。まだこの時点ではURLをユーザーに伝えない。
-
-**`--scope full-stack` を必ず付けること。** `--scope` を省略するとデフォルトの `layer` スコープで起動し、そのスコープで作られたコメントはステップ6-5の `crit push` で投稿できず `Posted 0 comments` になる（`crit push` は base...HEAD 全体の diff を前提にした経路で動くため）。
-
-### 6-2. daemonの起動を確認する
-
-`crit status --json` を実行し、`daemon.running` が `true` になるのを確認する。起動直後は `false` の場合があるため、`false` の場合は1〜2秒待って再度確認する（最大5回程度）。`daemon.running` が `true` になり、かつ `review_file` がステップ6-1で起動したPRのものであることを確認できたら次に進む。5回試しても `true` にならない場合はエラーとしてユーザーに報告し、中断する。
-
-### 6-3. 全体像と指摘をcritのレビューファイルへ投稿
-
-daemonの起動を確認した**後**に、ステップ5のPR全体像（レビューレベルコメント）とステップ4の個別指摘（インラインコメント）を **1回の `crit comment --json`** で一括投稿する（`--author 'review-pr'` を必ず付与）。daemonが起動済みのため、同じレビューファイルに書き込まれ、ブラウザにライブ反映される。
-
-- 全体像: `file`/`line` を付けない（`scope: "review"` として扱われる）。bodyはステップ5のMarkdown全体。
-- 個別指摘: `file`（PRのdiffに現れるパス）と `line`（作業ブランチ上の該当行番号、範囲があれば `"<start>-<end>"`）を付ける。bodyはステップ5で定義した形式（タグ + 重要度/緊急度 + 問題 + 修正案）。
+### 6-1. セッションを用意する
 
 ```bash
-echo '[
-  {"body": "## コードレビュー: ...(ステップ5の全体像Markdown全文)", "scope": "review"},
-  {"file": "src/auth.go", "line": 42, "body": "![must-badge](https://img.shields.io/badge/review-Must-red.svg)\n\n**[重要度: 高] [緊急度: 高]** null チェック漏れ\n\n**問題:** userがnullの場合にTypeErrorが発生する\n\n**修正案:** 早期リターンでガード節を追加"}
-]' | crit comment --json --author 'review-pr'
+test "${HERDR_ENV:-}" = 1
 ```
 
-指摘が1件も無い場合も、全体像のレビューレベルコメントは必ず投稿する（個別指摘のエントリのみ省略する）。
-
-### 6-4. ユーザーに精査してもらう
-
-6-1で起動した `crit` の出力（`Started crit daemon at http://localhost:<port>`）のURLをユーザーに伝える。
-
-> "Crit is open at http://localhost:\<port\>。PR全体像とインラインコメントの両方を確認できます。不要な指摘は削除または解決済みにしてから Finish Review をクリックしてください。その時点で残っている内容がGitHubのPRに投稿されます。"
-
-**Do NOT proceed** until `crit` が完了するまで待つ。ユーザーに何か入力するよう促さない。バックグラウンドタスクの完了（ユーザーの `Finish Review` クリック）を待つ。
-
-### 6-5. Finish Review時点の内容をGitHubへ反映
-
-`crit` 完了後、`crit comments --json --all` を実行し、現在のレビューファイルの状態を読む。
-
-1. **push用メッセージ (`-m`)**: `review_comments` の中から未解決（`resolved` が `false` または欠落）のレビューレベルコメントを探し、その `body`（ユーザーが編集していればその内容）を使う。見つからない場合（ユーザーが解決済み・削除した場合）は `"レビュー結果を確認してください。"` を使う。
-2. **push イベント**: `files.*.comments` の中に未解決のインラインコメントが1件以上残っていれば `request-changes`、無ければ `approve` とする（レビューレベルコメントの解決状態はイベント判定に含めない）。
-
-PR番号を省略するとカレントブランチから自動検出されるため、レビュー対象PRのブランチにチェックアウトしていない場合（例: mainブランチのまま `/review-pr 123` を実行した場合）に誤検出・検出失敗する。ステップ1で特定した `<PR>` を必ず明示的に渡すこと。
+**Herdr環境の場合（終了コード0）**: ユーザーに確認や依頼をせず、右側に新規ペインを割いて自動的に起動する。
 
 ```bash
-crit push --event request-changes -m "<1で取得したメッセージ>" <PR>
-# または
-crit push --event approve -m "<1で取得したメッセージ>" <PR>
+herdr pane split --current --direction right --cwd "$PWD" --no-focus
+# → .result.pane.pane_id を取得
+herdr pane run <pane_id> "tuicr pr <PR>"
 ```
 
-`crit push` は解決済み（`resolved: true`）・削除済みのインラインコメントを自動的に除外し、ユーザーが残した（承認した）コメントのみをGitHub PRレビューとして投稿する。レビューレベルコメントの内容は `-m` を通じてPRレビュー本文として反映される。投稿件数・除外件数を `crit push` の出力からユーザーに報告する。
+セッションの永続化には少し時間がかかることがある。`tuicr review list --repo .` が空配列を返す間は1〜2秒待って再試行する（最大5回程度）。5回試しても現れない場合はエラーとしてユーザーに報告し中断する。
+
+**Herdr環境でない場合**: ユーザーに「`tuicr pr <PR>` を実行してください」と伝えて起動を依頼し、実行完了の報告を待ってから次に進む。ユーザーに何か入力するよう促す以外の先読みはしない。
+
+### 6-2. セッションを探す
+
+```bash
+tuicr review list --repo .
+```
+
+`--repo .` はcwdのチェックアウトを指す。パスを渡すとそのチェックアウトのorigin repoに紐づくPRセッションも表示されるため、`owner/repo` を別途調べる必要はない。対象PR番号に対応するセッションの `slug` を見つける。見つからない場合は「`tuicr pr <PR>` を起動してから再実行してください」とユーザーに伝えて中断する。
+
+### 6-3. 全体像と個別指摘を投稿
+
+見つけた `slug` を使い、コメントを1件ずつ `tuicr review add` で投稿する（複数件をまとめて渡すオプションは無いため、指摘の数だけ呼び出す）。
+
+- 全体像（レビューコメント）: `--target-file`/`--line` を付けない。bodyはステップ5のMarkdown全体。
+- 個別指摘: `--target-file`（PRのdiffに現れるパス）と `--line`（該当行番号。範囲があれば `--end-line` も指定）を付ける。bodyはステップ5で定義した形式（タグ + 重要度/緊急度 + 問題 + 修正案）。
+- **必ず `--username 'review-pr'` を付ける**（人間のコメントと視覚的に区別するため）。
+- **`--line` はPRのdiffに実際に現れる変更行を指すこと。** diffのcontext範囲外の行を指定するとセッションファイルには保存されるが、TUIの差分ビューには描画されない（動作検証済み）。
+
+```bash
+tuicr review add --session '<slug>' --repo . --username 'review-pr' "$(cat <<'EOF'
+## コードレビュー: ...(ステップ5の全体像Markdown全文)
+EOF
+)"
+
+tuicr review add --session '<slug>' --repo . --target-file src/auth.go --line 42 --username 'review-pr' "$(cat <<'EOF'
+![must-badge](https://img.shields.io/badge/review-Must-red.svg)
+
+**[重要度: 高] [緊急度: 高]** null チェック漏れ
+
+**問題:** userがnullの場合にTypeErrorが発生する
+
+**修正案:** 早期リターンでガード節を追加
+EOF
+)"
+```
+
+指摘が1件も無い場合も、全体像のレビューコメントは必ず投稿する。
+
+### 6-4. ユーザーに伝えて完了
+
+投稿件数をユーザーに報告し、以降の操作を委ねる。Herdr環境で自動的にペインを開いた場合は、そのペインで確認できることも伝える。
+
+> "tuicrにN件のコメント（全体像1件＋個別指摘N-1件）を追加しました。開いているTUIに再起動不要で反映されます。内容を確認し、不要なものは削除・編集した上で、TUI内で `:submit` を実行してください。GitHubへの送信内容（Comment/Approve/Request changes）はその場で選択できます。"
+
+crit方式のようにユーザーの完了操作を待ってからpushする処理はここでは行わない。GitHubへの反映は完全にユーザーの `:submit` 操作に委ねられるため、このステップでスキルの処理を終える。
