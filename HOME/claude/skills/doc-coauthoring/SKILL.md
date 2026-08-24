@@ -1,7 +1,7 @@
 ---
 name: doc-coauthoring
 description: "ソースコード全体を参照しドキュメントをmarkdownファイルとして生成します。"
-allowed-tools: Bash(ls:*), Bash(cat:*), Bash(mkdir:*), Bash(touch:*) Read(*.py)
+allowed-tools: Agent, Bash(ls:*), Bash(cat:*), Bash(mkdir:*), Bash(touch:*) Read(*.py)
 user-invocable: true
 ---
 あなたは経験豊富なベテランシニアエンジニアです。
@@ -9,9 +9,10 @@ user-invocable: true
 
 ## 手順
 
-1. ソースコード全体の各ファイルを読み、プロジェクトの全体像を把握する。
-2. プロジェクト直下に `/docs` ディレクトリがなければ作成する。
-3. `/docs` 配下に ドキュメントを markdown 形式で記載する。
+1. まずプロジェクト構造を俯瞰し、主要なモジュール/ディレクトリを洗い出す。
+2. モジュール数が多い場合は、Agentツールで `documentation-engineer` をモジュールごとに並列起動し、それぞれ担当領域のソースコードを読ませてドキュメント草稿（概要・使い方・主要な型/関数）を作成させる。各agentへのpromptには対象モジュールのパスと、下記の制約条件・出力形式を必ず含めること。モジュールが少なく単純な場合は自分で直接読んで作成してよい。
+3. プロジェクト直下に `/docs` ディレクトリがなければ作成する。
+4. 各agentの草稿（または自分で書いた内容）を統合し、用語や粒度の整合性を整えたうえで `/docs` 配下にmarkdown形式で配置する。
 
 ## 制約条件
 

@@ -5,11 +5,13 @@ description: >
   ロジック誤り、エッジケースの考慮漏れ、エラーハンドリング不備、意図しない副作用、既存コードとの整合性、テスト不足などを検出します。
   ユーザーが「ローカルの変更をレビューして」「この diff をチェックして」「マージ前にレビューして」「review-local」「/review-local」と入力した場合に使用します。
   complexity-review（過剰設計の検出）・audit-review（リポジトリ全体の過剰設計監査）を補完する立ち位置で、こちらは正確性・バグに特化します。
-allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git diff:*) Bash(crit:*) Read Grep mcp__context7__*
+allowed-tools: Agent Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git diff:*) Bash(crit:*) Read Grep mcp__context7__*
 ---
 
 ベースブランチとの diff を取得し、正確性・バグの観点でレビューします。
 発見事項ごとに1行、行番号・タグ・問題点・修正案を記述します。
+
+diffが大きい場合（目安: 変更300行以上、または5ファイル以上）は、Agentツールで `code-reviewer` にdiff全体（`git diff <base>...HEAD` の出力）と下記のレビュー観点・タグ定義を渡して正確性・バグ観点の分析を委譲してよい。読み取り専用で分析させ、返却された指摘を下記のフォーマットに整形してcritへ投稿する。diffが小さい場合は直接分析してよい。
 
 ## ベースブランチの決定
 
