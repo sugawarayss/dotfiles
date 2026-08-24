@@ -160,7 +160,7 @@ description = "hunk: review staged changes"
 # END jhochenbaum.hunkdiff
 
 [theme]
-name = "gruvbox"
+name = "kanagawa"
 # ホスト端末のライト/ダーク外観に追従し、テーマ名を切り替える。
 auto_switch = false
 # auto_switch が ダークモードを選択した場合のテーマ名
