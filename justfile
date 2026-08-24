@@ -30,6 +30,10 @@ crit:
   # critコマンドがインストール済みならclaude-code用の設定を適用
   -@type -q crit && crit install claude-code
 
+# tuicrの設定ファイルを展開
+tuicr:
+  @test -L ~/.config/tuicr || ln -s {{pwd}}/HOME/.config/tuicr ~/.config/tuicr
+
 # herdr の設定ファイルを展開
 herdr:
   @test -L ~/.config/herdr || ln -s {{pwd}}/HOME/.config/herdr ~/.config/herdr

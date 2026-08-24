@@ -1,0 +1,57 @@
+# テーマ
+theme = "github-dark"
+# テーマ("dark" | "light")
+appearance = "dark"
+# theme_dark = ""
+# theme_light = ""
+
+# 差分の表示スタイル("side-by-side" | "unified")
+diff_view = "side-by-side"
+# コミットの表示順序("ascending" | "descending")
+commit_order = "descending"
+# 複数コミットのreviewが開いた時にどのコミットが選択されるか("all" | "oldest")
+initial_commit_selection = "all"
+# 差分に含まれる空白文字を無視するか
+ignore_whitespace = false
+# ファイルツリーパネルを表示するか
+show_file_list = true
+# CIチェックを表示するか
+show_pr_checks = true
+# PRのコメントを表示するか
+show_pr_comments = true
+# マルチコミイトレビュー時にインラインコミットセレクターペインを表示するか
+show_commits = true
+# レビュー済とマークされたファイルを表示する
+show_reviewed = true
+# マウスホイール、クリック、ドラッグを使えるようにする
+mouse = true
+# パネルのフォーカス、サイドバーの切り替え、コメントのショートカットに使用する
+leader = ";"
+# コメントボックスでvimのモーダル編集を有効にする
+comment_vim = true
+# コメントボックスでの`tab`の幅
+comment_tab_width = 4
+# 差分表示で折り返すか
+wrap = false
+# カーソルからの相対行番号で表示するか
+relative_line_numbers = false
+# カーソル行をハイライトするか
+cursor_line = true
+# 検索結果をハイライトするか
+search_highlight = true
+# 背景を透過
+transparent_background = true
+# スクロール時に前後に表示する行数
+scroll_offset = 0
+# 起動時に自動でアップデートを確認するか
+no_update_check = false
+# 永続化されたレビューセッションの変更をポーリングする間隔
+review_watch_interval_ms = 1000
+single_file_view = false
+username = "user"
+# ローカル差分を再読み込みするためにポーリング間隔(0: 無効)
+diff_watch_interval_ms = 0
+# コメントのデフォルトカテゴリ("id"|"label"|"definition"|"color")
+# comment_types = [
+#   { id = "change-change",  color = "red", definition = ""  },
+# ]
