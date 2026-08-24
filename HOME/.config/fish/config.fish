@@ -212,12 +212,42 @@ if type "gh" > /dev/null 2>&1;
   end
 
   function remote
-    if type -q terminal-browser
-      terminal-browser open "$(gh browse --no-browser)" --split right
-    else
-      # カレントリポジトリをブラウザで開く
-      gh browse
+    # terminal-browser で開くか、通常のブラウザ(gh browse)で開くか選択
+    set -l method (printf '%s\n' "terminal-browser" "gh browse" \
+      | fzf \
+        --height "20%" \
+        --prompt 'Open Method> ' \
+        --border-label 'Open Method' \
+        --list-label 'Methods' \
+        --no-preview \
+        --exact)
+
+    if test -z "$method"
+      # 選択されなければ、何もせず終了
+      return
     end
+
+    if test "$method" = "gh browse"; or not type -q terminal-browser
+      gh browse
+      return
+    end
+
+    # terminal-browser のsplit方向を選択
+    set -l direction (printf '%s\n' "right" "left" "up" "down" \
+      | fzf \
+        --height "20%" \
+        --prompt 'Split Direction> ' \
+        --border-label 'Split Direction' \
+        --list-label 'Directions' \
+        --no-preview \
+        --exact)
+
+    if test -z "$direction"
+      # 選択されなければ、何もせず終了
+      return
+    end
+
+    terminal-browser open "$(gh browse --no-browser)" --split "$direction"
   end
 end
 
