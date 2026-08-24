@@ -1,4 +1,4 @@
-theme = "monokai"
+theme = "github-dark-default"
 # 差分表示のレイアウト("auto"|"split"|"stack")
 mode = "stack"
 # 現在行を強調表示する範囲("off"|"row"|"number")
@@ -14,7 +14,7 @@ line_numbers = true
 # 折り返し時のタブサイズ
 tab_width = 4
 # 長い差分で折り返さない
-wrap_lines = false
+wrap_lines = true
 # メタデータを表示する
 hunk_headers = true
 # アプリケーションメニューバーを表示
@@ -117,7 +117,7 @@ color_moved = true
 
 # --- 表示系 ----
 # テーマの選択
-"hunk.view.openThemeSelector" = "meta+t"
+"hunk.view.openThemeSelector" = "t"
 # エージェントノートの表示をトグル
 "hunk.view.toggleAgentNotes" = "a"
 # ファイルペインの表示をトグル
