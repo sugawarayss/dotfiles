@@ -24,8 +24,10 @@
 - ファイル閲覧・検索・差分: `bat`, `eza`, `fd`, `sd`, `rg`, `jq`, `yq` を標準ツールより優先してよい
 - GitHub操作: `gh` CLI
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
-- プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動時は `--no-open` を付けてブラウザの自動起動を止め、出力されるレビューURL（`http://localhost:<port>`）を `terminal-browser open <url> --split right` でherdr内のペインに開くこと（`terminal-browser` が使えない環境ではこの手順を省略し、crit標準のブラウザ起動に任せる）。
+- プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動する際は、①`--no-open` を付けてブラウザの自動起動を止め、出力されるレビューURL（`http://localhost:<port>`）を `terminal-browser open <url> --split right` でherdr内のペインに開く、②`--no-open` を付けずにcrit標準のブラウザ起動に任せる、のどちらで開くかをユーザーに確認してから実行すること。
+    - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
 - コード差分レビュー: `hunk`（`hunk-review` スキル経由。ユーザーがターミナルでセッションを起動している前提）
+- PRレビュー: `tuicr`（`review-pr` スキル経由。Herdr環境では右にペインを割いて `tuicr pr <PR>` を自動起動、それ以外はユーザーに起動を依頼する。コメント追加後、GitHubへの送信はユーザーがTUI内で `:submit` を実行する手動操作）
 
 ### 破壊的操作の扱い
 
