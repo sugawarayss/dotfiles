@@ -78,6 +78,7 @@ yarn = "latest"
 yazi = "latest"
 yq = "latest"
 zoxide = "latest"
+"github:agavra/tuicr" = "latest"
 
 [settings]
 # .python-versionファイルを使用してPythonのバージョンを管理する場合、miseもそれに従う
