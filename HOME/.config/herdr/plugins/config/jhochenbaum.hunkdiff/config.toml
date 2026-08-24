@@ -1,7 +1,7 @@
 # ---herdr-hunk-diffの設定---
 [review]
 # 自動でhunkを開くか
-auto_open = true
+auto_open = false
 # 自動でhunkを開くエージェントの状態(idel|working|blocked|unknown)
 on_states = ["idle"]
 # 可能な場合、既存のペインを再利用するか
@@ -13,7 +13,7 @@ watch = true
 # レビューペインを開く場所(overlay|split|tab|zoomed)
 placement = "split"
 # 追跡されていないファイルをdiffの対象から除外するか
-exclude_untracked = false
+exclude_untracked = true
 
 [roundtrip]
 # 配信成功後、Hunkからコメントを削除するか
