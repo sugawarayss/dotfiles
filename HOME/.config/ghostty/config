@@ -2,17 +2,28 @@
 auto-update = "download"
 auto-update-channel = "stable"
 
+# GUIの表示言語
+language = ja
+
 # shell 統合
 shell-integration = "fish"
 # メインフォント
-# font-family = "Cascadia Code NF"
+# font-family = "Hack Nerd Font Mono"
+# font-family =  "Annotation Mono"
 font-family = "AnnotationM Nerd Font Mono"
 # サブフォント(フォールバック)
 font-family = "HackGen Console NF"
+# italic スタイル表示を無効
+font-style-italic = false
+# bold-italic スタイル表示を無効
+font-style-bold-italic = false
+# フォントが対応している場合、フォントの線を太く描画する
+font-thicken = true
+
 # フォントサイズ
-font-size = 14
+font-size = 13
 # 行の高さの調整
-adjust-cell-height = "-20%"
+adjust-cell-height = "-15%"
 
 # カラーテーマ
 theme = "Kanagawa Dragon"
@@ -39,8 +50,9 @@ clipboard-trim-trailing-spaces = true
 ############
 # KeyBinds #
 ############
-#
-macos-option-as-alt = true
+# デフォルトのキーバインドを全て無効
+keybind = clear
+
 # ホットキーウィンドウの設定
 quick-terminal-position = "top"
 quick-terminal-screen = "main"
@@ -50,18 +62,42 @@ quick-terminal-animation-duration = 0.1
 keybind = "global:shift+opt+space=toggle_quick_terminal"
 
 # この設定ファイルを開く
-keybind = "all:cmd+,=open_config"
+keybind = "cmd+,=open_config"
+# 設定ファイルをリロードする
+keybind = "unconsumed:cmd+;=reload_config"
+
+# 新しいウィンドウを開く
+keybind  = "cmd+n=new_window"
+
+# 新しいタブを開く
+keybind = "cmd+t=new_tab"
+
+# ペインを垂直分割(右)
+keybind = "cmd+d=new_split:right"
+# ペインを垂直分割(左)
+keybind = "cmd+opt+d=new_split:left"
+
+# ペインを垂直分割(下)
+keybind = "cmd+shift+d=new_split:down"
+
+# 現在開いている画面(Window|Tab|split)を閉じる
+keybind = "cmd+w=close_surface"
 
 # 分割ペインのフォーカス移動キーバインド
-keybind = "all:ctrl+opt+shift+l=goto_split:right"
-keybind = "all:ctrl+opt+shift+h=goto_split:left"
-keybind = "all:ctrl+opt+shift+k=goto_split:top"
-keybind = "all:ctrl+opt+shift+j=goto_split:bottom"
-keybind = "all:ctrl+opt+shift+tab=goto_split:next"
+keybind = "ctrl+opt+shift+l=goto_split:right"
+keybind = "ctrl+opt+shift+h=goto_split:left"
+keybind = "ctrl+opt+shift+k=goto_split:top"
+keybind = "ctrl+opt+shift+j=goto_split:bottom"
+keybind = "ctrl+opt+shift+tab=goto_split:next"
 
 # 分割したペインのリサイズキーバインド
-keybind = "all:ctrl+shift+l=resize_split:right,20"
-keybind = "all:ctrl+shift+h=resize_split:left,20"
-keybind = "all:ctrl+shift+k=resize_split:up,20"
-keybind = "all:ctrl+shift+j=resize_split:down,20"
-keybind = shift+enter=text:\n
+keybind = "ctrl+shift+l=resize_split:right,20"
+keybind = "ctrl+shift+h=resize_split:left,20"
+keybind = "ctrl+shift+k=resize_split:up,20"
+keybind = "ctrl+shift+j=resize_split:down,20"
+keybind = "shift+enter=text:\n"
+
+# 選択したテキストをクリップボードにコピーする
+keybind = "cmd+c=copy_to_clipboard"
+# クリップボードから貼り付けする
+keybind = "cmd+v=paste_from_clipboard"
