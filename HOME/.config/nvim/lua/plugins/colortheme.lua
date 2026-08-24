@@ -42,7 +42,7 @@ return {
       },
     })
     -- vim.cmd("colorscheme kanagawa")
-    kanagawa.load("wave") -- wave | dragon | lotus
+    kanagawa.load("dragon") -- wave | dragon | lotus
   end,
 }
 --------------------
