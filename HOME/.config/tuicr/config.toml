@@ -1,5 +1,5 @@
 # テーマ
-theme = "github-dark"
+theme = "onedark"
 # テーマ("dark" | "light")
 appearance = "dark"
 # theme_dark = ""
@@ -30,9 +30,9 @@ leader = ";"
 # コメントボックスでvimのモーダル編集を有効にする
 comment_vim = true
 # コメントボックスでの`tab`の幅
-comment_tab_width = 4
+comment_tab_width = 2
 # 差分表示で折り返すか
-wrap = false
+wrap = true
 # カーソルからの相対行番号で表示するか
 relative_line_numbers = false
 # カーソル行をハイライトするか
@@ -52,6 +52,8 @@ username = "user"
 # ローカル差分を再読み込みするためにポーリング間隔(0: 無効)
 diff_watch_interval_ms = 0
 # コメントのデフォルトカテゴリ("id"|"label"|"definition"|"color")
-# comment_types = [
-#   { id = "change-change",  color = "red", definition = ""  },
-# ]
+comment_types = [
+  { id = "question", color = "teal", definition = "不明点を明確にするための質問" },
+  { id = "wantfix", color = "blue", definition = "希望する修正方法がある" },
+  { id = "blocker", color = "red", definition = "マージまでには修正しなければならない" },
+]
