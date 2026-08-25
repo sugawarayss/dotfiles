@@ -1,6 +1,6 @@
-# レビュー観点
+# レビュー観点（品質担当: code-reviewer）
 
-diff の各変更行を、以下の観点でチェックする。ここに挙げるのは正確性・バグに関わるものだけで、過剰設計や複雑性（complexity-review / audit-review の領分）、セキュリティ脆弱性（security-review の領分）は対象外とする。
+diff の各変更行を、以下の観点でチェックする。これは review-local の5観点並列分析のうち「品質」観点（`code-reviewer` 担当）向けの詳細チェックリストであり、正確性・バグに関わるものを中心とする。セキュリティは同じ review-local 内の `security-auditor` 観点、パフォーマンスは `performance-engineer` 観点がそれぞれ別途担当する。過剰設計や複雑性（complexity-review / audit-review の領分）は review-local 全体としても対象外。
 
 ## 1. ロジック・条件分岐
 
@@ -40,5 +40,6 @@ diff の各変更行を、以下の観点でチェックする。ここに挙げ
 ## 指摘しないこと
 
 - 抽象化の是非、柔軟性の過不足、標準ライブラリで代替できるかどうか → complexity-review / audit-review に譲る
-- インジェクション・認証・認可・秘密情報の扱いなど → security-review に譲る
+- インジェクション・認証・認可・秘密情報の扱いなど → 同じ review-local 内の `security-auditor` 観点に譲る
+- パフォーマンス上の懸念 → 同じ review-local 内の `performance-engineer` 観点に譲る
 - スタイル的な好み（フォーマットなど）で実害のないもの
