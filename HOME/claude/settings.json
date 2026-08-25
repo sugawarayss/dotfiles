@@ -271,6 +271,6 @@
   },
   "language": "japanese",
   "tui": "fullscreen",
-  "theme": "dark-ansi",
+  "theme": "dark",
   "editorMode": "vim"
 }
