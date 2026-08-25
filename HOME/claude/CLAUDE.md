@@ -12,6 +12,9 @@
 - [python.md](rules/python.md) — `**/*.py`に対して適用されるPythonコード実装ルール（frontmatterの `paths` でスコープ指定）。
 - [pytest_coding.md](rules/pytest_coding.md) — `tests/**/test_*.py` に対してのみ適用されるテストコード実装ルール（frontmatterの `paths` でスコープ指定）。
 - [use_cli.md](rules/use_cli.md) — `bat`/`eza`/`fd`/`sd`/`ripgrep`/`pandoc`/`jq`/`yq` など、積極的に使ってよいCLIツール一覧。
+- [git_workflow.md](rules/git_workflow.md) — ブランチ命名・コミットメッセージ・PR/コミットの粒度・マージ方針に関するGitワークフロー規約（全体適用）。
+- [accessibility.md](rules/accessibility.md) — `**/*.tsx`/`**/*.jsx`に対して適用されるアクセシビリティ実装ルール（frontmatterの `paths` でスコープ指定）。
+- [api_design.md](rules/api_design.md) — APIルート/ルーター実装（Next.js API Routes・FastAPIルーター等）に対して適用されるREST API設計ルール（frontmatterの `paths` でスコープ指定）。
 
 新しい横断ルールを追加する場合は、この一覧にも追記すること。
 
