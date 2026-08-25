@@ -1,6 +1,6 @@
 theme = "github-dark-default"
 # 差分表示のレイアウト("auto"|"split"|"stack")
-mode = "stack"
+mode = "split"
 # 現在行を強調表示する範囲("off"|"row"|"number")
 cursor_line = "row"
 # バージョン管理システム("git"|"hg"|"svn"|"none")
