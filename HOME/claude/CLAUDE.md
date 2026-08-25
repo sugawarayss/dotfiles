@@ -29,7 +29,7 @@
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
 - プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動する際は、①`--no-open` を付けてブラウザの自動起動を止め、出力されるレビューURL（`http://localhost:<port>`）を `terminal-browser open <url> --split right` でherdr内のペインに開く、②`--no-open` を付けずにcrit標準のブラウザ起動に任せる、のどちらで開くかをユーザーに確認してから実行すること。
     - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
-- コード差分レビュー: `hunk`（`hunk-review` スキル経由。ユーザーがターミナルでセッションを起動している前提）
+- コード差分レビュー: `tuicr`（`tuicr` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`execute-plan-and-pr` はHerdr環境で `tuicr-wrapper-herdr.sh` によりブロッキング起動し、ユーザーが閉じたら自動継続する。`review-local` はコメント投稿用セッションを非ブロッキングで開いたままにする（裏でsubagent分析を進めるため）。非Herdr環境はいずれもユーザーに起動・完了報告を依頼する
 - PRレビュー: `tuicr`（`review-pr` スキル経由。Herdr環境では右にペインを割いて `tuicr pr <PR>` を自動起動、それ以外はユーザーに起動を依頼する。コメント追加後、GitHubへの送信はユーザーがTUI内で `:submit` を実行する手動操作）
 
 ### 破壊的操作の扱い
@@ -49,4 +49,4 @@
 - 簡潔・直接的な応答を優先する（[[design_principles]] のKISSと同じ考え方）。
 - 大きな変更や複数の選択肢がある設計判断は、実装前に方針を確認する。
 - 実装プランなど **非コードの成果物** をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
-- コードの差分を変更・実装した後は、Hunk（`hunk-review` スキル）でレビューしてもらう。ライブセッションが無ければユーザーに起動を依頼してから進める。
+- コードの差分を変更・実装した後は、tuicr（`execute-plan-and-pr` スキルのレビューループ）でレビューしてもらう。Herdr環境では自動起動、それ以外はユーザーに起動を依頼してから進める。
