@@ -36,7 +36,7 @@ color_moved = true
 # レビューを更新する
 "hunk.app.refresh" = "r"
 # ファイルとフィルター間でフォーカスを移動
-"hunk.app.toggleFocusArea" = false
+"hunk.app.toggleFocusArea" = "tab"
 # ヘルプの表示をトグル
 "hunk.app.toggleHelp" = "?"
 
