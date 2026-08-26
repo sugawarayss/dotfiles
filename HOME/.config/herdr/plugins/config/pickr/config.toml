@@ -35,5 +35,5 @@ needs = []
 platforms = ["github", "gitlab"]
 
 [pickr]
-auto = false
-default = "ask"
+auto = true
+default = "tuicr"
