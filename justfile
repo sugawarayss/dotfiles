@@ -26,6 +26,7 @@ claude-code:
   @test -L ~/.claude/agents || ln -s {{pwd}}/HOME/claude/agents ~/.claude/agents
   @test -L ~/.claude/rules || ln -s {{pwd}}/HOME/claude/rules ~/.claude/rules
   @test -L ~/.claude/hook_voices || ln -s {{pwd}}/HOME/claude/hook_voices ~/.claude/hook_voices
+  @test -L ~/.cluade/bin || ln -s {{pwd}}/HOME/claude/bin ~/.claude/bin
 
 # cluade用MCPサーバを設定
 claude-mcp:
