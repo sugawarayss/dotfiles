@@ -109,3 +109,7 @@ slumber.yaml
 # wtp - git worktree 管理ツール
 .wtp.yml
 .wtp.yaml
+
+# graft
+graft/
+.ignore
