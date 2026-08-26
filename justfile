@@ -4,7 +4,19 @@ pwd := `pwd`
 # デフォルトはタスクのリスト表示
 default: _list
 
-# claude code 用設定ファイル
+# codex 用設定ファイル
+codex:
+  # Codexディレクトリの存在確認
+  @test -d ~/.codex || mkdir -p ~/.codex
+  # Codexの設定ファイルを展開
+  @test -L ~/.codex/config.toml || ln -s {{pwd}}/HOME/codex/config.toml ~/.codex/config.toml
+  # ユーザレベルのAGENTS.mdを作成
+  @test -L ~/.codex/AGENTS.md || ln -s {{pwd}}/HOME/codex/AGENTS.md ~/.codex/AGENTS.md
+  # サブエージェント定義を作成
+  @test -L ~/.codex/agents || ln -s {{pwd}}/HOME/codex/agents ~/.codex/agents
+  # claude用Skills を .codex/skills に シムリンク
+  @test -L ~/.codex/skills || ln -s {{pwd}}/HOME/claude/skills ~/.codex/skills
+
 # claude code 用設定ファイル
 claude-code:
   @test -d ~/.claude || mkdir -p ~/.claude
