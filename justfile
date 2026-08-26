@@ -57,6 +57,8 @@ herdr-plugins:
   herdr plugin install jhochenbaum/herdr-hunk-diff
   # herdr-nvim plugin
   herdr plugin install ChmaraX/herdr-nvim
+  # herdr-pickr
+  herdr plugin install tomasvarga/herdr-pickr
   # terminal-browser がインストールされていなければインストール
   @type -q terminal-browser || curl -fsSL https://terminal-browser.sh/install | bash
 
