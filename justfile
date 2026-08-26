@@ -33,7 +33,7 @@ claude-mcp:
   claude mcp add aws-knowledge --transport stdio --scope user -- uvx fastmcp run https://knowledge-mcp.global.api.aws
   claude mcp add context7 --transport stdio --scope user --env DEFAULT_MINIMUM_TOKENS=128000 -- npx -y @upstash/context7-mcp
   claude mcp add serena --transport stdio --scope user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --project-from-cwd
-  claude mcp add playwright --transport stdio --scope user -- npx @playwright/mcp@latest
+  # claude mcp add playwright --transport stdio --scope user -- npx @playwright/mcp@latest
   claude mcp add chrome-devtools -- npx -y  chrome-devtools-mcp@latest --autoConnect
 
 # claude用crit(レビュー)を設定
