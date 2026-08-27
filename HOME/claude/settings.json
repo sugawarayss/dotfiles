@@ -148,6 +148,15 @@
     "disableBypassPermissionsMode": "disable"
   },
   "enableAllProjectMcpServers": false,
+  "skillOverrides": {
+    "example-skills:algorithmic-art": "off",
+    "example-skills:canvas-design": "off",
+    "example-skills:brand-guidelines": "off",
+    "example-skills:theme-factory": "off",
+    "example-skills:doc-coauthoring": "off",
+    "example-skills:internal-comms": "off",
+    "example-skills:frontend-design": "off"
+  },
   "hooks": {
     "InstructionsLoaded": [
       {
@@ -250,10 +259,10 @@
   },
   "enabledPlugins": {
     "crit@crit": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": false,
     "example-skills@anthropic-agent-skills": true,
     "document-skills@anthropic-agent-skills": true,
-    "typescript-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": false,
     "codex@openai-codex": true
   },
   "extraKnownMarketplaces": {
