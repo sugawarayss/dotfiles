@@ -6,32 +6,7 @@
 `develop`ブランチから作業ブランチを作成し、作業する。
 **`main`ブランチへのPRは人間が実施** する。
 
-```mermaid
-    gitGraph
-       commit id: "initial commit"
-       branch develop
-       checkout develop
-       commit 
-       checkout main
-       checkout develop
-       branch feature1
-       branch feature2
-       checkout feature1
-       commit id: "add: something"
-       commit id: "update: something"
-       commit id: "fix: something"
-       commit id: "style: something"
-       checkout main
-       checkout develop 
-       merge feature1
-       checkout feature2
-       commit
-       commit
-       checkout develop
-       merge feature2
-       checkout main
-       merge develop
-```
+`main` ← `develop` ← 各 `feature*`/`fix*` ブランチ、という2段構成。作業ブランチは `develop` から分岐して `develop` にマージし、`develop` から `main` へのマージ（PR）は人間が行う。
 
 ## ブランチ命名
 
