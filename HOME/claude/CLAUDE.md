@@ -15,6 +15,9 @@
 - [git_workflow.md](rules/git_workflow.md) — ブランチ命名・コミットメッセージ・PR/コミットの粒度・マージ方針に関するGitワークフロー規約（全体適用）。
 - [accessibility.md](rules/accessibility.md) — `**/*.tsx`/`**/*.jsx`に対して適用されるアクセシビリティ実装ルール（frontmatterの `paths` でスコープ指定）。
 - [api_design.md](rules/api_design.md) — APIルート/ルーター実装（Next.js API Routes・FastAPIルーター等）に対して適用されるREST API設計ルール（frontmatterの `paths` でスコープ指定）。
+- [typescript.md](rules/typescript.md) — `**/*.ts`/`**/*.tsx`に対して適用されるTypeScript実装ルール（frontmatterの `paths` でスコープ指定）。
+- [react.md](rules/react.md) — `**/*.tsx`/`**/*.jsx`に対して適用されるReact実装ルール（frontmatterの `paths` でスコープ指定）。
+- [docker.md](rules/docker.md) — `Dockerfile`/`docker-compose.yml`に対して適用されるDocker実装ルール（frontmatterの `paths` でスコープ指定）。
 
 新しい横断ルールを追加する場合は、この一覧にも追記すること。
 
