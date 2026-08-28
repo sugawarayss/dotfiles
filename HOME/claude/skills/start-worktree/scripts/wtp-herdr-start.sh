@@ -2,20 +2,29 @@
 # wtp + herdr worktree ワークフロー (既存worktreeの確認/新規作成 + herdrワークスペースを開く + 新規時のみエージェント起動)
 # を1回のBash呼び出しに集約し、後続処理に必要な情報だけを key=value 形式で出力する。
 # リポジトリルート (メインworktree) をカレントディレクトリにして実行すること。
+#
+# origin_pane_id (このスキルを実行しているセッション自身のherdr pane_id、$HERDR_PANE_ID) は、
+# worktree専用のgit管理ディレクトリ (`git -C <worktree_path> rev-parse --git-dir`) 配下に
+# `wtp-herdr-origin-pane-id` というファイルとして書き込む。`plan-and-review`/`execute-plan-and-pr`の
+# プロンプト文字列で手動中継する必要をなくし、`cleanup-worktree`がブランチ名から直接自動検出できる
+# ようにするため（`wtp remove`実行時にgitがこのディレクトリごと削除するのでゴミも残らない）。
 set -euo pipefail
 
 usage() {
   cat <<'USAGE' >&2
-Usage: wtp-herdr-start.sh <branch> <base> [<agent_name> [<prompt>]]
+Usage: wtp-herdr-start.sh <branch> <base> <origin_pane_id|-> [<agent_name> [<prompt>]]
 
-  branch      作成/再利用するブランチ名 (例: issue/123-fix-login-bug)
-  base        新規作成時のベースブランチ (例: develop)。既存worktree再利用時は無視される
-  agent_name  新規作成時のみ使用: herdr agent start に渡す名前。省略時はエージェント起動をスキップする
-  prompt      新規作成時のみ使用: herdr agent prompt に渡す文字列。省略時は送信をスキップする
+  branch          作成/再利用するブランチ名 (例: issue/123-fix-login-bug)
+  base            新規作成時のベースブランチ (例: develop)。既存worktree再利用時は無視される
+  origin_pane_id  このスキルを実行しているセッション自身のherdr pane_id ($HERDR_PANE_ID)。
+                  無ければ "-"。worktree専用のgit管理ディレクトリにファイルとして記録する
+  agent_name      新規作成時のみ使用: herdr agent start に渡す名前。省略時はエージェント起動をスキップする
+  prompt          新規作成時のみ使用: herdr agent prompt に渡す文字列。省略時は送信をスキップする
 
 標準出力 (key=value を1行ずつ、エラー時のみ error 行を追加):
   status=reused|created
   worktree_path=<絶対パス>
+  origin_pane_id_recorded=true|false (origin_pane_idが"-"でなく、ファイルへの記録に成功した場合のみtrue)
   herdr=ok|unavailable|error
   workspace_id=<id>          (herdr=ok のときのみ)
   pane_id=<id>                (herdr=ok かつ root_pane が取得できたときのみ)
@@ -27,10 +36,11 @@ USAGE
 
 branch="${1:-}"
 base="${2:-}"
-agent_name="${3:-}"
-prompt="${4:-}"
+origin_pane_id="${3:-}"
+agent_name="${4:-}"
+prompt="${5:-}"
 
-if [[ -z "$branch" || -z "$base" ]]; then
+if [[ -z "$branch" || -z "$base" || -z "$origin_pane_id" ]]; then
   usage
   exit 1
 fi
@@ -62,6 +72,16 @@ fi
 
 echo "status=$status"
 echo "worktree_path=$worktree_path"
+
+origin_pane_id_recorded=false
+if [[ "$origin_pane_id" != "-" ]]; then
+  if worktree_git_dir="$(git -C "$worktree_path" rev-parse --path-format=absolute --git-dir 2>/dev/null)"; then
+    if printf '%s' "$origin_pane_id" > "$worktree_git_dir/wtp-herdr-origin-pane-id" 2>/dev/null; then
+      origin_pane_id_recorded=true
+    fi
+  fi
+fi
+echo "origin_pane_id_recorded=$origin_pane_id_recorded"
 
 workspace_id=""
 pane_id=""

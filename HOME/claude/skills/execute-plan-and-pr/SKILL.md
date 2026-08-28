@@ -9,7 +9,7 @@ description: >
   `plan-and-review` でのプラン承認後に自動的に呼び出されるほか、
   既存のworktreeで承認済みのプランファイルがある状態で
   「実装を進めて」「execute-plan-and-pr」「/execute-plan-and-pr」と言われた場合にも使用します。
-argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [プランファイルのパス] [起点pane_id(省略可、既定 -)]"
+argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [プランファイルのパス]"
 allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(tuicr:*) Bash(~/.claude/skills/tuicr/tuicr-wrapper-herdr.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/tuicr-pending-comments.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-implement-herdr.sh:*) Read
 user-invocable: true
 model: sonnet
@@ -25,8 +25,7 @@ model: sonnet
 1. `git branch --show-current` で現在のブランチを確認する。`$ARGUMENTS` でブランチ名が渡されていて一致しない場合は、対象のworktree/ブランチに切り替わっているかユーザーに確認する。
 2. `$ARGUMENTS` からプランファイルのパスが得られているか確認する。得られていなければユーザーに確認する。
 3. プランファイルを読み、承認された実装方針を把握する。
-4. `$ARGUMENTS` の5つ目のトークン（起点pane_id）を控える。無ければ `-` として扱う。`plan-and-review` から中継されてきた、`/start-worktree` を実行した元セッションのherdr pane_idで、このスキル自身は使わず、ステップ6で `cleanup-worktree` にそのまま渡す。
-5. `git rev-parse --show-toplevel` でworktreeの絶対パスを控える。ステップ1でHerdr環境の場合にCodexへ渡す。
+4. `git rev-parse --show-toplevel` でworktreeの絶対パスを控える。ステップ1でHerdr環境の場合にCodexへ渡す。
 
 ## ステップ1: 実装
 
@@ -120,7 +119,7 @@ gh pr create --base <base-branch> --title "<title>" --body "<body>"
 
 ## ステップ6: マージ後の後片付け
 
-PR作成の報告後、同じ会話の中でユーザーから「マージされた」「PRがマージされたよ」などPRのマージを知らせる発言があったら、`Skill` ツールで `cleanup-worktree` スキルを呼び出す。引数には対象のブランチ名（ステップ5でPRを作成したブランチ）と、前提条件の確認4で控えた起点pane_idを渡す。
+PR作成の報告後、同じ会話の中でユーザーから「マージされた」「PRがマージされたよ」などPRのマージを知らせる発言があったら、`Skill` ツールで `cleanup-worktree` スキルを呼び出す。引数には対象のブランチ名（ステップ5でPRを作成したブランチ）を渡す。起点pane_idは `cleanup-worktree` 側が `start-worktree` の記録したファイルから自動検出するため、ここで明示的に渡す必要はない。
 
 worktree・ブランチの実削除前の確認は `cleanup-worktree` 側のステップ4で行われるため、ここで重ねて確認を取る必要はない。
 
