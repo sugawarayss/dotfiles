@@ -89,6 +89,9 @@ CLAUDE.local.md
 
 **/.claude/settings.local.json
 
+# codex
+.system/
+
 # serenaのプロジェクト設定指示ファイル
 .serena/**
 
