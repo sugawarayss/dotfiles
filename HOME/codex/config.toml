@@ -1,6 +1,6 @@
 codex = "gpt-5.3-codex"
-model = "gpt-5.6-luna"
-model_reasoning_effort = "medium"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
 
 notify = ["/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
