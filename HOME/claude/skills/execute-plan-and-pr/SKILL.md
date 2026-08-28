@@ -89,7 +89,9 @@ test "${HERDR_ENV:-}" = 1
    # scope=review の場合（--target-file を省略）
    tuicr review add --session '<slug>' --repo <path> --username 'execute-plan-and-pr' "対応: ..."
    ```
-6. 修正が終わったら、ステップ2に戻って再度tuicrを起動し、最新の差分をユーザーに確認してもらう。ステップ4でユーザーが承認するまで繰り返す。
+
+6. 修正が終わったら、ステップ2に戻って再度tuicrを起動し、最新の差分をユーザーに確認してもらう。背後で `/review-local` スキルを実行してエージェントによるレビューも行う。ステップ4でユーザーが承認するまで繰り返す。
+    レビューによる指摘点がtuicr上にコメントとして送信されるので、修正をcodexに移譲する。
 
 ## ステップ3: commit
 

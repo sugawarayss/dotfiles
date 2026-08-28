@@ -8,7 +8,7 @@ description: >
 allowed-tools: Agent Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git rev-list:*) Bash(git diff:*) Bash(tuicr:*) Bash(herdr:*) Read Grep Glob mcp__context7__* mcp__*
 ---
 
-ベースブランチとの diff を取得し、品質・セキュリティ・パフォーマンス・テスト・ドキュメントの5観点で専門subagentに分析を並列委譲してレビューします。発見事項ごとに行番号・タグ・問題点・修正案を tuicr へインラインコメントとして投稿します。
+ベースブランチとの diff を取得し、品質・セキュリティ・パフォーマンス・テスト・ドキュメントの5観点で専門subagentに分析を並列委譲してレビューします。各subagentは発見事項ごとに行番号・タグ・問題点・修正案を**自分でtuicrへインラインコメントとして直接投稿**します。
 
 ## ベースブランチの決定
 
@@ -37,7 +37,7 @@ git rev-list --count <merge-base-sha>..<base>
 
 ## tuicrセッションを用意する
 
-コメントの投稿先となる、対象range（`<merge-base-sha>..HEAD` を `-w` 付き）のtuicrライブセッションを用意する。`review-pr` スキルと同じ「TUIは人間、専用サブコマンドはエージェント」という設計に従い、tuicrの対話TUI自体（Herdr環境で開く新規ペインを除く）は自分では操作しない。
+後段の各専門subagentが指摘を**直接**投稿できるよう、分析より前に対象range（`<merge-base-sha>..HEAD` を `-w` 付き）のtuicrライブセッションを用意し `slug` を確保しておく。`review-pr` スキルと同じ「TUIは人間、専用サブコマンドはエージェント」という設計に従い、tuicrの対話TUI自体（Herdr環境で開く新規ペインを除く）は自分では操作しない。
 
 ### セッションの有無を確認
 
@@ -65,6 +65,19 @@ herdr pane run <pane_id> "tuicr -r <merge-base-sha>..HEAD -w"
 
 ユーザーに「`tuicr -r <merge-base-sha>..HEAD -w` を実行してください」と伝えて起動を依頼し、実行完了の報告を待ってから次に進む。
 
+### `--repo` に使う値を確定する
+
+`tuicr review add`/`tuicr review list` の `--repo` は、**cwdそのものではなくgitリポジトリのtoplevelを基準に解決される**（実機確認済み）。cwdがtoplevelと一致する通常のプロジェクトでは `--repo .` のままで問題ないが、monorepoのサブディレクトリで作業している等 **cwdがtoplevelの子ディレクトリになっている構成では `--repo .` がセッション未検出エラー**（`session '<slug>' was not found for repo <path>`）になることがある。
+
+その場合は次のいずれかを `<repo>` として以降使う：
+
+- `git rev-parse --show-toplevel` で得た絶対パス
+- `tuicr review list --all` で対象セッションのslugを確認し、そのslugの先頭 `owner/repo` 部分
+
+上のセッション確認が空配列を返したのに `--all` では見つかる場合は、このズレが原因なので `<repo>` を切り替えて再試行すること。
+
+以降、この節で得た `<slug>` と `<repo>` を後段の各subagentに渡す。
+
 ## Diff の取得（分析用）
 
 tuicrにはセッション内容をJSONで取り出すコマンドが無いため、各subagentへ渡す生diffは `git diff` で別途取得する。対象rangeはセッションと同じ `<merge-base-sha>` を使う（作業ツリーの未コミット変更も含まれる）。
@@ -77,15 +90,17 @@ git diff <merge-base-sha>
 
 変更されたファイルの拡張子・ディレクトリ構造・設定ファイル（package.json, Cargo.toml, go.mod, pyproject.toml, Gemfile, pom.xml, build.gradle 等）から、使用されている言語・フレームワーク・ライブラリを特定すること。特定した技術スタックに応じて、次のステップの各観点で注目すべきポイントを適切に調整すること。
 
-## 専門subagentによる並列分析
+## 専門subagentによる並列分析＋tuicrへの直接投稿
 
 Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッセージで並列**に起動して観点ごとの分析を分担すること。それぞれ新規に起動される（会話コンテキストを持たない）ため、各agentのpromptには必ず次を含めること:
 
 - 分析対象range（merge-baseのコミットSHA）と、diff取得コマンド（`git diff <merge-base-sha>`）
 - 把握した技術スタックと、そのスタック固有のベストプラクティス・落とし穴に注目してほしい旨
 - 下表の担当観点とその着眼点
-- 出力フォーマット: 指摘ごとに `file`（diffに現れるパス。リポジトリルートからの相対パス）・`line`（diffのnew-side行番号。範囲があれば `"<start>-<end>"`）・`tag`（下記タグ定義から該当するもの）・`summary`（`<タグ> <何が問題か>. <修正案>.` の形式）を持つJSON配列で返すこと。指摘が無ければ空配列を返すこと
-- **読み取り専用で分析すること**（コードの変更やファイル作成は行わない）
+- 前段で確保した **tuicrセッションのslug `<slug>`** と **`--repo` に使う値 `<repo>`**（`--repo .` が使えない構成では必ずこの `<repo>` を使わせること。ここを省いてcwd相対の値を推測させると `session was not found for repo ...` エラーで投稿が全滅する）
+- 指摘を見つけたら、その場で下記「報告方法」の投稿コマンドを**自分で実行してtuicrに直接投稿すること**（メインエージェントには投稿を依頼しない）
+- 出力フォーマット: 投稿がすべて終わったら、`posted`（投稿できた件数）・`failed`（投稿コマンドがエラーになった指摘。`file`/`line`/`tag`/`summary` を持つJSON配列。無ければ空配列）を持つJSONオブジェクトで返すこと。指摘が無ければ `{"posted": 0, "failed": []}` を返すこと
+- **コードの変更やファイル作成は行わない**（読み取り専用の分析と、tuicrへの投稿コマンド実行のみ許可される）
 - 必要であれば `mcp__context7__*`（技術スタックの最新ドキュメント）を使ってよいこと
 
 | 観点 | subagent_type | 着眼点 |
@@ -96,7 +111,7 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 | テスト | `qa-expert` | 変更に対するテストが追加・更新されているか／エッジケースや異常系のカバー／テストの可読性と保守性／テストが実装の詳細に依存しすぎていないか |
 | ドキュメント | `technical-writer` | 変更に伴いREADMEやAPIドキュメントの更新が必要か／複雑なロジックに対するコード内コメントの有無／型定義やインターフェースの変更がドキュメントに反映されているか |
 
-全agentの完了通知を待ってから、返却されたJSON配列を1つの `comments` 配列に統合すること。
+全agentの完了通知を待ってから、次のステップに進む。
 
 ### タグ
 
@@ -110,28 +125,34 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 - `PERF:` パフォーマンス上の懸念。
 - `DOC:` ドキュメント・コメントの更新漏れ。
 
-## 報告方法（tuicrへ投稿）
+## 報告方法（各agentがtuicrへ直接投稿）
 
-発見事項はテキストで一覧表示せず、`tuicr review add` でファイルの該当行にインラインコメントとして投稿する。
+発見事項はテキストで一覧表示せず、各subagentが自分自身で `tuicr review add` を実行してファイルの該当行にインラインコメントとして投稿する。
 
 1. 対象ファイルパスは diff のパス（リポジトリルートからの相対パス）をそのまま `--target-file` に渡す。
 2. 行番号は diff の new-side（`+`側、現在のファイル内容に対応する行番号）を `--line`（範囲があれば `--end-line` も）に渡す。`--side` は省略時 `new` になるため指定不要。
-3. コメント本文は各subagentが返した `<タグ> <何が問題か>. <修正案>.` 形式をそのまま使う。
+3. コメント本文は `<タグ> <何が問題か>. <修正案>.` 形式で書く。
 4. **必ず `--username 'review-local'` を付ける**（人間のコメントと視覚的に区別するため）。
-5. `tuicr review add` は1回につき1件しか投稿できない（複数件をまとめて渡すオプションは無い）ため、統合した `comments` 配列を指摘の数だけループして呼び出す。
+5. 投稿コマンドが失敗した場合（session未検出、権限エラー等）はリトライせず、その指摘を `failed` に積んで次の指摘に進む。
 
 ```bash
-tuicr review add --session '<slug>' --repo . --target-file src/auth.go --line 42 --username 'review-local' "BUG: user が null の場合に user.name へアクセスして TypeError が発生する. 早期リターンでガード節を追加."
+tuicr review add --session '<slug>' --repo '<repo>' --target-file src/auth.go --line 42 --username 'review-local' "BUG: user が null の場合に user.name へアクセスして TypeError が発生する. 早期リターンでガード節を追加."
 
-tuicr review add --session '<slug>' --repo . --target-file api.py --line 12 --username 'review-local' "SEC: APIキーがハードコードされている. 環境変数から読み込むよう変更."
+tuicr review add --session '<slug>' --repo '<repo>' --target-file api.py --line 12 --username 'review-local' "SEC: APIキーがハードコードされている. 環境変数から読み込むよう変更."
 ```
 
-投稿するとライブセッションに即座に反映される（再起動不要）。crit方式のような「Finish Review待ち」の処理は行わない。投稿件数をユーザーに報告し、tuicr上で確認・対応してもらう。
+`<repo>` は前段で確定した値をそのまま使う（`.` に固定しないこと）。
+
+投稿するとライブセッションに即座に反映される（再起動不要）。crit方式のような「Finish Review待ち」の処理は行わない。
+
+## 投稿に失敗した指摘のフォールバック
+
+各agentの `failed` 配列を集約する。1件でもあれば、メインエージェントが代わりに上記と同じフォーマット・`--username 'review-local'` で `tuicr review add` を実行して投稿する。全て成功していれば（全agentの `failed` が空配列）何もしない。
 
 ## スコア
 
-最後に `net: <N>件をtuicrにコメントとして投稿。` で締めくくる。
-指摘がない場合はコメントを投稿せず、チャットで `LGTM` と伝えるだけにする（review-localでは個別指摘のインラインコメントのみを扱い、review-prのようなPR概要相当の全体コメントは投稿しない）。
+各agentの `posted` を合算し、`net: <N>件をtuicrにコメントとして投稿。` で締めくくる（フォールバック分があれば合計に含める）。
+合算が0件の場合はコメントを投稿せず、チャットで `LGTM` と伝えるだけにする（review-localでは個別指摘のインラインコメントのみを扱い、review-prのようなPR概要相当の全体コメントは投稿しない）。
 baseからの遅れが1件以上あれば、続けて `baseからN件遅れています。rebase推奨。` と一言添える。
 
 ## 境界

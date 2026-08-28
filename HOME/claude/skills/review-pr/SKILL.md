@@ -55,38 +55,141 @@ gh pr view <PR> --comments
 
 変更されたファイルの拡張子・ディレクトリ構造・設定ファイル（package.json, Cargo.toml, go.mod, pyproject.toml, Gemfile, pom.xml, build.gradle 等）から、使用されている言語・フレームワーク・ライブラリを特定すること。
 
-特定した技術スタックに応じて、ステップ4の各観点で注目すべきポイントを適切に調整すること。
+特定した技術スタックに応じて、ステップ5の各観点で注目すべきポイントを適切に調整すること。
 
 他のレビュワーのコメントも考慮に入れ、反論や意見がある場合はコメントすること。
 
-## ステップ4: 専門subagentによる並列分析
+## ステップ4: tuicrセッションを用意する
+
+ステップ5で各専門subagentが指摘を**直接**投稿できるよう、分析より前にtuicrセッションを確立し `slug` を確保しておく。
+
+**前提: 対象PRに対して `tuicr pr <PR>` のセッションが必要。** tuicrはヘッドレスにセッションを新規作成できない（TTY付きでTUIを実際に開いた時にだけセッションが永続化される）ため、下記4-1で起動経路を分岐する。
+
+### 4-1. セッションを用意する
+
+```bash
+test "${HERDR_ENV:-}" = 1
+```
+
+**Herdr環境の場合（終了コード0）**: ユーザーに確認や依頼をせず、右側に新規ペインを割いて自動的に起動する。
+
+```bash
+herdr pane split --current --direction right --cwd "$PWD" --no-focus
+# → .result.pane.pane_id を取得
+herdr pane run <pane_id> "tuicr pr <PR>"
+```
+
+セッションの永続化には少し時間がかかることがある。`tuicr review list --repo .` が空配列を返す間は1〜2秒待って再試行する（最大5回程度）。5回試しても現れない場合はエラーとしてユーザーに報告し中断する。
+
+**Herdr環境でない場合**: ユーザーに「`tuicr pr <PR>` を実行してください」と伝えて起動を依頼し、実行完了の報告を待ってから次に進む。ユーザーに何か入力するよう促す以外の先読みはしない。
+
+### 4-2. セッションを探す
+
+```bash
+tuicr review list --repo .
+```
+
+`--repo .` はcwdのチェックアウトを指す。パスを渡すとそのチェックアウトのorigin repoに紐づくPRセッションも表示されるため、`owner/repo` を別途調べる必要はない。対象PR番号に対応するセッションの `slug` を見つける。見つからない場合は「`tuicr pr <PR>` を起動してから再実行してください」とユーザーに伝えて中断する。
+
+### 4-3. `--repo` に使う値を確定する
+
+`tuicr review add`/`tuicr review list` の `--repo` は、**cwdそのものではなくgitリポジトリのtoplevelを基準に解決される**（実機確認済み）。cwdがtoplevelと一致する通常のプロジェクトでは `--repo .` のままで4-2以降も問題なく動くが、monorepoのサブディレクトリで作業している等 **cwdがtoplevelの子ディレクトリになっている構成では `--repo .` がセッション未検出エラー**（`session '<slug>' was not found for repo <path>`）になることがある。
+
+その場合は次のいずれかを `<repo>` として以降使う：
+
+- `git rev-parse --show-toplevel` で得た絶対パス
+- `tuicr review list --all` で対象セッションのslugを確認し、そのslugの先頭 `owner/repo` 部分（例: `sugawarayss/dotfiles`）
+
+4-2が空配列を返したのに `--all` では見つかる場合は、このズレが原因なので `<repo>` を切り替えて4-2を再試行すること。
+
+以降、この節で得た `<slug>` と `<repo>` をステップ5の各subagentに渡す。
+
+## ステップ5: 専門subagentによる並列分析＋tuicrへの直接投稿
 
 Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッセージで並列**に起動して観点ごとの分析を分担すること。それぞれ新規に起動される（会話コンテキストを持たない）ため、各agentのpromptには必ず次を含めること:
 
 - レビュー対象PR番号 `<PR>` と、diff取得コマンド（`gh pr diff <PR>`、`gh pr diff <PR> --name-only`）
 - ステップ3で把握した技術スタックと、そのスタック固有のベストプラクティス・落とし穴に注目してほしい旨
 - 下表の担当観点とその着眼点
-- 出力フォーマット: 指摘ごとに `file`（PRのdiffに現れるパス）・`line`（該当行番号。範囲があれば `"<start>-<end>"`）・`body`（ステップ5で定義するタグ + 重要度/緊急度 + 問題 + 修正案の形式）を持つJSON配列で返すこと。指摘が無ければ空配列を返すこと
-- **読み取り専用で分析すること**（コードの変更やファイル作成は行わない）
+- ステップ4で確保した **tuicrセッションのslug `<slug>`** と **`--repo` に使う値 `<repo>`**（4-3参照。`--repo .` が使えない構成では必ずこの `<repo>` を使わせること。ここを省いてcwd相対の値を推測させると `session was not found for repo ...` エラーで投稿が全滅する）
+- 指摘を見つけたら、その場で下記の投稿コマンドを**自分で実行してtuicrに直接投稿すること**（メインエージェントには投稿を依頼しない）
+- 出力フォーマット: 投稿がすべて終わったら、`posted`（投稿できた件数）・`failed`（投稿コマンドがエラーになった指摘。`file`/`line`/`body` を持つJSON配列。無ければ空配列）・`summary`（投稿した指摘それぞれの1行要約の配列。例: `"src/auth.go:42 [must] nullチェック漏れでTypeErrorが発生する"`）を持つJSONオブジェクトで返すこと。指摘が無ければ `{"posted": 0, "failed": [], "summary": []}` を返すこと
+- **コードの変更やファイル作成は行わない**（読み取り専用の分析と、tuicrへの投稿コマンド実行のみ許可される）
 - 必要であれば `mcp__context7__*`（技術スタックの最新ドキュメント）や `mcp__aws-*`（AWS利用時）を使ってよいこと
 
 | 観点 | subagent_type | 着眼点 |
-|---|---|---|
+| --- | --- | --- |
 | 品質 | `code-reviewer` | コードの可読性、命名の適切さ／設計・責務分離（関数やクラスが大きすぎないか）／重複コードの有無／エラーハンドリングの適切さ／そのプロジェクトの既存コードとの一貫性 |
 | セキュリティ | `security-auditor` | ユーザー入力のバリデーション・サニタイズ／認証・認可の漏れ／シークレットや機密情報のハードコード／依存ライブラリの既知の脆弱性／技術スタック特有のリスク（SQLインジェクション, XSS, CSRF, デシリアライズ脆弱性, パストラバーサル 等） |
 | パフォーマンス | `performance-engineer` | 不要なループやネスト、計算量の問題／I/O・ネットワーク呼び出しの効率性／キャッシュやメモ化の活用余地／メモリ使用量・リソースリーク／技術スタック特有の懸念（N+1クエリ, 不要な再レンダリング, GCプレッシャー 等） |
 | テスト | `qa-expert` | 変更に対するテストが追加・更新されているか／エッジケースや異常系のカバー／テストの可読性と保守性／テストが実装の詳細に依存しすぎていないか |
 | ドキュメント | `technical-writer` | 変更に伴いREADMEやAPIドキュメントの更新が必要か／複雑なロジックに対するコード内コメントの有無／型定義やインターフェースの変更がドキュメントに反映されているか |
 
-全agentの完了通知を待ってから、返却されたJSON配列を1つに統合すること。他のレビュワーのコメントも考慮に入れ、反論や意見がある場合はコメントすること。
+各agentが投稿する際のコメント本文の形式:
 
-PRの全体像（ステップ5冒頭部分）は、各agentの指摘を俯瞰した上でメインエージェント自身が作成すること。
+````markdown
+<コメント種別タグ>
+**[重要度: 高/中/低] [緊急度: 高/中/低]** 問題の概要
 
-## ステップ5: 出力
+**問題:**
+具体的な問題の説明
 
-分析結果を以下のフォーマットで出力すること。
+**修正案:**
+修正後のコード例
+````
 
-まずPRの全体像を出力する：
+### コメント種別タグ
+
+指摘事項の冒頭に付与するタグ。
+レビュワーの意図をレビュイーに伝える目的で必ず付与する。
+
+- `![question-badge](https://img.shields.io/badge/review-Question-yellowgreen.svg)` : 質問や疑問のコメントであることを示す
+- `![imo-badge](https://img.shields.io/badge/review-In_My_Opinion-orange.svg)` : 個人的な意見や主張のコメントであることを示す
+- `![fiy-badge](https://img.shields.io/badge/review-For_Your_Information-green.svg)` : 参考情報を提示するコメントであることを示す
+- `![nitpick-badge](https://img.shields.io/badge/review-Nitpick-orange.svg)` : 重箱の隅をつつくような、細かい点の指摘コメントであることを示す
+- `![norush-badge](https://img.shields.io/badge/review-No_Rush-purple.svg)` : 将来的には修正したいが、今でなくても良い内容のコメントであることを示す
+- `![suggest-badge](https://img.shields.io/badge/review-Suggest_Change-yellowgreen.svg)` : **提案**  修正した方が良い内容の指摘コメントであることを示す
+- `![should-badge](https://img.shields.io/badge/review-Should_Change-important.svg)` : **強い提案** 修正すべき内容の指摘コメントであることを示す
+- `![must-badge](https://img.shields.io/badge/review-Must-red.svg)` : 修正しなければ approve しないという意思が篭っている指摘コメントであることを示す
+
+### 重要度と緊急度
+
+レビュイーが指摘点のトリアージの目安として利用する指標
+
+#### 重要度
+
+指摘点が、機能や処理の根幹に関わる問題(バグ、セキュリティリスク)であるほど重要である
+
+#### 緊急度
+
+指摘点が、アプリケーションの利用上支障となるような発生頻度、回避する操作が存在しない問題であるほど緊急である
+
+### 各agentが実行する投稿コマンド
+
+```bash
+tuicr review add --session '<slug>' --repo '<repo>' --target-file src/auth.go --line 42 --username 'review-pr' "$(cat <<'EOF'
+![must-badge](https://img.shields.io/badge/review-Must-red.svg)
+
+**[重要度: 高] [緊急度: 高]** null チェック漏れ
+
+**問題:** userがnullの場合にTypeErrorが発生する
+
+**修正案:** 早期リターンでガード節を追加
+EOF
+)"
+```
+
+`<repo>` はステップ4-3で確定した値をそのまま使う（`.` に固定しないこと）。`--target-file` はgit toplevel相対のパス（`gh pr diff` が出力するパスそのまま）を渡す。
+
+- **必ず `--username 'review-pr'` を付ける**（人間のコメントと視覚的に区別するため）。
+- **`--line` はPRのdiffに実際に現れる変更行を指すこと。** diffのcontext範囲外の行を指定するとセッションファイルには保存されるが、TUIの差分ビューには描画されない（動作検証済み）。
+- 投稿コマンドが失敗した場合（session未検出、権限エラー等）はリトライせず、その指摘を `failed` に積んで次の指摘に進む。
+
+全agentの完了通知を待ってから、次のステップに進む。
+
+## ステップ6: 全体像の作成・投稿
+
+各agentが返した `summary`（投稿済み指摘の1行要約群）を俯瞰し、PRの全体像をメインエージェント自身が作成する：
 
 ````markdown
 ## コードレビュー: [PR タイトル]
@@ -115,112 +218,30 @@ PRの全体像（ステップ5冒頭部分）は、各agentの指摘を俯瞰し
 
 ````
 
-この全体像は、ステップ6で `tuicr` の**レビューコメント**（ファイル・行に紐付かない全体コメント）として投稿し、個別の指摘（インラインコメント）と一緒にtuicr上で確認できるようにする。チャットにも同じ内容を出力する。
+この全体像を、メインエージェント自身が `tuicr review add`（`--target-file`/`--line` は付けない、**レビューコメント**）で投稿する。他のレビュワーのコメントも考慮に入れ、反論や意見がある場合はコメントすること。
 
-個別の指摘はチャットに列挙せず、ステップ6で `tuicr` にインラインコメントとして投稿する。コメント本文は以下の形式にする。
+```bash
+tuicr review add --session '<slug>' --repo '<repo>' --username 'review-pr' "$(cat <<'EOF'
+## コードレビュー: ...(上記の全体像Markdown全文)
+EOF
+)"
+```
 
-````markdown
-<コメント種別タグ>
-**[重要度: 高/中/低] [緊急度: 高/中/低]** 問題の概要
+ここでも `<repo>` はステップ4-3で確定した値を使う。
 
-**問題:**
-具体的な問題の説明
+指摘が1件も無い場合（全agentの `posted` が0）も、全体像のレビューコメントは必ず投稿する。
 
-**修正案:**
-修正後のコード例
-````
+チャットにも同じ全体像を出力する。個別の指摘（ステップ5で各agentが投稿済み）はチャットに列挙しない。
 
-### コメント種別タグ
+## ステップ7: 投稿に失敗した指摘のフォールバック
 
-指摘事項の冒頭に付与するタグ。
-レビュワーの意図をレビュイーに伝える目的で必ず付与する。
+各agentの `failed` 配列を集約する。1件でもあれば、メインエージェントが代わりにステップ5と同じコメントフォーマット・タグ・`--username 'review-pr'` で `tuicr review add` を実行して投稿する。全て成功していれば（全agentの `failed` が空配列）このステップは何もしない。
 
-- `![good-badge](https://img.shields.io/badge/review-Good_Point-blue.svg)` : 良い点を褒めるコメントであることを示す
-- `![question-badge](https://img.shields.io/badge/review-Question-yellowgreen.svg)` : 質問や疑問のコメントであることを示す
-- `![imo-badge](https://img.shields.io/badge/review-In_My_Opinion-orange.svg)` : 個人的な意見や主張のコメントであることを示す
-- `![fiy-badge](https://img.shields.io/badge/review-For_Your_Information-green.svg)` : 参考情報を提示するコメントであることを示す
-- `![nitpick-badge](https://img.shields.io/badge/review-Nitpick-orange.svg)` : 重箱の隅をつつくような、細かい点の指摘コメントであることを示す
-- `![norush-badge](https://img.shields.io/badge/review-No_Rush-purple.svg)` : 将来的には修正したいが、今でなくても良い内容のコメントであることを示す
-- `![suggest-badge](https://img.shields.io/badge/review-Suggest_Change-yellowgreen.svg)` : **提案**  修正した方が良い内容の指摘コメントであることを示す
-- `![should-badge](https://img.shields.io/badge/review-Should_Change-important.svg)` : **強い提案** 修正すべき内容の指摘コメントであることを示す
-- `![must-badge](https://img.shields.io/badge/review-Must-red.svg)` : 修正しなければ approve しないという意思が篭っている指摘コメントであることを示す
-
-### 重要度と緊急度
-
-レビュイーが指摘点のトリアージの目安として利用する指標
-
-#### 重要度
-
-指摘点が、機能や処理の根幹に関わる問題(バグ、セキュリティリスク)であるほど重要である
-
-#### 緊急度
-
-指摘点が、アプリケーションの利用上支障となるような発生頻度、回避する操作が存在しない問題であるほど緊急である
-
-## ステップ6: tuicrへ投稿 → ユーザーが確認 → :submitでGitHubへ手動送信
+## ステップ8: ユーザーに伝えて完了
 
 GitHubへ直接投稿せず、`tuicr` を経由してPR全体像（レビューコメント）と個別の指摘（インラインコメント）の両方をユーザーに確認してもらう。crit方式と異なり、GitHubへの最終送信はユーザーがTUI内で `:submit` を実行する**手動操作**であり、Claudeはそれを待たずにこのステップで完了とする（tuicrにはヘッドレスな push コマンドが存在しないため）。
 
-**前提: 対象PRに対して `tuicr pr <PR>` のセッションが必要。** tuicrはヘッドレスにセッションを新規作成できない（TTY付きでTUIを実際に開いた時にだけセッションが永続化される）ため、下記6-1で起動経路を分岐する。
-
-### 6-1. セッションを用意する
-
-```bash
-test "${HERDR_ENV:-}" = 1
-```
-
-**Herdr環境の場合（終了コード0）**: ユーザーに確認や依頼をせず、右側に新規ペインを割いて自動的に起動する。
-
-```bash
-herdr pane split --current --direction right --cwd "$PWD" --no-focus
-# → .result.pane.pane_id を取得
-herdr pane run <pane_id> "tuicr pr <PR>"
-```
-
-セッションの永続化には少し時間がかかることがある。`tuicr review list --repo .` が空配列を返す間は1〜2秒待って再試行する（最大5回程度）。5回試しても現れない場合はエラーとしてユーザーに報告し中断する。
-
-**Herdr環境でない場合**: ユーザーに「`tuicr pr <PR>` を実行してください」と伝えて起動を依頼し、実行完了の報告を待ってから次に進む。ユーザーに何か入力するよう促す以外の先読みはしない。
-
-### 6-2. セッションを探す
-
-```bash
-tuicr review list --repo .
-```
-
-`--repo .` はcwdのチェックアウトを指す。パスを渡すとそのチェックアウトのorigin repoに紐づくPRセッションも表示されるため、`owner/repo` を別途調べる必要はない。対象PR番号に対応するセッションの `slug` を見つける。見つからない場合は「`tuicr pr <PR>` を起動してから再実行してください」とユーザーに伝えて中断する。
-
-### 6-3. 全体像と個別指摘を投稿
-
-見つけた `slug` を使い、コメントを1件ずつ `tuicr review add` で投稿する（複数件をまとめて渡すオプションは無いため、指摘の数だけ呼び出す）。
-
-- 全体像（レビューコメント）: `--target-file`/`--line` を付けない。bodyはステップ5のMarkdown全体。
-- 個別指摘: `--target-file`（PRのdiffに現れるパス）と `--line`（該当行番号。範囲があれば `--end-line` も指定）を付ける。bodyはステップ5で定義した形式（タグ + 重要度/緊急度 + 問題 + 修正案）。
-- **必ず `--username 'review-pr'` を付ける**（人間のコメントと視覚的に区別するため）。
-- **`--line` はPRのdiffに実際に現れる変更行を指すこと。** diffのcontext範囲外の行を指定するとセッションファイルには保存されるが、TUIの差分ビューには描画されない（動作検証済み）。
-
-```bash
-tuicr review add --session '<slug>' --repo . --username 'review-pr' "$(cat <<'EOF'
-## コードレビュー: ...(ステップ5の全体像Markdown全文)
-EOF
-)"
-
-tuicr review add --session '<slug>' --repo . --target-file src/auth.go --line 42 --username 'review-pr' "$(cat <<'EOF'
-![must-badge](https://img.shields.io/badge/review-Must-red.svg)
-
-**[重要度: 高] [緊急度: 高]** null チェック漏れ
-
-**問題:** userがnullの場合にTypeErrorが発生する
-
-**修正案:** 早期リターンでガード節を追加
-EOF
-)"
-```
-
-指摘が1件も無い場合も、全体像のレビューコメントは必ず投稿する。
-
-### 6-4. ユーザーに伝えて完了
-
-投稿件数をユーザーに報告し、以降の操作を委ねる。Herdr環境で自動的にペインを開いた場合は、そのペインで確認できることも伝える。
+投稿件数（ステップ5の各agentの `posted` 合計 + ステップ7のフォールバック分 + ステップ6の全体像1件）をユーザーに報告し、以降の操作を委ねる。Herdr環境で自動的にペインを開いた場合は、そのペインで確認できることも伝える。
 
 > "tuicrにN件のコメント（全体像1件＋個別指摘N-1件）を追加しました。開いているTUIに再起動不要で反映されます。内容を確認し、不要なものは削除・編集した上で、TUI内で `:submit` を実行してください。GitHubへの送信内容（Comment/Approve/Request changes）はその場で選択できます。"
 

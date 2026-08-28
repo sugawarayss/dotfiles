@@ -7,7 +7,7 @@ description: >
   ユーザーが「issue #123からworktree作って」「ClickUpタスク<ID>からworktree始めて」「start-worktree」
   「/start-worktree」と入力した場合に使用します。
 argument-hint: "[GitHub issue番号/URL または ClickUpタスクID/URL] [任意: ベースブランチ]"
-allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git branch:*) Bash(wtp *) Bash(herdr *) Bash(jq:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
+allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git branch:*) Bash(wtp *) Bash(herdr *) Bash(jq:*) Bash(gh issue view:*) Bash(/Users/sugawarayss/.claude/skills/start-worktree/scripts/wtp-herdr-start.sh *) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
 user-invocable: true
 model: haiku
 ---
@@ -63,45 +63,40 @@ GitHub issue または ClickUp タスクを起点に、wtp + herdr のworktree�
 2. 指定が無ければ `git symbolic-ref refs/remotes/origin/HEAD --short` でリモートのデフォルトブランチを検出する。
 3. 検出できない場合はユーザーに確認する。
 
-## ステップ5: 既存worktreeの確認
+## ステップ5〜7: worktreeの作成/再利用 + herdrワークスペース起動 + 実装フロー開始
 
-`wtp list` でステップ3のブランチ名に一致するworktreeが既に存在するか確認する。
-
-- 存在する場合: 新規作成せず、既存worktreeのパスを使って `herdr worktree open --cwd <メインworktreeルート> --path <既存worktreeパス> --label <ブランチ名> --no-focus` を実行し、既存worktreeを再利用した旨を報告して終了する。
-- 存在しない場合: ステップ6に進む。
-
-## ステップ6: worktreeの作成
+既存worktreeの確認・`wtp add`によるworktree作成・herdrワークスペースの特定・新規作成時のclaude起動とプロンプト送信を、`scripts/wtp-herdr-start.sh` に集約している（生のJSON出力を都度パースするとトークンを消費するため、この一連の手順は1回のBash呼び出しにまとめている）。同一セッション内で `plan-and-review` を呼ぶのではなく、herdrの新規ワークスペース内のペインでclaudeを新規起動し、そこに実装フローの開始を指示する。これにより、実装作業（ファイル編集・commit等）が確実にworktreeのディレクトリを起点に行われる（このセッション自身はcwdが元のリポジトリのままであり、cwdを移動する手段がないため）。
 
 ベースブランチは基本的に `develop` を指定する。developブランチが存在しない場合はどのブランチを使用するかユーザに確認する。
 
 ```bash
-wtp add -b <branch> <base>
+/Users/sugawarayss/.claude/skills/start-worktree/scripts/wtp-herdr-start.sh <branch> <base> <agent_name> "<prompt>"
 ```
 
-`.wtp.yml` にherdr連携フックが設定されていれば、これだけでherdrワークスペースが自動的に開く。この標準出力に `post_create` フック内の `herdr worktree open` のJSONレスポンスが含まれる。
+- `<branch>` / `<base>`: ステップ3・4で決定したブランチ名とベースブランチ。
+- `<agent_name>`: ブランチ名の `/` を `-` に置き換えたもの。
+- `<prompt>`: `"/plan-and-review <issue/タスクのURL> <ブランチ名> <ベースブランチ> <origin_pane_id>"`（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`plan-and-review` 側でURLから再取得する）。`<origin_pane_id>` は環境変数 `$HERDR_PANE_ID`（このセッション自身が動いているpane_id）の値。未設定（herdr管理下のpaneで実行されていない）なら `-` を渡す。この値は `plan-and-review` → `execute-plan-and-pr` → `cleanup-worktree` へそのまま中継され、最終的な後片付けでworktreeのherdr workspaceを閉じる際、そのworkspaceが実行中セッション自身のものだった場合にこの起点セッションへclose作業を委譲するために使われる（`herdr workspace close` は対象workspace配下の全terminalを閉じる実装のため、自分自身のworkspaceは自分では閉じられない）。
 
-## ステップ7: herdr経由での実装フロー起動
+このスクリプトは以下を1回で行う（詳細は `scripts/wtp-herdr-start.sh --help` 相当のUsage出力を参照）。
 
-worktreeの作成が完了したら、同一セッション内で `plan-and-review` を呼ぶのではなく、herdrの新規ワークスペース内のペインでclaudeを新規起動し、そこに実装フローの開始を指示する。これにより、実装作業（ファイル編集・commit等）が確実にworktreeのディレクトリを起点に行われる（このセッション自身はcwdが元のリポジトリのままであり、cwdを移動する手段がないため）。
+1. `wtp cd <branch>` で既存worktreeの有無を確認する。存在すれば再利用（`status=reused`）、無ければ `wtp add -b <branch> <base>` で新規作成する（`status=created`）。
+2. herdrが起動していれば `herdr worktree open` でワークスペースを開き（既存の場合も冪等に動作する）、`workspace_id` / `pane_id` を出力する。
+3. `status=created` の場合のみ、`pane_id` が取れていれば対象ペインでclaudeを起動し、プロンプトを送信する（`status=reused` の場合は行わない＝既存worktreeを再利用した場合は新規ペイン起動をスキップするという境界を、スクリプト側で担保している）。
 
-1. ステップ6の標準出力から `workspace_id` と `root_pane.pane_id` を取得する（`jq`で抽出できる場合はそれを使う。抽出できなければ `herdr workspace list` でステップ3のブランチ名と一致する `label` を探して `workspace_id` を特定し、`herdr pane list --workspace <workspace_id>` で `pane_id` を特定するフォールバックを使う）。
-2. `herdr agent start <name> --kind claude --pane <pane_id>` で対象ペインにclaudeを起動する。`<name>` はブランチ名の `/` を `-` に置き換えたものを使う。
-3. `herdr agent prompt <pane_id> "/plan-and-review <issue/タスクのURL> <ブランチ名> <ベースブランチ>"` で実装フローの開始を指示する（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`plan-and-review` 側でURLから再取得する）。`--wait` はタイムアウトすることがあるため付けない。
-
-herdr未起動・フック未設定などでherdrワークスペースが開かなかった場合は、この手順は行わずステップ8の報告でその旨を伝えるにとどめる。
+標準出力は `status=` `worktree_path=` `herdr=` `workspace_id=` `pane_id=` `agent_started=` `prompt_sent=` の key=value 行（失敗時は `error=` 行）。この出力だけを読めば以降の報告に必要な情報が揃う。`wtp add` 自体が失敗した場合はスクリプトが exit 1 で終了するので、エラー内容をそのままユーザーに伝える。
 
 ## ステップ8: 報告
 
 以下をユーザーに報告する。
 
-- 作成（または再利用）したworktreeのパスとブランチ名
+- 作成（または再利用）したworktreeのパスとブランチ名（スクリプトの `status` / `worktree_path`）
 - issue/タスクのタイトルとURL
-- herdrワークスペースが開いたかどうか（フック未設定・herdr未起動などで開かなかった場合はその理由も伝える）
-- ステップ7を実行した場合は、新規ペインでclaudeを起動し `plan-and-review` の開始を指示した旨
+- herdrワークスペースが開いたかどうか（スクリプトの `herdr` が `unavailable`/`error` の場合はその理由も伝える）
+- `status=created` かつ `agent_started=true` の場合は、新規ペインでclaudeを起動し `plan-and-review` の開始を指示した旨（`prompt_sent=false` の場合はプロンプト送信に失敗した旨も伝える）
 
 ## 境界
 
 - ClickUpタスクのステータスやアサインの自動更新は行わない。
 - `.wtp.yml` 自体の新規作成・herdr連携フックの追加は、前提条件の確認でユーザーの同意を得た場合のみ行う（無断で設定ファイルを書き換えない）。
-- 実際のコード実装・コミット・push・PR作成はこのスキル自身では行わない。ステップ7でherdrの新規ペイン上のclaudeセッションに `plan-and-review` の開始を指示するのみ。
-- ステップ5で既存worktreeを再利用した場合はステップ7を行わない（既に作業中の可能性があるため、既存worktreeのherdrワークスペースを開いた報告のみで終了する）。
+- 実際のコード実装・コミット・push・PR作成はこのスキル自身では行わない。`scripts/wtp-herdr-start.sh` がherdrの新規ペイン上のclaudeセッションに `plan-and-review` の開始を指示するのみ。
+- 既存worktreeを再利用した場合（`status=reused`）は新規ペインでのclaude起動・プロンプト送信を行わない（既に作業中の可能性があるため）。この判定はスクリプト内部で担保している。

@@ -8,6 +8,8 @@ CODEX_IMPLEMENT_PANE_DIRECTION="${CODEX_IMPLEMENT_PANE_DIRECTION:-right}"
 HERDR_BIN="${HERDR_BIN:-herdr}"
 JQ_BIN="${JQ_BIN:-jq}"
 CODEX_BIN="${CODEX_BIN:-codex}"
+CODEX_MODEL="${CODEX_MODEL:-gpt-5.6-sol}"
+RM_TMP_BIN="${RM_TMP_BIN:-$HOME/.claude/bin/rm-tmp}"
 
 usage() {
   cat <<'USAGE' >&2
@@ -56,6 +58,7 @@ fi
 require_command "$HERDR_BIN" "Herdr"
 require_command "$JQ_BIN" "jq"
 require_command "$CODEX_BIN" "Codex CLI"
+require_command "$RM_TMP_BIN" "rm-tmp"
 
 if [[ ! -d "$worktree_path" ]]; then
   fail "worktree directory not found: $worktree_path"
@@ -71,12 +74,16 @@ case "$CODEX_IMPLEMENT_PANE_DIRECTION" in
 esac
 
 last_message_file=$(mktemp -t codex-implement-last-message) || fail "failed to create temp file for codex output"
+runner_file=$(mktemp /private/tmp/codex-implement-runner.XXXXXX) || fail "failed to create temp runner for codex"
 
 new_pane_id=""
 cleanup() {
   local status=$?
   if [[ -n "$new_pane_id" ]]; then
     "$HERDR_BIN" pane close "$new_pane_id" >/dev/null 2>&1 || true
+  fi
+  if [[ -n "${runner_file:-}" && -e "$runner_file" ]]; then
+    "$RM_TMP_BIN" -f "$runner_file" >/dev/null 2>&1 || true
   fi
   return "$status"
 }
@@ -100,7 +107,7 @@ prompt=$(cat <<EOF
 - git commit、git push、Pull Requestの作成、tuicr等によるレビューの実施、worktree/ブランチの削除といった後続作業は一切行わないでください。それらはこのCodexセッションを呼び出した側（Claude）が別途担当します。
 
 プロジェクト規約:
-- このリポジトリ内に `AGENTS.md` や `CLAUDE.md` など実装ルールを記述したファイルがあれば、その内容に従ってください（あなたは非対話実行のため、これらのファイルを自分で探して読む必要があります）。
+- このリポジトリ内に \`AGENTS.md\` や \`CLAUDE.md\` など実装ルールを記述したファイルがあれば、その内容に従ってください（あなたは非対話実行のため、これらのファイルを自分で探して読む必要があります）。
 - 実装後、プロジェクトのテスト・lintなど検証コマンドが分かる場合は実行し、結果を最終メッセージに含めてください。分からない場合は無理に探さなくて構いません。
 
 制約:
@@ -109,7 +116,7 @@ prompt=$(cat <<EOF
 EOF
 )
 
-codex_cmd=("$CODEX_BIN" exec -C "$worktree_path" -s workspace-write --output-last-message "$last_message_file" "$prompt")
+codex_cmd=("$CODEX_BIN" exec -C "$worktree_path" -s workspace-write -m "$CODEX_MODEL" --output-last-message "$last_message_file" "$prompt")
 
 quoted_codex=""
 for arg in "${codex_cmd[@]}"; do
@@ -119,11 +126,18 @@ done
 
 completion_suffix="_DONE_$$_${RANDOM}__"
 completion_token="__CODEXIMPL${completion_suffix}"
-# tuicr-wrapper-herdr.sh と同じ理由で bash -c にラップする:
-# `herdr pane run` はpaneの対話シェル（fishの場合もある）にコマンド文字列をそのまま流し込むため、
-# bashのprintf %q が生成する引用符（$'...' 等）がfish/zshで構文エラーになりうる。
-# 単一引用符の意味論はbash/zsh/fishで共通なので、シングルクオートで囲んだ1引数だけを渡す。
-pane_command="bash -c '$quoted_codex; printf \"\\n__CODEXIMPL%s:%s\\n\" $completion_suffix \$?'"
+# printf %q の出力はBash構文なので、一時Bashファイルの中だけで解釈させる。
+# herdr pane run が文字列を渡す先はfishの場合もあるため、pane側には安全な文字だけで
+# 構成された一時ファイルのパスしか渡さない。
+{
+  printf '#!/usr/bin/env bash\n'
+  printf '%s\n' "$quoted_codex"
+  printf 'codex_status=$?\n'
+  printf 'printf "\\n__CODEXIMPL%s:%%s\\n" "$codex_status"\n' "$completion_suffix"
+  printf 'exit "$codex_status"\n'
+} >"$runner_file" || fail "failed to write temp runner for codex"
+
+pane_command="bash $runner_file"
 
 "$HERDR_BIN" pane run "$new_pane_id" "$pane_command" >/dev/null || fail "herdr pane run failed"
 

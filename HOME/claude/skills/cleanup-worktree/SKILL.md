@@ -6,8 +6,8 @@ description: >
   あれば `herdr workspace close` で閉じます。
   ユーザーが「worktree片付けて」「<ブランチ名>のworktree消して」「cleanup-worktree」
   「/cleanup-worktree」と入力した場合に使用します。
-argument-hint: "[削除対象のブランチ名]"
-allowed-tools: Bash(git rev-parse:*) Bash(git branch:*) Bash(wtp *) Bash(herdr *)
+argument-hint: "[削除対象のブランチ名] [起点pane_id(省略可、既定 -)]"
+allowed-tools: Bash(git rev-parse:*) Bash(git branch:*) Bash(wtp *) Bash(herdr *) Bash(/Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/wtp-herdr-cleanup-find.sh *) Bash(/Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/wtp-herdr-cleanup-execute.sh *)
 user-invocable: true
 ---
 
@@ -21,60 +21,66 @@ user-invocable: true
 
 `$ARGUMENTS` の1つ目のトークンを削除対象のブランチ名として扱う。指定が無い場合は現在のディレクトリを勝手に対象にせず、ユーザーにブランチ名を確認する。
 
-## ステップ2: 対象worktreeの特定
+`$ARGUMENTS` の2つ目のトークン（起点pane_id）があれば控える。無ければ `-` として扱う。`execute-plan-and-pr`（さらに遡れば `start-worktree`）から中継されてきた、`/start-worktree` を実行した元セッションのherdr pane_id。ステップ5〜6で、削除対象のherdr workspaceが実行中セッション自身のものだった場合のclose委譲先として使う。ユーザーから直接 `/cleanup-worktree <branch>` のように呼ばれた場合は渡ってこないので `-` のままでよい。
 
-`wtp list` を実行し、対象ブランチに一致するworktreeが存在するか確認する。
+## ステップ2〜3: 対象worktreeとherdr workspaceの特定
 
-- 存在しない場合: 該当するworktreeが見つからない旨を報告して終了する。
-- 存在する場合: そのworktreeのパスを控え、ステップ3に進む。
+worktreeの存在確認（`wtp list` 相当）とherdr workspaceの特定（`herdr workspace list` の走査・jqでの突き合わせ）を1回のBash呼び出しに集約している（生JSONを都度パースするとトークンを消費するため）。
 
-リポジトリルートは `git rev-parse --path-format=absolute --git-common-dir` の親ディレクトリで取得する。
+```bash
+/Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/wtp-herdr-cleanup-find.sh <branch>
+```
 
-## ステップ3: herdr workspaceの特定
+標準出力は `status=found|not_found` `worktree_path=` `herdr=ok|unavailable` `workspace_id=` `workspace_label=` のkey=value行。
 
-`herdr workspace list` を実行する。出力はJSON（`result.workspaces` が配列）で、各要素の `worktree.repo_root` がステップ2で取得したリポジトリルートと一致し、かつ `label`（またはworktree.checkout_path）が対象worktreeと一致するものを探し、`workspace_id` を控える。
-
-- 一致するものが無い場合、またはherdrが未起動の場合: 対応するherdrワークスペースは無いものとして扱い、ステップ6はスキップする。
-
-**注意**: `herdr worktree list --cwd <path>` の出力には `workspace_id` が含まれない。workspace_idの取得には必ず `herdr workspace list` を使うこと。
+- `status=not_found`: 該当するworktreeが見つからない旨を報告して終了する。
+- `status=found` かつ `workspace_id` が出力されない場合: 対応するherdrワークスペースは無いものとして扱い、ステップ6はスキップする（herdr未起動時も同様）。
 
 ## ステップ4: 削除前の確認
 
 以下をユーザーに提示し、実行してよいか確認を求める。実体を削除する不可逆操作のため、このステップは省略しない。
 
-- worktreeのパス
+- worktreeのパス（`worktree_path`）
 - ブランチ名
-- 見つかった場合: herdr workspace_id とそのラベル
+- 見つかった場合: herdr workspace_id とそのラベル（`workspace_id` / `workspace_label`）
 
-## ステップ5: `wtp remove --with-branch <branch>` の実行
+## ステップ5〜6: `wtp remove --with-branch` の実行とherdr workspaceのクローズ
 
-```bash
-wtp remove --with-branch <branch>
-```
-
-- 成功した場合: ステップ6に進む。
-- dirty worktreeで失敗した場合: 未コミットの変更が残っている旨を伝え、`-f/--force` を付けて再実行してよいかユーザーに確認する。無断で `-f` は付けない。
-- 未マージブランチで拒否された場合: ブランチが未マージである旨を伝え、`--force-branch` を付けて再実行してよいかユーザーに確認する。無断で `--force-branch` は付けない。
-
-## ステップ6: herdr workspaceのクローズ
-
-ステップ3で `workspace_id` が見つかっていれば実行する。
+ユーザー確認後、実削除とherdr workspaceのクローズ（`workspace_id` が見つかっていれば）を1回のBash呼び出しに集約している。
 
 ```bash
-herdr workspace close <workspace_id>
+/Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/wtp-herdr-cleanup-execute.sh <branch> <workspace_id または -> <起点pane_id または ->
 ```
 
-見つかっていなければ何もしない。`herdr worktree remove` は使わない（git worktreeの実体そのものを削除するコマンドであり、ステップ5で既に実体を削除済みのため対象を失いエラーになる）。
+- `<workspace_id>`: ステップ2〜3で取得した値。見つかっていなければ `-` を渡す（herdr workspaceのクローズはスキップされる）。
+- `<起点pane_id>`: ステップ1で控えた値をそのまま渡す。
+- 標準出力は `removed=true` `workspace_closed=true|false`（失敗時は `error=` 行を追加しexit 1）。
+
+**削除対象のherdr workspaceが実行中セッション自身のものだった場合の扱い**（`workspace_self=true` が出力される）: `herdr worktree open` で開いたworktree用workspace内で `plan-and-review` → `execute-plan-and-pr` → `cleanup-worktree` が実行される設計上、最後に閉じるべきworkspaceは自分自身が動いているworkspaceであることが多い。`herdr workspace close` は対象workspace配下の全terminalを閉じる実装（herdrdev/herdr `src/app/actions.rs` の `close_selected_workspace` で確認済み）のため、自分自身に対して呼ぶと実行中のこのシェル自体が道連れに落ちてしまう。そのためスクリプトは自分自身のworkspaceは直接closeせず、以下のいずれかを行う。
+
+- `<起点pane_id>` が指定されていれば、`herdr agent prompt <起点pane_id> "..."` でそのセッション（`/start-worktree` を実行した元セッション、自分自身とは別workspaceにいるため安全にcloseできる）にclose作業を委譲する（`workspace_close_delegated=true|false`）。委譲は `--wait` を付けない fire-and-forget で行うため、委譲が成功した（`=true`）ことは「起点セッションに指示が届いた」ことを意味し、実際にcloseが完了したことまでは保証しない。
+- `<起点pane_id>` が `-`（無い）場合は、ユーザーに手動でこのペイン/ワークスペースを閉じてもらうよう報告するに留める。
+
+失敗時の対応（**無断で強制フラグは付けない**）:
+
+- dirty worktreeで失敗した場合: 未コミットの変更が残っている旨を伝え、`-f/--force` を付けて再実行してよいかユーザーに確認する。承認が得られたら `... <branch> <workspace_id> <起点pane_id> -f` のように末尾に追加して再実行する。
+- 未マージブランチで拒否された場合: ブランチが未マージである旨を伝え、`--force-branch` を付けて再実行してよいかユーザーに確認する。承認後、同様に末尾に追加して再実行する。
+
+`herdr worktree remove` は使わない（git worktreeの実体そのものを削除するコマンドであり、`wtp remove --with-branch` で既に実体を削除済みのため対象を失いエラーになる。スクリプトは常に `herdr workspace close` のみを使う）。
 
 ## ステップ7: 報告
 
 以下をユーザーに報告する。
 
 - 削除したworktreeのパスとブランチ名
-- herdrワークスペースを閉じたかどうか（閉じなかった場合はその理由 = herdr未起動 / 対応するワークスペースが無かった、など）
+- herdrワークスペースを閉じたかどうか（`workspace_closed=false` の場合はその理由）
+  - `workspace_self=true` かつ `workspace_close_delegated=true`: 起点セッションにcloseを委譲した旨（完了確認はできていない旨も添える）
+  - `workspace_self=true` かつ `workspace_close_delegated=false` または起点pane_idが無かった場合: ユーザーに手動でこのペイン/ワークスペースを閉じてもらう必要がある旨
+  - それ以外（herdr未起動 / 対応するワークスペースが無かった / クローズ自体が失敗、など）: その理由
 
 ## 境界
 
 - worktree・ブランチの実体削除は `wtp remove --with-branch` にのみ任せる。`herdr worktree remove` は使わない。
 - `-f` / `--force-branch` は無断で使わず、失敗時にユーザーへ確認してから使う。
 - リモートブランチの削除、PRのクローズ・マージ確認は行わない。あくまでローカルのworktree・ブランチ・herdrワークスペースの片付けまで。
+- 自分自身が動いているherdr workspaceは直接closeしない。起点pane_idがあれば委譲、無ければユーザーに手動close を依頼する。

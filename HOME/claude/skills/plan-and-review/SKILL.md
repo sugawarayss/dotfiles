@@ -7,7 +7,7 @@ description: >
   `/start-worktree` からworktree作成後に自動的に呼び出されるほか、
   既存のworktree内で「実装してPRまで作って」「このissueの実装を進めて」
   「plan-and-review」「/plan-and-review」と言われた場合にも使用します。
-argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ]"
+argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [起点pane_id(省略可、既定 -)]"
 allowed-tools: Agent Skill EnterPlanMode ExitPlanMode Bash(git status:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
 user-invocable: true
 model: opus
@@ -25,6 +25,7 @@ worktree内でissue/タスクの実装プランを検討し、ユーザーレビ
 3. URLの形式からGitHub issueかClickUpタスクかを判別し、タイトル・本文を取得する。
    - GitHub issue（`github.com/.../issues/<番号>`）: `gh issue view <番号> --json title,body,url` または `mcp__github__get_issue`
    - ClickUpタスク（`app.clickup.com/t/<ID>`）: `mcp__claude_ai_ClickUp__clickup_get_task`
+4. `$ARGUMENTS` の4つ目のトークン（起点pane_id）を控える。無ければ `-` として扱う。`start-worktree` から渡された、worktree作成のきっかけとなった元セッションのherdr pane_idで、このスキル自身は使わず、そのまま `execute-plan-and-pr` に中継する（最終的な `cleanup-worktree` でのherdr workspace close委譲に使われる）。
 
 ## ステップ1: 実装プランの検討とレビュー（Plan Mode + crit）
 
@@ -37,7 +38,7 @@ worktree内でissue/タスクの実装プランを検討し、ユーザーレビ
 
 ## ステップ2: 実装フェーズへの引き継ぎ
 
-Plan Modeを抜けたら、`Skill` ツールで `execute-plan-and-pr` を呼び出す。引数にはissue/タスクのURL、ブランチ名、ベースブランチ、承認されたプランファイルのパスを渡す。以降の実装・レビュー・commit・push案内・PR作成・後片付けの呼び出しは `execute-plan-and-pr` の責務であり、このスキルはここで完了する。
+Plan Modeを抜けたら、`Skill` ツールで `execute-plan-and-pr` を呼び出す。引数にはissue/タスクのURL、ブランチ名、ベースブランチ、承認されたプランファイルのパス、起点pane_id（前提条件の確認4で控えた値）を渡す。以降の実装・レビュー・commit・push案内・PR作成・後片付けの呼び出しは `execute-plan-and-pr` の責務であり、このスキルはここで完了する。
 
 ## 境界
 
