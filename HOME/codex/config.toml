@@ -178,7 +178,7 @@ enabled = false
 
 [desktop]
 external-agent-import-sync-enabled = true
-conversationDetailMode = "STEPS_PROSE"
+conversationDetailMode = "STEPS_COMMANDS"
 ambient-suggestions-enabled = true
 localeOverride = "ja-JP"
 composerEnterBehavior = "cmdAlways"
