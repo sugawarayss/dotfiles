@@ -80,6 +80,7 @@ yq = "latest"
 zoxide = "latest"
 "github:agavra/tuicr" = "latest"
 "npm:@playwright/cli" = "latest"
+codex = "latest"
 
 [settings]
 # .python-versionファイルを使用してPythonのバージョンを管理する場合、miseもそれに従う
