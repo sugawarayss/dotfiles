@@ -3,20 +3,53 @@
 このファイルは プロジェクトを問わず全セッションで読み込まれる。
 プロジェクト固有の事項は各リポジトリの `CLAUDE.md` に書き、ここには環境・作業環境・全般的な振る舞いなど横断的な内容のみを記載する。
 
-## rules/ ディレクトリとの関係
+## 実装ルールの適用
 
-`rules/` にはタスク固有のルールを記載する。
+以下のルールはコードを実装・変更する場合に適用する。パスが指定されているルールは、該当するファイルを変更する場合にのみ適用する。
+リポジトリ内の `AGENTS.md` や `CLAUDE.md` にプロジェクト固有の規約がある場合は、その規約を優先する。
 
-- [design_principles.md](rules/design_principles.md) — KISS/DRY/YAGNI/SOLID/早期リターン/命名規則/PoLA。コード実装時の設計方針。
-- [cross_project_memory.md](rules/cross_project_memory.md) — Obsidian vault (`obsidian_notes/ClaudeCode/`) へのプロジェクト横断メモリの書き出し方針。
-- [python.md](rules/python.md) — `**/*.py`に対して適用されるPythonコード実装ルール（frontmatterの `paths` でスコープ指定）。
-- [pytest_coding.md](rules/pytest_coding.md) — `tests/**/test_*.py` に対してのみ適用されるテストコード実装ルール（frontmatterの `paths` でスコープ指定）。
-- [use_cli.md](rules/use_cli.md) — `bat`/`eza`/`fd`/`sd`/`ripgrep`/`pandoc`/`jq`/`yq` など、積極的に使ってよいCLIツール一覧。
-- [git_workflow.md](rules/git_workflow.md) — ブランチ命名・コミットメッセージ・PR/コミットの粒度・マージ方針に関するGitワークフロー規約（全体適用）。
-- [accessibility.md](rules/accessibility.md) — `**/*.tsx`/`**/*.jsx`に対して適用されるアクセシビリティ実装ルール（frontmatterの `paths` でスコープ指定）。
-- [api_design.md](rules/api_design.md) — APIルート/ルーター実装（Next.js API Routes・FastAPIルーター等）に対して適用されるREST API設計ルール（frontmatterの `paths` でスコープ指定）。
+### Claudeから承認済みプラン付きで実装を移譲された場合
 
-新しい横断ルールを追加する場合は、この一覧にも追記すること。
+プロンプトで承認済みのプランファイルを指定された場合は、次のルールを適用する。
+
+#### 着手前
+
+- 指定されたプランファイルを最初に全文読む。
+- 対象リポジトリの `AGENTS.md`、`CLAUDE.md`、README、設定ファイルから、実装規約と検証コマンドを確認する。
+- 現在のブランチ、作業ツリーの状態、既存の未コミット変更を確認し、ユーザーや他のエージェントの変更を保持する。
+- プランは承認済みの実装範囲として扱い、再設計やプランレビューをやり直さない。
+
+#### 実装中
+
+- プランに記載された変更だけを実装し、無関係なリファクタリングや機能追加を行わない。
+- 命名や局所的な実装方法など、プランの方針を変えない詳細は合理的に判断して進める。
+- プランとリポジトリの現状が食い違う場合は、コードと履歴を調べて原因を確認する。
+- プランにない大きな方針転換、公開APIやデータモデルの変更、破壊的操作が必要な場合は、その変更に着手せず停止して理由を報告する。
+- 安全に分離できない未完成の実装を残さない。ブロックされた場合は、整合性を保てる地点までで作業を止める。
+
+#### 検証
+
+- 変更箇所に近いテストから実行し、その後にプロジェクトで定義された関連テスト、lint、型チェックを実行する。
+- 失敗した検証を隠したり、検証を通すために無関係なコードを変更したりしない。
+- 既存不具合と判断する場合は、判断根拠と再現コマンドを最終報告に含める。
+
+#### 担当範囲
+
+- 担当するのはコード変更と動作確認・テストまでとする。
+- `git commit`、`git push`、Pull Request作成、tuicr／critによるレビュー、worktreeやブランチの作成・削除は行わない。呼び出し元のClaudeが担当する。
+- 指定されたプランファイル自体は変更しない。
+
+#### 最終報告
+
+- 完了またはブロックの状態を明示する。
+- 変更したファイルと実装内容を簡潔に列挙する。
+- 実行した検証コマンドと、その成否を記載する。
+- プランとの差異、置いた仮定、未完了事項があれば明示する。
+
+### ファイル別コーディング規約
+
+コードを作成・変更・レビュー・テストする場合は、作業前に `$coding-rules` Skillを使用する。
+Skill内のパス条件に一致する参照をすべて読み、対象ファイルに適用する。
 
 ## 環境・ツール
 
@@ -26,27 +59,35 @@
 - バージョン管理・タスク実行: `mise run`, `task`, `just`
 - ファイル閲覧・検索・差分: `bat`, `eza`, `fd`, `sd`, `rg`, `jq`, `yq` を標準ツールより優先してよい
 - GitHub操作: `gh` CLI
-- Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
-- プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動する際は、①`--no-open` を付けてブラウザの自動起動を止め、出力されるレビューURL（`http://localhost:<port>`）を `terminal-browser open <url> --split right` でherdr内のペインに開く、②`--no-open` を付けずにcrit標準のブラウザ起動に任せる、のどちらで開くかをユーザーに確認してから実行すること。
+- Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）
+- プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。
+  起動する際は次のどちらで開くかをユーザーに確認してから実行する。
+  1. `--no-open` を付け、レビューURLを
+     `terminal-browser open <url> --split right` でherdr内のペインに開く。
+  2. `--no-open` を付けず、crit標準のブラウザ起動に任せる。
   - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
-- コード差分レビュー: `tuicr`（`tuicr` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`execute-plan-and-pr` はHerdr環境で `tuicr-wrapper-herdr.sh` によりブロッキング起動し、ユーザーが閉じたら自動継続する。`review-local` はコメント投稿用セッションを非ブロッキングで開いたままにする（裏でsubagent分析を進めるため）。非Herdr環境はいずれもユーザーに起動・完了報告を依頼する
-- PRレビュー: `tuicr`（`review-pr` スキル経由。Herdr環境では右にペインを割いて `tuicr pr <PR>` を自動起動、それ以外はユーザーに起動を依頼する。コメント追加後、GitHubへの送信はユーザーがTUI内で `:submit` を実行する手動操作）
+- コード差分レビュー: `tuicr`（`tuicr` スキルのCLI作法をベースに
+  `review-local`／`execute-plan-and-pr` スキルで運用）。
+  `execute-plan-and-pr` はHerdr環境で `tuicr-wrapper-herdr.sh` により
+  ブロッキング起動し、ユーザーが閉じたら自動継続する。
+  `review-local` はコメント投稿用セッションを非ブロッキングで開いたままにする。
+  非Herdr環境はいずれもユーザーに起動・完了報告を依頼する。
+- PRレビュー: `tuicr`（`review-pr` スキル経由）。Herdr環境では右にペインを割いて
+  `tuicr pr <PR>` を自動起動し、それ以外はユーザーに起動を依頼する。
+  コメント追加後のGitHubへの送信は、ユーザーがTUI内で `:submit` を実行する。
 
 ### 破壊的操作の扱い
 
-以下は `settings.json` の `permissions.deny` によりBashから直接実行できない設定になっている。実行が必要な場合はコマンド内容を提示し、ユーザー自身に `! <command>` で実行してもらうこと。
+以下は `settings.json` の `permissions.deny` によりBashから直接実行できない。
+実行が必要な場合はコマンド内容を提示し、ユーザー自身に `! <command>` で実行してもらう。
 
 - `git push` / `git rebase` / `git reset`
 - `rm` / `rmdir` / `rsync --delete`
 - `sudo` / `ssh` / `scp`
 
-また `cat` / `find` / `head` / `tail` もBash実行が拒否される設定なので、代わりに `Read` / `Glob` / `Grep` ツールを使う。
-
-`/tmp`（`/private/tmp`含む）配下に作成した検証用ディレクトリ・ファイルの削除に限っては、`~/.claude/bin/rm-tmp` が使える（`rm` のラッパーで、対象パスが `/tmp` 配下でなければ拒否する）。それ以外のパスの削除は引き続きユーザー確認が必要。
-
 ## コミュニケーションの好み
 
-- 簡潔・直接的な応答を優先する（[[design_principles]] のKISSと同じ考え方）。
+- 簡潔・直接的な応答を優先する。
 - 大きな変更や複数の選択肢がある設計判断は、実装前に方針を確認する。
 - 実装プランなど **非コードの成果物** をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
-- コードの差分を変更・実装した後は、tuicr（`execute-plan-and-pr` スキルのレビューループ）でレビューしてもらう。Herdr環境では自動起動、それ以外はユーザーに起動を依頼してから進める。
+- コードの差分を変更・実装した後は、tuicrでレビューしてもらう。Herdr環境では自動起動、それ以外はユーザーに起動を依頼してから進める。

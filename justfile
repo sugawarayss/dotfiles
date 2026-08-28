@@ -14,8 +14,8 @@ codex:
   @test -L ~/.codex/AGENTS.md || ln -s {{pwd}}/HOME/codex/AGENTS.md ~/.codex/AGENTS.md
   # サブエージェント定義を作成
   @test -L ~/.codex/agents || ln -s {{pwd}}/HOME/codex/agents ~/.codex/agents
-  # claude用Skills を .codex/skills に シムリンク
-  @test -L ~/.codex/skills || ln -s {{pwd}}/HOME/claude/skills ~/.codex/skills
+  # codex専用Skills を .codex/skills に シムリンク
+  @test -L ~/.codex/skills || ln -s {{pwd}}/HOME/codex/skills ~/.codex/skills
 
 # claude code 用設定ファイル
 claude-code:
