@@ -2,6 +2,8 @@ codex = "gpt-5.3-codex"
 model = "gpt-5.6-luna"
 model_reasoning_effort = "medium"
 
+notify = ["/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
 [tui]
 status_line = [
   "model-with-reasoning",
@@ -11,6 +13,8 @@ status_line = [
   "git-branch",
   "used-tokens",
 ]
+theme = "gruvbox-dark"
+vim_mode_default = true
 
 [features]
 hooks = true
@@ -35,6 +39,10 @@ source = "https://github.com/anthropics/claude-plugins-official.git"
 [marketplaces.crit]
 source_type = "git"
 source = "https://github.com/tomasz-tomczyk/crit.git"
+
+[marketplaces.openai-codex]
+source_type = "git"
+source = "https://github.com/openai/codex-plugin-cc.git"
 
 [plugins."codex-app-tools@openai-bundled"]
 enabled = true
@@ -78,6 +86,12 @@ enabled = true
 [plugins."crit@crit"]
 enabled = true
 
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."codex@openai-codex"]
+enabled = true
+
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
@@ -95,8 +109,9 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunc
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.820.60940"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.820.60940/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.825.31414"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.825.31414/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_SERVICE_PATH = "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -153,15 +168,25 @@ args = [
   "--project-from-cwd",
 ]
 
+[mcp_servers.graft]
+command = "graft"
+args = ["mcp"]
+
+[mcp_servers.cua_repl]
+command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
+enabled = false
+
 [desktop]
 external-agent-import-sync-enabled = true
-conversationDetailMode = "STEPS_COMMANDS"
+conversationDetailMode = "STEPS_PROSE"
 ambient-suggestions-enabled = true
 localeOverride = "ja-JP"
 composerEnterBehavior = "cmdAlways"
 appearanceDarkCodeThemeId = "raycast"
 appearanceLightCodeThemeId = "raycast"
 open-link-in-target-preference = "external-browser"
+followUpQueueMode = "queue"
+selected-avatar-id = "rocky"
 
 [desktop.open-in-target-preferences]
 global = "zed"
@@ -190,8 +215,8 @@ opaqueWindows = false
 surface = "#ffffff"
 
 [desktop.appearanceLightChromeTheme.fonts]
-code = '"Jetbrains Mono"'
-ui = "Inter"
+code = '"HackGen Console NF"'
+ui = '"Annotation Mono"'
 
 [desktop.appearanceLightChromeTheme.semanticColors]
 diffAdded = "#006b4f"
@@ -205,10 +230,37 @@ trusted_hash = "sha256:c97c1968858b15b1ada77ea20ece17a5f837bf14f59885543fa75ced5
 [hooks.state."crit@crit:hooks/hooks.json:permission_request:0:0"]
 trusted_hash = "sha256:fc7e87f359c0df036af18025743805a1547f9aefa57cafa62fc1ed066babaf1d"
 
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:bec948d830943656625e7419edb38236553d5545eb1f5f54168af53a10e30fd7"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:f595e031e9d66ef03031511de9ae24b4f424ff78e977c4d3821073782710ba78"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:4a6793491ad2698d696ac5cf83df13d07693c5840bb7288c60a5e8a1ac376216"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:b1b7d23c40cbcce1b43b3c600935ab624ffdf3fd2dc0311a94c373e7c959f036"
+
+[hooks.state."codex@openai-codex:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:e6b9df143de11443eb576c38874cf6e0c48358f948170948fdf630f1c047c098"
+
+[hooks.state."codex@openai-codex:hooks/hooks.json:session_end:0:0"]
+trusted_hash = "sha256:bc55a03ac0094c5deb4af95c405b75b34735f318b3d9bd64a2f9902973861606"
+
+[hooks.state."codex@openai-codex:hooks/hooks.json:stop:0:0"]
+trusted_hash = "sha256:3dfaa7e4f022570b260b8a8cf4ac7585c986175256b887a4723fac4f358a482f"
+
 [projects."/Users/sugawarayss/PROJECTS/sugawarayss/dotfiles"]
 trust_level = "trusted"
 
 [projects."/Users/sugawarayss/PROJECTS/inapvision/jes-invoice-batch-tools"]
+trust_level = "trusted"
+
+[projects."/Users/sugawarayss/PROJECTS/inapvision/flexio"]
+trust_level = "trusted"
+
+[projects."/Users/sugawarayss/PROJECTS/sugawarayss/mise-raycast"]
 trust_level = "trusted"
 
 [[skills.config]]
