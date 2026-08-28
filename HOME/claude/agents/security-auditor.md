@@ -1,7 +1,7 @@
 ---
 name: security-auditor
 description: "包括的なセキュリティ監査、コンプライアンス評価、システム・インフラ・プロセス全体にわたるリスク評価を実施する際に使用するエージェント。体系的な脆弱性分析、コンプライアンスギャップの特定、証拠に基づくセキュリティ所見が必要な場合に呼び出す。"
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, Bash(tuicr:*)
 model: inherit
 ---
 
