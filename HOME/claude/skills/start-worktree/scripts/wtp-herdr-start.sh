@@ -18,7 +18,9 @@ Usage: wtp-herdr-start.sh <branch> <base> <origin_pane_id|-> [<agent_name> [<pro
   base            新規作成時のベースブランチ (例: develop)。既存worktree再利用時は無視される
   origin_pane_id  このスキルを実行しているセッション自身のherdr pane_id ($HERDR_PANE_ID)。
                   無ければ "-"。worktree専用のgit管理ディレクトリにファイルとして記録する
-  agent_name      新規作成時のみ使用: herdr agent start に渡す名前。省略時はエージェント起動をスキップする
+  agent_name      新規作成時のみ使用: herdr agent start に渡す名前。省略時はエージェント起動をスキップする。
+                  herdrの制約（小文字英数字・'-'・'_'のみ、1-32文字）に合わせて、このスクリプトが
+                  小文字化・32文字への切り詰め・末尾ハイフン除去を自動で行う（呼び出し側で切り詰め不要）
   prompt          新規作成時のみ使用: herdr agent prompt に渡す文字列。省略時は送信をスキップする
 
 標準出力 (key=value を1行ずつ、エラー時のみ error 行を追加):
@@ -43,6 +45,14 @@ prompt="${5:-}"
 if [[ -z "$branch" || -z "$base" || -z "$origin_pane_id" ]]; then
   usage
   exit 1
+fi
+
+# herdr agent start は名前を「小文字英数字・'-'・'_'のみ、1-32文字」に制限している。
+# 呼び出し側（ブランチ名の/を-に置換しただけの名前）はissue番号+要約slugで
+# 簡単に32文字を超えるため、ここで機械的に切り詰めて毎回の手動リトライを無くす。
+if [[ -n "$agent_name" ]]; then
+  agent_name="$(printf '%s' "$agent_name" | tr '[:upper:]' '[:lower:]' | cut -c1-32)"
+  agent_name="${agent_name%-}"
 fi
 
 repo_root="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"

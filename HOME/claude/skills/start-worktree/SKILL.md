@@ -18,7 +18,7 @@ GitHub issue または ClickUp タスクを起点に、wtp + herdr のworktree�
 
 ## 前提条件の確認
 
-1. リポジトリルートに `.wtp.yml` があり、`post_create` フックで `herdr worktree open` を呼ぶ設定になっているか確認する。
+1. リポジトリルートに `.wtp.yml` があり、`post_create` フックで `herdr worktree open` を呼ぶ設定になっているか確認する。**`cat`/`head`/`tail`/`find` は権限で拒否されるため、内容確認には `Read` ツール（一覧確認には `fd`/`Glob`）を使う**（`Bash(cat ...)` は毎回1回分の拒否往復を無駄にする）。
    - 無い、またはherdr連携が設定されていない場合: その旨をユーザーに伝え、`wtp-herdr-worktree-workflow` の「1. リポジトリでwtpを初期化」「2. post_createフックにherdr連携コマンドを追加」の手順で設定するかどうかを確認する。ユーザーが設定を望まない場合はworktree作成のみ行い、herdrワークスペースは開かれない旨を伝えて続行する。
 2. `herdr status` で `server.status` が `running` か確認する。起動していなければ、ユーザーに `herdr` の起動を提案する（未起動のままでも `wtp add` 自体は失敗しないが、post_createフックのherdr連携コマンドが失敗する）。
 
@@ -75,7 +75,7 @@ GitHub issue または ClickUp タスクを起点に、wtp + herdr のworktree�
 
 - `<branch>` / `<base>`: ステップ3・4で決定したブランチ名とベースブランチ。
 - `<origin_pane_id>`: 環境変数 `$HERDR_PANE_ID`（このセッション自身が動いているpane_id）の値。未設定（herdr管理下のpaneで実行されていない）なら `-` を渡す。スクリプトが、対象worktree専用のgit管理ディレクトリ（`git -C <worktree_path> rev-parse --git-dir`）配下に `wtp-herdr-origin-pane-id` というファイルとして記録する。これにより `plan-and-review` / `execute-plan-and-pr` のプロンプト文字列でこの値を手動中継する必要が無くなり、`cleanup-worktree` がブランチ名から対象worktreeを特定した時点で自動的にこの値を読み出せる（`wtp remove` 時にgitがこのディレクトリごと削除するのでゴミも残らない）。最終的な後片付けでworktreeのherdr workspaceを閉じる際、そのworkspaceが実行中セッション自身のものだった場合にこの起点セッションへclose作業を委譲するために使われる（`herdr workspace close` は対象workspace配下の全terminalを閉じる実装のため、自分自身のworkspaceは自分では閉じられない）。
-- `<agent_name>`: ブランチ名の `/` を `-` に置き換えたもの。
+- `<agent_name>`: ブランチ名の `/` を `-` に置き換えたもの。herdrは名前を小文字英数字・`-`・`_`のみ、1〜32文字に制限しているが、issue番号+要約slugのブランチ名は容易に32文字を超える。**この切り詰めはスクリプト側（`wtp-herdr-start.sh`）が自動で行う**ため、呼び出し側で事前に短縮する必要はない（旧版では呼び出し側任せだったため `invalid_agent_name` エラーで毎回手動リトライが発生していた）。
 - `<prompt>`: `"/plan-and-review <issue/タスクのURL> <ブランチ名> <ベースブランチ>"`（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`plan-and-review` 側でURLから再取得する。origin_pane_idは前述の通りファイル記録に一本化したため、ここには含めない）。
 
 このスクリプトは以下を1回で行う（詳細は `scripts/wtp-herdr-start.sh --help` 相当のUsage出力を参照）。
