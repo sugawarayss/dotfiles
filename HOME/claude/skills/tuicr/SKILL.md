@@ -49,6 +49,13 @@ If the user's intent is ambiguous, ask which workflow they want.
    local and PR sessions by owner/repo. Each row carries a `kind` (`local` or
    `pr`) and a usable `slug`. Use `--all` when you don't know the repo.
 
+   If a path you pass to `--repo` returns no session you expect to exist,
+   retry once with `--all` (or the `owner/repo` coordinate from `gh repo view
+   --json nameWithOwner`) before concluding no session exists or spawning
+   multiple subagents to investigate — path resolution for `--repo` has been
+   observed to behave differently for the same checkout depending on how the
+   path is written.
+
 3. Choose the session:
    - If the CLI clearly reports exactly one relevant active session with
      `"active": true`, attach to it.
