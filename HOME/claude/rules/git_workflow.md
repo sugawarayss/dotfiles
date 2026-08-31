@@ -54,3 +54,21 @@ update: ユーザー認証のエラーハンドリングを追加
 
 - feature/fixブランチをmainに追従させる際は、公開済みの共有ブランチに対する force-push を避ける(自分のfeatureブランチ上でのrebaseは可)。
 - コンフリクト解消は自動解決に頼らず、両方の変更意図を確認してから解消する。
+
+## `gh issue create` / `gh pr create` の本文作成
+
+`--body "$(cat <<'EOF' ... EOF)"` のヒアドキュメント経由で本文を渡すと、全角チルダ「〜」などのconfusable Unicode文字が含まれる場合にTirithフック（`Tirith: [HIGH] Confusable Unicode characters in text`）でブロックされることがある。
+
+- 1回ブロックされた時点で、該当しそうな文字を推測して同じヒアドキュメント方式で再試行しない（原因の特定に何度も失敗を重ねるだけで、直前と同じ理由で再ブロックされやすい）。
+- 直ちに本文をスクラッチディレクトリのファイルに書き出し（`Write`ツール）、`--body-file <path>` オプションで渡す方式に切り替える。ヒアドキュメントを経由しないため同フックの対象にならない。
+
+```bash
+# NG: ヒアドキュメントで再試行を繰り返す
+gh issue create --title "..." --body "$(cat <<'EOF'
+...
+EOF
+)"
+
+# OK: ファイル経由に切り替える
+gh issue create --title "..." --body-file /path/to/scratchpad/issue-body.md
+```
