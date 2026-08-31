@@ -1,5 +1,5 @@
 codex = "gpt-5.3-codex"
-model = "gpt-5.6-sol"
+model = "gpt-5.6-luna"
 model_reasoning_effort = "high"
 
 notify = ["/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
@@ -19,6 +19,7 @@ vim_mode_default = true
 [features]
 hooks = true
 js_repl = false
+memories = true
 
 [marketplaces.openai-bundled]
 source_type = "local"
@@ -109,8 +110,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunc
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.825.31414"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.825.31414/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.825.51511"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.825.51511/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -178,7 +179,7 @@ enabled = false
 
 [desktop]
 external-agent-import-sync-enabled = true
-conversationDetailMode = "STEPS_COMMANDS"
+conversationDetailMode = "STEPS_PROSE"
 ambient-suggestions-enabled = true
 localeOverride = "ja-JP"
 composerEnterBehavior = "cmdAlways"
@@ -250,6 +251,30 @@ trusted_hash = "sha256:bc55a03ac0094c5deb4af95c405b75b34735f318b3d9bd64a2f990297
 
 [hooks.state."codex@openai-codex:hooks/hooks.json:stop:0:0"]
 trusted_hash = "sha256:3dfaa7e4f022570b260b8a8cf4ac7585c986175256b887a4723fac4f358a482f"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:e920625c9c3863ff90d657567e5e5f73a7da1c765815226c52a74cb787682621"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:9420bc91fb5e40357fdb5f9e0c83e8cd9b55a638a815580dfcf106ab7a5f9940"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:post_tool_use:1:0"]
+trusted_hash = "sha256:a37fe3b2f38299a6f307cb01674b8a38ce01f1b0c6f1e12a44618a89d6818e5c"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:session_start:2:0"]
+trusted_hash = "sha256:bc67b054423efcb2e880f72cbc3a7a306afce0bf190a21e2a052ed3a2c46c47f"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:user_prompt_submit:1:0"]
+trusted_hash = "sha256:adae237f289028a79948d7cb78f6b9c06075ec31a3c28df9b43a73afcb507098"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:subagent_start:0:0"]
+trusted_hash = "sha256:b1d476e1c921f6d16f118e986034c9a8684ee6f4d636efb24717e3a9597dce54"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:subagent_stop:0:0"]
+trusted_hash = "sha256:9ff308e84b9a894490fcb54ffe4c4e4cc6271812530ff3bccda37a4028b9ed2f"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:stop:1:0"]
+trusted_hash = "sha256:f09b3bafbe6f51f3581d897fde644a17c9e044b8eda996b9fb8b44e7a41a0c01"
 
 [projects."/Users/sugawarayss/PROJECTS/sugawarayss/dotfiles"]
 trust_level = "trusted"
@@ -370,3 +395,7 @@ enabled = false
 [[skills.config]]
 path = "/Users/sugawarayss/.agents/skills/rule/SKILL.md"
 enabled = false
+
+[memories]
+generate_memories = true
+use_memories = true
