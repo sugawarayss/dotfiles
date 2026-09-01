@@ -110,6 +110,7 @@
       "Bash(ncat *)",
       "Bash(npm remove:*)",
       "Bash(npm uninstall:*)",
+      "Bash(mo *)",
       "Bash(open *)",
       "Bash(osascript *)",
       "Bash(pbcopy *)",
