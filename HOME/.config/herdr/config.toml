@@ -136,6 +136,14 @@ toggle_sidebar = "prefix+b"
 # agents =  ""
 
 [[keys.command]]
+key = "prefix+t"
+type = "popup"
+command = "exec \"${SHELL:-sh}\""
+description = "スクラッチターミナルを開く"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
 # nvim のペインを開く
 key = "prefix+e"
 type = "plugin_action"
