@@ -31,12 +31,14 @@ allow_nested = false
 kitty_graphics = true
 # ペインの履歴をsession-history.jsonに保存する
 pane_history = false
-reveal_hidden_cursor_for_cjk_ime = false
-cjk_ime_agents = []
+# TUIがカーソルを隠していても、IMEが候補ウィンドウの位置を追えるようにする
+reveal_hidden_cursor_for_cjk_ime = true
+# ↑を適用するエージェント
+cjk_ime_agents = ["claude", "codex"]
 # IME アンカーにレンダリングの カーソル形状("block"|"stedy_block"|"underline"|"steady_underline"|"bar"|"steady_bar")
 cjk_ime_cursor_shape = "steady_block"
 # IMEがONでも、プリフィックスモードではascii入力する
-switch_ascii_input_source_in_prefix = false
+switch_ascii_input_source_in_prefix = true
 
 [keys]
 # プレフィックスモードに入るためのプレフィックスキー（例: "ctrl+b", "f12", "esc"）。
@@ -134,30 +136,33 @@ toggle_sidebar = "prefix+b"
 # agents =  ""
 
 [[keys.command]]
+# nvim のペインを開く
 key = "prefix+e"
 type = "plugin_action"
 command = "chmarax.herdr-nvim.toggle"
-description = "neovim sidebar"
-
-[[keys.command]]
-key = "prefix+o"
-type = "plugin_action"
-command = "chmarax.herdr-nvim.pick-file"
-description = "open file from agent output"
+description = "NeoVimを開く"
 
 # BEGIN jhochenbaum.hunkdiff — managed by `setup-keys`; edit via the plugin, not by hand
 [[keys.command]]
+# コミット済の差分をhunkで開く
 key = "prefix+shift+c"
 type = "plugin_action"
 command = "jhochenbaum.hunkdiff.review:commit"
-description = "hunk: review the last commit"
+description = "hunk: 最新のコミット"
 
 [[keys.command]]
+# ステージ済の差分をhunkで開く
 key = "prefix+shift+a"
 type = "plugin_action"
 command = "jhochenbaum.hunkdiff.review:staged"
 description = "hunk: review staged changes"
 # END jhochenbaum.hunkdiff
+
+[[keys.command]]
+key = "prefix+f"
+type = "shell"
+command = "herdr plugin action invoke open-sidebar --plugin herdr-sidebar"
+description = "サイドバーをトグル"
 
 [theme]
 name = "kanagawa"
