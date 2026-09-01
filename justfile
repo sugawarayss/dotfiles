@@ -59,6 +59,8 @@ herdr-plugins:
   herdr plugin install ChmaraX/herdr-nvim
   # herdr-pickr
   herdr plugin install tomasvarga/herdr-pickr
+  # herdr-sidebar
+  herdr plugin install alexarthurs/herdr-sidebar
   # terminal-browser がインストールされていなければインストール
   @type -q terminal-browser || curl -fsSL https://terminal-browser.sh/install | bash
 
