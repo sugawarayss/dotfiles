@@ -13,7 +13,8 @@
         "aws___recommend",
         "aws___search_documentation"
       ],
-      "command": "uvx"
+      "command": "uvx",
+      "disabled": true
     },
     "chrome-devtools": {
       "args": [
@@ -69,6 +70,20 @@
         "DEFAULT_MINIMUM_TOKENS": "128000"
       }
     },
+    "graft": {
+      "args": [
+        "mcp"
+      ],
+      "autoApprove": [
+        "graft_find_code",
+        "graft_file_api",
+        "graft_check_freshness",
+        "graft_trace_calls",
+        "graft_find_all",
+        "graft_repo_map"
+      ],
+      "command": "graft"
+    },
     "markitdown": {
       "args": [
         "markitdown-mcp==0.0.1a4"
@@ -77,6 +92,7 @@
         "convert_to_markdown"
       ],
       "command": "uvx",
+      "disabled": true,
       "type": "stdio"
     },
     "playwright": {
@@ -167,7 +183,7 @@
         "aws-errors-info"
       ],
       "command": "serverless",
-      "disabled": false,
+      "disabled": true,
       "disabled_tools": []
     },
     "terraform": {
@@ -188,6 +204,7 @@
         "search_providers"
       ],
       "command": "docker",
+      "disabled": true,
       "disabled_resourceTemplates": [],
       "type": "stdio"
     }
