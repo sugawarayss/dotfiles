@@ -10,7 +10,7 @@ description: >
   既存のworktreeで承認済みのプランファイルがある状態で
   「実装を進めて」「execute-plan-and-pr」「/execute-plan-and-pr」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [プランファイルのパス]"
-allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(tuicr:*) Bash(~/.claude/skills/tuicr/tuicr-wrapper-herdr.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/tuicr-pending-comments.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-implement-herdr.sh:*) Read
+allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(tuicr:*) Bash(/Users/sugawarayss/.claude/skills/tuicr/tuicr-wrapper-herdr.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/tuicr-pending-comments.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-implement-herdr.sh:*) Read
 user-invocable: true
 model: sonnet
 ---
@@ -64,7 +64,7 @@ test "${HERDR_ENV:-}" = 1
    **Herdr環境の場合（終了コード0）**: ユーザーに確認や依頼をせず、以下を実行する。長時間ブロックしうるため、Bashのtimeoutは長め（600000ms）を指定する。
 
    ```bash
-   ~/.claude/skills/tuicr/tuicr-wrapper-herdr.sh "<worktreeのパス>" -- -w
+   /Users/sugawarayss/.claude/skills/tuicr/tuicr-wrapper-herdr.sh "<worktreeのパス>" -- -w
    ```
 
    このコマンドはユーザーがtuicrを `q` で閉じるまで戻ってこない。「コメントを付け終えたら教えてください」という手動の完了報告は不要（wrapperの終了自体が完了シグナルになる）。
