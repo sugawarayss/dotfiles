@@ -31,7 +31,7 @@
 - GitHub操作: `gh` CLI
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
 - プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動する際は、①`--no-open` を付けてブラウザの自動起動を止め、出力されるレビューURL（`http://localhost:<port>`）を `terminal-browser open <url> --split right` でherdr内のペインに開く、②`--no-open` を付けずにcrit標準のブラウザ起動に任せる、のどちらで開くかをユーザーに確認してから実行すること。
-    - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
+  - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
 - コード差分レビュー: `tuicr`（`tuicr` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`execute-plan-and-pr` はHerdr環境で `tuicr-wrapper-herdr.sh` によりブロッキング起動し、ユーザーが閉じたら自動継続する。`review-local` はコメント投稿用セッションを非ブロッキングで開いたままにする（裏でsubagent分析を進めるため）。非Herdr環境はいずれもユーザーに起動・完了報告を依頼する
 - PRレビュー: `tuicr`（`review-pr` スキル経由。Herdr環境では右にペインを割いて `tuicr pr <PR>` を自動起動、それ以外はユーザーに起動を依頼する。コメント追加後、GitHubへの送信はユーザーがTUI内で `:submit` を実行する手動操作）
 
@@ -53,3 +53,38 @@
 - 大きな変更や複数の選択肢がある設計判断は、実装前に方針を確認する。
 - 実装プランなど **非コードの成果物** をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
 - コードの差分を変更・実装した後は、tuicr（`execute-plan-and-pr` スキルのレビューループ）でレビューしてもらう。Herdr環境では自動起動、それ以外はユーザーに起動を依頼してから進める。
+
+## MCP ツールの使い分け（Serena / Graft）
+
+### 基本方針
+
+- **理解・オリエンテーションフェーズ → Graft**
+- **編集・リファクタリングフェーズ → Serena**
+
+### Graft を使う場面
+
+- 未知のディレクトリ/機能に着手する最初の一手（`graft_repo_map` で全体像を掴む）
+- 「〇〇はどこで実装されているか」を探すとき（`graft_find_code`）
+- ファイルを編集する前に影響範囲を確認するとき（`graft_trace_calls` でblast radius確認）
+- ファイルの公開APIだけ知りたいとき（`graft_file_api`）
+- → **Graftは読み取り専用。コードは変更しない。**
+
+### Serena を使う場面
+
+- 実際にシンボル（関数・クラス・メソッド）を追加・変更・削除するとき
+- 特定シンボルの全参照箇所を正確に洗い出してからリネーム/変更するとき（`find_referencing_symbols`）
+- 複数ファイルにまたがる一貫した修正（型定義の変更に伴う呼び出し側の更新など）
+- セッションを跨いで残しておきたいプロジェクト固有の知見がある場合（Serenaのmemory機能）
+
+### 順序の例
+
+1. `graft_find_code` / `graft_repo_map` で該当箇所と全体構造を把握
+2. 変更対象のシンボルが決まったら `graft_trace_calls` で影響範囲を確認
+3. Serenaの `find_symbol` で正確な位置を特定 → `replace_symbol_body` 等で編集
+4. 編集後、必要なら再度Graftで整合性・影響範囲を確認
+
+### 注意
+
+- 両者は探索機能が一部重複する（grep相当の機能がどちらにもある）。基本はGraftを先に当て、シンボル単位の精密操作が必要になった時だけSerenaのgrep系（`search_for_pattern`など）に切り替える
+- Serenaはセッションが長くなると指示を忘れやすい（agent drift）。必要ならSerena公式のhookを`.claude/settings.json`に設定しておく
+- Graftは`.claude/skills/graft/SKILL.md`に自分の使い方を書き込むので、CLAUDE.md側は「いつGraftに頼るか」の判断基準だけ書けば十分（ツールの詳細説明はSKILL.md任せでOK）
