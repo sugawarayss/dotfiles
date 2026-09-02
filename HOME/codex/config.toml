@@ -121,30 +121,16 @@ args = ["mcp"]
 cwd = "."
 enabled = false
 
-[mcp_servers.aws-knowledge]
-command = "uvx"
-args = [
-  "fastmcp",
-  "run",
-  "https://knowledge-mcp.global.api.aws",
-]
-
 [mcp_servers.context7]
 command = "npx"
-args = [
-  "-y",
-  "@upstash/context7-mcp",
-]
+args = ["-y", "@upstash/context7-mcp"]
 
 [mcp_servers.context7.env]
 DEFAULT_MINIMUM_TOKENS = "128000"
 
 [mcp_servers.github]
 command = "npx"
-args = [
-  "-y",
-  "@modelcontextprotocol/server-github",
-]
+args = ["-y", "@modelcontextprotocol/server-github"]
 
 [mcp_servers.mise]
 command = "mise"
@@ -159,15 +145,7 @@ args = ["@playwright/mcp@latest"]
 
 [mcp_servers.serena]
 command = "uvx"
-args = [
-  "--from",
-  "git+https://github.com/oraios/serena",
-  "serena",
-  "start-mcp-server",
-  "--context",
-  "codex",
-  "--project-from-cwd",
-]
+args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "codex", "--project-from-cwd"]
 
 [mcp_servers.graft]
 command = "graft"
@@ -176,6 +154,10 @@ args = ["mcp"]
 [mcp_servers.cua_repl]
 command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
 enabled = false
+
+[mcp_servers.tirith-gateway]
+command = "/Users/sugawarayss/.local/share/mise/installs/tirith/latest/tirith"
+args = ["gateway", "run", "--upstream-bin", "/Users/sugawarayss/.local/share/mise/installs/tirith/latest/tirith", "--upstream-arg", "mcp-server", "--config", "/Users/sugawarayss/.config/tirith/gateway-sha256-a4b6f7daf3fb94e7ff7f0842c3d1515f62e7f420ecd987ab110bb13b3863bb6b.yaml"]
 
 [desktop]
 external-agent-import-sync-enabled = true
@@ -232,16 +214,16 @@ trusted_hash = "sha256:c97c1968858b15b1ada77ea20ece17a5f837bf14f59885543fa75ced5
 trusted_hash = "sha256:fc7e87f359c0df036af18025743805a1547f9aefa57cafa62fc1ed066babaf1d"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:bec948d830943656625e7419edb38236553d5545eb1f5f54168af53a10e30fd7"
+trusted_hash = "sha256:a37fe3b2f38299a6f307cb01674b8a38ce01f1b0c6f1e12a44618a89d6818e5c"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:session_start:1:0"]
-trusted_hash = "sha256:f595e031e9d66ef03031511de9ae24b4f424ff78e977c4d3821073782710ba78"
+trusted_hash = "sha256:bc67b054423efcb2e880f72cbc3a7a306afce0bf190a21e2a052ed3a2c46c47f"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:4a6793491ad2698d696ac5cf83df13d07693c5840bb7288c60a5e8a1ac376216"
+trusted_hash = "sha256:adae237f289028a79948d7cb78f6b9c06075ec31a3c28df9b43a73afcb507098"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:b1b7d23c40cbcce1b43b3c600935ab624ffdf3fd2dc0311a94c373e7c959f036"
+trusted_hash = "sha256:f09b3bafbe6f51f3581d897fde644a17c9e044b8eda996b9fb8b44e7a41a0c01"
 
 [hooks.state."codex@openai-codex:hooks/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:e6b9df143de11443eb576c38874cf6e0c48358f948170948fdf630f1c047c098"
@@ -259,13 +241,13 @@ trusted_hash = "sha256:e920625c9c3863ff90d657567e5e5f73a7da1c765815226c52a74cb78
 trusted_hash = "sha256:9420bc91fb5e40357fdb5f9e0c83e8cd9b55a638a815580dfcf106ab7a5f9940"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:post_tool_use:1:0"]
-trusted_hash = "sha256:a37fe3b2f38299a6f307cb01674b8a38ce01f1b0c6f1e12a44618a89d6818e5c"
+trusted_hash = "sha256:bec948d830943656625e7419edb38236553d5545eb1f5f54168af53a10e30fd7"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:session_start:2:0"]
-trusted_hash = "sha256:bc67b054423efcb2e880f72cbc3a7a306afce0bf190a21e2a052ed3a2c46c47f"
+trusted_hash = "sha256:f595e031e9d66ef03031511de9ae24b4f424ff78e977c4d3821073782710ba78"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:user_prompt_submit:1:0"]
-trusted_hash = "sha256:adae237f289028a79948d7cb78f6b9c06075ec31a3c28df9b43a73afcb507098"
+trusted_hash = "sha256:4a6793491ad2698d696ac5cf83df13d07693c5840bb7288c60a5e8a1ac376216"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:subagent_start:0:0"]
 trusted_hash = "sha256:b1d476e1c921f6d16f118e986034c9a8684ee6f4d636efb24717e3a9597dce54"
@@ -274,7 +256,25 @@ trusted_hash = "sha256:b1d476e1c921f6d16f118e986034c9a8684ee6f4d636efb24717e3a95
 trusted_hash = "sha256:9ff308e84b9a894490fcb54ffe4c4e4cc6271812530ff3bccda37a4028b9ed2f"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:stop:1:0"]
-trusted_hash = "sha256:f09b3bafbe6f51f3581d897fde644a17c9e044b8eda996b9fb8b44e7a41a0c01"
+trusted_hash = "sha256:b1b7d23c40cbcce1b43b3c600935ab624ffdf3fd2dc0311a94c373e7c959f036"
+
+[hooks.state."/Users/sugawarayss/PROJECTS/inapvision/flexio/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:f380195dba46b74d80d9c72f69ddc33d300c589c892e6abb94e8ffeed401f79e"
+
+[hooks.state."/Users/sugawarayss/PROJECTS/inapvision/flexio/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:ca4254e7c7d3d5f170c7ed3f7992deb020b9afa9f82fc2713262a6301e42f027"
+
+[hooks.state."/Users/sugawarayss/PROJECTS/inapvision/flexio/.codex/hooks.json:post_tool_use:1:0"]
+trusted_hash = "sha256:a46a30065738b340cc8b48e884cf0252e0b9720e6d65748537573c18f8848234"
+
+[hooks.state."/Users/sugawarayss/PROJECTS/inapvision/flexio/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:3a6a3128a9f7a0d951ca02516040b7fee1334d88f9406a5b6e7fbfe130abbf0d"
+
+[hooks.state."/Users/sugawarayss/PROJECTS/inapvision/flexio/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:2f22c8e422df76aff3eba9cc1fa88cfa68cec420a58208b958004e5fe01f056a"
+
+[hooks.state."/Users/sugawarayss/PROJECTS/inapvision/flexio/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:e6bccd0b16559bfc272ca9a1de42a19c2d42561be665ef437a27f268d50eb391"
 
 [projects."/Users/sugawarayss/PROJECTS/sugawarayss/dotfiles"]
 trust_level = "trusted"
