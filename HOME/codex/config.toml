@@ -93,6 +93,9 @@ enabled = true
 [plugins."codex@openai-codex"]
 enabled = true
 
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
@@ -105,13 +108,13 @@ NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/sugawarayss/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 CODEX_HOME = "/Users/sugawarayss/.codex"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-BROWSER_USE_TINYSKY_ENABLED = "0"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
-NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.825.51511"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.825.51511/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.831.20005"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.831.20005/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -150,10 +153,6 @@ args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-s
 [mcp_servers.graft]
 command = "graft"
 args = ["mcp"]
-
-[mcp_servers.cua_repl]
-command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
-enabled = false
 
 [mcp_servers.tirith-gateway]
 command = "/Users/sugawarayss/.local/share/mise/installs/tirith/latest/tirith"
@@ -213,18 +212,6 @@ trusted_hash = "sha256:c97c1968858b15b1ada77ea20ece17a5f837bf14f59885543fa75ced5
 [hooks.state."crit@crit:hooks/hooks.json:permission_request:0:0"]
 trusted_hash = "sha256:fc7e87f359c0df036af18025743805a1547f9aefa57cafa62fc1ed066babaf1d"
 
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:a37fe3b2f38299a6f307cb01674b8a38ce01f1b0c6f1e12a44618a89d6818e5c"
-
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:session_start:1:0"]
-trusted_hash = "sha256:bc67b054423efcb2e880f72cbc3a7a306afce0bf190a21e2a052ed3a2c46c47f"
-
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:adae237f289028a79948d7cb78f6b9c06075ec31a3c28df9b43a73afcb507098"
-
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:f09b3bafbe6f51f3581d897fde644a17c9e044b8eda996b9fb8b44e7a41a0c01"
-
 [hooks.state."codex@openai-codex:hooks/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:e6b9df143de11443eb576c38874cf6e0c48358f948170948fdf630f1c047c098"
 
@@ -234,12 +221,6 @@ trusted_hash = "sha256:bc55a03ac0094c5deb4af95c405b75b34735f318b3d9bd64a2f990297
 [hooks.state."codex@openai-codex:hooks/hooks.json:stop:0:0"]
 trusted_hash = "sha256:3dfaa7e4f022570b260b8a8cf4ac7585c986175256b887a4723fac4f358a482f"
 
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:e920625c9c3863ff90d657567e5e5f73a7da1c765815226c52a74cb787682621"
-
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:permission_request:0:0"]
-trusted_hash = "sha256:9420bc91fb5e40357fdb5f9e0c83e8cd9b55a638a815580dfcf106ab7a5f9940"
-
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:post_tool_use:1:0"]
 trusted_hash = "sha256:bec948d830943656625e7419edb38236553d5545eb1f5f54168af53a10e30fd7"
 
@@ -248,12 +229,6 @@ trusted_hash = "sha256:f595e031e9d66ef03031511de9ae24b4f424ff78e977c4d3821073782
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:user_prompt_submit:1:0"]
 trusted_hash = "sha256:4a6793491ad2698d696ac5cf83df13d07693c5840bb7288c60a5e8a1ac376216"
-
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:subagent_start:0:0"]
-trusted_hash = "sha256:b1d476e1c921f6d16f118e986034c9a8684ee6f4d636efb24717e3a9597dce54"
-
-[hooks.state."/Users/sugawarayss/.codex/hooks.json:subagent_stop:0:0"]
-trusted_hash = "sha256:9ff308e84b9a894490fcb54ffe4c4e4cc6271812530ff3bccda37a4028b9ed2f"
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:stop:1:0"]
 trusted_hash = "sha256:b1b7d23c40cbcce1b43b3c600935ab624ffdf3fd2dc0311a94c373e7c959f036"
@@ -275,6 +250,30 @@ trusted_hash = "sha256:2f22c8e422df76aff3eba9cc1fa88cfa68cec420a58208b958004e5fe
 
 [hooks.state."/Users/sugawarayss/PROJECTS/inapvision/flexio/.codex/hooks.json:stop:0:0"]
 trusted_hash = "sha256:e6bccd0b16559bfc272ca9a1de42a19c2d42561be665ef437a27f268d50eb391"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:e920625c9c3863ff90d657567e5e5f73a7da1c765815226c52a74cb787682621"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:9420bc91fb5e40357fdb5f9e0c83e8cd9b55a638a815580dfcf106ab7a5f9940"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:a37fe3b2f38299a6f307cb01674b8a38ce01f1b0c6f1e12a44618a89d6818e5c"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:bc67b054423efcb2e880f72cbc3a7a306afce0bf190a21e2a052ed3a2c46c47f"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:adae237f289028a79948d7cb78f6b9c06075ec31a3c28df9b43a73afcb507098"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:subagent_start:0:0"]
+trusted_hash = "sha256:b1d476e1c921f6d16f118e986034c9a8684ee6f4d636efb24717e3a9597dce54"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:subagent_stop:0:0"]
+trusted_hash = "sha256:9ff308e84b9a894490fcb54ffe4c4e4cc6271812530ff3bccda37a4028b9ed2f"
+
+[hooks.state."/Users/sugawarayss/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:f09b3bafbe6f51f3581d897fde644a17c9e044b8eda996b9fb8b44e7a41a0c01"
 
 [projects."/Users/sugawarayss/PROJECTS/sugawarayss/dotfiles"]
 trust_level = "trusted"
