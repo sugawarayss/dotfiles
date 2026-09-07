@@ -8,7 +8,7 @@ description: >
   既存のworktree内で「実装してPRまで作って」「このissueの実装を進めて」
   「plan-and-review」「/plan-and-review」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ]"
-allowed-tools: Agent Skill EnterPlanMode ExitPlanMode Bash(git status:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
+allowed-tools: Agent Skill EnterPlanMode ExitPlanMode Bash(git status:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task mcp__graft_* mcp__serena_*
 user-invocable: true
 model: opus
 ---
@@ -26,7 +26,12 @@ worktree内でissue/タスクの実装プランを検討し、ユーザーレビ
    - GitHub issue（`github.com/.../issues/<番号>`）: `gh issue view <番号> --json title,body,url` または `mcp__github__get_issue`
    - ClickUpタスク（`app.clickup.com/t/<ID>`）: `mcp__claude_ai_ClickUp__clickup_get_task`
 
-## ステップ1: 実装プランの検討とレビュー（Plan Mode + crit）
+## ステップ1: やるべきことと、現状のコードベースの把握
+
+1. GitHub Issue/ClickUp Task の内容を把握する
+2. `Read`, `mcp__graft`, `mcp__serena` などを組み合わせて使用し、現状のコードベースの詳細を把握する
+
+## ステップ2: 実装プランの検討とレビュー（Plan Mode + crit）
 
 1. `EnterPlanMode` でPlan Modeに入る。
 2. issue/タスクの内容を踏まえて実装方針を検討する。調査の深さ（コードベース探索にAgent(Explore)を使うか、設計にAgent(Plan)を使うか、直接考えるか）は課題の規模に応じて判断する。単純な修正であれば直接プランを書き、複数ファイルにまたがる・要件があいまいなど複雑な課題であれば探索・設計のエージェントを使う。
@@ -35,7 +40,7 @@ worktree内でissue/タスクの実装プランを検討し、ユーザーレビ
 5. レビューでコメントが付いた場合: 各コメントの内容に沿ってプランファイルを修正し、返信する（`crit-cli` スキルの運用に準ずる。`--resolve` は付けず、解決はレビューアーの判断に委ねる）。修正が終わったら再度 `ExitPlanMode` を呼び、次のレビューラウンドに入る。
 6. ユーザーがコメント無しで承認するまで手順4〜5を繰り返す。承認されたらPlan Modeを抜けてステップ2に進む。
 
-## ステップ2: 実装フェーズへの引き継ぎ
+## ステップ3: 実装フェーズへの引き継ぎ
 
 Plan Modeを抜けたら、`Skill` ツールで `execute-plan-and-pr` を呼び出す。引数にはissue/タスクのURL、ブランチ名、ベースブランチ、承認されたプランファイルのパスを渡す。以降の実装・レビュー・commit・push案内・PR作成・後片付けの呼び出しは `execute-plan-and-pr` の責務であり、このスキルはここで完了する。
 
