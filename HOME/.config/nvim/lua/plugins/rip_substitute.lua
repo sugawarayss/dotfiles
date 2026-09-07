@@ -25,7 +25,7 @@ return {
         border = "double", -- `vim.o.winborder` on nvim 0.11, otherwise "rounded"
         matchCountHlGroup = "Keyword",
         noMatchHlGroup = "ErrorMsg",
-        position = "bottom", ---@type "top"|"bottom"
+        position = "top", ---@type "top"|"bottom"
         hideSearchReplaceLabels = false,
         hideKeymapHints = false,
         disableCompletions = true, -- disables all blink.cmp completions
@@ -38,8 +38,9 @@ return {
       },
       keymaps = { -- normal mode (if not stated otherwise)
         abort = "q",
-        confirm = "<CR>",
-        insertModeConfirm = "<C-CR>",
+        confirmAndSubstituteInBuffer = "<CR>",
+        insertModeConfirmAndSubstituteInBuffer = "<C-CR>",
+        confirmAndSubstituteInCwd = "<S-CR>",
         prevSubstitutionInHistory = "<Up>",
         nextSubstitutionInHistory = "<Down>",
         toggleFixedStrings = "<C-f>", -- ripgrep's `--fixed-strings`
@@ -49,13 +50,10 @@ return {
       },
       incrementalPreview = {
         matchHlGroup = "IncSearch",
-        rangeBackdrop = {
-          enabled = true,
-          blend = 50, -- between 0 and 100
-        },
+        rangeBackdropBrightness = 50, -- between 0 and 100
       },
       regexOptions = {
-        startWithFixedStringsOn = false,
+        startWithFixedStrings = false,
         startWithIgnoreCase = false,
         pcre2 = true, -- enables lookarounds and backreferences, but slightly slower
         autoBraceSimpleCaptureGroups = true, -- disable if using named capture groups (see README for details)
@@ -63,6 +61,10 @@ return {
       editingBehavior = {
         -- Typing `()` in the `search` line, automatically adds `$n` to the `replace` line.
         autoCaptureGroups = false,
+      },
+      history = {
+        path = vim.fn.stdpath("data") .. "/rip-substitute/history.json",
+        maxSiz = 30,
       },
       notification = {
         onSuccess = true,
