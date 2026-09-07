@@ -173,8 +173,14 @@ return {
         input = {
           keys = {
             -- プレビューへフォーカスを移動
-            ["<a-;>"] = { "cycle_win", mode = { "i", "n" } },
-            ["<a-s>"] = { "flash", mode = { "n", "i" } },
+            ["<M-;>"] = { "cycle_win", mode = { "i", "n" } },
+            ["<M-s>"] = { "flash", mode = { "n", "i" } },
+            ["<M-f>"] = { "toggle_follow", mode = { "i", "n" } },
+            ["<M-H>"] = { "toggle_hidden", mode = { "i", "n" } },
+            ["<M-i>"] = { "toggle_ignored", mode = { "i", "n" } },
+            ["<M-r>"] = { "toggle_regex", mode = { "i", "n" } },
+            ["<M-m>"] = { "toggle_maximize", mode = { "i", "n" } },
+            ["<M-p>"] = { "toggle_preview", mode = { "i", "n" } },
             ["s"] = { "flash" },
           },
         },
@@ -259,6 +265,8 @@ return {
       "<leader>fg", -- File Grep
       function()
         Snacks.picker.grep({
+          cmd = "rg",
+          finder = "grep",
           -- NOTE: <M-h> でトグルできる
           -- 隠しファイルも検索対象に含める
           hidden = true,

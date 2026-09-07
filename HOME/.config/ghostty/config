@@ -28,6 +28,9 @@ adjust-cell-height = "-15%"
 # カラーテーマ
 theme = "Kanagawa Dragon"
 
+# macOSの左Option Key を ALT キーとして扱う
+macos-option-as-alt = left
+
 # ウィンドウの左右の余白
 window-padding-x = 10
 # ウィンドウの背景透過度
