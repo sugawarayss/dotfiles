@@ -125,7 +125,6 @@ return {
             }, cmd)
           end, cmds)
         end,
-        -- { section = "startup" },
       },
     },
     -- ファイルエクスプローラ
@@ -279,13 +278,6 @@ return {
       end,
       desc = "Snacks - Grep検索を表示",
     },
-    -- {
-    --   ";sbuf",
-    --   function()
-    --     Snacks.picker.buffers()
-    --   end,
-    --   desc = "Snacks - バッファリストを検索",
-    -- },
     {
       ";sch", -- Search Command History
       function()
@@ -314,21 +306,6 @@ return {
       end,
       desc = "Snacks - ファイルエクスプローラを表示",
     },
-    -- {
-    --   "<F3>",
-    --   function()
-    --     Snacks.terminal.toggle()
-    --   end,
-    --   desc = "Snacks - ターミナルを開く",
-    -- },
-    -- {
-    --   "<F3>",
-    --   function()
-    --     Snacks.terminal.toggle()
-    --   end,
-    --   desc = "Snacks - ターミナルを閉じる",
-    --   mode = { "t" },
-    -- },
     {
       "<F4>",
       function()
@@ -337,9 +314,6 @@ return {
       desc = "Snacks - 新しいターミナルを開く",
       mode = { "t" },
     },
-    -- find
-    -- { "<leader>fc",       function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Neovim設定ファイルリストを表示" },
-    -- git
     {
       ";sgl", -- Search Git Log
       function()
@@ -378,13 +352,6 @@ return {
       end,
       desc = "Snacks - レジスタを検索",
     },
-    -- {
-    --   ";s/",
-    --   function()
-    --     Snacks.picker.search_history()
-    --   end,
-    --   desc = "Snacks - 検索履歴を検索",
-    -- },
     {
       ";scm", -- Search Command
       function()
@@ -393,20 +360,6 @@ return {
       mode = { "n" },
       desc = "Snacks - Commandを検索",
     },
-    -- {
-    --   ";sd",
-    --   function()
-    --     Snacks.picker.diagnostics()
-    --   end,
-    --   desc = "Snacks - LSP診断を検索",
-    -- },
-    -- {
-    --   ";sD",
-    --   function()
-    --     Snacks.picker.diagnostics_buffer()
-    --   end,
-    --   desc = "Snacks - バッファ内のLSP診断を検索",
-    -- },
     {
       ";shelp", -- Search HELP
       function()
@@ -463,36 +416,6 @@ return {
       end,
       desc = "Snacks - Quickfix リストを検索",
     },
-    -- {
-    --   ";sud",
-    --   function()
-    --     Snacks.picker.undo()
-    --   end,
-    --   desc = "Snacks - Undo 履歴を検索",
-    -- },
-    -- LSP
-    -- {
-    --   "<leader>ss",
-    --   function()
-    --     Snacks.picker.lsp_symbols()
-    --   end,
-    --   desc = "Snacks - バッファ内の LSP シンボルを検索",
-    -- },
-    -- {
-    --   "<leader>sS",
-    --   function()
-    --     Snacks.picker.lsp_workspace_symbols()
-    --   end,
-    --   desc = "Snacks - ワークスペース内の LSP シンボルを検索",
-    -- },
-    -- Other
-    --{
-    --  "<leader>z",
-    --  function()
-    --    Snacks.zen()
-    --  end,
-    --  desc = "Snacks - Zen モードをトグル",
-    --},
     {
       "<leader>dd",
       function()
@@ -500,14 +423,6 @@ return {
       end,
       desc = "Snacks - バッファを閉じる",
     },
-    -- {
-    --   "<leader>gB",
-    --   function()
-    --     Snacks.gitbrowse()
-    --   end,
-    --   desc = "Snacks - リポジトリをGitHubで開く",
-    --   mode = { "n", "v" },
-    -- },
     {
       "<leader>gg",
       function()
@@ -529,21 +444,5 @@ return {
       end,
       desc = "Snacks - Slumber(HTTPクライアント)を起動",
     },
-    --{
-    --  "]]",
-    --  function()
-    --    Snacks.words.jump(vim.v.count1)
-    --  end,
-    --  desc = "Snacks - Next Reference",
-    --  mode = { "n", "t" },
-    --},
-    --{
-    --  "[[",
-    --  function()
-    --    Snacks.words.jump(-vim.v.count1)
-    --  end,
-    --  desc = "Snacks - Prev Reference",
-    --  mode = { "n", "t" },
-    --},
   },
 }
