@@ -58,7 +58,7 @@ return {
         local wk = require("which-key")
         wk.add({
           {
-            "<leader>gj",
+            ";gj",
             function()
               if vim.wo.diff then
                 return ""
@@ -73,7 +73,7 @@ return {
             desc = "Gitsings - 次のHunkに移動",
           },
           {
-            "<leader>gk",
+            ";gk",
             function()
               if vim.wo.diff then
                 return ""
@@ -88,7 +88,7 @@ return {
             desc = "Gitsings - 前のHunkに移動",
           },
           {
-            "<leader>gl",
+            ";gl",
             ":Gitsigns setloclist<CR>",
             mode = "n",
             icon = "",
@@ -102,7 +102,7 @@ return {
           --   desc = "Gitsings - カーソル位置の変更内容を(インラインで)プレビューする",
           -- },
           {
-            "<leader>gh",
+            ";gh",
             ":<C-U>Gitsigns select_hunk<CR>",
             mode = "n",
             icon = "",
