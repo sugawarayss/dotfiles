@@ -10,6 +10,8 @@ allowed-tools: Agent Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git mer
 
 ベースブランチとの diff を取得し、品質・セキュリティ・パフォーマンス・テスト・ドキュメントの5観点で専門subagentに分析を並列委譲してレビューします。各subagentは発見事項ごとに行番号・タグ・問題点・修正案を**自分でtuicrへインラインコメントとして直接投稿**します。
 
+`execute-plan-and-pr` など他スキルから呼び出され、`<merge-base-sha>` と `--repo` に使う値（worktreeの絶対パス）が既に渡されている場合は、以下の「ベースブランチの決定」「Diffの対象範囲を決める（merge-base）」の自前の検出・計算は行わず、渡された値をそのまま使う（呼び出し元が起動した同一tuicrセッションを再利用するため）。「tuicrセッションを用意する」以降はそのまま実行する。
+
 ## ベースブランチの決定
 
 1. ユーザーが比較対象のブランチを明示していれば、それを使う（例:「develop と比較して」→ `develop`）。
