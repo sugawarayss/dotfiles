@@ -14,7 +14,7 @@ default_shell = "/opt/homebrew/bin/fish"
 # ログインシェルが起動しPATH等を自動で初期化する
 shell_mode = "auto"
 # デフォルトの動作を維持する(home|current|follow)
-new_cwd = "follow"
+new_cwd = "current"
 
 [worktrees]
 # Gitワークツリーのチェックアウトのルートディレクトリ
@@ -123,10 +123,10 @@ close_pane = "prefix+x"
 # ---ペインサイズ操作---
 zoom = "prefix+z"
 resize_mode = "prefix+r"
-resize_pane_left = ""
-resize_pane_down = ""
-resize_pane_up = ""
-resize_pane_right = ""
+resize_pane_left = "alt+left"
+resize_pane_down = "alt+down"
+resize_pane_up = "alt+up"
+resize_pane_right = "alt+right"
 # ---UIとサイドバー---
 toggle_sidebar = "prefix+b"
 
@@ -226,7 +226,7 @@ host_cursor = "auto"
 right_click_passthrough_modifier = ""
 # フォーカスが戻った時に画面を強制的に再描画する
 redraw_on_focus_gained = true
-# スクロール幅(行)
+# マウスでのスクロール幅(行)
 mouse_scroll_lines = 3
 # ワークスペースを閉じる時は確認する
 confirm_close = true
@@ -235,7 +235,9 @@ prompt_new_tab_name = true
 # 対話型TUIを作成する際にワークスペースに名前付けを求める
 prompt_new_workspace_name = false
 # 分割されたペイン周辺に枠線を付ける
-pane_borders = true
+pane_borders = "always"
+# ペイン領域の外側の縁に境界線を描画
+pane_outer_borders = true
 # ペインにスクロールバーを表示する
 pane_scrollbars = true
 # 分割したペイン間に隙間を表示する
@@ -250,6 +252,8 @@ tab_bar_position = "top"
 agent_panel_sort = "spaces"
 # アクセントカラー
 accent = "cyan"
+# エージェントを示すシンボルのスタイル
+status_indicators = "symbols"
 
 [ui.sidebar.agents]
 # エジェントサイドバーエントリ間の空行数
@@ -267,7 +271,7 @@ rows = [["state_icon", "workspace"], ["branch", "git_status"]]
 
 [ui.toast]
 # ポップアップ通知("off"|"herdr"|"terminal"|"system")
-delivery = "herdr"
+delivery = "system"
 # エージェント通知を送信するまでの待機秒数(0~3600)
 delay_seconds = 1
 
