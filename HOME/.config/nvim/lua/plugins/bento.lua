@@ -7,7 +7,7 @@ return {
   end,
   config = function()
     require("bento").setup({
-      main_keymap = ";", -- メニューのトグル(展開)キー
+      main_keymap = ",", -- メニューのトグル(展開)キー
       lock_char = "🔒", -- ロックされたバッファ名の前に表示される文字
       max_open_buffers = 5, -- 開いたままにしておくバッファの最大数(nilは無制限)
       --   recency_access: 最近アクセス(entered/viewed)されていないバッファを削除
