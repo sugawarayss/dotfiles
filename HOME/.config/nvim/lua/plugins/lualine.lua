@@ -69,7 +69,7 @@ return {
             { "lsp-status", icons = { active = "󰫹󰬀󰫽", inactive = "󰫹󰬀󰫽" } },
             "diagnostics",
           },
-          lualine_c = { { "filename", path = 1 }, "location" },
+          lualine_c = { { "filename", path = 1 }, "location", require("herdr-nvim").statusline },
           -- CodeCompanion の進捗を lualine で表示する場合
           lualine_x = {
             -- マクロの記録中の表示
