@@ -150,7 +150,6 @@ type = "plugin_action"
 command = "chmarax.herdr-nvim.toggle"
 description = "NeoVimを開く"
 
-# BEGIN jhochenbaum.hunkdiff — managed by `setup-keys`; edit via the plugin, not by hand
 [[keys.command]]
 # コミット済の差分をhunkで開く
 key = "prefix+shift+c"
@@ -164,13 +163,12 @@ key = "prefix+shift+a"
 type = "plugin_action"
 command = "jhochenbaum.hunkdiff.review:staged"
 description = "hunk: review staged changes"
-# END jhochenbaum.hunkdiff
 
-[[keys.command]]
-key = "prefix+f"
-type = "shell"
-command = "herdr plugin action invoke open-sidebar --plugin herdr-sidebar"
-description = "サイドバーをトグル"
+# [[keys.command]]
+# key = "prefix+f"
+# type = "shell"
+# command = "herdr plugin action invoke open-sidebar --plugin herdr-sidebar"
+# description = "サイドバーをトグル"
 
 [theme]
 name = "kanagawa"
