@@ -1,10 +1,11 @@
 codex = "gpt-5.3-codex"
-model = "gpt-5.6-luna"
-model_reasoning_effort = "high"
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
 notify = [
   "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
   "turn-ended",
 ]
+service_tier = "default"
 
 [tui]
 status_line = [
@@ -115,8 +116,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.901.22334"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.901.22334/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.901.51231"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.901.51231/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -135,13 +136,6 @@ args = [
 
 [mcp_servers.context7.env]
 DEFAULT_MINIMUM_TOKENS = "128000"
-
-[mcp_servers.github]
-command = "npx"
-args = [
-  "-y",
-  "@modelcontextprotocol/server-github",
-]
 
 [mcp_servers.mise]
 command = "mise"
@@ -229,8 +223,6 @@ ui = '"Annotation Mono"'
 diffAdded = "#006b4f"
 diffRemoved = "#b12424"
 skill = "#9a1b6e"
-
-[hooks.state]
 
 [hooks.state."/Users/sugawarayss/.codex/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:c97c1968858b15b1ada77ea20ece17a5f837bf14f59885543fa75ced52c7d17e"
