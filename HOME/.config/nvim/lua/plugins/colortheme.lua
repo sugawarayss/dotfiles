@@ -34,6 +34,16 @@ return {
           HopNextKey = { fg = colors.theme.diag.warning, bold = true },
           HopNextKey1 = { fg = colors.theme.diag.ok, bold = true },
           HopNextKey2 = { fg = colors.theme.diag.hint },
+          -- Blink 補完メニュー
+          BlinkCmpMenu = { bg = colors.theme.ui.float.bg, fg = colors.theme.ui.float.bg_border },
+          -- Blink 補完メニュー枠線
+          BlinkCmpMenuBorder = { bg = colors.theme.ui.float.bg, fg = colors.theme.ui.float.fg_border },
+          -- Blink 補完メニューの選択項目
+          BlinkCmpMenuSelection = { bg = colors.theme.ui.pmenu.bg_sel, fg = colors.theme.ui.fg_dim },
+          -- Blink 補完メニューのスクロールバー
+          BlinkCmpScrollBarThumb = { bg = colors.theme.ui.special },
+          -- Blink 補完ソース名表示
+          BlinkCmpSource = { bg = colors.theme.ui.bg_p2, fg = colors.theme.syn.comment },
         }
       end,
       background = {
@@ -46,7 +56,7 @@ return {
   end,
 }
 --------------------
--- kanagawa theme wave
+-- kanagawa theme dragon
 -- require("kanagawa.colors").setup().theme
 --------------------
 -- {
@@ -64,48 +74,48 @@ return {
 --     text = "#49443C"
 --   },
 --   syn = {
---     comment = "#727169",
---     constant = "#FFA066",
+--     comment = "#737c73",
+--     constant = "#b6927b",
 --     deprecated = "#717C7C",
---     fun = "#7E9CD8",
---     identifier = "#E6C384",
---     keyword = "#957FB8",
---     number = "#D27E99",
---     operator = "#C0A36E",
---     parameter = "#b8b4d0",
---     preproc = "#E46876",
---     punct = "#9CABCA",
---     regex = "#C0A36E",
---     special1 = "#7FB4CA",
---     special2 = "#E46876",
---     special3 = "#FF5D62",
---     statement = "#957FB8",
---     string = "#98BB6C",
---     type = "#7AA89F",
+--     fun = "#8ba4b0",
+--     identifier = "#c4b28a",
+--     keyword = "#8992a7",
+--     number = "#a292a3",
+--     operator = "#c4746e",
+--     parameter = "#a6a69c",
+--     preproc = "#c4746e",
+--     punct = "#9e9b93",
+--     regex = "#c4746e",
+--     special1 = "#949fb5",
+--     special2 = "#c4746e",
+--     special3 = "#c4746e",
+--     statement = "#8992a7",
+--     string = "#8a9a7b",
+--     type = "#8ea4a2",
 --     variable = "none"
 --   },
---   term = { "#16161D", "#C34043", "#76946A", "#C0A36E", "#7E9CD8", "#957FB8", "#6A9589", "#C8C093", "#727169", "#E82424", "#98BB6C", "#E6C384", "#7FB4CA", "#938AA9", "#7AA89F", "#DCD7BA", "#FFA066", "#FF5D62" },
+--   term = { "#0d0c0c", "#c4746e", "#8a9a7b", "#c4b28a", "#8ba4b0", "#a292a3", "#8ea4a2", "#C8C093", "#a6a69c", "#E46876", "#87a987", "#E6C384", "#7FB4CA", "#938AA9", "#7AA89F", "#c5c9c5", "#b6927b", "#b98d7b" },
 --   ui = {
---     bg = "#1F1F28",
---     bg_dim = "#181820",
---     bg_gutter = "#2A2A37",
---     bg_m1 = "#1a1a22",
---     bg_m2 = "#181820",
---     bg_m3 = "#16161D",
---     bg_p1 = "#2A2A37",
---     bg_p2 = "#363646",
+--     bg = "#181616",
+--     bg_dim = "#12120f",
+--     bg_gutter = "#282727",
+--     bg_m1 = "#1D1C19",
+--     bg_m2 = "#12120f",
+--     bg_m3 = "#0d0c0c",
+--     bg_p1 = "#282727",
+--     bg_p2 = "#393836",
 --     bg_search = "#2D4F67",
 --     bg_visual = "#223249",
---     fg = "#DCD7BA",
+--     fg = "#c5c9c5",
 --     fg_dim = "#C8C093",
 --     fg_reverse = "#223249",
 --     float = {
---       bg = "#16161D",
---       bg_border = "#16161D",
+--       bg = "#0d0c0c",
+--       bg_border = "#0d0c0c",
 --       fg = "#C8C093",
 --       fg_border = "#54546D"
 --     },
---     nontext = "#54546D",
+--     nontext = "#625e5a",
 --     pmenu = {
 --       bg = "#223249",
 --       bg_sbar = "#223249",
@@ -114,8 +124,8 @@ return {
 --       fg = "#DCD7BA",
 --       fg_sel = "none"
 --     },
---     special = "#938AA9",
---     whitespace = "#54546D"
+--     special = "#7a8382",
+--     whitespace = "#625e5a"
 --   },
 --   vcs = {
 --     added = "#76946A",
