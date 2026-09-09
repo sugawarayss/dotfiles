@@ -9,7 +9,7 @@ return {
     end,
     init = function()
       -- 補完ウィンドウの枠
-      vim.opt.winborder = "rounded"
+      -- vim.opt.winborder = "rounded"
     end,
     opts = {
       -- 補完ソース
@@ -113,9 +113,13 @@ return {
       -- 動作のカスタマイズ
       completion = {
         -- 補完候補のドキュメント表示
-        documentation = { auto_show = true },
+        documentation = {
+          auto_show = true,
+          window = { border = "rounded" },
+        },
         -- 補完候補の表示内容
         menu = {
+          border = "bold",
           draw = {
             columns = {
               { "kind_icon" },
@@ -151,6 +155,9 @@ return {
               },
               source_name = {
                 text = function(ctx)
+                  if ctx.source_name == "LSP" then
+                    return "[" .. ctx.item.client_name .. " (" .. ctx.source_name .. ")]"
+                  end
                   return "[" .. ctx.source_name .. "]"
                 end,
               },
