@@ -115,7 +115,7 @@ return {
         -- 補完候補のドキュメント表示
         documentation = {
           auto_show = true,
-          window = { border = "rounded" },
+          window = { border = "double" },
         },
         -- 補完候補の表示内容
         menu = {
