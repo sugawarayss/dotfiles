@@ -5,13 +5,15 @@
 
 ## 直接実行が拒否されるコマンド（先に確認する）
 
-`cat` / `find` / `head` / `tail` は `settings.json` の `permissions.deny` によりBashから直接実行できない（パイプの片側に置いた場合も拒否される）。以下の代替に置き換えてから実行する。
+`cat` / `find` / `head` は `settings.json` の `permissions.deny` によりBashから直接実行できない（パイプの片側に置いた場合も拒否される）。以下の代替に置き換えてから実行する。
 
 | 拒否されるコマンド | 代替 |
 | --- | --- |
 | `cat` | `bat`、または `Read` ツール |
 | `find` | `fd`、または `Glob`/`Grep` ツール |
-| `head` / `tail` | `Read` ツールの `offset`/`limit`、または `rg`/`fd` の出力自体を絞り込む |
+| `head` | `Read` ツールの `limit` パラメータ（先頭N行はこれで完全に代替できる） |
+
+`tail` は許可されている。`Read` ツールには末尾からの取得手段がなく、代替すると行数を調べる呼び出し（`wc -l`等）が余計に必要になりトークンを消費するため、`tail -N file` をそのまま使ってよい。
 
 ## bat
 

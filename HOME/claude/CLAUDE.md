@@ -43,7 +43,7 @@
 - `rm` / `rmdir` / `rsync --delete`
 - `sudo` / `ssh` / `scp`
 
-また `cat` / `find` / `head` / `tail` もBash実行が拒否される設定なので、代わりに `Read` / `Glob` / `Grep` ツールを使う。
+また `cat` / `find` / `head` もBash実行が拒否される設定なので、代わりに `Read` / `Glob` / `Grep` ツールを使う（`head` は `Read` ツールの `limit` パラメータで代替できるため）。`tail` は許可されている（`Read` には末尾からの取得手段がなく、代替すると `wc -l` 等の追加呼び出しでトークンを余計に消費するため）。
 
 `/tmp`（`/private/tmp`含む）配下に作成した検証用ディレクトリ・ファイルの削除に限っては、`~/.claude/bin/rm-tmp` が使える（`rm` のラッパーで、対象パスが `/tmp` 配下でなければ拒否する）。それ以外のパスの削除は引き続きユーザー確認が必要。
 

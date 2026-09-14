@@ -91,13 +91,9 @@
       "mcp__context7__query-docs",
       "mcp__context7__resolve-library-id",
       "Edit(/tmp/**)",
-      "Bash(/Users/**/.claude/bin/rm-tmp:*)"
-    ],
-    "ask": [
-      "Bash(uv add *)",
+      "Bash(/Users/**/.claude/bin/rm-tmp:*)",
       "Bash(rg *)",
       "Bash(fd *)",
-      "Bash(head *)",
       "Bash(tail *)"
     ],
     "deny": [
@@ -180,7 +176,11 @@
       "Bash(telnet *)",
       "Bash(terraform apply *)",
       "Bash(unlink *)",
-      "Bash(uv remove *)"
+      "Bash(uv remove *)",
+      "Bash(head *)"
+    ],
+    "ask": [
+      "Bash(uv add *)"
     ],
     "disableBypassPermissionsMode": "disable"
   },
@@ -424,7 +424,8 @@
     "example-skills@anthropic-agent-skills": true,
     "document-skills@anthropic-agent-skills": true,
     "typescript-lsp@claude-plugins-official": false,
-    "codex@openai-codex": true
+    "codex@openai-codex": true,
+    "diagram-design@diagram-design": true
   },
   "extraKnownMarketplaces": {
     "crit": {
@@ -444,11 +445,17 @@
         "source": "github",
         "repo": "openai/codex-plugin-cc"
       }
+    },
+    "diagram-design": {
+      "source": {
+        "source": "github",
+        "repo": "cathrynlavery/diagram-design"
+      }
     }
   },
   "language": "japanese",
+  "feedbackDrafts": "off",
   "tui": "fullscreen",
   "theme": "dark",
-  "editorMode": "vim",
-  "feedbackDrafts": "off"
+  "editorMode": "vim"
 }
