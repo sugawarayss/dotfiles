@@ -188,3 +188,8 @@ function yz() {
 }
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# tirith
+if type tirith > /dev/null 2>&1; then
+  eval "$(tirith init --shell zsh)"
+fi
