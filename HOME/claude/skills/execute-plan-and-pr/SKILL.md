@@ -91,7 +91,16 @@ git merge-base <base-branch> HEAD
 
 `<base-branch>` は前提条件の確認で控えたベースブランチを使う。以降、この節で得た `<merge-base-sha>` を使う。
 
-1. `tuicr review list --repo <worktreeのパス>` でライブセッションの有無を確認する。`kind: "local"` で `anchor` が現在のブランチ、mode（sha部分の前）が `staged-and-unstaged-and-commits`、sha部分が `<merge-base-sha 7桁>..<HEAD 7桁>` のセッションがあれば、それが今回のセッション。
+`-r <merge-base-sha>..HEAD` と `-w` は常に併用しない。まだこのブランチでcommitしていない段階（`<merge-base-sha>` と `HEAD` のSHAが一致する）では `-r` のrangeが空になり起動に失敗するため、以下のいずれかを判定して使う。
+
+```bash
+git rev-parse HEAD
+```
+
+- `<merge-base-sha>` と一致する場合(commit前。working treeの変更のみが対象): `tuicr -w` を使う。
+- 一致しない場合(commit後。merge-base以降にcommitがある): `tuicr -r <merge-base-sha>..HEAD` を使う。
+
+1. `tuicr review list --repo <worktreeのパス>` でライブセッションの有無を確認する。`kind: "local"` で `anchor` が現在のブランチのセッションがあれば、それが今回のセッション。mode・sha部分は起動時にどちらの分岐を使ったかに対応する(commit前なら`-w`単体、commit後なら`-r <merge-base-sha>..HEAD`単体)。
 2. Herdr環境かどうかを判定する。
 
    ```bash
@@ -101,12 +110,15 @@ git merge-base <base-branch> HEAD
    **Herdr環境の場合（終了コード0）**: ユーザーに確認や依頼をせず、以下を実行する。長時間ブロックしうるため、Bashのtimeoutは長め（600000ms）を指定する。
 
    ```bash
-   /Users/sugawarayss/.claude/skills/tuicr/tuicr-wrapper-herdr.sh "<worktreeのパス>" -- -r <merge-base-sha>..HEAD -w
+   # commit前（<merge-base-sha> と HEAD が一致する場合）
+   /Users/sugawarayss/.claude/skills/tuicr/tuicr-wrapper-herdr.sh "<worktreeのパス>" -- -w
+   # commit後（一致しない場合）
+   /Users/sugawarayss/.claude/skills/tuicr/tuicr-wrapper-herdr.sh "<worktreeのパス>" -- -r <merge-base-sha>..HEAD
    ```
 
    このコマンドはユーザーがtuicrを `q` で閉じるまで戻ってこない。「コメントを付け終えたら教えてください」という手動の完了報告は不要（wrapperの終了自体が完了シグナルになる）。このBashツール呼び出しは、手順3の `herdr agent prompt reviewlocal --wait` と同じメッセージ内で並列に発行する。
 
-   **Herdr環境でない場合**: ユーザーに `tuicr -r <merge-base-sha>..HEAD -w` をターミナルで起動し、レビューが終わったら教えてもらうよう依頼し、完了報告を待つ。この依頼を出すのと同じメッセージ内で、手順3の `Agent` 呼び出しも発行する。
+   **Herdr環境でない場合**: ユーザーに、commit前なら `tuicr -w`、commit後なら `tuicr -r <merge-base-sha>..HEAD` をターミナルで起動し、レビューが終わったら教えてもらうよう依頼し、完了報告を待つ。この依頼を出すのと同じメッセージ内で、手順3の `Agent` 呼び出しも発行する。
 
 3. レビューエージェントの実行（review-local）
 
