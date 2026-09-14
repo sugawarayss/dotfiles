@@ -14,7 +14,7 @@ default_shell = "/opt/homebrew/bin/fish"
 # ログインシェルが起動しPATH等を自動で初期化する
 shell_mode = "auto"
 # デフォルトの動作を維持する(home|current|follow)
-new_cwd = "current"
+new_cwd = "follow"
 
 [worktrees]
 # Gitワークツリーのチェックアウトのルートディレクトリ
