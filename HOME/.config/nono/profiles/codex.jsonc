@@ -1,0 +1,85 @@
+{
+  // 公式パック(nono pull nolabs-ai/codex)を土台にする。
+  // ~/.codex・~/.agents・Keychains・codex_macos/git_config/unlink_protectionグループ・
+  // open_urls(auth.openai.com)・$NONO_CONFIG/profiles の読み取り(プロファイル自己編集用hookに
+  // 必要)・サンドボックス診断hook+skillが全てここから継承される。
+  "extends": "nolabs-ai/codex",
+  "meta": {
+    "name": "codex",
+    "description": "nolabs-ai/codexを拡張したCodex CLI用サンドボックス(claude-codeプロファイルと同じ設計方針)"
+  },
+  "binary": "codex",
+  // codex自身の内蔵サンドボックスとnonoの二重サンドボックスを避けるため、
+  // codex公式ドキュメント推奨の通り内蔵サンドボックスを無効化してnono側に一本化する。
+  "command_args": ["--sandbox", "danger-full-access", "--ask-for-approval", "on-request"],
+  // 公式パックはlaunch services経由のURL/ファイルオープンを許可するが(allow_launch_services: true)、
+  // open_urls.allow_originsだけで既にログインは解決済みなので、origin制限なしの広いオープンは
+  // 明示的に無効化しておく。
+  "allow_launch_services": false,
+  "groups": {
+    "include": []
+  },
+  "filesystem": {
+    "allow": [
+      "$HOME/.cache/mise", // miseのツール別キャッシュ。書き込みが必要
+      // npx/uvx経由のMCPサーバー(context7/playwright/github/serena/aws-knowledge)が
+      // パッケージキャッシュへの書き込みができず「connection closed: initialize response」で
+      // 起動失敗していたため追加。直接バイナリのmise/graftはこれ無しでも動いていた。
+      "$HOME/.npm",
+      "$HOME/.cache/uv",
+      "$HOME/.local/share/uv", // uvxがツールをインストールする領域(~/.cache/uvとは別)
+      "$HOME/.serena", // serena MCPサーバー自身の状態/メモリディレクトリ
+      // codex内蔵の.systemスキル一式(review-agent/skill-creator/plugin-creator/
+      // skill-installer/openai-docs/imagegen等)。codex起動時のskill登録処理が
+      // SKILL.md・agents/*.yamlをアトミック書き込み(一時ファイル作成→リネーム)で
+      // 更新するため、review-agentだけでなく.system配下全体にディレクトリ単位の
+      // 書き込みが必要。中身はskill定義(display_name/policy/手順書)のみで
+      // 秘密情報は含まない。
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/codex/skills/.system"
+    ],
+    "read": [
+      "$HOME/.local/share/mise",
+      "$HOME/.local/state/mise",
+      "$HOME/.config/mise",
+      // dotfilesリポジトリ本体。~/.codex/config.toml・AGENTS.md・agents・skills が
+      // ここへのシンボリックリンクになっているため(claude-codeプロファイルと同じ理由)。
+      "$HOME/PROJECTS/sugawarayss/dotfiles",
+      // tirith-gatewayのMCPサーバーが読む設定ファイル
+      "$HOME/.config/tirith",
+      // terminal-browserスキルの定義ファイル
+      "~/.local/share/terminal-browser/app/skills/default/terminal-browser"
+    ],
+    "deny": [
+      "$HOME/.config/gh",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.npmrc",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zshrc",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zprofile",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zsh.d",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.config/fish",
+      "**/.env",
+      "**/.env.*",
+      "**/*.pem",
+      "**/*.key",
+      "**/secrets/**",
+      "**/id_rsa",
+      "**/id_ed25519",
+      "**/*.tfstate"
+    ]
+  },
+  "command_policies": {
+    "commands": {
+      "curl": { "from": { "session": "deny" } },
+      "wget": { "from": { "session": "deny" } },
+      "nc": { "from": { "session": "deny" } },
+      "ncat": { "from": { "session": "deny" } },
+      "telnet": { "from": { "session": "deny" } },
+      "security": { "from": { "session": "deny" } },
+      "osascript": { "from": { "session": "deny" } },
+      "open": { "from": { "session": "deny" } },
+      "pbcopy": { "from": { "session": "deny" } },
+      "pbpaste": { "from": { "session": "deny" } },
+      "shred": { "from": { "session": "deny" } },
+      "mo": { "from": { "session": "deny" } }
+    }
+  }
+}

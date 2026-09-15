@@ -122,6 +122,18 @@ if type "tirith" > /dev/null 2>&1
   tirith init --prompt-status --shell fish | source
 end
 
+# nono: claude/codex を常にサンドボックス経由で起動する
+if type "nono" > /dev/null 2>&1
+  # 素のバイナリを呼びたい場合は `command claude` / `command codex` でこの関数を回避できる
+  function claude
+    nono run --profile claude --allow-cwd -- claude $argv
+  end
+
+  function codex
+    nono run --profile codex --allow-cwd -- codex $argv
+  end
+end
+
 # zoxide
 if type "zoxide" > /dev/null 2>&1
   zoxide init fish | source

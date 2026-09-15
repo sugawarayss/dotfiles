@@ -1,0 +1,116 @@
+{
+  // 公式パック(nono pull nolabs-ai/claude)を土台にする。
+  // ~/.claude・~/.claude.json[.lock]・~/.cache/claude・~/.local/state/claude/locks・
+  // /tmp/claude-$UID・Keychains・claude_code_macos/git_config/unlink_protectionグループ・
+  // open_urls(claude.ai/claude.com/api.anthropic.com/platform.claude.com)・
+  // $NONO_CONFIG/profiles の読み取り(プロファイル自己編集用hookに必要)・
+  // サンドボックス診断hook+skill(nono@nolabs-ai plugin)が全てここから継承される。
+  "extends": "nolabs-ai/claude",
+  "meta": {
+    "name": "claude",
+    "description": "nolabs-ai/claudeを拡張し、~/.claude/settings.jsonのpermissions.denyをOSカーネルレベルで補強するClaude Code用サンドボックス"
+  },
+  // ユーザー作成プロファイル限定の機能(パック/組み込みプロファイルでは無視される)。
+  // これにより `nono run --profile claude` だけで起動でき、末尾の `-- claude` が不要になる。
+  "binary": "claude",
+  // 公式パックはlaunch services経由のURL/ファイルオープンを許可するが(allow_launch_services: true)、
+  // open_urls.allow_originsだけで既にSubscriptionログインは解決済みなので、
+  // origin制限なしの広いオープンは明示的に無効化しておく。
+  "allow_launch_services": false,
+  "groups": {
+    "include": []
+  },
+  "filesystem": {
+    "allow": [
+      // miseのツール別キャッシュ(bin_paths等のmsgpackキャッシュ)。mise自身が書き込むため
+      // readwriteが必要。秘密情報は含まない。
+      "$HOME/.cache/mise",
+      // npx/uvx経由のMCPサーバーがパッケージキャッシュに書き込めず起動失敗する事例が
+      // codex側で発覚したため予防的に追加(context7/playwright/github/serena/
+      // aws-knowledge等、claudeでも同じMCPサーバーを使っている)。
+      "$HOME/.npm",
+      "$HOME/.cache/uv",
+      "$HOME/.local/share/uv", // uvxがツールをインストールする領域(~/.cache/uvとは別)
+      "$HOME/.serena", // serena MCPサーバー自身の状態/メモリディレクトリ
+      // Claude Code(Node CLI)がMCPサーバーごとに書き出すログディレクトリ。
+      "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-chrome-devtools",
+      "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-context7",
+      "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-github",
+      "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-mise",
+      "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-serena"
+    ],
+    "read": [
+      // mise管理下のツール実体(rg/fd/jq/bat/sd/gh/node/python/uv/pnpm/claude本体 等、
+      // ほぼ全てのCLIツールがここ経由)。秘密情報を含まないインストール済みバイナリなので
+      // 広く読み取りを許可する。
+      "$HOME/.local/share/mise",
+      "$HOME/.local/state/mise",
+      "$HOME/.config/mise", // シンボリックリンク自体への読み取り
+      // dotfilesリポジトリ本体。justfileの各レシピで ~/... からここへシンボリックリンク
+      // されているため、個々のリンク先を都度列挙する代わりにリポジトリ全体を読み取り許可する。
+      // 祖先ディレクトリも含めて許可しないと、nonoがシンボリックリンクを辿れず起動時に
+      // 拒否される(nono runの実測で確認済み)。下のdenyで gh / .npmrc / .zshrc / .zprofile /
+      // .zsh.d / .config/fish の実体パスを明示的に閉じることで、保護意図はそのまま維持している
+      // (macOSのSeatbeltは広いallowの中の特定パスだけdenyすることを正しく処理できる)。
+      "$HOME/PROJECTS/sugawarayss/dotfiles",
+      "~/.local/share/terminal-browser/app/skills/default/terminal-browser"
+    ],
+    "read_file": [
+      "~/.config/anthropic/active_config",
+      "~/.config/anthropic/configs/default.json",
+      "~/.local/share/terminal-browser/app/skills/default/terminal-browser/SKILL.md"
+    ],
+    "deny": [
+      "$HOME/.config/gh", // gh CLIのOAuthトークン保存先。deny_credentialsではカバーされない
+      // 上のdotfilesリポジトリ全体read許可により再露出してしまう実体パスの明示的な閉じ直し。
+      // (シンボリックリンク側は既にdeny_credentials/deny_shell_configsで保護されている)
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.npmrc",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zshrc",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zprofile",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zsh.d",
+      "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.config/fish",
+      // プロジェクト配下の秘密ファイルパターン(絶対パス接頭辞がないため$WORKDIR起点で解決される)。
+      // macOSではSeatbeltの正規表現ルールとして強制されるため、サンドボックス起動後に
+      // 作成されたファイルにも効く。
+      "**/.env",
+      "**/.env.*",
+      "**/*.pem",
+      "**/*.key",
+      "**/secrets/**",
+      "**/id_rsa",
+      "**/id_ed25519",
+      "**/*.tfstate"
+    ],
+    "suppress_save_prompt": [
+      "~/" // ホーム全体readは危険すぎるため、save-profileプロンプトだけ抑制してdenyのまま維持
+    ]
+  },
+  // ここで意図的に再現しなかったもの: git push/rebase/reset/clean、npm remove/uninstall、
+  // terraform apply、uv remove。Tool Sandboxの介入(command_policies)でこれをやろうとすると、
+  // そのコマンドのファイルシステムアクセス全体を専用の狭いサンドボックス(CommandEdgeConfigは
+  // 明示的な"sandbox"ブロックを要求する)に置き換える必要があり、通常のgit/uv/terraform操作を
+  // 壊すリスクが高い。ここはClaude Code自身のpermissions.denyに任せている
+  // (npmはどのみち継承元のdangerous_commandsグループで丸ごとブロック済み)。
+  //
+  // 同様に再現しなかったもの: cat/bat/sed/sd/head。これらはセキュリティ境界ではなく
+  // 「Read/Editツールを使ってほしい」というClaude Code側の運用上の好みに過ぎない。
+  // 実際の秘密ファイルは上のfilesystem.denyで守られているので、どのバイナリで読もうと
+  // しても失敗する。これらの極めて汎用的なユーティリティをシステム全体でブロックすると、
+  // 内部的にそれらを呼び出している無関係な他ツールまで壊しかねない。
+  "command_policies": {
+    "commands": {
+      "curl": { "from": { "session": "deny" } },
+      "wget": { "from": { "session": "deny" } },
+      "nc": { "from": { "session": "deny" } },
+      "ncat": { "from": { "session": "deny" } },
+      "telnet": { "from": { "session": "deny" } },
+      "security": { "from": { "session": "deny" } }, // macOSのキーチェーンCLI
+      "osascript": { "from": { "session": "deny" } },
+      "open": { "from": { "session": "deny" } },
+      "pbcopy": { "from": { "session": "deny" } },
+      "pbpaste": { "from": { "session": "deny" } },
+      "shred": { "from": { "session": "deny" } },
+      "mo": { "from": { "session": "deny" } }
+    }
+  }
+}

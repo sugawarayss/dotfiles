@@ -51,6 +51,11 @@ tuicr:
 herdr:
   @test -L ~/.config/herdr || ln -s {{pwd}}/HOME/.config/herdr ~/.config/herdr
 
+# nono のプロファイルディレクトリを展開
+nono:
+  @test -d ~/.config/nono || mkdir -p ~/.config/nono
+  @test -L ~/.config/nono/profiles || ln -s {{pwd}}/HOME/.config/nono/profiles ~/.config/nono/profiles
+
 # Herdr のプラグインをインストール
 herdr-plugins:
   # herdr-hunk-diff
