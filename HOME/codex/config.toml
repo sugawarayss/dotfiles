@@ -2,19 +2,19 @@ codex = "gpt-5.3-codex"
 model = "gpt-5.6-terra"
 model_reasoning_effort = "medium"
 notify = [
-  "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
-  "turn-ended",
+    "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
+    "turn-ended",
 ]
 service_tier = "default"
 
 [tui]
 status_line = [
-  "model-with-reasoning",
-  "context-remaining",
-  "current-dir",
-  "project-root",
-  "git-branch",
-  "used-tokens",
+    "model-with-reasoning",
+    "context-remaining",
+    "current-dir",
+    "project-root",
+    "git-branch",
+    "used-tokens",
 ]
 theme = "gruvbox-dark"
 vim_mode_default = true
@@ -47,6 +47,10 @@ source = "https://github.com/tomasz-tomczyk/crit.git"
 [marketplaces.openai-codex]
 source_type = "git"
 source = "https://github.com/openai/codex-plugin-cc.git"
+
+[marketplaces.diagram-design]
+source_type = "git"
+source = "https://github.com/cathrynlavery/diagram-design.git"
 
 [plugins."codex-app-tools@openai-bundled"]
 enabled = true
@@ -99,6 +103,9 @@ enabled = true
 [plugins."unified-computer-use@openai-bundled"]
 enabled = true
 
+[plugins."diagram-design@diagram-design"]
+enabled = true
+
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
@@ -116,8 +123,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.901.51231"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.901.51231/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.908.40834"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/sugawarayss/.codex/plugins/cache/openai-bundled/browser/26.908.40834/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/sugawarayss/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -130,8 +137,8 @@ enabled = false
 [mcp_servers.context7]
 command = "npx"
 args = [
-  "-y",
-  "@upstash/context7-mcp",
+    "-y",
+    "@upstash/context7-mcp",
 ]
 
 [mcp_servers.context7.env]
@@ -151,13 +158,13 @@ args = ["@playwright/mcp@latest"]
 [mcp_servers.serena]
 command = "uvx"
 args = [
-  "--from",
-  "git+https://github.com/oraios/serena",
-  "serena",
-  "start-mcp-server",
-  "--context",
-  "codex",
-  "--project-from-cwd",
+    "--from",
+    "git+https://github.com/oraios/serena",
+    "serena",
+    "start-mcp-server",
+    "--context",
+    "codex",
+    "--project-from-cwd",
 ]
 
 [mcp_servers.graft]
@@ -167,14 +174,30 @@ args = ["mcp"]
 [mcp_servers.tirith-gateway]
 command = "/Users/sugawarayss/.local/share/mise/installs/tirith/latest/tirith"
 args = [
-  "gateway",
-  "run",
-  "--upstream-bin",
-  "/Users/sugawarayss/.local/share/mise/installs/tirith/latest/tirith",
-  "--upstream-arg",
-  "mcp-server",
-  "--config",
-  "/Users/sugawarayss/.config/tirith/gateway-sha256-a4b6f7daf3fb94e7ff7f0842c3d1515f62e7f420ecd987ab110bb13b3863bb6b.yaml",
+    "gateway",
+    "run",
+    "--upstream-bin",
+    "/Users/sugawarayss/.local/share/mise/installs/tirith/latest/tirith",
+    "--upstream-arg",
+    "mcp-server",
+    "--config",
+    "/Users/sugawarayss/.config/tirith/gateway-sha256-a4b6f7daf3fb94e7ff7f0842c3d1515f62e7f420ecd987ab110bb13b3863bb6b.yaml",
+]
+
+[mcp_servers.aws-knowledge]
+command = "uvx"
+args = [
+    "fastmcp",
+    "run",
+    "https://knowledge-mcp.global.api.aws",
+]
+startup_timeout_sec = 60
+
+[mcp_servers.github]
+command = "npx"
+args = [
+    "-y",
+    "@modelcontextprotocol/server-github",
 ]
 
 [desktop]
