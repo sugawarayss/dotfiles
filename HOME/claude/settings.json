@@ -94,7 +94,9 @@
       "Bash(/Users/**/.claude/bin/rm-tmp:*)",
       "Bash(rg *)",
       "Bash(fd *)",
-      "Bash(tail *)"
+      "Bash(tail *)",
+      "Bash(cat *)",
+      "Bash(head *)"
     ],
     "deny": [
       "NotebookEdit",
@@ -144,8 +146,6 @@
       "Bash(* **/*.tfstate)",
       "Read(**/*.tfstate)",
       "Edit(**/*.tfstate)",
-      "Bash(cat *)",
-      "Bash(bat *)",
       "Bash(curl *)",
       "Bash(wget *)",
       "Bash(git push:*)",
@@ -167,8 +167,6 @@
       "Bash(rsync *)",
       "Bash(scp *)",
       "Bash(security *)",
-      "Bash(sd:*)",
-      "Bash(sed:*)",
       "Bash(shred *)",
       "Bash(ssh *)",
       "Bash(su *)",
@@ -176,8 +174,7 @@
       "Bash(telnet *)",
       "Bash(terraform apply *)",
       "Bash(unlink *)",
-      "Bash(uv remove *)",
-      "Bash(head *)"
+      "Bash(uv remove *)"
     ],
     "ask": [
       "Bash(uv add *)"
