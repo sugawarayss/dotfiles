@@ -229,6 +229,28 @@ if type "colordiff" > /dev/null 2>&1;
   abbr -a diff colordiff
 end
 
+if type "wtp" > /dev/null 2>&1;
+  # wtp で管理しているworktreeをfzf で選択して、wtp removeする
+  function wtp-rm
+    # wtp list --quiet の一覧(パスのみ・非省略)から fzf で worktree を選択し、wtp remove する
+    set -l selection (wtp list --quiet \
+      | rg -v '^@$' \
+      | fzf \
+        --height "40%" \
+        --prompt 'Remove Worktree> ' \
+        --border-label 'Worktrees' \
+        --no-preview \
+        --exact)
+
+    if test -z "$selection"
+      # 選択されなければ、何もせず終了
+      return
+    end
+
+    wtp remove "$selection"
+  end
+end
+
 if type "gh" > /dev/null 2>&1;
   # PATを使わないと、`mise outdated`等でrate limitにひっかかってしまう
   set -gx GITHUB_TOKEN (gh auth token)
