@@ -117,7 +117,9 @@ if [[ "$status" == "created" ]]; then
   prompt_sent=false
 
   if [[ -n "$pane_id" && -n "$agent_name" ]]; then
-    if start_result="$(herdr agent start "$agent_name" --kind claude --pane "$pane_id" 2>&1)"; then
+    # claude起動がnonoサンドボックス経由になっており、デフォルトの30秒では
+    # agent_not_readyになりうるため、herdr agent startの最大値(300000ms=5分)を指定する。
+    if start_result="$(herdr agent start "$agent_name" --kind claude --pane "$pane_id" --timeout 300000 2>&1)"; then
       agent_started=true
       if [[ -n "$prompt" ]]; then
         if prompt_result="$(herdr agent prompt "$pane_id" "$prompt" 2>&1)"; then
