@@ -124,13 +124,33 @@ end
 
 # nono: claude/codex を常にサンドボックス経由で起動する
 if type "nono" > /dev/null 2>&1
-  # 素のバイナリを呼びたい場合は `command claude` / `command codex` でこの関数を回避できる
+  # herdr + git worktree でnonoによる権限の制約で上手く動作しなかった対処
+  function __nono_run_for_worktree
+    set -l profile $argv[1]
+    set -l agent $argv[2]
+    set -l rest $argv[3..]
+    set -l allow_env
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1
+      set -l common_dir (git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+      if test -n "$common_dir"
+        set -l main_root (dirname $common_dir)
+        if test "$main_root" != "$PWD"
+          set allow_env NONO_ALLOW=$main_root
+        end
+      end
+    end
+    # HERDR_AGENTは、nono配下の実プロセスをherdrが正しいエージェント種別として
+    # 検出する(スクリーンマニフェスト選択)ために必要。フォアグラウンド起動時のみに
+    # 留めるため、ここでenv経由のスコープ付きで渡す(グローバルexportはしない)。
+    env $allow_env HERDR_AGENT=$agent nono run --profile $profile --allow-cwd -- $agent $rest
+  end
+
   function claude
-    nono run --profile claude --allow-cwd -- claude $argv
+    __nono_run_for_worktree claude claude $argv
   end
 
   function codex
-    nono run --profile codex --allow-cwd -- codex $argv
+    __nono_run_for_worktree codex codex --sandbox danger-full-access --ask-for-approval on-request $argv
   end
 end
 
