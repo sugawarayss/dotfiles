@@ -32,6 +32,13 @@
       "$HOME/.cache/uv",
       "$HOME/.local/share/uv", // uvxがツールをインストールする領域(~/.cache/uvとは別)
       "$HOME/.serena", // serena MCPサーバー自身の状態/メモリディレクトリ
+      // pnpmのグローバルstore(v11)。継承元パックのgroup:node_runtimeはread専用の許可しか
+      // 持たず、pnpm execがパッケージを展開する際の書き込みができず失敗する
+      // (nono whyの実測でinsufficient_accessを確認)。秘密情報は含まない。
+      "$HOME/.local/share/pnpm",
+      // semgrepの設定/ログ(settings.yml・semgrep.log)。pre-commitフックのsemgrep-pythonが
+      // 参照するが元々一切許可されていなかった(nono whyの実測でpath_not_grantedを確認)。
+      "~/.config/.semgrep",
       // gh CLI(v2.100.0)は起動時に$HOME/.config/gh配下へ新形式の設定ファイル(config.toml等)を
       // 書き込もうとするため、read権限(上のdotfiles全体read許可経由)だけでは足りずwriteも必要
       // (claude-codeプロファイル側の実測でinsufficient_accessを確認)。同ディレクトリのOAuth
@@ -63,7 +70,17 @@
       // tirith-gatewayのMCPサーバーが読む設定ファイル
       "$HOME/.config/tirith",
       // terminal-browserスキルの定義ファイル
-      "~/.local/share/terminal-browser/app/skills/default/terminal-browser"
+      "~/.local/share/terminal-browser/app/skills/default/terminal-browser",
+      // execute-plan-and-pr内で実装を担当するcodexエージェントが、グローバルCLAUDE.mdが
+      // 参照する ~/.claude/rules/*.md 等(実体はdotfiles配下、~/.claude直下からの
+      // シンボリックリンク経由)を読めない不具合の原因箇所。nono whyでのパス文字列マッチでは
+      // dotfiles全体read経由でALLOWEDと出るが、実際のファイルI/Oはシンボリックリンクの
+      // 親ディレクトリ(~/.claude自体)のトラバース権限が別途必要で、それが無いとEPERMになる
+      // (実測で確認済み)。~/.claude/agents・bin・CLAUDE.md・hook_voices・rules・
+      // settings.json・skillsは全てdotfilesへのシンボリックリンクなので、このトラバース許可
+      // だけで用が足りる。直下の実体ファイル/ディレクトリ(会話履歴やデバッグログ等)は
+      // 下のdenyで個別に閉じている。
+      "~/.claude"
     ],
     "read_file": [
       // critのグローバル設定。auth_token(crit-web共有用)を平文で含むが、
@@ -84,6 +101,39 @@
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zprofile",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zsh.d",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.config/fish",
+      // 上のread許可(~/.claude、シンボリックリンクのトラバース用)により再露出してしまう
+      // 直下の実体ファイル/ディレクトリの閉じ直し。agents/bin/CLAUDE.md/hook_voices/rules/
+      // settings.json/skills(いずれもdotfilesへのシンボリックリンク)以外は、会話履歴・
+      // デバッグログ・プロジェクト固有メモリ等の機密性が高い実体なのでcodexサンドボックスから
+      // 見せない。
+      "~/.claude/.claude.json",
+      "~/.claude/.DS_Store",
+      "~/.claude/.last-cleanup",
+      "~/.claude/backups",
+      "~/.claude/cache",
+      "~/.claude/claude-face-hook.sh",
+      "~/.claude/debug",
+      "~/.claude/downloads",
+      "~/.claude/feedback",
+      "~/.claude/file-history",
+      "~/.claude/history.jsonl",
+      "~/.claude/hooks",
+      "~/.claude/ide",
+      "~/.claude/paste-cache",
+      "~/.claude/plans",
+      "~/.claude/plugins",
+      "~/.claude/policy-limits.json",
+      "~/.claude/powerline",
+      "~/.claude/projects",
+      "~/.claude/remote-settings.json",
+      "~/.claude/scheduled-tasks",
+      "~/.claude/session-env",
+      "~/.claude/sessions",
+      "~/.claude/shell-snapshots",
+      "~/.claude/stats-cache.json",
+      "~/.claude/tasks",
+      "~/.claude/telemetry",
+      "~/.claude/tmp",
       // 以前は "**/.env.*" という広いパターンで一括denyし、.env.example/.env.sampleだけを
       // allow+bypass_protectionで例外化していたが、allow/bypass_protectionのglobは
       // サンドボックス起動時点で実在するファイルしか捕捉できない(denyの正規表現ライブ強制とは

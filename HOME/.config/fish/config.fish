@@ -150,7 +150,18 @@ if type "nono" > /dev/null 2>&1
   end
 
   function codex
-    __nono_run_for_worktree codex codex --sandbox danger-full-access --ask-for-approval on-request $argv
+    # 呼び出し元(execute-plan-and-prのherdr agent start等)が既に-s/--sandboxや
+    # -a/--ask-for-approvalを明示している場合、ここでデフォルトを追加するとcodexの
+    # clapパーサーが同一フラグの重複指定とみなし"cannot be used multiple times"で
+    # 落ちる。ユーザー引数に無い時だけデフォルトを補うことで両立させる。
+    set -l codex_defaults
+    if not contains -- -s $argv; and not contains -- --sandbox $argv
+      set -a codex_defaults --sandbox danger-full-access
+    end
+    if not contains -- -a $argv; and not contains -- --ask-for-approval $argv
+      set -a codex_defaults --ask-for-approval on-request
+    end
+    __nono_run_for_worktree codex codex $codex_defaults $argv
   end
 end
 

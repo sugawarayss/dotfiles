@@ -29,6 +29,13 @@
       "$HOME/.cache/uv",
       "$HOME/.local/share/uv", // uvxがツールをインストールする領域(~/.cache/uvとは別)
       "$HOME/.serena", // serena MCPサーバー自身の状態/メモリディレクトリ
+      // pnpmのグローバルstore(v11)。継承元パックのgroup:node_runtimeはread専用の許可しか
+      // 持たず、pnpm execがパッケージを展開する際の書き込みができず失敗する
+      // (codexプロファイル側の実測でinsufficient_accessを確認)。秘密情報は含まない。
+      "$HOME/.local/share/pnpm",
+      // semgrepの設定/ログ(settings.yml・semgrep.log)。pre-commitフックのsemgrep-pythonが
+      // 参照するが元々一切許可されていなかった(codexプロファイル側の実測でpath_not_grantedを確認)。
+      "~/.config/.semgrep",
       // gh CLI(v2.100.0)は起動時に$HOME/.config/gh配下へ新形式の設定ファイル(config.toml等)を
       // 書き込もうとするため、read権限(上のdotfiles全体read許可経由)だけでは足りずwriteも必要
       // (nono whyの実測でinsufficient_accessを確認)。同ディレクトリのOAuthトークン(hosts.yml)は
