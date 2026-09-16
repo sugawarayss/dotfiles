@@ -42,6 +42,8 @@ test "${HERDR_ENV:-}" = 1
 
 タイムアウトは2種類が独立に存在する点に注意する。`herdr agent prompt --wait --timeout` はHerdr CLIが状態変化を待つ時間の上限に過ぎず、これに達してもCodexプロセス自体はHerdrサーバー配下のペインで動き続ける（killされない）。一方、Bashツール自体の `timeout` パラメータ（デフォルト120000ms、最大600000ms）はそのシェル呼び出し（＝herdr CLIというクライアント）を打ち切る上限で、これもCodexの動作には影響しない。実装作業は10分を超えうるため、`--wait` には `--timeout` を付けず無期限待ちにし、Bashツール呼び出し側の `timeout` パラメータを最大値（600000ms）に指定する。それでもBashツールのタイムアウトでこの呼び出しが打ち切られた場合は失敗とみなさず、ステップ4-bのリトライで待ち直す。
 
+さらに `herdr agent start` 自体にも「対話可能になるまで待つ」タイムアウトがある（デフォルト30000ms、最大300000ms）。codex/claudeの起動がnonoサンドボックス経由になっており素の起動より時間がかかるため、以降のすべての `herdr agent start` 呼び出しで `--timeout 300000`（最大値）を指定する。
+
 1. 分割方向を決める。`herdr pane layout --pane "$HERDR_PANE_ID"` で現在ペインの形状を確認し、横長なら `right`、縦長/狭ければ `down` を選ぶ。
 2. 実装用ペインを分割する（cwdはworktree、フォーカスは奪わない）。
 
@@ -53,7 +55,7 @@ test "${HERDR_ENV:-}" = 1
 3. そのペインでcodexエージェントを起動する。`--` 以降はcodexのネイティブ引数。`-s workspace-write`（このworktree配下のみ書き込み許可）・`-a never`（承認プロンプトを出さず自動実行）・`--no-alt-screen`（altスクリーンを使わせず、Herdrのhost scrollbackに出力を残して後で全文を読めるようにする）は必須。
 
    ```bash
-   herdr agent start codeximpl --kind codex --pane <pane_id> -- -s workspace-write -a never -m gpt-5.6-sol --no-alt-screen
+   herdr agent start codeximpl --kind codex --pane <pane_id> --timeout 300000 -- -s workspace-write -a never -m gpt-5.6-sol --no-alt-screen
    ```
 
 4. 承認済みプランの実装指示をプロンプトとして送り、完了まで待つ。プロンプトには以下を含める: 「承認済みの実装プラン（`<プランファイルの絶対パス>`）の内容に従って実装する」「担当範囲は実装とその動作確認・テスト実行までで、commit/push/PR作成/tuicrレビュー/worktree削除は行わない」「AGENTS.md/CLAUDE.md等の規約があれば従う」「プランに無い大きな方針転換が必要な場合は実装を進めず理由を報告する」「完了したら変更ファイル一覧と実施内容の要約を報告する」。
@@ -126,7 +128,7 @@ git rev-parse HEAD
 
       ```bash
       herdr pane split --current --direction <right|down> --cwd "<worktreeの絶対パス>" --no-focus
-      herdr agent start reviewlocal --kind claude --pane <review_pane_id> -- --permission-mode bypassPermissions
+      herdr agent start reviewlocal --kind claude --pane <review_pane_id> --timeout 300000 -- --permission-mode bypassPermissions
       ```
 
       `--permission-mode bypassPermissions` はcodexの `-a never` に相当する自動承認設定。review-localは内部で `Agent` ツール（5観点のsubagent）や `Bash`（`git diff`・`tuicr review add` 等）を実行するため、これが無いと承認待ちで `blocked` になる。
@@ -157,7 +159,7 @@ git rev-parse HEAD
 
       ```bash
       herdr pane split --current --direction <right|down> --cwd "<worktreeの絶対パス>" --no-focus
-      herdr agent start codexfix --kind codex --pane <fix_pane_id> -- -s workspace-write -a never -m gpt-5.6-sol --no-alt-screen
+      herdr agent start codexfix --kind codex --pane <fix_pane_id> --timeout 300000 -- -s workspace-write -a never -m gpt-5.6-sol --no-alt-screen
       ```
 
       手順4で得た未対応コメント一覧（`scope`/`path`/`line`/`content`）をプロンプトに含め、以下を明記して送る: 「以下のtuicrレビュー指摘に対応する」「commit/push/PR作成/tuicrへの投稿は行わない（対応の記録はexecute-plan-and-prが行う）」「指摘の対応範囲を超える大きな変更が必要な場合は実装を進めず理由を報告する」「完了したら指摘ごとに1〜2文の対応内容の要約を返す」。
