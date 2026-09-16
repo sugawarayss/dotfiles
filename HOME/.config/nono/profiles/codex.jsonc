@@ -8,10 +8,13 @@
     "name": "codex",
     "description": "nolabs-ai/codexを拡張したCodex CLI用サンドボックス(claude-codeプロファイルと同じ設計方針)"
   },
-  "binary": "codex",
   // codex自身の内蔵サンドボックスとnonoの二重サンドボックスを避けるため、
   // codex公式ドキュメント推奨の通り内蔵サンドボックスを無効化してnono側に一本化する。
-  "command_args": ["--sandbox", "danger-full-access", "--ask-for-approval", "on-request"],
+  // 以前はここで"command_args"を使ってこの2フラグをnono側から自動付与していたが、
+  // nono v0.77.0で"command_args" + 末尾の"-- <program> <args>"(ユーザー引数あり)を
+  // 組み合わせると、実行時にcodex自身が"unexpected argument 'codex' found"で落ちる不具合を
+  // 実測で確認した(dry-runの表示上は正常に見えるため、実行時のみ再現する)。
+  // command_args機構自体を使わず、fish関数側でcodexへの引数として直接渡す運用に変更した。
   // 公式パックはlaunch services経由のURL/ファイルオープンを許可するが(allow_launch_services: true)、
   // open_urls.allow_originsだけで既にログインは解決済みなので、origin制限なしの広いオープンは
   // 明示的に無効化しておく。
@@ -29,6 +32,19 @@
       "$HOME/.cache/uv",
       "$HOME/.local/share/uv", // uvxがツールをインストールする領域(~/.cache/uvとは別)
       "$HOME/.serena", // serena MCPサーバー自身の状態/メモリディレクトリ
+      // gh CLI(v2.100.0)は起動時に$HOME/.config/gh配下へ新形式の設定ファイル(config.toml等)を
+      // 書き込もうとするため、read権限(上のdotfiles全体read許可経由)だけでは足りずwriteも必要
+      // (claude-codeプロファイル側の実測でinsufficient_accessを確認)。同ディレクトリのOAuth
+      // トークン(hosts.yml)は既にread許可済みなので、write追加による実質的なリスク増分は小さい。
+      "~/.config/gh",
+      // critの実行状態(plan-sessions/reviews/exports等)。~/.crit配下はdotfiles外の
+      // 実ディレクトリで、crit CLI(comment/share等)が読み書きするため必要
+      // (claude-codeプロファイル側の実測でpath_not_grantedを確認)。秘密情報は含まない。
+      "$HOME/.crit",
+      // tuicrの永続レビューセッション保存先。~/.config/tuicrはdotfilesへのシンボリックリンクで
+      // 設定ファイルのみカバーするため、実行時状態はここが別途必要
+      // (claude-codeプロファイル側の実測でpath_not_grantedを確認)。
+      "~/Library/Application Support/tuicr",
       // codex内蔵の.systemスキル一式(review-agent/skill-creator/plugin-creator/
       // skill-installer/openai-docs/imagegen等)。codex起動時のskill登録処理が
       // SKILL.md・agents/*.yamlをアトミック書き込み(一時ファイル作成→リネーム)で
@@ -49,15 +65,52 @@
       // terminal-browserスキルの定義ファイル
       "~/.local/share/terminal-browser/app/skills/default/terminal-browser"
     ],
+    "read_file": [
+      // critのグローバル設定。auth_token(crit-web共有用)を平文で含むが、
+      // crit share/crit pushは使わない運用のため許容してread許可(claude-codeプロファイル側の
+      // 実測でpath_not_grantedを確認)。crit起動のたびにこのファイルの解決が必要。
+      "~/.crit.config.json"
+    ],
+    // AF_UNIXソケットのconnect()はfilesystem.read/allowの読み取り権限だけではカバーされず、
+    // 専用の許可が必要(claude-codeプロファイル側の実測で確認済み)。herdrはCLIからherdr.sockに
+    // 接続するだけでbindはしないため、bind不要のunix_socketで足りる。
+    "unix_socket": ["~/.config/herdr/herdr.sock"],
     "deny": [
-      "$HOME/.config/gh",
+      // gh CLIの設定/トークン保存先($HOME/.config/gh)は以前ここでdenyしていたが、
+      // denyしたままだとgh自身がhosts.yml/config.ymlを読めず認証エラーになり、
+      // `gh issue view`/`gh pr view`等が失敗する(claude-codeプロファイル側で実測確認済み)ため解除した。
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.npmrc",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zshrc",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zprofile",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zsh.d",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.config/fish",
+      // 以前は "**/.env.*" という広いパターンで一括denyし、.env.example/.env.sampleだけを
+      // allow+bypass_protectionで例外化していたが、allow/bypass_protectionのglobは
+      // サンドボックス起動時点で実在するファイルしか捕捉できない(denyの正規表現ライブ強制とは
+      // 非対称)。そのため新規worktree内で新しく作られた.env.exampleがEPERMで書き込み拒否される
+      // 実測不具合が発生した(claude-codeプロファイル側の実測で確認)。対策として、広いdenyを
+      // やめ実際に秘密情報を持ちうる具体的なファイル名だけを列挙する方式に変更した
+      // (ユーザー承認済み)。.env.example/.env.sample/.env.template等はこのリストに
+      // 含まれないため、通常のプロジェクトディレクトリ権限(--allow-cwd等)でそのまま読み書きできる。
+      // 一方でリストにない独自命名の.env.<xxx>はもうdenyされない点がトレードオフ。
+      // nonoのglobは*/**のみ対応(?や(...)等の正規表現記法は非対応でパースエラーになる)ため、
+      // prod/production・stag/stagingのような省略形も個別に列挙している。
       "**/.env",
-      "**/.env.*",
+      "**/.env.local",
+      "**/.env.development",
+      "**/.env.development.local",
+      "**/.env.dev",
+      "**/.env.dev.local",
+      "**/.env.production",
+      "**/.env.production.local",
+      "**/.env.prod",
+      "**/.env.prod.local",
+      "**/.env.staging",
+      "**/.env.staging.local",
+      "**/.env.stag",
+      "**/.env.stag.local",
+      "**/.env.test",
+      "**/.env.test.local",
       "**/*.pem",
       "**/*.key",
       "**/secrets/**",

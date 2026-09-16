@@ -10,9 +10,6 @@
     "name": "claude",
     "description": "nolabs-ai/claudeを拡張し、~/.claude/settings.jsonのpermissions.denyをOSカーネルレベルで補強するClaude Code用サンドボックス"
   },
-  // ユーザー作成プロファイル限定の機能(パック/組み込みプロファイルでは無視される)。
-  // これにより `nono run --profile claude` だけで起動でき、末尾の `-- claude` が不要になる。
-  "binary": "claude",
   // 公式パックはlaunch services経由のURL/ファイルオープンを許可するが(allow_launch_services: true)、
   // open_urls.allow_originsだけで既にSubscriptionログインは解決済みなので、
   // origin制限なしの広いオープンは明示的に無効化しておく。
@@ -32,6 +29,19 @@
       "$HOME/.cache/uv",
       "$HOME/.local/share/uv", // uvxがツールをインストールする領域(~/.cache/uvとは別)
       "$HOME/.serena", // serena MCPサーバー自身の状態/メモリディレクトリ
+      // gh CLI(v2.100.0)は起動時に$HOME/.config/gh配下へ新形式の設定ファイル(config.toml等)を
+      // 書き込もうとするため、read権限(上のdotfiles全体read許可経由)だけでは足りずwriteも必要
+      // (nono whyの実測でinsufficient_accessを確認)。同ディレクトリのOAuthトークン(hosts.yml)は
+      // 既にread許可済みなので、write追加による実質的なリスク増分は小さい。
+      "~/.config/gh",
+      // critの実行状態(plan-sessions/reviews/exports等)。~/.crit配下はdotfiles外の
+      // 実ディレクトリで、crit CLI(comment/share等)が読み書きするため必要
+      // (nono whyの実測でpath_not_grantedを確認)。秘密情報は含まない。
+      "$HOME/.crit",
+      // tuicrの永続レビューセッション保存先。~/.config/tuicrはdotfilesへのシンボリックリンクで
+      // 設定ファイルのみカバーするため、実行時状態はここが別途必要
+      // (nono whyの実測でpath_not_grantedを確認)。
+      "~/Library/Application Support/tuicr",
       // Claude Code(Node CLI)がMCPサーバーごとに書き出すログディレクトリ。
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-chrome-devtools",
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-context7",
@@ -55,13 +65,26 @@
       "$HOME/PROJECTS/sugawarayss/dotfiles",
       "~/.local/share/terminal-browser/app/skills/default/terminal-browser"
     ],
+    // AF_UNIXソケットのconnect()はfilesystem.read/allowの読み取り権限だけではカバーされず、
+    // 専用の許可が必要(nono whyの実測で確認済み)。herdrはCLIからherdr.sockに接続するだけで
+    // bindはしないため、bind不要のunix_socketで足りる。
+    "unix_socket": ["~/.config/herdr/herdr.sock"],
     "read_file": [
       "~/.config/anthropic/active_config",
       "~/.config/anthropic/configs/default.json",
-      "~/.local/share/terminal-browser/app/skills/default/terminal-browser/SKILL.md"
+      "~/.local/share/terminal-browser/app/skills/default/terminal-browser/SKILL.md",
+      // critのグローバル設定。auth_token(crit-web共有用)を平文で含むが、
+      // crit share/crit pushは使わない運用のため許容してread許可(nono whyの実測で
+      // path_not_grantedを確認)。crit起動のたびにこのファイルの解決が必要。
+      "~/.crit.config.json"
     ],
     "deny": [
-      "$HOME/.config/gh", // gh CLIのOAuthトークン保存先。deny_credentialsではカバーされない
+      // gh CLIの設定/トークン保存先($HOME/.config/gh)は以前ここでdenyしていたが、
+      // denyしたままだとgh自身がhosts.yml/config.ymlを読めず認証エラーになり、
+      // `gh issue view`/`gh pr view`等が"operation not permitted"で失敗する実測を確認したため解除した。
+      // GitHub APIの参照系はGraphQL(POST /graphql)経由が多く、endpoint_policyでの
+      // method+pathベースの読み取り専用制限が技術的に機能しないため、credential proxy化は見送った。
+      //
       // 上のdotfilesリポジトリ全体read許可により再露出してしまう実体パスの明示的な閉じ直し。
       // (シンボリックリンク側は既にdeny_credentials/deny_shell_configsで保護されている)
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.npmrc",
@@ -72,8 +95,34 @@
       // プロジェクト配下の秘密ファイルパターン(絶対パス接頭辞がないため$WORKDIR起点で解決される)。
       // macOSではSeatbeltの正規表現ルールとして強制されるため、サンドボックス起動後に
       // 作成されたファイルにも効く。
+      //
+      // 以前は "**/.env.*" という広いパターンで一括denyし、.env.example/.env.sampleだけを
+      // allow+bypass_protectionで例外化していたが、allow/bypass_protectionのglobは
+      // サンドボックス起動時点で実在するファイルしか捕捉できない(denyの正規表現ライブ強制とは
+      // 非対称)。そのため新規worktree内で新しく作られた.env.exampleがEPERMで書き込み拒否される
+      // 実測不具合が発生した(nono why上はACL的にALLOWEDと出るのに実際の書き込みは拒否される)。
+      // 対策として、広いdenyをやめ実際に秘密情報を持ちうる具体的なファイル名だけを列挙する方式に
+      // 変更した(ユーザー承認済み)。.env.example/.env.sample/.env.template等はこのリストに
+      // 含まれないため、通常のプロジェクトディレクトリ権限(--allow-cwd等)でそのまま読み書きできる。
+      // 一方でリストにない独自命名の.env.<xxx>はもうdenyされない点がトレードオフ。
+      // nonoのglobは*/**のみ対応(?や(...)等の正規表現記法は非対応でパースエラーになる)ため、
+      // prod/production・stag/stagingのような省略形も個別に列挙している。
       "**/.env",
-      "**/.env.*",
+      "**/.env.local",
+      "**/.env.development",
+      "**/.env.development.local",
+      "**/.env.dev",
+      "**/.env.dev.local",
+      "**/.env.production",
+      "**/.env.production.local",
+      "**/.env.prod",
+      "**/.env.prod.local",
+      "**/.env.staging",
+      "**/.env.staging.local",
+      "**/.env.stag",
+      "**/.env.stag.local",
+      "**/.env.test",
+      "**/.env.test.local",
       "**/*.pem",
       "**/*.key",
       "**/secrets/**",
@@ -97,6 +146,14 @@
   // 実際の秘密ファイルは上のfilesystem.denyで守られているので、どのバイナリで読もうと
   // しても失敗する。これらの極めて汎用的なユーティリティをシステム全体でブロックすると、
   // 内部的にそれらを呼び出している無関係な他ツールまで壊しかねない。
+  //
+  // securityコマンド(macOS Keychain CLI)は以前ここで意図的にセッションdenyしていたが、
+  // Claude Code自体がSubscriptionログイントークンをKeychain(サービス名
+  // "Claude Code-credentials")へ保存・参照する際にこのコマンドをexecする実装のため、
+  // denyしたままだと `/login` 後もトークンを読み書きできず「not logged in」を繰り返す
+  // (nono why --command security の実測、および実行中セッションでの
+  // "security (N denied)" で確認済み)。open_urlsのorigin許可だけでログインが
+  // 完結するという当初の前提が誤りだったため解除した。
   "command_policies": {
     "commands": {
       "curl": { "from": { "session": "deny" } },
@@ -104,7 +161,6 @@
       "nc": { "from": { "session": "deny" } },
       "ncat": { "from": { "session": "deny" } },
       "telnet": { "from": { "session": "deny" } },
-      "security": { "from": { "session": "deny" } }, // macOSのキーチェーンCLI
       "osascript": { "from": { "session": "deny" } },
       "open": { "from": { "session": "deny" } },
       "pbcopy": { "from": { "session": "deny" } },
