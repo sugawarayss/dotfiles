@@ -131,6 +131,8 @@ def is_even(x: int) -> bool:
 
 #### メソッド呼び出しやインスタンスの生成時にはキーワード付き引数を使用する
 
+呼び出し時にどの引数への値の受け渡しかを読み取り易くする目的であるので、定義を変更する必要はない。
+
 ```python
 # BAD
 z: int = add(1, 2)
@@ -140,6 +142,10 @@ z: int = add(x=1, y=2)
 ```
 
 ### エラーハンドリング
+
+#### try/exceptのスコープをリファクタで後退させない
+
+パフォーマンス改善などのリファクタで、既存のtry/except境界（例: ユーザー単位）を外側（例: 組織単位）に持ち出す場合、1件の失敗がその外側の粒度全体を未捕捉例外でクラッシュさせないか確認する。エラー処理の粒度は変更前後で保つ（[[design_principles]]の「リファクタ時の注意」参照）。
 
 #### 汎用的な `Exception` ではなく、ドメイン固有の例外クラスを定義する
 
@@ -205,6 +211,41 @@ from .module import foo
 
 # GOOD
 from root.module import foo
+```
+
+#### ループ内でのN+1を避ける
+
+バッチ処理でユーザー/レコード単位のループ内から、同じ入力（組織・期間など）に対して重複するDB問い合わせや計算を行っていないか確認する。入力が同じなら計算はループの外側で1回だけ行い、辞書等でキャッシュする。
+
+```python
+# BAD
+for user in users:
+    org = db.query(Organization).get(user.org_id)  # 同じorg_idでも毎回問い合わせる
+    process(user, org)
+
+# GOOD
+org_cache: dict[int, Organization] = {}
+for user in users:
+    if user.org_id not in org_cache:
+        org_cache[user.org_id] = db.query(Organization).get(user.org_id)
+    process(user, org_cache[user.org_id])
+```
+
+#### 同じ条件に対する類似クエリは統合する
+
+同じ条件（組織・期間など）に対する複数の類似クエリ（別々のチェック関数がそれぞれ発行するもの）を1クエリに統合できないか検討する。
+
+#### 事後フィルタではなくSQL側のWHERE句で絞り込む
+
+Python側のループで事後的にフィルタしている条件は、可能な限りSQLのWHERE句に前倒しし、不要な行の転送・処理を避ける。
+
+```python
+# BAD
+records = db.query(Record).all()
+active = [r for r in records if r.status == "active"]
+
+# GOOD
+active = db.query(Record).filter(Record.status == "active").all()
 ```
 
 #### モジュールのインポートには `from x import y` を使用する
