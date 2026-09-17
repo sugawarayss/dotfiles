@@ -52,10 +52,10 @@ test "${HERDR_ENV:-}" = 1
    ```
 
    `.result.pane.pane_id` を控える（以降 `<pane_id>`）。
-3. そのペインでcodexエージェントを起動する。`--` 以降はcodexのネイティブ引数。`-s workspace-write`（このworktree配下のみ書き込み許可）・`-a never`（承認プロンプトを出さず自動実行）・`--no-alt-screen`（altスクリーンを使わせず、Herdrのhost scrollbackに出力を残して後で全文を読めるようにする）は必須。
+3. そのペインでcodexエージェントを起動する。`--` 以降はcodexのネイティブ引数。`--sandbox danger-full-access`（Codex自身のOSサンドボックスを無効化し、安全性は外側のnonoプロファイルに一本化する。`-s workspace-write`のままだと、既にnono配下でサンドボックス化されているプロセスからCodexがさらにmacOS Seatbeltのサンドボックスを重ねて適用しようとして`sandbox_apply: Operation not permitted`となり、シェルコマンドが全滅する）・`--ask-for-approval never`（承認プロンプトを出さず自動実行）・`--no-alt-screen`（altスクリーンを使わせず、Herdrのhost scrollbackに出力を残して後で全文を読めるようにする）は必須。
 
    ```bash
-   herdr agent start codeximpl --kind codex --pane <pane_id> --timeout 300000 -- -s workspace-write -a never -m gpt-5.6-sol --no-alt-screen
+   herdr agent start codeximpl --kind codex --pane <pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-5.6-sol --no-alt-screen
    ```
 
 4. 承認済みプランの実装指示をプロンプトとして送り、完了まで待つ。プロンプトには以下を含める: 「承認済みの実装プラン（`<プランファイルの絶対パス>`）の内容に従って実装する」「担当範囲は実装とその動作確認・テスト実行までで、commit/push/PR作成/tuicrレビュー/worktree削除は行わない」「AGENTS.md/CLAUDE.md等の規約があれば従う」「プランに無い大きな方針転換が必要な場合は実装を進めず理由を報告する」「完了したら変更ファイル一覧と実施内容の要約を報告する」。
@@ -159,7 +159,7 @@ git rev-parse HEAD
 
       ```bash
       herdr pane split --current --direction <right|down> --cwd "<worktreeの絶対パス>" --no-focus
-      herdr agent start codexfix --kind codex --pane <fix_pane_id> --timeout 300000 -- -s workspace-write -a never -m gpt-5.6-sol --no-alt-screen
+      herdr agent start codexfix --kind codex --pane <fix_pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-5.6-sol --no-alt-screen
       ```
 
       手順4で得た未対応コメント一覧（`scope`/`path`/`line`/`content`）をプロンプトに含め、以下を明記して送る: 「以下のtuicrレビュー指摘に対応する」「commit/push/PR作成/tuicrへの投稿は行わない（対応の記録はexecute-plan-and-prが行う）」「指摘の対応範囲を超える大きな変更が必要な場合は実装を進めず理由を報告する」「完了したら指摘ごとに1〜2文の対応内容の要約を返す」。
