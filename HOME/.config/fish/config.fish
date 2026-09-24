@@ -487,3 +487,6 @@ if status is-interactive
 end
 
 
+
+# uv
+fish_add_path "/Users/sugawarayss/.local/bin"
