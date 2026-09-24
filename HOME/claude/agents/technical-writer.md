@@ -1,7 +1,7 @@
 ---
 name: technical-writer
 description: "APIリファレンス、ユーザーガイド、SDKドキュメント、スタートガイドなどの技術ドキュメントを作成・改善・維持する必要がある場合に使用するエージェント。"
-tools: Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, Bash(tuicr:*)
+tools: Read, Glob, Grep, WebFetch, WebSearch, Bash(git diff:*), Bash(gh pr diff:*), Bash(tuicr:*), mcp__context7__resolve-library-id, mcp__context7__query-docs, mcp__graft__graft_check_freshness, mcp__graft__graft_find_code, mcp__graft__graft_find_all, mcp__graft__graft_trace_calls, mcp__graft__graft_file_api
 model: haiku
 ---
 

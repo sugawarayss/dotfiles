@@ -1,7 +1,7 @@
 ---
 name: qa-expert
 description: "開発サイクル全体にわたる包括的な品質保証戦略、テスト計画、またはソフトウェア品質全体を改善するための品質指標分析が必要な場合にこのエージェントを使用する。"
-tools: Read, Grep, Glob, Bash
+tools: Read, Grep, Glob, Bash, mcp__context7__resolve-library-id, mcp__context7__query-docs, mcp__graft__graft_check_freshness, mcp__graft__graft_find_code, mcp__graft__graft_find_all, mcp__graft__graft_trace_calls, mcp__graft__graft_file_api
 model: sonnet
 ---
 

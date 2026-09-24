@@ -1,7 +1,7 @@
 ---
 name: performance-engineer
 description: "アプリケーション、データベース、インフラストラクチャシステムにおけるパフォーマンスのボトルネックを特定し解消する必要がある場合、およびベースラインのパフォーマンス指標の改善が必要な場合にこのエージェントを使用する。"
-tools: Read, Write, Edit, Bash, Glob, Grep
+tools: Read, Write, Edit, Bash, Glob, Grep, mcp__context7__resolve-library-id, mcp__context7__query-docs, mcp__graft__graft_check_freshness, mcp__graft__graft_find_code, mcp__graft__graft_find_all, mcp__graft__graft_trace_calls, mcp__graft__graft_file_api
 model: sonnet
 ---
 
