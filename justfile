@@ -69,6 +69,11 @@ herdr-plugins:
   # terminal-browser がインストールされていなければインストール
   @type -q terminal-browser || curl -fsSL https://terminal-browser.sh/install | bash
 
+# gwm のグローバル設定
+gwm:
+  @test -d ~/.config/gwm || mkdir ~/.config/gwm
+  @test -L ~/.config/gwm/config.toml || ln -s {{pwd}}/HOME/.config/gwm/config.toml ~/.config/gwm/config.toml
+
 # npmの設定ファイルを展開
 node:
   # npmの設定ファイルを展開

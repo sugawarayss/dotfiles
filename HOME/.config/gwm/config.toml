@@ -1,0 +1,212 @@
+# gwm ユーザーレベルグローバル設定
+# 配置先: ~/.config/gwm/config.toml ($XDG_CONFIG_HOME/gwm/config.toml)
+#
+# マージ規則（リポジトリ側の .gwm.toml が優先）:
+#   - スカラー値: リポジトリ設定が全体設定を上書き
+#   - テーブル  : キーごとに再帰的にマージ
+#   - 配列     : リポジトリ側に存在すれば全体設定を置換
+#
+# 全体設定を無視したい場合は環境変数 GWM_NO_GLOBAL_CONFIG=1 を設定する。
+#
+# 未知のトップレベルキー/列挙値はロード時エラーになるため、
+# 使わないセクションはコメントのまま残しておくこと。
+
+# ── [worktree]: ワークツリーのパス・ブランチ命名規則 ──────────────
+# wtp からの置き換えを検討中のため、現時点ではgwmのデフォルトに委ねる。
+# プレースホルダー: {home} {repo} {type} {issue} {desc} {repo_path} {repo_parent}
+# [worktree]
+# base = "{home}/cc-worktree/{repo}"
+# path_pattern = "{type}-{issue}-{desc}"
+# branch_pattern = "{type}/#{issue}-{desc}"
+
+# ── [[bootstrap.copy]]: メインチェックアウト→ワークツリーへのファイルコピー ──
+# [[bootstrap.copy]]
+# from = ".env.example"
+# to = ".env"
+# required = false
+# guards = []
+# fallback = "skip" # inline | skip | abort
+
+# ── [[bootstrap.guard]]: コピーするファイル内容の正規表現チェック ──────
+# [[bootstrap.guard]]
+# name = "no-secrets"
+# deny_patterns = ["SECRET_KEY\\s*=\\s*\\S+"]
+# on_match = "abort" # abort | seed-from-example
+# example_file = ".env.example"
+
+# ── [[bootstrap.command]]: レガシーシェルフック（[[hooks.*]] 推奨） ──────
+# [[bootstrap.command]]
+# name = "install deps"
+# run = "pnpm install"
+# when = ""
+# [bootstrap.command.env]
+# NODE_ENV = "development"
+
+# ── [[hooks.*]]: ライフサイクルフック ─────────────────────────
+# 種別: pre_create / post_create / pre_bootstrap / post_bootstrap / pre_remove / post_remove
+# プレースホルダー: {branch} {path} {type} {issue} {desc} {user} {owner} {repo}
+# [[hooks.post_create]]
+# name = "herdr workspace open"
+# run = "herdr workspace open {path}"
+# when = ""
+# on_fail = "warn" # abort | warn | ignore
+# [hooks.post_create.env]
+
+# ── [git_tui]: l キーで起動するgitツール ───────────────────────
+[git_tui]
+command = "lazygit -p {path}"
+# fullscreen = true
+
+# ── [review]: レビュー起動コマンド ────────────────────────────
+# [review]
+# tool = "lumen"
+# command = ""
+# fullscreen = true
+# default_base = ""
+
+# ── [exec]: 並列実行プロファイル ──────────────────────────────
+# [exec]
+# jobs = 1
+# [exec.profiles.test]
+# command = ["pnpm", "test"]
+# jobs = 2
+# [exec.profiles.test.container]
+# image = ""
+# runtime = "" # auto-detect: docker → podman
+# extra_args = []
+# selinux_relabel = false
+
+# ── [clean]: クリーン対象ディレクトリプロファイル ───────────────────
+# デフォルトプロファイルの対象: target, node_modules, dist, build, coverage, .turbo
+# [clean.profiles.default]
+# dirs = ["node_modules", "dist", "build", "coverage", ".turbo", "target"]
+
+# ── [tui]: TUIランタイム設定 ──────────────────────────────────
+[tui]
+sidebar_position = "left"  # right | left
+# confirm_countdown_secs = 3   # 削除確認カウントダウン秒数 (0-5)
+sidebar_orientation = "side-by-side"  # stacked | side-by-side | auto
+layout = "bordered"  # compact | bordered
+# dim_unfocused = false
+# status_one_line = true
+note_vim = true
+# mux_open_in = "pane"        # pane | tab | workspace
+# mux_pane_direction = "right" # right | down | left | up
+# terminal_browser = ""
+# terminal_browser_open_in = "overlay" # overlay | detached
+# clipboard = "auto"          # auto | osc52 | tools
+# auto_refresh_secs = 60
+
+# ── [tui.macro1] / [tui.macro2]: ユーザー定義コマンド（h / H キー） ─────
+# [tui.macro1]
+# command = ""
+# open_in = "pty" # pty | mux_pane
+
+# ── [tui.keys]: キーマップ上書き ────────────────────────────────
+# 形式: action = ["chord1", "chord2"] (例: "g g", "Ctrl+x", "Space")
+# [tui.keys]
+# down = ["j", "Down"]
+# up = ["k", "Up"]
+# top = ["g g"]
+# bottom = ["G"]
+# focus_swap = ["Tab"]
+# create = ["n"]
+# delete = ["d"]
+# sync = ["s"]
+# lazygit_pty = ["l"]
+# review_pty = ["r"]
+# terminal_pty = ["t"]
+# yank_path = ["y p"]
+# yank_branch_name = ["y b"]
+# yank_worktree_name = ["y n"]
+# help = ["?"]
+# quit = ["q"]
+# command_palette = [":"]
+
+# ── [tui.keys.modal.<context>]: モーダル内キーマップ（単一キーのみ） ────
+# context例: confirm, create, help, note
+# [tui.keys.modal.confirm]
+# accept = "y"
+# cancel = "n"
+
+# ── [tui.open]: o キー等でのオープン方法 ─────────────────────────
+[tui.open]
+mode = "editor"  # shell | editor | finder
+# $SHELL をオーバーライド
+# shell_cmd = ""
+# $EDITOR をオーバーライド
+editor_cmd = "nvim"
+
+# ── [tui.agent_resume]: AIエージェントのセッション再開コマンド ─────────
+# [tui.agent_resume]
+# claude = "claude -r {session}"
+# codex = "codex resume {session}"
+# opencode = "opencode -s {session}"
+# vibe = "vibe --resume {session}"
+
+# ── [theme]: 役割ベースの配色 ────────────────────────────────
+# preset: catppuccin | gruvbox | tokyo-night | claude-dark
+# 色値形式: 色名(cyan等) | 256パレット番号(0-255) | 16進数(#RRGGBB、#RGB非対応)
+[theme]
+preset = "tokyo-night"
+# focus = "cyan"
+# accent = "cyan"
+# branch = "green"
+# clean = "green"
+# dirty = "yellow"
+# main = "yellow"
+# locked = "magenta"
+# prunable = "red"
+# muted = "dark_gray"
+# selection_bg = "dark_gray"
+# name = "white"
+# path = "gray"
+# staged = "cyan"
+# modified = "yellow"
+# untracked = "green"
+# section_bg = 236
+
+# ── [doctor]: gwm doctor のマージ先ブランチ一覧 ────────────────────
+# [doctor]
+# trunks = ["dev", "main"]
+
+# ── [gitmoji]: ブランチタイプ→絵文字マッピング ────────────────────
+# [gitmoji]
+# feat = ":sparkles:"
+# fix = ":bug:"
+# migration = ":truck:"
+
+# ── [[labels]]: GitHubラベル定義 ─────────────────────────────
+# [[labels]]
+# name = ""
+# description = ""
+# color = "" # 6桁16進(#なし)、省略時は決定論的パステル
+
+# ── [[milestones]]: GitHubマイルストーン定義 ───────────────────────
+# [[milestones]]
+# title = ""
+# description = ""
+# due_on = "" # YYYY-MM-DD または RFC3339
+# state = "open" # open | closed
+
+# ── [issue_template]: Issueフォームテンプレート ────────────────────
+# プレースホルダー: {type} {desc} {repo}
+# [issue_template]
+# default = ""
+# [issue_template.by_type.feat]
+# template = ""
+# surface = ""
+# title_prefix = ""
+# labels = []
+
+# ── [pr_template]: PR本文テンプレート ───────────────────────────
+# プレースホルダー: {type} {issue} {desc} {base} {head} {repo} {commits} {files_changed}
+# [pr_template]
+# default = ""
+# path = ""
+# body = ""
+
+# ── [aliases]: CLIエイリアス（ビルトインのシャドウ不可、シェルメタ文字不可） ─
+# [aliases]
+# wip = "create feat 0 wip"
+# ll = "list --format names"
