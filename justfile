@@ -66,6 +66,8 @@ herdr-plugins:
   herdr plugin install tomasvarga/herdr-pickr
   # herdr-sidebar
   herdr plugin install alexarthurs/herdr-sidebar
+  # gwm
+  herdr plugin install kbrdn1/herdr-plugin-gwm
   # terminal-browser がインストールされていなければインストール
   @type -q terminal-browser || curl -fsSL https://terminal-browser.sh/install | bash
 
