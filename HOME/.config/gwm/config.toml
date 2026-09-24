@@ -12,35 +12,44 @@
 # 使わないセクションはコメントのまま残しておくこと。
 
 # ── [worktree]: ワークツリーのパス・ブランチ命名規則 ──────────────
-# wtp からの置き換えを検討中のため、現時点ではgwmのデフォルトに委ねる。
 # プレースホルダー: {home} {repo} {type} {issue} {desc} {repo_path} {repo_parent}
-# [worktree]
-# base = "{home}/cc-worktree/{repo}"
+[worktree]
+base = "{repo_parent}/worktrees"
 # path_pattern = "{type}-{issue}-{desc}"
 # branch_pattern = "{type}/#{issue}-{desc}"
 
 # ── [[bootstrap.copy]]: メインチェックアウト→ワークツリーへのファイルコピー ──
-# [[bootstrap.copy]]
-# from = ".env.example"
-# to = ".env"
-# required = false
+[[bootstrap.copy]]
+# メインチェックアウト上のソースパス
+from = ".env.example"
+# ワークツリー上の相対パス
+to = ".env"
+# from が存在しない場合、中止する
+required = true
+# コピー時に適用するルール名 - [[bootstrap.guard]]で定義
 # guards = []
-# fallback = "skip" # inline | skip | abort
+# 失敗時のaction: skip=スキップ, inline=標準出力に表示, abort=中止
+fallback = "abort"  # inline | skip | abort
 
-# ── [[bootstrap.guard]]: コピーするファイル内容の正規表現チェック ──────
+[[bootstrap.copy]]
+from = "graft/"
+to = "graft/"
+required = false
+fallback = "skip"
+
+# ── [[bootstrap.guard]]: コピーするファイル内容の正規表現チェックルール ──────
 # [[bootstrap.guard]]
 # name = "no-secrets"
 # deny_patterns = ["SECRET_KEY\\s*=\\s*\\S+"]
 # on_match = "abort" # abort | seed-from-example
 # example_file = ".env.example"
 
-# ── [[bootstrap.command]]: レガシーシェルフック（[[hooks.*]] 推奨） ──────
-# [[bootstrap.command]]
-# name = "install deps"
-# run = "pnpm install"
-# when = ""
-# [bootstrap.command.env]
-# NODE_ENV = "development"
+# ── [[bootstrap.no_symlink]]: シンボリックリンクの継承を拒否 ──────
+[[bootstrap.no_symlink]]
+path = "node_modules"
+
+[[bootstrap.no_symlink]]
+path = ".venv"
 
 # ── [[hooks.*]]: ライフサイクルフック ─────────────────────────
 # 種別: pre_create / post_create / pre_bootstrap / post_bootstrap / pre_remove / post_remove
@@ -51,6 +60,25 @@
 # when = ""
 # on_fail = "warn" # abort | warn | ignore
 # [hooks.post_create.env]
+
+# ── [[hooks.post_create]]: プロジェクトセットアップ ─────────────────────────
+[[hooks.post_create]]
+name = "mise setup"
+run = "mise run setup:project"
+when = "file_exists:mise.toml"
+on_fail = "abort"
+
+[[hooks.post_create]]
+name = "uv sync"
+run = "uv sync"
+when = "file_exists:pyproject.toml"
+on_fail = "warn"
+
+# ── [[hooks.post_create]]: herdrワークスペースを開く─────────────────────────
+[[hooks.post_create]]
+name = "herdr workspace open"
+run = '''herdr worktree open --cwd "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")" --path "$(pwd)" --label "$(git branch --show-current)" --no-focus'''
+on_fail = "warn"
 
 # ── [git_tui]: l キーで起動するgitツール ───────────────────────
 [git_tui]
