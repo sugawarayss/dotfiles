@@ -143,8 +143,8 @@ return {
           fold_context = false,
           -- Change the default icons
           icons = {
-            buffer_sync_all = "󰪴 ",
-            buffer_sync_diff = " ",
+            sync_all = "󰪴 ",
+            sync_diff = " ",
             chat_context = "📎",
             chat_fold = " ",
             tool_pending = "🫥  ",
