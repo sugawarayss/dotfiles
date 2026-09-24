@@ -53,11 +53,13 @@ path = ".venv"
 
 # ── [[hooks.*]]: ライフサイクルフック ─────────────────────────
 # 種別: pre_create / post_create / pre_bootstrap / post_bootstrap / pre_remove / post_remove
-# プレースホルダー: {branch} {path} {type} {issue} {desc} {user} {owner} {repo}
-# [[hooks.post_create]]
-# name = "herdr workspace open"
-# run = "herdr workspace open {path}"
-# when = ""
+# プレースホルダ: {branch} {path} {type} {issue} {desc} {user} {owner} {repo}
+# 条件種別: file_sxists:<パス> / cmd_exists:<名称> / env_set:<名称> / env_eq:<キー>=<値> / glob_exists:<パターン>
+
+# [[hooks.<種別>]]
+# name = "hookの名称"
+# run = "実行するコマンド(プレースホルダ利用可)"
+# when = "<条件種別>:<条件値>"
 # on_fail = "warn" # abort | warn | ignore
 # [hooks.post_create.env]
 
@@ -120,7 +122,7 @@ layout = "bordered"  # compact | bordered
 note_vim = true
 # mux_open_in = "pane"        # pane | tab | workspace
 # mux_pane_direction = "right" # right | down | left | up
-# terminal_browser = ""
+terminal_browser = "terminal-browser {url}"
 # terminal_browser_open_in = "overlay" # overlay | detached
 # clipboard = "auto"          # auto | osc52 | tools
 # auto_refresh_secs = 60
