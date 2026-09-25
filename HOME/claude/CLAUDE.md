@@ -8,6 +8,7 @@
 `rules/` にはタスク固有のルールを記載する。
 
 - [design_principles.md](rules/design_principles.md) — KISS/DRY/YAGNI/SOLID/早期リターン/命名規則/PoLA。コード実装時の設計方針。
+- [document_driven_development.md](rules/document_driven_development.md) — 要求（flow）・現在の仕様（stock）・実装をIDで追跡し、判断根拠を保つための文書運用ルール。
 - [cross_project_memory.md](rules/cross_project_memory.md) — Obsidian vault (`obsidian_notes/ClaudeCode/`) へのプロジェクト横断メモリの書き出し方針。
 - [python.md](rules/python.md) — `**/*.py`に対して適用されるPythonコード実装ルール（frontmatterの `paths` でスコープ指定）。
 - [pytest_coding.md](rules/pytest_coding.md) — `tests/**/test_*.py` に対してのみ適用されるテストコード実装ルール（frontmatterの `paths` でスコープ指定）。
