@@ -17,7 +17,7 @@ model: sonnet
 
 `plan-and-review` で承認された実装プランを引き継ぎ、実装からPull Request作成・後片付けの呼び出しまでを行います。`plan-and-review` と対になるスキルで、Plan Mode承認後に呼び出される想定ですが、承認済みプランファイルが既にある状態で単独に呼び出してもかまいません。
 
-このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは扱わない。実装作業はコード変更の適用が中心のため、このスキルは `model: sonnet` で動作する。
+このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → レビュー指摘のルール化の提案 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは扱わない。実装作業はコード変更の適用が中心のため、このスキルは `model: sonnet` で動作する。
 
 Herdr環境での役割分担は次の通り。ユーザーはtuicrで差分を確認しコメントを付けるだけ、コードレビュー（review-local）と采配（tuicr起動判断・未対応コメントの抽出・codexへの指示・commit/push/PR作成の判断）はClaude（このスキル自身、およびreview-localが起動するclaude kindのherdr agent）が担い、実際のコード変更の適用（ステップ1の実装、ステップ2のレビュー指摘対応）はcodex kindのherdr agentに委譲する。`codex`・`claude` はいずれもHerdrが認識する `agent --kind` なので、`herdr agent start`/`herdr agent prompt --wait`/`herdr agent read` をこのスキルから直接呼び出し、完了検知を独自スクリプトに頼らずHerdrのagentライフサイクル管理（idle/working/blocked）に任せる（`tuicr`自体はHerdrが認識するagent kindではないため、tuicrの起動は引き続き `tuicr-wrapper-herdr.sh` の生pane方式を使う）。codexに委譲するのはコード変更の適用のみで、レビューの実施・commit・push・PR作成・後片付けの判断はこのスキル（Claude）が引き続き担う。
 `Agent(model="sonnet")` でモデルを切り替えてから実施します。
@@ -58,7 +58,7 @@ test "${HERDR_ENV:-}" = 1
    herdr agent start codeximpl --kind codex --pane <pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-5.6-sol --no-alt-screen
    ```
 
-4. 承認済みプランの実装指示をプロンプトとして送り、完了まで待つ。プロンプトには以下を含める: 「承認済みの実装プラン（`<プランファイルの絶対パス>`）の内容に従って実装する」「担当範囲は実装とその動作確認・テスト実行までで、commit/push/PR作成/tuicrレビュー/worktree削除は行わない」「AGENTS.md/CLAUDE.md等の規約があれば従う」「プランに無い大きな方針転換が必要な場合は実装を進めず理由を報告する」「完了したら変更ファイル一覧と実施内容の要約を報告する」。
+4. 承認済みプランの実装指示をプロンプトとして送り、完了まで待つ。プロンプトには以下を含める: 「承認済みの実装プラン（`<プランファイルの絶対パス>`）の内容に従って実装する」「担当範囲は実装とその動作確認・テスト実行までで、commit/push/PR作成/tuicrレビュー/worktree削除は行わない」「AGENTS.md/CLAUDE.md等の規約があれば従う」「プランに無い大きな方針転換が必要な場合は実装を進めず理由を報告する」「報告前にAGENTS.mdの『提出前セルフレビュー』を実施し、見つけた問題は直してから報告する」「完了したら変更ファイル一覧と実施内容の要約を報告する」。
 
    ```bash
    herdr agent prompt codeximpl "<実装指示プロンプト>" --wait
@@ -162,7 +162,7 @@ git rev-parse HEAD
       herdr agent start codexfix --kind codex --pane <fix_pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-5.6-sol --no-alt-screen
       ```
 
-      手順4で得た未対応コメント一覧（`scope`/`path`/`line`/`content`）をプロンプトに含め、以下を明記して送る: 「以下のtuicrレビュー指摘に対応する」「commit/push/PR作成/tuicrへの投稿は行わない（対応の記録はexecute-plan-and-prが行う）」「指摘の対応範囲を超える大きな変更が必要な場合は実装を進めず理由を報告する」「完了したら指摘ごとに1〜2文の対応内容の要約を返す」。
+      手順4で得た未対応コメント一覧（`scope`/`path`/`line`/`content`）をプロンプトに含め、以下を明記して送る: 「以下のtuicrレビュー指摘に対応する」「commit/push/PR作成/tuicrへの投稿は行わない（対応の記録はexecute-plan-and-prが行う）」「指摘の対応範囲を超える大きな変更が必要な場合は実装を進めず理由を報告する」「報告前にAGENTS.mdの『提出前セルフレビュー』を実施し、指摘と同種の問題が他の箇所に残っていないかも確認する」「完了したら指摘ごとに1〜2文の対応内容の要約を返す」。
 
       ```bash
       herdr agent prompt codexfix "<未対応コメント一覧＋指示>" --wait
@@ -209,6 +209,14 @@ gh pr create --base <base-branch> --title "<title>" --body "<body>"
 ```
 
 1. 作成されたPRのURLをユーザーに報告する。
+
+## ステップ5-b: レビュー指摘のルール化の提案
+
+ステップ2のレビューで1件以上の指摘に対応した場合は、PRのURL報告と同じメッセージで「今回のレビュー指摘を `review-lessons` で横断ルールに反映しますか？」とユーザーに確認する。指摘が0件だった場合はこのステップを省略する。
+
+承認された場合は `Skill` ツールで `review-lessons` を呼び出す。引数には今回のリポジトリに絞るための `--key-prefix <owner>/<repo>@` を渡す（`<owner>/<repo>` は `gh repo view --json nameWithOwner -q .nameWithOwner` で取得する）。候補の取捨選択とルールファイルへの書き込み前の確認は `review-lessons` 側で行われるため、ここで重ねて確認しない。
+
+指摘を横断ルールへ反映せずに次のタスクへ進むと、codexが同じ指摘を繰り返してレビューの往復が増えるため、このステップはPR作成直後（指摘の記憶が新しいうち）に行う。
 
 ## ステップ6: マージ後の後片付け
 
