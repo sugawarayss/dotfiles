@@ -64,6 +64,9 @@
       "$HOME/.local/share/mise",
       "$HOME/.local/state/mise",
       "$HOME/.config/mise",
+      // gwmのグローバル設定(シンボリックリンクの親ディレクトリのトラバースに必要。
+      // claude-codeプロファイル側の実測で確認済み)。
+      "$HOME/.config/gwm",
       // dotfilesリポジトリ本体。~/.codex/config.toml・AGENTS.md・agents・skills が
       // ここへのシンボリックリンクになっているため(claude-codeプロファイルと同じ理由)。
       "$HOME/PROJECTS/sugawarayss/dotfiles",

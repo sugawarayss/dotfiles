@@ -49,6 +49,9 @@
       // 設定ファイルのみカバーするため、実行時状態はここが別途必要
       // (nono whyの実測でpath_not_grantedを確認)。
       "~/Library/Application Support/tuicr",
+      // gwmの操作履歴(history.toml、gwm remove等の破壊的操作を記録)。秘密情報は含まない
+      // (nono whyの実測でpath_not_grantedを確認)。
+      "$HOME/.local/share/gwm",
       // Claude Code(Node CLI)がMCPサーバーごとに書き出すログディレクトリ。
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-chrome-devtools",
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-context7",
@@ -63,6 +66,11 @@
       "$HOME/.local/share/mise",
       "$HOME/.local/state/mise",
       "$HOME/.config/mise", // シンボリックリンク自体への読み取り
+      // gwmのグローバル設定(config.tomlはdotfilesへのシンボリックリンク)。リンク先はdotfiles全体
+      // read許可でALLOWEDと出るが、親ディレクトリ~/.config/gwmのトラバース権限が無いと
+      // 実際の読み込みがEPERMになり、gwmがグローバル設定無し(worktree.base=~/cc-worktree等の
+      // デフォルト値)で動いてしまう(実測で確認済み)。
+      "$HOME/.config/gwm",
       // dotfilesリポジトリ本体。justfileの各レシピで ~/... からここへシンボリックリンク
       // されているため、個々のリンク先を都度列挙する代わりにリポジトリ全体を読み取り許可する。
       // 祖先ディレクトリも含めて許可しないと、nonoがシンボリックリンクを辿れず起動時に
