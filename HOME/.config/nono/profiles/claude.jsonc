@@ -22,6 +22,10 @@
       // miseのツール別キャッシュ(bin_paths等のmsgpackキャッシュ)。mise自身が書き込むため
       // readwriteが必要。秘密情報は含まない。
       "$HOME/.cache/mise",
+      // miseのtrust状態(trusted-configs/)。miseは未trustの新規worktreeのmise.tomlを自動trustする際に
+      // ここへシンボリックリンクを作るため、read専用だとgwmのpost_createフック(mise run setup:project)が
+      // "failed to ln -sf ... Operation not permitted"で失敗し、後続のherdr openまで中断される(実測で確認済み)。
+      "$HOME/.local/state/mise",
       // npx/uvx経由のMCPサーバーがパッケージキャッシュに書き込めず起動失敗する事例が
       // codex側で発覚したため予防的に追加(context7/playwright/github/serena/
       // aws-knowledge等、claudeでも同じMCPサーバーを使っている)。
@@ -64,7 +68,6 @@
       // ほぼ全てのCLIツールがここ経由)。秘密情報を含まないインストール済みバイナリなので
       // 広く読み取りを許可する。
       "$HOME/.local/share/mise",
-      "$HOME/.local/state/mise",
       "$HOME/.config/mise", // シンボリックリンク自体への読み取り
       // gwmのグローバル設定(config.tomlはdotfilesへのシンボリックリンク)。リンク先はdotfiles全体
       // read許可でALLOWEDと出るが、親ディレクトリ~/.config/gwmのトラバース権限が無いと

@@ -25,6 +25,9 @@
   "filesystem": {
     "allow": [
       "$HOME/.cache/mise", // miseのツール別キャッシュ。書き込みが必要
+      // miseのtrust状態。未trustのmise.tomlを自動trustする際に書き込みが必要
+      // (claude-codeプロファイル側の実測で確認済み)。
+      "$HOME/.local/state/mise",
       // npx/uvx経由のMCPサーバー(context7/playwright/github/serena/aws-knowledge)が
       // パッケージキャッシュへの書き込みができず「connection closed: initialize response」で
       // 起動失敗していたため追加。直接バイナリのmise/graftはこれ無しでも動いていた。
@@ -62,7 +65,6 @@
     ],
     "read": [
       "$HOME/.local/share/mise",
-      "$HOME/.local/state/mise",
       "$HOME/.config/mise",
       // gwmのグローバル設定(シンボリックリンクの親ディレクトリのトラバースに必要。
       // claude-codeプロファイル側の実測で確認済み)。
