@@ -129,20 +129,25 @@ if type "nono" > /dev/null 2>&1
     set -l profile $argv[1]
     set -l agent $argv[2]
     set -l rest $argv[3..]
-    set -l allow_env
+    set -l allow_args
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1
       set -l common_dir (git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
       if test -n "$common_dir"
         set -l main_root (dirname $common_dir)
         if test "$main_root" != "$PWD"
-          set allow_env NONO_ALLOW=$main_root
+          set -a allow_args --allow $main_root
         end
+        # gwmのworktree作成先(~/.config/gwm/config.tomlの worktree.base = "{repo_parent}/worktrees")。
+        # --allow-cwdだけではメインリポジトリの外側になり gwm create がEPERMで失敗するため許可する。
+        set -l worktree_base (dirname $main_root)/worktrees
+        mkdir -p $worktree_base
+        set -a allow_args --allow $worktree_base
       end
     end
     # HERDR_AGENTは、nono配下の実プロセスをherdrが正しいエージェント種別として
     # 検出する(スクリーンマニフェスト選択)ために必要。フォアグラウンド起動時のみに
     # 留めるため、ここでenv経由のスコープ付きで渡す(グローバルexportはしない)。
-    env $allow_env HERDR_AGENT=$agent nono run --profile $profile --allow-cwd -- $agent $rest
+    env HERDR_AGENT=$agent nono run --profile $profile --allow-cwd $allow_args -- $agent $rest
   end
 
   function claude
