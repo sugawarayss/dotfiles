@@ -21,23 +21,20 @@ base = "{repo_parent}/{repo}/.worktrees"
 # branch_pattern = "{type}/#{issue}-{desc}"
 
 # ── [[bootstrap.copy]]: メインチェックアウト→ワークツリーへのファイルコピー ──
-[[bootstrap.copy]]
-# メインチェックアウト上のソースパス
-from = ".env.example"
-# ワークツリー上の相対パス
-to = ".env"
-# from が存在しない場合、中止する
-required = true
-# コピー時に適用するルール名 - [[bootstrap.guard]]で定義
-# guards = []
-# 失敗時のaction: skip=スキップ, inline=標準出力に表示, abort=中止
-fallback = "abort"  # inline | skip | abort
-
-[[bootstrap.copy]]
-from = "graft/"
-to = "graft/"
-required = false
-fallback = "skip"
+# .env.example -> .env のコピーはここでは行わない。nonoサンドボックスが**/.envへの書き込みを
+# denyしており、サンドボックス内のgwm createでは必ずEPERMになるため。代わりに start-worktree スキルの
+# scripts/worktree-setup.sh が、サンドボックス外のherdrペインで.envを作成する。
+# [[bootstrap.copy]]
+# # メインチェックアウト上のソースパス
+# from = ".env.example"
+# # ワークツリー上の相対パス
+# to = ".env"
+# # from が存在しない場合、中止する
+# required = true
+# # コピー時に適用するルール名 - [[bootstrap.guard]]で定義
+# # guards = []
+# # 失敗時のaction: skip=スキップ, inline=標準出力に表示, abort=中止
+# fallback = "abort"  # inline | skip | abort
 
 # ── [[bootstrap.guard]]: コピーするファイル内容の正規表現チェックルール ──────
 # [[bootstrap.guard]]
@@ -66,15 +63,18 @@ path = ".venv"
 # [hooks.post_create.env]
 
 # ── [[hooks.post_create]]: プロジェクトセットアップ ─────────────────────────
+# nonoサンドボックス内(NONO_CAP_FILEが設定される)では.envを作れずセットアップが失敗し、
+# on_fail=abortで後続のherdr openまで中断されるためスキップする。その場合は start-worktree スキルの
+# scripts/worktree-setup.sh がサンドボックス外のherdrペインで同じ処理を行う。
 [[hooks.post_create]]
 name = "mise setup"
-run = "mise run setup:project"
+run = 'test -n "$NONO_CAP_FILE" || mise run setup:project'
 when = "file_exists:mise.toml"
 on_fail = "abort"
 
 [[hooks.post_create]]
 name = "uv sync"
-run = "uv sync"
+run = 'test -n "$NONO_CAP_FILE" || uv sync'
 when = "file_exists:pyproject.toml"
 on_fail = "warn"
 
