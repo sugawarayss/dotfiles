@@ -14,7 +14,9 @@
 # ── [worktree]: ワークツリーのパス・ブランチ命名規則 ──────────────
 # プレースホルダー: {home} {repo} {type} {issue} {desc} {repo_path} {repo_parent}
 [worktree]
-base = "{repo_parent}/worktrees"
+# nonoサンドボックス(--allow-cwd)の書き込み範囲内に収めるため、メインリポジトリ直下に作成する。
+# .worktrees/ はglobal gitignore(~/.config/git/ignore)で除外している。
+base = "{repo_parent}/{repo}/.worktrees"
 # path_pattern = "{type}-{issue}-{desc}"
 # branch_pattern = "{type}/#{issue}-{desc}"
 

@@ -137,11 +137,6 @@ if type "nono" > /dev/null 2>&1
         if test "$main_root" != "$PWD"
           set -a allow_args --allow $main_root
         end
-        # gwmのworktree作成先(~/.config/gwm/config.tomlの worktree.base = "{repo_parent}/worktrees")。
-        # --allow-cwdだけではメインリポジトリの外側になり gwm create がEPERMで失敗するため許可する。
-        set -l worktree_base (dirname $main_root)/worktrees
-        mkdir -p $worktree_base
-        set -a allow_args --allow $worktree_base
       end
     end
     # HERDR_AGENTは、nono配下の実プロセスをherdrが正しいエージェント種別として
