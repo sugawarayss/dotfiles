@@ -422,7 +422,8 @@
     "document-skills@anthropic-agent-skills": true,
     "typescript-lsp@claude-plugins-official": false,
     "codex@openai-codex": true,
-    "diagram-design@diagram-design": true
+    "diagram-design@diagram-design": true,
+    "whiteboard@devfast": true
   },
   "extraKnownMarketplaces": {
     "crit": {
@@ -447,6 +448,12 @@
       "source": {
         "source": "github",
         "repo": "cathrynlavery/diagram-design"
+      }
+    },
+    "devfast": {
+      "source": {
+        "source": "github",
+        "repo": "devdotfast/whiteboard"
       }
     }
   },
