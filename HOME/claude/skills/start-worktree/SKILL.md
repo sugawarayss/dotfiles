@@ -15,7 +15,6 @@ model: haiku
 
 GitHub issue または ClickUp タスクを起点に、gwm + herdr のworktreeワークフロー（Obsidian vault `ClaudeCode/Knowledge/gwm-usage-reference`）を開始します。
 このスキルの責務は **worktreeの作成とherdrワークスペースを開くところまで**。完了後は `plan-and-review` スキルに引き継ぎ、実装プランの検討からPull Request作成までを担当してもらう。
-`Agent(model="haiku")` でモデルを切り替えてから実施します。
 
 ## 前提条件の確認
 
@@ -86,9 +85,10 @@ base branchの同期・既存worktreeの確認・`gwm create`によるworktree�
 2. `gwm list --format json` で既存worktreeの有無を確認する。存在すれば再利用（`status=reused`）、無ければ`gwm create`で新規作成する（`status=created`）。GitHub issue系はまずtype無しで`gwm create --issue`を試し、失敗した場合のみ`<extra>`のtypeを付けてリトライする。
 3. `origin_pane_id` が `-` でなければ、対象worktreeのgit管理ディレクトリに `gwm-herdr-origin-pane-id` ファイルを書き込む（`origin_pane_id_recorded`）。
 4. `.gwm.toml`の`[[hooks.post_create]]`が`gwm create`実行中に自動でherdrワークスペースを開くため、このスクリプト自身はherdrを開かず、`herdr workspace list`→`herdr pane list --workspace <id>`で既に開かれているworkspace/paneを発見する（`workspace_id` / `pane_id`）。
-5. `status=created` の場合のみ、`pane_id` が取れていれば対象ペインでclaudeを起動し、プロンプトを送信する（`status=reused` の場合は行わない＝既存worktreeを再利用した場合は新規ペイン起動をスキップするという境界を、スクリプト側で担保している）。
+5. `status=created` の場合のみ、`pane_id` が取れていれば対象ペインで `scripts/worktree-setup.sh`（`.env.example`→`.env`の作成と `mise run setup:project`/`uv sync`）を `herdr pane run` で実行させる（`setup_sent`）。nonoサンドボックスが`**/.env`への書き込みをdenyしているため、サンドボックス外で動くherdrペインのシェルに任せている（gwmのpost_createフック側のセットアップはサンドボックス内ではスキップされる）。
+6. 続けて同じペインでclaudeを起動し、プロンプトを送信する（`status=reused` の場合は行わない＝既存worktreeを再利用した場合は新規ペイン起動をスキップするという境界を、スクリプト側で担保している）。
 
-標準出力は `status=` `worktree_path=` `worktree_name=` `origin_pane_id_recorded=` `herdr=` `workspace_id=` `pane_id=` `agent_started=` `prompt_sent=` の key=value 行（失敗時は `error=` 行）。この出力だけを読めば以降の報告に必要な情報が揃う。`gwm create` 自体が完全に失敗した場合はスクリプトが exit 1 で終了するので、エラー内容をそのままユーザーに伝える。`herdr=unavailable`かつ`error=`に`gwm bootstrap`を促す内容が出ている場合は、post_createフックの途中（例: mise setupなど別のフック）が失敗しherdr連携まで到達しなかった可能性がある旨も併せて伝える。
+標準出力は `status=` `worktree_path=` `worktree_name=` `origin_pane_id_recorded=` `herdr=` `workspace_id=` `pane_id=` `setup_sent=` `agent_started=` `prompt_sent=` の key=value 行（失敗時は `error=` 行）。この出力だけを読めば以降の報告に必要な情報が揃う。`gwm create` 自体が完全に失敗した場合はスクリプトが exit 1 で終了するので、エラー内容をそのままユーザーに伝える。`herdr=unavailable`かつ`error=`に`gwm bootstrap`を促す内容が出ている場合は、post_createフックの途中（例: mise setupなど別のフック）が失敗しherdr連携まで到達しなかった可能性がある旨も併せて伝える。
 
 ## ステップ9: 報告
 

@@ -42,6 +42,7 @@ Usage: gwm-herdr-start.sh <source_type> <ref> <extra> <origin_pane_id|-> [<agent
   herdr=ok|unavailable
   workspace_id=<id>          (herdr=ok のときのみ)
   pane_id=<id>                (herdr=ok かつpane情報が取得できたときのみ)
+  setup_sent=true|false       (status=created のときのみ出力。worktree-setup.sh をペインに送信できたか)
   agent_started=true|false    (status=created のときのみ出力)
   prompt_sent=true|false      (status=created のときのみ出力)
   error=<メッセージ>          (該当する失敗があれば追加で出力。致命的な失敗は exit 1)
@@ -231,8 +232,21 @@ else
 fi
 
 if [[ "$status" == "created" ]]; then
+  setup_sent=false
   agent_started=false
   prompt_sent=false
+
+  # .env作成とプロジェクトのセットアップは、nonoサンドボックス外で動くherdrペインのシェルに任せる
+  # (理由はworktree-setup.shの冒頭コメント参照)。ペインのシェルは入力を順に処理するため、
+  # 直後のherdr agent startによるclaude起動はセットアップ完了後になる。
+  if [[ -n "$pane_id" ]]; then
+    setup_script="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/worktree-setup.sh"
+    if setup_result="$(herdr pane run "$pane_id" "$setup_script" 2>&1)"; then
+      setup_sent=true
+    else
+      echo "error=herdr pane run (worktree-setup.sh) failed: $setup_result"
+    fi
+  fi
 
   if [[ -n "$pane_id" && -n "$agent_name" ]]; then
     # claude起動がnonoサンドボックス経由になっており、デフォルトの30秒では
@@ -251,6 +265,7 @@ if [[ "$status" == "created" ]]; then
     fi
   fi
 
+  echo "setup_sent=$setup_sent"
   echo "agent_started=$agent_started"
   echo "prompt_sent=$prompt_sent"
 fi
