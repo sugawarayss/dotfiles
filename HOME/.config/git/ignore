@@ -113,6 +113,9 @@ slumber.yaml
 .wtp.yml
 .wtp.yaml
 
+# gwm - git worktree 管理ツール(worktree.base = "{repo_parent}/{repo}/.worktrees")
+.worktrees/
+
 # graft
 graft/
 .ignore
