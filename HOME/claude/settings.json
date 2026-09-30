@@ -198,7 +198,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay ~/.claude/hook_voices/002_InstructionLoaded.wav"
+            "command": "\"$HOME\"/.claude/bin/speak-notify.sh クロード \"$HOME\"/.claude/hook_voices/002_InstructionLoaded.wav"
           }
         ]
       }
@@ -209,20 +209,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay ~/.claude/hook_voices/001_Notification.wav"
+            "command": "\"$HOME\"/.claude/bin/speak-notify.sh クロード \"$HOME\"/.claude/hook_voices/001_Notification.wav"
           }
         ]
       }
     ],
     "PermissionRequest": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/003_PermissionRequest.wav"
-          }
-        ]
-      },
       {
         "matcher": "*",
         "hooks": [
@@ -235,24 +227,6 @@
       }
     ],
     "PostToolUse": [
-      {
-        "matcher": "Read",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/006_PostToolUse_Read.wav"
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "afplay ~/.claude/hook_voices/007_PostToolUse_Write.wav"
-          }
-        ]
-      },
       {
         "matcher": "*",
         "hooks": [
@@ -270,7 +244,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay ~/.claude/hook_voices/004_PreToolUse_MCP.wav"
+            "command": "\"$HOME\"/.claude/bin/speak-notify.sh クロード \"$HOME\"/.claude/hook_voices/004_PreToolUse_MCP.wav"
           }
         ]
       },
@@ -311,7 +285,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay ~/.claude/hook_voices/009_Stop.wav"
+            "command": "\"$HOME\"/.claude/bin/speak-notify.sh クロード \"$HOME\"/.claude/hook_voices/009_Stop.wav"
           }
         ]
       },
@@ -330,7 +304,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay ~/.claude/hook_voices/008_SubagentStart.wav"
+            "command": "\"$HOME\"/.claude/bin/speak-notify.sh クロード \"$HOME\"/.claude/hook_voices/008_SubagentStart.wav"
           }
         ]
       },
