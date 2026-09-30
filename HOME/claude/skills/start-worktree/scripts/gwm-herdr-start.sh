@@ -81,6 +81,22 @@ find_by_name() {
   gwm list --format json 2>/dev/null | jq -c --arg t "$1" '[.[] | select(.name == $t or .branch == $t)] | first // empty'
 }
 
+# ペインのシェルがプロンプトに戻る (フォアグラウンドのプロセスグループがシェル自身になる) まで待つ。
+# herdr agent start は実行中のコマンドがあると --timeout を待たず agent_pane_busy で即失敗するため。
+# herdr pane run 直後はまだコマンドが始まっておらずidleに見えるので、判定前に必ず一度待つ。
+PANE_IDLE_TIMEOUT_SEC=600
+wait_pane_idle() {
+  local pane="$1" deadline=$((SECONDS + PANE_IDLE_TIMEOUT_SEC))
+  while (( SECONDS < deadline )); do
+    sleep 2
+    if herdr pane process-info --pane "$pane" 2>/dev/null \
+       | jq -e '.result.process_info | .foreground_process_group_id == .shell_pid' >/dev/null; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 # --- base branch決定 + 同期 -------------------------------------------------
 if [[ "$source_type" == "issue" && "$extra" == "hotfix" ]]; then
   base="$(git -C "$repo_root" symbolic-ref refs/remotes/origin/HEAD --short 2>/dev/null | sed 's#^origin/##')"
@@ -237,8 +253,8 @@ if [[ "$status" == "created" ]]; then
   prompt_sent=false
 
   # .env作成とプロジェクトのセットアップは、nonoサンドボックス外で動くherdrペインのシェルに任せる
-  # (理由はworktree-setup.shの冒頭コメント参照)。ペインのシェルは入力を順に処理するため、
-  # 直後のherdr agent startによるclaude起動はセットアップ完了後になる。
+  # (理由はworktree-setup.shの冒頭コメント参照)。セットアップ実行中はペインがbusyになるため、
+  # herdr agent startの前にwait_pane_idleで完了を待つ。
   if [[ -n "$pane_id" ]]; then
     setup_script="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/worktree-setup.sh"
     if setup_result="$(herdr pane run "$pane_id" "$setup_script" 2>&1)"; then
@@ -248,7 +264,9 @@ if [[ "$status" == "created" ]]; then
     fi
   fi
 
-  if [[ -n "$pane_id" && -n "$agent_name" ]]; then
+  if [[ -n "$pane_id" && -n "$agent_name" ]] && ! wait_pane_idle "$pane_id"; then
+    echo "error=ペイン${pane_id}が${PANE_IDLE_TIMEOUT_SEC}秒以内にシェルプロンプトへ戻らなかったため、herdr agent startをスキップしました"
+  elif [[ -n "$pane_id" && -n "$agent_name" ]]; then
     # claude起動がnonoサンドボックス経由になっており、デフォルトの30秒では
     # agent_not_readyになりうるため、herdr agent startの最大値(300000ms=5分)を指定する。
     if start_result="$(herdr agent start "$agent_name" --kind claude --pane "$pane_id" --timeout 300000 2>&1)"; then
