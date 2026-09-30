@@ -16,3 +16,5 @@ HOME/.config/lazygit/github_pull_requests.json
 /HOME/claude/skills/.system
 /HOME/claude/bin
 /HOME/claude/skills/synced
+/HOME/.config/herdr/herdr.sock.agent
+/HOME/.config/herdr/session-snapshots
