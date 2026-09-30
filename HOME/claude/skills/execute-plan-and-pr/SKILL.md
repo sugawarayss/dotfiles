@@ -19,7 +19,7 @@ model: sonnet
 
 このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → レビュー指摘のルール化の提案 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは扱わない。実装作業はコード変更の適用が中心のため、このスキルは `model: sonnet` で動作する。
 
-Herdr環境での役割分担は次の通り。ユーザーはtuicrで差分を確認しコメントを付けるだけ、コードレビュー（review-local）と采配（tuicr起動判断・未対応コメントの抽出・codexへの指示・commit/push/PR作成の判断）はClaude（このスキル自身、およびreview-localが起動するclaude kindのherdr agent）が担い、実際のコード変更の適用（ステップ1の実装、ステップ2のレビュー指摘対応）はcodex kindのherdr agentに委譲する。`codex`・`claude` はいずれもHerdrが認識する `agent --kind` なので、`herdr agent start`/`herdr agent prompt --wait`/`herdr agent read` をこのスキルから直接呼び出し、完了検知を独自スクリプトに頼らずHerdrのagentライフサイクル管理（idle/working/blocked）に任せる（`tuicr`自体はHerdrが認識するagent kindではないため、tuicrの起動は引き続き `tuicr-wrapper-herdr.sh` の生pane方式を使う）。codexに委譲するのはコード変更の適用のみで、レビューの実施・commit・push・PR作成・後片付けの判断はこのスキル（Claude）が引き続き担う。
+Herdr環境での役割分担は次の通り。ユーザーはtuicrで差分を確認しコメントを付けるだけ、コードレビュー（review-local）と采配（tuicr起動判断・未対応コメント件数の確認・codexへの指示と結果の検証・commit/push/PR作成の判断）はClaude（このスキル自身、およびreview-localが起動するclaude kindのherdr agent）が担い、実際のコード変更の適用（ステップ1の実装、ステップ2のレビュー指摘対応。後者は未対応コメントの取得と「対応」コメントの投稿を含む）はcodex kindのherdr agentに委譲する。`codex`・`claude` はいずれもHerdrが認識する `agent --kind` なので、`herdr agent start`/`herdr agent prompt --wait`/`herdr agent read` をこのスキルから直接呼び出し、完了検知を独自スクリプトに頼らずHerdrのagentライフサイクル管理（idle/working/blocked）に任せる（`tuicr`自体はHerdrが認識するagent kindではないため、tuicrの起動は引き続き `tuicr-wrapper-herdr.sh` の生pane方式を使う）。codexに委譲するのはコード変更の適用（とそれに伴うtuicrへの対応記録）のみで、レビューの実施・commit・push・PR作成・後片付けの判断はこのスキル（Claude）が引き続き担う。
 
 ## 前提条件の確認
 
@@ -151,36 +151,50 @@ git rev-parse HEAD
    ```
 
    出力は未対応スレッドのJSON配列（各要素: `scope`(`review`/`file`/`line`) / `path` / `line` / `author` / `lifecycle_state` / `content`）。
-5. 出力が空配列であれば、「新規コメントはありませんでしたが、これで進めてよいですか？」とユーザーに確認する。承認が得られれば次のステップ（commit）へ進む。
-6. 出力に要素があれば、Herdr環境かどうかで対応方法を分ける。
 
-   **Herdr環境の場合**: 修正をcodexのherdr agentに委譲する。ペイン分割・agent起動・タイムアウト処理・`blocked` 時の対応はステップ1の該当手順と同様に行う（agent名は `codeximpl` とは別に `codexfix` を使う。ステップ1のペインは既に閉じているため名前は独立でよい）。
+   **Herdr環境の場合**は、コメント本文の取得と対応はcodexfix（手順6）が自分で行うため、Claude側では件数だけを確認する（本文をClaudeのコンテキストに載せない）。
+
+   ```bash
+   /Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/tuicr-pending-comments.sh <session_json_path> execute-plan-and-pr | jq length
+   ```
+
+   **Herdr環境でない場合**は、このセッション自身が指摘に対応するため、パイプせずJSON配列全体を取得する。
+5. 件数が0（空配列）であれば、「新規コメントはありませんでしたが、これで進めてよいですか？」とユーザーに確認する。承認が得られれば次のステップ（commit）へ進む。
+6. 件数が1以上であれば、Herdr環境かどうかで対応方法を分ける。
+
+   **Herdr環境の場合**: 未対応コメントの取得・修正・「対応」コメントの投稿まで、まとめてcodexのherdr agentに委譲する（対応内容を一番よく知っているcodex自身が投稿することで、Claudeが要約を言い換える際の情報の欠落と、コメント一覧・対応要約をClaudeのコンテキストに載せるトークン消費を避ける）。ペイン分割・agent起動・タイムアウト処理・`blocked` 時の対応はステップ1の該当手順と同様に行う（agent名は `codeximpl` とは別に `codexfix` を使う。ステップ1のペインは既に閉じているため名前は独立でよい）。
 
       ```bash
       herdr pane split --current --direction <right|down> --cwd "<worktreeの絶対パス>" --no-focus
       herdr agent start codexfix --kind codex --pane <fix_pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-6-sol --no-alt-screen
       ```
 
-      手順4で得た未対応コメント一覧（`scope`/`path`/`line`/`content`）をプロンプトに含め、以下を明記して送る: 「以下のtuicrレビュー指摘に対応する」「commit/push/PR作成/tuicrへの投稿は行わない（対応の記録はexecute-plan-and-prが行う）」「指摘の対応範囲を超える大きな変更が必要な場合は実装を進めず理由を報告する」「報告前にAGENTS.mdの『提出前セルフレビュー』を実施し、指摘と同種の問題が他の箇所に残っていないかも確認する」「完了したら指摘ごとに1〜2文の対応内容の要約を返す」。
+      コメント本文はプロンプトに含めず、取得に必要な情報（セッションJSONの絶対パス・セッションslug・worktreeの絶対パス）と下記のコマンドテンプレートを渡す（codexはClaude側の `tuicr` スキルを読めないため、`tuicr review add` の書式はプロンプトに直接含める）。プロンプトには以下を明記する: 「まず `tuicr-pending-comments.sh <session_json_path> execute-plan-and-pr` を実行して未対応のtuicrレビュー指摘を取得し、それぞれに対応する」「1件の修正が終わるごとに、そのスレッドに下記テンプレートで『対応: <1〜2文の対応内容>』を投稿する。`--username` は必ず `execute-plan-and-pr` にする（スレッド末尾のauthorがこの名前であることで対応済みと判定されるため）」「対応しなかった指摘（対応範囲を超える大きな変更が必要なもの等）には何も投稿せず、実装も進めない」「未対応一覧に無いスレッドへの投稿、commit/push/PR作成は行わない」「投稿前にAGENTS.mdの『提出前セルフレビュー』を実施し、指摘と同種の問題が他の箇所に残っていないかも確認する」「最終メッセージは、対応件数と、対応しなかった指摘それぞれの場所と理由だけにする（指摘ごとの対応内容はtuicrに投稿済みなので繰り返さない）」。
 
       ```bash
-      herdr agent prompt codexfix "<未対応コメント一覧＋指示>" --wait
-      ```
-
-      完了後は `herdr agent read codexfix --source recent-unwrapped --lines 300` で対応要約を読み、`herdr pane close <fix_pane_id>` でペインを閉じる。`git status --short` で実際に変更が加わったことを確認する。指摘の対応範囲を超える方針転換が必要だとcodexfixが報告している場合は、ステップ1の手順7と同様、その内容をそのままユーザーに提示して方針を確認する（Claude自身の判断で方針転換を代行しない）。
-
-      codexfixの対応要約をもとに、指摘ごとに以下の形式で `tuicr review add` を実行する（この投稿はexecute-plan-and-pr自身が行う。tuicrには返信機能が無いため新規コメントで代替する。これによりそのスレッドの末尾authorが `execute-plan-and-pr` になり、次回の手順4では対応済みとして除外される）。
-
-      ```bash
+      # 未対応指摘の取得（出力: scope/path/line/author/lifecycle_state/content のJSON配列）
+      /Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/tuicr-pending-comments.sh <session_json_path> execute-plan-and-pr
       # scope=line の場合
-      tuicr review add --session '<slug>' --repo <path> --target-file <path> --line <line> --username 'execute-plan-and-pr' "対応: <codexfixの要約>"
+      tuicr review add --session '<slug>' --repo <worktreeのパス> --target-file <path> --line <line> --username 'execute-plan-and-pr' "対応: <対応内容>"
       # scope=file の場合（--line を省略）
-      tuicr review add --session '<slug>' --repo <path> --target-file <path> --username 'execute-plan-and-pr' "対応: <codexfixの要約>"
+      tuicr review add --session '<slug>' --repo <worktreeのパス> --target-file <path> --username 'execute-plan-and-pr' "対応: <対応内容>"
       # scope=review の場合（--target-file を省略）
-      tuicr review add --session '<slug>' --repo <path> --username 'execute-plan-and-pr' "対応: <codexfixの要約>"
+      tuicr review add --session '<slug>' --repo <worktreeのパス> --username 'execute-plan-and-pr' "対応: <対応内容>"
       ```
 
-   **Herdr環境でない場合**: 従来通りこのセッション自身が該当ファイルを修正し、同様の形式で `tuicr review add --username 'execute-plan-and-pr'` を実行して対応内容を記録する。
+      tuicrには返信機能が無いため、「対応」は新規コメントで代替している。これによりそのスレッドの末尾authorが `execute-plan-and-pr` になり、次回の手順4では対応済みとして除外される。
+
+      ```bash
+      herdr agent prompt codexfix "<取得情報＋コマンドテンプレート＋指示>" --wait
+      ```
+
+      完了後は `herdr agent read codexfix --source recent-unwrapped --lines 80` で最終メッセージを読み、`herdr pane close <fix_pane_id>` でペインを閉じる。その後、以下の2点を確認する。
+      - `git status --short` で実際に変更が加わったこと。
+      - 手順4と同じ `tuicr-pending-comments.sh ... | jq length` の結果が、codexfixが報告した「対応しなかった指摘」の件数と一致すること。一致しない場合（投稿漏れ・`--username` の誤り等）は、パイプせずに再実行して残っているスレッドを確認し、codexfixに対応要約が残っていればそれをもとにこのセッションが `tuicr review add --username 'execute-plan-and-pr'` で補う。
+
+      codexfixが対応しなかった指摘（指摘の対応範囲を超える方針転換が必要なもの等）がある場合は、ステップ1の手順7と同様、その場所と理由をそのままユーザーに提示して方針を確認する（Claude自身の判断で方針転換を代行しない）。
+
+   **Herdr環境でない場合**: 従来通りこのセッション自身が該当ファイルを修正し、上記と同じ形式で `tuicr review add --username 'execute-plan-and-pr'` を実行して対応内容を記録する。
 
 7. 修正が終わったら、手順2に戻って再度tuicrを起動し、最新の差分をユーザーに確認してもらう（手順3のreview-local呼び出しも同様に行われる）。手順5でユーザーが承認するまで繰り返す。
 
@@ -229,7 +243,7 @@ worktree・ブランチの実削除前の確認は `cleanup-worktree` 側のス�
 - `git push --force` やコミット履歴の書き換え（rebase, amendなど）は行わない。
 - 実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは行わない。
 - worktree自体の作成・削除、herdrワークスペースの管理は `start-worktree` / `cleanup-worktree` スキルの責務であり、実際の削除処理はステップ6で `cleanup-worktree` に委譲する。
-- Herdr環境でCodexに委譲するのはコード変更の適用のみ（ステップ1の実装、ステップ2手順6のレビュー指摘対応）。tuicrの起動判断・review-localの起動・未対応コメントの抽出・commit・push案内・PR作成・後片付けの呼び出しの判断はこのスキル（Claude）が行い、Codexには渡さない。
-- コードレビュー（review-local）はHerdr環境では別ペインのclaude kind herdr agentに、非Herdr環境では内製の`Agent`ツールに委譲する。レビュー結果の解釈・修正要否の判断・tuicrへの「対応」コメント投稿はこのスキル（Claude）自身が行い、review-localやcodexに行わせない。
+- Herdr環境でCodexに委譲するのは、コード変更の適用（ステップ1の実装、ステップ2手順6のレビュー指摘対応）と、手順6での未対応コメントの取得・「対応」コメントの投稿のみ。tuicrの起動判断・review-localの起動・未対応件数の確認と投稿結果の検証・commit・push案内・PR作成・後片付けの呼び出しの判断はこのスキル（Claude）が行い、Codexには渡さない。
+- コードレビュー（review-local）はHerdr環境では別ペインのclaude kind herdr agentに、非Herdr環境では内製の`Agent`ツールに委譲する。修正へ進むかどうかの判断と、codexfixが対応しなかった指摘の扱いはこのスキル（Claude）自身が行う。review-localには「対応」コメントを投稿させない。
 - ユーザーの役割はtuicrでの差分確認とコメント追加のみ。tuicrの起動・停止・レビュー指摘への対応はこのスキルとcodex/review-localのagentが行い、ユーザーに追加の操作を求めない（tuicr起動をユーザーに依頼する非Herdr環境を除く）。
 - Codexにプランへの方針転換・レビュー指摘の対応範囲を超える大きな変更を無断で行わせない。プランに無い方針転換や指摘対応の範囲を超える変更が必要になった場合、Codexには作業を止めて理由を報告するよう指示しており、Claude側もその報告を検証なしにそのまま続行の判断に使わない（必ずユーザーに確認する）。
