@@ -5,12 +5,15 @@ description: >
   5観点で専門subagentに分析を並列委譲してコードレビューを行います（review-pr と同じ観点構成をローカルdiff向けに適用）。
   ユーザーが「ローカルの変更をレビューして」「この diff をチェックして」「マージ前にレビューして」「review-local」「/review-local」と入力した場合に使用します。
   complexity-review（差分の過剰設計検出）・audit-review（リポジトリ全体の過剰設計監査）を補完する立ち位置です。
-allowed-tools: Agent Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git rev-list:*) Bash(git diff:*) Bash(tuicr:*) Bash(herdr:*) Read Grep Glob mcp__context7__* mcp__*
+argument-hint: "[ベースブランチ] [--session <tuicrセッションslug>]"
+allowed-tools: Agent Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git rev-list:*) Bash(git diff:*) Bash(tuicr:*) Bash(herdr:*) Bash(jq:*) Bash(/Users/sugawarayss/.claude/skills/review-local/scripts/tuicr-review-threads.sh:*) Read Grep Glob mcp__context7__* mcp__*
 ---
 
 ベースブランチとの diff を取得し、品質・セキュリティ・パフォーマンス・テスト・ドキュメントの5観点で専門subagentに分析を並列委譲してレビューします。各subagentは発見事項（行番号・タグ・問題点・修正案）をJSONで返すだけにし、tuicrへのインラインコメント投稿はメインエージェントが**1回のBash呼び出しでまとめて**行います（subagentが1件ずつ投稿すると、投稿のたびに全コンテキストを再読込してトークンを大量に消費するため）。
 
 `execute-plan-and-pr` など他スキルから呼び出され、`<merge-base-sha>` と `--repo` に使う値（worktreeの絶対パス）が既に渡されている場合は、以下の「ベースブランチの決定」「Diffの対象範囲を決める（merge-base）」の自前の検出・計算は行わず、渡された値をそのまま使う（呼び出し元が起動した同一tuicrセッションを再利用するため）。「tuicrセッションを用意する」以降はそのまま実行する。
+
+tuicrセッションのslug（`--session <slug>`）が引数で渡された場合は、そのセッションに既に付いているレビューのやり取り（review-localの過去の指摘、修正側の「対応:」「見送り:」、ユーザーのコメント）を踏まえてレビューする（後述「過去のやり取りの取得」）。投稿先もそのセッションになる。渡されなかった場合は過去のやり取りを参照せず、従来どおり新規の指摘だけを行う。
 
 ## ベースブランチの決定
 
@@ -38,6 +41,8 @@ git rev-list --count <merge-base-sha>..<base>
 0件より多ければ、最後のスコア報告で「baseからN件遅れているのでrebase推奨」と一言添える（差分レビュー自体には混ぜない）。
 
 ## tuicrセッションを用意する
+
+`--session <slug>` が渡された場合は、この節の「セッションの有無を確認」「Herdr環境の場合」「Herdr環境でない場合」を行わず、渡されたslugをそのまま `<slug>` として使う（「`--repo` に使う値を確定する」だけは行う）。
 
 分析と並行してユーザーがdiffを眺められるよう、分析より前に対象range（`<merge-base-sha>..HEAD` を `-w` 付き）のtuicrライブセッションを用意し `slug` を確保しておく。`review-pr` スキルと同じ「TUIは人間、専用サブコマンドはエージェント」という設計に従い、tuicrの対話TUI自体（Herdr環境で開く新規ペインを除く）は自分では操作しない。
 
@@ -88,6 +93,33 @@ tuicrにはセッション内容をJSONで取り出すコマンドが無いた�
 git diff <merge-base-sha>
 ```
 
+## 過去のやり取りの取得（`--session` 指定時のみ）
+
+`--session` が渡されていなければこの節は飛ばす。
+
+セッションJSONの `path` を取得し、付属スクリプトで指摘単位のやり取りに整理する（tuicrは同じ行のスレッドに独立した複数の指摘を積むため、生JSONやスレッド単位ではなく、このスクリプトで指摘単位に分割したものを使う）。
+
+```bash
+tuicr review list --repo '<repo>' | jq -r --arg s '<slug>' '.[] | select(.slug == $s) | .path'
+/Users/sugawarayss/.claude/skills/review-local/scripts/tuicr-review-threads.sh <session_json_path>
+```
+
+出力は指摘のJSON配列（各要素: `scope` / `path` / `line`（返信時に使うスレッドキー。範囲コメントでは終了行） / `tag` / `status` / `can_reply` / `messages`）。`status` と各subagentに求める扱いは次の通り。
+
+| `status` | 意味 | 扱い |
+|---|---|---|
+| `addressed` | 修正側が「対応:」と返答 | 修正が実際にdiffに入っているか、`同種の箇所` も含めて直っているかを確認する。不十分な場合だけ `再指摘:` で返信する |
+| `declined` | 修正側が理由付きで「見送り:」と返答 | 理由を検討し、納得できない場合だけ `反論:` で返信する。納得できれば何も返さない（投稿しないことが了承の意思表示になる） |
+| `skipped_low` | 「2周目以降の重要度低」の定型文で見送り | 蒸し返さない |
+| `pending` | review-localの指摘に修正側がまだ応答していない | 既出として扱い、同じ内容を再投稿しない |
+| `user` | 最後の発言がユーザー | ユーザーの判断・要望として最優先の前提にし、それに反する指摘をしない。返信もしない |
+
+- 返信（`再指摘:`/`反論:`）は重要度 `中` 以上に限る（`低` を議論しても収束を遅らせるだけのため）。
+- `can_reply: false` の指摘（1つの指摘につきreview-localは既に1回再指摘・反論済み）には返信しない。それでも納得できない場合は `disputed` として返させ、メインエージェントが最後にユーザーへ判断を委ねる（エージェント同士の往復が収束しなくなるのを防ぐため）。
+- どの状態の指摘とも同じ内容の新規指摘は出さない。
+
+各subagentには、`tag` で自分の担当観点に該当する指摘だけを渡す（品質: `BUG`/`EDGE`/`ERR`/`RISK`/`INCONSISTENT`、セキュリティ: `SEC`、パフォーマンス: `PERF`、テスト: `TEST`、ドキュメント: `DOC`）。`tag` が `null`（ユーザー起点のコメント）は全subagentに前提として渡す。
+
 ## 技術スタックの把握
 
 変更されたファイルの拡張子・ディレクトリ構造・設定ファイル（package.json, Cargo.toml, go.mod, pyproject.toml, Gemfile, pom.xml, build.gradle 等）から、使用されている言語・フレームワーク・ライブラリを特定すること。特定した技術スタックに応じて、次のステップの各観点で注目すべきポイントを適切に調整すること。
@@ -100,6 +132,7 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 - 把握した技術スタックと、そのスタック固有のベストプラクティス・落とし穴に注目してほしい旨
 - 下表の担当観点とその着眼点（他観点は別agentが担当するので扱わないこと）
 - 出力フォーマット: 指摘をJSON配列で返すこと。各要素は `file`（リポジトリルートからの相対パス）・`line`（new-side行番号）・`end_line`（範囲指定時のみ）・`body`（下記「タグ」を先頭に付けた `<タグ> [重要度: 高|中|低] <何が問題か>. <修正案>. 同種の箇所: <path:line, ...>` 形式の本文。重要度は下記「重要度」の基準で付ける）を持つ。指摘が無ければ `[]` を返すこと
+- （`--session` 指定時のみ）担当観点に該当する過去のやり取り（前節の出力のうち該当要素）と、前節の表・箇条書きの扱い。既存の指摘への返信は、同じJSON配列に `reply_to: {scope, path, line}`（前節の出力の値をそのまま）を付けた要素として返させる。`body` は `再指摘: [重要度: 高|中] <何が不十分か>. <修正案>.` または `反論: [重要度: 高|中] <見送り理由に納得できない根拠>. <修正案>.` とする（`file`/`line` は不要。修正側は未対応判定でスレッド末尾の本文しか受け取らないため、元の指摘の要点を1文含めて単体で読めるようにする）。`can_reply: false` の指摘に納得できない場合は、`reply_to` の代わりに `disputed: {scope, path, line}` を付け、`body` に論点を1〜2文で書かせる
 - 同種の箇所の網羅（下記「同種の箇所の洗い出し」）。同じ問題が複数箇所にある場合は、箇所ごとに別の指摘に分けず、代表箇所1件の指摘にまとめて残りを `同種の箇所:` に列挙させる
 - 探索範囲の制約（トークン消費を抑えるため必ず守らせる）:
   - diff取得は冒頭の1回だけにする。読むのは変更ファイルと、変更箇所の直接の呼び出し元・呼び出し先に限る（リポジトリ全体の横断検索や、関連の薄い仕様書を全文読むことはしない）
@@ -165,16 +198,25 @@ tuicr review add --session '<slug>' --repo '<repo>' --target-file api.py --line 
 
 `<repo>` は前段で確定した値をそのまま使う（`.` に固定しないこと）。
 
+`reply_to` 付きの要素（既存の指摘への返信）も同じBash呼び出しにまとめて投稿する。tuicrにはスレッド返信専用のコマンドが無いが、同じ位置に `add` すると同じスレッドに積まれる。`scope` に応じて、`line` なら `--target-file <path> --line <line>`（`--end-line` は付けない）、`file` なら `--target-file <path>` だけ、`review` なら両方とも省略する。返信の最後の発言者はreview-localになるので、修正側（`execute-plan-and-pr`）の未対応判定に再び拾われ、修正側が再度応答する。
+
+```bash
+tuicr review add --session '<slug>' --repo '<repo>' --target-file src/auth.go --line 42 --username 'review-local' '再指摘: [重要度: 高] ガード節は追加されたが同種の箇所 src/admin/users.go:120 が未修正. 同じガード節を追加.'
+```
+
+`disputed` 付きの要素は投稿せず、スコア報告でユーザーに渡す。
+
 投稿するとライブセッションに即座に反映される（再起動不要）。crit方式のような「Finish Review待ち」の処理は行わない。
 
 ## スコア
 
-投稿できた件数を数え、`net: <N>件をtuicrにコメントとして投稿。` で締めくくる。
-合算が0件の場合はコメントを投稿せず、チャットで `LGTM` と伝えるだけにする（review-localでは個別指摘のインラインコメントのみを扱い、review-prのようなPR概要相当の全体コメントは投稿しない）。
+投稿できた件数を数え、`net: <N>件をtuicrにコメントとして投稿。` で締めくくる（`--session` 指定時は `net: 新規<N>件・返信<M>件をtuicrにコメントとして投稿。` とする）。
+`disputed` が1件以上あれば、続けて `意見が割れた指摘: <K>件` と、各件の `path:line` と論点を1行ずつ列挙し、ユーザーにtuicrのそのスレッドで判断をコメントするよう依頼する。
+新規・返信・`disputed` がいずれも0件の場合はコメントを投稿せず、チャットで `LGTM` と伝えるだけにする（review-localでは個別指摘のインラインコメントのみを扱い、review-prのようなPR概要相当の全体コメントは投稿しない）。
 baseからの遅れが1件以上あれば、続けて `baseからN件遅れています。rebase推奨。` と一言添える。
 
 ## 境界
 
 過剰設計や複雑性は complexity-review / audit-review の対象であり、ここでは扱わない。
-指摘はコメント投稿のみで、修正の適用・返信・解決（resolve）は行わない。1回限りの実行。
+指摘はコメント投稿のみで、修正の適用・解決（resolve）は行わない。返信は `--session` 指定時に、`再指摘:`/`反論:` を1つの指摘につき1回まで行うだけにする（「対応:」「見送り:」の投稿は修正側の役割）。1回限りの実行。
 「stop review-local」または「normal mode」と言われたら中断し、通常のレビュースタイルに戻る。
