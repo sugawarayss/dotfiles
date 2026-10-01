@@ -26,7 +26,7 @@ claude-code:
   @test -L ~/.claude/agents || ln -s {{pwd}}/HOME/claude/agents ~/.claude/agents
   @test -L ~/.claude/rules || ln -s {{pwd}}/HOME/claude/rules ~/.claude/rules
   @test -L ~/.claude/hook_voices || ln -s {{pwd}}/HOME/claude/hook_voices ~/.claude/hook_voices
-  @test -L ~/.cluade/bin || ln -s {{pwd}}/HOME/claude/bin ~/.claude/bin
+  @test -L ~/.claude/bin || ln -s {{pwd}}/HOME/claude/bin ~/.claude/bin
 
 # cluade用MCPサーバを設定
 claude-mcp:
@@ -50,6 +50,8 @@ tuicr:
 # herdr の設定ファイルを展開
 herdr:
   @test -L ~/.config/herdr || ln -s {{pwd}}/HOME/.config/herdr ~/.config/herdr
+  herdr integration install claude
+  herdr integration install codex
 
 # nono のプロファイルディレクトリを展開
 nono:
