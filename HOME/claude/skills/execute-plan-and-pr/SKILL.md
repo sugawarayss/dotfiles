@@ -10,7 +10,7 @@ description: >
   既存のworktreeで承認済みのプランファイルがある状態で
   「実装を進めて」「execute-plan-and-pr」「/execute-plan-and-pr」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [プランファイルのパス]"
-allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git symbolic-ref:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(tuicr:*) Bash(herdr:*) Bash(jq:*) Bash(/Users/sugawarayss/.claude/skills/tuicr/tuicr-wrapper-herdr.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/tuicr-pending-comments.sh:*) Read
+allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git symbolic-ref:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(tuicr:*) Bash(herdr:*) Bash(jq:*) Bash(/Users/sugawarayss/.claude/skills/tuicr/tuicr-wrapper-herdr.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/tuicr-pending-comments.sh:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-turn-wait.sh:*) Read
 user-invocable: true
 model: sonnet
 ---
@@ -19,7 +19,7 @@ model: sonnet
 
 このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → レビュー指摘のルール化の提案 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは扱わない。実装作業はコード変更の適用が中心のため、このスキルは `model: sonnet` で動作する。
 
-Herdr環境での役割分担は次の通り。ユーザーはtuicrで差分を確認しコメントを付けるだけ、コードレビュー（review-local）と采配（tuicr起動判断・未対応コメント件数の確認・codexへの指示と結果の検証・commit/push/PR作成の判断）はClaude（このスキル自身、およびreview-localが起動するclaude kindのherdr agent）が担い、実際のコード変更の適用（ステップ1の実装、ステップ2のレビュー指摘対応。後者は未対応コメントの取得と「対応」コメントの投稿を含む）はcodex kindのherdr agentに委譲する。`codex`・`claude` はいずれもHerdrが認識する `agent --kind` なので、`herdr agent start`/`herdr agent prompt --wait`/`herdr agent read` をこのスキルから直接呼び出し、完了検知を独自スクリプトに頼らずHerdrのagentライフサイクル管理（idle/working/blocked）に任せる（`tuicr`自体はHerdrが認識するagent kindではないため、tuicrの起動は引き続き `tuicr-wrapper-herdr.sh` の生pane方式を使う）。codexに委譲するのはコード変更の適用（とそれに伴うtuicrへの対応記録）のみで、レビューの実施・commit・push・PR作成・後片付けの判断はこのスキル（Claude）が引き続き担う。
+Herdr環境での役割分担は次の通り。ユーザーはtuicrで差分を確認しコメントを付けるだけ、コードレビュー（review-local）と采配（tuicr起動判断・未対応コメント件数の確認・codexへの指示と結果の検証・commit/push/PR作成の判断）はClaude（このスキル自身、およびreview-localが起動するclaude kindのherdr agent）が担い、実際のコード変更の適用（ステップ1の実装、ステップ2のレビュー指摘対応。後者は未対応コメントの取得と「対応」コメントの投稿を含む）はcodex kindのherdr agentに委譲する。`codex`・`claude` はいずれもHerdrが認識する `agent --kind` なので、`herdr agent start`/`herdr agent read` をこのスキルから直接呼び出す。完了検知は、claudeはHerdrのagentライフサイクル管理（`herdr agent prompt --wait` のidle/working/blocked）に任せ、codexは `scripts/codex-turn-wait.sh`（後述）で行う（`tuicr`自体はHerdrが認識するagent kindではないため、tuicrの起動は引き続き `tuicr-wrapper-herdr.sh` の生pane方式を使う）。codexに委譲するのはコード変更の適用（とそれに伴うtuicrへの対応記録）のみで、レビューの実施・commit・push・PR作成・後片付けの判断はこのスキル（Claude）が引き続き担う。
 
 ## 前提条件の確認
 
@@ -37,9 +37,9 @@ Herdr環境かどうかを判定する。
 test "${HERDR_ENV:-}" = 1
 ```
 
-**Herdr環境の場合（終了コード0）**: 実装作業をherdrの別ペインでCodexエージェントに委譲する。`codex` はHerdrが認識する `agent --kind` の一つなので、生ペイン＋自前の完了検知スクリプトではなく `herdr agent` コマンド列を直接呼ぶ（`herdr agent prompt --wait` がidle/blocked遷移を検知するため、完了トークンの自作は不要）。
+**Herdr環境の場合（終了コード0）**: 実装作業をherdrの別ペインでCodexエージェントに委譲する。`codex` はHerdrが認識する `agent --kind` の一つなので、生ペインではなく `herdr agent` コマンド列を直接呼ぶ。ただし完了検知に `herdr agent prompt --wait` は使わない。herdr 0.9.2以降、codexの状態は画面ヒューリスティックのみで判定され、応答後も `unknown` のまま `--wait` がタイムアウトする（herdrのドキュメントに明記された仕様）。代わりに `scripts/codex-turn-wait.sh` でプロンプトを送り、codex自身のrolloutログ（`~/.codex/sessions/**/rollout-*-<session_id>.jsonl`）に書かれる `task_complete`/`turn_aborted` でターン終了を検知する（`blocked` のみherdrの状態を使う）。出力の最終行は `status=done`（終了コード0）/`status=blocked`（2）/`status=aborted`（3）。
 
-タイムアウトは2種類が独立に存在する点に注意する。`herdr agent prompt --wait --timeout` はHerdr CLIが状態変化を待つ時間の上限に過ぎず、これに達してもCodexプロセス自体はHerdrサーバー配下のペインで動き続ける（killされない）。一方、Bashツール自体の `timeout` パラメータ（デフォルト120000ms、最大600000ms）はそのシェル呼び出し（＝herdr CLIというクライアント）を打ち切る上限で、これもCodexの動作には影響しない。実装作業は10分を超えうるため、`--wait` には `--timeout` を付けず無期限待ちにし、Bashツール呼び出し側の `timeout` パラメータを最大値（600000ms）に指定する。それでもBashツールのタイムアウトでこの呼び出しが打ち切られた場合は失敗とみなさず、ステップ4-bのリトライで待ち直す。
+`codex-turn-wait.sh` 自体にはタイムアウトが無く、ターン終了まで待ち続ける。Bashツール自体の `timeout` パラメータ（デフォルト120000ms、最大600000ms）はそのシェル呼び出しを打ち切る上限に過ぎず、Codexプロセス自体はHerdrサーバー配下のペインで動き続ける（killされない）。実装作業は10分を超えうるため、Bashツール呼び出し側の `timeout` パラメータを最大値（600000ms）に指定する。それでもBashツールのタイムアウトでこの呼び出しが打ち切られた場合は失敗とみなさず、ステップ4-bのリトライで待ち直す。
 
 さらに `herdr agent start` 自体にも「対話可能になるまで待つ」タイムアウトがある（デフォルト30000ms、最大300000ms）。codex/claudeの起動がnonoサンドボックス経由になっており素の起動より時間がかかるため、以降のすべての `herdr agent start` 呼び出しで `--timeout 300000`（最大値）を指定する。
 
@@ -51,24 +51,25 @@ test "${HERDR_ENV:-}" = 1
    ```
 
    `.result.pane.pane_id` を控える（以降 `<pane_id>`）。
-3. そのペインでcodexエージェントを起動する。`--` 以降はcodexのネイティブ引数。`--sandbox danger-full-access`（Codex自身のOSサンドボックスを無効化し、安全性は外側のnonoプロファイルに一本化する。`-s workspace-write`のままだと、既にnono配下でサンドボックス化されているプロセスからCodexがさらにmacOS Seatbeltのサンドボックスを重ねて適用しようとして`sandbox_apply: Operation not permitted`となり、シェルコマンドが全滅する）・`--ask-for-approval never`（承認プロンプトを出さず自動実行）・`--no-alt-screen`（altスクリーンを使わせず、Herdrのhost scrollbackに出力を残して後で全文を読めるようにする）は必須。
+3. そのペインでcodexエージェントを起動する。`--` 以降はcodexのネイティブ引数。`--sandbox danger-full-access`（Codex自身のOSサンドボックスを無効化し、安全性は外側のnonoプロファイルに一本化する。`-s workspace-write`のままだと、既にnono配下でサンドボックス化されているプロセスからCodexがさらにmacOS Seatbeltのサンドボックスを重ねて適用しようとして`sandbox_apply: Operation not permitted`となり、シェルコマンドが全滅する）・`--ask-for-approval never`（承認プロンプトを出さず自動実行）・`--no-alt-screen`（altスクリーンを使わせず、Herdrのhost scrollbackに出力を残して後で全文を読めるようにする）・`--no-daemon`（共有バックグラウンドサーバーに接続できないと「Cannot use the background server」の選択ダイアログで起動が止まり、`agent start` がタイムアウトするため）は必須。
 
    ```bash
-   herdr agent start codeximpl --kind codex --pane <pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-6-sol --no-alt-screen
+   herdr agent start codeximpl --kind codex --pane <pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-6-sol --no-alt-screen --no-daemon
    ```
 
 4. 承認済みプランの実装指示をプロンプトとして送り、完了まで待つ。プロンプトには以下を含める: 「承認済みの実装プラン（`<プランファイルの絶対パス>`）の内容に従って実装する」「担当範囲は実装とその動作確認・テスト実行までで、commit/push/PR作成/tuicrレビュー/worktree削除は行わない」「AGENTS.md/CLAUDE.md等の規約があれば従う」「プランに無い大きな方針転換が必要な場合は実装を進めず理由を報告する」「報告前にAGENTS.mdの『提出前セルフレビュー』を実施し、見つけた問題は直してから報告する」「完了したら変更ファイル一覧と実施内容の要約を報告する」。
 
    ```bash
-   herdr agent prompt codeximpl "<実装指示プロンプト>" --wait
+   /Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-turn-wait.sh codeximpl prompt "<実装指示プロンプト>"
    ```
 
    このBash呼び出し自体の `timeout` パラメータを600000ms（最大値）に指定する。
 
-   4-b. Bashツールのタイムアウトでこの呼び出し自体が打ち切られた場合（herdr側のエラーではなくBashツールが強制終了した場合）: Codexはまだペインで動作中の可能性が高いので、失敗と判断せず `herdr agent get codeximpl` で状態を確認する。`working` であれば、プロンプトを再送せず `herdr agent wait codeximpl`（`--until` は付けない。`agent prompt --wait` と同じ設定完了待ちになる。Bashツールのtimeoutを600000msにして）で待ち直す。これを `idle`/`done`/`blocked` になるまで繰り返す。
+   4-b. Bashツールのタイムアウトでこの呼び出し自体が打ち切られた場合（herdr側のエラーではなくBashツールが強制終了した場合）: Codexはまだペインで動作中の可能性が高いので、失敗と判断せず、プロンプトを再送せずに `/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-turn-wait.sh codeximpl wait`（Bashツールのtimeoutを600000msにして）で待ち直す。これを `status=` 行が出力されるまで繰り返す。
 5. 結果を確認する。
-   - `blocked` が返った場合（`-a never` 指定時は基本発生しないはずだが念のため）: `herdr agent get codeximpl` と `herdr agent read codeximpl --source recent-unwrapped --lines 120` で状況を確認し、ユーザーに判断を仰ぐ（Claude自身の判断で承認を代行しない）。
-   - `idle`/`done` の場合: `herdr agent read codeximpl --source recent-unwrapped --lines 300` でCodexの最終メッセージを読む。応答が途中で切れていて全文を読めない場合（何らかの理由でaltスクリーンに戻ってしまった等）のみ、フォールバックとして「最終メッセージをMarkdownで一時ファイルに書き出し、ファイルパスのみ返信して」と追加で `herdr agent prompt codeximpl "..." --wait` し、返ってきたパスを `Read` する。
+   - `status=blocked` が返った場合（`-a never` 指定時は基本発生しないはずだが念のため）: `herdr agent get codeximpl` と `herdr agent read codeximpl --source recent-unwrapped --lines 120` で状況を確認し、ユーザーに判断を仰ぐ（Claude自身の判断で承認を代行しない）。
+   - `status=aborted` が返った場合（ペインでターンが中断された）: `herdr agent read codeximpl --source recent-unwrapped --lines 120` で状況を確認し、ユーザーに判断を仰ぐ。
+   - `status=done` の場合: `herdr agent read codeximpl --source recent-unwrapped --lines 300` でCodexの最終メッセージを読む。応答が途中で切れていて全文を読めない場合（何らかの理由でaltスクリーンに戻ってしまった等）のみ、フォールバックとして「最終メッセージをMarkdownで一時ファイルに書き出し、ファイルパスのみ返信して」と追加で `/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-turn-wait.sh codeximpl prompt "..."` し、返ってきたパスを `Read` する。
 6. `herdr pane close <pane_id>` でペインを閉じる（エラーで中断した場合も、`pane_id` が分かっていればユーザーへの報告前に閉じておく）。
 7. プランに無い大きな方針転換が必要だとCodexが報告している場合は、実装を先へ進めず、その内容をそのままユーザーに提示して方針を確認する（Claude自身の判断で方針転換を代行しない）。
 8. `git status --short` および `git diff --stat` で実際に変更が加わったことを確認する。変更が見当たらない場合は、その旨をユーザーに伝えて対応を確認する。
@@ -80,7 +81,7 @@ test "${HERDR_ENV:-}" = 1
 
 `tuicr` スキル（`tuicr review list/add` の作法）を前提とする。Herdr環境では `tuicr` スキル付属の `tuicr-wrapper-herdr.sh` を使い、ユーザーがtuicrを閉じる（`q`）までブロックして起動する。この設計はブロッキング起動を許容できる用途（ユーザーが見終えるまで待てばよい今回のレビューループ）に限る。
 
-Herdr環境では、review-localによる自動レビュー（手順3）と、その指摘への対応（手順6）を、ステップ1のCodex委譲と同じ「`herdr agent`で別ペインを分割しHerdrのagentライフサイクル管理（idle/working/blocked）に完了検知を任せる」パターンで行う。review-localは `--kind claude`、指摘対応はステップ1と同じ `--kind codex` のagentを使う。非Herdr環境ではペイン分割ができないため、review-localは `Agent` ツールでの内製subagent呼び出しにフォールバックし、指摘対応はexecute-plan-and-pr自身が行う（Herdr環境でCodexに委譲するのはステップ1の実装とこのステップの指摘対応のみで、tuicrの実施判断やreview-localの起動判断そのものはこのスキルが担う）。
+Herdr環境では、review-localによる自動レビュー（手順3）と、その指摘への対応（手順6）を、ステップ1のCodex委譲と同じ「`herdr agent`で別ペインを分割し、別ペインのagentの完了を待つ」パターンで行う（完了検知は、claudeは `herdr agent prompt --wait`、codexは `codex-turn-wait.sh`）。review-localは `--kind claude`、指摘対応はステップ1と同じ `--kind codex` のagentを使う。非Herdr環境ではペイン分割ができないため、review-localは `Agent` ツールでの内製subagent呼び出しにフォールバックし、指摘対応はexecute-plan-and-pr自身が行う（Herdr環境でCodexに委譲するのはステップ1の実装とこのステップの指摘対応のみで、tuicrの実施判断やreview-localの起動判断そのものはこのスキルが担う）。
 
 ステップ3で `review-local` にこのステップのtuicrセッションをそのまま再利用させるため、`review-local` の「Diffの対象範囲を決める（merge-base）」と同じ基準でrangeを揃える。
 
@@ -123,7 +124,7 @@ git rev-parse HEAD
 
 3. レビューエージェントの実行（review-local）
 
-   **Herdr環境の場合**: `review-local` を別ペインの独立したClaude Codeセッション（`--kind claude`）で実行させる。ペイン分割の方向判定・タイムアウト処理（Bashの `timeout` 600000ms指定、打ち切られた場合の `herdr agent get`/`herdr agent wait` によるリトライ）・`blocked`時の対応（ユーザーに判断を仰ぐ）は、ステップ1の該当手順（1〜2、4-b、5前半）と同様に行う。
+   **Herdr環境の場合**: `review-local` を別ペインの独立したClaude Codeセッション（`--kind claude`）で実行させる。ペイン分割の方向判定・`blocked`時の対応（ユーザーに判断を仰ぐ）は、ステップ1の該当手順（1〜2、5前半）と同様に行う。claudeはherdrの状態判定が効くので、完了待ちには `herdr agent prompt --wait` を使い、Bashの `timeout` を600000msに指定する。Bashツールのタイムアウトで打ち切られた場合は、プロンプトを再送せず `herdr agent wait reviewlocal`（`--until` なし。idle/done/blockedに一致するまで待つ）で待ち直す。
 
       ```bash
       herdr pane split --current --direction <right|down> --cwd "<worktreeの絶対パス>" --no-focus
@@ -132,15 +133,15 @@ git rev-parse HEAD
 
       `--permission-mode bypassPermissions` はcodexの `-a never` に相当する自動承認設定。review-localは内部で `Agent` ツール（5観点のsubagent）や `Bash`（`git diff`・`tuicr review add` 等）を実行するため、これが無いと承認待ちで `blocked` になる。
 
-      プロンプトには以下を含める: 「`Skill` ツールで `review-local` を実行する」「対象worktreeの絶対パスは `<worktreeの絶対パス>`」「対象range・セッションは既に `<merge-base-sha>` で確定済みなので、review-local自身のベースブランチ検出・merge-base再計算はスキップし渡された値をそのまま使う（手順1で確認した既存tuicrセッションを再利用させ、新規セッション・新規ペインを重複して作らせないため）」「完了したら `posted`（投稿件数）・`failed`（投稿失敗の指摘）を報告する」。
+      プロンプトには以下を含める: 「`Skill` ツールで `review-local` を実行する」「対象worktreeの絶対パスは `<worktreeの絶対パス>`」「対象range・セッションは既に `<merge-base-sha>` で確定済みなので、review-local自身のベースブランチ検出・merge-base再計算はスキップし渡された値をそのまま使う（手順1で確認した既存tuicrセッションを再利用させ、新規セッション・新規ペインを重複して作らせないため）」「完了したら `posted`（投稿件数）・`failed`（投稿失敗の指摘）・`disputed`（意見が割れた指摘の `path:line` と論点）を報告する」。手順1で今回のセッションのslugが見つかった場合（2周目以降）は「`--session <slug>` を引数として渡すので、過去の対応・見送りのやり取りを踏まえてレビューする」も含める（review-localが「対応:」の検証や「見送り:」への反論を返信し、codexfixが次の手順6で再度応答することで、エージェント同士の議論になる）。
 
       ```bash
       herdr agent prompt reviewlocal "<review-local実行指示プロンプト>" --wait
       ```
 
-      完了後は `herdr agent read reviewlocal --source recent-unwrapped --lines 300` で `posted`/`failed` を読み取り、`herdr pane close <review_pane_id>` でペインを閉じる。
+      完了後は `herdr agent read reviewlocal --source recent-unwrapped --lines 300` で `posted`/`failed`/`disputed` を読み取り、`herdr pane close <review_pane_id>` でペインを閉じる。
 
-   **Herdr環境でない場合**: `Agent` ツール（`subagent_type: general-purpose`）で上記と同じ内容（`Skill` ツールでの `review-local` 呼び出し・`<merge-base-sha>` と `--repo` 値の引き渡し・`posted`/`failed` の報告）をバックグラウンドで依頼する。
+   **Herdr環境でない場合**: `Agent` ツール（`subagent_type: general-purpose`）で上記と同じ内容（`Skill` ツールでの `review-local` 呼び出し・`<merge-base-sha>` と `--repo` 値（2周目以降は `--session <slug>` も）の引き渡し・`posted`/`failed`/`disputed` の報告）をバックグラウンドで依頼する。
 
    このステップの完了は、手順2のtuicr起動（wrapperの終了、または非Herdr環境でのユーザーの完了報告）とあわせて待つ。両方が揃ってから手順4に進む。
 
@@ -168,17 +169,17 @@ git rev-parse HEAD
    ```
 
    返った各要素に、手順6と同じ `tuicr review add` の3形式（`scope` で選ぶ）で `--username 'execute-plan-and-pr'` の `"見送り: 2周目以降の重要度低の指摘のため対応しない"` を投稿する（全件を改行区切りで並べ、1回のBash呼び出しで実行する）。これでそのスレッドは対応済み扱いになり、上記の件数には含まれなくなる。見送った件数は手順5の確認で伝える。ユーザー（またはreview-local以外）のコメントは重要度を問わず見送らない。見送ったスレッドにユーザーがtuicrでコメントを追加すれば、末尾authorがユーザーになるため次の周回で通常の指摘として対応される。
-5. 件数が0（空配列）であれば、「新規コメントはありませんでしたが、これで進めてよいですか？」とユーザーに確認する（重要度低を見送った場合は「重要度低のN件は見送りました。対応が必要なものがあればtuicrでそのスレッドにコメントしてください」と添える）。承認が得られれば次のステップ（commit）へ進む。
+5. 件数が0（空配列）であれば、「新規コメントはありませんでしたが、これで進めてよいですか？」とユーザーに確認する（重要度低を見送った場合は「重要度低のN件は見送りました。対応が必要なものがあればtuicrでそのスレッドにコメントしてください」と添える。手順3でreview-localが `disputed` を報告した場合は、その `path:line` と論点を列挙し「review-localと修正側で意見が割れています。判断をtuicrのそのスレッドにコメントしてください」と添える。提示した `disputed` の一覧は、手順6と後述「意見が割れた指摘の判断記録」で使うので保持しておく）。承認が得られれば次のステップ（commit）へ進む。
 6. 件数が1以上であれば、Herdr環境かどうかで対応方法を分ける。
 
-   **Herdr環境の場合**: 未対応コメントの取得・修正・「対応」コメントの投稿まで、まとめてcodexのherdr agentに委譲する（対応内容を一番よく知っているcodex自身が投稿することで、Claudeが要約を言い換える際の情報の欠落と、コメント一覧・対応要約をClaudeのコンテキストに載せるトークン消費を避ける）。ペイン分割・agent起動・タイムアウト処理・`blocked` 時の対応はステップ1の該当手順と同様に行う（agent名は `codeximpl` とは別に `codexfix` を使う。ステップ1のペインは既に閉じているため名前は独立でよい）。
+   **Herdr環境の場合**: 未対応コメントの取得・修正・「対応」コメントの投稿まで、まとめてcodexのherdr agentに委譲する（対応内容を一番よく知っているcodex自身が投稿することで、Claudeが要約を言い換える際の情報の欠落と、コメント一覧・対応要約をClaudeのコンテキストに載せるトークン消費を避ける）。ペイン分割・agent起動・完了待ち（`codex-turn-wait.sh`）・タイムアウト時の待ち直し・`blocked`/`aborted` 時の対応はステップ1の該当手順と同様に行う（agent名は `codeximpl` とは別に `codexfix` を使う。ステップ1のペインは既に閉じているため名前は独立でよい）。
 
       ```bash
       herdr pane split --current --direction <right|down> --cwd "<worktreeの絶対パス>" --no-focus
-      herdr agent start codexfix --kind codex --pane <fix_pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-6-sol --no-alt-screen
+      herdr agent start codexfix --kind codex --pane <fix_pane_id> --timeout 300000 -- --sandbox danger-full-access --ask-for-approval never -m gpt-6-sol --no-alt-screen --no-daemon
       ```
 
-      コメント本文はプロンプトに含めず、取得に必要な情報（セッションJSONの絶対パス・セッションslug・worktreeの絶対パス）と下記のコマンドテンプレートを渡す（codexはClaude側の `tuicr` スキルを読めないため、`tuicr review add` の書式はプロンプトに直接含める）。プロンプトには以下を明記する: 「まず `tuicr-pending-comments.sh <session_json_path> execute-plan-and-pr` を実行して未対応のtuicrレビュー指摘を取得し、それぞれに対応する」「指摘本文に `同種の箇所: path:line, ...` が列挙されている場合は、代表箇所と同時にそれらもすべて直し、対応コメントにも直した箇所を含める」「1件の修正が終わるごとに、そのスレッドに下記テンプレートで『対応: <1〜2文の対応内容>』を投稿する。`--username` は必ず `execute-plan-and-pr` にする（スレッド末尾のauthorがこの名前であることで対応済みと判定されるため）」「対応しなかった指摘（対応範囲を超える大きな変更が必要なもの等）には何も投稿せず、実装も進めない」「未対応一覧に無いスレッドへの投稿、commit/push/PR作成は行わない」「投稿前にAGENTS.mdの『提出前セルフレビュー』を実施し、指摘と同種の問題が他の箇所に残っていないかも確認する」「最終メッセージは、対応件数と、対応しなかった指摘それぞれの場所と理由だけにする（指摘ごとの対応内容はtuicrに投稿済みなので繰り返さない）」。
+      コメント本文はプロンプトに含めず、取得に必要な情報（セッションJSONの絶対パス・セッションslug・worktreeの絶対パス）と下記のコマンドテンプレートを渡す（codexはClaude側の `tuicr` スキルを読めないため、`tuicr review add` の書式はプロンプトに直接含める）。プロンプトには以下を明記する: 「まず `tuicr-pending-comments.sh <session_json_path> execute-plan-and-pr` を実行して未対応のtuicrレビュー指摘を取得し、それぞれに対応する」「指摘本文に `同種の箇所: path:line, ...` が列挙されている場合は、代表箇所と同時にそれらもすべて直し、対応コメントにも直した箇所を含める」「1件の修正が終わるごとに、そのスレッドに下記テンプレートで『対応: <1〜2文の対応内容>』を投稿する。`--username` は必ず `execute-plan-and-pr` にする（スレッド末尾のauthorがこの名前であることで対応済みと判定されるため）」「対応しなかった指摘（対応範囲を超える大きな変更が必要なもの等）には何も投稿せず、実装も進めない」「`再指摘:`/`反論:` で始まる指摘はreview-localが以前の『対応:』『見送り:』に返信したもの。修正するなら『対応:』、それでも見送るなら反論への根拠を添えた『見送り: <理由>』を投稿する（再度の見送りはreview-localがユーザーに判断を委ねるので、無言で放置しない）」「未対応一覧に無いスレッドへの投稿、commit/push/PR作成は行わない」「投稿前にAGENTS.mdの『提出前セルフレビュー』を実施し、指摘と同種の問題が他の箇所に残っていないかも確認する」「最終メッセージは、対応件数と、対応しなかった指摘それぞれの場所と理由だけにする（指摘ごとの対応内容はtuicrに投稿済みなので繰り返さない）」。保持している `disputed` の一覧があり、そのスレッドが未対応一覧に含まれる（ユーザーが判断をコメントした）場合は、その一覧と後述「意見が割れた指摘の判断記録」の記録先・書き方もプロンプトに含め（codexはこのスキルを読めないため）、最終メッセージに「判断を記録した指摘それぞれの場所・採った判断・記録先」を加えさせる。
 
       ```bash
       # 未対応指摘の取得（出力: scope/path/line/author/lifecycle_state/content のJSON配列）
@@ -194,7 +195,7 @@ git rev-parse HEAD
       tuicrには返信機能が無いため、「対応」は新規コメントで代替している。これによりそのスレッドの末尾authorが `execute-plan-and-pr` になり、次回の手順4では対応済みとして除外される。
 
       ```bash
-      herdr agent prompt codexfix "<取得情報＋コマンドテンプレート＋指示>" --wait
+      /Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/codex-turn-wait.sh codexfix prompt "<取得情報＋コマンドテンプレート＋指示>"
       ```
 
       完了後は `herdr agent read codexfix --source recent-unwrapped --lines 80` で最終メッセージを読み、`herdr pane close <fix_pane_id>` でペインを閉じる。その後、以下の2点を確認する。
@@ -203,9 +204,22 @@ git rev-parse HEAD
 
       codexfixが対応しなかった指摘（指摘の対応範囲を超える方針転換が必要なもの等）がある場合は、ステップ1の手順7と同様、その場所と理由をそのままユーザーに提示して方針を確認する（Claude自身の判断で方針転換を代行しない）。
 
-   **Herdr環境でない場合**: 従来通りこのセッション自身が該当ファイル（指摘本文の `同種の箇所:` に列挙された箇所を含む）を修正し、上記と同じ形式で `tuicr review add --username 'execute-plan-and-pr'` を実行して対応内容を記録する。
+   **Herdr環境でない場合**: 従来通りこのセッション自身が該当ファイル（指摘本文の `同種の箇所:` に列挙された箇所を含む）を修正し、上記と同じ形式で `tuicr review add --username 'execute-plan-and-pr'` を実行して対応内容を記録する。ユーザーが判断をコメントした `disputed` の指摘は、下記「意見が割れた指摘の判断記録」に従って記録する。
 
 7. 修正が終わったら、手順2に戻って再度tuicrを起動し、最新の差分をユーザーに確認してもらう（手順3のreview-local呼び出しも同様に行われる）。手順5でユーザーが承認するまで繰り返す。
+
+### 意見が割れた指摘の判断記録
+
+tuicrのセッションはローカルにしか残らず、commitすると別セッションになるため、ユーザーが下した判断を記録しないと、次のレビュー（別セッション・別の人）で同じ指摘が蒸し返される。記録するのは、ユーザーが判断をコメントした後に限る（判断前の対立そのものは記録しない）。
+
+- ユーザーの判断に従って修正した場合: 修正そのものが記録になるので、仕様書・コメントには残さない（PR本文の一覧にだけ載せる）。
+- 見送りが確定した場合（または、判断がコードから読み取れない制約を課す場合）は、判断の性質で記録先を選ぶ。
+  - 仕様・設計方針に関わる判断（例: 「並列化はしない」「この入力は許容する」）: プロジェクトのシステム仕様書（`docs/stock/` など。既存の文書構造を優先）の制約・例外条件として追記する。該当する仕様書が無いプロジェクトでは、仕様書を新設せずコードコメントにする。
+  - その箇所に閉じた判断（例: 「N+1だが件数上限があるので許容」）: 該当箇所に「なぜそうしているか」を1〜2行のコードコメントで残す（コードの説明ではなく、判断の理由だけを書く）。
+- 記録した場合は、そのスレッドへの「対応:」コメントの末尾に `判断記録: <記録先のpath:line>` を付ける（`review-lessons` が後で判断済みの指摘を集計できるようにするため）。
+- 記録の変更は、対応する修正と同じcommitに含める。
+
+判断済みの一覧（場所・論点・採った判断・記録先）はステップ5のPR本文で使うので保持しておく（Herdr環境ではcodexfixの最終メッセージから取得する）。
 
 ## ステップ3: commit
 
@@ -223,7 +237,7 @@ git push -u origin <branch>
 
 ## ステップ5: Pull Requestの作成
 
-1. PRのタイトル・本文（概要・テスト計画）を作成し、ベースブランチとともにユーザーに提示して確認を求める。実行前確認は必須のステップとして省略しない。
+1. PRのタイトル・本文（概要・テスト計画）を作成し（ステップ2で判断済みの割れた指摘があれば、本文に「レビューで割れた判断」節を設け、場所・論点・採った判断・記録先を1件1行で載せる）、ベースブランチとともにユーザーに提示して確認を求める。実行前確認は必須のステップとして省略しない。
 2. 承認後、以下の形式で実行する。
 
 ```bash
