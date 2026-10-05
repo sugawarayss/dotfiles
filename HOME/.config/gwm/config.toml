@@ -36,6 +36,14 @@ base = "{repo_parent}/{repo}/.worktrees"
 # # 失敗時のaction: skip=スキップ, inline=標準出力に表示, abort=中止
 # fallback = "abort"  # inline | skip | abort
 
+# gitignore対象のためworktreeに引き継がれず、enableAllProjectMcpServers等のローカル設定が欠けると
+# 新規worktreeで起動したclaudeが.mcp.jsonの承認ダイアログで止まるため、メインチェックアウトからコピーする。
+[[bootstrap.copy]]
+from = ".claude/settings.local.json"
+to = ".claude/settings.local.json"
+required = false
+fallback = "skip"
+
 # ── [[bootstrap.guard]]: コピーするファイル内容の正規表現チェックルール ──────
 # [[bootstrap.guard]]
 # name = "no-secrets"
