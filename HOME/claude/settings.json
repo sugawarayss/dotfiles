@@ -200,16 +200,7 @@
     "example-skills:frontend-design": "off"
   },
   "hooks": {
-    "InstructionsLoaded": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"$HOME\"/.claude/bin/speak-notify.sh クロード \"$HOME\"/.claude/hook_voices/002_InstructionLoaded.wav"
-          }
-        ]
-      }
-    ],
+    "InstructionsLoaded": [],
     "Notification": [
       {
         "matcher": "",
