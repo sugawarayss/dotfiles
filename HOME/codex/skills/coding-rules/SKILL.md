@@ -16,7 +16,7 @@ description: Apply shared design principles and path-specific conventions when c
 - `tests/**/test_*.py`: [pytest](./references/pytest.md)
 - `**/*.ts`、`**/*.tsx`: [TypeScript](./references/typescript.md)
 - `**/*.tsx`、`**/*.jsx`: [React](./references/react.md)および[アクセシビリティ](./references/accessibility.md)
-- `**/api/**/*.ts`、`**/api/**/*.tsx`、`**/routers/**/*.py`、`**/api/**/*.py`: [REST API](./references/api-design.md)
+- `**/api/**/*.ts`、`**/api/**/*.tsx`、`**/routers/**/*.py`、`**/api/**/*.py`、`**/services/**/*.py`、`**/schemas/**/*.py`: [REST API](./references/api-design.md)
 - `**/Dockerfile`、`**/Dockerfile.*`、`**/docker-compose.yml`、`**/docker-compose.*.yml`: [Docker](./references/docker.md)
 
 一致する参照がない場合は、設計原則のみを適用する。

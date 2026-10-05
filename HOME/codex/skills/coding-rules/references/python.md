@@ -174,6 +174,10 @@ class UserNotFoundError(Exception):
 raise UserNotFoundError(f"user not found: id={user_id}")
 ```
 
+#### 不変条件の検証と更新の間に排他を入れる
+
+「循環しない」「上限を超えない」のように複数行にまたがる不変条件を、読み取ってから検証して更新する処理では、並行する2つのリクエストがどちらも古い状態を見て検証を通過し、結果として不変条件が破れることがある（TOCTOU）。親の行や組織の行に対する `SELECT ... FOR UPDATE`、advisory lock、DB制約などで直列化する。発生確率が低く許容する場合は、その理由をdocstringに残す。
+
 ### パフォーマンス
 
 #### 要素数が多くなり得る場合は `generator` を使用する

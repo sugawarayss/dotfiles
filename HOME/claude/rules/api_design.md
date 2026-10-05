@@ -4,6 +4,8 @@ paths:
   - "**/api/**/*.tsx"
   - "**/routers/**/*.py"
   - "**/api/**/*.py"
+  - "**/services/**/*.py"
+  - "**/schemas/**/*.py"
 ---
 
 ## API設計のルール(REST)
