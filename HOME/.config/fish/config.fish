@@ -161,6 +161,11 @@ if type "nono" > /dev/null 2>&1
     if not contains -- -a $argv; and not contains -- --ask-for-approval $argv
       set -a codex_defaults --ask-for-approval on-request
     end
+    # codexのapp-serverデーモンは起動記録に setuid の /bin/ps を使うが、
+    # nono内ではsetuid実行が禁止されており起動に失敗するため無効化する。
+    if not contains -- --no-daemon $argv
+      set -a codex_defaults --no-daemon
+    end
     __nono_run_for_worktree codex codex $codex_defaults $argv
   end
 end
