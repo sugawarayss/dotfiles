@@ -396,7 +396,9 @@
     "typescript-lsp@claude-plugins-official": false,
     "codex@openai-codex": true,
     "diagram-design@diagram-design": true,
-    "whiteboard@devfast": true
+    "whiteboard@devfast": true,
+    "qa-guide@claude-qamods": true,
+    "crit-tui@crit": true
   },
   "extraKnownMarketplaces": {
     "crit": {
@@ -428,10 +430,26 @@
         "source": "github",
         "repo": "devdotfast/whiteboard"
       }
+    },
+    "claude-qamods": {
+      "source": {
+        "source": "github",
+        "repo": "aieo-product/claude_qamods"
+      }
     }
   },
   "language": "japanese",
   "feedbackDrafts": "off",
+  "pluginConfigs": {
+    "qa-guide@claude-qamods": {
+      "options": {
+        "language": "ja",
+        "showCost": "off",
+        "context": "compact",
+        "chatQuestions": "on"
+      }
+    }
+  },
   "tui": "fullscreen",
   "theme": "dark",
   "editorMode": "vim"
