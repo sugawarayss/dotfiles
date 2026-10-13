@@ -27,7 +27,18 @@ set -g FISH_CONFIG $FISH_CONFIG_DIR/config.fish
 set -g FISH_CACHE_DIR $XDG_CACHE_HOME/fish
 
 # Claude Code
-set -g CLAUDE_CONFIG_DIR $HOME/.claude
+# ~/PROJECTS/headwaters 配下では会社アカウント用の設定ディレクトリをexportする。
+# それ以外では未exportに戻す(~/.claude を明示exportすると、Claude Codeが
+# 既定とは別のキーチェーンエントリを参照してしまうため)。
+function __switch_claude_config_dir --on-variable PWD
+  set -l headwaters_dir $HOME/PROJECTS/headwaters
+  if test "$PWD" = $headwaters_dir; or string match -q -- "$headwaters_dir/*" $PWD
+    set -gx CLAUDE_CONFIG_DIR $HOME/.claude-hws
+    return
+  end
+  set -gu CLAUDE_CONFIG_DIR $HOME/.claude
+end
+__switch_claude_config_dir
 
 # android sdk
 # set -Ux ANDROID_HOME $HOME/Library/Android/sdk
@@ -138,6 +149,11 @@ if type "nono" > /dev/null 2>&1
           set -a allow_args --allow $main_root
         end
       end
+    end
+    # 呼び出し元がCLAUDE_CONFIG_DIRで設定ディレクトリを切り替えている場合、
+    # サンドボックス内からそのディレクトリを読み書きできるよう許可する
+    if set -qx CLAUDE_CONFIG_DIR
+      set -a allow_args --allow $CLAUDE_CONFIG_DIR
     end
     # HERDR_AGENTは、nono配下の実プロセスをherdrが正しいエージェント種別として
     # 検出する(スクリーンマニフェスト選択)ために必要。フォアグラウンド起動時のみに
