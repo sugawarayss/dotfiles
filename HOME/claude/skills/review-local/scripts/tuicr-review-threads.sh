@@ -10,7 +10,7 @@ usage() {
 Usage: tuicr-review-threads.sh <session_json_path> [reviewer_username] [fixer_username]
 
   session_json_path   `tuicr review list` の .path (セッションJSONファイルの絶対パス)
-  reviewer_username   レビュー側の --username (省略時: review-local)
+  reviewer_username   レビュー側の --username。`<reviewer_username>/<agent名>` も同じレビュー側とみなす (省略時: review-local)
   fixer_username      修正側の --username (省略時: execute-plan-and-pr)
 
 標準出力: 指摘のJSON配列。各要素:
@@ -21,7 +21,7 @@ Usage: tuicr-review-threads.sh <session_json_path> [reviewer_username] [fixer_us
     pending     最後の発言がレビュー側（修正側の応答待ち）
     addressed   修正側が「対応:」と返答
     declined    修正側が理由付きで「見送り:」と返答
-    skipped_low 修正側が「2周目以降の重要度低」の定型文で見送り
+    skipped_optional 修正側が「2周目以降のsuggest/norush」の定型文で見送り
     user        最後の発言がユーザー（修正側の応答待ち）
   can_reply: status が addressed/declined で、レビュー側がまだ再指摘・反論していない
 USAGE
@@ -43,17 +43,18 @@ fi
 
 jq --arg reviewer "$reviewer" --arg fixer "$fixer" '
   def is_reply: test("^(再指摘|反論):");
+  def is_reviewer: .author == $reviewer or (.author | startswith($reviewer + "/"));
 
   def split_items:
     reduce .[] as $c ([];
-      if length == 0 or ($c.author == $reviewer and ($c.content | is_reply | not))
+      if length == 0 or (($c | is_reviewer) and ($c.content | is_reply | not))
       then . + [[$c]]
       else .[:-1] + [.[-1] + [$c]] end);
 
   def status_of($last):
-    if $last.author == $reviewer then "pending"
+    if ($last | is_reviewer) then "pending"
     elif $last.author != $fixer then "user"
-    elif ($last.content | test("^見送り: 2周目以降の重要度低")) then "skipped_low"
+    elif ($last.content | test("^見送り: 2周目以降のsuggest/norush")) then "skipped_optional"
     elif ($last.content | test("^見送り:")) then "declined"
     else "addressed" end;
 
@@ -65,7 +66,7 @@ jq --arg reviewer "$reviewer" --arg fixer "$fixer" '
           tag: ((.[0].content | capture("^(?<t>BUG|EDGE|ERR|RISK|INCONSISTENT|TEST|SEC|PERF|DOC)\\b").t) // null),
           status: $status,
           can_reply: (($status == "addressed" or $status == "declined")
-            and (map(select(.author == $reviewer and (.content | is_reply))) | length) == 0),
+            and (map(select(is_reviewer and (.content | is_reply))) | length) == 0),
           messages: map({author, content})
         });
 
