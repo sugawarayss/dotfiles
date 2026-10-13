@@ -1,6 +1,6 @@
 -- バッファサイズ調整、フォーカス移動、バッファ入替ができる
 return {
-  "mrjones2014/smart-splits.nvim",
+  "smart-splits-nvim/smart-splits.nvim",
   event = { "BufReadPre" },
   cond = function()
     return not vim.g.vscode
@@ -27,28 +27,40 @@ return {
   end,
   config = function()
     require("smart-splits").setup({
-      ignore_buftypes = {
+      ignored_buftypes = {
         "nofile",
         "quickfix",
         "prompt",
       },
-      ignore_filetypes = {
+      ignored_filetypes = {
         -- "snacks_picker_list",
       },
-      default_amount = 3,
-      at_edge = "wrap",
-      float_win_behavior = "previous",
-      move_cursor_same_row = false,
-      cursor_follows_swapped_bufs = true,
-      ignore_events = {
-        "BufEnter",
-        "WinEnter",
+      resize = {
+        -- リサイズ時に変動するサイズ
+        amount = 3,
+        -- リサイズ中に無視するイベント
+        ignored_events = { "BufEnter", "WinEnter" },
       },
-      multiplexer_integration = nil,
-      disable_multiplexer_nav_when_zoomed = true,
-      kitty_password = nil,
-      zellij_move_focus_or_tab = false,
-      log_level = "info",
+      move = {
+        -- 移動する方向にウィンドウが存在しない場合の動作 (stop|wrap|split|func(ctx))
+        at_edge = "wrap",
+        -- 水平方向に移動する際にカーソルを同じ画面行に維持する
+        same_row = false,
+      },
+      swap = {
+        -- バッファを新ウィンドウでも追跡する
+        move_cursor = false,
+      },
+      mux = {
+        -- バックエンドの優先度順
+        backend = nil,
+        -- バックエンドを検出できない場合に警告
+        warn_if_unusable = true,
+      },
+      log = {
+        level = "info",
+        file = false,
+      },
     })
   end,
 }
