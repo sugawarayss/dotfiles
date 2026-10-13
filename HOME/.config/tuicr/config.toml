@@ -53,7 +53,10 @@ username = "user"
 diff_watch_interval_ms = 0
 # コメントのデフォルトカテゴリ("id"|"label"|"definition"|"color")
 comment_types = [
-  { id = "question", color = "##42960D", definition = "不明点を明確にするための質問" },
-  { id = "wantfix", color = "#87CEEB", definition = "希望する修正方法がある" },
-  { id = "blocker", color = "#E0149C", definition = "マージまでには修正しなければならない" },
+  { id = "must", definition = "修正を必須とするコメント", color = "#D32F2F" },
+  { id = "should", definition = "修正を強く提案するコメント", color = "#F57C00" },
+  { id = "suggest", definition = "修正を提案するコメント", color = "#FBC02D" },
+  { id = "question", definition = "不明点を明確にするための質問", color = "#388E3C" },
+  { id = "nitpick", definition = "重箱の隅をつつくような内容", color = "#1976D2" },
+  { id = "no-rush", definition = "将来的には修正したい内容", color = "#7B1FA2" },
 ]
