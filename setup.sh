@@ -19,4 +19,9 @@ else
 	echo "just is already installed."
 fi
 
-just initial && just setup
+# just initial && just setup
+just initial
+
+# mise bootstrap はグローバル設定(~/.config/mise)を読むため、先にリンクしておく
+test -e ~/.config/mise || ln -s "$PROJECT_DIR/HOME/.config/mise" ~/.config/mise
+mise bootstrap

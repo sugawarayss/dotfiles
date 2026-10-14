@@ -1,0 +1,191 @@
+# `mise bootstrap` 用の設定
+# 前提: ~/.config/mise がこのリポジトリの HOME/.config/mise へのsymlinkであること
+#   ln -s ~/PROJECTS/sugawarayss/dotfiles/HOME/.config/mise ~/.config/mise
+# source の相対パスはこのファイルのディレクトリ (HOME/.config/mise/conf.d) 基準
+#   ../../       -> HOME/.config/
+#   ../../../    -> HOME/
+#   ../../../../ -> リポジトリ直下
+
+[dotfiles]
+# shell
+"~/.zshrc" = { source = "../../../.zshrc" }
+"~/.zprofile" = { source = "../../../.zprofile" }
+"~/.zsh.d" = { source = "../../../.zsh.d" }
+"~/.config/fish/config.fish" = { source = "../../fish/config.fish" }
+"~/.config/fish/conf.d/bobthefish.fish" = { source = "../../fish/conf.d/bobthefish.fish" }
+"~/.config/fish/fish_plugins" = { source = "../../fish/fish_plugins" }
+"~/.config/starship.toml" = { source = "../../starship.toml" }
+"~/.config/fzf" = { source = "../../fzf" }
+# git / GitHub
+"~/.gitconfig" = { source = "../../git/.gitconfig" }
+"~/.config/git/ignore" = { source = "../../git/ignore" }
+"~/.config/git/.commit_template" = { source = "../../git/.commit_template" }
+"~/.config/gh" = { source = "../../gh" }
+"~/.config/gh-dash" = { source = "../../gh-dash" }
+"~/.config/hunk" = { source = "../../hunk" }
+"~/.config/lazygit" = { source = "../../lazygit" }
+"~/.config/pinact" = { source = "../../pinact" }
+"~/.config/gwm/config.toml" = { source = "../../gwm/config.toml" }
+# AI agents
+"~/.claude/CLAUDE.md" = { source = "../../../claude/CLAUDE.md" }
+"~/.claude/settings.json" = { source = "../../../claude/settings.json" }
+"~/.claude/skills" = { source = "../../../claude/skills" }
+"~/.claude/agents" = { source = "../../../claude/agents" }
+"~/.claude/rules" = { source = "../../../claude/rules" }
+"~/.claude/hook_voices" = { source = "../../../claude/hook_voices" }
+"~/.claude/bin" = { source = "../../../claude/bin" }
+# ~/.codex/config.toml はCodexが実行時の状態を書き込むため管理しない（HOME/codex/config.toml は初期設定のひな形）
+"~/.codex/AGENTS.md" = { source = "../../../codex/AGENTS.md" }
+"~/.codex/agents" = { source = "../../../codex/agents" }
+"~/.codex/skills" = { source = "../../../codex/skills" }
+"~/.crit.config.json" = { source = "../../../crit/.crit.config.json" }
+"~/.config/tuicr" = { source = "../../tuicr" }
+"~/.config/herdr" = { source = "../../herdr" }
+"~/.config/nono/profiles" = { source = "../../nono/profiles" }
+# terminal / editor
+"~/.config/ghostty" = { source = "../../ghostty" }
+"~/.config/wezterm" = { source = "../../wezterm" }
+"~/.config/nvim" = { source = "../../nvim" }
+"~/.config/mcphub" = { source = "../../mcphub" }
+"~/.config/zed/settings.json" = { source = "../../zed/settings.json" }
+"~/.config/zed/keymap.json" = { source = "../../zed/keymap.json" }
+"~/.config/zed/tasks.json" = { source = "../../zed/tasks.json" }
+"~/.ideavimrc" = { source = "../../../../IntelliJ/.ideavimrc" }
+# CLI tools
+"~/.npmrc" = { source = "../../../.npmrc" }
+"~/.config/yazi" = { source = "../../yazi" }
+"~/.config/lazysql" = { source = "../../lazysql" }
+"~/.config/lazydocker" = { source = "../../lazydocker" }
+"~/.config/yamllint" = { source = "../../yamllint" }
+"~/.config/markdownlint" = { source = "../../markdownlint" }
+# macOS apps
+# Karabinerはファイル単位のsymlinkを書き換え時に実ファイルへ置き換えるため、ディレクトリごとリンクする
+"~/.config/karabiner" = { source = "../../karabiner" }
+"~/.config/glide" = { source = "../../glide" }
+# macSKK はsymlinkの辞書を読めないためコピーする（ユーザ辞書は tasks."bootstrap:skk" で初回のみコピー）
+"~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.L" = { source = "../../../skkeleton/dictionary/SKK-JISYO.L", mode = "copy" }
+"~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.geo" = { source = "../../../skkeleton/dictionary/SKK-JISYO.geo", mode = "copy" }
+"~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.jinmei" = { source = "../../../skkeleton/dictionary/SKK-JISYO.jinmei", mode = "copy" }
+"~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.propernoun" = { source = "../../../skkeleton/dictionary/SKK-JISYO.propernoun", mode = "copy" }
+"~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/SKK-JISYO.station" = { source = "../../../skkeleton/dictionary/SKK-JISYO.station", mode = "copy" }
+
+[bootstrap.user]
+login_shell = "/opt/homebrew/bin/fish"
+
+[bootstrap.macos.defaults."com.apple.dock"]
+# デフォルトアプリをDockから除去し、起動中のアプリのみ表示
+"persistent-apps" = []
+"static-only" = true
+
+[bootstrap.macos.defaults."com.apple.finder"]
+ShowStatusBar = true
+ShowPathbar = true
+ShowTabView = true
+AppleShowAllFiles = true
+# 検索時にデフォルトでカレントディレクトリを検索
+FXDefaultSearchScope = "SCcf"
+
+[bootstrap.macos.defaults."com.apple.screencapture"]
+name = "screenshot"
+include-date = false
+show-thumbnail = false
+
+[bootstrap.macos.defaults."com.raycast.macos"]
+# 起動キーを <Option-Space> に変更
+raycastGlobalHotkey = "Option-49"
+navigationCommandStyleIdentifierKey = "vim"
+
+[[bootstrap.macos.defaults_entries]]
+domain = "NSGlobalDomain"
+key = "AppleShowScrollBars"
+value = "Always"
+
+[[bootstrap.macos.defaults_entries]]
+domain = "NSGlobalDomain"
+key = "AppleShowAllExtensions"
+value = true
+
+[bootstrap.hooks]
+# ホームディレクトリ依存のパスはTOMLの値で展開できないためシェルで設定する
+post-defaults = [
+  "mkdir -p ~/SCREENSHOTS && defaults write com.apple.screencapture location ~/SCREENSHOTS",
+  "defaults write com.raycast.macos NSNavLastRootDirectory -string ~/PROJECTS/sugawarayss/dotfiles/raycast/snippets",
+  "killall Dock Finder SystemUIServer || true",
+]
+
+# `mise bootstrap` の最後に毎回実行されるため、各タスクは冪等にする
+[tasks.bootstrap]
+description = "dotfiles展開後の追加セットアップ"
+depends = [
+  "bootstrap:fisher",
+  "bootstrap:gh-extensions",
+  "bootstrap:claude-mcp",
+  "bootstrap:crit",
+  "bootstrap:herdr",
+  "bootstrap:yazi",
+  "bootstrap:skk",
+  "bootstrap:duti",
+]
+
+[tasks."bootstrap:fisher"]
+description = "fisherと fish_plugins のプラグインをインストール"
+run = "fish -c 'type -q fisher; or curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher; fisher update'"
+
+[tasks."bootstrap:gh-extensions"]
+description = "gh 拡張をインストール"
+run = """
+for ext in dlvhdr/gh-dash meiji163/gh-notify kawarimidoll/gh-prism; do
+  gh extension list | grep -q "$ext" || gh extension install "$ext"
+done
+"""
+
+[tasks."bootstrap:claude-mcp"]
+description = "Claude Code のユーザースコープMCPサーバを追加"
+run = """
+claude mcp get aws-knowledge >/dev/null 2>&1 || claude mcp add aws-knowledge --transport stdio --scope user -- uvx fastmcp run https://knowledge-mcp.global.api.aws
+claude mcp get context7 >/dev/null 2>&1 || claude mcp add context7 --transport stdio --scope user --env DEFAULT_MINIMUM_TOKENS=128000 -- npx -y @upstash/context7-mcp
+claude mcp get serena >/dev/null 2>&1 || claude mcp add serena --transport stdio --scope user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --project-from-cwd
+claude mcp get chrome-devtools >/dev/null 2>&1 || claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest --autoConnect
+"""
+
+[tasks."bootstrap:crit"]
+description = "crit の claude-code 連携を設定"
+run = "! command -v crit >/dev/null || crit install claude-code"
+
+# bootstrap からは呼ばない。新しいマシンで `mise run bootstrap:codex` を手動実行する
+[tasks."bootstrap:codex"]
+description = "Codex の設定ファイルがなければひな形をコピー"
+run = """
+config=~/.codex/config.toml
+test -f "$config" || { mkdir -p ~/.codex && cp ~/PROJECTS/sugawarayss/dotfiles/HOME/codex/config.toml "$config"; }
+"""
+
+[tasks."bootstrap:herdr"]
+description = "herdr の integration・プラグイン・terminal-browser をインストール"
+run = """
+herdr integration install claude
+herdr integration install codex
+for plugin in jhochenbaum/herdr-hunk-diff ChmaraX/herdr-nvim tomasvarga/herdr-pickr alexarthurs/herdr-sidebar kbrdn1/herdr-plugin-gwm; do
+  herdr plugin list | grep -q "$plugin" || herdr plugin install "$plugin"
+done
+command -v terminal-browser >/dev/null || curl -fsSL https://terminal-browser.sh/install | bash
+"""
+
+[tasks."bootstrap:yazi"]
+description = "yazi/package.toml のプラグインをインストール"
+run = "ya pkg install"
+
+[tasks."bootstrap:skk"]
+description = "macSKK のユーザ辞書を初回のみコピー（以降はmacSKK側が正。戻すときは just skk-dump）"
+run = """
+dict=~/Library/Containers/net.mtgto.inputmethod.macSKK/Data/Documents/Dictionaries/my_dictionary
+test -f "$dict" || cp ~/PROJECTS/sugawarayss/dotfiles/HOME/skkeleton/my_dictionary "$dict"
+"""
+
+[tasks."bootstrap:duti"]
+description = "テキスト系ファイルの既定アプリを Zed に設定"
+run = """
+for uti in public.plain-text public.data .css .csv .d.ts .env .ini .js .json .jsonc .lock .lua .map .md .mjs .php .py .scss .sh .sql .test.js .test.ts .ts .tsx .txt .toml .xml .yaml .fish; do
+  duti -s dev.zed.Zed "$uti" all
+done
+"""

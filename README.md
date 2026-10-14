@@ -63,3 +63,10 @@ my dotfiles
     ```shell
     /bin/zsh setup.sh
     ```
+
+- 2回目以降は `mise bootstrap` で、dotfilesのsymlink・macOSの設定・ログインシェル・追加セットアップを反映する（設定: `HOME/.config/mise/conf.d/bootstrap.toml`）
+
+    ```shell
+    mise bootstrap --dry-run  # 変更内容の確認
+    mise bootstrap
+    ```
