@@ -24,3 +24,4 @@ frontmatter に `disable-model-invocation: true` が明記され、モデルか�
 - [grill-with-docs](./grill-with-docs/SKILL.md) - 既存のドメインモデルに照らして計画を検証し、`CONTEXT.md`とADRをインラインで更新する。
 - [review-local](./review-local/SKILL.md) - ローカルブランチとベースブランチのdiffを正確性・バグ観点でレビューし、critにインラインコメントとして投稿する。
 - [review-pr](./review-pr/SKILL.md) - プルリクエストの品質・セキュリティ・パフォーマンス・テスト・ドキュメントをレビューする。
+- [security-checklist](./security-checklist/SKILL.md) - 認証・入力・シークレット・API追加時のセキュリティチェックリストと実装パターン集。
