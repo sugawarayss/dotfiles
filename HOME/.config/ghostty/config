@@ -94,7 +94,7 @@ keybind = "super+c=copy_to_clipboard"
 keybind = "super+v=paste_from_clipboard"
 
 # ホットキーウィンドウ表示トグルのキーバインド
-keybind = "global:shift+opt+space=toggle_quick_terminal"
+keybind = "global:super+shift+space=toggle_quick_terminal"
 
 # この設定ファイルを開く
 keybind = "super+,=open_config"
