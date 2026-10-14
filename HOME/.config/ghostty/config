@@ -34,9 +34,9 @@ macos-option-as-alt = left
 # ウィンドウの左右の余白
 window-padding-x = 10
 # ウィンドウの背景透過度
-background-opacity = 0.9
+background-opacity = 0.8
 # 背景のぼかし度合い
-background-blur-radius = 15
+background-blur-radius = 5
 # カーソルのスタイル
 cursor-style = block
 # カーソルの点滅
