@@ -1,11 +1,12 @@
 {
-    "global": { "show_additional_menu_items": true },
+    "global": { "show_in_menu_bar": false },
     "profiles": [
         {
             "complex_modifications": {
                 "rules": [
                     {
                         "description": "NeovimではIMEをskkeletonを使う",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -26,7 +27,7 @@
                                 "to": [
                                     {
                                         "key_code": "j",
-                                        "modifiers": ["left_control", "left_option", "left_shift"]
+                                        "modifiers": ["right_control", "right_option", "right_shift"]
                                     }
                                 ],
                                 "type": "basic"
@@ -58,6 +59,20 @@
                         ]
                     },
                     {
+                        "description": "SandS: Change ␣ to R⇧ (if alone)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_shift" }],
+                                "to_if_alone": [{ "key_code": "spacebar" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "コマンドキーを単体で押したときに、英数・かなキーを送信する。（左コマンドキーは英数、右コマンドキーはかな）",
                         "manipulators": [
                             {
@@ -76,20 +91,6 @@
                                 },
                                 "to": [{ "key_code": "right_command" }],
                                 "to_if_alone": [{ "key_code": "japanese_kana" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "SandS: Change ␣ to R⇧ (if alone)",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "spacebar",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "right_shift" }],
-                                "to_if_alone": [{ "key_code": "spacebar" }],
                                 "type": "basic"
                             }
                         ]
@@ -137,18 +138,9 @@
                     "ignore": false,
                     "ignore_vendor_events": true,
                     "manipulate_caps_lock_led": false
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 6,
-                        "vendor_id": 22854
-                    },
-                    "ignore_vendor_events": true,
-                    "manipulate_caps_lock_led": false
                 }
             ],
-            "name": "Default profile",
+            "name": "INAPVisionMacOSMachine",
             "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
