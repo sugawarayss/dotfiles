@@ -99,7 +99,7 @@ keybind = "global:super+shift+space=toggle_quick_terminal"
 # この設定ファイルを開く
 keybind = "super+,=open_config"
 # 設定ファイルをリロードする
-keybind = "unconsumed:cmd+;=reload_config"
+keybind = "unconsumed:super+;=reload_config"
 
 
 # 分割ペインのフォーカス移動キーバインド
