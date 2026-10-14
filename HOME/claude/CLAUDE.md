@@ -19,6 +19,7 @@
 - [typescript.md](rules/typescript.md) — `**/*.ts`/`**/*.tsx`に対して適用されるTypeScript実装ルール（frontmatterの `paths` でスコープ指定）。
 - [react.md](rules/react.md) — `**/*.tsx`/`**/*.jsx`に対して適用されるReact実装ルール（frontmatterの `paths` でスコープ指定）。
 - [docker.md](rules/docker.md) — `Dockerfile`/`docker-compose.yml`に対して適用されるDocker実装ルール（frontmatterの `paths` でスコープ指定）。
+- [security.md](rules/security.md) — シークレット管理・入力検証・認可などコミット前のセキュリティ必須チェックと、問題発見時の対応手順（全体適用）。詳細チェックリストは `security-checklist` スキル。
 
 新しい横断ルールを追加する場合は、この一覧にも追記すること。
 
