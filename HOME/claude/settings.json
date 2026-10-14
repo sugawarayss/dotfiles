@@ -234,6 +234,16 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/bin/format-on-edit.sh",
+            "timeout": 30
+          }
+        ]
       }
     ],
     "PreToolUse": [
@@ -243,6 +253,15 @@
           {
             "type": "command",
             "command": "\"$HOME\"/.claude/bin/speak-notify.sh クロード \"$HOME\"/.claude/hook_voices/004_PreToolUse_MCP.wav"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/bin/confirm-doc-creation.sh"
           }
         ]
       },
