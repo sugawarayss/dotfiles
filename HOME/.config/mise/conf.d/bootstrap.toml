@@ -72,18 +72,58 @@
 [bootstrap.user]
 login_shell = "/opt/homebrew/bin/fish"
 
-[bootstrap.macos.defaults."com.apple.dock"]
-# デフォルトアプリをDockから除去し、起動中のアプリのみ表示
-"persistent-apps" = []
-"static-only" = true
+## macOSのDock設定
+[bootstrap.macos.dock]
+# dockを自動的に隠す
+autohide = true
+# dockは即時表示する
+autohide_delay = 0
+# アイコンサイズ
+tilesize = 50
+# ポインタのアイコンを拡大する
+magnification = true
+# アニメーションの秒数
+autohide_time_modifier = 0.5
+# dockの表示位置(bottom|left|right)
+orientation = "right"
+# 最近使ったアプリを表示しない
+show_recents = false
+# アイコンを最新の使用順に並べ替えない
+mru_spaces = false
+# ピン止めするアプリ
+apps = []
 
-[bootstrap.macos.defaults."com.apple.finder"]
-ShowStatusBar = true
-ShowPathbar = true
-ShowTabView = true
-AppleShowAllFiles = true
-# 検索時にデフォルトでカレントディレクトリを検索
-FXDefaultSearchScope = "SCcf"
+## macOSのFinder設定
+[bootstrap.macos.finder]
+# 隠しファイルを表示する
+show_all_files = true
+# パスバーを表示する
+show_pathbar = true
+# ステータスバーを表示する
+show_status_bar = true
+# ファイル拡張子を変更する際に警告する
+show_extensions_warning = true
+# 名前でソート時にフォルダを上に表示する
+sort_folders_first = true
+# 表示スタイルをリストにする(icon|list|column|gallery)
+preferred_view_style = "list"
+# 新規作成したファイルを自動でiCloudに保存する
+save_new_documents_to_cloud = false
+
+## macOSのキーボード設定
+[bootstrap.macos.keyboard]
+# キーの繰り返し間隔
+# key_repeat = 1
+# 次のキーが押されるまでの遅延時間
+# initial_key_repeat = 1
+# アクセント記号の代わりに押し続けているキーを繰り返さない
+press_and_hold = false
+# 自動大文字化を無効にする
+automatic_capitalization = false
+# スペルチェックを無効にする
+automatic_spelling_correction = false
+# F1〜F12キーを標準のファンクションキーとして使用する
+fn_state = true
 
 [bootstrap.macos.defaults."com.apple.screencapture"]
 name = "screenshot"
