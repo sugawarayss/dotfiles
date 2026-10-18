@@ -92,3 +92,6 @@ dotnet = "latest"
 # サプライチェーン攻撃リスクを低減するため、パッケージ公開から3日以上経過しているもののみインストールする
 minimum_release_age = "3d"
 experimental = true
+
+[settings.self_update]
+auto = true
