@@ -36,6 +36,8 @@
   - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
 - コード差分レビュー: `tuicr`（`tuicr` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`execute-plan-and-pr` はHerdr環境で `tuicr-wrapper-herdr.sh` によりブロッキング起動し、ユーザーが閉じたら自動継続する。`review-local` はコメント投稿用セッションを非ブロッキングで開いたままにする（裏でsubagent分析を進めるため）。非Herdr環境はいずれもユーザーに起動・完了報告を依頼する
 - PRレビュー: `tuicr`（`review-pr` スキル経由。Herdr環境では右にペインを割いて `tuicr pr <PR>` を自動起動、それ以外はユーザーに起動を依頼する。コメント追加後、GitHubへの送信はユーザーがTUI内で `:submit` を実行する手動操作）
+- コード変更・既存コードの解説: `whiteboard`（dev.fast Whiteboard、MCP経由）。エージェント→人間の説明用で、コメントを返す機能はない（指摘・修正指示はcrit/tuicrで受ける）。大きな差分やPRをtuicrでレビューする前の全体把握、他人のPRや未知コードの「どう動くか」の図解（scratchpad）、設計判断を図付きで残したい場合に使う。プランレビュー（crit）・コード差分レビュー（tuicr）の代替にはしない
+  - 使う前に `session_capabilities` で `desktopAvailable` を確認し、`false`（GUI未起動）なら起動してから使う。nonoサンドボックス外では `whiteboard app launch` を自分で実行する。nono内（環境変数 `NONO_CAP_FILE` がある）ではサンドボックス内から起動できないため、ユーザーに別ターミナルで `whiteboard app launch` を実行してもらい、完了報告を待つ（`!` 実行もサンドボックス内になるため不可）
 
 ### 破壊的操作の扱い
 

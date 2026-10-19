@@ -417,7 +417,8 @@
     "diagram-design@diagram-design": true,
     "whiteboard@devfast": true,
     "qa-guide@claude-qamods": true,
-    "crit-tui@crit": true
+    "crit-tui@crit": true,
+    "figures@figures": true
   },
   "extraKnownMarketplaces": {
     "crit": {
@@ -454,6 +455,12 @@
       "source": {
         "source": "github",
         "repo": "aieo-product/claude_qamods"
+      }
+    },
+    "figures": {
+      "source": {
+        "source": "github",
+        "repo": "natsukium/claude-code-figures-plugin"
       }
     }
   },
