@@ -2,6 +2,7 @@
 # Languages
 bun = "latest"
 deno = "latest"
+dotnet = "latest"
 elixir = "latest"
 erlang = "latest"
 flutter = "latest"
@@ -83,7 +84,8 @@ zoxide = "latest"
 "npm:@playwright/cli" = "latest"
 codex = "latest"
 antigravity-cli = "latest"
-dotnet = "latest"
+"npm:@apify/mcpc" = "latest"
+"github:jongio/grut" = "latest"
 
 [settings]
 # .python-versionファイルを使用してPythonのバージョンを管理する場合、miseもそれに従う

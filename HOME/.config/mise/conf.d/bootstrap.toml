@@ -160,6 +160,7 @@ depends = [
   "bootstrap:fisher",
   "bootstrap:gh-extensions",
   "bootstrap:claude-mcp",
+  "bootstrap:claude-plugins",
   "bootstrap:crit",
   "bootstrap:herdr",
   "bootstrap:yazi",
@@ -186,6 +187,20 @@ claude mcp get aws-knowledge >/dev/null 2>&1 || claude mcp add aws-knowledge --t
 claude mcp get context7 >/dev/null 2>&1 || claude mcp add context7 --transport stdio --scope user --env DEFAULT_MINIMUM_TOKENS=128000 -- npx -y @upstash/context7-mcp
 claude mcp get serena >/dev/null 2>&1 || claude mcp add serena --transport stdio --scope user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --project-from-cwd
 claude mcp get chrome-devtools >/dev/null 2>&1 || claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest --autoConnect
+"""
+
+[tasks."bootstrap:claude-plugins"]
+description = "Claude Code の settings.json に定義したマーケットプレイスとプラグインをインストール"
+run = """
+settings=~/.claude/settings.json
+marketplaces=$(claude plugin marketplace list --json | jq -r '.[].name')
+jq -r '.extraKnownMarketplaces | to_entries[] | "\\(.key) \\(.value.source.repo)"' "$settings" | while read -r name repo; do
+  echo "$marketplaces" | grep -qx "$name" || claude plugin marketplace add "$repo"
+done
+installed=$(claude plugin list --json | jq -r '.[].id')
+jq -r '.enabledPlugins | to_entries[] | select(.value) | .key' "$settings" | while read -r plugin; do
+  echo "$installed" | grep -qx "$plugin" || claude plugin install "$plugin" --scope user
+done
 """
 
 [tasks."bootstrap:crit"]
