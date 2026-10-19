@@ -49,6 +49,14 @@
       // 実ディレクトリで、crit CLI(comment/share等)が読み書きするため必要
       // (nono whyの実測でpath_not_grantedを確認)。秘密情報は含まない。
       "$HOME/.crit",
+      // Whiteboard(dev.fast)の状態ディレクトリ(DEV_REVIEW_HOME。review-api.db・Desktopの
+      // インスタンス情報・telemetry等)。whiteboard MCPサーバー/CLIがDesktopの検出とレビュー
+      // 作成のため読み書きする(nono runの実測でpath_not_grantedを確認)。現状秘密情報は
+      // 含まないが、`whiteboard trace storage`でS3/R2資格情報を設定するとここに保存される点に注意。
+      // なお `whiteboard app launch` は/usr/bin/openを絶対パスでLaunchServices経由実行するため
+      // サンドボックス内からは起動できない(open許可・専用command sandboxとも実測で失敗)。
+      // GUIの起動はサンドボックス外でユーザーに依頼する運用(CLAUDE.md参照)。
+      "$HOME/.dev",
       // tuicrの永続レビューセッション保存先。~/.config/tuicrはdotfilesへのシンボリックリンクで
       // 設定ファイルのみカバーするため、実行時状態はここが別途必要
       // (nono whyの実測でpath_not_grantedを確認)。
