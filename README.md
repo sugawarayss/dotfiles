@@ -70,3 +70,4 @@ my dotfiles
     mise bootstrap --dry-run  # 変更内容の確認
     mise bootstrap
     ```
+test
