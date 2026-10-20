@@ -444,7 +444,8 @@
     "whiteboard@devfast": true,
     "qa-guide@claude-qamods": true,
     "crit-tui@crit": true,
-    "figures@figures": true
+    "figures@figures": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "crit": {
@@ -488,6 +489,12 @@
         "source": "github",
         "repo": "natsukium/claude-code-figures-plugin"
       }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
     }
   },
   "language": "japanese",
@@ -499,6 +506,12 @@
         "showCost": "off",
         "context": "compact",
         "chatQuestions": "on"
+      }
+    },
+    "ponytail@ponytail": {
+      "options": {
+        "ledger": true,
+        "sendNames": true
       }
     }
   },
