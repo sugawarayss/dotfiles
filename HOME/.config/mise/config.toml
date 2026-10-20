@@ -86,6 +86,7 @@ codex = "latest"
 antigravity-cli = "latest"
 "npm:@apify/mcpc" = "latest"
 "github:jongio/grut" = "latest"
+"npm:@trailhq/trail-code" = "latest"
 
 [settings]
 # .python-versionファイルを使用してPythonのバージョンを管理する場合、miseもそれに従う
