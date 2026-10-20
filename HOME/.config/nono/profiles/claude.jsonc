@@ -64,6 +64,11 @@
       // gwmの操作履歴(history.toml、gwm remove等の破壊的操作を記録)。秘密情報は含まない
       // (nono whyの実測でpath_not_grantedを確認)。
       "$HOME/.local/share/gwm",
+      // ponytail pluginの設定(config.json、/ponytail <level>で既定レベルを書き込む)と
+      // bandのタスク台帳(band/<project>.csv、毎ターン追記)。秘密情報は含まない
+      // (webhookTokenはKeychain保存でここには書かれない)。モードフラグ(~/.claude/.ponytail-active)と
+      // hook本体(~/.claude/plugins/cache)は継承元パックの~/.claude許可でカバー済み。
+      "$HOME/.config/ponytail",
       // Claude Code(Node CLI)がMCPサーバーごとに書き出すログディレクトリ。
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-chrome-devtools",
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-context7",
