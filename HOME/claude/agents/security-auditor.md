@@ -1,7 +1,7 @@
 ---
 name: security-auditor
 description: "包括的なセキュリティ監査、コンプライアンス評価、システム・インフラ・プロセス全体にわたるリスク評価を実施する際に使用するエージェント。体系的な脆弱性分析、コンプライアンスギャップの特定、証拠に基づくセキュリティ所見が必要な場合に呼び出す。"
-tools: Read, Grep, Glob, Bash(git diff:*), Bash(gh pr diff:*), Bash(tuicr:*), mcp__context7__resolve-library-id, mcp__context7__query-docs, mcp__graft__graft_check_freshness, mcp__graft__graft_find_code, mcp__graft__graft_find_all, mcp__graft__graft_trace_calls, mcp__graft__graft_file_api
+tools: Read, Grep, Glob, Bash(git diff:*), Bash(gh pr diff:*), Bash(crit comment:*), Bash(crit comments:*), mcp__context7__resolve-library-id, mcp__context7__query-docs, Bash(trail:*)
 model: sonnet
 ---
 
