@@ -34,9 +34,9 @@
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
 - プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動する際は、①`--no-open` を付けてブラウザの自動起動を止め、出力されるレビューURL（`http://localhost:<port>`）を `terminal-browser open <url> --split right` でherdr内のペインに開く、②`--no-open` を付けずにcrit標準のブラウザ起動に任せる、のどちらで開くかをユーザーに確認してから実行すること。
   - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
-- コード差分レビュー: `tuicr`（`tuicr` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`execute-plan-and-pr` はHerdr環境で `tuicr-wrapper-herdr.sh` によりブロッキング起動し、ユーザーが閉じたら自動継続する。`review-local` はコメント投稿用セッションを非ブロッキングで開いたままにする（裏でsubagent分析を進めるため）。非Herdr環境はいずれもユーザーに起動・完了報告を依頼する
-- PRレビュー: `tuicr`（`review-pr` スキル経由。Herdr環境では右にペインを割いて `tuicr pr <PR>` を自動起動、それ以外はユーザーに起動を依頼する。コメント追加後、GitHubへの送信はユーザーがTUI内で `:submit` を実行する手動操作）
-- コード変更・既存コードの解説: `whiteboard`（dev.fast Whiteboard、MCP経由）。エージェント→人間の説明用で、コメントを返す機能はない（指摘・修正指示はcrit/tuicrで受ける）。大きな差分やPRをtuicrでレビューする前の全体把握、他人のPRや未知コードの「どう動くか」の図解（scratchpad）、設計判断を図付きで残したい場合に使う。プランレビュー（crit）・コード差分レビュー（tuicr）の代替にはしない
+- コード差分レビュー: `crit`（`crit-cli` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`crit --base-branch <base>` をバックグラウンドで起動し、`execute-plan-and-pr` はユーザーが Finish Review を押すまで待って自動継続する。`review-local` は指摘を投稿したらcritを開いたまま終わる。review-localは決着した自分の指摘を `確認:` の一言付きでresolveし、ユーザーの画面には未決着の指摘だけを残す（過去ラウンドのコメントが積み上がって確認が辛くなるのを防ぐため、tuicrから移行した）
+- PRレビュー: `crit`（`review-pr` スキル経由。`crit --pr <PR>` をバックグラウンドで起動し、`crit pull` で既存コメントを取り込んでからエージェントが `crit comment` で指摘を投稿する。ユーザーが Finish Review を押したら `crit push --dry-run` で送信内容を示し、送信方法（comment/approve/request-changes/送信しない）をユーザーに確認してから `crit push` する）
+- コード変更・既存コードの解説: `whiteboard`（dev.fast Whiteboard、MCP経由）。エージェント→人間の説明用で、コメントを返す機能はない（指摘・修正指示はcritで受ける）。大きな差分やPRをcritでレビューする前の全体把握、他人のPRや未知コードの「どう動くか」の図解（scratchpad）、設計判断を図付きで残したい場合に使う。プランレビュー・コード差分レビュー（crit）の代替にはしない
   - 使う前に `session_capabilities` で `desktopAvailable` を確認し、`false`（GUI未起動）なら起動してから使う。nonoサンドボックス外では `whiteboard app launch` を自分で実行する。nono内（環境変数 `NONO_CAP_FILE` がある）ではサンドボックス内から起動できないため、ユーザーに別ターミナルで `whiteboard app launch` を実行してもらい、完了報告を待つ（`!` 実行もサンドボックス内になるため不可）
 
 ### 破壊的操作の扱い
@@ -56,22 +56,23 @@
 - 簡潔・直接的な応答を優先する（[[design_principles]] のKISSと同じ考え方）。
 - 大きな変更や複数の選択肢がある設計判断は、実装前に方針を確認する。
 - 実装プランなど **非コードの成果物** をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
-- コードの差分を変更・実装した後は、tuicr（`execute-plan-and-pr` スキルのレビューループ）でレビューしてもらう。Herdr環境では自動起動、それ以外はユーザーに起動を依頼してから進める。
+- コードの差分を変更・実装した後は、crit（`execute-plan-and-pr` スキルのレビューループ）でレビューしてもらう。
 
-## MCP ツールの使い分け（Serena / Graft）
+## コード探索・編集ツールの使い分け（trail / Serena）
 
 ### 基本方針
 
-- **理解・オリエンテーションフェーズ → Graft**
-- **編集・リファクタリングフェーズ → Serena**
+- **理解・オリエンテーションフェーズ → trail**（CLI）
+- **編集・リファクタリングフェーズ → Serena**（MCP）
 
-### Graft を使う場面
+### trail を使う場面
 
-- 未知のディレクトリ/機能に着手する最初の一手（`graft_repo_map` で全体像を掴む）
-- 「〇〇はどこで実装されているか」を探すとき（`graft_find_code`）
-- ファイルを編集する前に影響範囲を確認するとき（`graft_trace_calls` でblast radius確認）
-- ファイルの公開APIだけ知りたいとき（`graft_file_api`）
-- → **Graftは読み取り専用。コードは変更しない。**
+- 未知のディレクトリ/機能に着手する最初の一手（`trail map` で全体像を掴む）
+- 「〇〇はどこで実装されているか」を探すとき（`trail ask "<task>" --source`）
+- 全出現箇所を漏れなく洗い出すとき（`trail grep "<literal>"`）
+- ファイルを編集する前に影響範囲を確認するとき（`trail callers <symbol> --depth 2`。複数ファイルにまたがる変更は `--depth all`）
+- ファイルの公開APIだけ知りたいとき（`trail skeleton <file>`）
+- → **trailは読み取り専用。コードは変更しない。**
 
 ### Serena を使う場面
 
@@ -82,13 +83,13 @@
 
 ### 順序の例
 
-1. `graft_find_code` / `graft_repo_map` で該当箇所と全体構造を把握
-2. 変更対象のシンボルが決まったら `graft_trace_calls` で影響範囲を確認
+1. `trail ask` / `trail map` で該当箇所と全体構造を把握
+2. 変更対象のシンボルが決まったら `trail callers` で影響範囲を確認
 3. Serenaの `find_symbol` で正確な位置を特定 → `replace_symbol_body` 等で編集
-4. 編集後、必要なら再度Graftで整合性・影響範囲を確認
+4. 編集後、必要なら再度 `trail callers` で整合性・影響範囲を確認
 
 ### 注意
 
-- 両者は探索機能が一部重複する（grep相当の機能がどちらにもある）。基本はGraftを先に当て、シンボル単位の精密操作が必要になった時だけSerenaのgrep系（`search_for_pattern`など）に切り替える
+- 両者は探索機能が一部重複する（grep相当の機能がどちらにもある）。基本はtrailを先に当て、シンボル単位の精密操作が必要になった時だけSerenaのgrep系（`search_for_pattern`など）に切り替える
 - Serenaはセッションが長くなると指示を忘れやすい（agent drift）。必要ならSerena公式のhookを`.claude/settings.json`に設定しておく
-- Graftは`.claude/skills/graft/SKILL.md`に自分の使い方を書き込むので、CLAUDE.md側は「いつGraftに頼るか」の判断基準だけ書けば十分（ツールの詳細説明はSKILL.md任せでOK）
+- trailの詳しい使い方は `trail` スキルにあるので、ここには「いつtrailに頼るか」の判断基準だけを書く（graftはtrail-codeに改名され、graftのMCPサーバーは使わない）
