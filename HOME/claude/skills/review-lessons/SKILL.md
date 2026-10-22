@@ -1,11 +1,11 @@
 ---
 name: review-lessons
-description: tuicr（review-local/review-pr/手動レビュー含む）で過去に交わされたレビュー指摘コメントを横断的に集計し、繰り返し出ているパターンを一般化してclaude/rulesとcodex/skills/coding-rulesの横断ルール、およびObsidian vaultのKnowledgeノートに反映する。「同じ指摘を何度も受ける」「レビューで毎回同じことを言われる」「過去のレビュー指摘を振り返ってルール化したい」「tuicrの指摘を一般化して」といった趣旨の発言があれば、明示的に名指しされていなくても積極的にこのスキルを使う。単発のタスク実行ではなく、レビュー資産を横断ルールへ蒸留する定期的なメンテナンス作業として扱う。
+description: crit（review-local/review-pr/手動レビュー含む）で過去に交わされたレビュー指摘コメントを横断的に集計し、繰り返し出ているパターンを一般化してclaude/rulesとcodex/skills/coding-rulesの横断ルール、およびObsidian vaultのKnowledgeノートに反映する。「同じ指摘を何度も受ける」「レビューで毎回同じことを言われる」「過去のレビュー指摘を振り返ってルール化したい」「critの指摘を一般化して」といった趣旨の発言があれば、明示的に名指しされていなくても積極的にこのスキルを使う。単発のタスク実行ではなく、レビュー資産を横断ルールへ蒸留する定期的なメンテナンス作業として扱う。
 ---
 
 # Review Lessons
 
-tuicrの永続化レビューセッションに溜まった指摘コメントは、放置すると「同じ指摘を毎回受けて毎回その場で直すだけ」で終わり、資産として蓄積されない。このスキルは、指摘の中から**繰り返し出ている・一般化する価値があるパターン**だけを抽出し、恒久的なルール（claude/rules、codex/skills/coding-rules）と横断メモリ（Obsidian）に昇格させる。
+critのレビューファイル（`~/.crit/reviews/*/review.json`）に溜まった指摘コメントは、放置すると「同じ指摘を毎回受けて毎回その場で直すだけ」で終わり、資産として蓄積されない。このスキルは、指摘の中から**繰り返し出ている・一般化する価値があるパターン**だけを抽出し、恒久的なルール（claude/rules、codex/skills/coding-rules）と横断メモリ（Obsidian）に昇格させる。
 
 ## 全体の流れ
 
@@ -24,11 +24,11 @@ python3 scripts/extract_comments.py
 
 標準出力にJSONが返る。`candidates` が未処理の指摘一覧（`session_key`/`repo_path`/`file`/`line`/`author`/`content`/`created_at`）、`suggested_watermarks` が今回処理する範囲のセッションごとの最大`created_at`（ステップ6で使う）。
 
-状態ファイルは既定で `~/.config/review-lessons/state.json`。存在しないセッションキーは「未処理」扱いになり全履歴が対象になる。特定プロジェクトだけ見たい場合は `--key-prefix <prefix>` を指定する（複数指定可）。
+セッションキーは `<owner>/<repo>@<branch>#<review id>`。状態ファイルは既定で `~/.config/review-lessons/state.json`。存在しないセッションキーは「未処理」扱いになり全履歴が対象になる。特定プロジェクトだけ見たい場合は `--key-prefix <prefix>` を指定する（複数指定可）。
 
 ## 2. ノイズ・対象外の除外
 
-以下は候補から人力で除外する（スクリプトは`execute-plan-and-pr`が付ける`対応:`メモしか除外しないため、残りはここで判断する）:
+以下は候補から人力で除外する（スクリプトは修正側（`execute-plan-and-pr`・`Claude Code`）の返信と、review-localがresolve時に残す`確認:`しか除外しないため、残りはここで判断する）:
 
 - スキルやツールの動作確認用テストコメント（「テストコメント」「動作確認です」等、内容から明らかなもの）
 - 「Commit対象外にして良いです」のようなスコープ指示（レビュー指摘ではなくユーザーからの作業指示）

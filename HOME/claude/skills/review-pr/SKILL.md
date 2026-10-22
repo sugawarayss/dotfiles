@@ -2,7 +2,7 @@
 name: review-pr
 description: プルリクエストのコードレビューを支援する。PRの品質・セキュリティ・パフォーマンス・テスト・ドキュメントの観点から分析し、構造化されたレビューコメントを生成する。技術スタック不問。
 argument-hint: "[PR番号 or PRのURL（省略時はカレントブランチのPR）]"
-allowed-tools: Agent, Bash(gh *), Bash(tuicr:*), Bash(herdr:*), Read, Grep, Glob, mcp__context7__*, mcp__*
+allowed-tools: Agent, Bash(gh *), Bash(crit:*), Bash(terminal-browser:*), AskUserQuestion, Read, Grep, Glob, mcp__context7__*, mcp__*
 user-invocable: true
 ---
 
@@ -54,62 +54,59 @@ gh pr view <PR> --comments
 
 他のレビュワーのコメントも考慮に入れ、反論や意見がある場合はコメントすること。
 
-## ステップ4: tuicrセッションを用意する
+## ステップ4: critセッションを用意する
 
-ステップ5で各専門subagentが指摘を**直接**投稿できるよう、分析より前にtuicrセッションを確立し `slug` を確保しておく。
+ステップ5で各専門subagentが指摘を**直接**投稿できるよう、分析より前にcritのPRレビューセッションを起動し、セッションID `<session>` を確保しておく。
 
-**前提: 対象PRに対して `tuicr pr <PR>` のセッションが必要。** tuicrはヘッドレスにセッションを新規作成できない（TTY付きでTUIを実際に開いた時にだけセッションが永続化される）ため、下記4-1で起動経路を分岐する。
+### 4-1. 開き方を確認する
 
-### 4-1. セッションを用意する
+AskUserQuestionで、レビュー画面の開き方をユーザーに確認する。
 
-```bash
-test "${HERDR_ENV:-}" = 1
-```
+- ① `--no-open` でブラウザの自動起動を止め、レビューURLを `terminal-browser open <url> --split right` でherdr内のペインに開く
+- ② `--no-open` を付けず、crit標準のブラウザ起動に任せる
 
-**Herdr環境の場合（終了コード0）**: ユーザーに確認や依頼をせず、右側に新規ペインを割いて自動的に起動する。
+### 4-2. critを起動する
 
-```bash
-herdr pane split --current --direction right --cwd "$PWD" --no-focus
-# → .result.pane.pane_id を取得
-herdr pane run <pane_id> "tuicr pr <PR>"
-```
-
-セッションの永続化には少し時間がかかることがある。`tuicr review list --repo .` が空配列を返す間は1〜2秒待って再試行する（最大5回程度）。5回試しても現れない場合はエラーとしてユーザーに報告し中断する。
-
-**Herdr環境でない場合**: ユーザーに「`tuicr pr <PR>` を実行してください」と伝えて起動を依頼し、実行完了の報告を待ってから次に進む。ユーザーに何か入力するよう促す以外の先読みはしない。
-
-### 4-2. セッションを探す
+Bashツールで `run_in_background: true` と `timeout: 86400000` を指定して起動する（ユーザーが Finish Review を押すまでブロックするため。完了はステップ9で受け取る）。
 
 ```bash
-tuicr review list --repo .
+crit --pr <PR> --no-open   # ①の場合
+crit --pr <PR>             # ②の場合
 ```
 
-`--repo .` はcwdのチェックアウトを指す。パスを渡すとそのチェックアウトのorigin repoに紐づくPRセッションも表示されるため、`owner/repo` を別途調べる必要はない。対象PR番号に対応するセッションの `slug` を見つける。見つからない場合は「`tuicr pr <PR>` を起動してから再実行してください」とユーザーに伝えて中断する。
+`crit pr <PR>` は引数を1つしか受け付けず `--no-open` を渡せないため、同じ処理になる `crit --pr` を使う。
 
-### 4-3. `--repo` に使う値を確定する
+起動出力（バックグラウンドタスクの出力ファイル）からレビューURL（`http://localhost:<port>`）を取得する。まだ出力されていなければ1〜2秒待って再確認する（最大5回）。①の場合は `terminal-browser open <url> --split right` で開く。
 
-`tuicr review add`/`tuicr review list` の `--repo` は、**cwdそのものではなくgitリポジトリのtoplevelを基準に解決される**（実機確認済み）。cwdがtoplevelと一致する通常のプロジェクトでは `--repo .` のままで4-2以降も問題なく動くが、monorepoのサブディレクトリで作業している等 **cwdがtoplevelの子ディレクトリになっている構成では `--repo .` がセッション未検出エラー**（`session '<slug>' was not found for repo <path>`）になることがある。
+### 4-3. セッションIDを取得し、既存コメントを取り込む
 
-その場合は次のいずれかを `<repo>` として以降使う：
+```bash
+crit status --json
+```
 
-- `git rev-parse --show-toplevel` で得た絶対パス
-- `tuicr review list --all` で対象セッションのslugを確認し、そのslugの先頭 `owner/repo` 部分（例: `sugawarayss/dotfiles`）
+`sessions` から対象PRのセッションIDを `<session>` として控える。続けて、**必ず** GitHub上の既存レビューコメントを取り込む。`crit --pr` だけではGitHub上のコメントはcritに表示されず、人間もsubagentも他のレビュワーのコメントを見られない。取り込んだコメントはGitHubのIDを持つため、ステップ9の push で重複投稿されることもない。
 
-4-2が空配列を返したのに `--all` では見つかる場合は、このズレが原因なので `<repo>` を切り替えて4-2を再試行すること。
+```bash
+crit pull --session '<session>' <PR>
+```
 
-以降、この節で得た `<slug>` と `<repo>` をステップ5の各subagentに渡す。
+以降、この `<session>` をステップ5の各subagentに渡す。
 
-## ステップ5: 専門subagentによる並列分析＋tuicrへの直接投稿
+## ステップ5: 専門subagentによる並列分析＋critへの直接投稿
 
 Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッセージで並列**に起動して観点ごとの分析を分担すること。それぞれ新規に起動される（会話コンテキストを持たない）ため、各agentのpromptには必ず次を含めること:
 
 - レビュー対象PR番号 `<PR>` と、diff取得コマンド（`gh pr diff <PR>`、`gh pr diff <PR> --name-only`）
 - ステップ3で把握した技術スタックと、そのスタック固有のベストプラクティス・落とし穴に注目してほしい旨
 - 下表の担当観点とその着眼点
-- ステップ4で確保した **tuicrセッションのslug `<slug>`** と **`--repo` に使う値 `<repo>`**（4-3参照。`--repo .` が使えない構成では必ずこの `<repo>` を使わせること。ここを省いてcwd相対の値を推測させると `session was not found for repo ...` エラーで投稿が全滅する）
-- 指摘を見つけたら、その場で下記の投稿コマンドを**自分で実行してtuicrに直接投稿すること**（メインエージェントには投稿を依頼しない）
-- 出力フォーマット: 投稿がすべて終わったら、`posted`（投稿できた件数）・`failed`（投稿コマンドがエラーになった指摘。`file`/`line`/`body` を持つJSON配列。無ければ空配列）・`summary`（投稿した指摘それぞれの1行要約の配列。例: `"src/auth.go:42 [must] nullチェック漏れでTypeErrorが発生する"`）を持つJSONオブジェクトで返すこと。指摘が無ければ `{"posted": 0, "failed": [], "summary": []}` を返すこと
-- **コードの変更やファイル作成は行わない**（読み取り専用の分析と、tuicrへの投稿コマンド実行のみ許可される）
+- ステップ4で確保した **critのセッションID `<session>`**（複数のcritセッションがあると `--session` なしの `crit comment` は投稿先を決められずエラーになるため、必ず渡す）
+- 分析の前に `crit comments --session '<session>' --json --all` で既存のレビューコメント（GitHubから取り込んだ他のレビュワーのコメント、resolve済み・返信を含む）を読み、次のとおり扱うこと
+  - 既存コメントと同じ内容の指摘は新規投稿しない
+  - 既存コメントへの同意・反論・補足は `crit comment --session '<session>' --author 'review-pr' --reply-to <id> '<本文>'` で返信する（返信も `crit push` でGitHubに送信される）
+  - 作成者が回答済み・resolve済みのものは、その回答自体に新たな問題がある場合だけ返信する
+- 指摘を見つけたら、その場で下記の投稿コマンドを**自分で実行してcritに直接投稿すること**（メインエージェントには投稿を依頼しない）
+- 出力フォーマット: 投稿がすべて終わったら、`posted`（投稿できた件数）・`replied`（既存コメントへ返信した件数）・`failed`（投稿コマンドがエラーになった指摘。`file`/`line`/`body` を持つJSON配列。無ければ空配列）・`summary`（投稿した指摘それぞれの1行要約の配列。例: `"src/auth.go:42 [must] nullチェック漏れでTypeErrorが発生する"`）を持つJSONオブジェクトで返すこと。指摘が無ければ `{"posted": 0, "replied": 0, "failed": [], "summary": []}` を返すこと
+- **コードの変更やファイル作成は行わない**（読み取り専用の分析と、critへの投稿コマンド実行のみ許可される）
 - 必要であれば `mcp__context7__*`（技術スタックの最新ドキュメント）や `mcp__aws-*`（AWS利用時）を使ってよいこと
 
 | 観点 | subagent_type | 着眼点 |
@@ -162,7 +159,7 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 ### 各agentが実行する投稿コマンド
 
 ```bash
-tuicr review add --session '<slug>' --repo '<repo>' --target-file src/auth.go --line 42 --username 'review-pr' "$(cat <<'EOF'
+crit comment --session '<session>' --author 'review-pr' 'src/auth.go:42' "$(cat <<'EOF'
 ![must-badge](https://img.shields.io/badge/review-Must-red.svg)
 
 **[重要度: 高] [緊急度: 高]** null チェック漏れ
@@ -174,10 +171,11 @@ EOF
 )"
 ```
 
-`<repo>` はステップ4-3で確定した値をそのまま使う（`.` に固定しないこと）。`--target-file` はgit toplevel相対のパス（`gh pr diff` が出力するパスそのまま）を渡す。
+パスはgit toplevel相対（`gh pr diff` が出力するパスそのまま）で、範囲指定は `src/auth.go:40-45` の形式で渡す。
 
-- **必ず `--username 'review-pr'` を付ける**（人間のコメントと視覚的に区別するため）。
-- **`--line` はPRのdiffに実際に現れる変更行を指すこと。** diffのcontext範囲外の行を指定するとセッションファイルには保存されるが、TUIの差分ビューには描画されない（動作検証済み）。
+- **必ず `--author 'review-pr'` を付ける**（人間のコメントと区別するため）。GitHubへは本文だけが送られ、投稿者はpushしたユーザー本人になる。
+- **行番号はPRのhead側（diffの `+` 側）の行番号で、diffに実際に現れる行を指すこと。** diffの範囲外の行はGitHubのレビューAPIで受け付けられない。
+- ファイル全体への指摘（行番号なし）は使わない（GitHubのインラインコメントとして送信できないため）。最も関連する変更行に付ける。
 - 投稿コマンドが失敗した場合（session未検出、権限エラー等）はリトライせず、その指摘を `failed` に積んで次の指摘に進む。
 
 全agentの完了通知を待ってから、次のステップに進む。
@@ -213,16 +211,16 @@ EOF
 
 ````
 
-この全体像を、メインエージェント自身が `tuicr review add`（`--target-file`/`--line` は付けない、**レビューコメント**）で投稿する。他のレビュワーのコメントも考慮に入れ、反論や意見がある場合はコメントすること。
+この全体像を、メインエージェント自身が `crit comment`（パス・行番号を付けない、**レビューコメント**）で投稿する。他のレビュワーのコメントも考慮に入れ、反論や意見がある場合はコメントすること。
 
 ```bash
-tuicr review add --session '<slug>' --repo '<repo>' --username 'review-pr' "$(cat <<'EOF'
+crit comment --session '<session>' --author 'review-pr' "$(cat <<'EOF'
 ## コードレビュー: ...(上記の全体像Markdown全文)
 EOF
 )"
 ```
 
-ここでも `<repo>` はステップ4-3で確定した値を使う。
+critのレビューコメントは `crit push` でGitHubに送信されない（インラインコメントのAPIに対応する形がないため）。全体像はcrit上で人間がレビューするためのガイドとして使う。
 
 指摘が1件も無い場合（全agentの `posted` が0）も、全体像のレビューコメントは必ず投稿する。
 
@@ -230,14 +228,38 @@ EOF
 
 ## ステップ7: 投稿に失敗した指摘のフォールバック
 
-各agentの `failed` 配列を集約する。1件でもあれば、メインエージェントが代わりにステップ5と同じコメントフォーマット・タグ・`--username 'review-pr'` で `tuicr review add` を実行して投稿する。全て成功していれば（全agentの `failed` が空配列）このステップは何もしない。
+各agentの `failed` 配列を集約する。1件でもあれば、メインエージェントが代わりにステップ5と同じコメントフォーマット・タグ・`--author 'review-pr'` で `crit comment` を実行して投稿する。全て成功していれば（全agentの `failed` が空配列）このステップは何もしない。
 
-## ステップ8: ユーザーに伝えて完了
+## ステップ8: ユーザーにレビューを依頼する
 
-GitHubへ直接投稿せず、`tuicr` を経由してPR全体像（レビューコメント）と個別の指摘（インラインコメント）の両方をユーザーに確認してもらう。crit方式と異なり、GitHubへの最終送信はユーザーがTUI内で `:submit` を実行する**手動操作**であり、Claudeはそれを待たずにこのステップで完了とする（tuicrにはヘッドレスな push コマンドが存在しないため）。
+投稿件数（ステップ5の各agentの `posted` 合計 + ステップ7のフォールバック分 + ステップ6の全体像1件）、既存コメントへの返信件数（各agentの `replied` 合計）とレビューURLをユーザーに伝える。
 
-投稿件数（ステップ5の各agentの `posted` 合計 + ステップ7のフォールバック分 + ステップ6の全体像1件）をユーザーに報告し、以降の操作を委ねる。Herdr環境で自動的にペインを開いた場合は、そのペインで確認できることも伝える。
+> "critにN件のコメント（全体像1件＋個別指摘N-1件）を追加し、既存コメントにM件返信しました（<url>）。不要な指摘はresolveしてください（resolveした指摘はGitHubに送信されません）。編集・追加が済んだら Finish Review を押してください。"
 
-> "tuicrにN件のコメント（全体像1件＋個別指摘N-1件）を追加しました。開いているTUIに再起動不要で反映されます。内容を確認し、不要なものは削除・編集した上で、TUI内で `:submit` を実行してください。GitHubへの送信内容（Comment/Approve/Request changes）はその場で選択できます。"
+その後、ステップ4-2のバックグラウンドタスクの完了通知を待つ。出力ファイルをポーリングしない。
 
-crit方式のようにユーザーの完了操作を待ってからpushする処理はここでは行わない。GitHubへの反映は完全にユーザーの `:submit` 操作に委ねられるため、このステップでスキルの処理を終える。
+## ステップ9: GitHubへ送信する
+
+critの `approved` は「未resolveのコメントが0件」という意味しか持たない。送信したい指摘を残すと常に `approved: false` になるため、`approved` の値では送信するかどうかを判断しない。Finish Review が押されたら、次の手順で送信する。
+
+1. 送信内容をプレビューし、送信予定の件数と内容をユーザーに示す。
+
+   ```bash
+   crit push --session '<session>' --dry-run <PR>
+   ```
+
+2. AskUserQuestionで、送信方法をユーザーに選んでもらう。
+   - `comment`
+   - `approve`
+   - `request-changes`
+   - 送信しない
+
+3. 「送信しない」以外を選んだ場合は、次のコマンドで送信する。
+
+   ```bash
+   crit push --session '<session>' -e <event> <PR>
+   ```
+
+   未resolveのコメントが0件で終えた場合、critのデーモンが停止していて `--session` でセッションが見つからないことがある。そのときは `--session` を外して再実行する。
+
+4. 送信結果（送信件数とPRのURL）をユーザーに報告して完了する。

@@ -5,15 +5,15 @@ description: >
   5観点で専門subagentに分析を並列委譲してコードレビューを行います（review-pr と同じ観点構成をローカルdiff向けに適用）。
   ユーザーが「ローカルの変更をレビューして」「この diff をチェックして」「マージ前にレビューして」「review-local」「/review-local」と入力した場合に使用します。
   complexity-review（差分の過剰設計検出）・audit-review（リポジトリ全体の過剰設計監査）を補完する立ち位置です。
-argument-hint: "[ベースブランチ] [--session <tuicrセッションslug>]"
-allowed-tools: Agent Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git rev-list:*) Bash(git diff:*) Bash(tuicr:*) Bash(herdr:*) Bash(jq:*) Bash(/Users/sugawarayss/.claude/skills/review-local/scripts/tuicr-review-threads.sh:*) Read Grep Glob mcp__context7__* mcp__*
+argument-hint: "[ベースブランチ] [--session <critセッションID>]"
+allowed-tools: Agent Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git rev-list:*) Bash(git diff:*) Bash(crit:*) Bash(jq:*) Bash(/Users/sugawarayss/.claude/skills/review-local/scripts/crit-review-threads.sh:*) Read Write Grep Glob mcp__context7__* mcp__*
 ---
 
-ベースブランチとの diff を取得し、品質・セキュリティ・パフォーマンス・テスト・ドキュメントの5観点で専門subagentに分析を並列委譲してレビューします。各subagentは発見事項（行番号・タグ・問題点・修正案）をJSONで返すだけにし、tuicrへのインラインコメント投稿はメインエージェントが**1回のBash呼び出しでまとめて**行います（subagentが1件ずつ投稿すると、投稿のたびに全コンテキストを再読込してトークンを大量に消費するため）。
+ベースブランチとの diff を取得し、品質・セキュリティ・パフォーマンス・テスト・ドキュメントの5観点で専門subagentに分析を並列委譲してレビューします。各subagentは発見事項（行番号・タグ・問題点・修正案）をJSONで返すだけにし、critへのインラインコメント投稿はメインエージェントが**1回のBash呼び出しでまとめて**行います（subagentが1件ずつ投稿すると、投稿のたびに全コンテキストを再読込してトークンを大量に消費するため）。
 
-`execute-plan-and-pr` など他スキルから呼び出され、`<merge-base-sha>` と `--repo` に使う値（worktreeの絶対パス）が既に渡されている場合は、以下の「ベースブランチの決定」「Diffの対象範囲を決める（merge-base）」の自前の検出・計算は行わず、渡された値をそのまま使う（呼び出し元が起動した同一tuicrセッションを再利用するため）。「tuicrセッションを用意する」以降はそのまま実行する。
+`execute-plan-and-pr` など他スキルから呼び出され、`<merge-base-sha>` とcritのセッションID（`--session <session_id>`）が既に渡されている場合は、以下の「ベースブランチの決定」「Diffの対象範囲を決める（merge-base）」「critセッションを用意する」の自前の検出・計算・起動は行わず、渡された値をそのまま使う（呼び出し元が起動した同一critセッションに投稿するため）。
 
-tuicrセッションのslug（`--session <slug>`）が引数で渡された場合は、そのセッションに既に付いているレビューのやり取り（review-localの過去の指摘、修正側の「対応:」「見送り:」、ユーザーのコメント）を踏まえてレビューする（後述「過去のやり取りの取得」）。投稿先もそのセッションになる。渡されなかった場合は過去のやり取りを参照せず、従来どおり新規の指摘だけを行う。
+critのセッションID（`--session <session_id>`）が渡された場合は、そのセッションに既に付いているレビューのやり取り（review-localの過去の指摘、修正側の「対応:」「見送り:」、ユーザーのコメント）を踏まえてレビューし、決着した指摘はresolveする（後述「過去のやり取りの取得」）。投稿先もそのセッションになる。渡されなかった場合は自分でcritを起動し、過去のやり取りを参照せず新規の指摘だけを行う。
 
 ## ベースブランチの決定
 
@@ -28,9 +28,9 @@ tuicrセッションのslug（`--session <slug>`）が引数で渡された場�
 git merge-base <base> HEAD
 ```
 
-**ブランチ名（`<base>`）そのものを対象にしない。** `tuicr -r <base>..HEAD -w` のようにブランチ名を渡すと、baseブランチが自分より先に進んでいた場合その変更までノイズとして混ざる。加えて **`-r <range>` だけではコミット済みの範囲しか見ず、作業ツリーの未コミット変更を含められない**（実機確認済み: `tuicr -r <sha>..HEAD` 単体はコミット済み変更のみ、`-w` を併用した `tuicr -r <sha>..HEAD -w` で初めて未コミット変更も含んだ表示になった）。
+**ブランチ名（`<base>`）そのものを差分の起点にしない。** `git diff <base>` のようにブランチ名を渡すと、baseブランチが自分より先に進んでいた場合その変更までノイズとして混ざる。三点記法（`<base>...HEAD`）はコミット済みの範囲しか見ず、作業ツリーの未コミット変更を含められない。
 
-解決策は上記コマンドで得た **merge-baseのコミットSHA自体をrevsetの起点として使い、`-w` を必ず併用する**こと。`tuicr -r <merge-base-sha>..HEAD -w` は「そのコミットから現在の状態（作業ツリー含む）まで」を比較するため、(a) baseブランチの独自の進行はノイズに入らず、(b) コミット済みの変更と未コミットの変更の両方を1つのセッションでレビューできる。以降、この節で得た `<merge-base-sha>` を対象rangeとして使う。
+上記コマンドで得た **merge-baseのコミットSHA自体を起点にする**。`git diff <merge-base-sha>` は「そのコミットから現在の状態（作業ツリー含む）まで」を比較するため、(a) baseブランチの独自の進行はノイズに入らず、(b) コミット済みの変更と未コミットの変更の両方をレビューできる。critも `--base-branch <base>` を渡すと同じmerge-baseから作業ツリーまでを差分にする。以降、この節で得た `<merge-base-sha>` を対象rangeとして使う。
 
 baseブランチの独自進行そのものは、レビュー対象からは除外するが無視はしない。件数だけ数えておく:
 
@@ -40,54 +40,21 @@ git rev-list --count <merge-base-sha>..<base>
 
 0件より多ければ、最後のスコア報告で「baseからN件遅れているのでrebase推奨」と一言添える（差分レビュー自体には混ぜない）。
 
-## tuicrセッションを用意する
+## critセッションを用意する
 
-`--session <slug>` が渡された場合は、この節の「セッションの有無を確認」「Herdr環境の場合」「Herdr環境でない場合」を行わず、渡されたslugをそのまま `<slug>` として使う（「`--repo` に使う値を確定する」だけは行う）。
+`--session <session_id>` が渡された場合はこの節を飛ばし、渡された値を `<session_id>` として使う。
 
-分析と並行してユーザーがdiffを眺められるよう、分析より前に対象range（`<merge-base-sha>..HEAD` を `-w` 付き）のtuicrライブセッションを用意し `slug` を確保しておく。`review-pr` スキルと同じ「TUIは人間、専用サブコマンドはエージェント」という設計に従い、tuicrの対話TUI自体（Herdr環境で開く新規ペインを除く）は自分では操作しない。
-
-### セッションの有無を確認
+分析と並行してユーザーが差分を眺められるよう、分析より前にcritを起動する。リポジトリのルートをcwdにして、Bashツールで `run_in_background: true` と `timeout: 86400000` を指定して実行する。
 
 ```bash
-tuicr review list --repo .
+crit --base-branch <base> --no-open
 ```
 
-`kind: "local"` で、対象range（mode: `staged-and-unstaged-and-commits`、sha部分が `<merge-base-sha 7桁>..<HEAD 7桁>`）に対応するセッションの `slug` があれば再利用する。無ければ以下の通り起動する。
-
-**tuicrはヘッドレスにセッションを新規作成できない（TTY付きでTUIを実際に開いた時にだけセッションが永続化される）。**
-
-### Herdr環境の場合（`test "${HERDR_ENV:-}" = 1`）
-
-ユーザーに確認や依頼をせず、右側に新規ペインを割いて自動的に起動する。`tuicr` スキル付属の `tuicr-wrapper-herdr.sh` はtuicrが閉じるまでブロックする設計のため、ここでは使わない（このスキルはセッションを開いたまま裏でsubagent分析・コメント投稿を進める必要があり、ユーザーの操作待ちでブロックされると先に進めない）。
-
-```bash
-herdr pane split --current --direction right --cwd "$PWD" --no-focus
-# → .result.pane.pane_id を取得
-herdr pane run <pane_id> "tuicr -r <merge-base-sha>..HEAD -w"
-```
-
-セッションの永続化には少し時間がかかることがある。`tuicr review list --repo .` に対象slugが現れるまで1〜2秒待って再試行する（最大5回程度）。5回試しても現れない場合はエラーとしてユーザーに報告し中断する。
-
-### Herdr環境でない場合
-
-ユーザーに「`tuicr -r <merge-base-sha>..HEAD -w` を実行してください」と伝えて起動を依頼し、実行完了の報告を待ってから次に進む。
-
-### `--repo` に使う値を確定する
-
-`tuicr review add`/`tuicr review list` の `--repo` は、**cwdそのものではなくgitリポジトリのtoplevelを基準に解決される**（実機確認済み）。cwdがtoplevelと一致する通常のプロジェクトでは `--repo .` のままで問題ないが、monorepoのサブディレクトリで作業している等 **cwdがtoplevelの子ディレクトリになっている構成では `--repo .` がセッション未検出エラー**（`session '<slug>' was not found for repo <path>`）になることがある。
-
-その場合は次のいずれかを `<repo>` として以降使う：
-
-- `git rev-parse --show-toplevel` で得た絶対パス
-- `tuicr review list --all` で対象セッションのslugを確認し、そのslugの先頭 `owner/repo` 部分
-
-上のセッション確認が空配列を返したのに `--all` では見つかる場合は、このズレが原因なので `<repo>` を切り替えて再試行すること。
-
-以降、この節で得た `<slug>` と `<repo>` を後段の投稿で使う。
+critはユーザーが Finish Review を押すまで終了しないが、このスキルはその完了を待たない（指摘を投稿したら終わる。critは開いたまま残る）。起動出力の1行目（`Started crit daemon at http://localhost:<port> (session <session_id>, ...)`）からURLとセッションIDを控える。まだ出力されていなければ1〜2秒待って再確認する（最大5回）。URLは最後のスコア報告でユーザーに伝える。
 
 ## Diff の取得（分析用）
 
-tuicrにはセッション内容をJSONで取り出すコマンドが無いため、各subagentへ渡す生diffは `git diff` で別途取得する。対象rangeはセッションと同じ `<merge-base-sha>` を使う（作業ツリーの未コミット変更も含まれる）。
+critには差分を取り出す公開コマンドが無いため、各subagentへ渡す生diffは `git diff` で取得する。対象rangeはcritと同じ `<merge-base-sha>` を使う（作業ツリーの未コミット変更も含まれる）。
 
 ```bash
 git diff <merge-base-sha>
@@ -97,22 +64,23 @@ git diff <merge-base-sha>
 
 `--session` が渡されていなければこの節は飛ばす。
 
-セッションJSONの `path` を取得し、付属スクリプトで指摘単位のやり取りに整理する（tuicrは同じ行のスレッドに独立した複数の指摘を積むため、生JSONやスレッド単位ではなく、このスクリプトで指摘単位に分割したものを使う）。
+付属スクリプトで、未resolveの指摘をやり取りの状態付きで取得する（resolve済みの指摘は決着済みなので含まれない）。
 
 ```bash
-tuicr review list --repo '<repo>' | jq -r --arg s '<slug>' '.[] | select(.slug == $s) | .path'
-/Users/sugawarayss/.claude/skills/review-local/scripts/tuicr-review-threads.sh <session_json_path>
+/Users/sugawarayss/.claude/skills/review-local/scripts/crit-review-threads.sh <session_id>
 ```
 
-出力は指摘のJSON配列（各要素: `scope` / `path` / `line`（返信時に使うスレッドキー。範囲コメントでは終了行） / `tag` / `status` / `can_reply` / `messages`）。`status` と各subagentに求める扱いは次の通り。
+出力は指摘のJSON配列（各要素: `id`（返信・resolve時に使う） / `scope` / `path` / `start_line` / `end_line` / `author`（指摘を書いた人） / `tag` / `status` / `can_reply` / `messages`）。`status` と各subagentに求める扱いは次の通り。
 
 | `status` | 意味 | 扱い |
 |---|---|---|
-| `addressed` | 修正側が「対応:」と返答 | 修正が実際にdiffに入っているか、`同種の箇所` も含めて直っているかを確認する。不十分な場合だけ `再指摘:` で返信する |
-| `declined` | 修正側が理由付きで「見送り:」と返答 | 理由を検討し、納得できない場合だけ `反論:` で返信する。納得できれば何も返さない（投稿しないことが了承の意思表示になる） |
-| `skipped_optional` | 「2周目以降のsuggest/norush」の定型文で見送り | 蒸し返さない |
+| `addressed` | 修正側が「対応:」と返答 | 修正が実際にdiffに入っているか、`同種の箇所` も含めて直っているかを確認する。不十分な場合だけ `再指摘:` で返信する。直っていれば `確認: <1文>` でresolveする |
+| `declined` | 修正側が理由付きで「見送り:」と返答 | 理由を検討し、納得できない場合だけ `反論:` で返信する。納得できれば `確認: <1文>` でresolveする |
+| `skipped_optional` | 「2周目以降のsuggest/norush」の定型文で見送り | 蒸し返さず、`確認: 2周目以降のsuggest/norushのため見送りを了承` でresolveする |
 | `pending` | review-localの指摘に修正側がまだ応答していない | 既出として扱い、同じ内容を再投稿しない |
 | `user` | 最後の発言がユーザー | ユーザーの判断・要望として最優先の前提にし、それに反する指摘をしない。返信もしない |
+
+- **resolveするのはreview-localが書いた指摘（`author` が `review-local` または `review-local/` で始まる）だけ。** ユーザーが書いたコメントは、修正側が「対応:」と返していてもresolveしない（ユーザー自身が確認してresolveする）。
 
 - 返信（`再指摘:`/`反論:`）は重要度 `must`/`should` に限る（それ以外を議論しても収束を遅らせるだけのため）。
 - `can_reply: false` の指摘（1つの指摘につきreview-localは既に1回再指摘・反論済み）には返信しない。それでも納得できない場合は `disputed` として返させ、メインエージェントが最後にユーザーへ判断を委ねる（エージェント同士の往復が収束しなくなるのを防ぐため）。
@@ -132,13 +100,13 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 - 把握した技術スタックと、そのスタック固有のベストプラクティス・落とし穴に注目してほしい旨
 - 下表の担当観点とその着眼点（他観点は別agentが担当するので扱わないこと）
 - 出力フォーマット: 指摘をJSON配列で返すこと。各要素は `file`（リポジトリルートからの相対パス）・`line`（new-side行番号）・`end_line`（範囲指定時のみ）・`body`（下記「タグ」を先頭に付けた `<タグ> [must|should|suggest|norush|nitpick] <何が問題か>. <修正案>. 同種の箇所: <path:line, ...>` 形式の本文。重要度は下記「重要度」の基準で付ける）を持つ。指摘が無ければ `[]` を返すこと
-- （`--session` 指定時のみ）担当観点に該当する過去のやり取り（前節の出力のうち該当要素）と、前節の表・箇条書きの扱い。既存の指摘への返信は、同じJSON配列に `reply_to: {scope, path, line}`（前節の出力の値をそのまま）を付けた要素として返させる。`body` は `再指摘: [must|should] <何が不十分か>. <修正案>.` または `反論: [must|should] <見送り理由に納得できない根拠>. <修正案>.` とする（`file`/`line` は不要。修正側は未対応判定でスレッド末尾の本文しか受け取らないため、元の指摘の要点を1文含めて単体で読めるようにする）。`can_reply: false` の指摘に納得できない場合は、`reply_to` の代わりに `disputed: {scope, path, line}` を付け、`body` に論点を1〜2文で書かせる
+- （`--session` 指定時のみ）担当観点に該当する過去のやり取り（前節の出力のうち該当要素）と、前節の表・箇条書きの扱い。既存の指摘への返信は、同じJSON配列に `reply_to: <id>`（前節の出力の `id`）を付けた要素として返させる。決着した指摘は `reply_to: <id>`・`resolve: true`・`body: "確認: <1文>"` の要素として返させる（前節の表の基準。review-localが書いた指摘に限る）。`body` は `再指摘: [must|should] <何が不十分か>. <修正案>.` または `反論: [must|should] <見送り理由に納得できない根拠>. <修正案>.` とする（`file`/`line` は不要。修正側は未対応判定でスレッド末尾の本文しか受け取らないため、元の指摘の要点を1文含めて単体で読めるようにする）。`can_reply: false` の指摘に納得できない場合は、`reply_to` の代わりに `disputed: <id>` を付け、`body` に論点を1〜2文で書かせる
 - 同種の箇所の網羅（下記「同種の箇所の洗い出し」）。同じ問題が複数箇所にある場合は、箇所ごとに別の指摘に分けず、代表箇所1件の指摘にまとめて残りを `同種の箇所:` に列挙させる
 - 探索範囲の制約（トークン消費を抑えるため必ず守らせる）:
   - diff取得は冒頭の1回だけにする。読むのは変更ファイルと、変更箇所の直接の呼び出し元・呼び出し先に限る（リポジトリ全体の横断検索や、関連の薄い仕様書を全文読むことはしない）
-  - 呼び出し元・呼び出し先や周辺シンボルの把握には、ファイル全文のReadや `find`/`grep` の横断検索より先に Graft MCP を使う（`graft_trace_calls` で呼び出し関係、`graft_file_api` でファイルの公開API、`graft_find_code` でシンボルの定義箇所）。最初に `graft_check_freshness` で索引が古くないか確認し、古い・Graftが使えないプロジェクトの場合は Grep/Read にフォールバックする。`graft_repo_map` は出力が大きいため使わない
+  - 呼び出し元・呼び出し先や周辺シンボルの把握には、ファイル全文のReadや `find`/`grep` の横断検索より先に trail を使う（`trail callers <symbol>` で呼び出し元、`--direction out` で呼び出し先、`trail skeleton <file>` でファイルの公開API、`trail grep "<symbol>"` でシンボルの定義箇所）。trailが使えないプロジェクトの場合は Grep/Read にフォールバックする。`trail map` は出力が大きいため使わない
   - lint・型チェック・テスト等の実行はしない
-  - tuicrへの投稿は行わない（投稿はメインエージェントが担当する）
+  - critへの投稿は行わない（投稿はメインエージェントが担当する）
   - コードの変更・ファイル作成（`/tmp` への書き出しを含む）は行わない
   - `mcp__context7__*` は、技術スタックのAPI仕様に確信が持てない場合に限って使ってよい
 
@@ -159,7 +127,7 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 - 指摘を1件見つけたら、その問題を生んでいる式・パターンの断片（例: `> monthlyWarnMinutes`、`val * 60`、`list(changes.keys())`）でGrepし、同じ書き方が残っている箇所を洗い出す。共通関数・定数名ではなく、置き換えるべき**元の書き方**で検索する。
 - 検索範囲は変更ファイルに限らない。同じデータを扱う別画面・子コンポーネント・同じ関数を呼ぶ側のように、差分に含まれない箇所にも残りやすい。探索範囲の制約（横断検索の禁止）の例外として、このパターン検索に限ってリポジトリ全体へのGrepを許可する（ファイル全文のReadは引き続き必要な箇所に限る）。
 - 見つかった箇所は `同種の箇所: path:line, path:line` として本文末尾に列挙する。無ければ `同種の箇所: なし` と明記する（検索を省略していないことを示すため、省略しない）。
-- 代表箇所には、差分に現れる変更行を選ぶ（差分外の行はTUIに描画されないため）。
+- 代表箇所には、差分に現れる変更行を選ぶ（差分外の行はcritの差分ビューに表示されないため）。
 
 ### タグ
 
@@ -186,42 +154,46 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
   - 新しいテストケース・ファイルの追加が要らない
   - `同種の箇所: なし`（横展開が要らない）
 
-## 報告方法（メインエージェントがtuicrへ一括投稿）
+## 報告方法（メインエージェントがcritへ一括投稿）
 
-発見事項はテキストで一覧表示せず、全agentの返したJSON配列を集約し、メインエージェントが `tuicr review add` でファイルの該当行にインラインコメントとして投稿する。
+発見事項はテキストで一覧表示せず、全agentの返したJSON配列を集約し、メインエージェントが `crit comment --json` でファイルの該当行にインラインコメントとして投稿する。
 
-1. 全件の `tuicr review add` を改行区切りで並べ、**1回のBash呼び出しで実行する**（1件ずつ別呼び出しにしない）。1件の失敗で残りが止まらないよう `&&` では連結しない。
-2. `file` をそのまま `--target-file` に、`line`（と `end_line`）を `--line`（`--end-line`）に渡す。`--side` は省略時 `new` になるため指定不要。
-3. `body` をコメント本文として渡す。本文にシングルクォートが含まれる場合は `'\''` にエスケープする。
-4. **必ず `--username 'review-local/<subagent_type>'` を付ける**（例: `review-local/security-auditor`。人間のコメントと視覚的に区別し、どの観点のagentの指摘かをauthor欄で判別できるようにするため）。`<subagent_type>` はその指摘を返したagentの値（上表）をそのまま使う。返信（`reply_to` 付きの要素）も返したagentの名前で投稿する。
-5. 失敗した行（session未検出等）があれば、出力を確認して原因を直した上で失敗分だけ再実行する。
-
-```bash
-tuicr review add --session '<slug>' --repo '<repo>' --target-file src/auth.go --line 42 --username 'review-local/code-reviewer' 'BUG: [must] user が null の場合に user.name へアクセスして TypeError が発生する. 早期リターンでガード節を追加. 同種の箇所: src/profile.go:88, src/admin/users.go:120'
-tuicr review add --session '<slug>' --repo '<repo>' --target-file api.py --line 12 --username 'review-local/security-auditor' 'SEC: [must] APIキーがハードコードされている. 環境変数から読み込むよう変更. 同種の箇所: なし'
-```
-
-`<repo>` は前段で確定した値をそのまま使う（`.` に固定しないこと）。
-
-`reply_to` 付きの要素（既存の指摘への返信）も同じBash呼び出しにまとめて投稿する。tuicrにはスレッド返信専用のコマンドが無いが、同じ位置に `add` すると同じスレッドに積まれる。`scope` に応じて、`line` なら `--target-file <path> --line <line>`（`--end-line` は付けない）、`file` なら `--target-file <path>` だけ、`review` なら両方とも省略する。返信の最後の発言者はreview-localになるので、修正側（`execute-plan-and-pr`）の未対応判定に再び拾われ、修正側が再度応答する。
+1. 全件を1つのJSON配列にまとめ、Writeツールでスクラッチパッドのファイルに書き出す（本文に改行や引用符が含まれてもシェルのクォートで壊れないようにするため）。
+2. 各要素を次の形に変換する。
+   - 新規の指摘: `{"file": <file>, "line": <line または "line-end_line">, "body": <body>, "author": "review-local/<subagent_type>"}`
+   - 返信・resolve: `{"reply_to": <id>, "body": <body>, "author": "review-local/<subagent_type>"}`（resolveする要素は `"resolve": true` を付ける）
+   - `author` は必ず `review-local/<subagent_type>`（例: `review-local/security-auditor`）にする。人間のコメントと区別し、どの観点のagentの指摘かを判別できるようにするため。`<subagent_type>` はその要素を返したagentの値（上表）をそのまま使う。
+3. **1回のBash呼び出しで**投稿する（1件ずつ別呼び出しにしない）。
 
 ```bash
-tuicr review add --session '<slug>' --repo '<repo>' --target-file src/auth.go --line 42 --username 'review-local/code-reviewer' '再指摘: [must] ガード節は追加されたが同種の箇所 src/admin/users.go:120 が未修正. 同じガード節を追加.'
+crit comment --session '<session_id>' --json --file <スクラッチパッドのJSONファイル>
 ```
+
+```json
+[
+  {"file": "src/auth.go", "line": 42, "author": "review-local/code-reviewer", "body": "BUG: [must] user が null の場合に user.name へアクセスして TypeError が発生する. 早期リターンでガード節を追加. 同種の箇所: src/profile.go:88, src/admin/users.go:120"},
+  {"reply_to": "c_a1b2c3", "author": "review-local/code-reviewer", "body": "再指摘: [must] ガード節は追加されたが同種の箇所 src/admin/users.go:120 が未修正. 同じガード節を追加."},
+  {"reply_to": "c_d4e5f6", "resolve": true, "author": "review-local/qa-expert", "body": "確認: 境界値のテストが追加され、同種の箇所も含め修正済み"}
+]
+```
+
+4. 投稿が失敗した場合は、出力を確認して原因を直した上で再実行する（`--json` は全件を1回で書き込むため、部分的に投稿された状態にはならない）。
+
+返信の最後の発言者はreview-localになるので、修正側（`execute-plan-and-pr`）の未対応判定に再び拾われ、修正側が再度応答する。resolveした指摘はcritの画面で非表示になり、修正側の未対応判定からも外れる。
 
 `disputed` 付きの要素は投稿せず、スコア報告でユーザーに渡す。
 
-投稿するとライブセッションに即座に反映される（再起動不要）。crit方式のような「Finish Review待ち」の処理は行わない。
+投稿するとcritの画面に即座に反映される（再起動不要）。Finish Review待ちの処理は行わない。
 
 ## スコア
 
-投稿できた件数を数え、`net: <N>件をtuicrにコメントとして投稿。` で締めくくる（`--session` 指定時は `net: 新規<N>件・返信<M>件をtuicrにコメントとして投稿。` とする）。
-`disputed` が1件以上あれば、続けて `意見が割れた指摘: <K>件` と、各件の `path:line` と論点を1行ずつ列挙し、ユーザーにtuicrのそのスレッドで判断をコメントするよう依頼する。
-新規・返信・`disputed` がいずれも0件の場合はコメントを投稿せず、チャットで `LGTM` と伝えるだけにする（review-localでは個別指摘のインラインコメントのみを扱い、review-prのようなPR概要相当の全体コメントは投稿しない）。
+投稿できた件数を数え、`net: <N>件をcritにコメントとして投稿。` で締めくくる（`--session` 指定時は `net: 新規<N>件・返信<M>件・resolve<R>件をcritに投稿。` とする）。自分でcritを起動した場合は、続けてcritのURLを伝える。
+`disputed` が1件以上あれば、続けて `意見が割れた指摘: <K>件` と、各件の `path:line` と論点を1行ずつ列挙し、ユーザーにcritのそのスレッドで判断を返信するよう依頼する。
+新規・返信・resolve・`disputed` がいずれも0件の場合はコメントを投稿せず、チャットで `LGTM` と伝えるだけにする（review-localでは個別指摘のインラインコメントのみを扱い、review-prのようなPR概要相当の全体コメントは投稿しない）。
 baseからの遅れが1件以上あれば、続けて `baseからN件遅れています。rebase推奨。` と一言添える。
 
 ## 境界
 
 過剰設計や複雑性は complexity-review / audit-review の対象であり、ここでは扱わない。
-指摘はコメント投稿のみで、修正の適用・解決（resolve）は行わない。返信は `--session` 指定時に、`再指摘:`/`反論:` を1つの指摘につき1回まで行うだけにする（「対応:」「見送り:」の投稿は修正側の役割）。1回限りの実行。
+指摘はコメント投稿のみで、修正の適用は行わない。返信は `--session` 指定時に、`再指摘:`/`反論:` を1つの指摘につき1回まで行うだけにする（「対応:」「見送り:」の投稿は修正側の役割）。resolveは、review-localが書いた指摘のうち「過去のやり取りの取得」の表で決着したものに限り、`確認:` の一言を添えて行う。ユーザーのコメントはresolveしない。1回限りの実行。
 「stop review-local」または「normal mode」と言われたら中断し、通常のレビュースタイルに戻る。

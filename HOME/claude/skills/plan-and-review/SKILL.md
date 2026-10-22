@@ -8,7 +8,7 @@ description: >
   既存のworktree内で「実装してPRまで作って」「このissueの実装を進めて」
   「plan-and-review」「/plan-and-review」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ]"
-allowed-tools: Agent Skill EnterPlanMode ExitPlanMode Bash(git status:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task mcp__graft_* mcp__serena_*
+allowed-tools: Agent Skill EnterPlanMode ExitPlanMode Bash(git status:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(gh issue view:*) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task Bash(trail:*) mcp__serena_*
 user-invocable: true
 model: opus
 ---
@@ -28,7 +28,7 @@ worktree内でissue/タスクの実装プランを検討し、ユーザーレビ
 ## ステップ1: やるべきことと、現状のコードベースの把握
 
 1. GitHub Issue/ClickUp Task の内容を把握する
-2. `Read`, `mcp__graft`, `mcp__serena` などを組み合わせて使用し、現状のコードベースの詳細を把握する
+2. `Read`, `trail`（CLI）, `mcp__serena` などを組み合わせて使用し、現状のコードベースの詳細を把握する
 3. 原則として `Skill` ツールで `grill-with-docs` を呼び出し、要件・用語・仕様の解釈・設計判断をユーザーとの質疑で確定させてからステップ2に進む。「理解できた」という自己判断だけでは省略しない。
    - 省略してよいのは次のいずれかに該当する場合のみ。省略する場合は、該当した条件をユーザーに一言伝えてからステップ2に進む。
      - 誤字やドキュメントの文言のみの修正など、振る舞いが変わらない変更

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""tuicrの永続化レビューセッションから、未処理の指摘コメントを抽出する。
+"""critのレビューファイル(~/.crit/reviews/*/review.json)から、未処理の指摘コメントを抽出する。
 
 状態ファイル(デフォルト: ~/.config/review-lessons/state.json)に記録された
 セッションごとの watermark (最後に処理したコメントの created_at) より新しい
 コメントだけを候補として出力する。状態ファイルに無いセッションは全履歴が対象になる。
+session_key は `<owner>/<repo>@<branch>#<review id>`（remoteが取れなければ owner/repo の代わりに cwd）。
 
 Usage:
   extract_comments.py                          候補をJSONで標準出力
@@ -12,18 +13,22 @@ Usage:
 """
 import argparse
 import json
+import re
+import subprocess
 import sys
 from pathlib import Path
 
-DEFAULT_REVIEWS_DIR = Path.home() / "Library/Application Support/tuicr/reviews"
+DEFAULT_REVIEWS_DIR = Path.home() / ".crit/reviews"
 DEFAULT_STATE_PATH = Path.home() / ".config/review-lessons/state.json"
 
-# tuicr review add --username 'execute-plan-and-pr' で投稿される「対応: ...」は
-# 指摘そのものではなく対応済みメモなので候補から除外する。
-EXCLUDED_AUTHORS = {"execute-plan-and-pr"}
+# 修正側の「対応:」「見送り:」返信と、/crit でエージェントが返す対応報告は
+# 指摘そのものではないので候補から除外する。
+EXCLUDED_AUTHORS = {"execute-plan-and-pr", "Claude Code"}
 
-# スキル自体の動作確認用に作った使い捨てセッション。
-EXCLUDED_SESSION_KEY_PREFIXES = ("tuicr-test",)
+# review-local が resolve 時に残す「確認: ...」は決着の記録で、指摘ではない。
+EXCLUDED_BODY_PREFIXES = ("確認:",)
+
+REMOTE_PATTERN = re.compile(r"[:/]([^/:]+/[^/]+?)(?:\.git)?$")
 
 
 def load_state(path: Path) -> dict:
@@ -32,9 +37,23 @@ def load_state(path: Path) -> dict:
     return {}
 
 
+def repo_name(cwd: str) -> str:
+    if not cwd:
+        return "unknown"
+    try:
+        url = subprocess.run(
+            ["git", "-C", cwd, "remote", "get-url", "origin"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError, NotADirectoryError):
+        return cwd
+    match = REMOTE_PATTERN.search(url)
+    return match.group(1) if match else cwd
+
+
 def extract_from_session(data: dict, session_key: str, watermark: str):
-    repo_path = data.get("repo_path")
-    branch_name = data.get("branch_name")
+    repo_path = data.get("cwd")
+    branch_name = data.get("branch")
     candidates = []
     max_seen = watermark
 
@@ -42,7 +61,8 @@ def extract_from_session(data: dict, session_key: str, watermark: str):
         nonlocal max_seen
         author = comment.get("author") or ""
         created_at = comment.get("created_at") or ""
-        if author in EXCLUDED_AUTHORS:
+        body = comment.get("body", "")
+        if author in EXCLUDED_AUTHORS or body.startswith(EXCLUDED_BODY_PREFIXES):
             return
         if watermark and created_at <= watermark:
             return
@@ -56,21 +76,23 @@ def extract_from_session(data: dict, session_key: str, watermark: str):
                 "file": file_path,
                 "line": line,
                 "author": author,
-                "content": comment.get("content", ""),
+                "content": body,
                 "created_at": created_at,
                 "comment_id": comment.get("id"),
             }
         )
 
+    def consider_thread(comment: dict, file_path, line):
+        consider(comment, file_path, line)
+        for reply in comment.get("replies") or []:
+            consider(reply, file_path, line)
+
     for c in data.get("review_comments", []) or []:
-        consider(c, None, None)
+        consider_thread(c, None, None)
 
     for file_path, finfo in (data.get("files") or {}).items():
-        for c in finfo.get("file_comments", []) or []:
-            consider(c, file_path, None)
-        for line, comments in (finfo.get("line_comments") or {}).items():
-            for c in comments or []:
-                consider(c, file_path, line)
+        for c in finfo.get("comments", []) or []:
+            consider_thread(c, file_path, c.get("start_line") or None)
 
     return candidates, max_seen
 
@@ -80,42 +102,27 @@ def cmd_extract(args):
     state_path = Path(args.state)
     state = load_state(state_path)
 
-    index_path = reviews_dir / "index.json"
-    index = json.loads(index_path.read_text())
-
     all_candidates = []
     suggested_watermarks = {}
     sessions_scanned = 0
-    sessions_skipped_missing = []
 
-    for session_key, entries in index.get("entries", {}).items():
-        if any(session_key.startswith(p) for p in EXCLUDED_SESSION_KEY_PREFIXES):
-            continue
+    for review_file in sorted(reviews_dir.glob("*/review.json")):
+        data = json.loads(review_file.read_text())
+        session_key = f"{repo_name(data.get('cwd', ''))}@{data.get('branch', '')}#{review_file.parent.name}"
         if args.key_prefix and not any(session_key.startswith(p) for p in args.key_prefix):
             continue
 
+        sessions_scanned += 1
         watermark = state.get(session_key, "")
-        for entry in entries or []:
-            rel_path = entry.get("path")
-            if not rel_path:
-                continue
-            session_file = reviews_dir / rel_path
-            if not session_file.exists():
-                sessions_skipped_missing.append(session_key)
-                continue
-            sessions_scanned += 1
-            data = json.loads(session_file.read_text())
-            candidates, max_seen = extract_from_session(data, session_key, watermark)
-            all_candidates.extend(candidates)
-            if max_seen and max_seen != watermark:
-                prev = suggested_watermarks.get(session_key, "")
-                suggested_watermarks[session_key] = max(max_seen, prev)
+        candidates, max_seen = extract_from_session(data, session_key, watermark)
+        all_candidates.extend(candidates)
+        if max_seen and max_seen != watermark:
+            suggested_watermarks[session_key] = max_seen
 
     all_candidates.sort(key=lambda c: c["created_at"])
 
     result = {
         "sessions_scanned": sessions_scanned,
-        "sessions_skipped_missing_file": sessions_skipped_missing,
         "candidate_count": len(all_candidates),
         "candidates": all_candidates,
         "suggested_watermarks": suggested_watermarks,
