@@ -167,10 +167,6 @@ args = [
     "--project-from-cwd",
 ]
 
-[mcp_servers.graft]
-command = "graft"
-args = ["mcp"]
-
 [mcp_servers.tirith-gateway]
 command = "/Users/sugawarayss/.local/share/mise/installs/tirith/latest/tirith"
 args = [

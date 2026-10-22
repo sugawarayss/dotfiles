@@ -143,20 +143,21 @@ Skill内のパス条件に一致する参照をすべて読み、対象ファイ
 - 実装プランなど **非コードの成果物** をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
 - コードの差分を変更・実装した後は、tuicrでレビューしてもらう。Herdr環境では自動起動、それ以外はユーザーに起動を依頼してから進める。
 
-## MCP ツールの使い分け（Serena / Graft）
+## コード探索・編集ツールの使い分け（trail / Serena）
 
 ### 基本方針
 
-- **理解・オリエンテーションフェーズ → Graft**
-- **編集・リファクタリングフェーズ → Serena**
+- **理解・オリエンテーションフェーズ → trail**（CLI）
+- **編集・リファクタリングフェーズ → Serena**（MCP）
 
-### Graft を使う場面
+### trail を使う場面
 
-- 未知のディレクトリ/機能に着手する最初の一手（`graft_repo_map` で全体像を掴む）
-- 「〇〇はどこで実装されているか」を探すとき（`graft_find_code`）
-- ファイルを編集する前に影響範囲を確認するとき（`graft_trace_calls` でblast radius確認）
-- ファイルの公開APIだけ知りたいとき（`graft_file_api`）
-- → **Graftは読み取り専用。コードは変更しない。**
+- 未知のディレクトリ/機能に着手する最初の一手（`trail map` で全体像を掴む）
+- 「〇〇はどこで実装されているか」を探すとき（`trail ask "<task>" --source`）
+- 全出現箇所を漏れなく洗い出すとき（`trail grep "<literal>"`）
+- ファイルを編集する前に影響範囲を確認するとき（`trail callers <symbol> --depth 2`。複数ファイルにまたがる変更は `--depth all`）
+- ファイルの公開APIだけ知りたいとき（`trail skeleton <file>`）
+- → **trailは読み取り専用。コードは変更しない。**
 
 ### Serena を使う場面
 
@@ -167,13 +168,13 @@ Skill内のパス条件に一致する参照をすべて読み、対象ファイ
 
 ### 順序の例
 
-1. `graft_find_code` / `graft_repo_map` で該当箇所と全体構造を把握
-2. 変更対象のシンボルが決まったら `graft_trace_calls` で影響範囲を確認
+1. `trail ask` / `trail map` で該当箇所と全体構造を把握
+2. 変更対象のシンボルが決まったら `trail callers` で影響範囲を確認
 3. Serenaの `find_symbol` で正確な位置を特定 → `replace_symbol_body` 等で編集
-4. 編集後、必要なら再度Graftで整合性・影響範囲を確認
+4. 編集後、必要なら再度 `trail callers` で整合性・影響範囲を確認
 
 ### 注意
 
-- 両者は探索機能が一部重複する（grep相当の機能がどちらにもある）。基本はGraftを先に当て、シンボル単位の精密操作が必要になった時だけSerenaのgrep系（`search_for_pattern`など）に切り替える
+- 両者は探索機能が一部重複する（grep相当の機能がどちらにもある）。基本はtrailを先に当て、シンボル単位の精密操作が必要になった時だけSerenaのgrep系（`search_for_pattern`など）に切り替える
 - Serenaはセッションが長くなると指示を忘れやすい（agent drift）。必要ならSerena公式のhookを`.claude/settings.json`に設定しておく
-- Graftは`.claude/skills/graft/SKILL.md`に自分の使い方を書き込むので、CLAUDE.md側は「いつGraftに頼るか」の判断基準だけ書けば十分（ツールの詳細説明はSKILL.md任せでOK）
+- trailの詳しい使い方は `trail --help` で確認する。ここには「いつtrailに頼るか」の判断基準だけを書く（graftはtrail-codeに改名され、graftのMCPサーバーは使わない）
