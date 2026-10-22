@@ -47,19 +47,15 @@
       "Bash(task:*)",
       "Bash(tee:*)",
       "Bash(tr:*)",
+      "Bash(trail *)",
       "Bash(tuicr *)",
+      "Bash(crit *)",
       "Bash(uniq *)",
       "Bash(uv run:*)",
       "Bash(uv pip list:*)",
       "Bash(wc:*)",
       "Bash(which:*)",
       "Bash(xargs:*)",
-      "mcp__graft__graft_check_freshness",
-      "mcp__graft__graft_file_api",
-      "mcp__graft__graft_find_all",
-      "mcp__graft__graft_find_code",
-      "mcp__graft__graft_repo_map",
-      "mcp__graft__graft_trace_calls",
       "mcp__aws-knowledge__aws___search_documentation",
       "mcp__aws-knowledge__aws___recommend",
       "mcp__aws-knowledge__aws___read_documentation",
@@ -185,7 +181,8 @@
       "Bash(uv remove *)"
     ],
     "ask": [
-      "Bash(uv add *)"
+      "Bash(uv add *)",
+      "Bash(crit push *)"
     ],
     "disableBypassPermissionsMode": "disable"
   },
