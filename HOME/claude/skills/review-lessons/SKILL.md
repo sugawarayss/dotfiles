@@ -19,12 +19,12 @@ critのレビューファイル（`~/.crit/reviews/*/review.json`）に溜まっ
 ## 1. 抽出
 
 ```bash
-python3 scripts/extract_comments.py
+python3 /Users/sugawarayss/.claude/skills/review-lessons/scripts/extract_comments.py
 ```
 
 標準出力にJSONが返る。`candidates` が未処理の指摘一覧（`session_key`/`repo_path`/`file`/`line`/`author`/`content`/`created_at`）、`suggested_watermarks` が今回処理する範囲のセッションごとの最大`created_at`（ステップ6で使う）。
 
-セッションキーは `<owner>/<repo>@<branch>#<review id>`。状態ファイルは既定で `~/.config/review-lessons/state.json`。存在しないセッションキーは「未処理」扱いになり全履歴が対象になる。特定プロジェクトだけ見たい場合は `--key-prefix <prefix>` を指定する（複数指定可）。
+セッションキーは `<owner>/<repo>@<branch>#<review id>`。状態ファイルは既定で `~/.config/review-lessons/state.json` で、watermarkはreview id単位で記録する（worktree削除後もセッションキーの変化に影響されないため）。状態ファイルに無いreview idは「未処理」扱いになり全履歴が対象になる。特定プロジェクトだけ見たい場合は `--key-prefix <prefix>` を指定する（複数指定可）。
 
 ## 2. ノイズ・対象外の除外
 
@@ -99,7 +99,7 @@ python3 scripts/extract_comments.py
 反映が終わったら（一部の項目がユーザーに却下された場合も含め、今回提示した候補は全て検討済みなので）、抽出時に得た `suggested_watermarks` を状態ファイルにコミットする:
 
 ```bash
-echo '<suggested_watermarksのJSON>' | python3 scripts/extract_comments.py --commit-watermarks -
+echo '<suggested_watermarksのJSON>' | python3 /Users/sugawarayss/.claude/skills/review-lessons/scripts/extract_comments.py --commit-watermarks -
 ```
 
 これにより次回実行時は今回処理済みのコメントを再度候補に含めない。却下された指摘も「検討済み」として扱い、二度と同じ却下判断を繰り返させない。

@@ -23,16 +23,20 @@ Usage: gwm-herdr-start.sh <source_type> <ref> <extra> <origin_pane_id|-> [<agent
   source_type     "issue" または "task"
   ref             source_type=issue: GitHub issue番号 (数字のみ)
                   source_type=task:  ClickUpタスクID
-  extra           source_type=issue: フォールバック用のtype (feat/fix/hotfix/docs/test/refactor/chore/perf/ci/build)。
-                                      まず type 無しで `gwm create --issue` を試し、
-                                      それが失敗した場合のみこの値で `--type` を付けてリトライする
+  extra           source_type=issue: "<type>:<slug>" (例: fix:holiday-calendar-check)。
+                                      type はフォールバック用 (feat/fix/hotfix/docs/test/refactor/chore/perf/ci/build)。
+                                      まず type 無しで `gwm create --issue` を試し、失敗したら `--type` を付けてリトライし、
+                                      それがタイトルからdescを組み立てられない (日本語のみ等) ことによる失敗の場合のみ
+                                      `gwm create <type> <issue> <slug>` で作成する
                   source_type=task:  ブランチ/worktree名に使うslug (例: improve-checkout-flow)
   origin_pane_id  このスキルを実行しているセッション自身のherdr pane_id ($HERDR_PANE_ID)。
                   無ければ "-"。worktree専用のgit管理ディレクトリにファイルとして記録する
   agent_name      新規作成時のみ使用: herdr agent start に渡す名前。省略時はエージェント起動をスキップする。
                   herdrの制約 (小文字英数字・'-'・'_'のみ、1-32文字) に合わせて、このスクリプトが
                   小文字化・使えない文字の'-'置換・32文字への切り詰め・末尾ハイフン除去を自動で行う (呼び出し側で切り詰め不要)
-  prompt          新規作成時のみ使用: herdr agent prompt に渡す文字列。省略時は送信をスキップする
+  prompt          新規作成時のみ使用: herdr agent prompt に渡す文字列。省略時は送信をスキップする。
+                  末尾に " <branch> <base>" をこのスクリプトが付け足す
+                  (branchはgwmがcreate中に決め、baseはこのスクリプトが決めるため、呼び出し側は知り得ない)
 
 標準出力 (key=value を1行ずつ、エラー時のみ error 行を追加):
   status=reused|created
@@ -66,6 +70,21 @@ if [[ "$source_type" != "issue" && "$source_type" != "task" ]]; then
   exit 1
 fi
 
+issue_type=""
+issue_slug=""
+if [[ "$source_type" == "issue" ]]; then
+  if [[ ! "$ref" =~ ^[0-9]+$ ]]; then
+    echo "error=source_type=issueのrefは数字のみで指定してください(#やURLは除く): $ref"
+    exit 1
+  fi
+  issue_type="${extra%%:*}"
+  issue_slug="${extra#*:}"
+  if [[ -z "$issue_type" || -z "$issue_slug" || "$issue_slug" == "$extra" ]]; then
+    echo "error=source_type=issueのextraは<type>:<slug>形式で指定してください: $extra"
+    exit 1
+  fi
+fi
+
 if [[ -n "$agent_name" ]]; then
   agent_name="$(printf '%s' "$agent_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9_-' '-' | cut -c1-32 | sed 's/-*$//')"
 fi
@@ -97,7 +116,7 @@ wait_pane_idle() {
 }
 
 # --- base branch決定 + 同期 -------------------------------------------------
-if [[ "$source_type" == "issue" && "$extra" == "hotfix" ]]; then
+if [[ "$source_type" == "issue" && "$issue_type" == "hotfix" ]]; then
   base="$(git -C "$repo_root" symbolic-ref refs/remotes/origin/HEAD --short 2>/dev/null | sed 's#^origin/##')"
   if [[ -z "$base" ]]; then
     echo "error=デフォルトブランチを検出できませんでした(hotfixのbaseに必要)"
@@ -112,24 +131,25 @@ else
   fi
 fi
 
+# 既にbase上にいても、gwm createはローカルHEADから分岐するため毎回fetch+ff-onlyで最新化する。
+if [[ -n "$(git -C "$repo_root" status --porcelain)" ]]; then
+  echo "error=mainリポジトリのworking treeが汚れているため${base}を最新化できません。ユーザーに確認してください"
+  exit 1
+fi
+if ! fetch_output="$(git -C "$repo_root" fetch origin "$base" 2>&1)"; then
+  echo "error=git fetch origin ${base} に失敗しました: $fetch_output"
+  exit 1
+fi
 current_branch="$(git -C "$repo_root" symbolic-ref --short HEAD 2>/dev/null || true)"
 if [[ "$current_branch" != "$base" ]]; then
-  if [[ -n "$(git -C "$repo_root" status --porcelain)" ]]; then
-    echo "error=mainリポジトリのworking treeが汚れているため${base}へ切り替えられません。ユーザーに確認してください"
-    exit 1
-  fi
-  if ! fetch_output="$(git -C "$repo_root" fetch origin "$base" 2>&1)"; then
-    echo "error=git fetch origin ${base} に失敗しました: $fetch_output"
-    exit 1
-  fi
   if ! checkout_output="$(git -C "$repo_root" checkout "$base" 2>&1)"; then
     echo "error=git checkout ${base} に失敗しました: $checkout_output"
     exit 1
   fi
-  if ! merge_output="$(git -C "$repo_root" merge --ff-only "origin/$base" 2>&1)"; then
-    echo "error=git merge --ff-only origin/${base} に失敗しました(fast-forward不可): $merge_output"
-    exit 1
-  fi
+fi
+if ! merge_output="$(git -C "$repo_root" merge --ff-only "origin/$base" 2>&1)"; then
+  echo "error=git merge --ff-only origin/${base} に失敗しました(fast-forward不可): $merge_output"
+  exit 1
 fi
 
 # --- 既存worktreeの確認 (reuse) ---------------------------------------------
@@ -162,11 +182,25 @@ else
       if [[ -z "${new_entry:-}" ]]; then
         # type無しで失敗 → フォールバックのtypeを付けてリトライ
         retry_output=""
-        if ! retry_output="$(gwm create --issue "$ref" --type "$extra" --allow-bootstrap 2>&1)"; then
+        if ! retry_output="$(gwm create --issue "$ref" --type "$issue_type" --allow-bootstrap 2>&1)"; then
           new_entry="$(find_by_issue "$ref")"
-          if [[ -z "${new_entry:-}" ]]; then
-            echo "error=gwm create --issue $ref failed (type無し): $create_output / (--type $extra): $retry_output"
+          # 閉じたissue・存在しない番号などgwmの他のガードは素通りさせないため、
+          # タイトルからdescを作れない (日本語のみ等) 場合に限り、呼び出し側のslugで明示作成する
+          if [[ -z "${new_entry:-}" && "$retry_output" != *"has no characters a branch description can be built from"* ]]; then
+            echo "error=gwm create --issue $ref failed (type無し): $create_output / (--type $issue_type): $retry_output"
             exit 1
+          fi
+          if [[ -z "${new_entry:-}" ]]; then
+            triple_output=""
+            if ! triple_output="$(gwm create "$issue_type" "$ref" "$issue_slug" --allow-bootstrap 2>&1)"; then
+              new_entry="$(find_by_issue "$ref")"
+              if [[ -z "${new_entry:-}" ]]; then
+                echo "error=gwm create issue $ref failed (type無し): $create_output / (--type $issue_type): $retry_output / ($issue_type $ref $issue_slug): $triple_output"
+                exit 1
+              fi
+            else
+              new_entry="$(find_by_issue "$ref")"
+            fi
           fi
         else
           new_entry="$(find_by_issue "$ref")"
@@ -271,7 +305,7 @@ if [[ "$status" == "created" ]]; then
     if start_result="$(herdr agent start "$agent_name" --kind claude --pane "$pane_id" --timeout 300000 2>&1)"; then
       agent_started=true
       if [[ -n "$prompt" ]]; then
-        if prompt_result="$(herdr agent prompt "$pane_id" "$prompt" 2>&1)"; then
+        if prompt_result="$(herdr agent prompt "$pane_id" "$prompt $worktree_branch $base" 2>&1)"; then
           prompt_sent=true
         else
           echo "error=herdr agent prompt failed: $prompt_result"
