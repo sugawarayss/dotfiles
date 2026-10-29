@@ -195,12 +195,15 @@ return {
     },
     config = function()
       require("mason-lspconfig").setup({
-        automatic_enable = true,
+        -- rust_analyzer は rustaceanvim が起動するため、二重起動を避けて除外する
+        automatic_enable = { exclude = { "rust_analyzer" } },
         ensure_installed = vim.iter({ lsp_servers }):flatten():totable(),
       })
       -- LSPサーバ別に settings を lsp_server_settingsから設定する
       for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
-        if server == "ty" then
+        if server == "rust_analyzer" then
+          -- rustaceanvim が起動するのでここでは設定・有効化しない
+        elseif server == "ty" then
           vim.lsp.config(server, {
             settings = {
               ty = {
