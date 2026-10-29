@@ -21,7 +21,8 @@ Usage: gwm-herdr-cleanup-find.sh <branch_or_worktree_name>
                             またはgwmのworktree名(例: feat-123-desc)のどちらでもよい
 
 標準出力 (key=value, 1行ずつ):
-  status=found|not_found
+  status=found|not_found|ambiguous
+  candidate=<name> <branch>     (statusがambiguousのときのみ、部分一致した候補ごとに1行)
   worktree_name=<name>          (statusがfoundのときのみ。`gwm remove`にはこの値を渡す)
   worktree_path=<絶対パス>       (statusがfoundのときのみ)
   origin_pane_id=<id>            (start-worktreeが記録したファイルが見つかった場合のみ)
@@ -39,15 +40,26 @@ fi
 
 repo_root="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
 
-match="$(gwm list --format json 2>/dev/null | jq -c --arg t "$target" '
-  ([.[] | select(.name == $t or .branch == $t)] | first) //
-  ([.[] | select((.name | contains($t)) or (.branch | contains($t)))] | first) //
-  empty
-')"
+worktrees="$(gwm list --format json 2>/dev/null)"
+match="$(jq -c --arg t "$target" '[.[] | select(.name == $t or .branch == $t)] | first // empty' <<<"$worktrees")"
 
+# 完全一致が無ければ部分一致で探すが、複数該当したら削除対象を取り違えないよう決め打ちしない
 if [[ -z "${match:-}" ]]; then
-  echo "status=not_found"
-  exit 0
+  partial="$(jq -c --arg t "$target" '[.[] | select((.name | contains($t)) or (.branch | contains($t)))]' <<<"$worktrees")"
+  case "$(jq 'length' <<<"$partial")" in
+    0)
+      echo "status=not_found"
+      exit 0
+      ;;
+    1)
+      match="$(jq -c '.[0]' <<<"$partial")"
+      ;;
+    *)
+      echo "status=ambiguous"
+      jq -r '.[] | "candidate=\(.name) \(.branch)"' <<<"$partial"
+      exit 0
+      ;;
+  esac
 fi
 
 worktree_name="$(echo "$match" | jq -r '.name')"

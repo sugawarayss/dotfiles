@@ -8,7 +8,8 @@ set -euo pipefail
 
 # git管理下の全.env.exampleから、同じディレクトリの.envを作る (既存の.envは上書きしない)
 git ls-files -z -- ':(glob)**/.env.example' | while IFS= read -r -d '' example; do
-  cp -n "$example" "${example%.example}"
+  # macOSのcp -nは既存ファイルがあると終了コード1を返しset -eで止まるため、存在確認で代用する
+  [[ -e "${example%.example}" ]] || cp "$example" "${example%.example}"
 done
 
 # ~/.config/gwm/config.tomlのpost_createフック (サンドボックス内ではスキップされる) と同じ処理

@@ -7,7 +7,7 @@ description: >
   herdrワークスペースが自動的に開きます。
   ユーザーが「issue #123からworktree作って」「ClickUpタスク<ID>からworktree始めて」「start-worktree」
   「/start-worktree」と入力した場合に使用します。
-argument-hint: "[GitHub issue番号/URL または ClickUpタスクID/URL] [任意: ベースブランチ]"
+argument-hint: "[GitHub issue番号/URL または ClickUpタスクID/URL]"
 allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git branch:*) Bash(git show-ref:*) Bash(git status:*) Bash(gwm *) Bash(herdr *) Bash(jq:*) Bash(gh issue view:*) Bash(/Users/sugawarayss/.claude/skills/start-worktree/scripts/gwm-herdr-start.sh *) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
 user-invocable: true
 model: haiku
@@ -25,7 +25,7 @@ GitHub issue または ClickUp タスクを起点に、gwm + herdr のworktree�
 
 ## ステップ1: 入力の判別
 
-`$ARGUMENTS` の1つ目のトークンを対象の識別に使う（2つ目以降があればベースブランチの明示指定として扱う。ただし後述の通りbaseはtypeから自動決定するため、明示指定は上級者向けの上書き用途）。
+`$ARGUMENTS` の1つ目のトークンを対象の識別に使う。
 
 - 数字のみ、`#<数字>`、または `github.com/.../issues/<数字>` の形式 → GitHub issue
 - ClickUpのタスクID形式（英数字混在、通常9文字前後）、または `app.clickup.com/t/<ID>` のURL → ClickUpタスク
@@ -49,7 +49,7 @@ GitHub issue または ClickUp タスクを起点に、gwm + herdr のworktree�
 
 GitHub issue起点の場合のみ、gwmのbranch types（`feat` `fix` `hotfix` `docs` `test` `refactor` `chore` `perf` `ci` `build`）からissueのタイトル・本文・ラベルを見て1つ選ぶ。これは`gwm create --issue`がラベルから一意にtypeを推定できなかった場合の**フォールバック**として使われるだけで、必須の事前決定ではない（対象リポジトリの`.gwm.toml`に`[issue_template.by_type.*]`が定義されていれば、gwm側がラベルから自動で正しいtypeを選ぶ）。
 
-ClickUpタスクの場合、slugをタイトルから生成する（現行ロジック）。
+GitHub issue・ClickUpタスクのどちらも、slugをタイトルから生成する。GitHub issueでは、`gwm create --issue`がタイトルからブランチ名のdescを組み立てられなかった場合（日本語のみのタイトル等で `has no characters a branch description can be built from` になる）に、`gwm create <type> <issue> <slug>` で作成するためのフォールバックとして使われる。
 
 - 英語タイトルであれば小文字化し、英数字以外の連続を `-` に置き換える。
 - 日本語や記号を含むタイトルは、直訳ではなく内容を要約した3〜6単語程度の英単語summaryに変換してからslug化する。
@@ -57,12 +57,12 @@ ClickUpタスクの場合、slugをタイトルから生成する（現行ロジ
 
 ## ステップ4: ベースブランチの決定
 
-`$ARGUMENTS` の2つ目以降で明示指定があればそれを最優先する。無ければ以下のルールで決める（`main ← develop ← feat/fix/...` という構成を前提。`main`はdevelopからのマージのみで進み、例外はhotfix）。
+ベースブランチはステップ5〜8のスクリプトが以下のルールで決める（呼び出し側で決めて渡す引数は無い。`main ← develop ← feat/fix/...` という構成を前提。`main`はdevelopからのマージのみで進み、例外はhotfix）。
 
 - GitHub issueでtypeが`hotfix`: リポジトリのデフォルトブランチ（`git symbolic-ref refs/remotes/origin/HEAD --short`、通常`main`）
 - それ以外（GitHub issueのhotfix以外の全type、ClickUpタスク全て）: `develop`
 
-`develop`がローカルにもorigin配下にも存在しない場合、どのブランチを使用するかユーザーに確認する（`git show-ref --verify --quiet refs/remotes/origin/develop` / `refs/heads/develop` で存在確認できる）。
+`develop`がローカルにもorigin配下にも存在しない場合、スクリプトは `error=` を出して終了するので、その旨をユーザーに伝える。
 
 ## ステップ5〜8: worktreeの作成/再利用 + base同期 + herdrワークスペース発見 + 新規作成時のclaude起動とプロンプト送信
 
@@ -73,16 +73,16 @@ base branchの同期・既存worktreeの確認・`gwm create`によるworktree�
 ```
 
 - `<source_type>`: `issue` または `task`。
-- `<ref>`: GitHub issue番号、またはClickUpタスクID。
-- `<extra>`: GitHub issueの場合はステップ3で選んだフォールバック用type、ClickUpタスクの場合はステップ3で生成したslug。
+- `<ref>`: GitHub issue番号（数字のみ。`#`やURLは取り除く）、またはClickUpタスクID。
+- `<extra>`: GitHub issueの場合はステップ3で選んだフォールバック用typeとslugを `<type>:<slug>` の形式で（例: `fix:holiday-calendar-check`）、ClickUpタスクの場合はステップ3で生成したslug。
 - `<origin_pane_id>`: 環境変数 `$HERDR_PANE_ID`（このセッション自身が動いているpane_id）の値。未設定（herdr管理下のpaneで実行されていない）なら `-` を渡す。スクリプトが、対象worktree専用のgit管理ディレクトリ（`git -C <worktree_path> rev-parse --git-dir`）配下に `gwm-herdr-origin-pane-id` というファイルとして記録する。これにより `plan-and-review` / `execute-plan-and-pr` のプロンプト文字列でこの値を手動中継する必要が無くなり、`cleanup-worktree` がブランチ名/worktree名から対象worktreeを特定した時点で自動的にこの値を読み出せる（`gwm remove` 時にgitがこのディレクトリごと削除するのでゴミも残らない）。最終的な後片付けでworktreeのherdr workspaceを閉じる際、そのworkspaceが実行中セッション自身のものだった場合にこの起点セッションへclose作業を委譲するために使われる（`herdr workspace close` は対象workspace配下の全terminalを閉じる実装のため、自分自身のworkspaceは自分では閉じられない）。
 - `<agent_name>`: ブランチ名相当の識別子（issue系は`issue-<番号>`等、task系は`task-<ID>`等、分かりやすい形でよい）の `/` を `-` に置き換えたもの。herdrは名前を小文字英数字・`-`・`_`のみ、1〜32文字に制限しているが、**この切り詰めはスクリプト側（`gwm-herdr-start.sh`）が自動で行う**ため、呼び出し側で事前に短縮する必要はない。
-- `<prompt>`: `"/plan-and-review <issue/タスクのURL> <worktree_nameまたはbranch> <ベースブランチ>"`（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`plan-and-review` 側でURLから再取得する。origin_pane_idは前述の通りファイル記録に一本化したため、ここには含めない）。
+- `<prompt>`: `"/plan-and-review <issue/タスクのURL>"`（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`plan-and-review` 側でURLから再取得する。ブランチ名とベースブランチはスクリプトが末尾に付け足す。ブランチ名は`gwm create`の実行中に決まるため、呼び出し側では知り得ない。origin_pane_idは前述の通りファイル記録に一本化したため、ここには含めない）。
 
 このスクリプトは以下を1回で行う（詳細は `scripts/gwm-herdr-start.sh --help` 相当のUsage出力を参照）。
 
 1. base branchを決定し（`hotfix`ならデフォルトブランチ、それ以外は`develop`）、mainリポジトリのチェックアウトをそれへ同期する（working treeが汚れていれば中断してエラーを返す）。
-2. `gwm list --format json` で既存worktreeの有無を確認する。存在すれば再利用（`status=reused`）、無ければ`gwm create`で新規作成する（`status=created`）。GitHub issue系はまずtype無しで`gwm create --issue`を試し、失敗した場合のみ`<extra>`のtypeを付けてリトライする。
+2. `gwm list --format json` で既存worktreeの有無を確認する。存在すれば再利用（`status=reused`）、無ければ`gwm create`で新規作成する（`status=created`）。GitHub issue系はまずtype無しで`gwm create --issue`を試し、失敗した場合は`<extra>`のtypeを付けてリトライし、それがタイトルからdescを組み立てられないことによる失敗の場合のみ`gwm create <type> <issue> <slug>`で作成する（閉じたissue・存在しない番号などの失敗はエラーとして返す）。
 3. `origin_pane_id` が `-` でなければ、対象worktreeのgit管理ディレクトリに `gwm-herdr-origin-pane-id` ファイルを書き込む（`origin_pane_id_recorded`）。
 4. `.gwm.toml`の`[[hooks.post_create]]`が`gwm create`実行中に自動でherdrワークスペースを開くため、このスクリプト自身はherdrを開かず、`herdr workspace list`→`herdr pane list --workspace <id>`で既に開かれているworkspace/paneを発見する（`workspace_id` / `pane_id`）。
 5. `status=created` の場合のみ、`pane_id` が取れていれば対象ペインで `scripts/worktree-setup.sh`（`.env.example`→`.env`の作成と `mise run setup:project`/`uv sync`）を `herdr pane run` で実行させる（`setup_sent`）。nonoサンドボックスが`**/.env`への書き込みをdenyしているため、サンドボックス外で動くherdrペインのシェルに任せている（gwmのpost_createフック側のセットアップはサンドボックス内ではスキップされる）。

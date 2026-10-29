@@ -38,9 +38,10 @@ worktreeの存在確認（`gwm list --format json` 相当）とherdr workspace�
 /Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/gwm-herdr-cleanup-find.sh <branch_or_worktree_name>
 ```
 
-標準出力は `status=found|not_found` `worktree_name=` `worktree_path=` `origin_pane_id=` `herdr=ok|unavailable` `workspace_id=` `workspace_label=` のkey=value行。
+標準出力は `status=found|not_found|ambiguous` `candidate=`（ambiguous時のみ） `worktree_name=` `worktree_path=` `origin_pane_id=` `herdr=ok|unavailable` `workspace_id=` `workspace_label=` のkey=value行。
 
 - `status=not_found`: 該当するworktreeが見つからない旨を報告して終了する。
+- `status=ambiguous`: 部分一致が複数ある。`candidate=` の一覧をユーザーに示し、どれを削除するか確認してから、選ばれたworktree名でスクリプトを再実行する。
 - `status=found` かつ `workspace_id` が出力されない場合: 対応するherdrワークスペースは無いものとして扱い、ステップ6はスキップする（herdr未起動時も同様）。
 - `origin_pane_id`: `start-worktree` が対象worktree作成時に記録した起点pane_id（`gwm-herdr-origin-pane-id`ファイル）から自動検出された値。ステップ1で明示的な上書き引数が渡されていればそちらを優先し、無ければこの値を使う。どちらも無ければ `-` として扱う。
 - `worktree_name`: **ステップ5〜6の`gwm remove`にはこの値を渡す**（ユーザーが入力したブランチ文字列そのものではなく、スクリプトが解決したgwmのworktree名。`gwm remove`はブランチ文字列にはfuzzy一致しないため）。
