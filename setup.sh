@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-PROJECT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+PROJECT_DIR=${0:A:h}
 
 echo "PROJECT DIRECTORY: $PROJECT_DIR"
 
