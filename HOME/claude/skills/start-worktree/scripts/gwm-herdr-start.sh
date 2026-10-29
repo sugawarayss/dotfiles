@@ -31,7 +31,7 @@ Usage: gwm-herdr-start.sh <source_type> <ref> <extra> <origin_pane_id|-> [<agent
                   無ければ "-"。worktree専用のgit管理ディレクトリにファイルとして記録する
   agent_name      新規作成時のみ使用: herdr agent start に渡す名前。省略時はエージェント起動をスキップする。
                   herdrの制約 (小文字英数字・'-'・'_'のみ、1-32文字) に合わせて、このスクリプトが
-                  小文字化・32文字への切り詰め・末尾ハイフン除去を自動で行う (呼び出し側で切り詰め不要)
+                  小文字化・使えない文字の'-'置換・32文字への切り詰め・末尾ハイフン除去を自動で行う (呼び出し側で切り詰め不要)
   prompt          新規作成時のみ使用: herdr agent prompt に渡す文字列。省略時は送信をスキップする
 
 標準出力 (key=value を1行ずつ、エラー時のみ error 行を追加):
@@ -67,8 +67,7 @@ if [[ "$source_type" != "issue" && "$source_type" != "task" ]]; then
 fi
 
 if [[ -n "$agent_name" ]]; then
-  agent_name="$(printf '%s' "$agent_name" | tr '[:upper:]' '[:lower:]' | cut -c1-32)"
-  agent_name="${agent_name%-}"
+  agent_name="$(printf '%s' "$agent_name" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9_-' '-' | cut -c1-32 | sed 's/-*$//')"
 fi
 
 repo_root="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
