@@ -7,12 +7,16 @@ set -euo pipefail
 
 script_name=$(basename "$0")
 
+end_of_options=false
 for arg in "$@"; do
-  case "$arg" in
-    -*) continue ;;
-  esac
+  if [[ "$end_of_options" == false ]]; then
+    case "$arg" in
+      --) end_of_options=true; continue ;;
+      -*) continue ;;
+    esac
+  fi
 
-  resolved=$(realpath "$arg" 2>/dev/null) || {
+  resolved=$(realpath -- "$arg" 2>/dev/null) || {
     echo "$script_name: cannot resolve path: $arg" >&2
     exit 1
   }
