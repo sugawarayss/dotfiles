@@ -154,6 +154,36 @@ post-defaults = [
 ]
 
 # `mise bootstrap` の最後に毎回実行されるため、各タスクは冪等にする
+
+[bootstrap.packages]
+"brew:fish" = "latest"
+"brew-cask:raycast" = "latest"
+"brew-cask:font-annotation-mono" = "latest"
+"brew-cask:font-annotationmono-nerd-font" = "latest"
+"brew-cask:font-hack-nerd-font" =  "latest"
+"brew-cask:font-hackgen-nerd" = "latest"
+"brew-cask:font-symbols-only-nerd-font" = "latest"
+"brew:git" = "latest"
+"brew:curl" = "latest"
+"brew:tree" = "latest"
+"brew-cask:macskk" = "latest"
+"brew:laishulu/homebrew/macism" = "latest"
+"brew-cask:ghostty" = "latest"
+"brew:neovim" = "latest"
+"brew:kbrdn1/tap/gwm" = "latest"
+"brew:herdr" = "latest"
+"brew:crit" = "latest"
+"brew-cask:qlmarkdown" = "latest"
+"brew:yazi" = "latest"
+"brew-cask:clickup" = "latest"
+"brew-cask:droppy" = "latest"
+"brew-cask:karabiner-elements" = "latest"
+"brew-cask:keycastr" = "latest"
+# "brew:railwaycat/emacsmacport/emacs-mac" = "latest"
+"brew-cask:devdotfast/tap/whiteboard" = "latest"
+"brew-cask:crmne/tap/spotifast" = "latest"
+"brew:charmbracelet/tap/freeze" = "latest"
+
 [tasks.bootstrap]
 description = "dotfiles展開後の追加セットアップ"
 depends = [
