@@ -230,7 +230,7 @@ EOF
 )"
 ```
 
-critのレビューコメントは `crit push` でGitHubに送信されない（インラインコメントのAPIに対応する形がないため）。全体像はcrit上で人間がレビューするためのガイドとして使う。
+critのレビューコメントは `crit push` のインラインコメントとしては送信されない（インラインコメントのAPIに対応する形がないため）。全体像はcrit上で人間がレビューするためのガイドとして使い、ステップ9でレビュー本文（`--message`）としてGitHubに送る。
 
 指摘が1件も無い場合（全agentの `posted` が0）も、全体像のレビューコメントは必ず投稿する。
 
@@ -266,17 +266,23 @@ critの `approved` は「未resolveのコメントが0件」という意味し�
    crit push --session '<session>' --dry-run <PR>
    ```
 
+   dry-runの「Review-level (not pushable)」に並ぶレビューコメントは、手順3でレビュー本文として送る内容である旨もあわせて伝える。
+
 2. AskUserQuestionで、送信方法をユーザーに選んでもらう。
    - `comment`
    - `approve`
    - `request-changes`
    - 送信しない
 
-3. 「送信しない」以外を選んだ場合は、次のコマンドで送信する。
+3. 「送信しない」以外を選んだ場合は、critの未resolveのレビューコメント（全体像や、ユーザーがcrit上で書いたレビューコメント）をそのままレビュー本文として `--message` に渡して送信する。`request-changes` は `--message` が無いと `--event request-changes requires --message` で失敗するため、どのeventでも必ず渡す。
 
    ```bash
-   crit push --session '<session>' -e <event> <PR>
+   review_file="$(crit status --json | jq -r '.review_file')"
+   crit push --session '<session>' -e <event> \
+     -m "$(jq -r '[.review_comments[] | select(.resolved != true) | .body] | join("\n\n---\n\n")' "$review_file")" <PR>
    ```
+
+   未resolveのレビューコメントが0件で本文が空になる場合、`request-changes` では送信前に本文をユーザーに確認する。
 
    未resolveのコメントが0件で終えた場合、critのデーモンが停止していて `--session` でセッションが見つからないことがある。そのときは `--session` を外して再実行する。
 
