@@ -86,6 +86,13 @@ run = 'test -n "$NONO_CAP_FILE" || uv sync'
 when = "file_exists:pyproject.toml"
 on_fail = "warn"
 
+# trailのインデックス(graft/)はgitignoreでworktreeに持ち込まれず、trailが空振りするためメインからコピーする。
+[[hooks.post_create]]
+name = "copy trail index"
+run = '"$HOME/.claude/skills/start-worktree/scripts/copy-trail-index.sh"'
+when = "cmd_exists:trail"
+on_fail = "warn"
+
 # ── [[hooks.post_create]]: herdrワークスペースを開く─────────────────────────
 [[hooks.post_create]]
 name = "herdr workspace open"
