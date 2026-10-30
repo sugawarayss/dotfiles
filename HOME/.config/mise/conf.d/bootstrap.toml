@@ -183,6 +183,14 @@ post-defaults = [
 "brew-cask:devdotfast/tap/whiteboard" = "latest"
 "brew-cask:crmne/tap/spotifast" = "latest"
 "brew:charmbracelet/tap/freeze" = "latest"
+"brew-cask:mantrakp04/tap/ardia" = "latest"
+
+# caskがなくdmgのみ配布。更新時は version と sha256 を手で書き換える
+[bootstrap.packages."macos-app:codenotch"]
+version = "1.24.0"
+url = "https://github.com/vinzdg/codenotch/releases/download/v{{version}}/Codenotch.dmg"
+sha256 = "85fb58e16f5d52b77f703ad88923a79055774efb12e9b227d43b6141933384a0"
+artifact = "Codenotch.app"
 
 [tasks.bootstrap]
 description = "dotfiles展開後の追加セットアップ"
