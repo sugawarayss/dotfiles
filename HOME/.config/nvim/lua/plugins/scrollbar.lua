@@ -7,6 +7,7 @@ return {
     return not vim.g.vscode
   end,
   config = function()
+    vim.g.scrollbar_v2_notice = false
     local palette = require("kanagawa.colors").setup().theme
     require("scrollbar").setup({
       show = true,

@@ -109,6 +109,7 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 - レビュー対象PR番号 `<PR>` と、diff取得コマンド（`gh pr diff <PR>`、`gh pr diff <PR> --name-only`）
 - ステップ3で把握した技術スタックと、そのスタック固有のベストプラクティス・落とし穴に注目してほしい旨
 - 下表の担当観点とその着眼点
+- コメントの読み手は、このコードベースや担当観点の専門知識に詳しくないジュニアエンジニアであること。専門用語（例: N+1、TOCTOU、XSS）は初出で1文の説明を添え、必要なら理解の助けになる参考リンク（公式ドキュメント等）を1つ付けること
 - ステップ4で確保した **critのセッションID `<session>`**（複数のcritセッションがあると `--session` なしの `crit comment` は投稿先を決められずエラーになるため、必ず渡す）
 - 分析の前に `crit comments --session '<session>' --json --all` で既存のレビューコメント（GitHubから取り込んだ他のレビュワーのコメント、resolve済み・返信を含む）を読み、次のとおり扱うこと
   - 既存コメントと同じ内容の指摘は新規投稿しない
@@ -129,34 +130,46 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 
 各agentが投稿する際のコメント本文の形式:
 
-````markdown
-<コメント種別タグ>
-**[重要度: 高/中/低] [緊急度: 高/中/低]** 問題の概要
+`````markdown
+<コメント種別タグ> 【<対応区分>】問題の概要
+**[重要度: 高/中/低] [緊急度: 高/中/低]**   ← must / should のときだけ書く
 
-**問題:**
-具体的な問題の説明
+**何が問題か:**
+どのコードが、どんな状態になるか
+
+**なぜ問題か:**
+どんな入力・操作で何が壊れるか（放置した場合の影響）
 
 **修正案:**
-修正後のコード例
-````
+```<言語>
+修正後のコード
+```
 
-### コメント種別タグ
+**補足:**（任意）専門用語の説明や参考リンク
+`````
+
+- 「なぜ問題か」は省略しない。ジュニアが修正の必要性を判断できる根拠になる。
+- 修正案は文章だけで済ませず、コードで示す。`question` / `fyi` など修正を求めないコメントでは「修正案」を省略してよい。
+
+### コメント種別タグと対応区分
 
 指摘事項の冒頭に付与するタグ。
-レビュワーの意図をレビュイーに伝える目的で必ず付与する。
+レビュワーの意図をレビュイーに伝える目的で必ず付与する。バッジは英語のため、直後に日本語の対応区分（【必須】【推奨】【任意】【質問】）を必ず併記し、対応が必要かどうかを1行目だけで判断できるようにする。
 
-- `![question-badge](https://img.shields.io/badge/review-Question-yellowgreen.svg)` : 質問や疑問のコメントであることを示す
-- `![imo-badge](https://img.shields.io/badge/review-In_My_Opinion-orange.svg)` : 個人的な意見や主張のコメントであることを示す
-- `![fiy-badge](https://img.shields.io/badge/review-For_Your_Information-green.svg)` : 参考情報を提示するコメントであることを示す
-- `![nitpick-badge](https://img.shields.io/badge/review-Nitpick-orange.svg)` : 重箱の隅をつつくような、細かい点の指摘コメントであることを示す
-- `![norush-badge](https://img.shields.io/badge/review-No_Rush-purple.svg)` : 将来的には修正したいが、今でなくても良い内容のコメントであることを示す
-- `![suggest-badge](https://img.shields.io/badge/review-Suggest_Change-yellowgreen.svg)` : **提案**  修正した方が良い内容の指摘コメントであることを示す
-- `![should-badge](https://img.shields.io/badge/review-Should_Change-important.svg)` : **強い提案** 修正すべき内容の指摘コメントであることを示す
-- `![must-badge](https://img.shields.io/badge/review-Must-red.svg)` : 修正しなければ approve しないという意思が篭っている指摘コメントであることを示す
+| バッジ | 対応区分 | 意味 |
+| --- | --- | --- |
+| `![must-badge](https://img.shields.io/badge/review-Must-red.svg)` | 【必須】 | 修正しなければ approve しない |
+| `![should-badge](https://img.shields.io/badge/review-Should_Change-important.svg)` | 【推奨】 | **強い提案** 修正すべき |
+| `![suggest-badge](https://img.shields.io/badge/review-Suggest_Change-yellowgreen.svg)` | 【推奨】 | **提案** 修正した方が良い |
+| `![nitpick-badge](https://img.shields.io/badge/review-Nitpick-orange.svg)` | 【任意】 | 重箱の隅をつつくような細かい点 |
+| `![imo-badge](https://img.shields.io/badge/review-In_My_Opinion-orange.svg)` | 【任意】 | 個人的な意見や主張 |
+| `![norush-badge](https://img.shields.io/badge/review-No_Rush-purple.svg)` | 【任意】 | 将来的には修正したいが、今でなくても良い |
+| `![fiy-badge](https://img.shields.io/badge/review-For_Your_Information-green.svg)` | 【任意】 | 参考情報の提示 |
+| `![question-badge](https://img.shields.io/badge/review-Question-yellowgreen.svg)` | 【質問】 | 質問や疑問（回答を求める） |
 
 ### 重要度と緊急度
 
-レビュイーが指摘点のトリアージの目安として利用する指標
+`must` / `should` の指摘にだけ付ける、レビュイーが修正の優先順位を決めるための指標。それ以外は対応区分だけで足りるため付けない（指標が多いと、どれから直すべきか判断しづらくなる）。
 
 #### 重要度
 
@@ -168,18 +181,25 @@ Agentツールを使用し、以下5つの専門subagent_typeを**1回のメッ�
 
 ### 各agentが実行する投稿コマンド
 
-```bash
-crit comment --session '<session>' --author 'review-pr' 'src/auth.go:42' "$(cat <<'EOF'
-![must-badge](https://img.shields.io/badge/review-Must-red.svg)
+````bash
+crit comment --session '<session>' --author 'review-pr' 'src/auth.ts:42' "$(cat <<'EOF'
+![must-badge](https://img.shields.io/badge/review-Must-red.svg) 【必須】null チェック漏れ
+**[重要度: 高] [緊急度: 高]**
 
-**[重要度: 高] [緊急度: 高]** null チェック漏れ
+**何が問題か:** 未ログイン時は `getUser()` が `null` を返すが、42行目でそのまま `user.id` を参照している。
 
-**問題:** userがnullの場合にTypeErrorが発生する
+**なぜ問題か:** ログインセッションが切れた状態でこの画面を開くと TypeError で500エラーになる。セッション切れは日常的に起きるため、多くのユーザーが踏む。
 
-**修正案:** 早期リターンでガード節を追加
+**修正案:**
+```ts
+const user = getUser()
+if (!user) return redirect('/login')
+```
+
+**補足:** このように関数の冒頭で異常系を先に return する書き方を「ガード節（早期リターン）」と呼ぶ。後続の処理で null を気にせずに済む。
 EOF
 )"
-```
+````
 
 パスはgit toplevel相対（`gh pr diff` が出力するパスそのまま）で、範囲指定は `src/auth.go:40-45` の形式で渡す。
 
@@ -276,13 +296,43 @@ critの `approved` は「未resolveのコメントが0件」という意味し�
 
 3. 「送信しない」以外を選んだ場合は、critの未resolveのレビューコメント（全体像や、ユーザーがcrit上で書いたレビューコメント）をそのままレビュー本文として `--message` に渡して送信する。`request-changes` は `--message` が無いと `--event request-changes requires --message` で失敗するため、どのeventでも必ず渡す。
 
+   送信の直前に、GitHubへ送信済みの返信をreviewファイルから除く。`crit push` は送った返信に GitHub の ID を記録しないため、前回以前のラウンドで送った返信も毎回送り直してしまう（dry-runには返信が出ないので気づけない）。動いているサーバーがメモリの内容でreviewファイルを書き戻すことがあり、除いた返信が次のラウンドで復活する。そのため、除くのは毎回 push の直前に行う。GitHub 上の返信と「親スレッドの ID と本文」が一致するものだけを除くので、未送信の返信は残る。
+
    ```bash
    review_file="$(crit status --json | jq -r '.review_file')"
+   sent="$(mktemp)"
+   gh api 'repos/{owner}/{repo}/pulls/<PR>/comments' --paginate \
+     | jq -s '[add[] | select(.in_reply_to_id != null) | {parent: .in_reply_to_id, body: (.body | gsub("\\s+$"; ""))}]' > "$sent"
+   cp "$review_file" "$review_file.bak"
+   jq --slurpfile sent "$sent" '
+     .files[].comments[]? |= (
+       if .github_id == null then . else
+         .github_id as $p
+         | .replies |= map(select(
+             .github_id != null
+             or ((.body | gsub("\\s+$"; "")) as $b | $sent[0] | any(.parent == $p and .body == $b) | not)))
+       end)' "$review_file.bak" > "$review_file"
+   # 送信される返信（親の GitHub ID と1行目）。ここに前回以前の返信が残っていないことを確かめてから push する
+   jq -r '.files[].comments[]? | select(.github_id != null) | . as $c | .replies[]? | select(.github_id == null) | "\($c.github_id) \(.body | split("\n")[0])"' "$review_file"
    crit push --session '<session>' -e <event> \
      -m "$(jq -r '[.review_comments[] | select(.resolved != true) | .body] | join("\n\n---\n\n")' "$review_file")" <PR>
    ```
 
    未resolveのレビューコメントが0件で本文が空になる場合、`request-changes` では送信前に本文をユーザーに確認する。
+
+   手順1の dry-run が `0 postable`（新規の行コメントが0件）だった場合、`crit push` は返信だけを送り、`-e` の event と `-m` の本文を送らずに終わる（エラーにもならない）。そのときは、push の後で event と本文を `gh pr review` で送る。本文はヒアドキュメントを通さずファイルから渡す（[[git_workflow]] の Tirith フック対策と同じ理由）。
+
+   ```bash
+   body_file="$(mktemp)"
+   jq -r '[.review_comments[] | select(.resolved != true) | .body] | join("\n\n---\n\n")' "$review_file.bak" > "$body_file"
+   gh pr review <PR> --approve --body-file "$body_file"   # comment は --comment、request-changes は --request-changes
+   ```
+
+   どちらの場合も、送信後に、本文のある最新のレビューが選んだ event の state（`APPROVED` / `COMMENTED` / `CHANGES_REQUESTED`）になっていることを確認する。返信は本文なしの別のレビュー（`COMMENTED`）として本体の後に作られるため、本文のないレビューは除いて見る。
+
+   ```bash
+   gh api 'repos/{owner}/{repo}/pulls/<PR>/reviews' --jq '[.[] | select(.body != "")] | .[-1] | {state, submitted_at, url: .html_url}'
+   ```
 
    未resolveのコメントが0件で終えた場合、critのデーモンが停止していて `--session` でセッションが見つからないことがある。そのときは `--session` を外して再実行する。
 
