@@ -153,7 +153,7 @@ MISE_EXPERIMENTAL = "1"
 
 [mcp_servers.playwright]
 command = "npx"
-args = ["@playwright/mcp@latest"]
+args = ["@playwright/mcp@latest", "--browser", "chrome", "--sandbox"]
 
 [mcp_servers.serena]
 command = "uvx"
