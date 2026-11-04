@@ -97,7 +97,10 @@
     },
     "playwright": {
       "args": [
-        "@playwright/mcp@latest"
+        "@playwright/mcp@latest",
+        "--browser",
+        "chrome",
+        "--sandbox"
       ],
       "autoApprove": [
         "browser_close",
