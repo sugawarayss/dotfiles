@@ -24,7 +24,10 @@
       "type": "stdio",
       "command": "npx",
       "args": [
-        "@playwright/mcp@latest"
+        "@playwright/mcp@latest",
+        "--browser",
+        "chrome",
+        "--sandbox"
       ]
     },
     "chrome-dev-tools": {

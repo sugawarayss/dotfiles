@@ -404,7 +404,8 @@
     "qa-guide@claude-qamods": true,
     "crit-tui@crit": true,
     "figures@figures": true,
-    "ponytail@ponytail": true
+    "ponytail@ponytail": true,
+    "postman@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "crit": {
