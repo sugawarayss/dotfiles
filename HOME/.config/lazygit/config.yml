@@ -10,3 +10,6 @@ git:
       command: hunk pager
 os:
   editPreset: 'nvim'
+
+services:
+  'headwaters': 'github:github.com'
