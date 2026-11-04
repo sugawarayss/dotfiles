@@ -27,7 +27,7 @@ zizmor = "latest"
 act = "latest"
 aws-cli = { version = "latest", symlink_bins = "true" }
 aws-vault = "latest"
-azure = "latest"
+azure = { version = "latest", uvx_args = "--python 3.14" } # pymsalruntime に cp315 wheel が無いため
 bat = "latest"
 betterleaks = "latest"
 biome = "latest"
