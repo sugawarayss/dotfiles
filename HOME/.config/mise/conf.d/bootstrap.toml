@@ -185,6 +185,13 @@ post-defaults = [
 "brew:charmbracelet/tap/freeze" = "latest"
 "brew-cask:mantrakp04/tap/ardia" = "latest"
 "brew:mole" = "latest"
+"brew-cask:dbx" = "latest"
+"brew-cask:docker-desktop" = "latest"
+"brew-cask:homerow" = "latest"
+"brew-cask:obsidian" = "latest"
+"brew-cask:proton-pass" = "latest"
+"brew-cask:shottr" = "latest"
+"brew-cask:postman" = "latest"
 
 # caskがなくdmgのみ配布。更新時は version と sha256 を手で書き換える
 [bootstrap.packages."macos-app:codenotch"]
