@@ -1,143 +1,83 @@
 {
-  // 公式パック(nono pull nolabs-ai/claude)を土台にする。
-  // ~/.claude・~/.claude.json[.lock]・~/.cache/claude・~/.local/state/claude/locks・
-  // /tmp/claude-$UID・Keychains・claude_code_macos/git_config/unlink_protectionグループ・
-  // open_urls(claude.ai/claude.com/api.anthropic.com/platform.claude.com)・
-  // $NONO_CONFIG/profiles の読み取り(プロファイル自己編集用hookに必要)・
-  // サンドボックス診断hook+skill(nono@nolabs-ai plugin)が全てここから継承される。
-  "extends": "nolabs-ai/claude",
+  "extends": [
+    "nolabs-ai/claude"
+  ],
   "meta": {
     "name": "claude",
-    "description": "nolabs-ai/claudeを拡張し、~/.claude/settings.jsonのpermissions.denyをOSカーネルレベルで補強するClaude Code用サンドボックス"
+    "version": "",
+    "description": "nolabs-ai/claudeを拡張し、~/.claude/settings.jsonのpermissions.denyをOSカーネルレベルで補強するClaude Code用サンドボックス",
+    "author": null
   },
-  // 公式パックはlaunch services経由のURL/ファイルオープンを許可するが(allow_launch_services: true)、
-  // open_urls.allow_originsだけで既にSubscriptionログインは解決済みなので、
-  // origin制限なしの広いオープンは明示的に無効化しておく。
-  "allow_launch_services": false,
+  "security": {
+    "signal_mode": "allow_all",
+    "process_info_mode": null,
+    "ipc_mode": null,
+    "capability_elevation": null,
+    "approval_backends": {},
+    "approval_defaults": null,
+    "wsl2_proxy_policy": null
+  },
   "groups": {
-    "include": []
+    "include": [],
+    "exclude": []
+  },
+  "commands": {
+    "allow": [],
+    "deny": []
   },
   "filesystem": {
     "allow": [
-      // miseのツール別キャッシュ(bin_paths等のmsgpackキャッシュ)。mise自身が書き込むため
-      // readwriteが必要。秘密情報は含まない。
       "$HOME/.cache/mise",
-      // miseのtrust状態(trusted-configs/)。miseは未trustの新規worktreeのmise.tomlを自動trustする際に
-      // ここへシンボリックリンクを作るため、read専用だとgwmのpost_createフック(mise run setup:project)が
-      // "failed to ln -sf ... Operation not permitted"で失敗し、後続のherdr openまで中断される(実測で確認済み)。
       "$HOME/.local/state/mise",
-      // npx/uvx経由のMCPサーバーがパッケージキャッシュに書き込めず起動失敗する事例が
-      // codex側で発覚したため予防的に追加(context7/playwright/github/serena/
-      // aws-knowledge等、claudeでも同じMCPサーバーを使っている)。
       "$HOME/.npm",
       "$HOME/.cache/uv",
-      "$HOME/.local/share/uv", // uvxがツールをインストールする領域(~/.cache/uvとは別)
-      "$HOME/.serena", // serena MCPサーバー自身の状態/メモリディレクトリ
-      // pnpmのグローバルstore(v11)。継承元パックのgroup:node_runtimeはread専用の許可しか
-      // 持たず、pnpm execがパッケージを展開する際の書き込みができず失敗する
-      // (codexプロファイル側の実測でinsufficient_accessを確認)。秘密情報は含まない。
+      "$HOME/.local/share/uv",
+      "$HOME/.serena",
       "$HOME/.local/share/pnpm",
-      // semgrepの設定/ログ(settings.yml・semgrep.log)。pre-commitフックのsemgrep-pythonが
-      // 参照するが元々一切許可されていなかった(codexプロファイル側の実測でpath_not_grantedを確認)。
       "~/.config/.semgrep",
-      // gh CLI(v2.100.0)は起動時に$HOME/.config/gh配下へ新形式の設定ファイル(config.toml等)を
-      // 書き込もうとするため、read権限(上のdotfiles全体read許可経由)だけでは足りずwriteも必要
-      // (nono whyの実測でinsufficient_accessを確認)。同ディレクトリのOAuthトークン(hosts.yml)は
-      // 既にread許可済みなので、write追加による実質的なリスク増分は小さい。
       "~/.config/gh",
-      // critの実行状態(plan-sessions/reviews/exports等)。~/.crit配下はdotfiles外の
-      // 実ディレクトリで、crit CLI(comment/share等)が読み書きするため必要
-      // (nono whyの実測でpath_not_grantedを確認)。秘密情報は含まない。
       "$HOME/.crit",
-      // Whiteboard(dev.fast)の状態ディレクトリ(DEV_REVIEW_HOME。review-api.db・Desktopの
-      // インスタンス情報・telemetry等)。whiteboard MCPサーバー/CLIがDesktopの検出とレビュー
-      // 作成のため読み書きする(nono runの実測でpath_not_grantedを確認)。現状秘密情報は
-      // 含まないが、`whiteboard trace storage`でS3/R2資格情報を設定するとここに保存される点に注意。
-      // なお `whiteboard app launch` は/usr/bin/openを絶対パスでLaunchServices経由実行するため
-      // サンドボックス内からは起動できない(open許可・専用command sandboxとも実測で失敗)。
-      // GUIの起動はサンドボックス外でユーザーに依頼する運用(CLAUDE.md参照)。
       "$HOME/.dev",
-      // tuicrの永続レビューセッション保存先。~/.config/tuicrはdotfilesへのシンボリックリンクで
-      // 設定ファイルのみカバーするため、実行時状態はここが別途必要
-      // (nono whyの実測でpath_not_grantedを確認)。
       "~/Library/Application Support/tuicr",
-      // gwmの操作履歴(history.toml、gwm remove等の破壊的操作を記録)。秘密情報は含まない
-      // (nono whyの実測でpath_not_grantedを確認)。
       "$HOME/.local/share/gwm",
-      // ponytail pluginの設定(config.json、/ponytail <level>で既定レベルを書き込む)と
-      // bandのタスク台帳(band/<project>.csv、毎ターン追記)。秘密情報は含まない
-      // (webhookTokenはKeychain保存でここには書かれない)。モードフラグ(~/.claude/.ponytail-active)と
-      // hook本体(~/.claude/plugins/cache)は継承元パックの~/.claude許可でカバー済み。
       "$HOME/.config/ponytail",
-      // Claude Code(Node CLI)がMCPサーバーごとに書き出すログディレクトリ。
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-chrome-devtools",
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-context7",
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-github",
       "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-mise",
-      "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-serena"
+      "~/Library/Caches/claude-cli-nodejs/-Users-sugawarayss-PROJECTS-sugawarayss-dotfiles/mcp-logs-serena",
+      "//github.com/inapvision/flexio/issues"
     ],
     "read": [
-      // mise管理下のツール実体(rg/fd/jq/bat/sd/gh/node/python/uv/pnpm/claude本体 等、
-      // ほぼ全てのCLIツールがここ経由)。秘密情報を含まないインストール済みバイナリなので
-      // 広く読み取りを許可する。
       "$HOME/.local/share/mise",
-      "$HOME/.config/mise", // シンボリックリンク自体への読み取り
-      // gwmのグローバル設定(config.tomlはdotfilesへのシンボリックリンク)。リンク先はdotfiles全体
-      // read許可でALLOWEDと出るが、親ディレクトリ~/.config/gwmのトラバース権限が無いと
-      // 実際の読み込みがEPERMになり、gwmがグローバル設定無し(worktree.base=~/cc-worktree等の
-      // デフォルト値)で動いてしまう(実測で確認済み)。
+      "$HOME/.config/mise",
       "$HOME/.config/gwm",
-      // dotfilesリポジトリ本体。justfileの各レシピで ~/... からここへシンボリックリンク
-      // されているため、個々のリンク先を都度列挙する代わりにリポジトリ全体を読み取り許可する。
-      // 祖先ディレクトリも含めて許可しないと、nonoがシンボリックリンクを辿れず起動時に
-      // 拒否される(nono runの実測で確認済み)。下のdenyで gh / .npmrc / .zshrc / .zprofile /
-      // .zsh.d / .config/fish の実体パスを明示的に閉じることで、保護意図はそのまま維持している
-      // (macOSのSeatbeltは広いallowの中の特定パスだけdenyすることを正しく処理できる)。
       "$HOME/PROJECTS/sugawarayss/dotfiles",
-      "~/.local/share/terminal-browser/app/skills/default/terminal-browser"
+      "~/Library/Application Support/Ardia"
     ],
-    // AF_UNIXソケットのconnect()はfilesystem.read/allowの読み取り権限だけではカバーされず、
-    // 専用の許可が必要(nono whyの実測で確認済み)。herdrはCLIからherdr.sockに接続するだけで
-    // bindはしないため、bind不要のunix_socketで足りる。
-    "unix_socket": ["~/.config/herdr/herdr.sock"],
+    "write": [],
+    "allow_file": [],
     "read_file": [
       "~/.config/anthropic/active_config",
       "~/.config/anthropic/configs/default.json",
-      "~/.local/share/terminal-browser/app/skills/default/terminal-browser/SKILL.md",
-      // critのグローバル設定。auth_token(crit-web共有用)を平文で含むが、
-      // crit share/crit pushは使わない運用のため許容してread許可(nono whyの実測で
-      // path_not_grantedを確認)。crit起動のたびにこのファイルの解決が必要。
-      "~/.crit.config.json"
+      "~/.crit.config.json",
+      "~/Library/Application Support/com.ardia.browser/Chromium/ArdiaControl.json"
     ],
+    "write_file": [],
+    "unix_socket": [
+      "~/.config/herdr/herdr.sock"
+    ],
+    "unix_socket_bind": [],
+    "unix_socket_dir": [],
+    "unix_socket_dir_bind": [],
+    "unix_socket_subtree": [],
+    "unix_socket_subtree_bind": [],
     "deny": [
-      // gh CLIの設定/トークン保存先($HOME/.config/gh)は以前ここでdenyしていたが、
-      // denyしたままだとgh自身がhosts.yml/config.ymlを読めず認証エラーになり、
-      // `gh issue view`/`gh pr view`等が"operation not permitted"で失敗する実測を確認したため解除した。
-      // GitHub APIの参照系はGraphQL(POST /graphql)経由が多く、endpoint_policyでの
-      // method+pathベースの読み取り専用制限が技術的に機能しないため、credential proxy化は見送った。
-      //
-      // 上のdotfilesリポジトリ全体read許可により再露出してしまう実体パスの明示的な閉じ直し。
-      // (シンボリックリンク側は既にdeny_credentials/deny_shell_configsで保護されている)
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.npmrc",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zshrc",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zprofile",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.zsh.d",
       "$HOME/PROJECTS/sugawarayss/dotfiles/HOME/.config/fish",
-      // プロジェクト配下の秘密ファイルパターン(絶対パス接頭辞がないため$WORKDIR起点で解決される)。
-      // macOSではSeatbeltの正規表現ルールとして強制されるため、サンドボックス起動後に
-      // 作成されたファイルにも効く。
-      //
-      // 以前は "**/.env.*" という広いパターンで一括denyし、.env.example/.env.sampleだけを
-      // allow+bypass_protectionで例外化していたが、allow/bypass_protectionのglobは
-      // サンドボックス起動時点で実在するファイルしか捕捉できない(denyの正規表現ライブ強制とは
-      // 非対称)。そのため新規worktree内で新しく作られた.env.exampleがEPERMで書き込み拒否される
-      // 実測不具合が発生した(nono why上はACL的にALLOWEDと出るのに実際の書き込みは拒否される)。
-      // 対策として、広いdenyをやめ実際に秘密情報を持ちうる具体的なファイル名だけを列挙する方式に
-      // 変更した(ユーザー承認済み)。.env.example/.env.sample/.env.template等はこのリストに
-      // 含まれないため、通常のプロジェクトディレクトリ権限(--allow-cwd等)でそのまま読み書きできる。
-      // 一方でリストにない独自命名の.env.<xxx>はもうdenyされない点がトレードオフ。
-      // nonoのglobは*/**のみ対応(?や(...)等の正規表現記法は非対応でパースエラーになる)ため、
-      // prod/production・stag/stagingのような省略形も個別に列挙している。
       "**/.env",
       "**/.env.local",
       "**/.env.development",
@@ -161,43 +101,203 @@
       "**/id_ed25519",
       "**/*.tfstate"
     ],
+    "bypass_protection": [],
     "suppress_save_prompt": [
-      "~/" // ホーム全体readは危険すぎるため、save-profileプロンプトだけ抑制してdenyのまま維持
+      "~/"
     ]
   },
-  // ここで意図的に再現しなかったもの: git push/rebase/reset/clean、npm remove/uninstall、
-  // terraform apply、uv remove。Tool Sandboxの介入(command_policies)でこれをやろうとすると、
-  // そのコマンドのファイルシステムアクセス全体を専用の狭いサンドボックス(CommandEdgeConfigは
-  // 明示的な"sandbox"ブロックを要求する)に置き換える必要があり、通常のgit/uv/terraform操作を
-  // 壊すリスクが高い。ここはClaude Code自身のpermissions.denyに任せている
-  // (npmはどのみち継承元のdangerous_commandsグループで丸ごとブロック済み)。
-  //
-  // 同様に再現しなかったもの: cat/bat/sed/sd/head。これらはセキュリティ境界ではなく
-  // 「Read/Editツールを使ってほしい」というClaude Code側の運用上の好みに過ぎない。
-  // 実際の秘密ファイルは上のfilesystem.denyで守られているので、どのバイナリで読もうと
-  // しても失敗する。これらの極めて汎用的なユーティリティをシステム全体でブロックすると、
-  // 内部的にそれらを呼び出している無関係な他ツールまで壊しかねない。
-  //
-  // securityコマンド(macOS Keychain CLI)は以前ここで意図的にセッションdenyしていたが、
-  // Claude Code自体がSubscriptionログイントークンをKeychain(サービス名
-  // "Claude Code-credentials")へ保存・参照する際にこのコマンドをexecする実装のため、
-  // denyしたままだと `/login` 後もトークンを読み書きできず「not logged in」を繰り返す
-  // (nono why --command security の実測、および実行中セッションでの
-  // "security (N denied)" で確認済み)。open_urlsのorigin許可だけでログインが
-  // 完結するという当初の前提が誤りだったため解除した。
+  "network": {
+    "block": false,
+    "allow_http2": false,
+    "allow_domain": [],
+    "deny_domain": [],
+    "open_port": [],
+    "open_port_range": [],
+    "listen_port": [],
+    "listen_port_range": [],
+    "connect_port": [],
+    "no_proxy": [],
+    "custom_credentials": {},
+    "tls_intercept": null,
+    "upstream_proxy": null,
+    "upstream_bypass": [],
+    "approval_backends": {},
+    "approval_defaults": null
+  },
+  "diagnostics": {
+    "suppress_system_services": [],
+    "redaction": {
+      "extra_env_vars": []
+    },
+    "network_denial_audit": {}
+  },
+  "linux": {
+    "af_unix_mediation": null,
+    "sandbox_policy": null
+  },
+  "env_credentials": {},
   "command_policies": {
+    "executable_dirs": [],
+    "allow_writable_executables": false,
+    "entrypoint": null,
+    "approval_backends": {},
+    "approval_defaults": {
+      "backend": null,
+      "timeout_secs": null
+    },
+    "credentials": {},
     "commands": {
-      "curl": { "from": { "session": "deny" } },
-      "wget": { "from": { "session": "deny" } },
-      "nc": { "from": { "session": "deny" } },
-      "ncat": { "from": { "session": "deny" } },
-      "telnet": { "from": { "session": "deny" } },
-      "osascript": { "from": { "session": "deny" } },
-      "open": { "from": { "session": "deny" } },
-      "pbcopy": { "from": { "session": "deny" } },
-      "pbpaste": { "from": { "session": "deny" } },
-      "shred": { "from": { "session": "deny" } },
-      "mo": { "from": { "session": "deny" } }
-    }
-  }
+      "curl": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "mo": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "nc": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "ncat": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "open": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "osascript": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "pbcopy": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "pbpaste": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "shred": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "telnet": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      },
+      "wget": {
+        "executable": null,
+        "allow_writable_executable": false,
+        "can_use": [],
+        "export_env": [],
+        "sandbox": null,
+        "from": {
+          "session": "deny"
+        },
+        "allow_direct_exec_bypass": [],
+        "allow_direct_exec_bypass_with_credentials": false
+      }
+    },
+    "deny_direct_exec_bypass": [],
+    "session_export_env": []
+  },
+  "credential_capture": {},
+  "credential_providers": {},
+  "credential_routes": [],
+  "workdir": {
+    "access": "none"
+  },
+  "hooks": {},
+  "session_hooks": {},
+  "rollback": {
+    "exclude_patterns": [],
+    "exclude_globs": []
+  },
+  "allow_launch_services": false,
+  "skipdirs": [],
+  "packs": [],
+  "command_args": [],
+  "unsafe_macos_seatbelt_rules": []
 }

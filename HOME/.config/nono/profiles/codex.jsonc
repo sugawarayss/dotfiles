@@ -19,6 +19,10 @@
   // open_urls.allow_originsだけで既にログインは解決済みなので、origin制限なしの広いオープンは
   // 明示的に無効化しておく。
   "allow_launch_services": false,
+  // ardia CLIはArdiaの起動確認にos.kill(pid, 0)を使い、既定のisolatedだと
+  // PermissionErrorで「Ardia isn't running」になる(実測で確認)。
+  // allow_same_sandboxでも外部プロセスのArdiaには届かないためallow_allにする。
+  "security": { "signal_mode": "allow_all" },
   "groups": {
     "include": []
   },
@@ -74,8 +78,9 @@
       "$HOME/PROJECTS/sugawarayss/dotfiles",
       // tirith-gatewayのMCPサーバーが読む設定ファイル
       "$HOME/.config/tirith",
-      // terminal-browserスキルの定義ファイル
-      "~/.local/share/terminal-browser/app/skills/default/terminal-browser",
+      // ardia CLIの実体(~/.local/bin/ardiaはここへのシンボリックリンク)。
+      // crit のレビューURLを ardia exec でArdiaの前面タブに開くために必要。
+      "~/Library/Application Support/Ardia",
       // execute-plan-and-pr内で実装を担当するcodexエージェントが、グローバルCLAUDE.mdが
       // 参照する ~/.claude/rules/*.md 等(実体はdotfiles配下、~/.claude直下からの
       // シンボリックリンク経由)を読めない不具合の原因箇所。nono whyでのパス文字列マッチでは
@@ -91,7 +96,9 @@
       // critのグローバル設定。auth_token(crit-web共有用)を平文で含むが、
       // crit share/crit pushは使わない運用のため許容してread許可(claude-codeプロファイル側の
       // 実測でpath_not_grantedを確認)。crit起動のたびにこのファイルの解決が必要。
-      "~/.crit.config.json"
+      "~/.crit.config.json",
+      // ardia CLIの接続先(ポート・トークン)。トークンはArdiaの制御用で、起動ごとに変わる。
+      "~/Library/Application Support/com.ardia.browser/Chromium/ArdiaControl.json"
     ],
     // AF_UNIXソケットのconnect()はfilesystem.read/allowの読み取り権限だけではカバーされず、
     // 専用の許可が必要(claude-codeプロファイル側の実測で確認済み)。herdrはCLIからherdr.sockに
