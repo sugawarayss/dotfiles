@@ -139,8 +139,6 @@ layout = "bordered"  # compact | bordered
 note_vim = true
 # mux_open_in = "pane"        # pane | tab | workspace
 # mux_pane_direction = "right" # right | down | left | up
-terminal_browser = "terminal-browser {url}"
-# terminal_browser_open_in = "overlay" # overlay | detached
 # clipboard = "auto"          # auto | osc52 | tools
 # auto_refresh_secs = 60
 

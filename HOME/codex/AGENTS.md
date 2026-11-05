@@ -112,11 +112,9 @@ Skill内のパス条件に一致する参照をすべて読み、対象ファイ
 - GitHub操作: `gh` CLI
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）
 - プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。
-  起動する際は次のどちらで開くかをユーザーに確認してから実行する。
-  1. `--no-open` を付け、レビューURLを
-     `terminal-browser open <url> --split right` でherdr内のペインに開く。
-  2. `--no-open` を付けず、crit標準のブラウザ起動に任せる。
-  - `terminal-browser`のリファレンスは `/terminal-browser`で参照できる。
+  起動時は `--no-open` を付け、レビューURLを
+  `ardia exec 'await new_tab("<url>", background=False)'` でArdiaの前面タブに開く。
+  Ardiaに接続できず失敗した場合は、URLをユーザーに伝える。
 - コード差分レビュー: `crit`（Claude側の `review-local`／`execute-plan-and-pr` スキルで運用）。
   `crit --base-branch <base>` で起動し、ユーザーが Finish Review を押したら自動継続する。
 - PRレビュー: `crit`（Claude側の `review-pr` スキル経由）。`crit --pr <PR>` で起動し、

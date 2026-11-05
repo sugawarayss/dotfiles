@@ -2,7 +2,7 @@
 name: review-pr
 description: プルリクエストのコードレビューを支援する。PRの品質・セキュリティ・パフォーマンス・テスト・ドキュメントの観点から分析し、構造化されたレビューコメントを生成する。技術スタック不問。
 argument-hint: "[PR番号 or PRのURL（省略時はカレントブランチのPR）]"
-allowed-tools: Agent, Bash(gh *), Bash(crit:*), Bash(terminal-browser:*), AskUserQuestion, Read, Grep, Glob, mcp__context7__*, mcp__*
+allowed-tools: Agent, Bash(gh *), Bash(crit:*), AskUserQuestion, Read, Grep, Glob, mcp__context7__*, mcp__*
 user-invocable: true
 ---
 
@@ -58,16 +58,9 @@ gh pr view <PR> --comments
 
 ステップ5で各専門subagentが指摘を**直接**投稿できるよう、分析より前にcritのPRレビューセッションを起動し、セッションID `<session>` を確保しておく。
 
-### 4-1. 開き方を確認する
+### 4-1. critを仮起動し、既存コメントを取り込む
 
-AskUserQuestionで、レビュー画面の開き方をユーザーに確認する。
-
-- ① `--no-open` でブラウザの自動起動を止め、レビューURLを `terminal-browser open <url> --split right` でherdr内のペインに開く
-- ② `--no-open` を付けず、crit標準のブラウザ起動に任せる
-
-### 4-2. critを仮起動し、既存コメントを取り込む
-
-reviewファイルを作る前に、まず `--no-open` で仮起動する（①②どちらの場合も）。Bashツールで `run_in_background: true` と `timeout: 86400000` を指定する。
+reviewファイルを作る前に、まず `--no-open` で仮起動する。Bashツールで `run_in_background: true` と `timeout: 86400000` を指定する。
 
 ```bash
 crit --pr <PR> --no-open
@@ -81,24 +74,23 @@ crit --pr <PR> --no-open
 crit pull --session '<session>' <PR>
 ```
 
-### 4-3. critを起動し直してPRフォーカスを記録させる
+### 4-2. critを起動し直してPRフォーカスを記録させる
 
 reviewファイルがまだ無いPRでは、`crit pull`（または `crit comment`）がreviewファイルを新規作成し、そのとき `active_diff_scope` を記録しない。サーバーは起動時にしか書き込まないため、そのまま進めるとPR上で付けたコメントがすべて full-stack-only 扱いになり、ステップ9の `crit push` で送信されない。サーバーを止めて起動し直すと、既存のreviewファイルに `layer` が記録される。
 
-4-2のバックグラウンドタスクをTaskStopで止め、`crit stop` でサーバーを止めてから、4-1で選んだ開き方で起動し直す（`run_in_background: true`、`timeout: 86400000`。ユーザーが Finish Review を押すまでブロックし、完了はステップ9で受け取る）。サーバーが動いたまま `crit --pr` を再実行しても既存のサーバーに接続するだけで、スコープは記録されない。
+4-1のバックグラウンドタスクをTaskStopで止め、`crit stop` でサーバーを止めてから起動し直す（`run_in_background: true`、`timeout: 86400000`。ユーザーが Finish Review を押すまでブロックし、完了はステップ9で受け取る）。サーバーが動いたまま `crit --pr` を再実行しても既存のサーバーに接続するだけで、スコープは記録されない。
 
 ```bash
-crit --pr <PR> --no-open   # ①の場合
-crit --pr <PR>             # ②の場合
+crit --pr <PR> --no-open
 ```
 
-スコープが `layer` になったことを確認する（未反映なら1〜2秒待って再確認、最大5回）。`<session>` は4-2と同じ値のまま変わらない。
+スコープが `layer` になったことを確認する（未反映なら1〜2秒待って再確認、最大5回）。`<session>` は4-1と同じ値のまま変わらない。
 
 ```bash
 jq -r '.active_diff_scope // empty' "$(crit status --json | jq -r '.review_file')"
 ```
 
-起動出力（バックグラウンドタスクの出力ファイル）からレビューURL（`http://localhost:<port>`）を取得する（ポートは4-2と変わる）。①の場合は `terminal-browser open <url> --split right` で開く。
+起動出力（バックグラウンドタスクの出力ファイル）からレビューURL（`http://localhost:<port>`）を取得する（ポートは4-1と変わる）。`ardia exec 'await new_tab("<url>", background=False)'` でArdiaの前面タブに開く（失敗した場合はURLをユーザーに伝える）。
 
 以降、この `<session>` をステップ5の各subagentに渡す。
 
@@ -266,7 +258,7 @@ critのレビューコメントは `crit push` のインラインコメントと
 
 > "critにN件のコメント（全体像1件＋個別指摘N-1件）を追加し、既存コメントにM件返信しました（<url>）。不要な指摘はresolveしてください（resolveした指摘はGitHubに送信されません）。編集・追加が済んだら Finish Review を押してください。"
 
-その後、ステップ4-3のバックグラウンドタスクの完了通知を待つ。出力ファイルをポーリングしない。
+その後、ステップ4-2のバックグラウンドタスクの完了通知を待つ。出力ファイルをポーリングしない。
 
 ## ステップ9: GitHubへ送信する
 
@@ -278,7 +270,7 @@ critの `approved` は「未resolveのコメントが0件」という意味し�
    jq -r '.active_diff_scope // empty' "$(crit status --json | jq -r '.review_file')"
    ```
 
-   `crit push` は `active_diff_scope` が空だと、PR上で付けたコメント（`diff_scope: "layer"`）をすべて full-stack-only 扱いにして送信しない。reviewファイルはcwd＋カレントブランチ単位で共有されるため、crit画面でWorking treeに切り替えたり、同じブランチで `--pr` なしのcritを起動したりすると空になる（ステップ4-3を飛ばした場合も空のまま）。空の場合は、`crit stop` でサーバーを止めてから `crit --pr <PR> --no-open` を `run_in_background: true` で起動し直す（サーバーが動いたままの再実行は既存のサーバーに接続するだけで、スコープは戻らない）。上のコマンドで `layer` に戻ったことを確認してから（未反映なら1〜2秒待って再確認、最大5回）次へ進む。このバックグラウンドタスクは手順3の送信が終わるまで止めない（止めるとサーバーも止まり、`crit push` がreviewファイルを見つけられなくなる）。送信後にTaskStopで止める。
+   `crit push` は `active_diff_scope` が空だと、PR上で付けたコメント（`diff_scope: "layer"`）をすべて full-stack-only 扱いにして送信しない。reviewファイルはcwd＋カレントブランチ単位で共有されるため、crit画面でWorking treeに切り替えたり、同じブランチで `--pr` なしのcritを起動したりすると空になる（ステップ4-2を飛ばした場合も空のまま）。空の場合は、`crit stop` でサーバーを止めてから `crit --pr <PR> --no-open` を `run_in_background: true` で起動し直す（サーバーが動いたままの再実行は既存のサーバーに接続するだけで、スコープは戻らない）。上のコマンドで `layer` に戻ったことを確認してから（未反映なら1〜2秒待って再確認、最大5回）次へ進む。このバックグラウンドタスクは手順3の送信が終わるまで止めない（止めるとサーバーも止まり、`crit push` がreviewファイルを見つけられなくなる）。送信後にTaskStopで止める。
 
 1. 送信内容をプレビューし、送信予定の件数と内容をユーザーに示す。
 

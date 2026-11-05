@@ -262,14 +262,13 @@ test -f "$config" || { mkdir -p ~/.codex && cp ~/PROJECTS/sugawarayss/dotfiles/H
 """
 
 [tasks."bootstrap:herdr"]
-description = "herdr の integration・プラグイン・terminal-browser をインストール"
+description = "herdr の integration・プラグインをインストール"
 run = """
 herdr integration install claude
 herdr integration install codex
 for plugin in jhochenbaum/herdr-hunk-diff ChmaraX/herdr-nvim tomasvarga/herdr-pickr alexarthurs/herdr-sidebar kbrdn1/herdr-plugin-gwm; do
   herdr plugin list | grep -q "$plugin" || herdr plugin install "$plugin"
 done
-command -v terminal-browser >/dev/null || curl -fsSL https://terminal-browser.sh/install | bash
 """
 
 [tasks."bootstrap:yazi"]
