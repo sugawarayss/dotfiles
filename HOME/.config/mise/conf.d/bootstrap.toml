@@ -135,6 +135,10 @@ show-thumbnail = false
 raycastGlobalHotkey = "Option-49"
 navigationCommandStyleIdentifierKey = "vim"
 
+[bootstrap.macos.defaults."com.apple.reminders"]
+# macOS 27.2 のリマインダーは暦法 ISO 8601（ja_JP@calendar=iso8601）だと起動直後に落ちるため、アプリ単位でグレゴリオ暦にする。OS側で直ったら削除する
+AppleLocale = "ja_JP"
+
 [[bootstrap.macos.defaults_entries]]
 domain = "NSGlobalDomain"
 key = "AppleShowScrollBars"
