@@ -167,6 +167,7 @@ post-defaults = [
 "brew-cask:font-hack-nerd-font" = "latest"
 "brew-cask:font-hackgen-nerd" = "latest"
 "brew-cask:font-symbols-only-nerd-font" = "latest"
+"brew-cask:font-moralerspace" = "latest"
 "brew:git" = "latest"
 "brew:curl" = "latest"
 "brew:tree" = "latest"
