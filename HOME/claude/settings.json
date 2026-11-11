@@ -195,7 +195,6 @@
     "example-skills:frontend-design": "off"
   },
   "hooks": {
-    "InstructionsLoaded": [],
     "Notification": [
       {
         "matcher": "",
@@ -302,8 +301,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/sugawarayss/.claude/helpers/graft-hooks.cjs\" session-start || exit 0",
-            "timeout": 10
+            "command": "/bin/sh -c 'rex __internal session-start --agent claude --feature-session-naming=false 2>/dev/null || true'",
+            "timeout": 5
           }
         ]
       },
@@ -311,8 +310,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/sh -c 'rex __internal session-start --agent claude --feature-session-naming=false 2>/dev/null || true'",
-            "timeout": 5
+            "command": "node \"/Users/sugawarayss/.claude/helpers/graft-hooks.cjs\" session-start || exit 0",
+            "timeout": 10
           }
         ]
       }
@@ -365,18 +364,6 @@
         ]
       }
     ],
-    "PostToolUseFailure": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"/Users/sugawarayss/.claude/helpers/graft-hooks.cjs\" post-bash-fail || exit 0",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
     "SessionEnd": [
       {
         "hooks": [
@@ -391,6 +378,18 @@
           {
             "type": "command",
             "command": "node \"/Users/sugawarayss/.claude/helpers/graft-hooks.cjs\" session-end || exit 0",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/sugawarayss/.claude/helpers/graft-hooks.cjs\" post-bash-fail || exit 0",
             "timeout": 5
           }
         ]
@@ -413,7 +412,8 @@
     "qa-guide@claude-qamods": true,
     "crit-tui@crit": true,
     "figures@figures": true,
-    "ponytail@ponytail": true
+    "ponytail@ponytail": true,
+    "impeccable@impeccable": true
   },
   "extraKnownMarketplaces": {
     "crit": {
@@ -462,6 +462,12 @@
       "source": {
         "source": "github",
         "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
       }
     }
   },
