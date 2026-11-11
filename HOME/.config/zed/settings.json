@@ -7,9 +7,11 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "markdown_preview_code_font_family": "Annotation Mono",
-  "markdown_preview_font_family": "Annotation Mono",
-  "agent_ui_font_family": "Annotation Mono",
+  "markdown_preview": {
+    "code_font_family": "Moralerspace Radon",
+    "font_family": "Moralerspace Krypton"
+  },
+  "agent_ui_font_family": "AnnotationM Nerd Font",
   "project_panel": {
     "dock": "left",
   },
@@ -108,12 +110,12 @@
   //"confirm_quit": true, // 終了時の確認
   // UI のフォント設定
   "ui_font_size": 13.0,
-  "ui_font_family": "AnnotationM Nerd Font Mono",
+  "ui_font_family": "Moralerspace Krypton",
   "ui_font_fallbacks": ["HackGen Console NF"],
   // エディタのフォント設定
   "buffer_font_size": 13.0,
   // フォント設定
-  "buffer_font_family": "AnnotationM Nerd Font Mono",
+  "buffer_font_family": "Moralerspace Krypton",
   "buffer_font_fallbacks": ["HackGen Console NF"],
   "buffer_line_height": "standard",
   // カラーテーマ
@@ -184,7 +186,7 @@
       "breadcrumbs": true,
     },
     "font_size": 12.0,
-    "font_family": "AnnotationM Nerd Font Mono",
+    "font_family": "Moralerspace Krypton",
     "font_fallbacks": ["HackGen Console NF"],
     "line_height": {
       "custom": 1.2,
