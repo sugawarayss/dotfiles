@@ -8,7 +8,7 @@ return {
   init = function()
     vim.g.rustaceanvim = {
       tools = {
-        executor = "snacks_terminal",
+        executor = "toggleterm",
         test_executor = "neotest",
         enable_clippy = true,
         hover_actions = {
