@@ -119,3 +119,9 @@ slumber.yaml
 # graft
 graft/
 .ignore
+
+# deepsec
+.deepsec/
+
+# archify
+.archify/

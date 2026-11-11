@@ -43,6 +43,10 @@
   name          = sugawarayss
   email         = sugawarayss@inap-vision.co.jp
 
+[includeIf "gitdir:~/PROJECTS/headwaters/"]
+  path          = ~/.config/git/headwaters.gitconfig
+  path          = ~/PROJECTS/headwaters/gitconfig
+
 [ghq]
   root          = ~/PROJECTS
 

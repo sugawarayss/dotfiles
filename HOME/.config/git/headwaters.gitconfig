@@ -1,0 +1,3 @@
+# ~/PROJECTS/headwaters 配下では github.com を ~/.ssh/config の Host headwaters（sugawara-yasushi の鍵）経由にする
+[url "git@headwaters:"]
+  insteadOf = git@github.com:
