@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 削除対象worktreeのパス・gwm上のworktree名と、対応するherdr workspace_idを1回のBash呼び出しで
-# 特定する。破壊的操作(gwm remove)は行わない。結果はユーザー確認の材料として使う。
+# 特定する (rexペイン内ならrexセッション)。破壊的操作(gwm remove)は行わない。結果はユーザー確認の材料として使う。
 #
 # gwmの`gwm path`/`gwm remove`はworktree名(dashed、例: feat-123-desc)にのみfuzzy一致し、
 # 実際のgitブランチ文字列(例: feat/#123-desc)には一致しない(wtpとの差異、実機確認済み)。
@@ -25,10 +25,12 @@ Usage: gwm-herdr-cleanup-find.sh <branch_or_worktree_name>
   candidate=<name> <branch>     (statusがambiguousのときのみ、部分一致した候補ごとに1行)
   worktree_name=<name>          (statusがfoundのときのみ。`gwm remove`にはこの値を渡す)
   worktree_path=<絶対パス>       (statusがfoundのときのみ)
-  origin_pane_id=<id>            (start-worktreeが記録したファイルが見つかった場合のみ)
+  origin_pane_id=<id>            (start-worktreeが記録したファイルが見つかった場合のみ。rexなら "rex:<ブロックID>")
+  mux=herdr|rex|none             (このセッションがherdr/rexのペイン内で動いているか)
   herdr=ok|unavailable
   workspace_id=<id>              (対応するherdr workspaceが見つかった場合のみ)
   workspace_label=<label>        (同上)
+  rex_session=<label>            (mux=rexで、ブランチ名をラベルにしたrexセッションが見つかった場合のみ)
 USAGE
 }
 
@@ -77,13 +79,21 @@ if worktree_git_dir="$(git -C "$worktree_path" rev-parse --path-format=absolute 
   fi
 fi
 
-herdr_available=false
-if herdr status >/dev/null 2>&1; then
-  herdr_available=true
+mux=none
+# rex等の別ターミナルでもherdrサーバーは裏で動いていることがあるため、herdrペイン内かどうかで判定する
+if [[ "${HERDR_ENV:-}" == "1" ]] && herdr status >/dev/null 2>&1; then
+  mux=herdr
+elif [[ -n "${REX_SESSION:-}" ]] && rex whoami >/dev/null 2>&1; then
+  mux=rex
 fi
+echo "mux=$mux"
 
-if [[ "$herdr_available" != true ]]; then
+if [[ "$mux" != herdr ]]; then
   echo "herdr=unavailable"
+  # start-worktree側のgwm post_createフックが、ブランチ名をラベルにしてrexセッションを開いている
+  if [[ "$mux" == rex ]] && rex block ls -s "$worktree_branch" --json >/dev/null 2>&1; then
+    echo "rex_session=$worktree_branch"
+  fi
   exit 0
 fi
 

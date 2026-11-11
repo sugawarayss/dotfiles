@@ -2,7 +2,7 @@
 # 新規worktreeの初期セットアップ (.envの作成 + プロジェクトのセットアップ)。
 # nonoサンドボックスは**/.envへの書き込みをdenyしているため、サンドボックス内で動くgwmの
 # post_createフックでは.envを作れない。そこでgwm-herdr-start.shが、サンドボックス外で動く
-# herdrペインのシェルに `herdr pane run` でこのスクリプトを実行させる。
+# herdr/rexペインのシェルに (`herdr pane run` / `rex send`) このスクリプトを実行させる。
 # worktreeのルートをカレントディレクトリにして実行すること。
 set -euo pipefail
 

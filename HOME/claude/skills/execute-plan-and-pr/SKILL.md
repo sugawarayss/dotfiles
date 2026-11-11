@@ -10,7 +10,7 @@ description: >
   既存のworktreeで承認済みのプランファイルがある状態で
   「実装を進めて」「execute-plan-and-pr」「/execute-plan-and-pr」と言われた場合にも使用します。
 argument-hint: "[issue/タスクのURL] [ブランチ名] [ベースブランチ] [プランファイルのパス]"
-allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git symbolic-ref:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(crit:*) Bash(herdr:*) Bash(jq:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/crit-pending-comments.sh:*) AskUserQuestion Read
+allowed-tools: Agent Skill Bash(git status:*) Bash(git diff:*) Bash(git log:*) Bash(git add:*) Bash(git commit:*) Bash(git branch:*) Bash(git rev-parse:*) Bash(git merge-base:*) Bash(git symbolic-ref:*) Bash(gh pr create:*) Bash(gh pr view:*) Bash(gh repo view:*) Bash(crit:*) Bash(herdr:*) Bash(rex:*) Bash(jq:*) Bash(/Users/sugawarayss/.claude/skills/execute-plan-and-pr/scripts/crit-pending-comments.sh:*) AskUserQuestion Read
 user-invocable: true
 model: sonnet
 ---
@@ -19,7 +19,7 @@ model: sonnet
 
 このスキルの責務は **実装 → レビュー → commit → push案内 → PR作成 → レビュー指摘のルール化の提案 → （マージ報告を受けての）後片付けの呼び出し** まで。実装プランの検討・レビュー・承認は `plan-and-review` の責務であり、ここでは扱わない。このスキル自身は采配が中心のため `model: sonnet` で動作する。
 
-役割分担は次の通り。ユーザーはcritで差分を確認しコメントを付けるだけ。コードレビューはreview-local（Herdr環境では別ペインのclaude kindのherdr agent、非Herdr環境では `Agent` ツール）が担う。実際のコード変更の適用（ステップ1の実装、ステップ2のレビュー指摘対応。後者は未対応コメントの取得と「対応」コメントの投稿を含む）は、環境を問わず `Agent` ツールのsubagent（`subagent_type: general-purpose`）に委譲する。subagentは毎回新しく起動し、前の実装・修正の文脈を引き継がない（レビュー指摘に対して実装時の思い込みで反論させないため）。采配（crit起動判断・未対応コメント件数の確認・subagentへの指示と結果の検証・commit/push/PR作成・後片付けの判断）はこのスキル自身が担う。review-localとsubagentのやり取りはcritのコメントスレッド上で行い、指摘本文や対応内容をこのスキルのコンテキストに載せない。
+役割分担は次の通り。ユーザーはcritで差分を確認しコメントを付けるだけ。コードレビューはreview-local（Herdr環境では別ペインのclaude kindのherdr agent、非Herdr環境では `Agent` ツール）が担う。実際のコード変更の適用（ステップ1の実装、ステップ2のレビュー指摘対応。後者は未対応コメントの取得と「対応」コメントの投稿を含む）は、環境を問わず `Agent` ツールのsubagent（`subagent_type: general-purpose`、`model: "sonnet"`）に委譲する。subagentは毎回新しく起動し、前の実装・修正の文脈を引き継がない（レビュー指摘に対して実装時の思い込みで反論させないため）。采配（crit起動判断・未対応コメント件数の確認・subagentへの指示と結果の検証・commit/push/PR作成・後片付けの判断）はこのスキル自身が担う。review-localとsubagentのやり取りはcritのコメントスレッド上で行い、指摘本文や対応内容をこのスキルのコンテキストに載せない。
 
 ## 前提条件の確認
 
@@ -31,7 +31,7 @@ model: sonnet
 
 ## ステップ1: 実装
 
-実装作業を `Agent` ツールのsubagent（`subagent_type: general-purpose`）に委譲する。Herdr環境かどうかで手順は変えない。
+実装作業を `Agent` ツールのsubagent（`subagent_type: general-purpose`、`model: "sonnet"`）に委譲する。Herdr環境かどうかで手順は変えない。このスキルの他の箇所で general-purpose subagent を起動するときも、必ず `model: "sonnet"` を指定する（承認済みプランに沿った作業なので Sonnet で足り、利用量の大半を占めるため）。
 
 1. `Agent` ツールで実装を依頼する。プロンプトには以下を含める: 「承認済みの実装プラン（`<プランファイルの絶対パス>`）の内容に従って実装する」「作業対象のworktreeは `<worktreeの絶対パス>`」「担当範囲は実装とその動作確認・テスト実行までで、commit/push/PR作成/critレビュー/worktree削除は行わない」「CLAUDE.md・`rules/` 等の規約に従う」「プランに無い大きな方針転換が必要な場合は実装を進めず理由を報告する」「報告前に、変更した判定・処理と同種の箇所が他に残っていないかをセルフレビューし、見つけた問題は直してから報告する」「完了したら変更ファイル一覧と実施内容の要約だけを報告する（diff本文は報告に含めない）」。
 2. 完了通知を待ち、subagentの報告を読む。
@@ -43,7 +43,7 @@ model: sonnet
 
 `crit-cli` スキル（`crit comment` / `crit comments` の作法）を前提とする。critはユーザーが Finish Review を押すまでブロックし、2回目以降に同じセッションで起動し直すと前の周回の完了を通知してから再びブロックするため、このレビューループの「ユーザーが見終えるまで待つ」にそのまま使える。
 
-review-localによる自動レビュー（手順2）は、Herdr環境では「`herdr agent`で別ペインを分割し、別ペインのclaude agentの完了を待つ」パターンで行い、非Herdr環境では `Agent` ツールでの内製subagent呼び出しにフォールバックする。その指摘への対応（手順5）は、環境を問わずステップ1と同じく `Agent` ツールのsubagentに委譲する（critの起動判断やreview-localの起動判断そのものはこのスキルが担う）。
+「Herdr環境」は環境変数 `HERDR_ENV` が `1`（herdrペイン内で動いている）ことで判定する（rex等の別ターミナルではherdrサーバーが動いていても非Herdr環境として扱う）。「Rex環境」は `HERDR_ENV` が `1` でなく、環境変数 `REX_SESSION` が設定されている（rexペイン内で動いている）ことで判定する。review-localによる自動レビュー（手順2）は、Herdr環境では「`herdr agent`で別ペインを分割し、別ペインのclaude agentの完了を待つ」パターン、Rex環境では「`rex run`で別ペインに `claude -p` を走らせ、終了を待つ」パターンで行い、どちらでもなければ `Agent` ツールでの内製subagent呼び出しにフォールバックする。その指摘への対応（手順5）は、環境を問わずステップ1と同じく `Agent` ツールのsubagentに委譲する（critの起動判断やreview-localの起動判断そのものはこのスキルが担う）。
 
 ### 対象rangeの決定（merge-base）
 
@@ -85,7 +85,17 @@ git merge-base <base-branch> HEAD
 
       完了後は `herdr agent read reviewlocal --source recent-unwrapped --lines 300` で `posted`/`replied`/`resolved`/`failed`/`disputed` を読み取り、`herdr pane close <review_pane_id>` でペインを閉じる。
 
-   **Herdr環境でない場合**: `Agent` ツール（`subagent_type: general-purpose`）で上記と同じ内容（`Skill` ツールでの `review-local` 呼び出し・`<merge-base-sha>` と `--session <session_id>` の引き渡し・`posted`/`replied`/`resolved`/`failed`/`disputed` の報告）をバックグラウンドで依頼する。
+   **Rex環境の場合**: `review-local` を別ペインの非対話のClaude Codeセッション（`claude -p`）で実行させる。プロンプトの内容はHerdr環境と同じ。`claude` をnonoサンドボックス経由で起動するfish関数を通すため、`fish -c` で包む（`rex run -- claude ...` と直接書くと関数を通らず素のclaudeが起動する）。プロンプトと結果ファイルのパスは `fish -c` の位置引数（`$argv`）で渡し、クォートの入れ子を避ける。`--wait` はclaudeの終了まで戻らないので、Bashツールで `run_in_background: true` を指定して実行し、完了通知を待つ。`--keep-open` を付けないので、終了するとペインは自動で閉じる。
+
+      ```bash
+      result_file="$(git -C "<worktreeの絶対パス>" rev-parse --path-format=absolute --git-dir)/review-local-result.txt"
+      rex run -s "$REX_SESSION" --split right -c "<worktreeの絶対パス>" --label reviewlocal --focus=false --wait \
+        -- fish -c 'claude -p --permission-mode bypassPermissions $argv[1] | tee $argv[2]' "<review-local実行指示プロンプト>" "$result_file"
+      ```
+
+      完了後は `Read` ツールで `$result_file` を読み、`posted`/`replied`/`resolved`/`failed`/`disputed` を読み取る。
+
+   **Herdr環境でもRex環境でもない場合**: `Agent` ツール（`subagent_type: general-purpose`、`model: "sonnet"`）で上記と同じ内容（`Skill` ツールでの `review-local` 呼び出し・`<merge-base-sha>` と `--session <session_id>` の引き渡し・`posted`/`replied`/`resolved`/`failed`/`disputed` の報告）をバックグラウンドで依頼する。
 
    このステップの完了は、手順1のcritの終了（ユーザーが Finish Review を押した）とあわせて待つ。両方が揃ってから手順3に進む。review-localの投稿はcritの画面に即座に反映されるため、ユーザーはreview-localの完了前からレビューを始められる。
 
@@ -112,7 +122,7 @@ git merge-base <base-branch> HEAD
 
    返ったJSONをそのまま `crit comment --session <session_id> --author 'execute-plan-and-pr' --json` の標準入力に渡し、1回のBash呼び出しで全件に返信する。これでそのスレッドは対応済み扱いになり、上記の件数には含まれなくなる（次の周回でreview-localがresolveする）。見送った件数は手順4の確認で伝える。ユーザー（またはreview-local以外）のコメントは重要度を問わず見送らない。見送ったスレッドにユーザーがcritで返信すれば、末尾の発言者がユーザーになるため次の周回で通常の指摘として対応される。
 4. 件数が0（空配列）であれば、「新規コメントはありませんでしたが、これで進めてよいですか？」とユーザーに確認する（suggest/norushを見送った場合は「suggest/norushのN件は見送りました。対応が必要なものがあればcritでそのスレッドに返信してください」と添える。手順2でreview-localが `disputed` を報告した場合は、その `path:line` と論点を列挙し「review-localと修正側で意見が割れています。判断をcritのそのスレッドに返信してください」と添える。提示した `disputed` の一覧は、手順5と後述「意見が割れた指摘の判断記録」で使うので保持しておく）。承認が得られれば次のステップ（commit）へ進む。
-5. 件数が1以上であれば、未対応コメントの取得・修正・「対応」コメントの投稿まで、まとめて `Agent` ツールのsubagent（`subagent_type: general-purpose`）に委譲する（対応内容を一番よく知っている修正者自身が投稿することで、このスキルが要約を言い換える際の情報の欠落と、コメント一覧・対応要約をこのスキルのコンテキストに載せるトークン消費を避ける）。ステップ1の実装subagentは再利用せず、新しいsubagentを起動する。
+5. 件数が1以上であれば、未対応コメントの取得・修正・「対応」コメントの投稿まで、まとめて `Agent` ツールのsubagent（`subagent_type: general-purpose`、`model: "sonnet"`）に委譲する（対応内容を一番よく知っている修正者自身が投稿することで、このスキルが要約を言い換える際の情報の欠落と、コメント一覧・対応要約をこのスキルのコンテキストに載せるトークン消費を避ける）。ステップ1の実装subagentは再利用せず、新しいsubagentを起動する。
 
    コメント本文はプロンプトに含めず、取得に必要な情報（critのセッションID・worktreeの絶対パス）と下記のコマンドテンプレートを渡す。プロンプトには以下を明記する: 「まず `crit-pending-comments.sh <session_id> execute-plan-and-pr` を実行して未対応のcritレビュー指摘を取得し、それぞれに対応する」「指摘本文に `同種の箇所: path:line, ...` が列挙されている場合は、代表箇所と同時にそれらもすべて直し、対応コメントにも直した箇所を含める」「1件の修正が終わるごとに、そのスレッドに下記テンプレートで『対応: <1〜2文の対応内容>』を返信する。`--author` は必ず `execute-plan-and-pr` にする（スレッド末尾の発言者がこの名前であることで対応済みと判定されるため）」「`--resolve` は付けない（resolveはレビュー側とユーザーが行う）」「対応しなかった指摘（対応範囲を超える大きな変更が必要なもの等）には何も投稿せず、実装も進めない」「`再指摘:`/`反論:` で始まる指摘はreview-localが以前の『対応:』『見送り:』に返信したもの。修正するなら『対応:』、それでも見送るなら反論への根拠を添えた『見送り: <理由>』を投稿する（再度の見送りはreview-localがユーザーに判断を委ねるので、無言で放置しない）。指摘に同意できない場合も、根拠なく同意して直すのではなく根拠を添えて『見送り:』にする」「未対応一覧に無いスレッドへの投稿、commit/push/PR作成は行わない」「投稿前に、指摘と同種の問題が他の箇所に残っていないかセルフレビューする」「最終メッセージは、対応件数と、対応しなかった指摘それぞれの場所と理由だけにする（指摘ごとの対応内容はcritに返信済みなので繰り返さない）」。保持している `disputed` の一覧があり、そのスレッドが未対応一覧に含まれる（ユーザーが判断をコメントした）場合は、その一覧と「このスキルの『意見が割れた指摘の判断記録』節に従って記録する」旨もプロンプトに含め、最終メッセージに「判断を記録した指摘それぞれの場所・採った判断・記録先」を加えさせる。
 

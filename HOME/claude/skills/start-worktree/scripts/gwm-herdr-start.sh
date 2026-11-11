@@ -7,7 +7,8 @@
 # gwmのbootstrap (.gwm.tomlの[[hooks.post_create]]) がherdr worktree openを自動実行する設計
 # (ユーザーのgwm設定で確認済み) のため、このスクリプト自身はherdrを開かない (二重オープン回避)。
 # gwm create完了後に`herdr workspace list`→`herdr pane list --workspace <id>`で、既に開かれて
-# いるworkspace/paneを発見するだけに留める。
+# いるworkspace/paneを発見するだけに留める。rexペイン内で動いている場合も同様に、post_createフックが
+# ブランチ名をラベルにして開いたrexセッションを`rex block ls`で発見するだけに留める。
 #
 # origin_pane_id (このスキルを実行しているセッション自身のherdr pane_id、$HERDR_PANE_ID) は、
 # worktree専用のgit管理ディレクトリ (`git -C <worktree_path> rev-parse --git-dir`) 配下に
@@ -29,12 +30,13 @@ Usage: gwm-herdr-start.sh <source_type> <ref> <extra> <origin_pane_id|-> [<agent
                                       それがタイトルからdescを組み立てられない (日本語のみ等) ことによる失敗の場合のみ
                                       `gwm create <type> <issue> <slug>` で作成する
                   source_type=task:  ブランチ/worktree名に使うslug (例: improve-checkout-flow)
-  origin_pane_id  このスキルを実行しているセッション自身のherdr pane_id ($HERDR_PANE_ID)。
-                  無ければ "-"。worktree専用のgit管理ディレクトリにファイルとして記録する
-  agent_name      新規作成時のみ使用: herdr agent start に渡す名前。省略時はエージェント起動をスキップする。
+  origin_pane_id  このスキルを実行しているセッション自身の位置。herdrなら pane_id ($HERDR_PANE_ID)、
+                  rexなら "rex:<ブロックID>" ($REX_BLOCK)。無ければ "-"。worktree専用のgit管理ディレクトリにファイルとして記録する
+  agent_name      新規作成時のみ使用: herdr agent start に渡す名前 (rexでは名前は使わず、起動するかどうかの指定のみ)。
+                  省略時はエージェント起動をスキップする。
                   herdrの制約 (小文字英数字・'-'・'_'のみ、1-32文字) に合わせて、このスクリプトが
                   小文字化・使えない文字の'-'置換・32文字への切り詰め・末尾ハイフン除去を自動で行う (呼び出し側で切り詰め不要)
-  prompt          新規作成時のみ使用: herdr agent prompt に渡す文字列。省略時は送信をスキップする。
+  prompt          新規作成時のみ使用: herdr agent prompt (rexではclaudeの初期プロンプト引数) に渡す文字列。省略時は送信をスキップする。
                   末尾に " <branch> <base>" をこのスクリプトが付け足す
                   (branchはgwmがcreate中に決め、baseはこのスクリプトが決めるため、呼び出し側は知り得ない)
 
@@ -43,12 +45,16 @@ Usage: gwm-herdr-start.sh <source_type> <ref> <extra> <origin_pane_id|-> [<agent
   worktree_path=<絶対パス>
   worktree_name=<gwmのworktree名>    (cleanup-worktree / gwm remove にはこちらを渡す)
   origin_pane_id_recorded=true|false (origin_pane_idが"-"でなく、ファイルへの記録に成功した場合のみtrue)
+  mux=herdr|rex|none           (このセッションがherdr/rexのペイン内で動いているか)
   herdr=ok|unavailable
   workspace_id=<id>          (herdr=ok のときのみ)
   pane_id=<id>                (herdr=ok かつpane情報が取得できたときのみ)
-  setup_sent=true|false       (status=created のときのみ出力。worktree-setup.sh をペインに送信できたか)
-  agent_started=true|false    (status=created のときのみ出力)
-  prompt_sent=true|false      (status=created のときのみ出力)
+  rex_session=<label>         (mux=rex かつpost_createフックが開いたrexセッションが見つかったときのみ。ラベル=ブランチ名)
+  rex_block=<id>              (同上)
+  setup_sent=true|false       (status=created のときのみ出力。worktree-setup.sh をherdr/rexのペインに送信、
+                               またはそれらの外・nono外で直接実行できたか)
+  agent_started=true|false    (status=created のときのみ出力。rexでは起動コマンドを送信できたか)
+  prompt_sent=true|false      (status=created のときのみ出力。rexでは同上)
   error=<メッセージ>          (該当する失敗があれば追加で出力。致命的な失敗は exit 1)
 USAGE
 }
@@ -113,6 +119,11 @@ wait_pane_idle() {
     fi
   done
   return 1
+}
+
+# fishの単一引用符文字列にする (\\ と ' だけがエスケープ対象)。rexペインのシェルに送る行の組み立て用
+fish_quote() {
+  printf "'%s'" "$(printf '%s' "$1" | sed -e 's/\\/\\\\/g' -e "s/'/\\\\'/g")"
 }
 
 # --- base branch決定 + 同期 -------------------------------------------------
@@ -246,16 +257,22 @@ if [[ "$origin_pane_id" != "-" ]]; then
 fi
 echo "origin_pane_id_recorded=$origin_pane_id_recorded"
 
-# --- herdr workspace/paneの発見 (自分では開かない、gwmのpost_createフックに任せる) ------
+# --- herdr workspace/pane・rexセッションの発見 (自分では開かない、gwmのpost_createフックに任せる) ------
 workspace_id=""
 pane_id=""
+rex_session=""
+rex_block=""
 
-herdr_available=false
-if herdr status >/dev/null 2>&1; then
-  herdr_available=true
+mux=none
+# rex等の別ターミナルでもherdrサーバーは裏で動いていることがあるため、herdrペイン内かどうかで判定する
+if [[ "${HERDR_ENV:-}" == "1" ]] && herdr status >/dev/null 2>&1; then
+  mux=herdr
+elif [[ -n "${REX_SESSION:-}" ]] && rex whoami >/dev/null 2>&1; then
+  mux=rex
 fi
+echo "mux=$mux"
 
-if [[ "$herdr_available" == true ]]; then
+if [[ "$mux" == herdr ]]; then
   ws_match="$(herdr workspace list 2>/dev/null | jq -c --arg root "$repo_root" --arg branch "$worktree_branch" --arg path "$worktree_path" '
     [.result.workspaces[]
       | select(.worktree.repo_root == $root)
@@ -280,6 +297,18 @@ else
   echo "herdr=unavailable"
 fi
 
+if [[ "$mux" == rex ]]; then
+  # gwmのpost_createフックがブランチ名をラベルにしたrexセッションを開いている
+  rex_block="$(rex block ls -s "$worktree_branch" --json 2>/dev/null | jq -r '.blocks[0].block_id // empty')"
+  if [[ -n "$rex_block" ]]; then
+    rex_session="$worktree_branch"
+    echo "rex_session=$rex_session"
+    echo "rex_block=$rex_block"
+  else
+    echo "error=ラベル${worktree_branch}のrexセッションが見つかりません。gwmのpost_createフック(rex session open)が失敗した可能性があります。rex new \"${worktree_branch}\" -c ${worktree_path} で開いてください"
+  fi
+fi
+
 if [[ "$status" == "created" ]]; then
   setup_sent=false
   agent_started=false
@@ -288,13 +317,39 @@ if [[ "$status" == "created" ]]; then
   # .env作成とプロジェクトのセットアップは、nonoサンドボックス外で動くherdrペインのシェルに任せる
   # (理由はworktree-setup.shの冒頭コメント参照)。セットアップ実行中はペインがbusyになるため、
   # herdr agent startの前にwait_pane_idleで完了を待つ。
-  if [[ -n "$pane_id" ]]; then
-    setup_script="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/worktree-setup.sh"
+  setup_script="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/worktree-setup.sh"
+  if [[ -n "$rex_block" ]]; then
+    # rexのシェルはfishなので、setup→claude起動 (初期プロンプトは引数で渡す) を1行で送れば
+    # herdrのようなidle待ち・起動待ちが要らない。setup失敗時はclaudeを起動しない。
+    rex_line="$(fish_quote "$setup_script")"
+    if [[ -n "$agent_name" ]]; then
+      rex_line+=" && claude"
+      [[ -n "$prompt" ]] && rex_line+=" $(fish_quote "$prompt $worktree_branch $base")"
+    fi
+    if send_result="$(rex send -s "$rex_session" -b "$rex_block" "$rex_line" 2>&1 && rex send-key -s "$rex_session" -b "$rex_block" enter 2>&1)"; then
+      setup_sent=true
+      if [[ -n "$agent_name" ]]; then
+        agent_started=true
+        [[ -n "$prompt" ]] && prompt_sent=true
+      fi
+    else
+      echo "error=rex send failed: $send_result"
+    fi
+  elif [[ -n "$pane_id" ]]; then
     if setup_result="$(herdr pane run "$pane_id" "$setup_script" 2>&1)"; then
       setup_sent=true
     else
       echo "error=herdr pane run (worktree-setup.sh) failed: $setup_result"
     fi
+  elif [[ -z "${NONO_CAP_FILE:-}" ]]; then
+    # herdr/rexのペインが無い場合、サンドボックス外ならこのプロセスで直接実行できる
+    if setup_result="$(cd "$worktree_path" && "$setup_script" 2>&1)"; then
+      setup_sent=true
+    else
+      echo "error=worktree-setup.sh failed: $setup_result"
+    fi
+  else
+    echo "error=herdr/rexのペインが無くnonoサンドボックス内のため.envを作成できません。サンドボックス外で (cd ${worktree_path} && ${setup_script}) を実行してください"
   fi
 
   if [[ -n "$pane_id" && -n "$agent_name" ]] && ! wait_pane_idle "$pane_id"; then

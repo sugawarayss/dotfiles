@@ -8,7 +8,7 @@ description: >
   ユーザーが「worktree片付けて」「<ブランチ名>のworktree消して」「cleanup-worktree」
   「/cleanup-worktree」と入力した場合に使用します。
 argument-hint: "[削除対象のブランチ名またはworktree名] [起点pane_id(省略可、既定 -)]"
-allowed-tools: Bash(git rev-parse:*) Bash(git branch:*) Bash(gwm *) Bash(herdr *) Bash(/Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/gwm-herdr-cleanup-find.sh *)
+allowed-tools: Bash(git rev-parse:*) Bash(git branch:*) Bash(gwm *) Bash(herdr *) Bash(rex *) Bash(/Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/gwm-herdr-cleanup-find.sh *)
 user-invocable: true
 ---
 
@@ -22,7 +22,7 @@ user-invocable: true
 
 ## 前提条件の確認
 
-`herdr status` で `server.status` が `running` か確認する。未起動の場合、起点セッションへの委譲（`herdr agent prompt`）自体が行えないため、ステップ5〜6は常に「ユーザーに手動実行を依頼する」経路になる旨を把握しておく。
+環境変数 `HERDR_ENV` が `1`（herdrペイン内）でも `REX_SESSION` が設定済み（rexペイン内）でもない場合は、連携が行えないものとして扱い（スクリプトも`mux=none`を返す）、ステップ5〜6は常に「ユーザーに手動実行を依頼する」経路になる。対象worktreeがherdr/rex環境で作られていてworkspace/セッションが残っている可能性がある場合は、そちらで閉じるよう併せて伝える。rexペイン内（`mux=rex`）の場合は、起点セッションへの委譲を `rex send` で行う（ステップ5〜6）。`HERDR_ENV=1` の場合は `herdr status` で `server.status` が `running` か確認する。未起動の場合、起点セッションへの委譲（`herdr agent prompt`）自体が行えないため、ステップ5〜6は常に「ユーザーに手動実行を依頼する」経路になる旨を把握しておく。
 
 ## ステップ1: 対象ブランチ/worktree名の確認
 
@@ -38,11 +38,11 @@ worktreeの存在確認（`gwm list --format json` 相当）とherdr workspace�
 /Users/sugawarayss/.claude/skills/cleanup-worktree/scripts/gwm-herdr-cleanup-find.sh <branch_or_worktree_name>
 ```
 
-標準出力は `status=found|not_found|ambiguous` `candidate=`（ambiguous時のみ） `worktree_name=` `worktree_path=` `origin_pane_id=` `herdr=ok|unavailable` `workspace_id=` `workspace_label=` のkey=value行。
+標準出力は `status=found|not_found|ambiguous` `candidate=`（ambiguous時のみ） `worktree_name=` `worktree_path=` `origin_pane_id=` `mux=herdr|rex|none` `herdr=ok|unavailable` `workspace_id=` `workspace_label=` `rex_session=` のkey=value行。
 
 - `status=not_found`: 該当するworktreeが見つからない旨を報告して終了する。
 - `status=ambiguous`: 部分一致が複数ある。`candidate=` の一覧をユーザーに示し、どれを削除するか確認してから、選ばれたworktree名でスクリプトを再実行する。
-- `status=found` かつ `workspace_id` が出力されない場合: 対応するherdrワークスペースは無いものとして扱い、ステップ6はスキップする（herdr未起動時も同様）。
+- `status=found` かつ `workspace_id` も `rex_session` も出力されない場合: 対応するherdrワークスペース/rexセッションは無いものとして扱い、ステップ6はスキップする（herdr未起動時も同様）。
 - `origin_pane_id`: `start-worktree` が対象worktree作成時に記録した起点pane_id（`gwm-herdr-origin-pane-id`ファイル）から自動検出された値。ステップ1で明示的な上書き引数が渡されていればそちらを優先し、無ければこの値を使う。どちらも無ければ `-` として扱う。
 - `worktree_name`: **ステップ5〜6の`gwm remove`にはこの値を渡す**（ユーザーが入力したブランチ文字列そのものではなく、スクリプトが解決したgwmのworktree名。`gwm remove`はブランチ文字列にはfuzzy一致しないため）。
 
@@ -51,7 +51,7 @@ worktreeの存在確認（`gwm list --format json` 相当）とherdr workspace�
 以下をユーザーに提示し、実行してよいか確認を求める。実体を削除する不可逆操作であり、かつ`gwm remove --delete-branch`はunmergedでも無条件に削除するため、このステップは省略しない。
 
 - worktreeのパス（`worktree_path`）とworktree名（`worktree_name`）
-- 見つかった場合: herdr workspace_id とそのラベル（`workspace_id` / `workspace_label`）
+- 見つかった場合: herdr workspace_id とそのラベル（`workspace_id` / `workspace_label`）、またはrexセッション（`rex_session`）
 - 「マージ済みかどうかに関わらず削除され、削除後の復元は起点セッションで`gwm undo`を使う必要がある」旨
 
 ## ステップ5〜6: 起点セッションへの委譲（またはユーザーへの手動依頼）
@@ -60,7 +60,9 @@ worktreeの存在確認（`gwm list --format json` 相当）とherdr workspace�
 
 `<起点pane_id>`: ステップ1の明示的な上書き引数があればそれを、無ければステップ2〜3で自動検出された`origin_pane_id`を、どちらも無ければ `-` として扱う。
 
-**`<起点pane_id>` が `-` 以外の場合**: 以下の内容を1つのメッセージにまとめ、`herdr agent prompt <起点pane_id> "<メッセージ>"` で委譲する（`--wait` は付けないfire-and-forget。委譲の送信に成功しても、それは「起点セッションに指示が届いた」ことのみを意味し、実際の削除・close完了までは保証しない）。
+**`<起点pane_id>` が `rex:<ブロックID>` の場合**: 以下の内容を1つのメッセージ（1行）にまとめ、`rex send -b <ブロックID> "<メッセージ>"` → `rex send-key -b <ブロックID> enter` で起点ブロックのclaudeに入力して委譲する（herdrと同じくfire-and-forget。届いたことしか保証しない）。3の閉じる操作は `rex kill "<rex_session>"` にする。
+
+**`<起点pane_id>` が `-` 以外（herdrのpane_id）の場合**: 以下の内容を1つのメッセージにまとめ、`herdr agent prompt <起点pane_id> "<メッセージ>"` で委譲する（`--wait` は付けないfire-and-forget。委譲の送信に成功しても、それは「起点セッションに指示が届いた」ことのみを意味し、実際の削除・close完了までは保証しない）。
 
 メッセージに含める内容:
 
@@ -68,7 +70,7 @@ worktreeの存在確認（`gwm list --format json` 相当）とherdr workspace�
 2. 失敗した場合の対応: dirty worktree・unmergedブランチのどちらも`gwm remove --delete-branch`は無条件で削除するため、通常はここで失敗しない。それでも失敗した場合は理由をそのままユーザーに提示し、**無断で追加フラグを付けて再実行しない**（起点セッションは対話中の実セッションなので、必要な判断はそのセッションの利用者に行わせる）。
 3. `workspace_id` が見つかっていれば、1が成功したら `herdr workspace close <workspace_id>` を実行する（`workspace_id` が無ければこの手順は含めない）。
 
-**`<起点pane_id>` が `-`（無い）場合**: 委譲先が無いため、ユーザーに別ディレクトリへ移動した上で上記1〜3を手動で実行してもらうよう依頼する（`workspace_id` が無ければ3は不要）。
+**`<起点pane_id>` が `-`（無い）場合**: 委譲先が無いため、ユーザーに別ディレクトリへ移動した上で上記1〜3を手動で実行してもらうよう依頼する（`workspace_id`/`rex_session` が無ければ3は不要。rexなら3は `rex kill "<rex_session>"`）。
 
 `herdr worktree remove` は使わない（git worktreeの実体そのものを削除するコマンドであり、`gwm remove --delete-branch` で既に実体を削除済みのため対象を失いエラーになる。使うのは常に `herdr workspace close` のみ）。
 
@@ -76,7 +78,7 @@ worktreeの存在確認（`gwm list --format json` 相当）とherdr workspace�
 
 以下をユーザーに報告する。
 
-- 起点セッションへ委譲した場合: 委譲した内容（gwm remove、および該当すればherdr workspace close）と、実際の完了は確認できていない旨。
+- 起点セッションへ委譲した場合: 委譲した内容（gwm remove、および該当すればherdr workspace close / rex kill）と、実際の完了は確認できていない旨。
 - 起点セッションが無くユーザーに手動実行を依頼した場合: 依頼した具体的なコマンドと理由。
 - 誤って削除してしまった場合は起点セッションで `gwm undo` により復元できる旨（削除完了の報告に添える）。
 
@@ -85,4 +87,4 @@ worktreeの存在確認（`gwm list --format json` 相当）とherdr workspace�
 - worktree・ブランチの実体削除は `gwm remove --delete-branch` にのみ任せる。`herdr worktree remove` は使わない。
 - `gwm remove --delete-branch`はunmergedブランチ・dirty worktreeのどちらも無条件で削除する。この挙動を理由に確認をスキップしない（ステップ4は必須）。
 - リモートブランチの削除、PRのクローズ・マージ確認は行わない。あくまでローカルのworktree・ブランチ・herdrワークスペースの片付けまで。
-- `gwm remove` ・ `herdr workspace close` の実行はこのスキル自身では一切行わない。cwdが削除対象worktree内にある／削除対象workspaceが自分自身である、といった自己参照的な失敗パターンを個別に検知するのではなく、常に起点セッションへの委譲（または起点セッションが無ければユーザーへの依頼）に統一することで、これらの自己参照問題を構造的に回避する。
+- `gwm remove` ・ `herdr workspace close` ・ `rex kill` の実行はこのスキル自身では一切行わない。cwdが削除対象worktree内にある／削除対象workspaceが自分自身である、といった自己参照的な失敗パターンを個別に検知するのではなく、常に起点セッションへの委譲（または起点セッションが無ければユーザーへの依頼）に統一することで、これらの自己参照問題を構造的に回避する。

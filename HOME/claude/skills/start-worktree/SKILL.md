@@ -8,7 +8,7 @@ description: >
   ユーザーが「issue #123からworktree作って」「ClickUpタスク<ID>からworktree始めて」「start-worktree」
   「/start-worktree」と入力した場合に使用します。
 argument-hint: "[GitHub issue番号/URL または ClickUpタスクID/URL]"
-allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git branch:*) Bash(git show-ref:*) Bash(git status:*) Bash(gwm *) Bash(herdr *) Bash(jq:*) Bash(gh issue view:*) Bash(/Users/sugawarayss/.claude/skills/start-worktree/scripts/gwm-herdr-start.sh *) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
+allowed-tools: Bash(git symbolic-ref:*) Bash(git rev-parse:*) Bash(git branch:*) Bash(git show-ref:*) Bash(git status:*) Bash(gwm *) Bash(herdr *) Bash(rex *) Bash(jq:*) Bash(gh issue view:*) Bash(/Users/sugawarayss/.claude/skills/start-worktree/scripts/gwm-herdr-start.sh *) mcp__github__get_issue mcp__claude_ai_ClickUp__clickup_get_task
 user-invocable: true
 model: haiku
 ---
@@ -18,9 +18,12 @@ GitHub issue または ClickUp タスクを起点に、gwm + herdr のworktree�
 
 ## 前提条件の確認
 
-1. `.gwm.toml`（リポジトリ側 or `~/.config/gwm/config.toml`）に`[[hooks.post_create]]`で`herdr worktree open`を呼ぶ設定になっているか確認する（`gwm config list` で解決済みの値を見るのが確実）。**`cat`/`head`/`tail`/`find` は権限で拒否されるため、内容確認には `Read` ツール（一覧確認には `fd`/`Glob`）を使う**。
+1. `.gwm.toml`（リポジトリ側 or `~/.config/gwm/config.toml`）に`[[hooks.post_create]]`で`herdr worktree open`（rexペイン内なら`rex new <branch> -c <path>`）を呼ぶ設定になっているか確認する（`gwm config list` で解決済みの値を見るのが確実）。**`cat`/`head`/`tail`/`find` は権限で拒否されるため、内容確認には `Read` ツール（一覧確認には `fd`/`Glob`）を使う**。
    - 無い、またはherdr連携が設定されていない場合: その旨をユーザーに伝え、設定するかどうかを確認する。ユーザーが設定を望まない場合はworktree作成のみ行い、herdrワークスペースは開かれない旨を伝えて続行する。
-2. `herdr status` で `server.status` が `running` か確認する。起動していなければ、ユーザーに `herdr` の起動を提案する（未起動のままでも `gwm create` 自体は失敗しないが、post_createフックのherdr連携コマンドが失敗する）。
+2. 環境変数 `HERDR_ENV` が `1` か確認する（herdrペイン内で動いているかの判定。rex等の別ターミナルでも`herdr status`は成功しうるため、`HERDR_ENV`で判定する）。
+   - `1` の場合: `herdr status` で `server.status` が `running` か確認する。起動していなければ、ユーザーに `herdr` の起動を提案する（未起動のままでも `gwm create` 自体は失敗しないが、post_createフックのherdr連携コマンドが失敗する）。
+   - 未設定で環境変数 `REX_SESSION` が設定されている場合（rexペイン内）: rex連携になる。post_createフックの`herdr worktree open`はスキップされ、代わりに`when = "env_set:REX_SESSION"`のフックがブランチ名をラベルにしたrexセッションをworktreeで開く。スクリプトはそのセッションのブロックへ `rex send` で「`worktree-setup.sh` && claude '<prompt>'」の1行を送る（`mux=rex`）。
+   - どちらも未設定の場合: 縮退動作になる。スクリプトは`mux=none`を返し、エージェント起動・プロンプト送信も行わない。`worktree-setup.sh`（.env作成+セットアップ）はnonoサンドボックス外ならスクリプトが直接実行し、nono内なら`error=`で手動実行を促す。worktreeを開いてclaudeを起動する操作はユーザーに委ねる旨を最後に伝える。
 3. **worktree作成のたびにmainリポジトリのチェックアウトを操作する副作用がある点を把握しておく**: `gwm create`にはbase ref引数が無く、常にmainリポジトリの現在のHEADから分岐する。そのためステップ7のスクリプトが、決定したbase branchへmainリポジトリを`fetch`+`checkout`+`ff-only merge`で同期させてから`gwm create`を呼ぶ。mainリポジトリのworking treeが汚れていると同期できずエラーになる（この設計はworktreeでの作業がmainリポジトリの外で完結する運用を前提にしている）。
 
 ## ステップ1: 入力の判別
@@ -75,8 +78,8 @@ base branchの同期・既存worktreeの確認・`gwm create`によるworktree�
 - `<source_type>`: `issue` または `task`。
 - `<ref>`: GitHub issue番号（数字のみ。`#`やURLは取り除く）、またはClickUpタスクID。
 - `<extra>`: GitHub issueの場合はステップ3で選んだフォールバック用typeとslugを `<type>:<slug>` の形式で（例: `fix:holiday-calendar-check`）、ClickUpタスクの場合はステップ3で生成したslug。
-- `<origin_pane_id>`: 環境変数 `$HERDR_PANE_ID`（このセッション自身が動いているpane_id）の値。未設定（herdr管理下のpaneで実行されていない）なら `-` を渡す。スクリプトが、対象worktree専用のgit管理ディレクトリ（`git -C <worktree_path> rev-parse --git-dir`）配下に `gwm-herdr-origin-pane-id` というファイルとして記録する。これにより `plan-and-review` / `execute-plan-and-pr` のプロンプト文字列でこの値を手動中継する必要が無くなり、`cleanup-worktree` がブランチ名/worktree名から対象worktreeを特定した時点で自動的にこの値を読み出せる（`gwm remove` 時にgitがこのディレクトリごと削除するのでゴミも残らない）。最終的な後片付けでworktreeのherdr workspaceを閉じる際、そのworkspaceが実行中セッション自身のものだった場合にこの起点セッションへclose作業を委譲するために使われる（`herdr workspace close` は対象workspace配下の全terminalを閉じる実装のため、自分自身のworkspaceは自分では閉じられない）。
-- `<agent_name>`: ブランチ名相当の識別子（issue系は`issue-<番号>`等、task系は`task-<ID>`等、分かりやすい形でよい）の `/` を `-` に置き換えたもの。herdrは名前を小文字英数字・`-`・`_`のみ、1〜32文字に制限しているが、**この切り詰めはスクリプト側（`gwm-herdr-start.sh`）が自動で行う**ため、呼び出し側で事前に短縮する必要はない。
+- `<origin_pane_id>`: herdrペイン内なら環境変数 `$HERDR_PANE_ID`（このセッション自身が動いているpane_id）の値、rexペイン内なら `rex:$REX_BLOCK`（このセッション自身のブロックID。`rex:` を付けてherdrのpane_idと区別する）。どちらでもなければ `-` を渡す。スクリプトが、対象worktree専用のgit管理ディレクトリ（`git -C <worktree_path> rev-parse --git-dir`）配下に `gwm-herdr-origin-pane-id` というファイルとして記録する。これにより `plan-and-review` / `execute-plan-and-pr` のプロンプト文字列でこの値を手動中継する必要が無くなり、`cleanup-worktree` がブランチ名/worktree名から対象worktreeを特定した時点で自動的にこの値を読み出せる（`gwm remove` 時にgitがこのディレクトリごと削除するのでゴミも残らない）。最終的な後片付けでworktreeのherdr workspace（rexならセッション）を閉じる際、そのworkspaceが実行中セッション自身のものだった場合にこの起点セッションへclose作業を委譲するために使われる（`herdr workspace close` / `rex kill` は配下の全terminalを閉じるため、自分自身のworkspaceは自分では閉じられない）。
+- `<agent_name>`: ブランチ名相当の識別子（issue系は`issue-<番号>`等、task系は`task-<ID>`等、分かりやすい形でよい）の `/` を `-` に置き換えたもの。herdrは名前を小文字英数字・`-`・`_`のみ、1〜32文字に制限しているが、**この切り詰めはスクリプト側（`gwm-herdr-start.sh`）が自動で行う**ため、呼び出し側で事前に短縮する必要はない。rexでは名前は使わないが、claudeを起動させるためには同じく渡す。
 - `<prompt>`: `"/plan-and-review <issue/タスクのURL>"`（issue/タスクのタイトル・本文は埋め込まず、URLのみ渡す。`plan-and-review` 側でURLから再取得する。ブランチ名とベースブランチはスクリプトが末尾に付け足す。ブランチ名は`gwm create`の実行中に決まるため、呼び出し側では知り得ない。origin_pane_idは前述の通りファイル記録に一本化したため、ここには含めない）。
 
 このスクリプトは以下を1回で行う（詳細は `scripts/gwm-herdr-start.sh --help` 相当のUsage出力を参照）。
@@ -85,10 +88,11 @@ base branchの同期・既存worktreeの確認・`gwm create`によるworktree�
 2. `gwm list --format json` で既存worktreeの有無を確認する。存在すれば再利用（`status=reused`）、無ければ`gwm create`で新規作成する（`status=created`）。GitHub issue系はまずtype無しで`gwm create --issue`を試し、失敗した場合は`<extra>`のtypeを付けてリトライし、それがタイトルからdescを組み立てられないことによる失敗の場合のみ`gwm create <type> <issue> <slug>`で作成する（閉じたissue・存在しない番号などの失敗はエラーとして返す）。
 3. `origin_pane_id` が `-` でなければ、対象worktreeのgit管理ディレクトリに `gwm-herdr-origin-pane-id` ファイルを書き込む（`origin_pane_id_recorded`）。
 4. `.gwm.toml`の`[[hooks.post_create]]`が`gwm create`実行中に自動でherdrワークスペースを開くため、このスクリプト自身はherdrを開かず、`herdr workspace list`→`herdr pane list --workspace <id>`で既に開かれているworkspace/paneを発見する（`workspace_id` / `pane_id`）。
-5. `status=created` の場合のみ、`pane_id` が取れていれば対象ペインで `scripts/worktree-setup.sh`（`.env.example`→`.env`の作成と `mise run setup:project`/`uv sync`）を `herdr pane run` で実行させる（`setup_sent`）。nonoサンドボックスが`**/.env`への書き込みをdenyしているため、サンドボックス外で動くherdrペインのシェルに任せている（gwmのpost_createフック側のセットアップはサンドボックス内ではスキップされる）。
-6. 続けて同じペインでclaudeを起動し、プロンプトを送信する（`status=reused` の場合は行わない＝既存worktreeを再利用した場合は新規ペイン起動をスキップするという境界を、スクリプト側で担保している）。
+5. rexペイン内なら、post_createフックが開いたrexセッション（ラベル=ブランチ名）のブロックを`rex block ls`で発見する（`rex_session` / `rex_block`）。
+6. `status=created` の場合のみ、`pane_id` が取れていれば対象ペインで `scripts/worktree-setup.sh`（`.env.example`→`.env`の作成と `mise run setup:project`/`uv sync`）を `herdr pane run` で実行させる（`setup_sent`）。nonoサンドボックスが`**/.env`への書き込みをdenyしているため、サンドボックス外で動くherdrペインのシェルに任せている（gwmのpost_createフック側のセットアップはサンドボックス内ではスキップされる）。
+7. 続けて同じペインでclaudeを起動し、プロンプトを送信する。rexの場合は、セットアップとclaude起動（プロンプトは初期引数）を1行にまとめて`rex send`で送る。claudeが起動するのを待たないため、`agent_started`/`prompt_sent`は「送信できた」ことだけを意味する（`status=reused` の場合は行わない＝既存worktreeを再利用した場合は新規ペイン起動をスキップするという境界を、スクリプト側で担保している）。
 
-標準出力は `status=` `worktree_path=` `worktree_name=` `origin_pane_id_recorded=` `herdr=` `workspace_id=` `pane_id=` `setup_sent=` `agent_started=` `prompt_sent=` の key=value 行（失敗時は `error=` 行）。この出力だけを読めば以降の報告に必要な情報が揃う。`gwm create` 自体が完全に失敗した場合はスクリプトが exit 1 で終了するので、エラー内容をそのままユーザーに伝える。`herdr=unavailable`かつ`error=`に`gwm bootstrap`を促す内容が出ている場合は、post_createフックの途中（例: mise setupなど別のフック）が失敗しherdr連携まで到達しなかった可能性がある旨も併せて伝える。
+標準出力は `status=` `worktree_path=` `worktree_name=` `origin_pane_id_recorded=` `mux=` `herdr=` `workspace_id=` `pane_id=` `rex_session=` `rex_block=` `setup_sent=` `agent_started=` `prompt_sent=` の key=value 行（失敗時は `error=` 行）。この出力だけを読めば以降の報告に必要な情報が揃う。`gwm create` 自体が完全に失敗した場合はスクリプトが exit 1 で終了するので、エラー内容をそのままユーザーに伝える。`herdr=unavailable`かつ`error=`に`gwm bootstrap`を促す内容が出ている場合は、post_createフックの途中（例: mise setupなど別のフック）が失敗しherdr連携まで到達しなかった可能性がある旨も併せて伝える。
 
 ## ステップ9: 報告
 
@@ -96,9 +100,9 @@ base branchの同期・既存worktreeの確認・`gwm create`によるworktree�
 
 - 作成（または再利用）したworktreeのパスとworktree名/ブランチ名（スクリプトの `status` / `worktree_path` / `worktree_name`）
 - issue/タスクのタイトルとURL
-- herdrワークスペースが開いたかどうか（スクリプトの `herdr` が `unavailable` の場合はその理由も伝える）
+- herdrワークスペース（`mux=rex`ならrexセッション `rex_session`）が開いたかどうか（開いていない場合はその理由も伝える）
 - `status=created` かつ `agent_started=true` の場合は、新規ペインでclaudeを起動し `plan-and-review` の開始を指示した旨（`prompt_sent=false` の場合はプロンプト送信に失敗した旨も伝える）
-- `origin_pane_id_recorded=false`（かつ元々`$HERDR_PANE_ID`が取得できていた場合）: 起点pane_idの記録に失敗した旨。後片付け時に自動検出できず、手動でのworkspace close対応が必要になりうる旨を添える
+- `origin_pane_id_recorded=false`（かつ元々`$HERDR_PANE_ID`/`$REX_BLOCK`が取得できていた場合）: 起点pane_idの記録に失敗した旨。後片付け時に自動検出できず、手動でのworkspace close対応が必要になりうる旨を添える
 
 ## 境界
 
