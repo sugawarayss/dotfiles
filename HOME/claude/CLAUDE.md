@@ -32,7 +32,7 @@
 - ファイル閲覧・検索・差分: `bat`, `eza`, `fd`, `sd`, `rg`, `jq`, `yq` を標準ツールより優先してよい
 - GitHub操作: `gh` CLI
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
-- プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動時は `--no-open` を付け、出力されたレビューURL（`http://localhost:<port>`）を `ardia exec 'await new_tab("<url>", background=False)'` でArdiaの前面タブに開く（`ardia browse open` は背景タブになるため使わない）。Ardiaに接続できず失敗した場合は、URLをユーザーに伝える。
+- プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動時は `--no-open` を付け、出力されたレビューURL（`http://localhost:<port>`）を `ardia tabs open "<url>" --activate` でArdiaの前面タブに開く（`--activate` なしだと背景タブになる。ウィンドウ自体は前面に出ない）。Ardiaに接続できず失敗した場合は、URLをユーザーに伝える。
 - コード差分レビュー: `crit`（`crit-cli` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`crit --base-branch <base>` をバックグラウンドで起動し、`execute-plan-and-pr` はユーザーが Finish Review を押すまで待って自動継続する。`review-local` は指摘を投稿したらcritを開いたまま終わる。review-localは決着した自分の指摘を `確認:` の一言付きでresolveし、ユーザーの画面には未決着の指摘だけを残す（過去ラウンドのコメントが積み上がって確認が辛くなるのを防ぐため、tuicrから移行した）
 - PRレビュー: `crit`（`review-pr` スキル経由。`crit --pr <PR>` をバックグラウンドで起動し、`crit pull` で既存コメントを取り込んでからエージェントが `crit comment` で指摘を投稿する。ユーザーが Finish Review を押したら `crit push --dry-run` で送信内容を示し、送信方法（comment/approve/request-changes/送信しない）をユーザーに確認してから `crit push` する）
 - コード変更・既存コードの解説: `whiteboard`（dev.fast Whiteboard、MCP経由）。エージェント→人間の説明用で、コメントを返す機能はない（指摘・修正指示はcritで受ける）。大きな差分やPRをcritでレビューする前の全体把握、他人のPRや未知コードの「どう動くか」の図解（scratchpad）、設計判断を図付きで残したい場合に使う。プランレビュー・コード差分レビュー（crit）の代替にはしない

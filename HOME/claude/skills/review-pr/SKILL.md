@@ -90,7 +90,7 @@ crit --pr <PR> --no-open
 jq -r '.active_diff_scope // empty' "$(crit status --json | jq -r '.review_file')"
 ```
 
-起動出力（バックグラウンドタスクの出力ファイル）からレビューURL（`http://localhost:<port>`）を取得する（ポートは4-1と変わる）。`ardia exec 'await new_tab("<url>", background=False)'` でArdiaの前面タブに開く（失敗した場合はURLをユーザーに伝える）。
+起動出力（バックグラウンドタスクの出力ファイル）からレビューURL（`http://localhost:<port>`）を取得する（ポートは4-1と変わる）。`ardia tabs open "<url>" --activate` でArdiaの前面タブに開く（失敗した場合はURLをユーザーに伝える）。
 
 以降、この `<session>` をステップ5の各subagentに渡す。
 

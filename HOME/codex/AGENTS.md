@@ -113,7 +113,7 @@ Skill内のパス条件に一致する参照をすべて読み、対象ファイ
 - Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）
 - プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。
   起動時は `--no-open` を付け、レビューURLを
-  `ardia exec 'await new_tab("<url>", background=False)'` でArdiaの前面タブに開く。
+  `ardia tabs open "<url>" --activate` でArdiaの前面タブに開く。
   Ardiaに接続できず失敗した場合は、URLをユーザーに伝える。
 - コード差分レビュー: `crit`（Claude側の `review-local`／`execute-plan-and-pr` スキルで運用）。
   `crit --base-branch <base>` で起動し、ユーザーが Finish Review を押したら自動継続する。

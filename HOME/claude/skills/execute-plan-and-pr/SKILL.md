@@ -62,7 +62,7 @@ git merge-base <base-branch> HEAD
    crit --session <session_id>
    ```
 
-   起動出力の1行目（`Started crit daemon at http://localhost:<port> (session <session_id>, ...)`）からURLとセッションIDを控える。まだ出力されていなければ1〜2秒待って再確認する（最大5回）。1周目は `ardia exec 'await new_tab("<url>", background=False)'` でURLをArdiaの前面タブに開く（失敗した場合はURLをユーザーに伝える）。2周目以降に `crit --session` がセッション未検出で失敗した場合（前の周回で未resolveのコメントが0件だとcritのデーモンが停止する）は、1周目のコマンドで起動し直し、新しいセッションIDを控え、新しいURLを同様に開く。
+   起動出力の1行目（`Started crit daemon at http://localhost:<port> (session <session_id>, ...)`）からURLとセッションIDを控える。まだ出力されていなければ1〜2秒待って再確認する（最大5回）。1周目は `ardia tabs open "<url>" --activate` でURLをArdiaの前面タブに開く（失敗した場合はURLをユーザーに伝える）。2周目以降に `crit --session` がセッション未検出で失敗した場合（前の周回で未resolveのコメントが0件だとcritのデーモンが停止する）は、1周目のコマンドで起動し直し、新しいセッションIDを控え、新しいURLを同様に開く。
 
    **critの出力ファイルは、起動行以外を読まない。** 終了時の出力にはコメント本文が含まれるため、読むと本文をこのスキルのコンテキストに載せないという方針が崩れる。完了はバックグラウンドタスクの終了通知で知る。このBashツール呼び出しは、手順2のreview-local呼び出しと同じメッセージ内で並列に発行する。
 

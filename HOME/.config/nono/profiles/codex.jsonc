@@ -79,7 +79,7 @@
       // tirith-gatewayのMCPサーバーが読む設定ファイル
       "$HOME/.config/tirith",
       // ardia CLIの実体(~/.local/bin/ardiaはここへのシンボリックリンク)。
-      // crit のレビューURLを ardia exec でArdiaの前面タブに開くために必要。
+      // crit のレビューURLを ardia tabs open でArdiaの前面タブに開くために必要。
       "~/Library/Application Support/Ardia",
       // execute-plan-and-pr内で実装を担当するcodexエージェントが、グローバルCLAUDE.mdが
       // 参照する ~/.claude/rules/*.md 等(実体はdotfiles配下、~/.claude直下からの
