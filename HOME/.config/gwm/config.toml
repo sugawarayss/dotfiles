@@ -97,6 +97,15 @@ on_fail = "warn"
 [[hooks.post_create]]
 name = "herdr workspace open"
 run = '''herdr worktree open --cwd "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")" --path "$(pwd)" --label "$(git branch --show-current)" --no-focus'''
+# herdrペイン外 (rex等) で作成した場合はherdrを開かない
+when = "env_set:HERDR_ENV"
+on_fail = "warn"
+
+# ── [[hooks.post_create]]: rexセッションを開く（rexにはworktree専用コマンドが無いため汎用のnewで代替）──
+[[hooks.post_create]]
+name = "rex session open"
+run = '''rex new "$(git branch --show-current)" --window "$(git branch --show-current)" -c "$(pwd)"'''
+when = "env_set:REX_SESSION"
 on_fail = "warn"
 
 # ── [git_tui]: l キーで起動するgitツール ───────────────────────
