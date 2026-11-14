@@ -22,6 +22,7 @@ frontmatter に `disable-model-invocation: true` が明記され、モデルか�
 - [grill-me](./grill-me/SKILL.md) - 計画や設計について、意思決定ツリーのすべての分岐が解決されるまでインタビューする。
 - [grilling](./grilling/SKILL.md) - 計画やデザインについて、意思決定ツリーのすべての分岐が解決されるまでユーザーにインタビューする。
 - [grill-with-docs](./grill-with-docs/SKILL.md) - 既存のドメインモデルに照らして計画を検証し、`CONTEXT.md`とADRをインラインで更新する。
+- [outdated-report](./outdated-report/SKILL.md) - `brew outdated`/`mise outdated` の更新候補について変更点を調べ、解説とアップグレード推奨度を出力する。
 - [review-local](./review-local/SKILL.md) - ローカルブランチとベースブランチのdiffを正確性・バグ観点でレビューし、critにインラインコメントとして投稿する。
 - [review-pr](./review-pr/SKILL.md) - プルリクエストの品質・セキュリティ・パフォーマンス・テスト・ドキュメントをレビューする。
 - [security-checklist](./security-checklist/SKILL.md) - 認証・入力・シークレット・API追加時のセキュリティチェックリストと実装パターン集。
