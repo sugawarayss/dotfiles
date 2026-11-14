@@ -45,6 +45,7 @@
 # terminal / editor
 "~/.config/ghostty" = { source = "../../ghostty" }
 "~/.config/wezterm" = { source = "../../wezterm" }
+"~/.config/rex" = { source = "../../rex" }
 "~/.config/nvim" = { source = "../../nvim" }
 "~/.config/mcphub" = { source = "../../mcphub" }
 "~/.config/zed/settings.json" = { source = "../../zed/settings.json" }
