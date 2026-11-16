@@ -2,7 +2,7 @@
 return {
   "m-demare/hlargs.nvim",
   event = { "BufReadPost" },
-  opts = function()
+  config = function()
     local palette = require("kanagawa.colors").setup().theme
     require("hlargs").setup({
       color = palette.diff.change,

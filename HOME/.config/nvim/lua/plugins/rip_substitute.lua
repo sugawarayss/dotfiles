@@ -18,7 +18,7 @@ return {
       },
     })
   end,
-  opts = function()
+  config = function()
     require("rip-substitute").setup({
       popupWin = {
         title = " Substitute by Ripgrep",
