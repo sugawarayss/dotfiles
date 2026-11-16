@@ -36,8 +36,8 @@ return {
         get_port = nil,
       },
       -- チャットプラグイン関連オプション
-      -- LLMがMCPサーバ上のツールまたはリソースを呼び出しを自動的に承認する
-      auto_approve = true,
+      -- LLMによるMCPツール呼び出しは毎回確認する（prompt injection で任意コマンドが実行されるのを防ぐ）
+      auto_approve = false,
       -- LLM が必要に応じてMCPサーバを自動的に起動/停止できるようにする
       auto_toggle_mcp_servers = true,
       extentions = {},

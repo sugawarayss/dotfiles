@@ -58,12 +58,12 @@ vim.scriptencoding = "utf-8"
 
 -- 独自のfiletypeを定義する
 vim.filetype.add({
+  -- log-highlight.nvim は ft=log で遅延読み込みするため、ここで log を付ける
+  extension = { log = "log" },
   pattern = {
     ["compose.*%.ya?ml"] = "yaml.docker-compose",
     ["docker%-compose.*%.ya?ml"] = "yaml.docker-compose",
     [".*/%.github[%w/]+workflows[%w/]+.*%.ya?ml"] = "yaml_github",
-    ["%.env.*"] = "sh.env",
-    ["*.log"] = "log",
     [".*/obsidian_notes/.*%.md"] = "obsidian_markdown",
   },
 })
