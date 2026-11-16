@@ -8,7 +8,15 @@ return {
   init = function()
     vim.g.rustaceanvim = {
       tools = {
-        executor = "toggleterm",
+        -- runnables/debuggables を neoterm.nvim のターミナルで実行する
+        executor = {
+          execute_command = function(command, args, cwd)
+            local shell = require("rustaceanvim.shell")
+            local commands = cwd and { shell.make_cd_command(cwd) } or {}
+            table.insert(commands, shell.make_command_from_args(command, args))
+            require("neoterm").run(shell.chain_commands(commands))
+          end,
+        },
         test_executor = "neotest",
         enable_clippy = true,
         hover_actions = {
