@@ -42,7 +42,7 @@
 
 以下は `settings.json` の `permissions.deny` によりBashから直接実行できない設定になっている。実行が必要な場合はコマンド内容を提示し、ユーザー自身に `! <command>` で実行してもらうこと。
 
-- `git push` / `git rebase` / `git reset`
+- `git push` / `git rebase` / `git reset`（`git push` はnono内だと `!` でもSSH秘密鍵を読めず失敗するため、`NONO_CAP_FILE` がある場合は別ターミナル（nonoの外）で実行してもらう）
 - `rm` / `rmdir` / `rsync --delete`
 - `sudo` / `ssh` / `scp`
 
