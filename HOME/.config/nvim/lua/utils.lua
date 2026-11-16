@@ -129,24 +129,6 @@ local function search_down(dir, root_markers)
   return nil
 end
 
--- uvの仮想環境のパスを取得
-local function get_uv_venv_python(root_dir)
-  -- uv run でPythonのパスを取得
-  local handle = io.popen("cd " .. root_dir .. " && uv run which python 2>/dev/null")
-  if handle then
-    local result = handle:read("*a")
-    handle:close()
-
-    if result and result ~= "" then
-      local python_path = vim.trim(result)
-      if vim.fn.executable(python_path) == 1 then
-        return python_path
-      end
-    end
-  end
-  return nil
-end
-
 -- プロジェクトルートを探す関数
 utils.find_project_root = function(root_markers)
   local current_dir = vim.fn.expand("%:p:h") -- 現在のファイルのディレクトリ
@@ -167,35 +149,20 @@ utils.find_project_root = function(root_markers)
   return vim.fn.getcwd()
 end
 
--- Python の venv を自動検出するための関数
+-- 現在のファイルが属するプロジェクトの .venv の Python を返す（uv も既定で .venv に作る）
+-- 見つからない場合は PATH 上の python3（なければ python）を返す
+-- 呼ぶたびに現在のファイルから求めるので、設定値には関数として渡して実行時に評価させる
 utils.find_python_venv = function(root_markers)
-  local root_dir = require("utils").find_project_root(root_markers)
-  -- vim.notify("Project root: " .. root_dir, vim.log.levels.INFO)
-
-  local uv_python = get_uv_venv_python(root_dir)
-  if uv_python then
-    -- uv venv が見つかった場合はそれを使用する
-    vim.notify("use uv interpreter: " .. uv_python, vim.log.levels.INFO)
-    return uv_python
+  local venv_python = utils.find_project_root(root_markers) .. "/.venv/bin/python"
+  if vim.fn.executable(venv_python) == 1 then
+    return venv_python
   end
 
-  -- 非uvのプロジェクトなので、.venvを探して使う
-  local venv_paths = {
-    root_dir .. "/.venv/bin/python", -- Linux/Mac
-    --root_dir .. "/.venv/Scripts/python.exe", -- Windows
-  }
-
-  for _, path in ipairs(venv_paths) do
-    local executable = vim.fn.executable(path) == 1
-
-    if executable then
-      vim.notify("use venv interpreter: " .. path)
-      return path
-    end
+  local system_python = vim.fn.exepath("python3")
+  if system_python == "" then
+    system_python = vim.fn.exepath("python")
   end
-  -- 見つからない場合はグローバルまたはシステムのpython
-  local system_python = vim.fn.exepath("python3") or vim.fn.exepath("python")
-  vim.notify("VENV NOT FOUND. use system Python: ", vim.log.levels.WARN)
+  vim.notify("VENV NOT FOUND. use system Python: " .. system_python, vim.log.levels.WARN)
   return system_python
 end
 

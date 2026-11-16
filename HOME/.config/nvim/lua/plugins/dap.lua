@@ -119,9 +119,14 @@ return {
         request = "launch",
         name = "現在開いているファイルを実行",
         program = "${file}",
-        cwd = require("utils").find_project_root({ "pyproject.toml" }),
+        -- 関数にしてデバッグ開始時に評価する（読み込み時のバッファで固定されないように）
+        cwd = function()
+          return require("utils").find_project_root({ "pyproject.toml" })
+        end,
         env = { PYTHONPATH = "." },
-        python = require("utils").find_python_venv({ "pyproject.toml" }),
+        python = function()
+          return require("utils").find_python_venv({ "pyproject.toml" })
+        end,
         envFile = "${workspaceFolder}/.env",
       })
     end,

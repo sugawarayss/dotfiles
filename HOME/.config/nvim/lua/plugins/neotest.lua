@@ -39,7 +39,10 @@ return {
             dap = { justMyCode = false },
             args = { "--log-level", "DEBUG", "-v", "-s" },
             runner = "pytest",
-            python = require("utils").find_python_venv({ "pyproject.toml", "requirements.txt" }),
+            -- 関数にしてテスト実行時に評価する（読み込み時のバッファで固定されないように）
+            python = function()
+              return require("utils").find_python_venv({ "pyproject.toml", "requirements.txt" })
+            end,
           }),
           require("rustaceanvim.neotest"),
         },
