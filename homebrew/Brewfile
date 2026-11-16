@@ -1,224 +1,185 @@
-tap "1password/tap"
-tap "azure/functions"
-tap "charmbracelet/tap"
-tap "daipeihust/tap"
-tap "dart-lang/dart"
-tap "dominikbraun/timetrace"
-tap "felixkratz/formulae"
-tap "harelba/q"
-tap "instantclienttap/instantclient"
-tap "laishulu/homebrew"
-tap "leoafarias/fvm"
-tap "manaflow-ai/cmux"
-tap "microsoft/mssql-release"
-tap "railwaycat/emacsmacport"
-tap "suzuki-shunsuke/ghalint"
-tap "ynqa/tap"
-brew "jpeg-turbo"
-brew "libpng"
-brew "xz"
-brew "libtiff"
-brew "jpeg-xl"
-brew "aom"
-brew "openssl@3"
-brew "autoconf"
-brew "automake"
-brew "awscli"
-brew "bandwhich"
+tap "1password/tap", trusted: true
+tap "charmbracelet/tap", trusted: true
+tap "crmne/tap", trusted: true
+tap "devdotfast/tap", trusted: true
+tap "kbrdn1/tap", trusted: true
+tap "laishulu/homebrew", trusted: true
+tap "microsoft/mssql-release", trusted: true
+tap "penso/tap", trusted: true
+tap "railwaycat/emacsmacport", trusted: true
+# GNU internationalization (i18n) and localization (l10n) library
 brew "gettext"
-brew "ncurses", link: true
-brew "bash"
-brew "bison"
-brew "btop"
-brew "bzip2"
-brew "freetype"
+# Perl compatible regular expressions library with a new API
 brew "pcre2"
-brew "glib"
-brew "python-setuptools"
+# Vector graphics library with cross-device output support
 brew "cairo"
-brew "libuv"
-brew "node"
-brew "ccusage"
-brew "chawan"
-brew "clipboard"
-brew "cmake"
-brew "cocoapods"
-brew "lima"
-brew "colima"
-brew "colordiff"
-brew "coreutils"
-brew "csview"
-brew "dash-shell"
-brew "docker-completion"
-brew "docker"
-brew "duf"
-brew "duti"
+# Your feedback loop with the agent: review plans and code locally
+brew "crit"
+# General-purpose data compression with high compression ratio
+brew "xz"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
-brew "flatbuffers"
-brew "unixodbc"
-brew "fzf"
-brew "gcc"
-brew "libavif"
-brew "webp"
-brew "gd"
-brew "gemini-cli"
-brew "harfbuzz"
-brew "openjpeg"
-brew "leptonica"
-brew "pango"
-brew "tesseract"
-brew "ghostscript"
-brew "libiconv"
+# Implementation of the Unicode BiDi algorithm
+brew "fribidi"
+# Toolkit for image loading and pixel buffer manipulation
+brew "gdk-pixbuf"
+# Distributed revision control system
 brew "git"
-brew "glances"
-brew "libevent"
-brew "unbound"
-brew "gnutls"
-brew "libgpg-error"
-brew "gnupg"
+# Smart font renderer for non-Roman scripts
+brew "graphite2"
+# OpenType text shaping engine
+brew "harfbuzz"
+# Agent multiplexer that lives in your terminal
+brew "herdr"
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c@78", link: true
+# Library for manipulating JPEG-2000 images
 brew "jasper"
-brew "netpbm"
-brew "librsvg"
-brew "graphviz"
-brew "grex"
-brew "httpie"
-brew "libheif"
-brew "imagemagick"
-brew "jansson"
-brew "jpeg"
-brew "keyring"
-brew "kubernetes-cli"
-brew "lazysql"
-brew "libass"
-brew "libcbor"
-brew "libedit"
-brew "libfido2"
-brew "libgccjit"
-brew "libgit2"
-brew "python@3.12"
-brew "liblqr"
-brew "libmicrohttpd"
+# Terminal Markdown previewer with a GUI-like experience
+brew "leaf-markdown-viewer"
+# Double-Array Trie Library
+brew "libdatrie"
+# LLVM's OpenMP runtime library
+brew "libomp"
+# Color management engine supporting ICC profiles
+brew "little-cms2"
+# Library for reading RAW files from digital photo cameras
 brew "libraw"
-brew "libssh"
-brew "libwebsockets"
-brew "libxml2"
-brew "libxmlsec1"
-brew "libxt"
-brew "libzip"
-brew "luajit"
-brew "luajit-openresty"
-brew "luarocks"
+# Thai language support library
+brew "libthai"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# Library to render SVG files using Cairo
+brew "librsvg"
+# Multi-platform support library with a focus on asynchronous I/O
+brew "libuv"
+# Linux virtual machines
+brew "lima"
+# Bare libuv bindings for lua
 brew "luv"
-brew "mecab"
-brew "minikube"
-brew "mkcert"
-brew "zlib"
-brew "mysql-client"
-brew "navi"
-brew "neovim"
-brew "nkf"
-brew "nss"
-brew "ntfy"
-brew "numpy"
-brew "oath-toolkit"
-brew "onefetch"
-brew "onnxruntime"
-brew "openjdk"
-brew "openvino"
-brew "pandoc"
-brew "php"
-brew "pkgconf"
-brew "pkl"
-brew "poppler"
-brew "procs"
-brew "python-packaging"
-brew "qemu"
-brew "quicktype"
-brew "re2c"
-brew "resvg"
-brew "scrcpy"
-brew "sevenzip"
-brew "slumber"
-brew "tectonic"
-brew "translate-shell"
-brew "tree"
+# Deep clean and optimize your Mac
+brew "mole"
+# Incremental parsing library
 brew "tree-sitter"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Image manipulation
+brew "netpbm", link: false
+# Platform-neutral API for system-level and libc-like functions
+brew "nspr"
+# Libraries for security-enabled client and server applications
+brew "nss"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Parser generator tool
 brew "tree-sitter-cli"
-brew "trippy"
-brew "virtualenv"
-brew "xleak"
-brew "zellij"
-brew "zsh"
-brew "zsh-autosuggestions"
-brew "zsh-completions"
-brew "zsh-syntax-highlighting"
-brew "charmbracelet/tap/freeze"
-brew "daipeihust/tap/im-select"
-brew "dominikbraun/timetrace/timetrace"
-brew "felixkratz/formulae/borders"
-brew "harelba/q/q"
-brew "instantclienttap/instantclient/instantclient-basic"
-brew "instantclienttap/instantclient/instantclient-sqlplus"
-brew "laishulu/homebrew/macism"
-brew "microsoft/mssql-release/msodbcsql18"
-brew "microsoft/mssql-release/mssql-tools18"
-brew "railwaycat/emacsmacport/emacs-mac@29"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
+# Generate images of code and terminal output.
+brew "charmbracelet/tap/freeze", trusted: true
+# git worktree manager: TUI + CLI, native libgit2, per-repo bootstrap
+brew "kbrdn1/tap/gwm", trusted: true
+# macOS Input Source Manager
+brew "laishulu/homebrew/macism", trusted: true
+# ODBC Driver for Microsoft(R) SQL Server(R)
+brew "microsoft/mssql-release/msodbcsql18", trusted: true
+# Sqlcmd and Bcp for Microsoft(R) SQL Server(R)
+brew "microsoft/mssql-release/mssql-tools18", trusted: true
+# Password manager that keeps all passwords secure behind one password
 cask "1password"
+# Command-line interface for 1Password
 cask "1password-cli"
-cask "appcleaner"
-cask "aws-vault-binary"
-cask "chatgpt-atlas"
-cask "claude"
-cask "claude-code"
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
+# Productivity platform for tasks, docs, goals, and chat
 cask "clickup"
-cask "manaflow-ai/cmux/cmux"
-cask "codex"
+# Brings the power of Copilot coding agent directly to your terminal
 cask "copilot-cli"
-cask "cursor"
-cask "cyberduck"
-cask "dbeaver-community"
+# System-wide AI autocomplete
+cask "cotypist"
+# Database management tool
+cask "dbx"
+# App to build and share containerised applications and microservices
 cask "docker-desktop"
-cask "dropbox"
+# Drag and drop file shelf
+cask "droppy"
+# Collaborative team software
 cask "figma"
+# Web browser
 cask "firefox"
+cask "font-annotation-mono"
+cask "font-annotationmono-nerd-font"
 cask "font-hack-nerd-font"
 cask "font-hackgen-nerd"
+cask "font-moralerspace"
 cask "font-symbols-only-nerd-font"
+# GIT client
 cask "fork"
-cask "gcloud-cli"
+# Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-cask "glide-browser"
+# Web browser
 cask "google-chrome"
+# Homebrew's official GUI
+cask "homebrew-app"
+# Keyboard shortcuts for every button on your screen
 cask "homerow"
-cask "httpie-desktop"
+# JetBrains tools manager
 cask "jetbrains-toolbox"
-cask "jupyterlab-app"
+# Keyboard customiser
 cask "karabiner-elements"
+# Open-source keystroke visualiser
 cask "keycastr"
-cask "kindavim"
-cask "kitty"
+# SKK Input Method
 cask "macskk"
+# Provides updates to various Microsoft products
 cask "microsoft-auto-update"
+# Meet, chat, call, and collaborate in just one place
 cask "microsoft-teams"
-cask "mockoon"
+# Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
+# Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# Collaboration platform for API development
 cask "postman"
+# Desktop agent for Postman on the Web
 cask "postman-agent"
+# Desktop client for Proton Pass
+cask "proton-pass"
+# Quick Look generator for Markdown files
+cask "qlmarkdown"
+# All-in-one bookmark manager
 cask "raindropio"
+# Control your tools with a few keystrokes
 cask "raycast"
-cask "responsively"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
 cask "session-manager-plugin"
+# Screenshot measurement and annotation tool
 cask "shottr"
+# CLI to create, run, and deploy Slack apps
 cask "slack-cli"
+# Native Spotify client
+cask "crmne/tap/spotifast", trusted: true
+# Music streaming service
 cask "spotify"
+# Text editor for code, markup and prose
 cask "sublime-text"
+# Native GUI tool for relational databases
 cask "tableplus"
-cask "thaw"
+# Open-source code editor
 cask "visual-studio-code"
-cask "warp"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
+# Review agent-written code changes
+cask "devdotfast/tap/whiteboard", trusted: true
+# Local-first Markdown editor
+cask "writer"
+# Multiplayer code editor
 cask "zed"
+# Video communication and virtual meeting platform
 cask "zoom"
 vscode "42crunch.vscode-openapi"
 vscode "93akkord.output-link-to-file"
@@ -228,7 +189,6 @@ vscode "amazonwebservices.aws-toolkit-vscode"
 vscode "astral-sh.ty"
 vscode "asvetliakov.vscode-neovim"
 vscode "azemoh.theme-onedark"
-vscode "azurite.azurite"
 vscode "bocovo.dbml-erd-visualizer"
 vscode "charliermarsh.ruff"
 vscode "christian-kohler.path-intellisense"
@@ -241,7 +201,7 @@ vscode "donjayamanne.python-extension-pack"
 vscode "elagil.pre-commit-helper"
 vscode "emilast.logfilehighlighter"
 vscode "file-icons.file-icons"
-vscode "github.copilot-chat"
+vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
 vscode "golang.go"
 vscode "grapecity.gc-excelviewer"
@@ -252,14 +212,12 @@ vscode "ibm.output-colorizer"
 vscode "jock.svg"
 vscode "marp-team.marp-vscode"
 vscode "mathiasfrohlich.kotlin"
-vscode "matt-meyers.vscode-dbml"
 vscode "mechatroner.rainbow-csv"
 vscode "mhutchie.git-graph"
 vscode "mitchdenny.ecdc"
 vscode "ms-azuretools.vscode-azure-github-copilot"
 vscode "ms-azuretools.vscode-azure-mcp-server"
 vscode "ms-azuretools.vscode-azureresourcegroups"
-vscode "ms-azuretools.vscode-azurestorage"
 vscode "ms-azuretools.vscode-containers"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-ceintl.vscode-language-pack-ja"
@@ -286,10 +244,12 @@ vscode "rust-lang.rust-analyzer"
 vscode "shd101wyy.markdown-preview-enhanced"
 vscode "skellock.just"
 vscode "swellaby.rust-pack"
-vscode "task.vscode-task"
 vscode "tombi-toml.tombi"
 vscode "yzhang.markdown-all-in-one"
 vscode "zainchen.json"
 go "cmd/go"
 go "cmd/gofmt"
+cargo "cargo-update"
 uv "ruff"
+uv "ty"
+uv "vectorcode"
