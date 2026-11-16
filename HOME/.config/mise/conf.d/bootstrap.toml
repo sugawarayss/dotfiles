@@ -176,6 +176,8 @@ post-defaults = [
 "brew:laishulu/homebrew/macism" = "latest"
 "brew-cask:ghostty" = "latest"
 "brew:neovim" = "latest"
+# nvim-treesitter(main) のパーサビルドに必要（npm 版は非推奨）
+"brew:tree-sitter-cli" = "latest"
 "brew:kbrdn1/tap/gwm" = "latest"
 "brew:herdr" = "latest"
 "brew:crit" = "latest"
