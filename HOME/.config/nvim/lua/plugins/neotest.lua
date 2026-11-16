@@ -48,5 +48,4 @@ return {
   },
   { "nvim-neotest/neotest-python", lazy = true },
   { "nvim-lua/plenary.nvim", lazy = true },
-  { "antoinemadec/FixCursorHold.nvim", lazy = true },
 }
