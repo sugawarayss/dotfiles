@@ -101,10 +101,11 @@ run = '''herdr worktree open --cwd "$(dirname "$(git rev-parse --path-format=abs
 when = "env_set:HERDR_ENV"
 on_fail = "warn"
 
-# ── [[hooks.post_create]]: rexセッションを開く（rexにはworktree専用コマンドが無いため汎用のnewで代替）──
+# ── [[hooks.post_create]]: 起点rexセッションに「wt:<ブランチ名>」タブを開く（rexにはworktree専用コマンドが無いため）──
+# start-worktree / cleanup-worktree がこのタブ名で対象タブを特定するので、名前を変える場合は両スクリプトも直す
 [[hooks.post_create]]
-name = "rex session open"
-run = '''rex new "$(git branch --show-current)" --window "$(git branch --show-current)" -c "$(pwd)"'''
+name = "rex window open"
+run = '''rex window new -s "$REX_SESSION" "wt:$(git branch --show-current)" -c "$(pwd)" --focus=false'''
 when = "env_set:REX_SESSION"
 on_fail = "warn"
 
@@ -264,3 +265,7 @@ preset = "tokyo-night"
 # [aliases]
 # wip = "create feat 0 wip"
 # ll = "list --format names"
+
+# ── [forge_hosts]: SSH の別名など、gwm がホスト名から判別できない forge を明示する ─
+[forge_hosts]
+"headwaters" = "github"   # headwaters の GitHub org 用 SSH 別名（git@headwaters:...）

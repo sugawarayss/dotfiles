@@ -73,6 +73,8 @@
       // gwmのグローバル設定(シンボリックリンクの親ディレクトリのトラバースに必要。
       // claude-codeプロファイル側の実測で確認済み)。
       "$HOME/.config/gwm",
+      // gitのグローバル設定がincludeするファイル群(claude-codeプロファイルと同じ理由)
+      "$HOME/.config/git",
       // dotfilesリポジトリ本体。~/.codex/config.toml・AGENTS.md・agents・skills が
       // ここへのシンボリックリンクになっているため(claude-codeプロファイルと同じ理由)。
       "$HOME/PROJECTS/sugawarayss/dotfiles",
@@ -93,6 +95,8 @@
       "~/.claude"
     ],
     "read_file": [
+      // ~/PROJECTS/headwaters配下でgitがincludeIfで読むuser.name/email
+      "~/PROJECTS/headwaters/gitconfig",
       // critのグローバル設定。auth_token(crit-web共有用)を平文で含むが、
       // crit share/crit pushは使わない運用のため許容してread許可(claude-codeプロファイル側の
       // 実測でpath_not_grantedを確認)。crit起動のたびにこのファイルの解決が必要。

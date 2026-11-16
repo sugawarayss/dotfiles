@@ -8,7 +8,7 @@
 # (ユーザーのgwm設定で確認済み) のため、このスクリプト自身はherdrを開かない (二重オープン回避)。
 # gwm create完了後に`herdr workspace list`→`herdr pane list --workspace <id>`で、既に開かれて
 # いるworkspace/paneを発見するだけに留める。rexペイン内で動いている場合も同様に、post_createフックが
-# ブランチ名をラベルにして開いたrexセッションを`rex block ls`で発見するだけに留める。
+# 起点セッションに開いた「wt:<ブランチ名>」タブを`rex block ls`で発見するだけに留める。
 #
 # origin_pane_id (このスキルを実行しているセッション自身のherdr pane_id、$HERDR_PANE_ID) は、
 # worktree専用のgit管理ディレクトリ (`git -C <worktree_path> rev-parse --git-dir`) 配下に
@@ -49,7 +49,7 @@ Usage: gwm-herdr-start.sh <source_type> <ref> <extra> <origin_pane_id|-> [<agent
   herdr=ok|unavailable
   workspace_id=<id>          (herdr=ok のときのみ)
   pane_id=<id>                (herdr=ok かつpane情報が取得できたときのみ)
-  rex_session=<label>         (mux=rex かつpost_createフックが開いたrexセッションが見つかったときのみ。ラベル=ブランチ名)
+  rex_window=wt:<branch>      (mux=rex かつpost_createフックが起点セッションに開いたタブが見つかったときのみ)
   rex_block=<id>              (同上)
   setup_sent=true|false       (status=created のときのみ出力。worktree-setup.sh をherdr/rexのペインに送信、
                                またはそれらの外・nono外で直接実行できたか)
@@ -257,10 +257,9 @@ if [[ "$origin_pane_id" != "-" ]]; then
 fi
 echo "origin_pane_id_recorded=$origin_pane_id_recorded"
 
-# --- herdr workspace/pane・rexセッションの発見 (自分では開かない、gwmのpost_createフックに任せる) ------
+# --- herdr workspace/pane・rexタブの発見 (自分では開かない、gwmのpost_createフックに任せる) ------
 workspace_id=""
 pane_id=""
-rex_session=""
 rex_block=""
 
 mux=none
@@ -298,14 +297,14 @@ else
 fi
 
 if [[ "$mux" == rex ]]; then
-  # gwmのpost_createフックがブランチ名をラベルにしたrexセッションを開いている
-  rex_block="$(rex block ls -s "$worktree_branch" --json 2>/dev/null | jq -r '.blocks[0].block_id // empty')"
+  # gwmのpost_createフックが起点セッションに「wt:<ブランチ名>」タブを開いている
+  rex_window="wt:$worktree_branch"
+  rex_block="$(rex block ls -s "$REX_SESSION" -w "$rex_window" --json 2>/dev/null | jq -r '.blocks[0].block_id // empty')"
   if [[ -n "$rex_block" ]]; then
-    rex_session="$worktree_branch"
-    echo "rex_session=$rex_session"
+    echo "rex_window=$rex_window"
     echo "rex_block=$rex_block"
   else
-    echo "error=ラベル${worktree_branch}のrexセッションが見つかりません。gwmのpost_createフック(rex session open)が失敗した可能性があります。rex new \"${worktree_branch}\" -c ${worktree_path} で開いてください"
+    echo "error=rexタブ${rex_window}が見つかりません。gwmのpost_createフック(rex window open)が失敗した可能性があります。rex window new -s \"\$REX_SESSION\" \"${rex_window}\" -c ${worktree_path} で開いてください"
   fi
 fi
 
@@ -326,7 +325,7 @@ if [[ "$status" == "created" ]]; then
       rex_line+=" && claude"
       [[ -n "$prompt" ]] && rex_line+=" $(fish_quote "$prompt $worktree_branch $base")"
     fi
-    if send_result="$(rex send -s "$rex_session" -b "$rex_block" "$rex_line" 2>&1 && rex send-key -s "$rex_session" -b "$rex_block" enter 2>&1)"; then
+    if send_result="$(rex send -s "$REX_SESSION" -b "$rex_block" "$rex_line" 2>&1 && rex send-key -s "$REX_SESSION" -b "$rex_block" enter 2>&1)"; then
       setup_sent=true
       if [[ -n "$agent_name" ]]; then
         agent_started=true

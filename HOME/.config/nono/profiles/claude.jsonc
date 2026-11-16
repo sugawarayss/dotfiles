@@ -52,20 +52,31 @@
       "$HOME/.local/share/mise",
       "$HOME/.config/mise",
       "$HOME/.config/gwm",
+      // gitのグローバル設定がincludeするファイル群(実体はdotfilesへのシンボリックリンク)。
+      // dotfiles側のread許可だけではシンボリックリンク自体のあるディレクトリを辿れずEPERMになる
+      "$HOME/.config/git",
       "$HOME/PROJECTS/sugawarayss/dotfiles",
-      "~/Library/Application Support/Ardia"
+      "~/Library/Application Support/Ardia",
+      "~/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex"
     ],
     "write": [],
     "allow_file": [],
     "read_file": [
+      // ~/PROJECTS/headwaters配下でgitがincludeIfで読むuser.name/email
+      "~/PROJECTS/headwaters/gitconfig",
       "~/.config/anthropic/active_config",
       "~/.config/anthropic/configs/default.json",
       "~/.crit.config.json",
-      "~/Library/Application Support/com.ardia.browser/Chromium/ArdiaControl.json"
+      "~/Library/Application Support/com.ardia.browser/Chromium/ArdiaControl.json",
+      "~/.ssh/known_hosts",
+      "~/.ssh/config",
+      "~/.ssh/id_rsa.pub",
+      "~/.ssh/id_ed25519_headwaters.pub"
     ],
     "write_file": [],
     "unix_socket": [
-      "~/.config/herdr/herdr.sock"
+      "~/.config/herdr/herdr.sock",
+      "~/Library/Application Support/rex/server.sock"
     ],
     "unix_socket_bind": [],
     "unix_socket_dir": [],
@@ -101,7 +112,12 @@
       "**/id_ed25519",
       "**/*.tfstate"
     ],
-    "bypass_protection": [],
+    "bypass_protection": [
+      "~/.ssh/config",
+      "~/.ssh/known_hosts",
+      "~/.ssh/id_rsa.pub",
+      "~/.ssh/id_ed25519_headwaters.pub"
+    ],
     "suppress_save_prompt": [
       "~/"
     ]

@@ -43,7 +43,7 @@ model: sonnet
 
 `crit-cli` スキル（`crit comment` / `crit comments` の作法）を前提とする。critはユーザーが Finish Review を押すまでブロックし、2回目以降に同じセッションで起動し直すと前の周回の完了を通知してから再びブロックするため、このレビューループの「ユーザーが見終えるまで待つ」にそのまま使える。
 
-「Herdr環境」は環境変数 `HERDR_ENV` が `1`（herdrペイン内で動いている）ことで判定する（rex等の別ターミナルではherdrサーバーが動いていても非Herdr環境として扱う）。「Rex環境」は `HERDR_ENV` が `1` でなく、環境変数 `REX_SESSION` が設定されている（rexペイン内で動いている）ことで判定する。review-localによる自動レビュー（手順2）は、Herdr環境では「`herdr agent`で別ペインを分割し、別ペインのclaude agentの完了を待つ」パターン、Rex環境では「`rex run`で別ペインに `claude -p` を走らせ、終了を待つ」パターンで行い、どちらでもなければ `Agent` ツールでの内製subagent呼び出しにフォールバックする。その指摘への対応（手順5）は、環境を問わずステップ1と同じく `Agent` ツールのsubagentに委譲する（critの起動判断やreview-localの起動判断そのものはこのスキルが担う）。
+「Herdr環境」は環境変数 `HERDR_ENV` が `1`（herdrペイン内で動いている）ことで判定する（rex等の別ターミナルではherdrサーバーが動いていても非Herdr環境として扱う）。「Rex環境」は `HERDR_ENV` が `1` でなく、環境変数 `REX_SESSION` が設定されている（rexペイン内で動いている）ことで判定する。review-localによる自動レビュー（手順2）は、Herdr環境では「`herdr agent`で別ペインを分割し、別ペインのclaude agentの完了を待つ」パターン、Rex環境では「`rex run`で別ペインに対話型のclaudeを起動し、結果ファイルが書き出されるのを待つ」パターンで行い、どちらでもなければ `Agent` ツールでの内製subagent呼び出しにフォールバックする。その指摘への対応（手順5）は、環境を問わずステップ1と同じく `Agent` ツールのsubagentに委譲する（critの起動判断やreview-localの起動判断そのものはこのスキルが担う）。
 
 ### 対象rangeの決定（merge-base）
 
@@ -85,15 +85,25 @@ git merge-base <base-branch> HEAD
 
       完了後は `herdr agent read reviewlocal --source recent-unwrapped --lines 300` で `posted`/`replied`/`resolved`/`failed`/`disputed` を読み取り、`herdr pane close <review_pane_id>` でペインを閉じる。
 
-   **Rex環境の場合**: `review-local` を別ペインの非対話のClaude Codeセッション（`claude -p`）で実行させる。プロンプトの内容はHerdr環境と同じ。`claude` をnonoサンドボックス経由で起動するfish関数を通すため、`fish -c` で包む（`rex run -- claude ...` と直接書くと関数を通らず素のclaudeが起動する）。プロンプトと結果ファイルのパスは `fish -c` の位置引数（`$argv`）で渡し、クォートの入れ子を避ける。`--wait` はclaudeの終了まで戻らないので、Bashツールで `run_in_background: true` を指定して実行し、完了通知を待つ。`--keep-open` を付けないので、終了するとペインは自動で閉じる。
+   **Rex環境の場合**: `review-local` を別ペインの対話型Claude Codeセッションで実行させる（Herdr環境と同じく、ユーザーが途中経過を見られる・介入できる状態にするため。`claude -p` は使わない）。rexにはclaudeの完了を判定する機能が無いため、プロンプトに「完了したら報告内容を `Write` ツールで `<result_file>` に1回だけ書き出す」を加え、そのファイルが書き出されたことで完了とみなす。プロンプトのそれ以外の内容はHerdr環境と同じ。
+
+      `claude` をnonoサンドボックス経由で起動するfish関数を通すため、`fish -c` で包む（`rex run -- claude ...` と直接書くと関数を通らず素のclaudeが起動する）。プロンプトは `fish -c` の位置引数（`$argv[1]`）で渡し、クォートの入れ子を避ける（`fish -c` 経由でもペインにTTYが付き、空白・引用符を含む引数がそのまま渡ることを実機確認済み）。`-b "$REX_BLOCK"` で自分のペインを分割の基準にする（省略するとユーザーがフォーカス中のペインが分割される）。`--json` の `.block_ids[0]` が作成したペインのID。結果ファイル名には時刻を入れ、前の周回・前回実行のファイルを完了と誤認しないようにする。
 
       ```bash
-      result_file="$(git -C "<worktreeの絶対パス>" rev-parse --path-format=absolute --git-dir)/review-local-result.txt"
-      rex run -s "$REX_SESSION" --split right -c "<worktreeの絶対パス>" --label reviewlocal --focus=false --wait \
-        -- fish -c 'claude -p --permission-mode bypassPermissions $argv[1] | tee $argv[2]' "<review-local実行指示プロンプト>" "$result_file"
+      result_file="$(git -C "<worktreeの絶対パス>" rev-parse --path-format=absolute --git-dir)/review-local-result-$(date +%s).txt"
+      review_block="$(rex run -s "$REX_SESSION" -b "$REX_BLOCK" --split right -c "<worktreeの絶対パス>" --label reviewlocal --focus=false --json \
+        -- fish -c 'claude --permission-mode bypassPermissions $argv[1]' "<review-local実行指示プロンプト（result_fileへの書き出し指示を含む）>" \
+        | jq -r '.block_ids[0]')"
+      echo "result_file=$result_file review_block=$review_block"
       ```
 
-      完了後は `Read` ツールで `$result_file` を読み、`posted`/`replied`/`resolved`/`failed`/`disputed` を読み取る。
+      続けて、結果ファイルの書き出しを待つ。Bashツールで `run_in_background: true` を指定して実行し、完了通知を待つ。ペインが閉じられた（claudeが異常終了した等）場合も待ちを抜ける（閉じたブロックへの `rex block inspect` は非0で終了する）。
+
+      ```bash
+      until [[ -s "<result_file>" ]] || ! rex block inspect -s "$REX_SESSION" "<review_block>" >/dev/null 2>&1; do sleep 5; done
+      ```
+
+      完了後は `Read` ツールで `<result_file>` を読み、`posted`/`replied`/`resolved`/`failed`/`disputed` を読み取る。ファイルが無い場合はreview-localが完了前に終了した旨をユーザーに伝える。読み終えたら `rex block close -s "$REX_SESSION" "<review_block>"` でペインを閉じる（対話型claudeは完了後も終了しないため、閉じるのはこのスキルの責務）。
 
    **Herdr環境でもRex環境でもない場合**: `Agent` ツール（`subagent_type: general-purpose`、`model: "sonnet"`）で上記と同じ内容（`Skill` ツールでの `review-local` 呼び出し・`<merge-base-sha>` と `--session <session_id>` の引き渡し・`posted`/`replied`/`resolved`/`failed`/`disputed` の報告）をバックグラウンドで依頼する。
 

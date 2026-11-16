@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 削除対象worktreeのパス・gwm上のworktree名と、対応するherdr workspace_idを1回のBash呼び出しで
-# 特定する (rexペイン内ならrexセッション)。破壊的操作(gwm remove)は行わない。結果はユーザー確認の材料として使う。
+# 特定する (rexペイン内ならrexタブ)。破壊的操作(gwm remove)は行わない。結果はユーザー確認の材料として使う。
 #
 # gwmの`gwm path`/`gwm remove`はworktree名(dashed、例: feat-123-desc)にのみfuzzy一致し、
 # 実際のgitブランチ文字列(例: feat/#123-desc)には一致しない(wtpとの差異、実機確認済み)。
@@ -30,7 +30,7 @@ Usage: gwm-herdr-cleanup-find.sh <branch_or_worktree_name>
   herdr=ok|unavailable
   workspace_id=<id>              (対応するherdr workspaceが見つかった場合のみ)
   workspace_label=<label>        (同上)
-  rex_session=<label>            (mux=rexで、ブランチ名をラベルにしたrexセッションが見つかった場合のみ)
+  rex_window=wt:<branch>         (mux=rexで、起点セッションに「wt:<ブランチ名>」タブが見つかった場合のみ)
 USAGE
 }
 
@@ -90,9 +90,9 @@ echo "mux=$mux"
 
 if [[ "$mux" != herdr ]]; then
   echo "herdr=unavailable"
-  # start-worktree側のgwm post_createフックが、ブランチ名をラベルにしてrexセッションを開いている
-  if [[ "$mux" == rex ]] && rex block ls -s "$worktree_branch" --json >/dev/null 2>&1; then
-    echo "rex_session=$worktree_branch"
+  # start-worktree側のgwm post_createフックが、起点セッション(=このセッション)に「wt:<ブランチ名>」タブを開いている
+  if [[ "$mux" == rex ]] && rex block ls -s "$REX_SESSION" -w "wt:$worktree_branch" --json >/dev/null 2>&1; then
+    echo "rex_window=wt:$worktree_branch"
   fi
   exit 0
 fi
