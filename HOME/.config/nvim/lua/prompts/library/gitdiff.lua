@@ -1,12 +1,7 @@
 return {
-  diff = function(args)
-    local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null")
-    print("ブランチ" .. banch)
-    if vim.v.shell_error == 0 then
-      branch = branch:gsub("\n", "")
-    end
-    local base_branch = branch or "develop"
-    print("ベースブランチ: " .. base_branch)
-    return vim.fn.system("git diff --merge-base " .. base_branch .. " HEAD")
+  -- 作業ブランチと分岐元(develop があれば develop、なければ main)との差分を返す
+  diff = function()
+    local base_branch = vim.fn.system({ "git", "rev-parse", "--verify", "--quiet", "develop" }) ~= "" and "develop" or "main"
+    return vim.fn.system({ "git", "diff", "--merge-base", base_branch, "HEAD" })
   end,
 }
