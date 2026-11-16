@@ -423,7 +423,7 @@ return {
           project_max_width = 0.5,
           project_max_height = 0.5,
           keys = {
-            quite = "q",
+            quit = "q",
             exec = "<CR>",
             -- project_replaceモードで置換対象の選択状態をトグルする
             select = "x",

@@ -111,7 +111,7 @@ return {
               cmd = "claude",
               args = {},
               description = "Claude Code CLI",
-              providerr = "terminal",
+              provider = "terminal",
             },
           },
         },

@@ -64,7 +64,7 @@ return {
       },
       history = {
         path = vim.fn.stdpath("data") .. "/rip-substitute/history.json",
-        maxSiz = 30,
+        maxSize = 30,
       },
       notification = {
         onSuccess = true,

@@ -40,7 +40,6 @@ return {
       auto_approve = false,
       -- LLM が必要に応じてMCPサーバを自動的に起動/停止できるようにする
       auto_toggle_mcp_servers = true,
-      extentions = {},
       native_servers = {},
       builtin_tools = {
         edit_file = {

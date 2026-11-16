@@ -144,7 +144,7 @@ vim.api.nvim_create_user_command("Restart", function()
   -- 既存セッションを使う場合はthis_sessionをクリアする必要はない
   if not has_session then
     local session_x = string.gsub(session, "%.vim", "x.vim")
-    vim.fn.writefile({ 'let v:this_session "' }, session_x)
+    vim.fn.writefile({ 'let v:this_session = ""' }, session_x)
   end
   -- 保存したセッションを読み込みつつrestart
   vim.cmd.restart({ args = { "source", session } })
