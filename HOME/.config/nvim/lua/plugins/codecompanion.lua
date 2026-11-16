@@ -279,7 +279,8 @@ return {
         },
       },
       opts = {
-        log_level = "DEBUG",
+        -- DEBUG だと送信したコードを含むリクエスト全文がログに残るため ERROR にする
+        log_level = "ERROR",
         language = "Japanese",
       },
     },
