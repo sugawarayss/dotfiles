@@ -10,6 +10,7 @@ return {
     "lua",
     "yaml",
     "yaml_github",
+    "env",
     "dockerfile",
     "php",
     "perl",
@@ -71,7 +72,7 @@ return {
       php = { "php", "phpstan" },
       ruby = { "ruby", "rubocop" },
       toml = { "tombi" },
-      ["sh.env"] = { "dotenv_linter" },
+      env = { "dotenv_linter" },
       zsh = { "zsh" },
     }
 
