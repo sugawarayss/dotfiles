@@ -201,7 +201,7 @@ end
 
 -- 指定のパスが存在してタイプが一致するかを返す
 utils.is_path_exists = function(path, type)
-  local stat = vim.loop.fs_stat(path)
+  local stat = vim.uv.fs_stat(path)
   return stat and stat.type == type
 end
 

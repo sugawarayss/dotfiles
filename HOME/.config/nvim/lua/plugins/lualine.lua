@@ -97,7 +97,7 @@ return {
                 if executing or status == "starting" or status == "restarting" then
                   local frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
                   -- local frames = { "", "", "", "", "", "" }
-                  local frame = math.floor(vim.loop.now() / 100) % #frames + 1
+                  local frame = math.floor(vim.uv.now() / 100) % #frames + 1
                   return prefix .. "(" .. frames[frame] .. ")"
                 end
                 return prefix .. "(" .. count .. ")"
