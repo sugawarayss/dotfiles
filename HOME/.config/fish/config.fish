@@ -271,8 +271,8 @@ end
 
 if type "gh" > /dev/null 2>&1;
   # PATを使わないと、`mise outdated`等でrate limitにひっかかってしまう
-  set -gx GITHUB_TOKEN (gh auth token)
-  set -gx MISE_GITHUB_TOKEN "$GITHUB_TOKEN"
+  # GITHUB_TOKEN は export しない（全子プロセスに見えるうえ、gh 自身は Keychain から読むため不要）
+  set -gx MISE_GITHUB_TOKEN (gh auth token)
 
   function review
     # カレントディレクトリのリポジトリのPRを選択して、prismで開いてpr reviewする
