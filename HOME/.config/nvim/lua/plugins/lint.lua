@@ -44,13 +44,11 @@ return {
       end,
     }
 
-    -- luacheck の設定ファイルの指定
-    nvim_lint.linters.luacheck.args = { "--config", "~/.config/nvim/.luarc.json" }
-    -- markdownlint の設定ファイルの指
-    nvim_lint.linters.markdownlint.args = {
+    -- markdownlint の設定ファイルの指定（既定の --stdin を残したまま追加する）
+    vim.list_extend(nvim_lint.linters.markdownlint.args, {
       "--config",
-      "~/.config/markdownlint/.markdownlint.jsonc",
-    }
+      vim.fn.expand("~/.config/markdownlint/.markdownlint.jsonc"),
+    })
     -- markdownlint-cli2 の設定ファイルの指定
     -- nvim_lint.linters["markdownlint-cli2"].args = {
     --   "--config",

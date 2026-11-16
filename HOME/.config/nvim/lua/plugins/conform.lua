@@ -29,7 +29,7 @@ return {
       ["markdownlint"] = {
         append_args = {
           "--config",
-          "~/.config/markdownlint/.markdownlint.jsonc",
+          vim.fn.expand("~/.config/markdownlint/.markdownlint.jsonc"),
         },
       },
     },
