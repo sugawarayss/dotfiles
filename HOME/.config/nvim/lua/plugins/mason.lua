@@ -203,33 +203,7 @@ return {
         automatic_enable = { exclude = { "rust_analyzer" } },
         ensure_installed = vim.iter({ lsp_servers }):flatten():totable(),
       })
-      -- LSPサーバ別に settings を lsp_server_settingsから設定する
-      for _, server in pairs(require("mason-lspconfig").get_installed_servers()) do
-        if server == "rust_analyzer" then
-          -- rustaceanvim が起動するのでここでは設定・有効化しない
-        elseif server == "ty" then
-          vim.lsp.config(server, {
-            settings = {
-              ty = {
-                disableLanguageServices = false,
-                diagnosticMode = "openFilesOnly",
-                inlayHints = {
-                  variableTypes = true,
-                  callArgumentNames = true,
-                },
-                completions = {
-                  autoImport = true,
-                },
-              },
-            },
-          })
-          vim.lsp.enable(server)
-        else
-          local target_config = require("lsp." .. server)
-          vim.lsp.config(server, target_config)
-          vim.lsp.enable(server)
-        end
-      end
+      -- サーバ別の設定は after/lsp/<server>.lua に置く（nvim-lspconfig の lsp/ より後に読まれて上書きされる）
       -- dart
       -- require("lspconfig").dartls.setup({
       vim.lsp.config("dartls", {
