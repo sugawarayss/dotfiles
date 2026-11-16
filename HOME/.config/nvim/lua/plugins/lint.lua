@@ -79,7 +79,7 @@ return {
         require("lint").try_lint(
           -- コマンドが見つからない場合はエラーを無視する
           nil,
-          { ignore_errors = false }
+          { ignore_errors = true }
         )
       end,
     })
