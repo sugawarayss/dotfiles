@@ -111,6 +111,5 @@ return {
         })
       end,
     })
-    require("scrollbar.handlers.gitsigns").setup()
   end,
 }

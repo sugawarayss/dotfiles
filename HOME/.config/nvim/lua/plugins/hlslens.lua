@@ -39,10 +39,6 @@ return {
         end
         render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
       end,
-      -- nvim-scrollbar に検索位置を表示する設定
-      build_position_cb = function(plist, _, _, _)
-        require("scrollbar.handlers.search").handler.show(plist.start_pos)
-      end,
     })
   end,
 }
