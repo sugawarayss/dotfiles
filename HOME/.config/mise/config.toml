@@ -27,7 +27,8 @@ zizmor = "latest"
 act = "latest"
 aws-cli = { version = "latest", symlink_bins = "true" }
 aws-vault = "latest"
-azure = "latest"
+# azure-cli の依存 pymsalruntime に cp315 wheel が無いため python を固定（mise は既定でグローバル python=latest を渡す）
+azure = { version = "latest", uvx_args = "--python 3.14" }
 bat = "latest"
 betterleaks = "latest"
 biome = "latest"
