@@ -115,6 +115,7 @@ slumber.yaml
 
 # gwm - git worktree 管理ツール(worktree.base = "{repo_parent}/{repo}/.worktrees")
 .worktrees/
+.gwm.toml
 
 # graft
 graft/
