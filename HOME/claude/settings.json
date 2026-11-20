@@ -182,7 +182,8 @@
       "Bash(uv add *)",
       "Bash(crit push *)"
     ],
-    "disableBypassPermissionsMode": "disable"
+    "disableBypassPermissionsMode": "disable",
+    "defaultMode": "auto"
   },
   "enableAllProjectMcpServers": false,
   "skillOverrides": {
@@ -192,7 +193,17 @@
     "example-skills:theme-factory": "off",
     "example-skills:doc-coauthoring": "off",
     "example-skills:internal-comms": "off",
-    "example-skills:frontend-design": "off"
+    "example-skills:frontend-design": "off",
+    "grill-me": "off",
+    "grilling": "off",
+    "find-skills": "off",
+    "diagnosing-bugs": "off",
+    "cua-driver": "off",
+    "codebase-design": "off",
+    "domain-modeling": "off",
+    "improve-codebase-architecture": "off",
+    "explain-code": "off",
+    "no-mistakes": "off"
   },
   "hooks": {
     "Notification": [
@@ -403,15 +414,15 @@
   "enabledPlugins": {
     "crit@crit": true,
     "rust-analyzer-lsp@claude-plugins-official": false,
-    "example-skills@anthropic-agent-skills": true,
-    "document-skills@anthropic-agent-skills": true,
+    "example-skills@anthropic-agent-skills": false,
+    "document-skills@anthropic-agent-skills": false,
     "typescript-lsp@claude-plugins-official": false,
     "codex@openai-codex": true,
-    "diagram-design@diagram-design": true,
+    "diagram-design@diagram-design": false,
     "whiteboard@devfast": true,
     "qa-guide@claude-qamods": true,
-    "crit-tui@crit": true,
-    "figures@figures": true,
+    "crit-tui@crit": false,
+    "figures@figures": false,
     "ponytail@ponytail": true,
     "impeccable@impeccable": true,
     "nono@nolabs-ai": true,

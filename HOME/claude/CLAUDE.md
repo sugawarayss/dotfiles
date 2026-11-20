@@ -7,7 +7,7 @@
 
 `rules/` にはタスク固有のルールを記載する。
 
-- [design_principles.md](rules/design_principles.md) — KISS/DRY/YAGNI/SOLID/早期リターン/命名規則/PoLA。コード実装時の設計方針。
+- [design_principles.md](rules/design_principles.md) — KISS・YAGNI/DRY/OCP/早期リターン/命名規則/PoLA。コード実装時の設計方針。
 - [document_driven_development.md](rules/document_driven_development.md) — 要求（flow）・現在の仕様（stock）・実装をIDで追跡し、判断根拠を保つための文書運用ルール。
 - [cross_project_memory.md](rules/cross_project_memory.md) — Obsidian vault (`obsidian_notes/ClaudeCode/`) へのプロジェクト横断メモリの書き出し方針。
 - [python.md](rules/python.md) — `**/*.py`に対して適用されるPythonコード実装ルール（frontmatterの `paths` でスコープ指定）。
@@ -29,9 +29,8 @@
 - Python: `uv` を使用（pip/venvの直接操作はしない）
 - Node: `pnpm` を使用（npm/yarnは使わない）
 - バージョン管理・タスク実行: `mise run`, `task`, `just`
-- ファイル閲覧・検索・差分: `bat`, `eza`, `fd`, `sd`, `rg`, `jq`, `yq` を標準ツールより優先してよい
 - GitHub操作: `gh` CLI
-- Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[[cross_project_memory]] 参照
+- Obsidian vault操作: `obsidian` CLI（vault名 `obsidian_notes`）。[cross_project_memory](./rules/cross_project_memory.md) 参照
 - プランレビュー: `crit`（`/crit` スキル経由。critセッションがなければ起動する）。起動時は `--no-open` を付け、出力されたレビューURL（`http://localhost:<port>`）を `ardia tabs open "<url>" --activate` でArdiaの前面タブに開く（`--activate` なしだと背景タブになる。ウィンドウ自体は前面に出ない）。Ardiaに接続できず失敗した場合は、URLをユーザーに伝える。
 - コード差分レビュー: `crit`（`crit-cli` スキルのCLI作法をベースに `review-local`/`execute-plan-and-pr` スキルで運用）。`crit --base-branch <base>` をバックグラウンドで起動し、`execute-plan-and-pr` はユーザーが Finish Review を押すまで待って自動継続する。`review-local` は指摘を投稿したらcritを開いたまま終わる。review-localは決着した自分の指摘を `確認:` の一言付きでresolveし、ユーザーの画面には未決着の指摘だけを残す（過去ラウンドのコメントが積み上がって確認が辛くなるのを防ぐため、tuicrから移行した）
 - PRレビュー: `crit`（`review-pr` スキル経由。`crit --pr <PR>` をバックグラウンドで起動し、`crit pull` で既存コメントを取り込んでからエージェントが `crit comment` で指摘を投稿する。ユーザーが Finish Review を押したら `crit push --dry-run` で送信内容を示し、送信方法（comment/approve/request-changes/送信しない）をユーザーに確認してから `crit push` する）
@@ -46,14 +45,15 @@
 - `rm` / `rmdir` / `rsync --delete`
 - `sudo` / `ssh` / `scp`
 
-また `cat` / `find` / `head` もBash実行が拒否される設定なので、代わりに `Read` / `Glob` / `Grep` ツールを使う（`head` は `Read` ツールの `limit` パラメータで代替できるため）。`tail` は許可されている（`Read` には末尾からの取得手段がなく、代替すると `wc -l` 等の追加呼び出しでトークンを余計に消費するため）。
-
 `/tmp`（`/private/tmp`含む）配下に作成した検証用ディレクトリ・ファイルの削除に限っては、`~/.claude/bin/rm-tmp` が使える（`rm` のラッパーで、対象パスが `/tmp` 配下でなければ拒否する）。それ以外のパスの削除は引き続きユーザー確認が必要。
 
 ## コミュニケーションの好み
 
-- 簡潔・直接的な応答を優先する（[[design_principles]] のKISSと同じ考え方）。
+- 簡潔・直接的な応答を優先する（[design_principles](./rules/design_principles.md) のKISSと同じ考え方）。
 - 大きな変更や複数の選択肢がある設計判断は、実装前に方針を確認する。
+- 複数の選択肢を提示するときは、比較軸（リスク・コスト・将来の変更容易性）と推奨案を明示する。
+- ユーザーの案・前提に同意ありきで応じない。重大な弱点・誤った前提・見落としがあれば、実行前に率直に指摘する（些細な好みの差は指摘しない）。
+- 依頼が手段の指定に見え、背後の目的とずれている可能性がある場合（XY問題）は、着手前に目的を1〜2問で確認する。目的が明確なら質問せず進める。
 - 実装プランなど **非コードの成果物** をレビューしてもらう場合は、必ず `/crit` を自動的に実行する。
 - コードの差分を変更・実装した後は、crit（`execute-plan-and-pr` スキルのレビューループ）でレビューしてもらう。
 
