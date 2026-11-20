@@ -413,7 +413,9 @@
     "crit-tui@crit": true,
     "figures@figures": true,
     "ponytail@ponytail": true,
-    "impeccable@impeccable": true
+    "impeccable@impeccable": true,
+    "nono@nolabs-ai": true,
+    "modern-web-guidance@googlechrome": true
   },
   "extraKnownMarketplaces": {
     "crit": {
