@@ -8,17 +8,6 @@ return {
     end,
     config = function()
       vim.opt.cmdheight = 0
-      local ok, extui = pcall(require, "vim._extui")
-      if ok then
-        extui.enable({
-          enable = true,
-          msg = {
-            pos = "cmd",
-            box = { timeout = 5000 },
-          },
-        })
-      end
-
       require("noice").setup({
         theme = "kanagawa",
         cmdline = {
@@ -95,16 +84,17 @@ return {
         },
         lsp = {
           progress = {
-            enabled = true,
+            enabled = false,
             format = "lsp_progress",
             format_done = "lsp_progress_done",
             throttle = 1000 / 30,
             view = "mini",
           },
           override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
-            ["vim.lsp.util.stylize_markdown"] = false,
-            ["cmp.entry.get_documentation"] = true,
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            -- nvim-cmpの設定なので無効にする
+            -- ["cmp.entry.get_documentation"] = true,
           },
           hover = {
             enabled = true,
@@ -190,6 +180,5 @@ return {
     end,
   },
   { "nvim-treesitter/nvim-treesitter" },
-  { "rcarriga/nvim-notify" },
   { "MunifTanjim/nui.nvim" },
 }
