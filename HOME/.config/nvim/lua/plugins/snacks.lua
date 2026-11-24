@@ -21,15 +21,15 @@ return {
         vim.print = _G.dd -- Override print to use snacks for `:=` command
         -- INFO: 今後使うかもしれないのでコメントアウトして残す
         -- スペルチェックの有効/無効のトグル
-        --Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us", { desc = "スペルチェックの有効/無効のトグル" })
+        --Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us", { desc = "[Snacks]  スペルチェックの有効/無効のトグル" })
         -- 行番号の相対表示の有効/無効のトグル
         --Snacks.toggle
         --      .option("relativenumber", { name = "Relative Number" })
-        --      :map("<leader>ul", { desc = "行番号の相対表示の有効/無効のトグル" })
+        --      :map("<leader>ul", { desc = "[Snacks] 行番号の相対表示の有効/無効のトグル" })
         -- 診断の有効/無効のトグル
-        --Snacks.toggle.diagnostics():map("<leader>ud", { desc = "診断の有効/無効のトグル" })
+        --Snacks.toggle.diagnostics():map("<leader>ud", { desc = "[Snacks] 診断の有効/無効のトグル" })
         -- インレイヒントの有効/無効のトグル
-        --Snacks.toggle.inlay_hints():map("<leader>uh", { desc = "インレイヒントの有効/無効のトグル" })
+        --Snacks.toggle.inlay_hints():map("<leader>uh", { desc = "[Snacks] インレイヒントの有効/無効のトグル" })
         -- 折り返しのトグル
         -- Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
         -- 行番号表示のトグル
@@ -48,10 +48,10 @@ return {
     })
     vim.api.nvim_create_user_command("Highlights", function()
       Snacks.picker.highlights()
-    end, { desc = "ハイライトの定義をpickerで表示" })
+    end, { desc = "[Snacks] ハイライトの定義をpickerで表示" })
     vim.api.nvim_create_user_command("Autocommands", function()
       Snacks.picker.autocmds()
-    end, { desc = "Autocommandリストをpickerで表示" })
+    end, { desc = "[Snacks] Autocommandリストをpickerで表示" })
   end,
   opts = {
     -- 指定のサイズより大きいファイルを開いたときにattach されるfiletypeを追加する。
@@ -147,7 +147,8 @@ return {
     -- 画像ファイルを表示する
     -- NOTE: pngの表示に`ImageMagick`, mermaidの表示に`mmdc`, pdfの操作に`ghostscript`のインストールが必要
     -- `brew install imagemagick ghostscript` と `npm install -g @mermaid-js/mermaid-cli`を実行してください
-    image = { enabled = true },
+    -- NOTE: Rex は kitty graphics protocol をサポートしないのでimageはコメントアウト
+    -- image = { enabled = true },
     -- インプットモードの表示
     input = { enabled = true },
     -- 通知
@@ -202,7 +203,6 @@ return {
     quickfile = { enabled = true },
     -- トグルキーマップ
     toggle = { enabled = true },
-    terminal = { enabled = false },
     styles = {
       input = {
         backdrop = false,
@@ -258,7 +258,7 @@ return {
           transform = "unique_file",
         })
       end,
-      desc = "Snacks - スマートファイル検索から表示",
+      desc = "[Snacks] スマートファイル検索から表示",
     },
     {
       "<leader>fg", -- File Grep
@@ -276,64 +276,56 @@ return {
           follow = false,
         })
       end,
-      desc = "Snacks - Grep検索を表示",
+      desc = "[Snacks] Grep検索を表示",
     },
     {
       ";sch", -- Search Command History
       function()
         Snacks.picker.command_history()
       end,
-      desc = "Snacks - コマンド履歴を表示",
+      desc = "[Snacks] コマンド履歴を表示",
     },
     {
       ";nl", -- Notifications List
       function()
         Snacks.picker.notifications()
       end,
-      desc = "Snacks - 通知履歴リストを検索",
+      desc = "[Snacks] 通知履歴リストを検索",
     },
     {
       ";nh", -- Notifications History
       function()
         Snacks.notifier.show_history()
       end,
-      desc = "Snacks - 通知履歴を表示",
+      desc = "[Snacks] 通知履歴を表示",
     },
     {
       "<leader>fe", -- File Explorer
       function()
         Snacks.picker.explorer()
       end,
-      desc = "Snacks - ファイルエクスプローラを表示",
-    },
-    {
-      "<F4>",
-      function()
-        Snacks.terminal.open()
-      end,
-      desc = "Snacks - 新しいターミナルを開く",
-      mode = { "t" },
+      desc = "[Snacks] ファイルエクスプローラを表示",
     },
     {
       ";sgl", -- Search Git Log
       function()
         Snacks.picker.git_log()
       end,
-      desc = "Snacks - Git Logを表示",
+      desc = "[Snacks] Git Logを表示",
     },
     {
       ";sgi", -- Search Git Issues
       function()
         Snacks.gh.issue()
       end,
-      desc = "Snacks - GitHub Issueを検索",
+      desc = "[Snacks] GitHub Issueを検索",
     },
     {
       ";sgr", -- Search Git pull Request
       function()
         Snacks.gh.pr()
       end,
-      desc = "Snacks - GitHub Pull Requestを検索",
+      desc = "[Snacks] GitHub Pull Requestを検索",
     },
     -- Grep
     {
@@ -342,7 +334,7 @@ return {
         Snacks.picker.grep_word()
       end,
       mode = { "n", "x" },
-      desc = "Snacks - Visual Mode で選択した単語でGrep検索",
+      desc = "[Snacks] Visual Mode で選択した単語でGrep検索",
     },
     -- search
     {
@@ -350,7 +342,7 @@ return {
       function()
         Snacks.picker.registers()
       end,
-      desc = "Snacks - レジスタを検索",
+      desc = "[Snacks] レジスタを検索",
     },
     {
       ";scm", -- Search Command
@@ -358,91 +350,77 @@ return {
         Snacks.picker.commands()
       end,
       mode = { "n" },
-      desc = "Snacks - Commandを検索",
+      desc = "[Snacks] Commandを検索",
     },
     {
       ";shelp", -- Search HELP
       function()
         Snacks.picker.help()
       end,
-      desc = "Snacks - ヘルプページを検索",
+      desc = "[Snacks] ヘルプページを検索",
     },
     {
       ";sic", -- Search ICon
       function()
         Snacks.picker.icons()
       end,
-      desc = "Snacks - Iconを検索",
+      desc = "[Snacks] Iconを検索",
     },
     {
       ";sjl", -- Search Jump List
       function()
         Snacks.picker.jumps()
       end,
-      desc = "Snacks - ジャンプリストを検索",
+      desc = "[Snacks] ジャンプリストを検索",
     },
     {
       ";skm", -- Search KeyMap
       function()
         Snacks.picker.keymaps()
       end,
-      desc = "Snacks - Keymapリストを検索",
+      desc = "[Snacks] Keymapリストを検索",
     },
     {
       ";sl", -- Search Location List
       function()
         Snacks.picker.loclist()
       end,
-      desc = "Snacks - Location リストを検索",
+      desc = "[Snacks] Location リストを検索",
     },
     {
       ";sM",
       function()
         Snacks.picker.man()
       end,
-      desc = "Snacks - Man ページを検索",
+      desc = "[Snacks] Man ページを検索",
     },
     {
       ";spl",
       function()
         Snacks.picker.lazy()
       end,
-      desc = "Snacks - Neovimプラグイン設定を検索",
+      desc = "[Snacks] Neovimプラグイン設定を検索",
     },
     {
       ";sqf",
       function()
         Snacks.picker.qflist()
       end,
-      desc = "Snacks - Quickfix リストを検索",
+      desc = "[Snacks] Quickfix リストを検索",
     },
     {
       "<leader>dd",
       function()
         Snacks.bufdelete()
       end,
-      desc = "Snacks - バッファを閉じる",
+      desc = "[Snacks] バッファを閉じる",
     },
     {
       "<leader>gg",
       function()
         Snacks.lazygit()
       end,
-      desc = "Snacks - Lazygitを起動",
-    },
-    {
-      "<leader>gq",
-      function()
-        Snacks.terminal({ "lazysql" })
-      end,
-      desc = "Snacks - Lazysqlを起動",
-    },
-    {
-      "<leader>gs",
-      function()
-        Snacks.terminal({ "slumber" })
-      end,
-      desc = "Snacks - Slumber(HTTPクライアント)を起動",
+      desc = "[Snacks] Lazygitを起動",
     },
   },
 }
