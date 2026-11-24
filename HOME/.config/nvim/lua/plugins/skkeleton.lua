@@ -38,8 +38,8 @@ return {
     init = function()
       local wk = require("which-key")
       wk.add({
-        { "<C-M-S-j>", "<Plug>(skkeleton-enable)", mode = { "i", "c" }, desc = "Skkeleton - IMEを有効にする" },
-        { "<C-M-S-e>", "<Plug>(skkeleton-disable)", mode = { "i", "c" }, desc = "Skkeleton - IMEを無効にする" },
+        { "<C-M-S-j>", "<Plug>(skkeleton-enable)", mode = { "i", "c" }, desc = "[Skkeleton] IMEを有効にする" },
+        { "<C-M-S-e>", "<Plug>(skkeleton-disable)", mode = { "i", "c" }, desc = "[Skkeleton] IMEを無効にする" },
       })
     end,
     config = function()
