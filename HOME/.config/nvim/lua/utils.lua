@@ -172,4 +172,18 @@ utils.is_path_exists = function(path, type)
   return stat and stat.type == type
 end
 
+-- mise lsp が扱う mise 設定ファイルかを返す（https://mise.jdx.dev/lsp.html の対象一覧に合わせる）
+-- mise.toml / .mise.toml / mise.<env>.toml / mise.local.toml / mise/config.toml / mise/conf.d/*.toml
+-- mise.tasks.toml はタスク定義として mise lsp の対象外なので除外する
+utils.is_mise_config = function(path)
+  local name = vim.fs.basename(path)
+  if name == "mise.tasks.toml" or name == ".mise.tasks.toml" then
+    return false
+  end
+  return name:match("^%.?mise%.toml$") ~= nil
+    or name:match("^%.?mise%.[^/]+%.toml$") ~= nil
+    or path:match("/%.?mise/config%.toml$") ~= nil
+    or path:match("/%.?mise/conf%.d/[^/]+%.toml$") ~= nil
+end
+
 return utils

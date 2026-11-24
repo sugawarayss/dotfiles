@@ -75,7 +75,11 @@ return {
     }
 
     vim.api.nvim_create_autocmd("BufWritePost", {
-      callback = function()
+      callback = function(args)
+        -- mise 設定ファイルの診断は mise lsp に任せる（toml の linter は tombi だけなので丸ごと飛ばす）
+        if require("utils").is_mise_config(args.match) then
+          return
+        end
         require("lint").try_lint(
           -- コマンドが見つからない場合はエラーを無視する
           nil,

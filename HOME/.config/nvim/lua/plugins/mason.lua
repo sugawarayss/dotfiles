@@ -224,6 +224,8 @@ return {
         },
       })
       vim.lsp.enable("dartls")
+      -- mise lsp（設定は after/lsp/mise.lua）
+      vim.lsp.enable("mise")
     end,
   },
   {
