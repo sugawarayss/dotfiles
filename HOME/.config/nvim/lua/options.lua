@@ -38,7 +38,7 @@ local options = {
   background = "dark", -- 暗い背景色を使用
   scrolloff = 8, -- スクロール時に上下に余分に表示するサイズ
   sidescrolloff = 8, -- 横スクロール時に左右に余分に表示するサイズ
-  guifont = "Hack Nerd Font Mono", -- フォント指定
+  guifont = "AnnotationM Nerd Font", -- フォント指定
   splitbelow = false, -- オンのとき、ウィンドウを横分割すると新しいウィンドウはカレントウィンドウの下に開かれる
   splitright = false, -- オンのとき、ウィンドウを縦分割すると新しいウィンドウはカレントウィンドウの右に開かれる
   pumblend = 10, -- pop upメニュー(補完時のポップアップ)を半透明にする
@@ -80,6 +80,15 @@ vim.opt.whichwrap:append({
 
 -- ハイフンを単語の一部として扱う
 vim.opt.iskeyword:append("-")
+
+-- Python/Node/Ruby/Perl の provider を無効化する
+-- provider を使うプラグインは rainbow_csv の RBQL(:Select 等)のみで、
+-- それも has("python3") が偽なら外部の python3 コマンドで実行されるため不要
+-- (起動中の provider 探索を省き、checkhealth の WARNING も消える)
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
 
 -- vim.cmd([[set spelllang=en,cjk]]) -- 日本語はスペルチェックしない
 -- vim.cmd([[set spell]]) -- スペルチェックを有効にする
