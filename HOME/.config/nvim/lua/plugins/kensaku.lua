@@ -26,7 +26,7 @@ return {
           "<Plug>(kensaku-search-replace)<CR>",
           mode = "c",
           icon = "󰗊",
-          desc = "Kensaku - ローマ字で検索",
+          desc = "[Kensaku] ローマ字で検索",
         },
       })
     end,

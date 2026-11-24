@@ -1,3 +1,11 @@
+-- TUIツールは画面全体で使うため、全画面で開いてから実行する
+-- NOTE: neotermのウィンドウが既に開いている場合はその位置のまま実行される
+local function run_fullscreen(command)
+  local neoterm = require("neoterm")
+  neoterm.open({ position = "fullscreen" })
+  neoterm.run(command, { clear = false })
+end
+
 return {
   "itmecho/neoterm.nvim",
   cond = function()
@@ -13,7 +21,7 @@ return {
           require("neoterm").open({ position = "left" })
         end,
         mode = "n",
-        desc = "ターミナルウィンドウ(左)",
+        desc = "[Neoterm] ターミナルウィンドウ(左)",
       },
       {
         "<F3>7", -- 7: j
@@ -21,7 +29,7 @@ return {
           require("neoterm").open({ position = "bottom" })
         end,
         mode = "n",
-        desc = "ターミナルウィンドウ(下)",
+        desc = "[Neoterm] ターミナルウィンドウ(下)",
       },
       {
         "<F3>8", -- 8: k
@@ -29,7 +37,7 @@ return {
           require("neoterm").open({ position = "top" })
         end,
         mode = "n",
-        desc = "ターミナルウィンドウ(上)",
+        desc = "[Neoterm] ターミナルウィンドウ(上)",
       },
       {
         "<F3>9", -- 9: l
@@ -37,7 +45,7 @@ return {
           require("neoterm").open({ position = "right" })
         end,
         mode = "n",
-        desc = "ターミナルウィンドウ(右)",
+        desc = "[Neoterm] ターミナルウィンドウ(右)",
       },
       {
         "<F3><F3>",
@@ -45,7 +53,7 @@ return {
           require("neoterm").open({ position = "bottom" })
         end,
         mode = "n",
-        desc = "ターミナルウィンドウ",
+        desc = "[Neoterm] ターミナルウィンドウ",
       },
       {
         "<F3><F5>",
@@ -53,19 +61,35 @@ return {
           require("neoterm").open({ position = "fullscreen" })
         end,
         mode = "n",
-        desc = "ターミナルウィンドウ(フルスクリーン)",
+        desc = "[Neoterm] ターミナルウィンドウ(フルスクリーン)",
+      },
+      {
+        "<leader>gq",
+        function()
+          run_fullscreen("lazysql")
+        end,
+        mode = "n",
+        desc = "[Neoterm] Lazysqlを起動",
+      },
+      {
+        "<leader>gs",
+        function()
+          run_fullscreen("slumber")
+        end,
+        mode = "n",
+        desc = "[Neoterm] Slumber(HTTPクライアント)を起動",
       },
       {
         "<F3><F3>",
         "<Cmd>NeotermExit<CR>",
         mode = "t",
-        desc = "ターミナルウィンドウを閉じる",
+        desc = "[Neoterm] ターミナルウィンドウを閉じる",
       },
       {
         "<F3>n",
         "<C-\\><C-n>",
         mode = "t",
-        desc = "ターミナルモードからNORMALモードに戻る",
+        desc = "[Neoterm] ターミナルモードからNORMALモードに戻る",
       },
     })
   end,

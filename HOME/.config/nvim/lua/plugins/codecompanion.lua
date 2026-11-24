@@ -17,14 +17,14 @@ return {
           "<Cmd>CodeCompanionChat Toggle<CR>",
           mode = { "n", "v" },
           icon = "🤖",
-          desc = "CodeCompanion - LLMとのChatをトグル",
+          desc = "[CodeCompanion] LLMとのChatをトグル",
         },
         {
           "<Leader>cli",
           "<Cmd>CodeCompanionCLI<CR>",
           mode = "n",
           icon = "🤖",
-          desc = "CodeCompanion - CLI(Claude Code)を起動",
+          desc = "[CodeCompanion] CLI(Claude Code)を起動",
         },
         {
           "<Leader>cfix",
@@ -33,7 +33,7 @@ return {
           end,
           mode = "v",
           icon = "🤖",
-          desc = "CodeCompanion - LLMで選択範囲を修正する",
+          desc = "[CodeCompanion] LLMで選択範囲を修正する",
         },
         {
           "<Leader>cexp",
@@ -42,7 +42,7 @@ return {
           end,
           mode = "v",
           icon = "🤖",
-          desc = "CodeCompanion - LLMで選択範囲を実装内容を説明する",
+          desc = "[CodeCompanion] LLMで選択範囲を実装内容を説明する",
         },
         {
           "<Leader>clsp",
@@ -51,7 +51,7 @@ return {
           end,
           mode = "v",
           icon = "🤖",
-          desc = "CodeCompanion - LLMで選択範囲をLSPの診断結果を表示する",
+          desc = "[CodeCompanion] LLMで選択範囲をLSPの診断結果を表示する",
         },
         {
           "<Leader>crv",
@@ -60,7 +60,7 @@ return {
           end,
           mode = "n",
           icon = "🤖",
-          desc = "CodeCompanion - LLM でコードレビューを行う",
+          desc = "[CodeCompanion] LLM でコードレビューを行う",
         },
       })
     end,

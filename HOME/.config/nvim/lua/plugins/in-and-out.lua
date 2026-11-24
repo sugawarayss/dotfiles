@@ -12,7 +12,7 @@ return {
         end,
         mode = "i",
         icon = "🪽",
-        desc = "InAndOut - 囲い文字の外にジャンプ",
+        desc = "[InAndOut] 囲い文字の外にジャンプ",
       },
     })
   end,

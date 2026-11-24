@@ -15,7 +15,7 @@ return {
     --     end,
     --     mode = "n",
     --     icon = "󰜮",
-    --     desc = "TodoComments - 次の TODO コメントにジャンプ",
+    --     desc = "[TodoComments] 次の TODO コメントにジャンプ",
     --   },
     --   {
     --     ";tk",
@@ -24,7 +24,7 @@ return {
     --     end,
     --     mode = "n",
     --     icon = "󰜷",
-    --     desc = "TodoComments - 前の TODO コメントにジャンプ",
+    --     desc = "[TodoComments] 前の TODO コメントにジャンプ",
     --   },
     -- })
     -- end,

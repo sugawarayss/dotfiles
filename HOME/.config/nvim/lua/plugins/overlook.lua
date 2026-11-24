@@ -12,7 +12,7 @@ return {
           require("overlook.api").peek_definition()
         end,
         mode = { "n" },
-        desc = "Overlook - カーソル位置の定義箇所を垣間見る",
+        desc = "[Overlook] カーソル位置の定義箇所を垣間見る",
       },
       {
         "<leader>pp",
@@ -20,7 +20,7 @@ return {
           require("overlook.api").peek_cursor()
         end,
         mode = { "n" },
-        desc = "Overlook - カーソル位置のポップアップを開く",
+        desc = "[Overlook] カーソル位置のポップアップを開く",
       },
       {
         "<leader>pu",
@@ -28,7 +28,7 @@ return {
           require("overlook.api").restore_popup()
         end,
         mode = { "n" },
-        desc = "Overlook - 直前のポップアップを再度開く",
+        desc = "[Overlook] 直前のポップアップを再度開く",
       },
       {
         "<leader>pU",
@@ -36,7 +36,7 @@ return {
           require("overlook.api").restore_all_popup()
         end,
         mode = { "n" },
-        desc = "Overlook - 直前のポップアップを全て開く",
+        desc = "[Overlook] 直前のポップアップを全て開く",
       },
       {
         "<leader>pc",
@@ -44,7 +44,7 @@ return {
           require("overlook.api").close_all()
         end,
         mode = { "n" },
-        desc = "Overlook - 全てのポップアップを閉じる",
+        desc = "[Overlook] 全てのポップアップを閉じる",
       },
       {
         "<leader>pf",
@@ -52,7 +52,7 @@ return {
           require("overlook.api").switch_focus()
         end,
         mode = { "n" },
-        desc = "Overlook - ポップアップと元のウィンドウでフォーカスを切替える",
+        desc = "[Overlook] ポップアップと元のウィンドウでフォーカスを切替える",
       },
       -- {
       --   "<leader>ps",
@@ -60,7 +60,7 @@ return {
       --     require("overlook.api").open_in_split()
       --   end,
       --   mode = { "n" },
-      --   desc = "Overlook - ポップアップの箇所を水平分割で開く",
+      --   desc = "[Overlook] ポップアップの箇所を水平分割で開く",
       -- },
       -- {
       --   "<leader>pv",
@@ -68,7 +68,7 @@ return {
       --     require("overlook.api").open_in_vsplit()
       --   end,
       --   mode = { "n" },
-      --   desc = "Overlook - ポップアップの箇所を垂直分割で開く",
+      --   desc = "[Overlook] ポップアップの箇所を垂直分割で開く",
       -- },
       {
         "<leader>pt",
@@ -76,7 +76,7 @@ return {
           require("overlook.api").open_in_tab()
         end,
         mode = { "n" },
-        desc = "Overlook - ポップアップの箇所を新規タブで開く",
+        desc = "[Overlook] ポップアップの箇所を新規タブで開く",
       },
       -- {
       --   "<leader>po",
@@ -84,7 +84,7 @@ return {
       --     require("overlook.api").open_in_original_window()
       --   end,
       --   mode = { "n" },
-      --   desc = "Overlook - 現在ウィンドウをポップアップ内容で入替える",
+      --   desc = "[Overlook] 現在ウィンドウをポップアップ内容で入替える",
       -- },
     })
     vim.api.nvim_create_autocmd("BufWinEnter", {
@@ -96,19 +96,19 @@ return {
             -- open in original window on enter
             vim.keymap.set("n", "<CR>", function()
               require("overlook.api").open_in_original_window()
-            end, { buffer = true, desc = "Overlook: Open in original window" })
+            end, { buffer = true, desc = "[Overlook] Open in original window" })
 
             -- open in vsplit on ctrl+enter
             for _, lhs in ipairs({ "<C-CR>" }) do
               vim.keymap.set("n", lhs, function()
                 require("overlook.api").open_in_vsplit()
-              end, { buffer = true, desc = "Overlook: Open in vertical split" })
+              end, { buffer = true, desc = "[Overlook] Open in vertical split" })
             end
             -- open in split on shift+enter
             for _, lhs in ipairs({ "<S-CR>" }) do
               vim.keymap.set("n", lhs, function()
                 require("overlook.api").open_in_split()
-              end, { buffer = true, desc = "Overlook: Open in split" })
+              end, { buffer = true, desc = "[Overlook] Open in split" })
             end
           end
         end)

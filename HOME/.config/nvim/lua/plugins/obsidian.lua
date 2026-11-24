@@ -21,21 +21,21 @@ return {
           "<Cmd>Obsidian quick_switch<CR>",
           mode = "n",
           icon = "💎",
-          desc = "Obsidian - ノートを検索",
+          desc = "[Obsidian] ノートを検索",
         },
         {
           "<Leader>nn",
           "<Cmd>Obsidian new_from_template note.md<CR>",
           mode = "n",
           icon = "💎",
-          desc = "Obsidian - ノートを開く(作成)",
+          desc = "[Obsidian] ノートを開く(作成)",
         },
         {
           "<Leader>dn",
           "<Cmd>Obsidian today<CR>",
           mode = "n",
           icon = "💎",
-          desc = "Obsidian - デイリーノートを開く(作成)",
+          desc = "[Obsidian] デイリーノートを開く(作成)",
         },
       })
     end,
@@ -63,7 +63,7 @@ return {
           enter_note = function(_)
             vim.keymap.set("n", "<leader>ch", "<cmd>Obsidian toggle_checkbox<cr>", {
               buffer = true,
-              desc = "Obsidian - Toggle checkbox",
+              desc = "[Obsidian] Toggle checkbox",
             })
           end,
         },

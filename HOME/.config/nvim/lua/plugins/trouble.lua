@@ -12,19 +12,19 @@ return {
           "<cmd>Trouble todo win = {size = {height=0.2}} filter = {tag = {TODO,FIX,WARN,HACK,PREF,TEST}}<CR>",
           mode = "n",
           icon = "",
-          desc = "Trouble - TODO コメント一覧を検索",
+          desc = "[Trouble] TODO コメント一覧を検索",
         },
         {
           ";xx",
           "<cmd>Trouble diagnostics toggle filter.buf=0<CR>",
           mode = "n",
-          desc = "Trouble - バッファ内の診断結果を表示",
+          desc = "[Trouble] バッファ内の診断結果を表示",
         },
         {
           ";xa",
           "<cmd>Trouble diagnostics toggle<CR>",
           mode = "n",
-          desc = "Trouble - 全ての診断結果を表示",
+          desc = "[Trouble] 全ての診断結果を表示",
         },
       })
     end,

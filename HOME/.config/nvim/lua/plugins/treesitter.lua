@@ -126,7 +126,7 @@ return {
           "<cmd>TSJToggle<CR>",
           mode = "n",
           icon = "🌳",
-          desc = "Treesj - 配列やオブジェクトを分割/結合する",
+          desc = "[Treesj] 配列やオブジェクトを分割/結合する",
         },
       })
     end,

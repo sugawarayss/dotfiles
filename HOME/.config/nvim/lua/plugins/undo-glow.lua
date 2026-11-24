@@ -15,7 +15,7 @@ return {
           })
         end,
         mode = "n",
-        desc = "UndoGlow - Undo with highlight",
+        desc = "[UndoGlow] Undo with highlight",
       },
       {
         "U",
@@ -27,7 +27,7 @@ return {
           })
         end,
         mode = "n",
-        desc = "UndoGlow - Redo with highlight",
+        desc = "[UndoGlow] Redo with highlight",
       },
       {
         "p",
@@ -35,7 +35,7 @@ return {
           require("undo-glow").paste_below()
         end,
         mode = "n",
-        desc = "UndoGlow - Paste below with highlight",
+        desc = "[UndoGlow] Paste below with highlight",
       },
       {
         "P",
@@ -43,7 +43,7 @@ return {
           require("undo-glow").paste_above()
         end,
         mode = "n",
-        desc = "UndoGlow - Paste above with highlight",
+        desc = "[UndoGlow] Paste above with highlight",
       },
     })
     vim.api.nvim_create_autocmd("TextYankPost", {

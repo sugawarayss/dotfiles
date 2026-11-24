@@ -41,7 +41,8 @@ end
 return {
   "j-hui/fidget.nvim",
   enabled = true,
-  ops = {
+  event = "LspAttach",
+  opts = {
     progress = {
       -- How and when to poll for progress messages
       poll_rate = 0,
@@ -132,11 +133,7 @@ return {
       -- How to configure notification groups when instantiated
       -- configs = { default = require("fidget.notification").default_config },
       -- Conditionally redirect notifications to another backend
-      redirect = function(msg, level, opts)
-        if opts and opts.on_open then
-          return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
-        end
-      end,
+      redirect = false,
       -- Options related to how notifications are rendered as text
       view = {
         -- Display notification items from bottom to top
@@ -179,13 +176,11 @@ return {
         -- What the notification window position is relative to
         relative = "editor",
         -- Width of each tab character in the notification window
-        tabstop = 0,
+        tabstop = 8,
         -- Filetypes the notification window should avoid
         avoid = {},
       },
     },
-    -- Options related to integrating with other plugins
-    integration = {},
     -- Options related to logging
     logger = {
       -- Minimum logging level

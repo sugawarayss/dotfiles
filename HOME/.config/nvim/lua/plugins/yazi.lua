@@ -18,7 +18,7 @@ return {
         "<cmd>Yazi<cr>",
         mode = { "n", "v" },
         icon = "📂",
-        desc = "Yazi - 現在のファイルをyaziで開く",
+        desc = "[Yazi] 現在のファイルをyaziで開く",
       },
     })
   end,

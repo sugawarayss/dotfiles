@@ -16,14 +16,14 @@ return {
           "<Cmd>BufferLineCycleNext<CR>",
           mode = "n",
           icon = "👉",
-          desc = "BufferLine - 次のバッファを表示",
+          desc = "[BufferLine] 次のバッファを表示",
         },
         {
           "H",
           "<Cmd>BufferLineCyclePrev<CR>",
           mode = "n",
           icon = "👈",
-          desc = "BufferLine - 前のバッファを表示",
+          desc = "[BufferLine] 前のバッファを表示",
         },
       })
     end,

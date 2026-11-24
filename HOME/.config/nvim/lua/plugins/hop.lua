@@ -16,7 +16,7 @@ return {
         end,
         mode = "n",
         icon = "",
-        desc = "Hop - 単語単位で先頭にジャンプ",
+        desc = "[Hop] 単語単位で先頭にジャンプ",
       },
       {
         "<Leader>b",
@@ -27,7 +27,7 @@ return {
         end,
         mode = "n",
         icon = "",
-        desc = "Hop - カーソル以前の単語単位で先頭にジャンプ",
+        desc = "[Hop] カーソル以前の単語単位で先頭にジャンプ",
       },
       {
         "<Leader>e",
@@ -39,7 +39,7 @@ return {
         end,
         mode = "n",
         icon = "",
-        desc = "Hop - 単語単位で末尾にジャンプ",
+        desc = "[Hop] 単語単位で末尾にジャンプ",
       },
       {
         "<Leader>ge",
@@ -51,7 +51,7 @@ return {
         end,
         mode = "n",
         icon = "",
-        desc = "Hop - カーソル以前の単語単位で末尾にジャンプ",
+        desc = "[Hop] カーソル以前の単語単位で末尾にジャンプ",
       },
     })
   end,

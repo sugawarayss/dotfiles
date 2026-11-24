@@ -44,13 +44,13 @@ return {
           "<S-M-CR>",
           "<cmd>WindowsMaximize<CR>",
           mode = "n",
-          desc = "Windows - カーソルがあるウィンドウを最大化する",
+          desc = "[Windows] カーソルがあるウィンドウを最大化する",
         },
         {
           "<S-M-e>",
           "<cmd>WindowsEqualize<CR>",
           mode = "n",
-          desc = "Windows - カーソルがあるウィンドウの幅を最大化する",
+          desc = "[Windows] カーソルがあるウィンドウの幅を最大化する",
         },
       })
     end,

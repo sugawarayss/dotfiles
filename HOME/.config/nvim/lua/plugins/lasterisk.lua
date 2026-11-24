@@ -17,7 +17,7 @@ return {
             end
           end,
           mode = "n",
-          desc = "Lasterisk - カーソル位置の単語を検索してハイライト",
+          desc = "[Lasterisk] カーソル位置の単語を検索してハイライト",
         },
         {
           "g*",
@@ -29,7 +29,7 @@ return {
             end
           end,
           mode = { "n", "x" },
-          desc = "Lasterisk - 単語区切りせずにカーソル位置の単語を検索してハイライト",
+          desc = "[Lasterisk] 単語区切りせずにカーソル位置の単語を検索してハイライト",
         },
       })
     end,

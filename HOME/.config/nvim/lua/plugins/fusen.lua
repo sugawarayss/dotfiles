@@ -53,7 +53,7 @@ return {
         end,
         icon = "🔖",
         mode = "n",
-        desc = "Fusen - リストをqflistで表示(Snacks Picker)",
+        desc = "[Fusen] リストをqflistで表示(Snacks Picker)",
       },
       {
         "<Leader>ma",
@@ -62,7 +62,7 @@ return {
         end,
         mode = "n",
         icon = "🔖",
-        desc = "Fusen - ブックマークを追加(注釈付き)",
+        desc = "[Fusen] ブックマークを追加(注釈付き)",
       },
       {
         "<Leader>md",
@@ -71,7 +71,7 @@ return {
         end,
         mode = "n",
         icon = "🔖",
-        desc = "Fusen - 現在行のブックマークを削除",
+        desc = "[Fusen] 現在行のブックマークを削除",
       },
     })
   end,

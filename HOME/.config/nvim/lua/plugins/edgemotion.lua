@@ -9,14 +9,14 @@ return {
         "<Plug>(edgemotion-j)",
         mode = "n",
         icon = "🔼",
-        desc = "EdgeMotion - 前方のエッヂにジャンプ",
+        desc = "[EdgeMotion] 前方のエッヂにジャンプ",
       },
       {
         "<M-k>",
         "<Plug>(edgemotion-k)",
         mode = "n",
         icon = "🔽",
-        desc = "EdgeMotion - 後方のエッヂにジャンプ",
+        desc = "[EdgeMotion] 後方のエッヂにジャンプ",
       },
     })
   end,
