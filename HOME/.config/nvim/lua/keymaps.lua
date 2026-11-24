@@ -19,29 +19,14 @@ vim.g.maplocalleader = " "
 --   command_mode = "c",
 
 -----------------------------
---- ジャンプリスト系 --------
------------------------------
-
-u.keymap("n", "<Leader>o", "<C-o>", { desc = "Neovim - ジャンプリストを戻る" })
-u.keymap("n", "<Leader>i", "<C-i>", { desc = "Neovim - ジャンプリストを進る" })
--- ジャンプ履歴に残さずジャンプ
-u.keymap("n", "<C-d>", "<Cmd>keepjumps normal! <C-d><CR>", { desc = "Neovim - 下にスクロール" })
-u.keymap("v", "<C-d>", "<Cmd>keepjumps normal! <C-d><CR>", { desc = "Neovim - 下にスクロール" })
-u.keymap("n", "<C-u>", "<Cmd>keepjumps normal! <C-u><CR>", { desc = "Neovim - 上にスクロール" })
-u.keymap("v", "<C-u>", "<Cmd>keepjumps normal! <C-u><CR>", { desc = "Neovim - 上にスクロール" })
-u.keymap("n", "}", "<Cmd>keepjumps normal! }<CR>", { desc = "Neovim - 次の空行にジャンプ" })
-u.keymap("v", "}", "<Cmd>keepjumps normal! }<CR>", { desc = "Neovim - 次の空行にジャンプ" })
-u.keymap("n", "{", "<Cmd>keepjumps normal! {<CR>", { desc = "Neovim - 前の空行にジャンプ" })
-u.keymap("v", "{", "<Cmd>keepjumps normal! {<CR>", { desc = "Neovim - 前の空行にジャンプ" })
------------------------------
 ----  Window/Tab 操作系  ----
 -----------------------------
 -- ウィンドウを水平分割(上下)
-u.keymap("n", "<C-k>", ":leftabove split<Return>", { desc = "Neovim - 上に水平分割" })
-u.keymap("n", "<C-j>", ":rightbelow split<Return>", { desc = "Neovim - 下に水平分割" })
+u.keymap("n", "<C-k>", ":leftabove split<Return>", { desc = "上に水平分割" })
+u.keymap("n", "<C-j>", ":rightbelow split<Return>", { desc = "下に水平分割" })
 -- ウィンドウを垂分割(左右)
-u.keymap("n", "<C-h>", ":leftabove vsplit<Return>", { desc = "Neovim - 左に垂直分割" })
-u.keymap("n", "<C-l>", ":rightbelow vsplit<Return>", { desc = "Neovim - 右に垂直分割" })
+u.keymap("n", "<C-h>", ":leftabove vsplit<Return>", { desc = "左に垂直分割" })
+u.keymap("n", "<C-l>", ":rightbelow vsplit<Return>", { desc = "右に垂直分割" })
 
 -- ウィンドウフォーカス移動(左下上右) smart-splits.nvimで代替
 -- u.keymap("n", "<M-k>", "<C-w>k", { desc = "上のバッファへフォーカスを移動" })
@@ -67,22 +52,22 @@ u.keymap("n", "<C-l>", ":rightbelow vsplit<Return>", { desc = "Neovim - 右に�
 
 -- レジスタに入れずにカット
 -- u.keymap("n", "x", "\"_d", opts)
-u.keymap("n", "X", '"_D', { desc = "Neovim - 行末までカット" })
-u.keymap("x", "x", '"_x', { desc = "Neovim - 選択範囲をカット" })
-u.keymap("o", "x", "d", { desc = "Neovim - 選択範囲をカット" })
+u.keymap("n", "X", '"_D', { desc = "行末までカット" })
+u.keymap("x", "x", '"_x', { desc = "選択範囲をカット" })
+u.keymap("o", "x", "d", { desc = "選択範囲をカット" })
 
 -- U で Redo
-u.keymap("n", "U", "<C-r>", { desc = "Neovim - Redo" })
+u.keymap("n", "U", "<C-r>", { desc = "Redo" })
 
 -- ESC*2 でハイライトやめる
-u.keymap("n", "<Esc><Esc>", ":nohlsearch<CR>", { desc = "Neovim - ハイライトをやめる" })
+u.keymap("n", "<Esc><Esc>", ":nohlsearch<CR>", { desc = "ハイライトをやめる" })
 
 -- インサートモード時、jjでノーマルモードに移行
-u.keymap("i", "jj", "<ESC>", { desc = "Neovim - ノーマルモードに移行" })
+u.keymap("i", "jj", "<ESC>", { desc = "ノーマルモードに移行" })
 
 -- インサートモードのままカーソル移動
 -- Ctrl+l Ctrl+lで一番外へ移動
-u.keymap("i", "<C-l><C-l>", "<C-g>U<Esc><S-a>", { desc = "Neovim - インサートモードのままカーソルを右へ移動" })
+u.keymap("i", "<C-l><C-l>", "<C-g>U<Esc><S-a>", { desc = "インサートモードのままカーソルを右へ移動" })
 
 -- 行を上下に移動
 -- u.keymap("n", "<S-k>", "$'<Cmd>move-1-{v:count1}<CR>=l'")
@@ -92,11 +77,11 @@ u.keymap("i", "<C-l><C-l>", "<C-g>U<Esc><S-a>", { desc = "Neovim - インサー�
 -- u.keymap("n", "<S-m>", "%", { desc = "括弧ジャンプ" })
 
 -- 入力してから大文字を切り替え
-u.keymap("i", "<C-g><C-u>", "<ESC>gUiwgi", { desc = "Neovim - 入力してから大文字を切り替え" })
+u.keymap("i", "<C-g><C-u>", "<ESC>gUiwgi", { desc = "入力してから大文字を切り替え" })
 -- 入力してから小文字を切り替え
-u.keymap("i", "<C-g><C-l>", "<ESC>guiwgi", { desc = "Neovim - 入力してから小文字を切り替え" })
+u.keymap("i", "<C-g><C-l>", "<ESC>guiwgi", { desc = "入力してから小文字を切り替え" })
 -- 先頭の文字だけ大文字に切り替え
-u.keymap("i", "<C-g><C-w>", "<ESC>bgUlgi", { desc = "Neovim - 先頭の文字だけ大文字に切り替え" })
+u.keymap("i", "<C-g><C-w>", "<ESC>bgUlgi", { desc = "先頭の文字だけ大文字に切り替え" })
 
 -----------------------------
 ---      スクロール       ---
@@ -105,11 +90,11 @@ u.keymap("i", "<C-g><C-w>", "<ESC>bgUlgi", { desc = "Neovim - 先頭の文字だ
 -- u.keymap("n", "n", "nzz", opts)
 -- u.keymap("n", "N", "Nzz", opts)
 -- カーソル上の単語を検索して移動時
-u.keymap("n", "*", "*zz", { desc = "Neovim - カーソル上の単語を検索して移動" })
-u.keymap("n", "#", "#zz", { desc = "Neovim - カーソル上の単語を検索して移動" })
+u.keymap("n", "*", "*zz", { desc = "カーソル上の単語を検索して移動" })
+u.keymap("n", "#", "#zz", { desc = "カーソル上の単語を検索して移動" })
 
-u.keymap("n", "g*", "g*zz", { desc = "Neovim - カーソル上の単語を検索して移動" })
-u.keymap("n", "g#", "g#zz", { desc = "Neovim - カーソル上の単語を検索して移動" })
+u.keymap("n", "g*", "g*zz", { desc = "カーソル上の単語を検索して移動" })
+u.keymap("n", "g#", "g#zz", { desc = "カーソル上の単語を検索して移動" })
 
 -----------------------------
 ---         Visual        ---
@@ -134,3 +119,13 @@ u.keymap("x", "y", "mzy`z", opts)
 -- visualモードで選択範囲ごと上下に移動できるようにする
 u.keymap("v", "<S-K>", ":move '<-2<CR>gv-gv", opts)
 u.keymap("v", "<S-J>", ":move '>+1<CR>gv-gv", opts)
+
+-----------------------------
+---          LSP          ---
+-----------------------------
+-- Lspsaga の gr(finder) が Neovim 0.11+ 標準の gr* と前方一致して
+-- timeoutlen 分の待ちが発生するため、標準側を削除する
+for _, lhs in ipairs({ "grr", "grn", "gra", "gri", "grt", "grx" }) do
+  pcall(vim.keymap.del, "n", lhs)
+end
+pcall(vim.keymap.del, "x", "gra")
