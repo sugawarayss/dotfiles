@@ -59,6 +59,8 @@ lazyssh = "latest"
 # lsd = "latest"
 lychee = "latest"
 markdownlint-cli2 = "latest"
+# 依存 onnxruntime(magika経由) に cp315 wheel が無いため python を固定
+"pipx:markitdown" = { version = "latest", extras = "all", uvx_args = "--python 3.14" }
 marp-cli = "latest"
 nono = "latest"
 pandoc = "latest"
